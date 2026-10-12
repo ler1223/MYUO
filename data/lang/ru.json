@@ -113,7 +113,6 @@
   "SPACE step   A auto [{auto}]   R restart   ESC quit": "ПРОБЕЛ шаг   A авто [{auto}]   R заново   ESC выход",
   "dead": "мёртв",
   "Press SPACE to step or A to autoplay.": "Нажмите ПРОБЕЛ для шага или A для автопроигрывания.",
-  "unsaved changes: open the Battle tab to apply and save": "есть несохранённые правки: откройте вкладку «Бой», чтобы применить и сохранить",
   "loaded {file}": "загружено: {file}",
   "demo squads and default tactics restored": "демо-отряды и тактики по умолчанию восстановлены",
   "cannot save": "не удалось сохранить",
@@ -291,5 +290,7 @@
   "damage x": "урон x",
   "accuracy x": "точность x",
   "unit": "юнит",
-  "PP cost": "Цена PP"
+  "PP cost": "Цена PP",
+  "unsaved changes: open the Battle or Arena tab to apply and save": "есть несохранённые правки: откройте вкладку «Бой» или «Арена», чтобы применить и сохранить",
+  "Arena": "Арена"
 }

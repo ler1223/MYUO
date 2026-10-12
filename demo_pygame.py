@@ -2,6 +2,7 @@
 
 Запуск: python demo_pygame.py [seed]
 Вкладки переключаются клавишами F1, F2, ... или кликом; язык кнопкой справа от вкладок.
+Бой показывают две вкладки: Battle (карточки) и Arena (спрайты юнитов).
 Экран боя делает sim.step() и рисует полученные события; в логику боя не вмешивается.
 Редакторы меняют справочник (app.db, папка data/) и расстановку (app.setup);
 бой каждый раз идёт на копии расстановки.
@@ -23,6 +24,7 @@ from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_se
 from game.scenario import Scenario, build_demo
 from game.squad import Formation, Squad
 from game.unit import Unit
+from pygame_arena import ArenaScreen
 from pygame_data_editors import ClassEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
@@ -117,7 +119,7 @@ class App:
         self.t = Translator()
         self.setup = self._load_setup(lang)
         self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
-        # (название вкладки, экран); у вкладки боя экрана нет
+        # (название вкладки, экран); у вкладки боя с карточками экрана нет
         self.tabs: list[tuple[str, Any]] = [
             ("Battle", None),
             ("Squads", SquadEditor()),
@@ -126,6 +128,7 @@ class App:
             ("Classes", ClassEditor()),
             ("Items", ItemEditor()),
             ("Tags", TagEditor()),
+            ("Arena", ArenaScreen()),
         ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
@@ -203,6 +206,11 @@ class App:
         self.view.restart(self.view.seed)
         if self._save():
             self.message = self.t("saved, battle restarted")
+
+    def on_battle_tab(self) -> bool:
+        """Открыта ли вкладка, показывающая бой (карточки или спрайты)."""
+        screen = self.tabs[self.tab][1]
+        return screen is None or getattr(screen, "is_battle", False)
 
     def switch(self, tab: int) -> None:
         if tab != self.tab and 0 <= tab < len(self.tabs):
@@ -345,9 +353,11 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
     editor = app.tabs[app.tab][1]
     if editor is None:
         draw_battle(ui, app.view, autoplay, now)
+    elif app.on_battle_tab():
+        editor.draw_battle(ui, app.view, autoplay, now, POPUP_MS, POPUP_RISE)
     else:
         editor.draw(ui, app)
-        note = app.message or (t("unsaved changes: open the Battle tab to apply and save") if app.dirty else "")
+        note = app.message or (t("unsaved changes: open the Battle or Arena tab to apply and save") if app.dirty else "")
         ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
     ui.end()
 
@@ -389,7 +399,7 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
                 running = False
             elif 0 <= event.key - FIRST_TAB_KEY < len(app.tabs):
                 app.switch(event.key - FIRST_TAB_KEY)
-            elif app.tab != TAB_BATTLE:
+            elif not app.on_battle_tab():
                 continue
             elif event.key == pygame.K_SPACE:
                 view.step(now)
@@ -400,7 +410,7 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
             elif event.key == pygame.K_r:
                 view.restart(view.seed + 1)
 
-        if app.tab == TAB_BATTLE and autoplay and not view.sim.finished and now - last_step >= AUTO_STEP_MS:
+        if app.on_battle_tab() and autoplay and not view.sim.finished and now - last_step >= AUTO_STEP_MS:
             view.step(now)
             last_step = now
 
