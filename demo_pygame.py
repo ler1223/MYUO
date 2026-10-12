@@ -1,17 +1,17 @@
 """Окно прототипа (pygame-ce): бой и редакторы. Только прямоугольники и текст.
 
 Запуск: python demo_pygame.py [seed]
-Вкладки: F1 бой, F2 отряды, F3 тактики, F4 конструктор навыков. Язык переключается
-кнопкой справа сверху.
+Вкладки переключаются клавишами F1, F2, ... или кликом; язык кнопкой справа от вкладок.
 Экран боя делает sim.step() и рисует полученные события; в логику боя не вмешивается.
-Редакторы меняют расстановку (app.setup), бой каждый раз идёт на её копии.
+Редакторы меняют справочник (app.db, папка data/) и расстановку (app.setup);
+бой каждый раз идёт на копии расстановки.
 """
 from __future__ import annotations
 
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import Any, Callable, Optional, Union
 
 import pygame
 
@@ -32,11 +32,9 @@ POPUP_MS = 900
 POPUP_RISE = 34
 LOG_LINES = 8
 
-TABS = ("Battle", "Squads", "Tactics", "Skills")
-TAB_BATTLE, TAB_SQUADS, TAB_TACTICS, TAB_SKILLS = range(4)
-TAB_KEYS = {pygame.K_F1: TAB_BATTLE, pygame.K_F2: TAB_SQUADS, pygame.K_F3: TAB_TACTICS, pygame.K_F4: TAB_SKILLS}
-TAB_W = 112
-LANG_RECT = pygame.Rect(8 + len(TABS) * (TAB_W + 4) + 8, 4, 44, 24)
+TAB_BATTLE = 0
+TAB_W = 100
+FIRST_TAB_KEY = pygame.K_F1
 
 # Раскладка поля боя
 CENTER_X = WIDTH // 2
@@ -92,9 +90,9 @@ class BattleView:
             elif isinstance(ev, TurnStarted):
                 self.current_uid = ev.unit
             elif isinstance(ev, DamageDealt):
-                self.popups.append(Popup(ev.target, f"-{ev.amount}", RED, now))
+                self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
             elif isinstance(ev, Healed):
-                self.popups.append(Popup(ev.target, f"+{ev.amount}", GREEN, now))
+                self.popups.append(Popup(ev.target, f"+{ev.amount}" + ("!" if ev.crit else ""), GREEN, now))
             elif isinstance(ev, BattleEnded):
                 self.current_uid = None
                 self.ended = ev
@@ -105,20 +103,25 @@ class BattleView:
 
 
 class App:
-    """Редактируемая расстановка, бой на её копии, текущая вкладка и язык."""
+    """Справочник, редактируемая расстановка, бой на её копии, вкладки и язык."""
 
     def __init__(self, db: Database, seed: int, save_path: Union[str, Path, None], lang: Optional[str] = None):
         self.db = db
         self.save_path = Path(save_path) if save_path else None
         self.message = ""
-        self.dirty = False
+        self.dirty = False        # есть несохранённые правки расстановки или данных
+        self.data_dirty = False   # менялся справочник: его надо записать в data/
         self.tab = TAB_BATTLE
         self.t = Translator()
         self.setup = self._load_setup(lang)
         self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
-        self.squads = SquadEditor()
-        self.tactics = TacticsEditor()
-        self.skills = SkillEditor()
+        # (название вкладки, экран); у вкладки боя экрана нет
+        self.tabs: list[tuple[str, Any]] = [
+            ("Battle", None),
+            ("Squads", SquadEditor()),
+            ("Tactics", TacticsEditor()),
+            ("Skills", SkillEditor()),
+        ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
         scenario = None
@@ -140,6 +143,14 @@ class App:
         self.dirty = True
         self.message = ""
 
+    def data_changed(self) -> None:
+        """Справочник изменился: юниты расстановки пересобираются по новым определениям."""
+        self.setup = clone_scenario(self.db, self.setup)
+        for unit in self.units():
+            unit.state.current_hp = unit.max_hp
+        self.data_dirty = True
+        self.changed()
+
     def units(self) -> list[Unit]:
         return list(self.setup.player.units.values()) + list(self.setup.enemy.units.values())
 
@@ -150,8 +161,12 @@ class App:
         return max((u.uid for u in self.units()), default=0) + 1
 
     def reset_setup(self) -> None:
-        """Демо-отряды и тактики по умолчанию; свои навыки остаются."""
-        self.setup = build_demo(self.db)
+        """Демо-отряды и тактики по умолчанию; справочник не трогается."""
+        try:
+            self.setup = build_demo(self.db)
+        except (KeyError, ValueError) as error:  # демо-классы или предметы могли удалить
+            self.message = f"{self.t('cannot build the demo squads')}: {error}"
+            return
         self.changed()
         self.message = self.t("demo squads and default tactics restored")
 
@@ -166,6 +181,9 @@ class App:
         if not self.save_path:
             return False
         try:
+            if self.data_dirty:
+                self.db.save()
+                self.data_dirty = False
             save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang})
             return True
         except OSError as error:
@@ -179,12 +197,11 @@ class App:
         self.dirty = False
         self.view.restart(self.view.seed)
         if self._save():
-            self.message = self.t("saved to {file}, battle restarted", file=self.save_path.name)
+            self.message = self.t("saved, battle restarted")
 
     def switch(self, tab: int) -> None:
-        if tab != self.tab:
+        if tab != self.tab and 0 <= tab < len(self.tabs):
             self.tab = tab
-            self.skills.focus = False
             self.commit()
 
 
@@ -267,14 +284,11 @@ def draw_battle(ui: UI, view: BattleView, autoplay: bool, now: int) -> None:
         result = t("{winner} wins", winner=t(winner)) if winner else t("draw")
         status += f"   {result.upper()}"
     status_img = font.render(status, True, YELLOW if view.ended else TEXT)
-    screen.blit(status_img, (WIDTH - status_img.get_width() - 12, 8))
+    screen.blit(status_img, status_img.get_rect(midtop=(CENTER_X, 31)))
 
     screen.blit(font.render(f"A: {t(sim.attacker.name)}", True, TEXT), (12, 31))
     title = font.render(f"B: {t(sim.defender.name)}", True, TEXT)
     screen.blit(title, (WIDTH - title.get_width() - 12, 31))
-    auto = t("on") if autoplay else t("off")
-    hint = small.render(t("SPACE step   A auto [{auto}]   R restart   ESC quit", auto=auto), True, DIM)
-    screen.blit(hint, hint.get_rect(midtop=(CENTER_X, 33)))
 
     rects = draw_squad(ui, sim.attacker, "left", view.current_uid)
     rects.update(draw_squad(ui, sim.defender, "right", view.current_uid))
@@ -298,12 +312,19 @@ def draw_battle(ui: UI, view: BattleView, autoplay: bool, now: int) -> None:
     panel = pygame.Rect(8, LOG_TOP, WIDTH - 16, HEIGHT - LOG_TOP - 8)
     pygame.draw.rect(screen, PANEL, panel)
     pygame.draw.rect(screen, DIM, panel, 1)
+    auto = t("on") if autoplay else t("off")
+    hint = small.render(t("SPACE step   A auto [{auto}]   R restart   ESC quit", auto=auto), True, DIM)
+    screen.blit(hint, (panel.right - hint.get_width() - 8, panel.y + 6))
     name = lambda uid: f"{t(sim.units[uid].name)}({uid})"
     lines = [format_event(ev, name, t).strip() for ev in view.log] or [t("Press SPACE to step or A to autoplay.")]
     for i, line in enumerate(lines):
         color = TEXT if i == len(lines) - 1 else DIM
-        screen.blit(small.render(fit(small, line, panel.width - 16), True, color),
-                    (panel.x + 8, panel.y + 6 + i * LOG_LINE_H))
+        width = panel.width - 16 - (hint.get_width() + 16 if i == 0 else 0)
+        screen.blit(small.render(fit(small, line, width), True, color), (panel.x + 8, panel.y + 6 + i * LOG_LINE_H))
+
+
+def language_rect(app: App) -> pygame.Rect:
+    return pygame.Rect(8 + len(app.tabs) * (TAB_W + 4) + 8, 4, 44, 24)
 
 
 def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
@@ -311,18 +332,19 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
     t = ui.t
     ui.screen.fill(BG)
     target = None
-    for i, name in enumerate(TABS):
+    for i, (name, _) in enumerate(app.tabs):
         if ui.button(f"F{i + 1} {t(name)}", pygame.Rect(8 + i * (TAB_W + 4), 4, TAB_W, 24), selected=i == app.tab):
             target = i
-    switch_language = ui.button(app.t.lang.upper(), LANG_RECT)
+    switch_language = ui.button(app.t.lang.upper(), language_rect(app))
 
-    if app.tab == TAB_BATTLE:
+    editor = app.tabs[app.tab][1]
+    if editor is None:
         draw_battle(ui, app.view, autoplay, now)
     else:
-        editor = {TAB_SQUADS: app.squads, TAB_TACTICS: app.tactics, TAB_SKILLS: app.skills}[app.tab]
         editor.draw(ui, app)
         note = app.message or (t("unsaved changes: open the Battle tab to apply and save") if app.dirty else "")
         ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
+    ui.end()
 
     if switch_language:
         app.next_language()
@@ -331,18 +353,19 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
 
 
 def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None,
-         save_path: Union[str, Path, None] = DEFAULT_SETUP_PATH, lang: Optional[str] = None) -> None:
+         save_path: Union[str, Path, None] = DEFAULT_SETUP_PATH, lang: Optional[str] = None,
+         data_dir: Union[str, Path, None] = None) -> None:
     """max_frames нужен только для проверки запуска без окна (SDL_VIDEODRIVER=dummy).
 
-    save_path=None отключает загрузку и сохранение расстановки.
-    lang=None берёт язык из сохранения (или английский).
+    save_path=None отключает загрузку и сохранение (в том числе запись справочника).
+    lang=None берёт язык из сохранения (или английский). data_dir: папка данных вместо data/.
     """
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Squad auto-battle prototype")
     ui = UI(screen, load_fonts())
     clock = pygame.time.Clock()
-    app = App(Database.load(), seed, save_path, lang)
+    app = App(Database.load(data_dir), seed, save_path, lang)
     view = app.view
     last_step = 0
     frames = 0
@@ -355,14 +378,12 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
         for event in events:
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type != pygame.KEYDOWN:
-                continue
+            elif event.type != pygame.KEYDOWN or ui.captured:
+                continue  # пока открыт список или идёт ввод, клавиши достаются им
             elif event.key == pygame.K_ESCAPE:
                 running = False
-            elif event.key in TAB_KEYS:
-                app.switch(TAB_KEYS[event.key])
-            elif app.tab == TAB_SKILLS:
-                app.skills.key(event)
+            elif 0 <= event.key - FIRST_TAB_KEY < len(app.tabs):
+                app.switch(event.key - FIRST_TAB_KEY)
             elif app.tab != TAB_BATTLE:
                 continue
             elif event.key == pygame.K_SPACE:

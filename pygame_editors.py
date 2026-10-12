@@ -1,48 +1,49 @@
-"""Экраны редакторов для demo_pygame: отряды, тактики, конструктор навыков.
+"""Экраны редакторов для demo_pygame: отряды, тактики, навыки.
 
-Экраны только вызывают операции ядра (game.world, game.editing) над
-редактируемой расстановкой app.setup; бой идёт на её копии.
+Экраны только вызывают операции ядра (game.world, game.editing, Database.update)
+над справочником app.db и редактируемой расстановкой app.setup; бой идёт на копии.
 Все строки интерфейса проходят через ui.t (перевод, ключ = английский текст).
+Все выборы сделаны выпадающими списками с поиском (ui.dropdown / ui.multiselect).
 """
 from __future__ import annotations
 
-from typing import Any, Optional, Protocol
+import copy
+from typing import Any, Hashable, Iterable, Mapping, Optional, Protocol, Sequence
 
 import pygame
 
 from game.areas import AREAS
 from game.database import Database
-from game.definitions import APPLY_RECIPIENTS, SKILL_KINDS, SKILL_SUPPORT
+from game.definitions import APPLY_RECIPIENTS, CATEGORIES, PART_DAMAGE, PART_KINDS
 from game.editing import (
-    AP_COST_MAX,
-    POWER_MAX,
-    POWER_STEP,
-    RESTORE_MAX,
-    SkillDraft,
     condition_params,
-    cycle,
     default_apply,
     default_condition,
     default_rule,
     describe_skill,
+    new_part,
+    new_skill_data,
     param_options,
+    set_owners,
     set_tactics,
-    skill_users,
+    skill_owners,
 )
+from game.i18n import Translator
 from game.scenario import Scenario
 from game.squad import Formation
-from game.stats import Stat
-from game.i18n import Translator
-from game.tactics import CONDITIONS, SELECTORS, SIDES, TacticsSet
+from game.stats import SCALING_STATS, Stat
+from game.tactics import CONDITIONS, SELECTORS, SIDES
+from game.tags import TAG_DAMAGE, TAG_SKILL, TAG_UNIT
 from game.unit import Unit
-from pygame_ui import DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW
+from pygame_ui import DIM, HEIGHT, PANEL, RED, TEXT, UI, WIDTH, Option
 
 TOP = 44            # под панелью вкладок
 ROW_H = 28
 MAX_RULES = 12
-NAME_MAX = 24
 ENEMY_TEXT = (240, 170, 170)
-HINT_CYCLE = "Left click: next value, right click: previous."
+EMPTY = ""          # значение варианта «пусто» в выпадающих списках
+LIST_W = 190        # ширина списка объектов слева
+FORM_X = 222        # левый край формы справа от списка
 
 
 class EditorHost(Protocol):
@@ -54,41 +55,124 @@ class EditorHost(Protocol):
     t: Translator
 
     def changed(self) -> None: ...
+    def data_changed(self) -> None: ...
     def units(self) -> list[Unit]: ...
     def label(self, unit: Unit) -> str: ...
     def next_uid(self) -> int: ...
     def reset_setup(self) -> None: ...
 
 
-def condition_buttons(ui: UI, db: Database, condition: dict[str, Any], x: int, y: int,
+# --- общие помощники --------------------------------------------------------
+
+def apply(app: EditorHost, section: str, key: str, data: Mapping[str, Any]) -> bool:
+    """Записывает определение в справочник; ошибку проверки показывает сообщением."""
+    try:
+        app.db.update(section, key, data)
+    except (ValueError, KeyError, TypeError) as error:
+        app.message = str(error)
+        return False
+    app.data_changed()
+    return True
+
+
+def named(ui: UI, definitions: Iterable[Any]) -> list[Option]:
+    """Варианты списка из определений: (id, переведённое название)."""
+    return [(d.id, ui.t(d.name)) for d in definitions]
+
+
+def plain(ui: UI, values: Iterable[str]) -> list[Option]:
+    """Варианты списка из строковых кодов: (код, перевод кода)."""
+    return [(value, ui.t(value)) for value in values]
+
+
+def tag_options(ui: UI, db: Database, kind: str) -> list[Option]:
+    return named(ui, (tag for tag in db.tags.values() if tag.kind == kind))
+
+
+def entity_list(ui: UI, key: Hashable, entries: Sequence[tuple[str, str]], selected: Optional[str],
+                y: int, rows: int, colors: Optional[Mapping[str, Any]] = None) -> Optional[str]:
+    """Прокручиваемый список объектов слева. Возвращает id, по которому кликнули."""
+    area = pygame.Rect(16, y, LIST_W, rows * 25)
+    offset = ui.scroll(key, area, len(entries), rows)
+    clicked = None
+    for row, (entry_id, label) in enumerate(entries[offset:offset + rows]):
+        color = (colors or {}).get(entry_id, TEXT)
+        if ui.button(label, pygame.Rect(16, y + row * 25, LIST_W, 22), entry_id == selected, color=color):
+            clicked = entry_id
+    if len(entries) > rows:
+        ui.text(f"{offset + 1}-{offset + rows}/{len(entries)}", 16, y + rows * 25 + 2, DIM, "small")
+    return clicked
+
+
+def param_label(ui: UI, value: Any) -> str:
+    return f"{round(value * 100)}%" if isinstance(value, float) else ui.t(str(value))
+
+
+def condition_widgets(ui: UI, db: Database, key: Hashable, condition: dict[str, Any], x: int, y: int,
                       type_w: int, param_w: int) -> Optional[dict[str, Any]]:
-    """Кнопка типа условия и кнопки его параметров. Возвращает новое условие, если его изменили."""
-    t = ui.t
+    """Выбор типа условия и его параметров. Возвращает новое условие, если его изменили."""
     result = None
-    delta = ui.button(t(condition["type"]), pygame.Rect(x, y, type_w, 24))
-    if delta:
-        result = default_condition(cycle(list(CONDITIONS), condition["type"], delta), db)
+    picked = ui.dropdown((key, "type"), pygame.Rect(x, y, type_w, 24), plain(ui, CONDITIONS), condition["type"])
+    if picked is not None and picked != condition["type"]:
+        result = default_condition(picked, db)
     params = condition_params(condition["type"])
     for i, (param, kind) in enumerate(params.items()):
         width = (param_w - 4 * (len(params) - 1)) // len(params)
         rect = pygame.Rect(x + type_w + 4 + i * (width + 4), y, width, 24)
-        value = condition[param]
-        delta = ui.button(t(value) if isinstance(value, str) else str(value), rect)
-        if delta:
-            result = dict(condition, **{param: cycle(param_options(kind, db), value, delta)})
+        choices = [(value, param_label(ui, value)) for value in param_options(kind, db)]
+        picked = ui.dropdown((key, param), rect, choices, condition[param])
+        if picked is not None and picked != condition[param]:
+            result = dict(condition, **{param: picked})
     return result
 
 
-def stepper(ui: UI, label: str, value: int, low: int, high: int, x: int, y: int, label_w: int) -> int:
-    """Подпись, кнопки -/+ и число между ними. Возвращает новое значение."""
-    ui.text(label, x, y + 4)
-    x += label_w
-    if ui.button("-", pygame.Rect(x, y, 22, 24)):
-        value = max(low, value - 1)
-    ui.text(str(value), x + 30, y + 4)
-    if ui.button("+", pygame.Rect(x + 46, y, 22, 24)):
-        value = min(high, value + 1)
-    return value
+# Смещения колонок таблицы правил от её левого края.
+RULE_SELF, RULE_TARGET, RULE_PICK, RULE_SKILL, RULE_MOVE = 24, 216, 408, 506, 680
+RULE_COND_W, RULE_PARAM_W = 100, 84
+
+
+def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]], skill_ids: Sequence[str],
+               x: int, y: int) -> Optional[list[dict[str, Any]]]:
+    """Таблица правил тактики с кнопкой добавления. Возвращает новый список правил, если его изменили."""
+    t = ui.t
+    for label, offset in (("if self", RULE_SELF), ("if target", RULE_TARGET), ("pick", RULE_PICK),
+                          ("skill", RULE_SKILL)):
+        ui.text(t(label), x + offset, y, DIM, "small")
+    y += 20
+    new_rules: Optional[list[dict[str, Any]]] = None
+    skill_choices = [(s, f"{t(db.skills[s].name)} AP{db.skills[s].ap_cost}") for s in skill_ids if s in db.skills]
+    for i, rule in enumerate(rules):
+        ry = y + i * ROW_H
+        ui.text(f"{i + 1}.", x, ry + 4)
+        edited = dict(rule)
+        for field, offset in (("self_condition", RULE_SELF), ("condition", RULE_TARGET)):
+            condition = condition_widgets(ui, db, (key, i, field), rule[field], x + offset, ry,
+                                          RULE_COND_W, RULE_PARAM_W)
+            if condition is not None:
+                edited[field] = condition
+        picked = ui.dropdown((key, i, "selector"), pygame.Rect(x + RULE_PICK, ry, 94, 24),
+                             plain(ui, SELECTORS), rule["selector"])
+        if picked is not None:
+            edited["selector"] = picked
+        # Красным: навык недоступен (сняли с класса или предмета), правило в бою пропускается.
+        available = rule["skill"] in skill_ids
+        choices = skill_choices if available else [(rule["skill"], f"! {rule['skill']}"), *skill_choices]
+        picked = ui.dropdown((key, i, "skill"), pygame.Rect(x + RULE_SKILL, ry, 170, 24), choices, rule["skill"],
+                             color=TEXT if available else RED)
+        if picked is not None:
+            edited["skill"] = picked
+        if edited != rule:
+            new_rules = rules[:i] + [edited] + rules[i + 1:]
+        if ui.button("^", pygame.Rect(x + RULE_MOVE, ry, 26, 24), enabled=i > 0):
+            new_rules = rules[:i - 1] + [rule, rules[i - 1]] + rules[i + 1:]
+        if ui.button("v", pygame.Rect(x + RULE_MOVE + 30, ry, 26, 24), enabled=i < len(rules) - 1):
+            new_rules = rules[:i] + [rules[i + 1], rule] + rules[i + 2:]
+        if ui.button("x", pygame.Rect(x + RULE_MOVE + 60, ry, 26, 24), color=RED):
+            new_rules = rules[:i] + rules[i + 1:]
+    can_add = len(rules) < MAX_RULES and bool(skill_choices)
+    if ui.button(t("+ Add rule"), pygame.Rect(x + 24, y + len(rules) * ROW_H + 4, 160, 24), enabled=can_add):
+        new_rules = rules + [default_rule([s for s, _ in skill_choices])]
+    return new_rules
 
 
 # --- отряды ----------------------------------------------------------------
@@ -129,15 +213,16 @@ class SquadEditor:
                 if unit is not None:
                     leader = " *" if squad.leader_uid == unit.uid else ""
                     ui.text(f"{app.label(unit)}{leader}", rect.x + 6, rect.y + 5, width=rect.width - 12)
-                    ui.text(f"L{unit.state.level}  HP {unit.max_hp}  SPD {unit.stat(Stat.SPD)}",
+                    ui.text(f"L{unit.state.level}  HP {unit.max_hp}  INIT {unit.stat(Stat.INITIATIVE)}",
                             rect.x + 6, rect.y + 28, DIM, "small", rect.width - 12)
-                    ui.text(f"ATK {unit.stat(Stat.ATK)}  DEF {unit.stat(Stat.DEF)}",
+                    ui.text(f"ATK {unit.stat(Stat.PHYS_ATK)}/{unit.stat(Stat.MAG_ATK)}  "
+                            f"DEF {unit.stat(Stat.PHYS_DEF)}/{unit.stat(Stat.MAG_DEF)}",
                             rect.x + 6, rect.y + 46, DIM, "small", rect.width - 12)
 
         self._draw_reserve(ui, app, army)
         self._draw_selection(ui, app, army, squad)
         ui.text(t("Click a unit, then a cell to move or swap. Click a reserve unit, then a cell to place it."),
-                16, HEIGHT - 52, DIM, "small")
+                16, HEIGHT - 44, DIM, "small")
 
     def _selected_unit(self, army, squad) -> Optional[Unit]:
         if self.selected is None:
@@ -179,40 +264,55 @@ class SquadEditor:
                 self.selected = ("reserve", unit.uid)
         y = self.GRID_Y + 5 * 28 + 10
         ui.text(t("Recruit a level 1 unit into the reserve"), x, y)
-        for i, definition in enumerate(app.db.units.values()):
-            rect = pygame.Rect(x + (i % 3) * 160, y + 24 + (i // 3) * 28, 152, 24)
-            if ui.button(f"+ {t(definition.name)}", rect):
-                unit = army.recruit(app.db.create_unit(definition.id, app.next_uid()))
-                self.selected = ("reserve", unit.uid)
-                app.changed()
+        picked = ui.dropdown("recruit", pygame.Rect(x, y + 24, 240, 24),
+                             [(EMPTY, t("choose a class...")), *named(ui, app.db.units.values())], EMPTY)
+        if picked:
+            unit = army.recruit(app.db.create_unit(picked, app.next_uid()))
+            self.selected = ("reserve", unit.uid)
+            app.changed()
 
     def _draw_selection(self, ui: UI, app: EditorHost, army, squad) -> None:
-        t = ui.t
-        y = self.GRID_Y + Formation.ROWS * self.CELL_H + 8
+        t, db = ui.t, app.db
+        y = self.GRID_Y + Formation.ROWS * self.CELL_H + 4
         unit = self._selected_unit(army, squad)
         if unit is None:
             ui.text(t("Nothing selected"), 16, y, DIM)
             return
         in_squad = self.selected[0] == "cell"
-        names = lambda ids: ", ".join(t(app.db.skills[i].name if i in app.db.skills else i) for i in ids) or "-"
-        ui.text(f"{app.label(unit)}  L{unit.state.level}  HP {unit.max_hp}  ATK {unit.stat(Stat.ATK)}  "
-                f"DEF {unit.stat(Stat.DEF)}  SPD {unit.stat(Stat.SPD)}  AP {unit.ap.max}  PP {unit.pp.max}", 16, y)
-        ui.text(f"{t('skills')}: {names(app.db.skills_for(unit))}   "
-                f"{t('passives')}: {', '.join(t(p) for p in unit.passive_ids) or '-'}",
-                16, y + 22, DIM, "small", WIDTH - 32)
-        # Слоты заданы классом; предметы пока только показываются.
-        slots = "   ".join(f"{t(slot)}: {t(item_id) if item_id else '-'}"
-                           for slot, item_id in zip(unit.definition.slots, unit.state.equipment))
-        ui.text(f"{t('slots')}: {slots}", 16, y + 40, DIM, "small", WIDTH - 32)
-        if ui.button(t("To reserve"), pygame.Rect(16, y + 62, 130, 24), enabled=in_squad):
+        stats = "  ".join(f"{t(s.value)} {unit.stat(s)}" for s in Stat)
+        ui.text(f"{app.label(unit)}  L{unit.state.level}  AP {unit.ap.max}  PP {unit.pp.max}   "
+                f"{t('tags')}: {', '.join(t(tag) for tag in sorted(unit.tags)) or '-'}", 16, y, width=WIDTH - 32)
+        ui.text(stats, 16, y + 22, DIM, "small", WIDTH - 32)
+        skills = ", ".join(t(db.skills[s].name) for s in unit.skill_ids if s in db.skills) or "-"
+        passives = ", ".join(t(db.passives[p].name) for p in unit.passive_ids if p in db.passives) or "-"
+        ui.text(f"{t('skills')}: {skills}   {t('passives')}: {passives}", 16, y + 40, DIM, "small", WIDTH - 32)
+
+        # Снаряжение: по выпадающему списку на каждый слот класса.
+        for i, slot in enumerate(unit.definition.slots[:6]):
+            sx = 16 + i * 162
+            ui.text(t(slot), sx, y + 60, DIM, "small", 154)
+            fitting = [item for item in db.items.values() if item.slot == slot]
+            current = unit.state.equipment[i] or EMPTY
+            picked = ui.dropdown(("equip", unit.uid, i), pygame.Rect(sx, y + 76, 154, 24),
+                                 [(EMPTY, "-"), *named(ui, fitting)], current)
+            if picked is not None and picked != current:
+                if picked == EMPTY:
+                    unit.unequip(i)
+                else:
+                    unit.equip(i, picked)
+                unit.state.current_hp = unit.max_hp
+                app.changed()
+
+        by = y + 108
+        if ui.button(t("To reserve"), pygame.Rect(16, by, 130, 24), enabled=in_squad):
             army.unassign(unit.uid)
             self.selected = ("reserve", unit.uid)
             app.changed()
-        if ui.button(t("Make leader"), pygame.Rect(154, y + 62, 150, 24),
+        if ui.button(t("Make leader"), pygame.Rect(154, by, 150, 24),
                      enabled=in_squad and squad.leader_uid != unit.uid):
             army.set_leader(squad.id, unit.uid)
             app.changed()
-        if ui.button(t("Dismiss"), pygame.Rect(312, y + 62, 130, 24), color=RED):
+        if ui.button(t("Dismiss"), pygame.Rect(312, by, 130, 24), color=RED):
             army.dismiss(unit.uid)
             self.selected = None
             app.changed()
@@ -221,12 +321,6 @@ class SquadEditor:
 # --- тактики ---------------------------------------------------------------
 
 class TacticsEditor:
-    LIST_W = 150
-    X = 176
-    # Смещения колонок от X: условие на себя, условие на цель, выбор цели, навык, кнопки.
-    COL_SELF, COL_TARGET, COL_PICK, COL_SKILL, COL_UP = 24, 212, 400, 494, 678
-    COND_W, PARAM_W = 96, 84
-
     def __init__(self) -> None:
         self.uid: Optional[int] = None
 
@@ -237,273 +331,245 @@ class TacticsEditor:
             return
         if self.uid not in {u.uid for u in units}:
             self.uid = units[0].uid
-        enemy_uids = app.setup.enemy.units
-        for i, unit in enumerate(units[:22]):
-            mark = " *" if unit.has_custom_tactics else ""
-            color = ENEMY_TEXT if unit.uid in enemy_uids else TEXT
-            rect = pygame.Rect(16, TOP + i * 25, self.LIST_W, 22)
-            if ui.button(app.label(unit) + mark, rect, unit.uid == self.uid, color=color):
-                self.uid = unit.uid
         unit = next(u for u in units if u.uid == self.uid)
         self._draw_rules(ui, app, unit)
 
+        entries = [(str(u.uid), app.label(u) + (" *" if u.has_custom_tactics else "")) for u in units]
+        colors = {str(uid): ENEMY_TEXT for uid in app.setup.enemy.units}
+        clicked = entity_list(ui, "tactics-units", entries, str(self.uid), TOP, 21, colors)
+        if clicked is not None:
+            self.uid = int(clicked)
+
     def _draw_rules(self, ui: UI, app: EditorHost, unit: Unit) -> None:
-        t, db, x = ui.t, app.db, self.X
+        t, db, x = ui.t, app.db, FORM_X
         state = t("custom") if unit.has_custom_tactics else t("default")
         ui.text(t("Tactics of {unit} ({state})", unit=app.label(unit), state=state), x, TOP + 2)
-        ui.text(t(HINT_CYCLE) + " " + t("Rules are checked top to bottom: the first one whose"),
-                x, TOP + 24, DIM, "small")
-        ui.text(t("conditions hold, with a valid target and enough AP, is used. Otherwise: Attack, if AP allows."),
+        ui.text(t("Rules are checked top to bottom: the first one whose conditions hold,"), x, TOP + 24, DIM, "small")
+        ui.text(t("with a valid target and enough AP, is used. Otherwise: Attack, if AP allows."),
                 x, TOP + 40, DIM, "small")
-        y0 = TOP + 84
-        for label, offset in (("if self", self.COL_SELF), ("if target", self.COL_TARGET),
-                              ("pick", self.COL_PICK), ("skill", self.COL_SKILL)):
-            ui.text(t(label), x + offset, y0 - 20, DIM, "small")
 
         rules = unit.tactics.to_list()
-        skills = list(db.skills_for(unit))
-        new_rules: Optional[list[dict[str, Any]]] = None
-        for i, rule in enumerate(rules):
-            y = y0 + i * ROW_H
-            ui.text(f"{i + 1}.", x, y + 4)
-            edited = dict(rule)
-            for key, offset in (("self_condition", self.COL_SELF), ("condition", self.COL_TARGET)):
-                condition = condition_buttons(ui, db, rule[key], x + offset, y, self.COND_W, self.PARAM_W)
-                if condition is not None:
-                    edited[key] = condition
-            delta = ui.button(t(rule["selector"]), pygame.Rect(x + self.COL_PICK, y, 90, 24))
-            if delta:
-                edited["selector"] = cycle(list(SELECTORS), rule["selector"], delta)
-            skill = db.skills.get(rule["skill"])
-            available = skill is not None and rule["skill"] in skills
-            text = f"{t(skill.name)} AP{skill.ap_cost}" if skill else rule["skill"]
-            # Красным: навык больше недоступен юниту (сняли привязку или предмет), правило пропускается.
-            delta = ui.button(text, pygame.Rect(x + self.COL_SKILL, y, 180, 24), color=TEXT if available else RED)
-            if delta:
-                edited["skill"] = cycle(skills, rule["skill"], delta)
-            if edited != rule:
-                new_rules = rules[:i] + [edited] + rules[i + 1:]
-            if ui.button("^", pygame.Rect(x + self.COL_UP, y, 32, 24), enabled=i > 0):
-                new_rules = rules[:i - 1] + [rule, rules[i - 1]] + rules[i + 1:]
-            if ui.button("v", pygame.Rect(x + self.COL_UP + 36, y, 32, 24), enabled=i < len(rules) - 1):
-                new_rules = rules[:i] + [rules[i + 1], rule] + rules[i + 2:]
-            if ui.button("x", pygame.Rect(x + self.COL_UP + 72, y, 26, 24), color=RED):
-                new_rules = rules[:i] + rules[i + 1:]
-
-        y = y0 + len(rules) * ROW_H + 6
-        if ui.button(t("+ Add rule"), pygame.Rect(x + 24, y, 150, 24), enabled=len(rules) < MAX_RULES):
-            new_rules = rules + [default_rule(db, unit)]
-        if ui.button(t("Reset to default"), pygame.Rect(x + 182, y, 190, 24), enabled=unit.has_custom_tactics):
+        new_rules = rule_table(ui, db, ("tactics", unit.uid), rules, unit.skill_ids, x, TOP + 64)
+        y = TOP + 84 + len(rules) * ROW_H + 4
+        if ui.button(t("Reset to default"), pygame.Rect(x + 192, y, 200, 24), enabled=unit.has_custom_tactics):
             unit.reset_tactics()
             app.changed()
             return
         if new_rules is not None:
             try:
-                # Старое правило с уже недоступным навыком остаётся как есть (в бою оно
-                # пропускается); проверяются только новые и изменённые правила.
-                stale = [r for r in new_rules if r in rules and r["skill"] not in skills]
-                set_tactics(db, unit, [r for r in new_rules if r not in stale])
-                unit.set_tactics(TacticsSet.from_list(new_rules))
+                set_tactics(db, unit, new_rules)
                 app.changed()
             except (ValueError, KeyError) as error:
                 app.message = str(error)
 
         y += 40
         ui.text(t("Available skills"), x, y, DIM, "small")
-        for skill_id in skills:
+        for skill_id in unit.skill_ids:
             y += 18
-            if y > HEIGHT - 44:
+            if y > HEIGHT - 44 or skill_id not in db.skills:
                 break
             skill = db.skills[skill_id]
             ui.text(f"{t(skill.name)}: {describe_skill(skill, db, t)}", x, y, DIM, "small", WIDTH - x - 16)
 
 
-# --- конструктор навыков ---------------------------------------------------
+# --- навыки ----------------------------------------------------------------
 
 class SkillEditor:
-    LIST_W = 200
-    X = 240
-    VISIBLE = 6  # строк эффектов на экране; остальные прокручиваются колесом
+    PART_ROWS = 3
+    APPLY_ROWS = 3
 
     def __init__(self) -> None:
-        self.draft = SkillDraft()
-        self.focus = False
-        self.scroll = 0
-
-    def key(self, event: pygame.event.Event) -> bool:
-        """Ввод названия. Возвращает True, если клавиша поглощена полем ввода."""
-        if not self.focus:
-            return False
-        if event.key in (pygame.K_RETURN, pygame.K_KP_ENTER, pygame.K_TAB):
-            self.focus = False
-        elif event.key == pygame.K_BACKSPACE:
-            self.draft.name = self.draft.name[:-1]
-        elif event.unicode and event.unicode.isprintable() and len(self.draft.name) < NAME_MAX:
-            self.draft.name += event.unicode
-        return True
+        self.skill_id: Optional[str] = None
 
     def draw(self, ui: UI, app: EditorHost) -> None:
-        self._draw_list(ui, app.db)
-        self._draw_form(ui, app)
+        db = app.db
+        if self.skill_id not in db.skills:
+            self.skill_id = next(iter(db.skills), None)
+        if self.skill_id is not None:
+            self._draw_form(ui, app, self.skill_id)
+        ui.text(ui.t("Skills"), 16, TOP, DIM, "small")
+        clicked = entity_list(ui, "skills", named(ui, db.skills.values()), self.skill_id, TOP + 20, 18)
+        if clicked is not None:
+            self.skill_id = clicked
+        if ui.button(ui.t("+ New"), pygame.Rect(16, HEIGHT - 84, 92, 24)):
+            self.skill_id = db.create("skills", "New Skill", new_skill_data())
+            app.data_changed()
+        if ui.button(ui.t("Delete"), pygame.Rect(112, HEIGHT - 84, 94, 24), enabled=self.skill_id is not None,
+                     color=RED):
+            db.delete("skills", self.skill_id)
+            app.data_changed()
 
-    def _draw_list(self, ui: UI, db: Database) -> None:
-        t = ui.t
-        ui.text(t("Skills (click to copy)"), 16, TOP, DIM, "small")
-        for i, skill in enumerate(list(db.skills.values())[:20]):
-            custom = skill.id in db.skill_bindings
-            rect = pygame.Rect(16, TOP + 20 + i * 25, self.LIST_W, 22)
-            text = t(skill.name) + (" *" if custom else "")
-            if ui.button(text, rect, custom and skill.id == self.draft.skill_id):
-                # Встроенный навык открывается как шаблон под новым именем.
-                name = None if custom else f"{skill.name} II"
-                self.draft = SkillDraft.from_skill(skill, name, db.skill_bindings.get(skill.id))
-                self.scroll, self.focus = 0, False
-        ui.text(t("* = made in the builder"), 16, HEIGHT - 52, DIM, "small")
+    def _draw_form(self, ui: UI, app: EditorHost, skill_id: str) -> None:
+        t, db, x = ui.t, app.db, FORM_X
+        skill = db.skills[skill_id]
+        data = skill.to_dict()
+        new = copy.deepcopy(data)
+        key = ("skill", skill_id)
 
-    def _draw_form(self, ui: UI, app: EditorHost) -> None:
-        t, db, draft, x = ui.t, app.db, self.draft, self.X
-        skill_id = draft.skill_id
-        is_custom = skill_id in db.skill_bindings
-        is_builtin = skill_id in db.skills and not is_custom
+        def number(field: str, label: str, fx: int, fy: int, label_w: int, low: int, high: int, width: int = 44) -> None:
+            ui.text(t(label), fx, fy + 4, font="small")
+            value = ui.number_input((key, field), pygame.Rect(fx + label_w, fy, width, 24), data[field], low, high)
+            if value is not None:
+                new[field] = value
 
-        # Название и id
-        ui.text(t("Name"), x, TOP + 4)
-        name_rect = pygame.Rect(x + 90, TOP, 250, 26)
-        pygame.draw.rect(ui.screen, SLOT, name_rect)
-        pygame.draw.rect(ui.screen, YELLOW if self.focus else DIM, name_rect, 1)
-        ui.text(draft.name + ("_" if self.focus else ""), name_rect.x + 6, name_rect.y + 4)
-        if ui.clicks:
-            self.focus = bool(ui.clicked(name_rect))
-        status, color = (t("built-in id, pick another name"), RED) if is_builtin else \
-            (t("updates existing skill"), YELLOW) if is_custom else (t("new skill"), GREEN)
-        ui.text(f"id: {skill_id or '?'}  ({status})", x + 350, TOP + 6, color, "small", WIDTH - x - 366)
+        def choice(field: str, label: str, fx: int, fy: int, label_w: int, width: int, choices: list[Option]) -> None:
+            ui.text(t(label), fx, fy + 4, font="small")
+            picked = ui.dropdown((key, field), pygame.Rect(fx + label_w, fy, width, 24), choices, data[field])
+            if picked is not None:
+                new[field] = picked
 
-        # Тип, сила, цена
-        y = TOP + 32
-        ui.text(t("Kind"), x, y + 4)
-        delta = ui.button(t(draft.kind), pygame.Rect(x + 90, y, 120, 24))
-        if delta:
-            draft.set_kind(cycle(SKILL_KINDS, draft.kind, delta))
-        has_power = draft.kind != SKILL_SUPPORT
-        ui.text(t("Power"), x + 226, y + 4, TEXT if has_power else DIM)
-        if ui.button("-", pygame.Rect(x + 304, y, 22, 24), enabled=has_power):
-            draft.power = max(0.0, round(draft.power - POWER_STEP, 2))
-        ui.text(f"x{draft.power:.1f}", x + 330, y + 4, TEXT if has_power else DIM)
-        if ui.button("+", pygame.Rect(x + 372, y, 22, 24), enabled=has_power):
-            draft.power = min(POWER_MAX, round(draft.power + POWER_STEP, 2))
-        draft.ap_cost = stepper(ui, t("AP cost"), draft.ap_cost, 0, AP_COST_MAX, x + 410, y, 96)
+        # Строка 1: название и id
+        ui.text(t("Name"), x, TOP + 4, font="small")
+        name = ui.text_input((key, "name"), pygame.Rect(x + 76, TOP, 230, 24), data["name"])
+        if name:
+            new["name"] = name
+        ui.text(f"id: {skill_id}", x + 320, TOP + 5, DIM, "small")
 
-        # Направленность: на кого нацелен и какую область задевает; восстановление ресурсов
-        y = TOP + 62
-        ui.text(t("Aimed at"), x, y + 4)
-        delta = ui.button(t(draft.targets), pygame.Rect(x + 90, y, 120, 24))
-        if delta:
-            draft.targets = cycle(SIDES, draft.targets, delta)
-        ui.text(t("Area"), x + 226, y + 4)
-        delta = ui.button(t(draft.area), pygame.Rect(x + 304, y, 90, 24))
-        if delta:
-            draft.area = cycle(list(AREAS), draft.area, delta)
-        draft.ap_restore = stepper(ui, t("Gives AP"), draft.ap_restore, 0, RESTORE_MAX, x + 410, y, 96)
-        draft.pp_restore = stepper(ui, t("PP"), draft.pp_restore, 0, RESTORE_MAX, x + 590, y, 30)
+        # Строка 2: цена, цель, область, удары, точность
+        y = TOP + 30
+        number("ap_cost", "AP cost", x, y, 76, 0, 9)
+        choice("targets", "Aimed at", x + 136, y, 70, 96, plain(ui, SIDES))
+        choice("area", "Area", x + 314, y, 64, 100, plain(ui, AREAS))
+        number("hits", "Hits", x + 490, y, 48, 1, 9)
+        number("accuracy", "Accuracy %", x + 594, y, 92, 0, 999, 50)
 
-        # Привязка: каким классам и каким предметам принадлежит навык
-        y = TOP + 92
-        ui.text(t("Classes"), x, y + 4)
-        self._toggles(ui, [(d.id, t(d.name)) for d in db.units.values()], draft.bind_units, x + 90, y, 84)
-        y = TOP + 120
-        ui.text(t("Items"), x, y + 4)
-        self._toggles(ui, [(i.id, t(i.name)) for i in db.items.values()], draft.bind_items, x + 90, y, 130)
-        if not (draft.bind_units or draft.bind_items):
-            ui.text(t("not bound: nobody can use it"), x + 370, y + 6, RED, "small")
+        # Строка 3: теги навыка, восстановление, бонус по тегу
+        y = TOP + 60
+        ui.text(t("Skill tags"), x, y + 4, font="small")
+        tags = ui.multiselect((key, "tags"), pygame.Rect(x + 76, y, 170, 24), tag_options(ui, db, TAG_SKILL), data["tags"])
+        if tags is not None:
+            new["tags"] = tags
+        number("ap_restore", "Gives AP", x + 258, y, 70, 0, 9)
+        number("pp_restore", "PP", x + 380, y, 24, 0, 9)
+        ui.text(t("Bonus vs"), x + 458, y + 4, font="small")
+        bonus_tag, bonus_mult = next(iter(data["bonus_vs"].items()), (EMPTY, 1.5))
+        picked = ui.dropdown((key, "bonus_tag"), pygame.Rect(x + 530, y, 130, 24),
+                             [(EMPTY, "-"), *tag_options(ui, db, TAG_UNIT)], bonus_tag)
+        if picked is not None:
+            new["bonus_vs"] = {picked: bonus_mult} if picked else {}
+        mult = ui.number_input((key, "bonus_mult"), pygame.Rect(x + 664, y, 50, 24), bonus_mult, 0, 10, integer=False)
+        if mult is not None and bonus_tag:
+            new["bonus_vs"] = {bonus_tag: mult}
 
-        # Эффекты
-        y = TOP + 150
-        ui.text(t("Effects: {n}", n=len(draft.applies)), x, y + 4)
-        if ui.button(t("+ Add effect"), pygame.Rect(x + 130, y, 150, 24)):
-            draft.applies.append(default_apply(db, next(iter(db.effects))))
-            self.scroll = max(0, len(draft.applies) - self.VISIBLE)
-        ui.text(t(HINT_CYCLE), x + 296, y + 6, DIM, "small")
-        y += 30
-        for label, offset in (("effect", 28), ("goes to", 222), ("if target", 300)):
-            ui.text(t(label), x + offset, y, DIM, "small")
-        y += 18
-        self._draw_applies(ui, db, x, y)
+        # Строка 4: кому принадлежит навык
+        y = TOP + 90
+        for section, label, ox in (("units", "Classes", 0), ("items", "Items", 372)):
+            ui.text(t(label), x + ox, y + 4, font="small")
+            owners = skill_owners(db, section, skill_id)
+            picked = ui.multiselect((key, section), pygame.Rect(x + ox + 76, y, 282, 24),
+                                    named(ui, getattr(db, section).values()), owners)
+            if picked is not None:
+                try:
+                    set_owners(db, section, skill_id, picked)
+                    app.data_changed()
+                except ValueError as error:
+                    app.message = str(error)
 
-        y += self.VISIBLE * ROW_H + 4
-        if len(draft.applies) > self.VISIBLE:
-            ui.text(t("rows {a}-{b} of {n}, mouse wheel scrolls", a=self.scroll + 1,
-                      b=self.scroll + self.VISIBLE, n=len(draft.applies)), x + 28, y, DIM, "small")
-        y += 20
-        try:
-            summary, color = describe_skill(draft.build(db), db, t), TEXT
-        except ValueError as error:
-            summary, color = f"{t('cannot save')}: {error}", RED
-        ui.text(summary, x, y, color, "small", WIDTH - x - 16)
+        self._draw_parts(ui, app, key, data, new, x, TOP + 122)
+        self._draw_applies(ui, app, key, data, new, x, TOP + 122 + 46 + self.PART_ROWS * ROW_H + 6)
 
-        y += 24
-        if ui.button(t("Save skill"), pygame.Rect(x, y, 150, 26), enabled=not is_builtin):
-            self._save(app)
-        if ui.button(t("New"), pygame.Rect(x + 158, y, 90, 26)):
-            self.draft, self.scroll = SkillDraft(), 0
-        if ui.button(t("Delete"), pygame.Rect(x + 256, y, 110, 26), enabled=is_custom, color=RED):
-            self._delete(app, skill_id)
+        y = TOP + 122 + 2 * 46 + (self.PART_ROWS + self.APPLY_ROWS) * ROW_H + 14
+        ui.text(describe_skill(skill, db, t), x, y, TEXT, "small", WIDTH - x - 16)
         ui.text(t("A skill belongs to the chosen classes and to whoever wears the chosen items."),
-                x, y + 34, DIM, "small")
+                x, y + 22, DIM, "small")
         ui.text(t("Effects apply after damage or healing; conditions are checked on each unit hit."),
-                x, y + 50, DIM, "small")
+                x, y + 38, DIM, "small")
+        if new != data:
+            apply(app, "skills", skill_id, new)
 
-    @staticmethod
-    def _toggles(ui: UI, options: list[tuple[str, str]], chosen: list[str], x: int, y: int, width: int) -> None:
-        """Ряд кнопок-переключателей: id добавляется в chosen или убирается из него."""
-        for i, (option_id, text) in enumerate(options):
-            if ui.button(text, pygame.Rect(x + i * (width + 4), y, width, 24), option_id in chosen):
-                if option_id in chosen:
-                    chosen.remove(option_id)
-                else:
-                    chosen.append(option_id)
-
-    def _draw_applies(self, ui: UI, db: Database, x: int, y: int) -> None:
-        t = ui.t
-        applies = self.draft.applies
-        self.scroll = max(0, min(self.scroll - ui.wheel, len(applies) - self.VISIBLE))
-        pygame.draw.rect(ui.screen, PANEL, pygame.Rect(x, y - 2, WIDTH - x - 16, self.VISIBLE * ROW_H + 2))
-        effect_ids = list(db.effects)
-        remove: Optional[int] = None
-        for row, index in enumerate(range(self.scroll, min(len(applies), self.scroll + self.VISIBLE))):
-            apply = applies[index]
-            ry = y + row * ROW_H
+    def _draw_parts(self, ui: UI, app: EditorHost, key: Hashable, data: dict, new: dict, x: int, y: int) -> None:
+        """Части урона и лечения: вид, категория, сила, два слагаемых скейла, тип урона."""
+        t, db = ui.t, app.db
+        parts = data["parts"]
+        ui.text(t("Damage and healing parts: {n}", n=len(parts)), x, y + 4, font="small")
+        if ui.button(t("+ Add part"), pygame.Rect(x + 250, y, 150, 22)):
+            new["parts"] = parts + [new_part()]
+        cols = (("kind", 22), ("category", 96), ("power", 190), ("scales from", 240), ("and from", 382),
+                ("damage type", 524), ("weapon", 648))
+        for label, offset in cols:
+            ui.text(t(label), x + offset, y + 26, DIM, "small")
+        y += 44
+        area = pygame.Rect(x, y - 2, WIDTH - x - 16, self.PART_ROWS * ROW_H)
+        pygame.draw.rect(ui.screen, PANEL, area)
+        offset = ui.scroll((key, "parts"), area, len(parts), self.PART_ROWS)
+        stat_choices = plain(ui, (s.value for s in SCALING_STATS))
+        for row, index in enumerate(range(offset, min(len(parts), offset + self.PART_ROWS))):
+            part = parts[index]
+            edited = copy.deepcopy(part)
+            ry, pkey = y + row * ROW_H, (key, "part", index)
             ui.text(f"{index + 1}.", x + 4, ry + 4, DIM, "small")
-            effect = db.effects[apply["effect_id"]]
-            tags = ", ".join(t(tag) for tag in sorted(effect.tags))
-            delta = ui.button(f"{t(effect.name)} [{tags}]", pygame.Rect(x + 28, ry, 190, 24))
-            if delta:
+            picked = ui.dropdown((pkey, "kind"), pygame.Rect(x + 22, ry, 70, 24), plain(ui, PART_KINDS), part["kind"])
+            if picked is not None:
+                edited["kind"] = picked
+            picked = ui.dropdown((pkey, "category"), pygame.Rect(x + 96, ry, 90, 24), plain(ui, CATEGORIES),
+                                 part["category"])
+            if picked is not None:
+                edited["category"] = picked
+            value = ui.number_input((pkey, "power"), pygame.Rect(x + 190, ry, 46, 24), part["power"], 0, 20, False)
+            if value is not None:
+                edited["power"] = value
+            scaling = [dict(s) for s in part["scaling"]]
+            for n, sx in ((0, 240), (1, 382)):
+                term = scaling[n] if n < len(scaling) else None
+                choices = stat_choices if n == 0 else [(EMPTY, "-"), *stat_choices]
+                picked = ui.dropdown((pkey, "stat", n), pygame.Rect(x + sx, ry, 92, 24), choices,
+                                     term["stat"] if term else EMPTY)
+                if picked is not None:
+                    if picked == EMPTY:
+                        scaling = scaling[:n] + scaling[n + 1:]
+                    elif term is None:
+                        scaling.append({"stat": picked, "coef": 1.0})
+                    else:
+                        term["stat"] = picked
+                coef = ui.number_input((pkey, "coef", n), pygame.Rect(x + sx + 96, ry, 42, 24),
+                                       term["coef"] if term else 0, 0, 20, False)
+                if coef is not None and term is not None:
+                    term["coef"] = coef
+            edited["scaling"] = scaling
+            tags = ui.multiselect((pkey, "tags"), pygame.Rect(x + 524, ry, 120, 24),
+                                  tag_options(ui, db, TAG_DAMAGE), part["tags"])
+            if tags is not None:
+                edited["tags"] = tags
+            is_damage = part["kind"] == PART_DAMAGE
+            if ui.button(t("yes") if part["weapon_tags"] else t("no"), pygame.Rect(x + 648, ry, 62, 24),
+                         part["weapon_tags"], enabled=is_damage):
+                edited["weapon_tags"] = not part["weapon_tags"]
+            if ui.button("x", pygame.Rect(x + 716, ry, 24, 24), color=RED):
+                new["parts"] = parts[:index] + parts[index + 1:]
+            elif edited != part:
+                new["parts"] = parts[:index] + [edited] + parts[index + 1:]
+
+    def _draw_applies(self, ui: UI, app: EditorHost, key: Hashable, data: dict, new: dict, x: int, y: int) -> None:
+        """Накладываемые эффекты: эффект, получатель, условие на цель."""
+        t, db = ui.t, app.db
+        applies = data["applies"]
+        ui.text(t("Effects: {n}", n=len(applies)), x, y + 4, font="small")
+        if ui.button(t("+ Add effect"), pygame.Rect(x + 250, y, 150, 22), enabled=bool(db.effects)):
+            new["applies"] = applies + [default_apply(db, next(iter(db.effects)))]
+        for label, offset in (("effect", 22), ("goes to", 236), ("if target", 330)):
+            ui.text(t(label), x + offset, y + 26, DIM, "small")
+        y += 44
+        area = pygame.Rect(x, y - 2, WIDTH - x - 16, self.APPLY_ROWS * ROW_H)
+        pygame.draw.rect(ui.screen, PANEL, area)
+        offset = ui.scroll((key, "applies"), area, len(applies), self.APPLY_ROWS)
+        effect_choices = [(e.id, f"{t(e.name)} [{', '.join(t(tag) for tag in sorted(e.tags))}]")
+                          for e in db.effects.values()]
+        for row, index in enumerate(range(offset, min(len(applies), offset + self.APPLY_ROWS))):
+            item = applies[index]
+            edited = copy.deepcopy(item)
+            ry, akey = y + row * ROW_H, (key, "apply", index)
+            ui.text(f"{index + 1}.", x + 4, ry + 4, DIM, "small")
+            picked = ui.dropdown((akey, "effect"), pygame.Rect(x + 22, ry, 210, 24), effect_choices, item["effect_id"])
+            if picked is not None and picked != item["effect_id"]:
                 # Получатель подстраивается под знак эффекта: бафф на себя, дебафф на цель.
-                apply.update(default_apply(db, cycle(effect_ids, apply["effect_id"], delta)), condition=apply["condition"])
-            delta = ui.button(t(apply["to"]), pygame.Rect(x + 222, ry, 74, 24))
-            if delta:
-                apply["to"] = cycle(APPLY_RECIPIENTS, apply["to"], delta)
-            condition = condition_buttons(ui, db, apply["condition"], x + 300, ry, 120, 130)
+                edited.update(default_apply(db, picked), condition=item["condition"])
+            picked = ui.dropdown((akey, "to"), pygame.Rect(x + 236, ry, 90, 24), plain(ui, APPLY_RECIPIENTS), item["to"])
+            if picked is not None:
+                edited["to"] = picked
+            condition = condition_widgets(ui, db, akey, item["condition"], x + 330, ry, 130, 130)
             if condition is not None:
-                apply["condition"] = condition
-            if ui.button("x", pygame.Rect(x + 558, ry, 28, 24), color=RED):
-                remove = index
-        if remove is not None:
-            del applies[remove]
-
-    def _save(self, app: EditorHost) -> None:
-        try:
-            skill = self.draft.save_to(app.db)
-        except ValueError as error:
-            app.message = f"{app.t('cannot save')}: {error}"
-            return
-        app.changed()
-        app.message = app.t("saved skill {id}", id=skill.id)
-
-    def _delete(self, app: EditorHost, skill_id: str) -> None:
-        users = skill_users(skill_id, app.units())
-        if users:
-            app.message = app.t("cannot delete: used in tactics of {units}", units=", ".join(app.label(u) for u in users))
-            return
-        app.db.remove_custom_skill(skill_id)
-        app.changed()
-        app.message = app.t("deleted skill {id}", id=skill_id)
+                edited["condition"] = condition
+            if ui.button("x", pygame.Rect(x + 716, ry, 24, 24), color=RED):
+                new["applies"] = applies[:index] + applies[index + 1:]
+            elif edited != item:
+                new["applies"] = applies[:index] + [edited] + applies[index + 1:]
