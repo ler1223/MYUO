@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping, Optional
 
-from .areas import AREA_SINGLE, AREAS
+from .areas import AREA_SINGLE
 from .stats import Modifier, Scale, Stat
 from .tactics import SIDES, Always, ICondition, condition_from_dict, condition_to_dict
 
@@ -138,7 +138,7 @@ class SkillDefinition:
     ap_cost: int = 1
     pp_cost: int = 0                        # навык может стоить PP вместо AP или вместе с ним
     targets: str = "enemy"                  # кого можно выбрать целью: enemy / ally / self
-    area: str = AREA_SINGLE                 # кого задевает вокруг цели, см. areas.AREAS
+    area: str = AREA_SINGLE                 # id области вокруг цели (Database.areas)
     hits: int = 1                           # число ударов; попадание, крит и блок бросаются на каждый
     accuracy: int = 100                     # шанс попадания навыка, % (может быть больше 100)
     tags: tuple[str, ...] = ()              # вид навыка: ближний, дальний, магия
@@ -157,8 +157,6 @@ class SkillDefinition:
         if targets not in SIDES:
             raise ValueError(f"skill {skill_id}: unknown targets {targets!r}")
         area = data.get("area", AREA_SINGLE)
-        if area not in AREAS:
-            raise ValueError(f"skill {skill_id}: unknown area {area!r}")
         hits = data.get("hits", 1)
         if hits < 1:
             raise ValueError(f"skill {skill_id}: hits must be at least 1")
@@ -229,7 +227,7 @@ class PassiveDefinition:
     pp_cost: int
     effect_id: Optional[str] = None
     action: str = PASSIVE_EFFECT
-    cover_area: str = "row"                     # кого прикрывает: клетки из areas.AREAS относительно владельца
+    cover_area: str = "row"                     # кого прикрывает: id области вокруг владельца
     cover_many: bool = False                    # True: всех задетых союзников в зоне; False: одного
     cover_tags: tuple[str, ...] = ()            # от атак с любым из этих тегов; пусто = от любых
     cover_skill_areas: tuple[str, ...] = ()     # от навыков с этими областями; пусто = от любых
@@ -247,9 +245,6 @@ class PassiveDefinition:
             raise ValueError(f"passive {passive_id}: an effect is required")
         cover_area = data.get("cover_area", "row")
         skill_areas = tuple(data.get("cover_skill_areas", ()))
-        for area in (cover_area, *skill_areas):
-            if area not in AREAS:
-                raise ValueError(f"passive {passive_id}: unknown area {area!r}")
         return cls(
             id=passive_id,
             name=data.get("name", passive_id),

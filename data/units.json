@@ -340,7 +340,8 @@
     "skills": [
       "attack",
       "power_strike",
-      "stun_bash"
+      "stun_bash",
+      "crushing_blow"
     ],
     "passives": [
       "avenger"
@@ -441,6 +442,606 @@
       },
       {
         "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "fighter": {
+    "name": "Fighter",
+    "stats": {
+      "hp": 52,
+      "phys_atk": 21,
+      "phys_def": 8,
+      "mag_atk": 4,
+      "mag_def": 5,
+      "initiative": 6,
+      "accuracy": 100,
+      "evasion": 8,
+      "crit_rate": 8,
+      "crit_damage": 150,
+      "guard_rate": 10
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2,
+      "phys_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "light_armor",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "flame_strike",
+      "venom_strike",
+      "cleave"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "flame_strike",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "burn"
+        },
+        "selector": "strongest"
+      },
+      {
+        "skill": "venom_strike",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "poison"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "cleave",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "spearman": {
+    "name": "Spearman",
+    "stats": {
+      "hp": 50,
+      "phys_atk": 20,
+      "phys_def": 9,
+      "mag_atk": 3,
+      "mag_def": 5,
+      "initiative": 6,
+      "accuracy": 105,
+      "evasion": 5,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 15
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2,
+      "phys_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "lance",
+      "medium_armor",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "impale",
+      "defend"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "impale",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "defend",
+        "self_condition": {
+          "type": "hp_below",
+          "value": 0.5
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "hunter": {
+    "name": "Hunter",
+    "stats": {
+      "hp": 36,
+      "phys_atk": 21,
+      "phys_def": 4,
+      "mag_atk": 4,
+      "mag_def": 5,
+      "initiative": 10,
+      "accuracy": 115,
+      "evasion": 18,
+      "crit_rate": 15,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "phys_atk": 2,
+      "initiative": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "archer"
+    ],
+    "slots": [
+      "bow",
+      "light_armor",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "shot",
+      "fire_arrow",
+      "poison_arrow",
+      "volley",
+      "piercing_shot"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "fire_arrow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "burn"
+        },
+        "selector": "strongest"
+      },
+      {
+        "skill": "poison_arrow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "poison"
+        },
+        "selector": "backmost"
+      },
+      {
+        "skill": "piercing_shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "weakest"
+      }
+    ]
+  },
+  "pyromancer": {
+    "name": "Pyromancer",
+    "stats": {
+      "hp": 30,
+      "phys_atk": 5,
+      "phys_def": 3,
+      "mag_atk": 25,
+      "mag_def": 9,
+      "initiative": 6,
+      "accuracy": 100,
+      "evasion": 5,
+      "crit_rate": 8,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "mag_atk": 3,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "robe",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "magic_bolt",
+      "fireball",
+      "firestorm"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "firestorm",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "fireball",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "burn"
+        },
+        "selector": "random"
+      },
+      {
+        "skill": "magic_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "weakest"
+      }
+    ]
+  },
+  "cryomancer": {
+    "name": "Cryomancer",
+    "stats": {
+      "hp": 30,
+      "phys_atk": 5,
+      "phys_def": 3,
+      "mag_atk": 22,
+      "mag_def": 11,
+      "initiative": 7,
+      "accuracy": 100,
+      "evasion": 5,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "mag_atk": 3,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "robe",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "magic_bolt",
+      "ice_shard",
+      "blizzard"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "blizzard",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "ice_shard",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "slow"
+        },
+        "selector": "strongest"
+      },
+      {
+        "skill": "magic_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "stormcaller": {
+    "name": "Stormcaller",
+    "stats": {
+      "hp": 28,
+      "phys_atk": 5,
+      "phys_def": 3,
+      "mag_atk": 24,
+      "mag_def": 9,
+      "initiative": 9,
+      "accuracy": 95,
+      "evasion": 8,
+      "crit_rate": 10,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "mag_atk": 3,
+      "initiative": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "robe",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "magic_bolt",
+      "lightning_bolt",
+      "chain_lightning"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "lightning_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "stun"
+        },
+        "selector": "strongest"
+      },
+      {
+        "skill": "chain_lightning",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "magic_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "paladin": {
+    "name": "Paladin",
+    "stats": {
+      "hp": 64,
+      "phys_atk": 18,
+      "phys_def": 13,
+      "mag_atk": 10,
+      "mag_def": 10,
+      "initiative": 4,
+      "accuracy": 100,
+      "evasion": 3,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 30
+    },
+    "growth": {
+      "hp": 8,
+      "phys_atk": 1,
+      "phys_def": 2,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 2,
+    "tags": [
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "medium_armor",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "shield_bash",
+      "smite",
+      "group_heal"
+    ],
+    "passives": [
+      "shield_cover"
+    ],
+    "tactics": [
+      {
+        "skill": "group_heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.5
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "shield_bash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "smite",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "witch": {
+    "name": "Witch",
+    "stats": {
+      "hp": 30,
+      "phys_atk": 5,
+      "phys_def": 3,
+      "mag_atk": 20,
+      "mag_def": 10,
+      "initiative": 6,
+      "accuracy": 100,
+      "evasion": 8,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "mag_atk": 2,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "robe",
+      "artifact"
+    ],
+    "skills": [
+      "magic_bolt",
+      "plague_touch",
+      "rally"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "plague_touch",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "plague"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "magic_bolt",
         "self_condition": {
           "type": "always"
         },

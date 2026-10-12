@@ -4,7 +4,6 @@ from __future__ import annotations
 import random
 from typing import Optional
 
-from .areas import AREAS
 from .database import Database
 from .definitions import (
     APPLY_SELF,
@@ -18,7 +17,19 @@ from .definitions import (
     SkillDefinition,
     SkillPart,
 )
-from .effects import ActiveEffect, AttackMod
+from .effects import (
+    TARGET_ALLIES,
+    TARGET_ENEMIES,
+    TARGET_SELF,
+    TARGET_SOURCE,
+    WHEN_APPLIED,
+    WHEN_EXPIRE,
+    WHEN_TURN_START,
+    ActiveEffect,
+    AttackMod,
+    EffectTrigger,
+    StackRule,
+)
 from .events import (
     END_DEFEAT,
     END_EXHAUSTED,
@@ -52,6 +63,7 @@ from .unit import AP_PER_TURN, Unit
 DEFAULT_MAX_ROUNDS = 30
 FALLBACK_SKILL_ID = "attack"
 STUNNED_FLAG = "stunned"
+MAX_TRIGGER_DEPTH = 6     # предел цепочки «эффект наложил эффект, который наложил эффект...»
 GUARD_REDUCTION = 0.5  # какая доля физического урона остаётся после блока
 
 
@@ -150,7 +162,8 @@ class BattleSimulation:
     def _take_turn(self, unit: Unit) -> None:
         self._acting, self._fresh = unit, []
         self._emit(TurnStarted(unit.uid))
-        self._apply_periodic(unit)
+        for effect in list(unit.effects):
+            self._fire(unit, effect, WHEN_TURN_START)
         if self.finished or not unit.is_alive:
             return
         if unit.has_flag(STUNNED_FLAG):
@@ -166,22 +179,64 @@ class BattleSimulation:
                 return
         # Эффект, полученный в свой же ход, начинает убывать со следующего хода.
         for effect in unit.tick(skip=self._fresh):
-            self._emit(EffectExpired(unit.uid, effect.definition.id))
+            self._expire(unit, effect)
 
-    def _apply_periodic(self, unit: Unit) -> None:
-        for effect in list(unit.effects):
-            for action in effect.definition.periodic:
-                amount = action.amount * effect.stacks
-                if action.kind == "damage":
-                    dealt = unit.take_damage(amount)
-                    self._emit(DamageDealt(effect.source, unit.uid, dealt, unit.hp, effect.definition.id))
-                    if not unit.is_alive:
-                        self._emit(UnitDied(unit.uid))
-                        self._check_end()
-                        return
-                elif action.kind == "heal":
-                    healed = unit.heal(amount)
-                    self._emit(Healed(effect.source, unit.uid, healed, unit.hp, effect.definition.id))
+    # --- триггеры эффектов ---
+
+    def _expire(self, unit: Unit, effect: ActiveEffect) -> None:
+        self._emit(EffectExpired(unit.uid, effect.definition.id))
+        self._fire(unit, effect, WHEN_EXPIRE)
+
+    def _fire(self, unit: Unit, effect: ActiveEffect, when: str, depth: int = 0) -> None:
+        """Выполняет триггеры эффекта, сработавшие в момент when у носителя unit."""
+        for trigger in effect.definition.triggers:
+            if trigger.when != when:
+                continue
+            for target in self._trigger_targets(unit, effect, trigger):
+                if self.finished:
+                    return
+                if target.is_alive:
+                    self._run_trigger(target, effect, trigger, depth)
+
+    def _trigger_targets(self, unit: Unit, effect: ActiveEffect, trigger: EffectTrigger) -> list[Unit]:
+        if trigger.to == TARGET_SELF:
+            return [unit]
+        if trigger.to == TARGET_SOURCE:
+            source = self.units.get(effect.source) if effect.source is not None else None
+            return [source] if source is not None else []
+        own = self._side[unit.uid]
+        pool = [u for u in self._alive() if u is not unit]
+        if trigger.to == TARGET_ALLIES:
+            pool = [u for u in pool if self._side[u.uid] == own]
+        elif trigger.to == TARGET_ENEMIES:
+            pool = [u for u in pool if self._side[u.uid] != own]
+        if trigger.area is not None:
+            area = self.db.areas[trigger.area]
+            pool = [u for u in pool if area.covers(self._pos[unit.uid], self._pos[u.uid])]
+        return pool
+
+    def _run_trigger(self, target: Unit, effect: ActiveEffect, trigger: EffectTrigger, depth: int) -> None:
+        cause = effect.definition.id
+        if trigger.action == "damage":
+            dealt = target.take_damage(trigger.amount * effect.stacks)
+            self._emit(DamageDealt(effect.source, target.uid, dealt, target.hp, cause))
+            if not target.is_alive:
+                self._emit(UnitDied(target.uid))
+                self._check_end()
+        elif trigger.action == "heal":
+            healed = target.heal(trigger.amount * effect.stacks)
+            self._emit(Healed(effect.source, target.uid, healed, target.hp, cause))
+        elif trigger.action == "apply_effect":
+            if depth < MAX_TRIGGER_DEPTH:
+                self._give_effect(target, trigger.effect_id, effect.source, depth=depth + 1)
+        elif trigger.action == "remove_effect":
+            for active in [e for e in target.effects if e.definition.id == trigger.effect_id]:
+                target.effects = [e for e in target.effects if e is not active]
+                self._emit(EffectExpired(target.uid, active.definition.id))
+        elif trigger.action == "restore_ap":
+            self._restore(effect.source, target, "AP", target.ap, trigger.amount, cause)
+        elif trigger.action == "restore_pp":
+            self._restore(effect.source, target, "PP", target.pp, trigger.amount, cause)
 
     def _act(self, unit: Unit) -> bool:
         """Выполняет действие по тактикам. False, если юнит ничего не смог сделать."""
@@ -205,9 +260,9 @@ class BattleSimulation:
 
     def _affected(self, skill: SkillDefinition, target: Unit) -> list[Unit]:
         """Живые юниты стороны цели, попавшие в область навыка, в порядке формации."""
-        in_area = AREAS[skill.area]
+        area = self.db.areas[skill.area]
         target_pos = self._pos[target.uid]
-        return [u for u in self._alive(self._side[target.uid]) if in_area(target_pos, self._pos[u.uid])]
+        return [u for u in self._alive(self._side[target.uid]) if area.covers(target_pos, self._pos[u.uid])]
 
     def _resolve_skill(self, user: Unit, skill: SkillDefinition, target: Unit) -> None:
         affected = self._affected(skill, target)
@@ -222,15 +277,15 @@ class BattleSimulation:
         for unit in landed:
             if not unit.is_alive:
                 continue
-            self._restore(user, unit, "AP", unit.ap, skill.ap_restore, skill.id)
-            self._restore(user, unit, "PP", unit.pp, skill.pp_restore, skill.id)
+            self._restore(user.uid, unit, "AP", unit.ap, skill.ap_restore, skill.id)
+            self._restore(user.uid, unit, "PP", unit.pp, skill.pp_restore, skill.id)
             for apply in skill.applies:
                 if apply.to == APPLY_TARGET and apply.condition.check(user, unit):
-                    self._apply_skill_effect(user, unit, apply.effect_id)
+                    self._give_effect(unit, apply.effect_id, user.uid)
         if landed:
             for apply in skill.applies:
                 if apply.to == APPLY_SELF and user.is_alive and apply.condition.check(user, target):
-                    self._apply_skill_effect(user, user, apply.effect_id)
+                    self._give_effect(user, apply.effect_id, user.uid)
         self._spend_charges(user, [effect for effect, _ in used])
         dead = [unit for unit in affected if not unit.is_alive]
         for unit in dead:
@@ -264,8 +319,8 @@ class BattleSimulation:
                     continue
                 if passive.cover_skill_areas and skill.area not in passive.cover_skill_areas:
                     continue
-                in_zone = AREAS[passive.cover_area]
-                covered = [u for u in affected if u is not owner and in_zone(self._pos[owner.uid], self._pos[u.uid])]
+                zone = self.db.areas[passive.cover_area]
+                covered = [u for u in affected if u is not owner and zone.covers(self._pos[owner.uid], self._pos[u.uid])]
                 if not covered:
                     continue
                 if not passive.cover_many:
@@ -275,10 +330,7 @@ class BattleSimulation:
                 for unit in covered:
                     self._emit(Covered(owner.uid, unit.uid, skill.id), from_passive=True)
                 if passive.effect_id is not None:
-                    effect = self._add_effect(owner, passive.effect_id, owner.uid)
-                    if effect is not None:
-                        self._emit(EffectApplied(owner.uid, passive.effect_id, effect.stacks, owner.uid),
-                                   from_passive=True)
+                    self._give_effect(owner, passive.effect_id, owner.uid, from_passive=True)
                 # Защитник встаёт на место первого прикрытого; сам он получает один удар.
                 result: list[Unit] = []
                 for unit in affected:
@@ -309,7 +361,7 @@ class BattleSimulation:
             effect.charges -= 1
             if effect.charges <= 0 and any(effect is active for active in user.effects):
                 user.effects = [active for active in user.effects if active is not effect]
-                self._emit(EffectExpired(user.uid, effect.definition.id))
+                self._expire(user, effect)
 
     def _part_tags(self, user: Unit, part: SkillPart) -> set[str]:
         """Теги части урона: категория плюс тип урона (оружия, если часть его использует)."""
@@ -382,23 +434,30 @@ class BattleSimulation:
             return False
         return self.rng.random() * 100 < unit.stat(Stat.GUARD_RATE)
 
-    def _restore(self, user: Unit, unit: Unit, name: str, resource: Resource, amount: int, cause: str) -> None:
+    def _restore(self, source: Optional[int], unit: Unit, name: str, resource: Resource, amount: int,
+                 cause: str) -> None:
         if amount <= 0:
             return
         before = resource.current
         resource.gain(amount)
         if resource.current > before:  # полный запас: восстанавливать нечего
-            self._emit(ResourceGained(user.uid, unit.uid, name, resource.current - before, resource.current, cause))
+            self._emit(ResourceGained(source, unit.uid, name, resource.current - before, resource.current, cause))
 
-    def _apply_skill_effect(self, user: Unit, recipient: Unit, effect_id: str) -> None:
-        effect = self._add_effect(recipient, effect_id, user.uid)
-        if effect is not None:
-            self._emit(EffectApplied(recipient.uid, effect_id, effect.stacks, user.uid))
+    def _would_apply(self, recipient: Unit, effect_id: str) -> bool:
+        """Изменит ли наложение что-нибудь (эффект с правилом IGNORE второй раз не накладывается)."""
+        definition = self.db.effects[effect_id]
+        return not (definition.stack_rule is StackRule.IGNORE and recipient.has_effect(effect_id))
 
-    def _add_effect(self, recipient: Unit, effect_id: str, source: Optional[int]) -> Optional[ActiveEffect]:
+    def _give_effect(self, recipient: Unit, effect_id: str, source: Optional[int], from_passive: bool = False,
+                     depth: int = 0) -> Optional[ActiveEffect]:
+        """Накладывает эффект, сообщает об этом и запускает его триггеры «при наложении»."""
         effect = recipient.add_effect(self.db.effects[effect_id], source)
-        if effect is not None and recipient is self._acting:
+        if effect is None:
+            return None
+        if recipient is self._acting:
             self._fresh.append(effect)
+        self._emit(EffectApplied(recipient.uid, effect_id, effect.stacks, source), from_passive)
+        self._fire(recipient, effect, WHEN_APPLIED, depth)
         return effect
 
     # --- окончание боя ---
@@ -467,12 +526,11 @@ class BattleSimulation:
                     continue
                 if not owner.pp.can_spend(passive.pp_cost):
                     continue
-                effect = self._add_effect(owner, passive.effect_id, owner.uid)
-                if effect is None:
-                    continue  # эффект проигнорирован (IGNORE), PP не тратим
+                if not self._would_apply(owner, passive.effect_id):
+                    continue  # эффект был бы проигнорирован (IGNORE), PP не тратим
                 owner.pp.spend(passive.pp_cost)
                 self._emit(PassiveTriggered(owner.uid, passive.id), from_passive=True)
-                self._emit(EffectApplied(owner.uid, passive.effect_id, effect.stacks, owner.uid), from_passive=True)
+                self._give_effect(owner, passive.effect_id, owner.uid, from_passive=True)
 
     def _scope_matches(self, passive: PassiveDefinition, owner: Unit, event: Event) -> bool:
         if passive.scope == "any":

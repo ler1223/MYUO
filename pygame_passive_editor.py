@@ -7,7 +7,7 @@ from typing import Optional
 import pygame
 
 from game import events
-from game.areas import AREA_SINGLE, AREAS
+from game.areas import AREA_SINGLE
 from game.definitions import CATEGORIES, PASSIVE_ACTIONS, PASSIVE_COVER, PASSIVE_EFFECT, SCOPES
 from game.editing import new_passive_data, set_owners, skill_owners
 from pygame_data_editors import list_buttons
@@ -118,8 +118,9 @@ class PassiveEditor:
     def _draw_cover(ui: UI, db, key, data: dict, new: dict, x: int, fx: int, row) -> None:
         """Настройки прикрытия: зона, сколько союзников, от каких атак и областей навыка."""
         t = ui.t
-        ui.text(t("Covers allies in"), x, row(3) + 4, font="small")
-        zone_choices = [("row", t("the owner's row")), ("column", t("the owner's column")), ("all", t("the whole squad"))]
+        ui.text(t("Covers allies in area"), x, row(3) + 4, font="small")
+        # Зона это область вокруг владельца; сам владелец в неё не входит.
+        zone_choices = named(ui, (a for a in db.areas.values() if a.id != AREA_SINGLE))
         picked = ui.dropdown((key, "cover_area"), pygame.Rect(fx, row(3), 220, 24), zone_choices, data["cover_area"])
         if picked is not None:
             new["cover_area"] = picked
@@ -137,7 +138,7 @@ class PassiveEditor:
 
         ui.text(t("Against skills aimed at"), x, row(5) + 4, font="small")
         picked = ui.multiselect((key, "cover_skill_areas"), pygame.Rect(fx, row(5), 460, 24),
-                                plain(ui, AREAS), data["cover_skill_areas"])
+                                named(ui, db.areas.values()), data["cover_skill_areas"])
         if picked is not None:
             new["cover_skill_areas"] = picked
         ui.text(t("- means any area"), fx + 470, row(5) + 5, DIM, "small")

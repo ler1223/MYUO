@@ -12,10 +12,14 @@
     "charges": null,
     "stack_rule": "STACK",
     "max_stacks": 3,
-    "periodic": [
+    "triggers": [
       {
-        "kind": "damage",
-        "amount": 4
+        "when": "turn_start",
+        "action": "damage",
+        "amount": 4,
+        "effect_id": null,
+        "to": "self",
+        "area": null
       }
     ]
   },
@@ -34,7 +38,7 @@
     "charges": null,
     "stack_rule": "REFRESH",
     "max_stacks": 1,
-    "periodic": []
+    "triggers": []
   },
   "war_cry": {
     "name": "War Cry",
@@ -55,7 +59,7 @@
     "charges": null,
     "stack_rule": "REFRESH",
     "max_stacks": 1,
-    "periodic": []
+    "triggers": []
   },
   "iron_will": {
     "name": "Iron Will",
@@ -76,7 +80,7 @@
     "charges": null,
     "stack_rule": "IGNORE",
     "max_stacks": 1,
-    "periodic": []
+    "triggers": []
   },
   "wind_blade": {
     "name": "Wind Blade",
@@ -102,6 +106,114 @@
     "charges": null,
     "stack_rule": "REFRESH",
     "max_stacks": 1,
-    "periodic": []
+    "triggers": []
+  },
+  "burn": {
+    "name": "Burn",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 2,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": [
+      {
+        "when": "turn_start",
+        "action": "damage",
+        "amount": 5,
+        "effect_id": null,
+        "to": "self",
+        "area": null
+      }
+    ]
+  },
+  "slow": {
+    "name": "Slow",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "PERCENT_ADD",
+        "value": -0.5
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": -10
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 2,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "guard_up": {
+    "name": "Guard Up",
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "PERCENT_ADD",
+        "value": 0.3
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 2,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "plague": {
+    "name": "Plague",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 2,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": [
+      {
+        "when": "turn_start",
+        "action": "damage",
+        "amount": 3,
+        "effect_id": null,
+        "to": "self",
+        "area": null
+      },
+      {
+        "when": "expire",
+        "action": "apply_effect",
+        "amount": 0,
+        "effect_id": "plague",
+        "to": "allies",
+        "area": "adjacent"
+      }
+    ]
   }
 }

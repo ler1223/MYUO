@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from .squad import Squad
+from .squad import Formation, FormationSize, Squad
 from .unit import Unit
 
 
@@ -56,10 +56,10 @@ class Army:
         self.units[unit.uid] = unit
         return unit
 
-    def create_squad(self, squad_id: str, name: str) -> Squad:
+    def create_squad(self, squad_id: str, name: str, size: Optional[FormationSize] = None) -> Squad:
         if squad_id in self.squads:
             raise ValueError(f"squad {squad_id} already exists")
-        squad = Squad(squad_id, name)
+        squad = Squad(squad_id, name, Formation(size))
         self.squads[squad_id] = squad
         return squad
 

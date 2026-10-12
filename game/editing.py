@@ -121,6 +121,14 @@ def new_item_data(db: Database) -> dict[str, Any]:
     return {"slot": db.slot_types[0]}
 
 
+def new_effect_data() -> dict[str, Any]:
+    return {"duration": 3, "tags": ["debuff"]}
+
+
+def new_area_data() -> dict[str, Any]:
+    return {"cells": [[0, 0]]}
+
+
 def new_tag_data() -> dict[str, Any]:
     return {"kind": TAG_UNIT}
 

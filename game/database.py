@@ -12,8 +12,10 @@ from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence, Union
 
 from . import events
+from .areas import AREA_SINGLE, BUILTIN_AREAS, AreaDefinition
 from .definitions import CATEGORIES, ItemDefinition, PassiveDefinition, SkillDefinition
 from .effects import EffectDefinition
+from .squad import FormationSize
 from .tags import TagDefinition, TagRule
 from .unit import Unit, UnitDefinition, UnitState
 
@@ -22,6 +24,7 @@ CONFIG = "config"
 
 # Раздел -> класс определения. Порядок = порядок разбора (сначала то, на что ссылаются).
 SECTIONS = {
+    "areas": AreaDefinition,
     "tags": TagDefinition,
     "effects": EffectDefinition,
     "passives": PassiveDefinition,
@@ -38,6 +41,7 @@ def slugify(name: str) -> str:
 class Database:
     def __init__(self, data: Mapping[str, Any], directory: Union[str, Path, None] = None):
         self.directory = Path(directory) if directory else None
+        self.areas: dict[str, AreaDefinition] = {}
         self.tags: dict[str, TagDefinition] = {}
         self.effects: dict[str, EffectDefinition] = {}
         self.passives: dict[str, PassiveDefinition] = {}
@@ -45,6 +49,7 @@ class Database:
         self.items: dict[str, ItemDefinition] = {}
         self.units: dict[str, UnitDefinition] = {}
         self.slot_types: tuple[str, ...] = ()
+        self.formation = FormationSize()
         self.rules: list[TagRule] = []
         self._apply(data)
 
@@ -55,7 +60,10 @@ class Database:
         directory = Path(directory or DEFAULT_DATA_DIR)
         data = {}
         for name in (*SECTIONS, CONFIG):
-            data[name] = json.loads((directory / f"{name}.json").read_text(encoding="utf-8"))
+            path = directory / f"{name}.json"
+            if name == "areas" and not path.exists():
+                continue  # старая папка данных без областей: возьмутся встроенные
+            data[name] = json.loads(path.read_text(encoding="utf-8"))
         return cls(data, directory)
 
     def to_dict(self) -> dict[str, Any]:
@@ -63,7 +71,8 @@ class Database:
             section: {key: value.to_dict() for key, value in getattr(self, section).items()}
             for section in SECTIONS
         }
-        data[CONFIG] = {"slot_types": list(self.slot_types), "tag_rules": [r.to_dict() for r in self.rules]}
+        data[CONFIG] = {"formation": self.formation.to_dict(), "slot_types": list(self.slot_types),
+                        "tag_rules": [r.to_dict() for r in self.rules]}
         return data
 
     def save(self, directory: Union[str, Path, None] = None) -> None:
@@ -81,13 +90,16 @@ class Database:
 
         Словари разделов обновляются на месте: юниты держат ссылку на self.items.
         """
+        source = dict(data)
+        source.setdefault("areas", BUILTIN_AREAS)
         parsed = {
-            section: {key: cls.from_dict(key, value) for key, value in data.get(section, {}).items()}
+            section: {key: cls.from_dict(key, value) for key, value in source.get(section, {}).items()}
             for section, cls in SECTIONS.items()
         }
         config = data.get(CONFIG, {})
         slot_types = tuple(config.get("slot_types", ()))
         rules = [TagRule.from_dict(r) for r in config.get("tag_rules", ())]
+        formation = FormationSize.from_dict(config.get("formation", {}))
         self._validate(parsed, slot_types, rules)
         for section, values in parsed.items():
             target = getattr(self, section)
@@ -95,12 +107,15 @@ class Database:
             target.update(values)
         self.slot_types = slot_types
         self.rules = rules
+        self.formation = formation
 
     @staticmethod
     def _validate(parsed: Mapping[str, Mapping[str, Any]], slot_types: Sequence[str], rules: Sequence[TagRule]) -> None:
         """Проверяет ссылки между определениями, чтобы опечатка в данных падала сразу."""
         tags, effects, passives = parsed["tags"], parsed["effects"], parsed["passives"]
-        skills, items = parsed["skills"], parsed["items"]
+        skills, items, areas = parsed["skills"], parsed["items"], parsed["areas"]
+        if AREA_SINGLE not in areas:
+            raise ValueError(f"area {AREA_SINGLE!r} is required")
 
         def require(known: Any, refs: Any, where: str) -> None:
             for ref in refs:
@@ -111,14 +126,19 @@ class Database:
             require(tags, effect.grants_tags, f"effect {effect.id}")
             for mod in effect.attack_mods:
                 require(tags, mod.add_tags, f"effect {effect.id}")
+            for trigger in effect.triggers:
+                require(effects, [trigger.effect_id] if trigger.effect_id else [], f"effect {effect.id}")
+                require(areas, [trigger.area] if trigger.area else [], f"effect {effect.id}")
         for passive in passives.values():
             require(effects, [passive.effect_id] if passive.effect_id else [], f"passive {passive.id}")
             require({*tags, *CATEGORIES}, passive.cover_tags, f"passive {passive.id}")
+            require(areas, [passive.cover_area, *passive.cover_skill_areas], f"passive {passive.id}")
             if not hasattr(events, passive.trigger):
                 raise ValueError(f"passive {passive.id}: unknown event {passive.trigger!r}")
         for skill in skills.values():
             where = f"skill {skill.id}"
             require(effects, [a.effect_id for a in skill.applies], where)
+            require(areas, [skill.area], where)
             require(tags, skill.tags, where)
             require(tags, [tag for tag, _ in skill.bonus_vs], where)
             for part in skill.parts:
@@ -158,6 +178,8 @@ class Database:
 
     def delete(self, section: str, key: str) -> None:
         """Удаляет определение и вычищает все ссылки на него."""
+        if section == "areas" and key == AREA_SINGLE:
+            raise ValueError(f"area {AREA_SINGLE!r} cannot be deleted")
         data = self.to_dict()
         del data[section][key]
 
@@ -175,6 +197,34 @@ class Database:
         elif section == "passives":
             for owner in (*data["units"].values(), *data["items"].values()):
                 drop(owner, "passives")
+        elif section == "areas":
+            for skill in data["skills"].values():
+                if skill["area"] == key:
+                    skill["area"] = AREA_SINGLE
+            for passive in data["passives"].values():
+                if passive["cover_area"] == key:
+                    passive["cover_area"] = AREA_SINGLE
+                drop(passive, "cover_skill_areas")
+            for effect in data["effects"].values():
+                for trigger in effect["triggers"]:
+                    if trigger["area"] == key:
+                        trigger["area"] = None
+        elif section == "effects":
+            for skill in data["skills"].values():
+                skill["applies"] = [a for a in skill["applies"] if a["effect_id"] != key]
+            for effect in data["effects"].values():
+                effect["triggers"] = [t for t in effect["triggers"] if t["effect_id"] != key]
+            gone = []
+            for passive_id, passive in data["passives"].items():
+                if passive["effect_id"] == key:
+                    if passive["action"] == "cover":
+                        passive["effect_id"] = None
+                    else:
+                        gone.append(passive_id)  # пассивка без своего эффекта бессмысленна
+            for passive_id in gone:
+                del data["passives"][passive_id]
+                for owner in (*data["units"].values(), *data["items"].values()):
+                    owner["passives"] = [p for p in owner["passives"] if p != passive_id]
         elif section == "tags":
             for unit in data["units"].values():
                 drop(unit, "tags")
@@ -195,6 +245,12 @@ class Database:
             config["tag_rules"] = [
                 r for r in config["tag_rules"] if key not in (*r["attack"], *r["attack_not"], *r["target"])
             ]
+        self._apply(data)
+
+    def set_formation(self, rows: int, cols: int, max_units: int) -> None:
+        """Меняет размер поля отряда и предел числа юнитов."""
+        data = self.to_dict()
+        data[CONFIG]["formation"] = {"rows": rows, "cols": cols, "max_units": max_units}
         self._apply(data)
 
     def set_rules(self, rules: Sequence[Mapping[str, Any]]) -> None:
