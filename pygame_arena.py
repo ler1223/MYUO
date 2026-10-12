@@ -1,16 +1,22 @@
 """Экран боя со спрайтами юнитов (вкладка Arena).
 
 Показывает тот же бой, что и вкладка Battle: читает состояние BattleView, которое
-строится только из событий симуляции. Анимации пока нет: по одному кадру на класс.
-Спрайты лежат в assets/sprites/<id класса>.png (см. tools/make_sprites.py).
+строится только из событий симуляции. Когда юнит применяет навык, проигрывается
+одна из его анимаций; какая именно, решает вид навыка (см. animation_for).
+
+Спрайты лежат в assets/sprites/<id класса>/<анимация>.png: горизонтальные полоски
+кадров. Размер кадра и скорость записаны в assets/sprites/sprites.json
+(см. tools/make_sprites.py).
 """
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any, Optional
 
 import pygame
 
+from game.definitions import SkillDefinition
 from game.events import format_event
 from game.squad import Formation, Squad
 from game.unit import Unit
@@ -18,8 +24,16 @@ from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, TEXT, UI, WIDTH, YELLO
 
 SPRITE_DIR = Path(__file__).resolve().parent / "assets" / "sprites"
 DEFAULT_SPRITE = "default"
-SPRITE_SCALE = 3           # спрайт 32x32 рисуется как 96x96
+SPRITE_SCALE = 2           # кадр 80x64 рисуется как 160x128
 DEAD_ALPHA = 120
+IDLE = "idle"
+DEFAULT_META = {"frame_width": 80, "frame_height": 64, "anchor_x": 30, "frame_ms": 110, "idle_ms": 450}
+GROUND_MARGIN = 4          # сколько пикселей кадра остаётся под ногами юнита
+BODY_HEIGHT = 100          # высота фигуры на экране: над ней рисуются подписи
+
+# Вид навыка (его тег) -> анимация. Навык без этих тегов считается ближней атакой.
+SKILL_ANIMATIONS = (("ranged", "ranged"), ("magic", "cast"), ("melee", "melee"))
+FALLBACK_ANIMATION = "melee"
 
 # Раскладка поля
 CENTER_X = WIDTH // 2
@@ -27,7 +41,7 @@ HORIZON_Y = 150
 FIELD_BOTTOM = 498
 FRONT_OFFSET = 70          # расстояние переднего ряда от центра
 ROW_STEP = 118             # шаг между рядами формации (по горизонтали)
-COL_STEP = 146             # шаг между колоннами: спрайт 96 + подписи над ним 46 + зазор
+COL_STEP = 146             # шаг между колоннами: фигура 100 + подписи над ней 46
 COL_SKEW = 14              # сдвиг колонн для ощущения глубины
 FIRST_FEET_Y = 198
 BAR_W = 64
@@ -46,39 +60,79 @@ PP_COLOR = (190, 120, 235)
 DEAD_TEXT = (120, 120, 125)
 
 
+def animation_for(skill: Optional[SkillDefinition]) -> str:
+    """Какую анимацию проигрывать для навыка: по его тегам."""
+    if skill is not None:
+        for tag, animation in SKILL_ANIMATIONS:
+            if tag in skill.tags:
+                return animation
+    return FALLBACK_ANIMATION
+
+
 class SpriteBank:
-    """Загружает и кэширует спрайты классов; для неизвестного класса отдаёт заглушку."""
+    """Загружает и кэширует кадры анимаций классов; для неизвестного класса отдаёт заглушку."""
 
     def __init__(self, directory: Path = SPRITE_DIR, scale: int = SPRITE_SCALE):
         self.directory = Path(directory)
         self.scale = scale
-        self._base: dict[str, pygame.Surface] = {}
-        self._variants: dict[tuple[str, bool, bool], pygame.Surface] = {}
+        meta_path = self.directory / "sprites.json"
+        self.meta = dict(DEFAULT_META)
+        if meta_path.exists():
+            self.meta.update(json.loads(meta_path.read_text(encoding="utf-8")))
+        self._frames: dict[tuple[str, str], list[pygame.Surface]] = {}
+        self._variants: dict[tuple[str, str, int, bool, bool], pygame.Surface] = {}
 
-    def has_own_sprite(self, class_id: str) -> bool:
-        return (self.directory / f"{class_id}.png").exists()
+    @property
+    def frame_ms(self) -> int:
+        return self.meta["frame_ms"]
 
-    def _load(self, class_id: str) -> pygame.Surface:
-        if class_id in self._base:
-            return self._base[class_id]
-        path = self.directory / f"{class_id}.png"
-        if path.exists():
-            image = pygame.image.load(str(path)).convert_alpha()
-            image = pygame.transform.scale(image, (image.get_width() * self.scale, image.get_height() * self.scale))
-        elif class_id != DEFAULT_SPRITE:
-            image = self._load(DEFAULT_SPRITE)
-        else:
+    @property
+    def idle_ms(self) -> int:
+        return self.meta["idle_ms"]
+
+    def has_own_sprites(self, class_id: str) -> bool:
+        return (self.directory / class_id / f"{IDLE}.png").exists()
+
+    def frames(self, class_id: str, animation: str = IDLE) -> list[pygame.Surface]:
+        """Кадры анимации. Нет анимации: стойка; нет класса: заглушка default."""
+        key = (class_id, animation)
+        if key not in self._frames:
+            self._frames[key] = self._load(class_id, animation)
+        return self._frames[key]
+
+    def _load(self, class_id: str, animation: str) -> list[pygame.Surface]:
+        path = self.directory / class_id / f"{animation}.png"
+        if not path.exists():
+            if animation != IDLE:
+                return self.frames(class_id, IDLE)
+            if class_id != DEFAULT_SPRITE:
+                return self.frames(DEFAULT_SPRITE, IDLE)
             # Нет даже заглушки (папку спрайтов удалили): серый прямоугольник.
-            image = pygame.Surface((32 * self.scale, 32 * self.scale), pygame.SRCALPHA)
-            pygame.draw.rect(image, (150, 152, 160), image.get_rect().inflate(-40, -12))
-        self._base[class_id] = image
-        return image
+            blank = pygame.Surface((self.meta["frame_width"] * self.scale, self.meta["frame_height"] * self.scale),
+                                   pygame.SRCALPHA)
+            pygame.draw.rect(blank, (150, 152, 160), pygame.Rect(self.anchor(False) - 20, 30, 40, 90))
+            return [blank]
+        sheet = pygame.image.load(str(path)).convert_alpha()
+        width, height = self.meta["frame_width"], self.meta["frame_height"]
+        frames = []
+        for i in range(max(1, sheet.get_width() // width)):
+            frame = sheet.subsurface(pygame.Rect(i * width, 0, width, height))
+            frames.append(pygame.transform.scale(frame, (width * self.scale, height * self.scale)))
+        return frames
 
-    def get(self, class_id: str, flipped: bool = False, dead: bool = False) -> pygame.Surface:
-        """Спрайт класса. flipped: смотрит влево. dead: серый, полупрозрачный, лежит на боку."""
-        key = (class_id, flipped, dead)
+    def anchor(self, flipped: bool) -> int:
+        """Где в кадре на экране стоят ноги юнита (по горизонтали)."""
+        x = self.meta["anchor_x"] if not flipped else self.meta["frame_width"] - self.meta["anchor_x"]
+        return x * self.scale
+
+    def get(self, class_id: str, animation: str = IDLE, index: int = 0, flipped: bool = False,
+            dead: bool = False) -> pygame.Surface:
+        """Кадр. flipped: смотрит влево. dead: серый, полупрозрачный, лежит на боку."""
+        frames = self.frames(class_id, animation)
+        index %= len(frames)
+        key = (class_id, animation, index, flipped, dead)
         if key not in self._variants:
-            image = self._load(class_id)
+            image = frames[index]
             if flipped:
                 image = pygame.transform.flip(image, True, False)
             if dead:
@@ -102,6 +156,21 @@ class ArenaScreen:
 
     def __init__(self, bank: Optional[SpriteBank] = None):
         self.bank = bank or SpriteBank()
+
+    def current_frame(self, view: Any, unit: Unit, now: int) -> tuple[str, int]:
+        """(анимация, номер кадра) юнита в момент now.
+
+        Пока идёт анимация последнего применённого навыка, показывается она; иначе стойка.
+        """
+        action = view.actions.get(unit.uid)
+        if action is not None:
+            skill_id, started = action
+            animation = animation_for(view.db.skills.get(skill_id))
+            index = (now - started) // self.bank.frame_ms
+            if 0 <= index < len(self.bank.frames(unit.definition.id, animation)):
+                return animation, index
+        idle = self.bank.frames(unit.definition.id, IDLE)
+        return IDLE, (now // self.bank.idle_ms + unit.uid) % len(idle)  # uid сдвигает фазу, чтобы не дышали хором
 
     def draw_battle(self, ui: UI, view: Any, autoplay: bool, now: int, popup_ms: int, popup_rise: int) -> None:
         screen, t = ui.screen, ui.t
@@ -132,7 +201,7 @@ class ArenaScreen:
             placed.extend(self._placements(squad, side))
         anchors: dict[int, tuple[int, int]] = {}
         for x, y, side, unit in sorted(placed, key=lambda p: p[1]):
-            anchors[unit.uid] = self._draw_unit(ui, unit, x, y, side, unit.uid == view.current_uid)
+            anchors[unit.uid] = self._draw_unit(ui, view, unit, x, y, side, now)
 
         # Всплывающие числа урона и лечения
         shown: dict[int, int] = {}
@@ -175,24 +244,32 @@ class ArenaScreen:
                     result.append((*feet_position(side, row, col), side, unit))
         return result
 
-    def _draw_unit(self, ui: UI, unit: Unit, x: int, y: int, side: str, is_current: bool) -> tuple[int, int]:
+    def _draw_unit(self, ui: UI, view: Any, unit: Unit, x: int, y: int, side: str, now: int) -> tuple[int, int]:
         """Рисует юнита с ногами в точке (x, y). Возвращает точку над головой для всплывающих чисел.
 
         Над спрайтом снизу вверх: квадратики AP/PP, полоса HP, имя, строка эффектов.
         """
         screen, t, small = ui.screen, ui.t, ui.fonts["small"]
         alive = unit.is_alive
-        sprite = self.bank.get(unit.definition.id, flipped=side == "right", dead=not alive)
+        flipped = side == "right"
+        is_current = unit.uid == view.current_uid
 
         shadow = pygame.Rect(0, 0, 70, 16)
         shadow.center = (x, y + 2)
         pygame.draw.ellipse(screen, SHADOW, shadow)
         if is_current:
             pygame.draw.ellipse(screen, YELLOW, shadow.inflate(12, 6), 2)
-        screen.blit(sprite, sprite.get_rect(midbottom=(x, y + 4)))
 
-        sprite_top = y + 4 - 32 * self.bank.scale
-        name_y = sprite_top - 37
+        if alive:
+            animation, index = self.current_frame(view, unit, now)
+            sprite = self.bank.get(unit.definition.id, animation, index, flipped)
+            feet_in_frame = sprite.get_height() - GROUND_MARGIN * self.bank.scale
+            screen.blit(sprite, (x - self.bank.anchor(flipped), y + 4 - feet_in_frame))
+        else:
+            sprite = self.bank.get(unit.definition.id, IDLE, 0, flipped, dead=True)
+            screen.blit(sprite, sprite.get_rect(center=(x, y - 26)))
+
+        name_y = y - BODY_HEIGHT - 37
         label = small.render(fit(small, f"{t(unit.name)}({unit.uid})", 110), True, TEXT if alive else DEAD_TEXT)
         screen.blit(label, label.get_rect(midtop=(x, name_y)))
         if not alive:
@@ -222,7 +299,4 @@ class ArenaScreen:
             top = name_y - 14
             line = small.render(fit(small, ", ".join(effects), 116), True, YELLOW)
             screen.blit(line, line.get_rect(midtop=(x, top)))
-        if is_current:
-            pygame.draw.polygon(screen, YELLOW, [(x - 46, y - 40), (x - 46, y - 28), (x - 38, y - 34)]
-                                if side == "left" else [(x + 46, y - 40), (x + 46, y - 28), (x + 38, y - 34)])
         return x, top

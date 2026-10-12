@@ -1,0 +1,13 @@
+{
+  "frame_width": 80,
+  "frame_height": 64,
+  "anchor_x": 30,
+  "frame_ms": 110,
+  "idle_ms": 450,
+  "animations": [
+    "idle",
+    "melee",
+    "ranged",
+    "cast"
+  ]
+}

@@ -18,7 +18,7 @@ import pygame
 
 from game.battle import BattleSimulation
 from game.database import Database
-from game.events import BattleEnded, DamageDealt, Event, Healed, RoundStarted, TurnStarted, format_event
+from game.events import BattleEnded, DamageDealt, Event, Healed, RoundStarted, SkillUsed, TurnStarted, format_event
 from game.i18n import Translator, available_languages
 from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_setup, save_setup
 from game.scenario import Scenario, build_demo
@@ -81,6 +81,7 @@ class BattleView:
         self.sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, self.db, seed=seed)
         self.log: list[Event] = []  # последние события; текст строится при отрисовке на текущем языке
         self.popups: list[Popup] = []
+        self.actions: dict[int, tuple[str, int]] = {}  # uid -> (id последнего навыка, когда применён): для анимации
         self.current_uid: Optional[int] = None
         self.round = 0
         self.ended: Optional[BattleEnded] = None
@@ -94,6 +95,8 @@ class BattleView:
                 self.round = ev.round
             elif isinstance(ev, TurnStarted):
                 self.current_uid = ev.unit
+            elif isinstance(ev, SkillUsed):
+                self.actions[ev.user] = (ev.skill_id, now)
             elif isinstance(ev, DamageDealt):
                 self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
             elif isinstance(ev, Healed):

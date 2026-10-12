@@ -1,4 +1,5 @@
 """Проверка набора спрайтов (без pygame: только наличие и формат файлов)."""
+import json
 import struct
 import unittest
 from pathlib import Path
@@ -7,6 +8,7 @@ from tests.helpers import DB
 
 SPRITE_DIR = Path(__file__).resolve().parent.parent / "assets" / "sprites"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+META = json.loads((SPRITE_DIR / "sprites.json").read_text(encoding="utf-8"))
 
 
 def png_size(path: Path) -> tuple[int, int]:
@@ -17,13 +19,25 @@ def png_size(path: Path) -> tuple[int, int]:
 
 
 class SpriteAssetTests(unittest.TestCase):
-    def test_every_class_has_a_sprite_and_there_is_a_fallback(self):
-        for name in (*DB.units, "default"):
-            self.assertTrue((SPRITE_DIR / f"{name}.png").exists(), name)
+    def test_meta(self):
+        self.assertEqual(META["animations"], ["idle", "melee", "ranged", "cast"])
+        self.assertGreater(META["frame_ms"], 0)
+        self.assertLess(META["anchor_x"], META["frame_width"])
 
-    def test_sprites_are_32x32_png(self):
-        for path in SPRITE_DIR.glob("*.png"):
-            self.assertEqual(png_size(path), (32, 32), path.name)
+    def test_every_class_has_every_animation_and_there_is_a_fallback(self):
+        for name in (*DB.units, "default"):
+            for animation in META["animations"]:
+                self.assertTrue((SPRITE_DIR / name / f"{animation}.png").exists(), (name, animation))
+
+    def test_strips_are_made_of_whole_frames(self):
+        strips = list(SPRITE_DIR.glob("*/*.png"))
+        self.assertTrue(strips)
+        for path in strips:
+            width, height = png_size(path)
+            self.assertEqual(height, META["frame_height"], path)
+            self.assertEqual(width % META["frame_width"], 0, path)
+            frames = width // META["frame_width"]
+            self.assertGreaterEqual(frames, 2 if path.stem == "idle" else 3, path)  # анимация, а не один кадр
 
 
 if __name__ == "__main__":
