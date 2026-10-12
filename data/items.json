@@ -1,0 +1,146 @@
+{
+  "iron_sword": {
+    "name": "Iron Sword",
+    "slot": "light_sword",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "slashing"
+    ]
+  },
+  "shield": {
+    "name": "Shield",
+    "slot": "light_shield",
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 4
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 15
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": -1
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "short_bow": {
+    "name": "Short Bow",
+    "slot": "bow",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 4
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "piercing"
+    ]
+  },
+  "oak_staff": {
+    "name": "Oak Staff",
+    "slot": "staff",
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 4
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "blunt"
+    ]
+  },
+  "rusty_dagger": {
+    "name": "Rusty Dagger",
+    "slot": "dagger",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 3
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "piercing"
+    ]
+  },
+  "war_axe": {
+    "name": "War Axe",
+    "slot": "heavy_weapon",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 6
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "slashing"
+    ]
+  },
+  "lance": {
+    "name": "Lance",
+    "slot": "lance",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "piercing"
+    ]
+  },
+  "fire_charm": {
+    "name": "Fire Charm",
+    "slot": "artifact",
+    "modifiers": [
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 2
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "fire_resistant"
+    ],
+    "damage_tags": []
+  }
+}

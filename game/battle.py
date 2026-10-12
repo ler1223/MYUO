@@ -6,8 +6,17 @@ from typing import Optional
 
 from .areas import AREAS
 from .database import Database
-from .definitions import APPLY_SELF, APPLY_TARGET, SKILL_DAMAGE, SKILL_HEAL, PassiveDefinition, SkillDefinition
-from .effects import ActiveEffect
+from .definitions import (
+    APPLY_SELF,
+    APPLY_TARGET,
+    MAGICAL,
+    PART_HEAL,
+    PHYSICAL,
+    PassiveDefinition,
+    SkillDefinition,
+    SkillPart,
+)
+from .effects import ActiveEffect, AttackMod
 from .events import (
     END_DEFEAT,
     END_EXHAUSTED,
@@ -15,6 +24,7 @@ from .events import (
     END_WIPEOUT,
     SKIP_NO_ACTION,
     SKIP_STUNNED,
+    AttackMissed,
     BattleEnded,
     BattleStarted,
     DamageDealt,
@@ -33,12 +43,13 @@ from .events import (
 from .resource import Resource
 from .squad import Squad
 from .stats import Stat
+from .tags import rule_multipliers
 from .unit import AP_PER_TURN, Unit
 
 DEFAULT_MAX_ROUNDS = 30
 FALLBACK_SKILL_ID = "attack"
 STUNNED_FLAG = "stunned"
-DAMAGE_SPREAD = (0.9, 1.1)
+GUARD_REDUCTION = 0.5  # какая доля физического урона остаётся после блока
 
 
 class BattleSimulation:
@@ -68,7 +79,7 @@ class BattleSimulation:
         self.winner_id: Optional[str] = None
 
         # Порядок «атакующий, затем защитник, внутри по формации» задаёт
-        # разрешение ничьих по SPD и порядок срабатывания пассивок.
+        # разрешение ничьих по инициативе и порядок срабатывания пассивок.
         self._squads = (attacker, defender)
         self.units: dict[int, Unit] = {}
         self._side: dict[int, str] = {}
@@ -129,8 +140,8 @@ class BattleSimulation:
             self.round += 1
             self._round_active = False
             self._emit(RoundStarted(self.round))
-            # sorted устойчив: при равном SPD сохраняется исходный порядок.
-            self._queue = sorted(self._alive(), key=lambda u: -u.stat(Stat.SPD))
+            # sorted устойчив: при равной инициативе сохраняется исходный порядок.
+            self._queue = sorted(self._alive(), key=lambda u: -u.stat(Stat.INITIATIVE))
         return None
 
     def _take_turn(self, unit: Unit) -> None:
@@ -173,7 +184,7 @@ class BattleSimulation:
         """Выполняет действие по тактикам. False, если юнит ничего не смог сделать."""
         allies = self._alive(self._side[unit.uid])
         enemies = [u for u in self._alive() if self._side[u.uid] != self._side[unit.uid]]
-        skills = {skill_id: self.db.skills[skill_id] for skill_id in self.db.skills_for(unit)}
+        skills = {skill_id: self.db.skills[skill_id] for skill_id in unit.skill_ids if skill_id in self.db.skills}
         choice = unit.tactics.choose(unit, allies, enemies, self.rng, skills)
         if choice is None:
             # Ни одно правило не подошло: обычная атака по первому врагу, если на неё есть AP.
@@ -196,34 +207,123 @@ class BattleSimulation:
 
     def _resolve_skill(self, user: Unit, skill: SkillDefinition, target: Unit) -> None:
         affected = self._affected(skill, target)
-        for unit in affected:
-            self._hit(user, skill, unit)
+        used = self._attack_mods(user, skill)
+        mods = [mod for _, mod in used]
+        landed: list[Unit] = []  # по кому попал хотя бы один удар
+        for _ in range(skill.hits):
+            for unit in affected:
+                if unit.is_alive and self._hit(user, skill, unit, mods) and unit not in landed:
+                    landed.append(unit)
+        for unit in landed:
+            if not unit.is_alive:
+                continue
+            self._restore(user, unit, "AP", unit.ap, skill.ap_restore, skill.id)
+            self._restore(user, unit, "PP", unit.pp, skill.pp_restore, skill.id)
             for apply in skill.applies:
-                if apply.to == APPLY_TARGET and unit.is_alive and apply.condition.check(user, unit):
+                if apply.to == APPLY_TARGET and apply.condition.check(user, unit):
                     self._apply_skill_effect(user, unit, apply.effect_id)
-        for apply in skill.applies:
-            if apply.to == APPLY_SELF and user.is_alive and apply.condition.check(user, target):
-                self._apply_skill_effect(user, user, apply.effect_id)
+        if landed:
+            for apply in skill.applies:
+                if apply.to == APPLY_SELF and user.is_alive and apply.condition.check(user, target):
+                    self._apply_skill_effect(user, user, apply.effect_id)
+        self._spend_charges(user, [effect for effect, _ in used])
         dead = [unit for unit in affected if not unit.is_alive]
         for unit in dead:
             self._emit(UnitDied(unit.uid))
         if dead:
             self._check_end()
 
-    def _hit(self, user: Unit, skill: SkillDefinition, unit: Unit) -> None:
-        """Урон или лечение одного задетого юнита и восстановление его AP/PP."""
-        atk = user.stat(Stat.ATK)
-        if skill.kind == SKILL_HEAL:
-            healed = unit.heal(round(atk * skill.power))
-            self._emit(Healed(user.uid, unit.uid, healed, unit.hp, skill.id))
-        elif skill.kind == SKILL_DAMAGE:
-            roll = self.rng.uniform(*DAMAGE_SPREAD)
-            damage = max(1, round(atk * skill.power * roll - unit.stat(Stat.DEF) / 2))
-            dealt = unit.take_damage(damage)
-            self._emit(DamageDealt(user.uid, unit.uid, dealt, unit.hp, skill.id))
-        if unit.is_alive:
-            self._restore(user, unit, "AP", unit.ap, skill.ap_restore, skill.id)
-            self._restore(user, unit, "PP", unit.pp, skill.pp_restore, skill.id)
+    def _attack_mods(self, user: Unit, skill: SkillDefinition) -> list[tuple[ActiveEffect, AttackMod]]:
+        """Изменения навыка от эффектов применяющего (зачарования и т. п.)."""
+        if not skill.parts:
+            return []
+        return [
+            (effect, mod)
+            for effect in user.effects
+            for mod in effect.definition.attack_mods
+            if mod.skill_tag is None or mod.skill_tag in skill.tags
+        ]
+
+    def _spend_charges(self, user: Unit, used: list[ActiveEffect]) -> None:
+        """Эффекты с зарядами расходуют один заряд за применённый навык."""
+        spent: list[ActiveEffect] = []
+        for effect in used:
+            if effect.charges is None or any(effect is done for done in spent):
+                continue
+            spent.append(effect)
+            effect.charges -= 1
+            if effect.charges <= 0 and any(effect is active for active in user.effects):
+                user.effects = [active for active in user.effects if active is not effect]
+                self._emit(EffectExpired(user.uid, effect.definition.id))
+
+    def _part_tags(self, user: Unit, part: SkillPart) -> set[str]:
+        """Теги части урона: категория плюс тип урона (оружия, если часть его использует)."""
+        weapon = user.weapon_damage_tags if part.weapon_tags else ()
+        return {part.category, *(weapon or part.tags)}
+
+    def _hit(self, user: Unit, skill: SkillDefinition, unit: Unit, mods: list[AttackMod]) -> bool:
+        """Один удар по одному юниту: попадание, крит, блок, затем все части навыка.
+
+        Возвращает False при промахе.
+        """
+        hostile = self._side[unit.uid] != self._side[user.uid]
+        common = {*skill.tags, *user.tags}
+        for mod in mods:
+            common.update(mod.add_tags)
+        part_tags = [common | self._part_tags(user, part) for part in skill.parts]
+        target_tags = unit.tags
+        all_tags = set(common).union(*part_tags)
+
+        # Попадание: шанс навыка * точность, правила тегов, минус уклонение врага.
+        chance = skill.accuracy * user.stat(Stat.ACCURACY) / 100
+        chance *= rule_multipliers(self.db.rules, all_tags, target_tags)[1]
+        chance += sum(mod.accuracy_add for mod in mods)
+        if hostile:
+            chance -= unit.stat(Stat.EVASION)
+        if self.rng.random() * 100 >= chance:
+            self._emit(AttackMissed(user.uid, unit.uid, skill.id))
+            return False
+
+        crit_chance = user.stat(Stat.CRIT_RATE) + sum(mod.crit_add for mod in mods)
+        crit = bool(skill.parts) and self.rng.random() * 100 < crit_chance
+        crit_mult = user.stat(Stat.CRIT_DAMAGE) / 100 if crit else 1.0
+        guarded = hostile and self._roll_guard(skill, unit, part_tags)
+        power_mult = 1.0
+        for mod in mods:
+            power_mult *= mod.power_mult
+        extra = [scale for mod in mods for scale in mod.add_scaling]
+        bonus = 1.0
+        for tag, mult in skill.bonus_vs:
+            if tag in target_tags:
+                bonus *= mult
+
+        for part, tags in zip(skill.parts, part_tags):
+            if not unit.is_alive:
+                break
+            value = sum(user.stat(scale.stat) * scale.coef for scale in (*part.scaling, *extra))
+            if part.kind == PART_HEAL:
+                healed = unit.heal(round(value * part.power * power_mult * crit_mult))
+                self._emit(Healed(user.uid, unit.uid, healed, unit.hp, skill.id, crit))
+                continue
+            defense = {PHYSICAL: Stat.PHYS_DEF, MAGICAL: Stat.MAG_DEF}.get(part.category)
+            damage = (value - (unit.stat(defense) if defense else 0)) * part.power * power_mult
+            damage *= rule_multipliers(self.db.rules, tags, target_tags)[0] * bonus * crit_mult
+            blocked = guarded and part.category == PHYSICAL
+            if blocked:
+                damage *= GUARD_REDUCTION
+            dealt = unit.take_damage(max(1, round(damage)))
+            self._emit(DamageDealt(user.uid, unit.uid, dealt, unit.hp, skill.id, crit, blocked))
+        return True
+
+    def _roll_guard(self, skill: SkillDefinition, unit: Unit, part_tags: list[set[str]]) -> bool:
+        """Блок возможен, если в навыке есть физический урон и нет неблокируемого типа."""
+        physical = [tags for part, tags in zip(skill.parts, part_tags)
+                    if part.kind != PART_HEAL and part.category == PHYSICAL]
+        if not physical:
+            return False
+        if any(tag in self.db.tags and self.db.tags[tag].unblockable for tags in physical for tag in tags):
+            return False
+        return self.rng.random() * 100 < unit.stat(Stat.GUARD_RATE)
 
     def _restore(self, user: Unit, unit: Unit, name: str, resource: Resource, amount: int, cause: str) -> None:
         if amount <= 0:
@@ -265,7 +365,7 @@ class BattleSimulation:
         if self.finished:
             return
         for unit in self._alive():
-            if any(unit.ap.can_spend(self.db.skills[s].ap_cost) for s in self.db.skills_for(unit)):
+            if any(unit.ap.can_spend(self.db.skills[s].ap_cost) for s in unit.skill_ids if s in self.db.skills):
                 return
         self._finish_by_hp(END_EXHAUSTED)
 

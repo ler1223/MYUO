@@ -8,9 +8,23 @@ from typing import Any, Iterable, Mapping
 
 class Stat(str, Enum):
     HP = "hp"
-    ATK = "atk"
-    DEF = "def"
-    SPD = "spd"
+    PHYS_ATK = "phys_atk"
+    PHYS_DEF = "phys_def"
+    MAG_ATK = "mag_atk"
+    MAG_DEF = "mag_def"
+    INITIATIVE = "initiative"    # порядок ходов
+    ACCURACY = "accuracy"        # %, множитель шанса попадания навыка
+    EVASION = "evasion"          # %, вычитается из шанса попадания по юниту
+    CRIT_RATE = "crit_rate"      # %, шанс крита
+    CRIT_DAMAGE = "crit_damage"  # %, множитель крита (150 = x1.5)
+    GUARD_RATE = "guard_rate"    # %, шанс блока физического урона
+
+
+# Значения для статов, не указанных в данных класса.
+STAT_DEFAULTS = {Stat.ACCURACY: 100, Stat.CRIT_DAMAGE: 150}
+
+# Статы, от которых могут скейлиться навыки.
+SCALING_STATS = (Stat.HP, Stat.PHYS_ATK, Stat.MAG_ATK, Stat.PHYS_DEF, Stat.MAG_DEF)
 
 
 class ModOp(str, Enum):
@@ -28,6 +42,24 @@ class Modifier:
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "Modifier":
         return cls(Stat(data["stat"]), ModOp(data["op"]), data["value"])
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"stat": self.stat.value, "op": self.op.value, "value": self.value}
+
+
+@dataclass(frozen=True)
+class Scale:
+    """Слагаемое скейла навыка: стат применяющего, умноженный на коэффициент."""
+
+    stat: Stat
+    coef: float = 1.0
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "Scale":
+        return cls(Stat(data["stat"]), data.get("coef", 1.0))
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"stat": self.stat.value, "coef": self.coef}
 
 
 def compute_stat(base: float, modifiers: Iterable[Modifier]) -> int:

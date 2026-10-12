@@ -23,6 +23,11 @@ from game.unit import Unit
 from game.world import WorldMap
 
 CELL_WIDTH = 14
+STAT_SHORT = {
+    Stat.HP: "HP", Stat.PHYS_ATK: "PATK", Stat.PHYS_DEF: "PDEF", Stat.MAG_ATK: "MATK", Stat.MAG_DEF: "MDEF",
+    Stat.INITIATIVE: "INIT", Stat.ACCURACY: "ACC", Stat.EVASION: "EVA", Stat.CRIT_RATE: "CRIT",
+    Stat.CRIT_DAMAGE: "CDMG", Stat.GUARD_RATE: "GRD",
+}
 
 
 def label(unit: Unit, t: Translator) -> str:
@@ -52,12 +57,14 @@ def render_formation(squad: Squad, t: Translator) -> str:
         tag = front if row == 0 else " " * len(front)
         lines.append(f"  {tag} |" + "|".join(cells) + "|")
     for unit in squad.formation.units:
-        stats = " ".join(f"{s.name} {unit.stat(s)}" for s in Stat)
+        stats = " ".join(f"{STAT_SHORT[s]} {unit.stat(s)}" for s in Stat)
         slots = ", ".join(
             f"{t(slot)}: {t(item_id) if item_id else '-'}"
             for slot, item_id in zip(unit.definition.slots, unit.state.equipment)
         )
-        lines.append(f"    {label(unit, t):<14} L{unit.state.level} {stats}  AP {unit.ap.max} PP {unit.pp.max}")
+        tags = ", ".join(t(tag) for tag in sorted(unit.tags)) or "-"
+        lines.append(f"    {label(unit, t):<14} L{unit.state.level}  AP {unit.ap.max} PP {unit.pp.max}  {t('tags')}: {tags}")
+        lines.append(f"      {stats}")
         lines.append(f"      {t('slots')}: {slots}")
     return "\n".join(lines)
 

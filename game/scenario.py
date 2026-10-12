@@ -34,19 +34,19 @@ def build_demo(db: Database) -> Scenario:
         db, "player", "Player", "vanguard", "Vanguard",
         [
             ("knight", 3, ("iron_sword", "shield"), 0, 1),
-            ("archer", 1, (), 1, 0),
-            ("mage", 1, (), 1, 2),
-            ("cleric", 1, (), 2, 1),
+            ("archer", 1, ("short_bow",), 1, 0),
+            ("mage", 1, ("oak_staff",), 1, 2),
+            ("cleric", 1, ("oak_staff",), 2, 1),
         ],
         first_uid=1,
     )
     enemy, enemy_squad = _build_army(
         db, "enemy", "Enemy", "raiders", "Raiders",
         [
-            ("orc", 2, (), 0, 1),
-            ("goblin", 2, (), 0, 0),
-            ("goblin", 2, (), 0, 2),
-            ("mage", 2, (), 1, 1),
+            ("orc", 2, ("war_axe",), 0, 1),
+            ("goblin", 2, ("rusty_dagger",), 0, 0),
+            ("rider", 2, ("lance",), 0, 2),
+            ("mage", 2, ("oak_staff",), 1, 1),
         ],
         first_uid=11,
     )

@@ -1,0 +1,63 @@
+{
+  "slot_types": [
+    "light_sword",
+    "light_shield",
+    "bow",
+    "staff",
+    "dagger",
+    "heavy_weapon",
+    "lance",
+    "light_armor",
+    "medium_armor",
+    "robe",
+    "artifact"
+  ],
+  "tag_rules": [
+    {
+      "attack": [
+        "cavalry"
+      ],
+      "attack_not": [],
+      "target": [
+        "infantry"
+      ],
+      "damage": 1.5,
+      "hit": 1.0
+    },
+    {
+      "attack": [
+        "archer"
+      ],
+      "attack_not": [],
+      "target": [
+        "flying"
+      ],
+      "damage": 1.5,
+      "hit": 1.0
+    },
+    {
+      "attack": [
+        "melee"
+      ],
+      "attack_not": [
+        "flying"
+      ],
+      "target": [
+        "flying"
+      ],
+      "damage": 1.0,
+      "hit": 0.5
+    },
+    {
+      "attack": [
+        "fire"
+      ],
+      "attack_not": [],
+      "target": [
+        "fire_resistant"
+      ],
+      "damage": 0.5,
+      "hit": 1.0
+    }
+  ]
+}

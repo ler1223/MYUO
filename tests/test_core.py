@@ -5,7 +5,6 @@ import random
 import unittest
 
 from game.battle import BattleSimulation
-from game.database import Database
 from game.effects import ActiveEffect, EffectDefinition, StackRule, apply_effect, tick_effects
 from game.events import (
     END_DEFEAT,
@@ -29,17 +28,9 @@ from game.stats import Modifier, ModOp, Stat, compute_stat
 from game.tactics import CONDITIONS, SELECTORS, TacticsSet
 from game.unit import UnitState
 from game.world import Army, WorldMap
+from tests.helpers import DB, plain_db, rule, squads
 
-DB = Database.load()
 ALL_STATS = list(Stat)
-
-
-def make_squad(squad_id, roster, first_uid=1):
-    """roster: список (definition_id, level, row, col)."""
-    squad = Squad(squad_id, squad_id)
-    for i, (definition_id, level, row, col) in enumerate(roster):
-        squad.formation.place(DB.create_unit(definition_id, first_uid + i, level), row, col)
-    return squad
 
 
 def demo_sim(seed, **kwargs):
@@ -48,52 +39,71 @@ def demo_sim(seed, **kwargs):
 
 
 class StatsTests(unittest.TestCase):
+    def test_all_eleven_stats_exist(self):
+        self.assertEqual([s.value for s in Stat], [
+            "hp", "phys_atk", "phys_def", "mag_atk", "mag_def", "initiative",
+            "accuracy", "evasion", "crit_rate", "crit_damage", "guard_rate",
+        ])
+        for definition in DB.units.values():
+            self.assertEqual(set(definition.base_stats), set(Stat), definition.id)
+
     def test_modifier_order(self):
         mods = [
-            Modifier(Stat.ATK, ModOp.PERCENT_MULT, 2.0),
-            Modifier(Stat.ATK, ModOp.PERCENT_ADD, 0.5),
-            Modifier(Stat.ATK, ModOp.FLAT, 5),
-            Modifier(Stat.ATK, ModOp.PERCENT_ADD, 0.5),
-            Modifier(Stat.ATK, ModOp.PERCENT_MULT, 1.5),
+            Modifier(Stat.PHYS_ATK, ModOp.PERCENT_MULT, 2.0),
+            Modifier(Stat.PHYS_ATK, ModOp.PERCENT_ADD, 0.5),
+            Modifier(Stat.PHYS_ATK, ModOp.FLAT, 5),
+            Modifier(Stat.PHYS_ATK, ModOp.PERCENT_ADD, 0.5),
+            Modifier(Stat.PHYS_ATK, ModOp.PERCENT_MULT, 1.5),
         ]
         # (10 + 5) * (1 + 0.5 + 0.5) * (2.0 * 1.5)
         self.assertEqual(compute_stat(10, mods), 90)
         self.assertEqual(compute_stat(10, reversed(mods)), 90)
 
     def test_rounding_and_floor(self):
-        self.assertEqual(compute_stat(10, [Modifier(Stat.DEF, ModOp.PERCENT_ADD, 0.26)]), 13)
-        self.assertEqual(compute_stat(3, [Modifier(Stat.SPD, ModOp.FLAT, -10)]), 0)
+        self.assertEqual(compute_stat(10, [Modifier(Stat.PHYS_DEF, ModOp.PERCENT_ADD, 0.26)]), 13)
+        self.assertEqual(compute_stat(3, [Modifier(Stat.INITIATIVE, ModOp.FLAT, -10)]), 0)
 
     def test_stats_return_after_effect_removed(self):
         unit = DB.create_unit("knight", 1)
         before = {s: unit.stat(s) for s in ALL_STATS}
         unit.add_effect(DB.effects["war_cry"])
         unit.add_effect(DB.effects["iron_will"])
-        self.assertEqual(unit.stat(Stat.ATK), round(before[Stat.ATK] * 1.3))
-        self.assertEqual(unit.stat(Stat.DEF), round(before[Stat.DEF] * 1.2))
+        self.assertEqual(unit.stat(Stat.PHYS_ATK), round(before[Stat.PHYS_ATK] * 1.3))
+        self.assertEqual(unit.stat(Stat.PHYS_DEF), round(before[Stat.PHYS_DEF] * 1.2))
         unit.dispel("buff")
         unit.dispel("passive")
         self.assertEqual(unit.effects, [])
         self.assertEqual({s: unit.stat(s) for s in ALL_STATS}, before)
 
     def test_equipment_and_level_growth(self):
+        stat = lambda unit, *stats: tuple(unit.stat(s) for s in stats)
         base = DB.create_unit("knight", 1)
-        self.assertEqual((base.stat(Stat.HP), base.stat(Stat.ATK), base.stat(Stat.DEF), base.stat(Stat.SPD)), (60, 14, 10, 5))
+        self.assertEqual(stat(base, Stat.HP, Stat.PHYS_ATK, Stat.PHYS_DEF, Stat.INITIATIVE, Stat.GUARD_RATE),
+                         (60, 22, 12, 5, 25))
         leveled = DB.create_unit("knight", 2, level=3)
-        self.assertEqual((leveled.stat(Stat.HP), leveled.stat(Stat.ATK), leveled.stat(Stat.DEF)), (76, 18, 14))
+        self.assertEqual(stat(leveled, Stat.HP, Stat.PHYS_ATK, Stat.PHYS_DEF, Stat.MAG_DEF), (76, 26, 16, 7))
         geared = DB.create_unit("knight", 3, level=3, equipment=["iron_sword", "shield"])
-        self.assertEqual((geared.stat(Stat.ATK), geared.stat(Stat.DEF), geared.stat(Stat.SPD)), (23, 18, 4))
+        self.assertEqual(stat(geared, Stat.PHYS_ATK, Stat.PHYS_DEF, Stat.INITIATIVE, Stat.GUARD_RATE), (31, 20, 4, 40))
         self.assertEqual(geared.hp, geared.max_hp)
         self.assertEqual(geared.unequip(0), "iron_sword")
-        self.assertEqual(geared.stat(Stat.ATK), 18)
+        self.assertEqual(geared.stat(Stat.PHYS_ATK), 26)
+
+    def test_missing_stat_uses_default(self):
+        db = DB.copy()
+        data = db.units["goblin"].to_dict()
+        del data["stats"]["crit_damage"], data["stats"]["accuracy"], data["stats"]["guard_rate"]
+        db.update("units", "goblin", data)
+        goblin = db.create_unit("goblin", 1)
+        self.assertEqual((goblin.stat(Stat.CRIT_DAMAGE), goblin.stat(Stat.ACCURACY), goblin.stat(Stat.GUARD_RATE)),
+                         (150, 100, 0))
 
     def test_definitions_are_frozen(self):
         for definition in (DB.units["knight"], DB.effects["poison"], DB.skills["attack"],
-                           DB.passives["avenger"], DB.items["shield"]):
+                           DB.passives["avenger"], DB.items["shield"], DB.tags["infantry"], DB.rules[0]):
             with self.assertRaises(dataclasses.FrozenInstanceError):
                 definition.name = "x"
         with self.assertRaises(TypeError):
-            DB.units["knight"].base_stats[Stat.ATK] = 99
+            DB.units["knight"].base_stats[Stat.PHYS_ATK] = 99
 
 
 class ResourceTests(unittest.TestCase):
@@ -116,10 +126,10 @@ class ResourceTests(unittest.TestCase):
 
 
 class EffectTests(unittest.TestCase):
-    def definition(self, rule, max_stacks=1):
+    def definition(self, stack_rule, max_stacks=1):
         return EffectDefinition(
-            id="e", name="E", duration=3, stack_rule=rule, max_stacks=max_stacks,
-            modifiers=(Modifier(Stat.ATK, ModOp.FLAT, 2),),
+            id="e", name="E", duration=3, stack_rule=stack_rule, max_stacks=max_stacks,
+            modifiers=(Modifier(Stat.PHYS_ATK, ModOp.FLAT, 2),),
         )
 
     def test_refresh(self):
@@ -199,8 +209,7 @@ class EffectTests(unittest.TestCase):
         unit.add_effect(DB.effects["iron_will"])
         unit.tick()
         saved = json.loads(json.dumps(unit.save_effects()))
-        self.assertEqual(saved[0], {"effect_id": "poison", "remaining": 2, "stacks": 2, "source": 7})
-        self.assertEqual(set(saved[0]), {"effect_id", "remaining", "stacks", "source"})
+        self.assertEqual(saved[0], {"effect_id": "poison", "remaining": 2, "stacks": 2, "source": 7, "charges": None})
 
         restored = ActiveEffect.from_save(saved[0], DB.effects)
         self.assertEqual(restored, unit.effects[0])
@@ -224,7 +233,8 @@ class EffectTests(unittest.TestCase):
 
 class TacticsTests(unittest.TestCase):
     def test_registries(self):
-        self.assertLessEqual({"always", "hp_below", "has_flag", "lacks_effect"}, set(CONDITIONS))
+        self.assertLessEqual({"always", "hp_below", "has_flag", "lacks_effect", "has_effect", "has_tag", "lacks_tag"},
+                             set(CONDITIONS))
         self.assertLessEqual({"weakest", "strongest", "frontmost", "backmost", "random"}, set(SELECTORS))
 
     def test_cleric_heals_wounded_ally_else_attacks(self):
@@ -233,11 +243,11 @@ class TacticsTests(unittest.TestCase):
         enemy = DB.create_unit("goblin", 3)
         rng = random.Random(0)
         tactics = cleric.definition.tactics
-        self.assertEqual(tactics.choose(cleric, [knight, cleric], [enemy], rng, DB.skills), ("attack", enemy))
+        self.assertEqual(tactics.choose(cleric, [knight, cleric], [enemy], rng, DB.skills), ("magic_bolt", enemy))
         knight.take_damage(40)
         self.assertEqual(tactics.choose(cleric, [knight, cleric], [enemy], rng, DB.skills), ("heal", knight))
         cleric.ap.spend(3)  # остался 1 AP: правило лечения пропускается
-        self.assertEqual(tactics.choose(cleric, [knight, cleric], [enemy], rng, DB.skills), ("attack", enemy))
+        self.assertEqual(tactics.choose(cleric, [knight, cleric], [enemy], rng, DB.skills), ("magic_bolt", enemy))
 
     def test_archer_poisons_unpoisoned_then_hits_backmost(self):
         archer = DB.create_unit("archer", 1)
@@ -250,7 +260,21 @@ class TacticsTests(unittest.TestCase):
         self.assertEqual(tactics.choose(archer, [archer], enemies, rng, DB.skills), ("poison_arrow", orc))
         for enemy in enemies:
             enemy.add_effect(DB.effects["poison"])
-        self.assertEqual(tactics.choose(archer, [archer], enemies, rng, DB.skills), ("attack", mage))
+        self.assertEqual(tactics.choose(archer, [archer], enemies, rng, DB.skills), ("shot", mage))
+
+    def test_tag_conditions(self):
+        rider, knight, other_rider = (DB.create_unit(d, i) for i, d in enumerate(["rider", "knight", "rider"], 1))
+        rng = random.Random(0)
+        tactics = rider.definition.tactics  # копьём по коннице, иначе атака по пехоте
+        self.assertEqual(tactics.choose(rider, [rider], [knight, other_rider], rng, DB.skills),
+                         ("lance_charge", other_rider))
+        self.assertEqual(tactics.choose(rider, [rider], [knight], rng, DB.skills), ("attack", knight))
+        lacks = TacticsSet.from_list([rule("attack", condition={"type": "lacks_tag", "tag": "infantry"})])
+        self.assertEqual(lacks.choose(rider, [rider], [knight, other_rider], rng, DB.skills), ("attack", other_rider))
+        has_effect = TacticsSet.from_list([rule("attack", condition={"type": "has_effect", "effect_id": "poison"})])
+        self.assertIsNone(has_effect.choose(rider, [rider], [knight], rng, DB.skills))
+        knight.add_effect(DB.effects["poison"])
+        self.assertEqual(has_effect.choose(rider, [rider], [knight], rng, DB.skills), ("attack", knight))
 
     def test_new_condition_via_registry(self):
         class IsDefinition:
@@ -263,8 +287,7 @@ class TacticsTests(unittest.TestCase):
         CONDITIONS["is_definition"] = IsDefinition
         try:
             tactics = TacticsSet.from_list([
-                {"side": "enemy", "condition": {"type": "is_definition", "definition_id": "mage"},
-                 "selector": "frontmost", "skill": "attack"},
+                rule("attack", condition={"type": "is_definition", "definition_id": "mage"}),
             ])
             actor, goblin, mage = (DB.create_unit(d, i) for i, d in enumerate(["knight", "goblin", "mage"]))
             self.assertEqual(tactics.choose(actor, [actor], [goblin, mage], random.Random(0), DB.skills), ("attack", mage))
@@ -333,9 +356,11 @@ class SquadAndWorldTests(unittest.TestCase):
         self.assertEqual([u.definition.id for u in scenario.player_squad.formation.units],
                          ["knight", "archer", "mage", "cleric"])
         self.assertEqual(sorted(u.definition.id for u in scenario.enemy_squad.formation.units),
-                         ["goblin", "goblin", "mage", "orc"])
+                         ["goblin", "mage", "orc", "rider"])
         self.assertTrue(scenario.world.are_adjacent(scenario.player_squad.id, scenario.enemy_squad.id))
         self.assertEqual((scenario.world.width, scenario.world.height), (8, 6))
+        for unit in (*scenario.player.units.values(), *scenario.enemy.units.values()):
+            self.assertTrue(unit.weapon_damage_tags, unit.label)  # у каждого есть оружие с типом урона
 
 
 class BattleTests(unittest.TestCase):
@@ -365,7 +390,8 @@ class BattleTests(unittest.TestCase):
                 self.assertEqual(len(survivors), 2, seed)
                 share = {sq.id: sum(u.hp for u in sq.formation.units) / sum(u.max_hp for u in sq.formation.units)
                          for sq in (sim.attacker, sim.defender)}
-                self.assertEqual(winner, max(share, key=share.get), seed)
+                if share["vanguard"] != share["raiders"]:
+                    self.assertEqual(winner, max(share, key=share.get), seed)
 
     def test_round_limit_gives_draw(self):
         sim = demo_sim(1, max_rounds=1)
@@ -381,29 +407,29 @@ class BattleTests(unittest.TestCase):
         collected = []
         while not stepped.finished:
             new = stepped.step()
-            self.assertEqual(sum(isinstance(e, TurnStarted) for e in new) <= 1, True)
+            self.assertLessEqual(sum(isinstance(e, TurnStarted) for e in new), 1)
             collected.extend(new)
         self.assertEqual(collected, demo_sim(7).run())
 
     def test_different_seeds_differ(self):
         self.assertNotEqual(demo_sim(1).run(), demo_sim(2).run())
 
-    def test_turn_order_by_speed(self):
+    def test_turn_order_by_initiative(self):
         sim = demo_sim(3)
         order = [e.unit for e in sim.step() + sim.step() + sim.step() if isinstance(e, TurnStarted)]
-        speeds = [sim.units[uid].stat(Stat.SPD) for uid in order]
-        self.assertEqual(speeds, sorted(speeds, reverse=True))
-        self.assertEqual(speeds[0], max(u.stat(Stat.SPD) for u in sim.units.values()))
+        values = [sim.units[uid].stat(Stat.INITIATIVE) for uid in order]
+        self.assertEqual(values, sorted(values, reverse=True))
+        self.assertEqual(values[0], max(u.stat(Stat.INITIATIVE) for u in sim.units.values()))
 
     def test_permanent_passive_applied_at_start(self):
         sim = demo_sim(1)
         knight = sim.attacker.formation.units[0]
-        def_before = knight.stat(Stat.DEF)
+        def_before = knight.stat(Stat.PHYS_DEF)
         events = sim.step()
         self.assertIsInstance(events[0], BattleStarted)
         self.assertEqual(events[1], PassiveTriggered(knight.uid, "iron_will"))
         self.assertTrue(knight.has_effect("iron_will"))
-        self.assertEqual(knight.stat(Stat.DEF), round(def_before * 1.2))
+        self.assertEqual(knight.stat(Stat.PHYS_DEF), round(def_before * 1.2))
         self.assertEqual(knight.pp.current, knight.pp.max)
         sim.run()
         if knight.is_alive:
@@ -412,10 +438,14 @@ class BattleTests(unittest.TestCase):
     def test_avenger_limited_by_pp(self):
         # Рыцари бьют передний ряд: три гоблина гибнут раньше орка,
         # но PP орка хватает только на одно срабатывание.
-        weak = make_squad("weak", [("goblin", 1, 0, 0), ("goblin", 1, 0, 1), ("goblin", 1, 0, 2), ("orc", 1, 1, 1)])
-        strong = make_squad("strong", [("knight", 8, 0, 0), ("knight", 8, 0, 1)], first_uid=10)
+        db = plain_db()
+        weak, strong = squads(
+            db,
+            [("goblin", 1, 0, 0), ("goblin", 1, 0, 1), ("goblin", 1, 0, 2), ("orc", 1, 1, 1)],
+            [("knight", 8, 0, 0), ("knight", 8, 0, 1)],
+        )
         orc = weak.formation.units[-1]
-        sim = BattleSimulation(weak, strong, DB, seed=5)
+        sim = BattleSimulation(weak, strong, db, seed=5)
         events = sim.run()
 
         goblin_uids = {u.uid for u in weak.formation.units[:3]}
@@ -464,13 +494,10 @@ class BattleTests(unittest.TestCase):
                     self.assertGreaterEqual(unit.pp.current, 0)
 
     def test_fallback_attack_when_no_rule_matches(self):
-        # Юнит без единого правила тактик.
-        definition = dataclasses.replace(DB.units["goblin"], id="dummy", name="Dummy", tactics=TacticsSet())
-        db = Database(DB.effects, DB.items, DB.skills, DB.passives, {**DB.units, "dummy": definition})
-        a, b = Squad("a", "A"), Squad("b", "B")
-        a.formation.place(db.create_unit("dummy", 1), 0, 0)
-        b.formation.place(db.create_unit("dummy", 2), 1, 1)
-        b.formation.place(db.create_unit("dummy", 3), 0, 2)
+        db = plain_db()
+        data = db.units["goblin"].to_dict()
+        db.update("units", "dummy", dict(data, name="Dummy", tactics=[]))  # юнит без единого правила
+        a, b = squads(db, [("dummy", 1, 0, 0)], [("dummy", 1, 1, 1), ("dummy", 1, 0, 2)])
         sim = BattleSimulation(a, b, db, seed=1)
         used = [e for e in sim.run() if isinstance(e, SkillUsed) and e.user == 1]
         self.assertTrue(used)
@@ -478,16 +505,16 @@ class BattleTests(unittest.TestCase):
         self.assertEqual(used[0].target, 3)  # первый враг = передний ряд
 
     def test_ap_never_regenerates_and_battle_ends_by_exhaustion(self):
-        a = make_squad("a", [("knight", 5, 0, 0)])
-        b = make_squad("b", [("knight", 5, 0, 0)], first_uid=2)
-        sim = BattleSimulation(a, b, DB, seed=1)
+        db = plain_db()
+        a, b = squads(db, [("knight", 5, 0, 0)], [("knight", 5, 0, 0)])
+        sim = BattleSimulation(a, b, db, seed=1)
         events = sim.run()
         self.assertEqual(events[-1].reason, END_EXHAUSTED)
         self.assertLess(sim.round, sim.max_rounds)
         for unit in sim.units.values():
             self.assertTrue(unit.is_alive)
             self.assertEqual(unit.ap.current, 0)
-            spent = sum(DB.skills[e.skill_id].ap_cost for e in events if isinstance(e, SkillUsed) and e.user == unit.uid)
+            spent = sum(db.skills[e.skill_id].ap_cost for e in events if isinstance(e, SkillUsed) and e.user == unit.uid)
             self.assertEqual(spent, unit.ap.max)
         # Равные отряды: побеждает тот, у кого осталась большая доля HP.
         left, right = sim.units[1], sim.units[2]
@@ -496,14 +523,11 @@ class BattleTests(unittest.TestCase):
 
     def test_idle_round_ends_battle(self):
         # У юнитов есть AP, но единственное правило никогда не выполняется, а запасной атаки нет.
-        idle = dataclasses.replace(
-            DB.units["cleric"], id="idle", skills=("heal",),
-            tactics=TacticsSet.from_list([{"skill": "heal", "condition": {"type": "hp_below", "value": 0.1}}]),
-        )
-        db = Database(DB.effects, DB.items, DB.skills, DB.passives, {**DB.units, "idle": idle})
-        a, b = Squad("a", "A"), Squad("b", "B")
-        a.formation.place(db.create_unit("idle", 1), 0, 0)
-        b.formation.place(db.create_unit("idle", 2), 0, 0)
+        db = plain_db()
+        data = db.units["cleric"].to_dict()
+        db.update("units", "idle", dict(data, skills=["heal"],
+                                        tactics=[rule("heal", condition={"type": "hp_below", "value": 0.1})]))
+        a, b = squads(db, [("idle", 1, 0, 0)], [("idle", 1, 0, 0)])
         sim = BattleSimulation(a, b, db, seed=1)
         events = sim.run()
         self.assertEqual((sim.round, events[-1]), (1, BattleEnded(None, END_EXHAUSTED)))

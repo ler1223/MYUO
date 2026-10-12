@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Collection, Iterator, Mapping, Optional
 
-from .stats import Modifier
+from .stats import Modifier, Scale
 
 
 class StackRule(str, Enum):
@@ -24,13 +24,49 @@ class PeriodicAction:
 
 
 @dataclass(frozen=True)
+class AttackMod:
+    """Как эффект меняет навыки носителя (например, зачарование оружия)."""
+
+    add_tags: tuple[str, ...] = ()        # теги, добавляемые атаке (тип урона и т. п.)
+    power_mult: float = 1.0               # множитель урона и лечения
+    add_scaling: tuple[Scale, ...] = ()   # дополнительные слагаемые скейла каждой части
+    accuracy_add: int = 0                 # прибавка к шансу попадания, %
+    crit_add: int = 0                     # прибавка к шансу крита, %
+    skill_tag: Optional[str] = None       # действует только на навыки с этим тегом; None = на все
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "AttackMod":
+        return cls(
+            add_tags=tuple(data.get("add_tags", ())),
+            power_mult=data.get("power_mult", 1.0),
+            add_scaling=tuple(Scale.from_dict(s) for s in data.get("add_scaling", ())),
+            accuracy_add=data.get("accuracy_add", 0),
+            crit_add=data.get("crit_add", 0),
+            skill_tag=data.get("skill_tag"),
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "add_tags": list(self.add_tags),
+            "power_mult": self.power_mult,
+            "add_scaling": [s.to_dict() for s in self.add_scaling],
+            "accuracy_add": self.accuracy_add,
+            "crit_add": self.crit_add,
+            "skill_tag": self.skill_tag,
+        }
+
+
+@dataclass(frozen=True)
 class EffectDefinition:
     id: str
     name: str
     modifiers: tuple[Modifier, ...] = ()
     flags: frozenset[str] = frozenset()
-    tags: frozenset[str] = frozenset()
-    duration: Optional[int] = None  # None = постоянный
+    tags: frozenset[str] = frozenset()           # метки самого эффекта (buff/debuff) для dispel
+    grants_tags: tuple[str, ...] = ()            # теги, которые получает носитель
+    attack_mods: tuple[AttackMod, ...] = ()      # изменения навыков носителя
+    duration: Optional[int] = None               # ходов; None = постоянный
+    charges: Optional[int] = None                # на сколько применений навыков хватает attack_mods
     stack_rule: StackRule = StackRule.REFRESH
     max_stacks: int = 1
     periodic: tuple[PeriodicAction, ...] = ()
@@ -43,11 +79,29 @@ class EffectDefinition:
             modifiers=tuple(Modifier.from_dict(m) for m in data.get("modifiers", ())),
             flags=frozenset(data.get("flags", ())),
             tags=frozenset(data.get("tags", ())),
+            grants_tags=tuple(data.get("grants_tags", ())),
+            attack_mods=tuple(AttackMod.from_dict(m) for m in data.get("attack_mods", ())),
             duration=data.get("duration"),
+            charges=data.get("charges"),
             stack_rule=StackRule(data.get("stack_rule", StackRule.REFRESH.value)),
             max_stacks=data.get("max_stacks", 1),
             periodic=tuple(PeriodicAction(p["kind"], p["amount"]) for p in data.get("periodic", ())),
         )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "modifiers": [m.to_dict() for m in self.modifiers],
+            "flags": sorted(self.flags),
+            "tags": sorted(self.tags),
+            "grants_tags": list(self.grants_tags),
+            "attack_mods": [m.to_dict() for m in self.attack_mods],
+            "duration": self.duration,
+            "charges": self.charges,
+            "stack_rule": self.stack_rule.value,
+            "max_stacks": self.max_stacks,
+            "periodic": [{"kind": p.kind, "amount": p.amount} for p in self.periodic],
+        }
 
 
 @dataclass
@@ -57,11 +111,12 @@ class ActiveEffect:
     definition: EffectDefinition
     remaining: Optional[int]
     stacks: int = 1
-    source: Optional[int] = None  # uid наложившего
+    source: Optional[int] = None    # uid наложившего
+    charges: Optional[int] = None   # оставшиеся заряды attack_mods
 
     @classmethod
     def new(cls, definition: EffectDefinition, source: Optional[int] = None) -> "ActiveEffect":
-        return cls(definition, definition.duration, 1, source)
+        return cls(definition, definition.duration, 1, source, definition.charges)
 
     def modifiers(self) -> Iterator[Modifier]:
         """Модификаторы с учётом стаков: каждый стак даёт полный набор."""
@@ -74,11 +129,13 @@ class ActiveEffect:
             "remaining": self.remaining,
             "stacks": self.stacks,
             "source": self.source,
+            "charges": self.charges,
         }
 
     @classmethod
     def from_save(cls, data: Mapping[str, Any], definitions: Mapping[str, EffectDefinition]) -> "ActiveEffect":
-        return cls(definitions[data["effect_id"]], data["remaining"], data["stacks"], data["source"])
+        return cls(definitions[data["effect_id"]], data["remaining"], data["stacks"], data["source"],
+                   data.get("charges"))
 
 
 def apply_effect(
@@ -101,6 +158,7 @@ def apply_effect(
     if rule is StackRule.STACK:
         existing.stacks = min(definition.max_stacks, existing.stacks + 1)
     existing.remaining = definition.duration
+    existing.charges = definition.charges
     return existing
 
 

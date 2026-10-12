@@ -1,0 +1,92 @@
+{
+  "infantry": {
+    "name": "Infantry",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "cavalry": {
+    "name": "Cavalry",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "flying": {
+    "name": "Flying",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "archer": {
+    "name": "Archer",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "caster": {
+    "name": "Caster",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "armored": {
+    "name": "Armored",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "fire_resistant": {
+    "name": "Fire Resistant",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "slashing": {
+    "name": "Slashing",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "piercing": {
+    "name": "Piercing",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "blunt": {
+    "name": "Blunt",
+    "kind": "damage",
+    "unblockable": true
+  },
+  "fire": {
+    "name": "Fire",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "ice": {
+    "name": "Ice",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "lightning": {
+    "name": "Lightning",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "light": {
+    "name": "Light",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "dark": {
+    "name": "Dark",
+    "kind": "damage",
+    "unblockable": false
+  },
+  "melee": {
+    "name": "Melee",
+    "kind": "skill",
+    "unblockable": false
+  },
+  "ranged": {
+    "name": "Ranged",
+    "kind": "skill",
+    "unblockable": false
+  },
+  "magic": {
+    "name": "Magic",
+    "kind": "skill",
+    "unblockable": false
+  }
+}

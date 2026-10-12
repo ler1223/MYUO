@@ -1,4 +1,4 @@
-"""Юнит: определение (статика), состояние (сохраняется) и рантайм-объект."""
+"""Юнит: определение класса (статика), состояние (сохраняется) и рантайм-объект."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -8,10 +8,10 @@ from typing import Any, Collection, Iterator, Mapping, Optional, Sequence
 from .definitions import ItemDefinition
 from .effects import ActiveEffect, EffectDefinition, apply_effect, tick_effects
 from .resource import Resource
-from .stats import Modifier, Stat, compute_stat
+from .stats import STAT_DEFAULTS, Modifier, Stat, compute_stat
 from .tactics import TacticsSet
 
-# Правила ресурсов. Максимумы AP/PP задаются в JSON юнита (ap_max, pp_max).
+# Правила ресурсов. Максимумы AP/PP задаются в данных класса (ap_max, pp_max).
 # AP и PP не восстанавливаются сами: только навыками (ap_restore / pp_restore).
 AP_START: Optional[int] = None  # None = полный запас в начале боя
 AP_PER_TURN = 0
@@ -24,17 +24,21 @@ def _stat_map(data: Mapping[str, float]) -> Mapping[Stat, float]:
 
 
 def place_equipment(
-    slots: Sequence[str], items: Mapping[str, ItemDefinition], item_ids: Sequence[Optional[str]]
+    slots: Sequence[str], items: Mapping[str, ItemDefinition], item_ids: Sequence[Optional[str]],
+    strict: bool = True,
 ) -> list[Optional[str]]:
     """Раскладывает предметы по слотам класса: результат выровнен по slots, None = пусто.
 
     Принимает и уже выровненный список, и простой перечень предметов
-    (каждый попадает в первый свободный слот своего типа).
+    (каждый попадает в первый свободный слот своего типа). При strict=False
+    неизвестные и не поместившиеся предметы молча отбрасываются: так загружаются
+    сохранения после правки классов и предметов.
     """
     ids = list(item_ids)
     for item_id in ids:
-        if item_id is not None and item_id not in items:
+        if item_id is not None and item_id not in items and strict:
             raise ValueError(f"unknown item {item_id!r}")
+    ids = [i if i in items else None for i in ids]
     if len(ids) == len(slots) and all(i is None or items[i].slot == s for i, s in zip(ids, slots)):
         return ids
     placed: list[Optional[str]] = [None] * len(slots)
@@ -43,14 +47,17 @@ def place_equipment(
             continue
         slot = items[item_id].slot
         free = next((k for k, s in enumerate(slots) if s == slot and placed[k] is None), None)
-        if free is None:
+        if free is not None:
+            placed[free] = item_id
+        elif strict:
             raise ValueError(f"no free {slot!r} slot for item {item_id!r}")
-        placed[free] = item_id
     return placed
 
 
 @dataclass(frozen=True)
 class UnitDefinition:
+    """Класс юнита."""
+
     id: str
     name: str
     base_stats: Mapping[Stat, float]
@@ -58,7 +65,8 @@ class UnitDefinition:
     skills: tuple[str, ...] = ()
     passives: tuple[str, ...] = ()
     tactics: TacticsSet = TacticsSet()
-    slots: tuple[str, ...] = ()         # типы слотов снаряжения, жёстко заданы классом
+    slots: tuple[str, ...] = ()         # типы слотов снаряжения
+    tags: tuple[str, ...] = ()          # особенности класса: пехота, конница и т. д.
     ap_max: int = DEFAULT_AP_MAX
     pp_max: int = DEFAULT_PP_MAX
 
@@ -73,9 +81,24 @@ class UnitDefinition:
             passives=tuple(data.get("passives", ())),
             tactics=TacticsSet.from_list(data.get("tactics", ())),
             slots=tuple(data.get("slots", ())),
+            tags=tuple(data.get("tags", ())),
             ap_max=data.get("ap_max", DEFAULT_AP_MAX),
             pp_max=data.get("pp_max", DEFAULT_PP_MAX),
         )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "stats": {stat.value: value for stat, value in self.base_stats.items()},
+            "growth": {stat.value: value for stat, value in self.growth.items()},
+            "ap_max": self.ap_max,
+            "pp_max": self.pp_max,
+            "tags": list(self.tags),
+            "slots": list(self.slots),
+            "skills": list(self.skills),
+            "passives": list(self.passives),
+            "tactics": self.tactics.to_list(),
+        }
 
 
 @dataclass
@@ -95,11 +118,12 @@ class UnitState:
 class Unit:
     """Рантайм-юнит: определение + состояние + AP/PP + активные эффекты."""
 
-    def __init__(self, definition: UnitDefinition, state: UnitState, items: Mapping[str, ItemDefinition]):
+    def __init__(self, definition: UnitDefinition, state: UnitState, items: Mapping[str, ItemDefinition],
+                 strict: bool = True):
         self.definition = definition
         self.state = state
         self._items = items  # справочник предметов для разрешения state.equipment
-        state.equipment = place_equipment(definition.slots, items, state.equipment)
+        state.equipment = place_equipment(definition.slots, items, state.equipment, strict)
         self.ap = self._full_ap()
         self.pp = Resource(definition.pp_max, definition.pp_max)
         self.effects: list[ActiveEffect] = []
@@ -140,7 +164,7 @@ class Unit:
 
     @property
     def skill_ids(self) -> tuple[str, ...]:
-        """Навыки класса и надетых предметов."""
+        """Доступные навыки: класса и надетых предметов."""
         ids = self.definition.skills + tuple(s for item in self.equipped for s in item.skills)
         return tuple(dict.fromkeys(ids))
 
@@ -149,6 +173,21 @@ class Unit:
         """Пассивки класса и надетых предметов."""
         ids = self.definition.passives + tuple(p for item in self.equipped for p in item.passives)
         return tuple(dict.fromkeys(ids))
+
+    @property
+    def tags(self) -> frozenset[str]:
+        """Теги юнита: класса, надетых предметов и активных эффектов."""
+        tags = set(self.definition.tags)
+        for item in self.equipped:
+            tags.update(item.tags)
+        for effect in self.effects:
+            tags.update(effect.definition.grants_tags)
+        return frozenset(tags)
+
+    @property
+    def weapon_damage_tags(self) -> tuple[str, ...]:
+        """Тип урона надетого оружия; пусто, если оружия с типом нет."""
+        return tuple(dict.fromkeys(tag for item in self.equipped for tag in item.damage_tags))
 
     # --- статы ---
 
@@ -160,7 +199,8 @@ class Unit:
 
     def stat(self, stat: Stat) -> int:
         """Считает стат заново из всех источников; результат нигде не хранится."""
-        base = self.definition.base_stats.get(stat, 0) + self.definition.growth.get(stat, 0) * (self.state.level - 1)
+        base = self.definition.base_stats.get(stat, STAT_DEFAULTS.get(stat, 0))
+        base += self.definition.growth.get(stat, 0) * (self.state.level - 1)
         return compute_stat(base, (m for m in self._modifiers() if m.stat is stat))
 
     @property
@@ -223,7 +263,7 @@ class Unit:
         return any(flag in e.definition.flags for e in self.effects)
 
     def dispel(self, tag: str) -> list[ActiveEffect]:
-        """Снимает все эффекты с тегом и возвращает их."""
+        """Снимает все эффекты с меткой и возвращает их."""
         removed = [e for e in self.effects if tag in e.definition.tags]
         self.effects = [e for e in self.effects if tag not in e.definition.tags]
         return removed
@@ -236,7 +276,7 @@ class Unit:
         return [e.to_save() for e in self.effects]
 
     def load_effects(self, saved: Sequence[Mapping[str, Any]], definitions: Mapping[str, EffectDefinition]) -> None:
-        self.effects = [ActiveEffect.from_save(d, definitions) for d in saved]
+        self.effects = [ActiveEffect.from_save(d, definitions) for d in saved if d["effect_id"] in definitions]
 
     def __repr__(self) -> str:
         return f"<Unit {self.label} L{self.state.level} HP {self.hp}/{self.max_hp}>"

@@ -64,6 +64,16 @@ class SkillUsed(Event):
 
 
 @dataclass(frozen=True)
+class AttackMissed(Event):
+    """Удар навыка не попал по цели."""
+
+    SUBJECT: ClassVar[Optional[str]] = "target"
+    source: int
+    target: int
+    cause: str
+
+
+@dataclass(frozen=True)
 class DamageDealt(Event):
     SUBJECT: ClassVar[Optional[str]] = "target"
     source: Optional[int]
@@ -71,6 +81,8 @@ class DamageDealt(Event):
     amount: int
     hp_left: int
     cause: str  # id навыка или эффекта
+    crit: bool = False
+    guarded: bool = False  # часть урона заблокирована
 
 
 @dataclass(frozen=True)
@@ -81,6 +93,7 @@ class Healed(Event):
     amount: int
     hp_left: int
     cause: str
+    crit: bool = False
 
 
 @dataclass(frozen=True)
@@ -155,12 +168,17 @@ def format_event(ev: Event, name_fn: Callable[[int], str], tr: Optional[Callable
         case SkillUsed():
             return t("  {user} uses {skill} on {target}",
                      user=name_fn(ev.user), skill=t(ev.skill_id), target=name_fn(ev.target))
+        case AttackMissed():
+            return t("  {source} misses {target} with {cause}",
+                     source=name_fn(ev.source), target=name_fn(ev.target), cause=t(ev.cause))
         case DamageDealt():
+            notes = "".join(f", {t(word)}" for word, on in (("crit", ev.crit), ("guarded", ev.guarded)) if on)
             return t("  {target} takes {amount} damage from {cause} (HP {hp})",
-                     target=name_fn(ev.target), amount=ev.amount, cause=t(ev.cause), hp=ev.hp_left)
+                     target=name_fn(ev.target), amount=ev.amount, cause=t(ev.cause) + notes, hp=ev.hp_left)
         case Healed():
+            notes = f", {t('crit')}" if ev.crit else ""
             return t("  {target} is healed for {amount} by {cause} (HP {hp})",
-                     target=name_fn(ev.target), amount=ev.amount, cause=t(ev.cause), hp=ev.hp_left)
+                     target=name_fn(ev.target), amount=ev.amount, cause=t(ev.cause) + notes, hp=ev.hp_left)
         case ResourceGained():
             return t("  {target} gains {amount} {resource} from {cause} ({resource} {current})",
                      target=name_fn(ev.target), amount=ev.amount, resource=ev.resource,

@@ -25,7 +25,7 @@ class ICondition(Protocol):
     """Проверка юнита: кандидата в цели или самого действующего.
 
     Необязательный атрибут класса PARAMS = {имя_параметра: вид} описывает
-    параметры для редактора; виды: "fraction", "flag", "effect".
+    параметры для редактора; виды: "fraction", "flag", "effect", "tag".
     """
 
     def check(self, actor: "Unit", candidate: "Unit") -> bool: ...
@@ -72,6 +72,33 @@ class LacksEffect:
         return not candidate.has_effect(self.effect_id)
 
 
+@dataclass(frozen=True)
+class HasEffect:
+    PARAMS: ClassVar[dict[str, str]] = {"effect_id": "effect"}
+    effect_id: str
+
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return candidate.has_effect(self.effect_id)
+
+
+@dataclass(frozen=True)
+class HasTag:
+    PARAMS: ClassVar[dict[str, str]] = {"tag": "tag"}
+    tag: str
+
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return self.tag in candidate.tags
+
+
+@dataclass(frozen=True)
+class LacksTag:
+    PARAMS: ClassVar[dict[str, str]] = {"tag": "tag"}
+    tag: str
+
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return self.tag not in candidate.tags
+
+
 # --- селекторы -------------------------------------------------------------
 
 class Weakest:
@@ -82,10 +109,10 @@ class Weakest:
 
 
 class Strongest:
-    """Наибольший ATK."""
+    """Наибольшая атака (большая из физической и магической)."""
 
     def select(self, actor: "Unit", candidates: Sequence["Unit"], rng: random.Random) -> "Unit":
-        return max(candidates, key=lambda u: u.stat(Stat.ATK))
+        return max(candidates, key=lambda u: max(u.stat(Stat.PHYS_ATK), u.stat(Stat.MAG_ATK)))
 
 
 class Frontmost:
@@ -109,6 +136,9 @@ CONDITIONS: dict[str, Callable[..., ICondition]] = {
     "hp_below": HpBelow,
     "has_flag": HasFlag,
     "lacks_effect": LacksEffect,
+    "has_effect": HasEffect,
+    "has_tag": HasTag,
+    "lacks_tag": LacksTag,
 }
 
 SELECTORS: dict[str, Callable[[], ITargetSelector]] = {
@@ -147,10 +177,7 @@ class TacticRule:
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "TacticRule":
-        """Формат: {"skill", "condition": {...}, "self_condition": {...}, "selector"}.
-
-        Ключ "side" из старых данных игнорируется: сторону задаёт навык.
-        """
+        """Формат: {"skill", "condition": {...}, "self_condition": {...}, "selector"}."""
         return cls(
             skill_id=data["skill"],
             condition=condition_from_dict(data.get("condition")),
@@ -189,7 +216,8 @@ class TacticsSet:
         """Первое правило, которое можно выполнить.
 
         Правило пропускается, если навыка нет в skills (юниту он недоступен),
-        не хватает AP, не выполнено условие на себя или не нашлось цели.
+        не хватает AP, не выполнено условие на себя (правила или самого навыка)
+        или не нашлось цели.
         allies включает самого actor; оба списка содержат только живых
         в порядке формации.
         """
@@ -198,9 +226,12 @@ class TacticsSet:
             skill = skills.get(rule.skill_id)
             if skill is None or not actor.ap.can_spend(skill.ap_cost):
                 continue
-            if not rule.self_condition.check(actor, actor):
+            if not (skill.requires_self.check(actor, actor) and rule.self_condition.check(actor, actor)):
                 continue
-            candidates = [u for u in pools[skill.targets] if rule.condition.check(actor, u)]
+            candidates = [
+                u for u in pools[skill.targets]
+                if skill.requires_target.check(actor, u) and rule.condition.check(actor, u)
+            ]
             if candidates:
                 return rule.skill_id, rule.selector.select(actor, candidates, rng)
         return None

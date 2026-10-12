@@ -1,6 +1,7 @@
-"""Сохранение и загрузка расстановки: армии, отряды, тактики юнитов, свои навыки.
+"""Сохранение и загрузка расстановки: армии, отряды, тактики юнитов, настройки.
 
 UnitState остаётся неизменным; изменённые тактики и эффекты лежат рядом с ним.
+Классы, предметы и навыки здесь не хранятся: они живут в data/ (см. Database).
 """
 from __future__ import annotations
 
@@ -16,6 +17,7 @@ from .unit import Unit, UnitState
 from .world import Army, WorldMap
 
 DEFAULT_SETUP_PATH = Path(__file__).resolve().parent.parent / "saves" / "setup.json"
+SAVE_VERSION = 2  # меняется при несовместимых изменениях формата; чужие версии не читаются
 
 
 def unit_to_save(unit: Unit) -> dict[str, Any]:
@@ -27,13 +29,14 @@ def unit_to_save(unit: Unit) -> dict[str, Any]:
     }
 
 
-def unit_from_save(db: Database, data: Mapping[str, Any]) -> Unit:
-    unit = db.restore_unit(UnitState(**data["state"]), data.get("effects", ()))
+def unit_from_save(db: Database, data: Mapping[str, Any]) -> Optional[Unit]:
+    """None, если класса юнита больше нет. Правила с удалёнными навыками отбрасываются."""
+    state = UnitState(**data["state"])
+    if state.definition_id not in db.units:
+        return None
+    unit = db.restore_unit(state, data.get("effects", ()))
     if data.get("tactics") is not None:
-        unit.set_tactics(TacticsSet.from_list(data["tactics"]))
-        for rule in unit.tactics.rules:
-            if rule.skill_id not in db.skills:
-                raise ValueError(f"{unit.label}: unknown skill {rule.skill_id!r} in saved tactics")
+        unit.set_tactics(TacticsSet.from_list([r for r in data["tactics"] if r["skill"] in db.skills]))
     return unit
 
 
@@ -57,12 +60,16 @@ def army_to_save(army: Army) -> dict[str, Any]:
 def army_from_save(db: Database, data: Mapping[str, Any]) -> Army:
     army = Army(data["id"], data["name"])
     for unit_data in data["units"]:
-        army.recruit(unit_from_save(db, unit_data))
+        unit = unit_from_save(db, unit_data)
+        if unit is not None:
+            army.recruit(unit)
     for squad_data in data["squads"]:
         squad = army.create_squad(squad_data["id"], squad_data["name"])
         for uid, row, col in squad_data["cells"]:
-            army.assign(uid, squad.id, row, col)
-        squad.leader_uid = squad_data["leader_uid"]
+            if uid in army.units:
+                army.assign(uid, squad.id, row, col)
+        if squad_data["leader_uid"] in army.units:
+            squad.leader_uid = squad_data["leader_uid"]
     return army
 
 
@@ -91,29 +98,33 @@ def scenario_from_save(db: Database, data: Mapping[str, Any]) -> Scenario:
 
 
 def clone_scenario(db: Database, scenario: Scenario) -> Scenario:
-    """Независимая копия: бой портит копию, а не редактируемую расстановку."""
+    """Независимая копия с определениями, заново взятыми из db.
+
+    Бой портит копию, а не редактируемую расстановку. После правки классов
+    или предметов так же обновляется сама расстановка.
+    """
     return scenario_from_save(db, scenario_to_save(scenario))
 
 
 def save_setup(path: Union[str, Path], db: Database, scenario: Scenario,
                settings: Optional[Mapping[str, Any]] = None) -> None:
     """settings: настройки приложения, не относящиеся к игре (например, язык)."""
-    data = {
-        "settings": dict(settings or {}),
-        "custom_skills": db.save_custom_skills(),
-        "scenario": scenario_to_save(scenario),
-    }
+    data = {"version": SAVE_VERSION, "settings": dict(settings or {}), "scenario": scenario_to_save(scenario)}
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
+def _read(path: Union[str, Path]) -> dict[str, Any]:
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    if data.get("version") != SAVE_VERSION:
+        raise ValueError(f"unsupported save version {data.get('version')!r}")
+    return data
+
+
 def load_settings(path: Union[str, Path]) -> dict[str, Any]:
-    return json.loads(Path(path).read_text(encoding="utf-8")).get("settings", {})
+    return _read(path).get("settings", {})
 
 
 def load_setup(path: Union[str, Path], db: Database) -> Scenario:
-    """Сначала регистрирует сохранённые навыки в db, затем восстанавливает сценарий."""
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    db.load_custom_skills(data.get("custom_skills", {}))
-    return scenario_from_save(db, data["scenario"])
+    return scenario_from_save(db, _read(path)["scenario"])
