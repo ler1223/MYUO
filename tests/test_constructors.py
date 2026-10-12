@@ -73,9 +73,9 @@ class AreaTests(unittest.TestCase):
         add_effect(self.db, "aura", triggers=[trigger("turn_start", "heal", amount=1, to="allies", area="cross")])
         self.db.delete("areas", "cross")
         self.assertEqual(self.db.skills["probe"].area, AREA_SINGLE)
-        self.assertEqual((self.db.passives["wall"].cover_area, self.db.passives["wall"].cover_skill_areas),
-                         (AREA_SINGLE, ("row",)))
-        self.assertIsNone(self.db.effects["aura"].triggers[0].area)
+        wall = self.db.passives["wall"].reaction
+        self.assertEqual((wall.area, wall.skill_areas), (None, ("row",)))   # без области: любой союзник
+        self.assertIsNone(self.db.effects["aura"].triggers[0].to_area)
         with self.assertRaises(ValueError):
             self.db.delete("areas", AREA_SINGLE)
 
@@ -171,8 +171,9 @@ class EffectTriggerTests(unittest.TestCase):
 
     def test_old_periodic_data_becomes_a_turn_start_trigger(self):
         old = EffectDefinition.from_dict("poison", {"name": "Poison", "periodic": [{"kind": "damage", "amount": 4}]})
-        self.assertEqual([t.to_dict() for t in old.triggers],
-                         [{"when": "turn_start", "action": "damage", "amount": 4, "effect_id": None, "to": "self", "area": None}])
+        reaction = old.triggers[0]
+        self.assertEqual((reaction.event, reaction.whose, reaction.action, reaction.amount, reaction.to),
+                         ("turn_start", "self", "damage", 4, "owner"))
         self.assertEqual(DB.effects["poison"].triggers, old.triggers)
         self.assertNotIn("periodic", old.to_dict())
 
@@ -297,7 +298,7 @@ class EffectTriggerTests(unittest.TestCase):
         self.db.delete("effects", "war_cry")
         self.assertEqual(self.db.skills["shout"].applies, ())
         self.assertEqual(self.db.effects["spread"].triggers, ())
-        self.assertIsNone(self.db.passives["wall"].effect_id)      # прикрытие остаётся без эффекта
+        self.assertIsNone(self.db.passives["wall"].reaction.effect_id)  # прикрытие остаётся без эффекта
         self.assertNotIn("avenger", self.db.passives)              # пассивка-эффект без эффекта удалена
         self.assertNotIn("avenger", self.db.units["knight"].passives)
         scenario = build_demo(self.db)

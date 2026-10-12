@@ -14,12 +14,28 @@
     "max_stacks": 3,
     "triggers": [
       {
-        "when": "turn_start",
+        "event": "turn_start",
+        "whose": "self",
+        "self_condition": {
+          "type": "always"
+        },
+        "subject_condition": {
+          "type": "always"
+        },
+        "area": null,
+        "attack_tags": [],
+        "skill_areas": [],
+        "outcome": "any",
+        "effect_filter": null,
+        "threshold": 0.5,
+        "limit": "none",
         "action": "damage",
-        "amount": 4,
+        "skill_id": null,
         "effect_id": null,
-        "to": "self",
-        "area": null
+        "amount": 4,
+        "to": "owner",
+        "to_area": null,
+        "cover_many": false
       }
     ]
   },
@@ -123,12 +139,28 @@
     "max_stacks": 1,
     "triggers": [
       {
-        "when": "turn_start",
+        "event": "turn_start",
+        "whose": "self",
+        "self_condition": {
+          "type": "always"
+        },
+        "subject_condition": {
+          "type": "always"
+        },
+        "area": null,
+        "attack_tags": [],
+        "skill_areas": [],
+        "outcome": "any",
+        "effect_filter": null,
+        "threshold": 0.5,
+        "limit": "none",
         "action": "damage",
-        "amount": 5,
+        "skill_id": null,
         "effect_id": null,
-        "to": "self",
-        "area": null
+        "amount": 5,
+        "to": "owner",
+        "to_area": null,
+        "cover_many": false
       }
     ]
   },
@@ -199,21 +231,74 @@
     "max_stacks": 1,
     "triggers": [
       {
-        "when": "turn_start",
+        "event": "turn_start",
+        "whose": "self",
+        "self_condition": {
+          "type": "always"
+        },
+        "subject_condition": {
+          "type": "always"
+        },
+        "area": null,
+        "attack_tags": [],
+        "skill_areas": [],
+        "outcome": "any",
+        "effect_filter": null,
+        "threshold": 0.5,
+        "limit": "none",
         "action": "damage",
-        "amount": 3,
+        "skill_id": null,
         "effect_id": null,
-        "to": "self",
-        "area": null
+        "amount": 3,
+        "to": "owner",
+        "to_area": null,
+        "cover_many": false
       },
       {
-        "when": "expire",
+        "event": "effect_expired",
+        "whose": "self",
+        "self_condition": {
+          "type": "always"
+        },
+        "subject_condition": {
+          "type": "always"
+        },
+        "area": null,
+        "attack_tags": [],
+        "skill_areas": [],
+        "outcome": "any",
+        "effect_filter": "@this",
+        "threshold": 0.5,
+        "limit": "none",
         "action": "apply_effect",
-        "amount": 0,
+        "skill_id": null,
         "effect_id": "plague",
+        "amount": 0,
         "to": "allies",
-        "area": "adjacent"
+        "to_area": "adjacent",
+        "cover_many": false
       }
     ]
+  },
+  "rage": {
+    "name": "Rage",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 3,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
   }
 }

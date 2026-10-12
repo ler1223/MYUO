@@ -126,15 +126,12 @@ class Database:
             require(tags, effect.grants_tags, f"effect {effect.id}")
             for mod in effect.attack_mods:
                 require(tags, mod.add_tags, f"effect {effect.id}")
-            for trigger in effect.triggers:
-                require(effects, [trigger.effect_id] if trigger.effect_id else [], f"effect {effect.id}")
-                require(areas, [trigger.area] if trigger.area else [], f"effect {effect.id}")
-        for passive in passives.values():
-            require(effects, [passive.effect_id] if passive.effect_id else [], f"passive {passive.id}")
-            require({*tags, *CATEGORIES}, passive.cover_tags, f"passive {passive.id}")
-            require(areas, [passive.cover_area, *passive.cover_skill_areas], f"passive {passive.id}")
-            if not hasattr(events, passive.trigger):
-                raise ValueError(f"passive {passive.id}: unknown event {passive.trigger!r}")
+        known = {"skills": skills, "effects": effects, "areas": areas, "attack_tags": {*tags, *CATEGORIES}}
+        reactions = [(f"effect {e.id}", r) for e in effects.values() for r in e.triggers]
+        reactions += [(f"passive {p.id}", p.reaction) for p in passives.values()]
+        for where, reaction in reactions:
+            for section, refs in reaction.references().items():
+                require(known[section], refs, where)
         for skill in skills.values():
             where = f"skill {skill.id}"
             require(effects, [a.effect_id for a in skill.applies], where)
@@ -188,6 +185,7 @@ class Database:
                 if field in container:
                     container[field] = [x for x in container[field] if x != key]
 
+        _clean_reactions(data, section, key)
         if section == "skills":
             for unit in data["units"].values():
                 drop(unit, "skills")
@@ -201,30 +199,9 @@ class Database:
             for skill in data["skills"].values():
                 if skill["area"] == key:
                     skill["area"] = AREA_SINGLE
-            for passive in data["passives"].values():
-                if passive["cover_area"] == key:
-                    passive["cover_area"] = AREA_SINGLE
-                drop(passive, "cover_skill_areas")
-            for effect in data["effects"].values():
-                for trigger in effect["triggers"]:
-                    if trigger["area"] == key:
-                        trigger["area"] = None
         elif section == "effects":
             for skill in data["skills"].values():
                 skill["applies"] = [a for a in skill["applies"] if a["effect_id"] != key]
-            for effect in data["effects"].values():
-                effect["triggers"] = [t for t in effect["triggers"] if t["effect_id"] != key]
-            gone = []
-            for passive_id, passive in data["passives"].items():
-                if passive["effect_id"] == key:
-                    if passive["action"] == "cover":
-                        passive["effect_id"] = None
-                    else:
-                        gone.append(passive_id)  # пассивка без своего эффекта бессмысленна
-            for passive_id in gone:
-                del data["passives"][passive_id]
-                for owner in (*data["units"].values(), *data["items"].values()):
-                    owner["passives"] = [p for p in owner["passives"] if p != passive_id]
         elif section == "tags":
             for unit in data["units"].values():
                 drop(unit, "tags")
@@ -235,8 +212,6 @@ class Database:
                 skill["bonus_vs"].pop(key, None)
                 for part in skill["parts"]:
                     drop(part, "tags")
-            for passive in data["passives"].values():
-                drop(passive, "cover_tags")
             for effect in data["effects"].values():
                 drop(effect, "grants_tags")
                 for mod in effect["attack_mods"]:
@@ -275,3 +250,39 @@ class Database:
         unit = Unit(self.units[state.definition_id], state, self.items, strict=False)
         unit.load_effects(saved_effects, self.effects)
         return unit
+
+
+def _clean_reactions(data: dict[str, Any], section: str, key: str) -> None:
+    """Убирает из реакций ссылки на удалённое определение (данные в формате JSON).
+
+    Реакция, которой без него нечего делать (навык, эффект действия или фильтр по
+    эффекту), удаляется; пассивка без реакции удаляется вместе со ссылками на неё.
+    Удалённая область или тег просто перестают фильтровать.
+    """
+    def fix(reaction: dict[str, Any]) -> bool:
+        """Правит реакцию на месте; False, если её надо удалить."""
+        if section == "skills" and reaction["skill_id"] == key:
+            return False
+        if section == "effects":
+            if reaction["effect_filter"] == key:
+                return False
+            if reaction["effect_id"] == key:
+                if reaction["action"] != "cover":
+                    return False
+                reaction["effect_id"] = None  # у прикрытия эффект необязателен
+        if section == "areas":
+            for field in ("area", "to_area"):
+                if reaction[field] == key:
+                    reaction[field] = None
+            reaction["skill_areas"] = [a for a in reaction["skill_areas"] if a != key]
+        if section == "tags":
+            reaction["attack_tags"] = [t for t in reaction["attack_tags"] if t != key]
+        return True
+
+    for effect in data["effects"].values():
+        effect["triggers"] = [r for r in effect["triggers"] if fix(r)]
+    gone = [passive_id for passive_id, passive in data["passives"].items() if not fix(passive["reaction"])]
+    for passive_id in gone:
+        del data["passives"][passive_id]
+        for owner in (*data["units"].values(), *data["items"].values()):
+            owner["passives"] = [p for p in owner["passives"] if p != passive_id]

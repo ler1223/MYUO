@@ -86,7 +86,7 @@
       "initiative": 1
     },
     "ap_max": 4,
-    "pp_max": 1,
+    "pp_max": 2,
     "tags": [
       "infantry",
       "archer"
@@ -101,7 +101,9 @@
       "shot",
       "poison_arrow"
     ],
-    "passives": [],
+    "passives": [
+      "assist"
+    ],
     "tactics": [
       {
         "skill": "poison_arrow",
@@ -148,7 +150,7 @@
       "mag_def": 1
     },
     "ap_max": 4,
-    "pp_max": 1,
+    "pp_max": 2,
     "tags": [
       "infantry",
       "caster"
@@ -162,7 +164,9 @@
       "magic_bolt",
       "heal"
     ],
-    "passives": [],
+    "passives": [
+      "emergency_heal"
+    ],
     "tactics": [
       {
         "skill": "heal",
@@ -344,7 +348,8 @@
       "crushing_blow"
     ],
     "passives": [
-      "avenger"
+      "avenger",
+      "berserk"
     ],
     "tactics": [
       {
@@ -473,7 +478,7 @@
       "phys_def": 1
     },
     "ap_max": 4,
-    "pp_max": 1,
+    "pp_max": 2,
     "tags": [
       "infantry"
     ],
@@ -488,7 +493,9 @@
       "venom_strike",
       "cleave"
     ],
-    "passives": [],
+    "passives": [
+      "riposte"
+    ],
     "tactics": [
       {
         "skill": "flame_strike",
@@ -555,7 +562,7 @@
       "phys_def": 1
     },
     "ap_max": 4,
-    "pp_max": 1,
+    "pp_max": 2,
     "tags": [
       "infantry"
     ],
@@ -569,7 +576,9 @@
       "impale",
       "defend"
     ],
-    "passives": [],
+    "passives": [
+      "riposte"
+    ],
     "tactics": [
       {
         "skill": "impale",
@@ -625,7 +634,7 @@
       "initiative": 1
     },
     "ap_max": 4,
-    "pp_max": 1,
+    "pp_max": 2,
     "tags": [
       "infantry",
       "archer"
@@ -643,7 +652,9 @@
       "volley",
       "piercing_shot"
     ],
-    "passives": [],
+    "passives": [
+      "assist"
+    ],
     "tactics": [
       {
         "skill": "fire_arrow",

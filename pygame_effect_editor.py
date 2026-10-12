@@ -8,10 +8,13 @@ import pygame
 
 from game.areas import AREA_SINGLE, MAX_SPAN
 from game.editing import new_area_data, new_effect_data
-from game.effects import TRIGGER_ACTIONS, TRIGGER_TARGETS, TRIGGER_WHEN, StackRule
+from game.editing import describe_reaction
+from game.effects import StackRule
+from game.reactions import Reaction, new_reaction_data
 from game.stats import ModOp, Stat
 from game.tags import TAG_DAMAGE, TAG_SKILL, TAG_UNIT
 from pygame_data_editors import list_buttons
+from pygame_reaction import reaction_form
 from pygame_editors import EMPTY, FORM_X, ROW_H, TOP, EditorHost, apply, entity_list, named, plain, tag_options
 from pygame_ui import DIM, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW
 
@@ -20,8 +23,6 @@ ENGINE_FLAGS = ("stunned",)                     # флаги, которые п�
 MODIFIER_ROWS = 3
 TRIGGER_ROWS = 4
 OP_LABELS = {ModOp.FLAT: "+ value", ModOp.PERCENT_ADD: "+ share (0.2 = +20%)", ModOp.PERCENT_MULT: "x multiplier"}
-AREA_TARGETS = ("allies", "enemies", "everyone")  # цели триггера, для которых имеет смысл область
-EFFECT_ACTIONS = ("apply_effect", "remove_effect")
 
 
 class EffectEditor:
@@ -29,17 +30,22 @@ class EffectEditor:
 
     def __init__(self) -> None:
         self.effect_id: Optional[str] = None
+        self.editing: Optional[int] = None   # номер реакции, открытой в полной форме
 
     def draw(self, ui: UI, app: EditorHost) -> None:
         db = app.db
         if self.effect_id not in db.effects:
-            self.effect_id = next(iter(db.effects), None)
+            self.effect_id, self.editing = next(iter(db.effects), None), None
         if self.effect_id is not None:
-            self._draw_form(ui, app, self.effect_id)
+            if self.editing is not None and self.editing < len(db.effects[self.effect_id].triggers):
+                self._draw_reaction(ui, app, self.effect_id, self.editing)
+            else:
+                self.editing = None
+                self._draw_form(ui, app, self.effect_id)
         ui.text(ui.t("Effects"), 16, TOP, DIM, "small")
         clicked = entity_list(ui, "effects", named(ui, db.effects.values()), self.effect_id, TOP + 20, 18)
         if clicked is not None:
-            self.effect_id = clicked
+            self.effect_id, self.editing = clicked, None
         new, delete = list_buttons(ui, self.effect_id is not None)
         if new:
             self.effect_id = db.create("effects", "New Effect", new_effect_data())
@@ -130,58 +136,44 @@ class EffectEditor:
                 new["modifiers"] = modifiers[:index] + [edited] + modifiers[index + 1:]
 
     def _draw_triggers(self, ui: UI, db, key, data: dict, new: dict, x: int, y: int) -> None:
-        """Поведение эффекта: строки «когда -> что -> сколько / какой эффект -> кому -> в какой области»."""
+        """Поведение эффекта: список реакций носителя; каждая открывается в полной форме."""
         t = ui.t
         triggers = data["triggers"]
         ui.text(t("Behaviour (when -> what -> to whom): {n}", n=len(triggers)), x, y + 4, font="small")
         if ui.button(t("+ Add trigger"), pygame.Rect(x + 320, y, 170, 22)):
-            new["triggers"] = triggers + [{"when": "turn_start", "action": "damage", "amount": 1, "effect_id": None,
-                                           "to": "self", "area": None}]
-        cols = (("when", 22), ("what", 126), ("amount", 250), ("effect", 298), ("to whom", 432), ("area", 532))
-        for label, offset in cols:
-            ui.text(t(label), x + offset, y + 26, DIM, "small")
-        y += 44
+            new["triggers"] = triggers + [new_reaction_data()]
+            self.editing = len(triggers)
+        y += 26
         area = pygame.Rect(x, y - 2, WIDTH - x - 16, TRIGGER_ROWS * ROW_H)
         pygame.draw.rect(ui.screen, PANEL, area)
         offset = ui.scroll((key, "triggers"), area, len(triggers), TRIGGER_ROWS)
-        effect_choices = named(ui, db.effects.values())
-        area_choices = [(EMPTY, t("whole side")), *named(ui, db.areas.values())]
         for row, index in enumerate(range(offset, min(len(triggers), offset + TRIGGER_ROWS))):
-            trigger = triggers[index]
-            edited = dict(trigger)
-            ry, tkey = y + row * ROW_H, (key, "trigger", index)
+            ry = y + row * ROW_H
             ui.text(f"{index + 1}.", x + 4, ry + 4, DIM, "small")
-            picked = ui.dropdown((tkey, "when"), pygame.Rect(x + 22, ry, 100, 24), plain(ui, TRIGGER_WHEN), trigger["when"])
-            if picked is not None:
-                edited["when"] = picked
-            picked = ui.dropdown((tkey, "action"), pygame.Rect(x + 126, ry, 120, 24), plain(ui, TRIGGER_ACTIONS),
-                                 trigger["action"])
-            if picked is not None and picked != trigger["action"]:
-                edited["action"] = picked
-                needs_effect = picked in EFFECT_ACTIONS
-                edited["effect_id"] = (trigger["effect_id"] or next(iter(db.effects))) if needs_effect else None
-            uses_effect = trigger["action"] in EFFECT_ACTIONS
-            if uses_effect:
-                picked = ui.dropdown((tkey, "effect"), pygame.Rect(x + 298, ry, 130, 24), effect_choices, trigger["effect_id"])
-                if picked is not None:
-                    edited["effect_id"] = picked
-            else:
-                value = ui.number_input((tkey, "amount"), pygame.Rect(x + 250, ry, 44, 24), trigger["amount"], 0, 999)
-                if value is not None:
-                    edited["amount"] = value
-            picked = ui.dropdown((tkey, "to"), pygame.Rect(x + 432, ry, 96, 24), plain(ui, TRIGGER_TARGETS), trigger["to"])
-            if picked is not None:
-                edited["to"] = picked
-                if picked not in AREA_TARGETS:
-                    edited["area"] = None
-            if trigger["to"] in AREA_TARGETS:
-                picked = ui.dropdown((tkey, "area"), pygame.Rect(x + 532, ry, 150, 24), area_choices, trigger["area"] or EMPTY)
-                if picked is not None:
-                    edited["area"] = picked or None
-            if ui.button("x", pygame.Rect(x + 716, ry, 24, 24), color=RED):
+            try:
+                text = describe_reaction(Reaction.from_dict(triggers[index]), db, t)
+            except (ValueError, KeyError) as error:
+                text = str(error)
+            ui.text(text, x + 24, ry + 4, TEXT, "small", WIDTH - x - 150)
+            if ui.button(t("edit"), pygame.Rect(WIDTH - 126, ry, 70, 24)):
+                self.editing = index
+            if ui.button("x", pygame.Rect(WIDTH - 50, ry, 24, 24), color=RED):
                 new["triggers"] = triggers[:index] + triggers[index + 1:]
-            elif edited != trigger:
-                new["triggers"] = triggers[:index] + [edited] + triggers[index + 1:]
+
+    def _draw_reaction(self, ui: UI, app: EditorHost, effect_id: str, index: int) -> None:
+        """Полная форма одной реакции эффекта."""
+        t, db, x = ui.t, app.db, FORM_X
+        data = db.effects[effect_id].to_dict()
+        ui.text(t("{effect}: behaviour rule {n}", effect=t(data["name"]), n=index + 1), x, TOP + 4)
+        if ui.button(t("< Back"), pygame.Rect(WIDTH - 136, TOP, 120, 24)):
+            self.editing = None
+            return
+        reaction = reaction_form(ui, db, ("effect", effect_id, "reaction", index), data["triggers"][index],
+                                 x, TOP + 40, for_effect=True)
+        if reaction is not None:
+            triggers = list(data["triggers"])
+            triggers[index] = reaction
+            apply(app, "effects", effect_id, dict(data, triggers=triggers))
 
     @staticmethod
     def _draw_attack_mod(ui: UI, db, key, data: dict, new: dict, x: int, y: int) -> None:

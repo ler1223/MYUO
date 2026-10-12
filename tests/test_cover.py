@@ -196,9 +196,12 @@ class PassiveDataTests(unittest.TestCase):
         passive = db.passives["cover"]
         self.assertEqual(PassiveDefinition.from_dict("cover", passive.to_dict()), passive)
         self.assertEqual(db.copy().passives["cover"], passive)
-        self.assertIsNone(passive.effect_id)
-        old = db.passives["avenger"]                        # пассивки старого формата читаются как раньше
-        self.assertEqual((old.action, old.trigger, old.effect_id), ("effect", "UnitDied", "war_cry"))
+        self.assertIsNone(passive.reaction.effect_id)
+        self.assertEqual((passive.reaction.event, passive.reaction.action, passive.reaction.area,
+                          passive.reaction.cover_many), ("targeted", "cover", "column", True))
+        old = db.passives["avenger"]                        # пассивки старого формата читаются как реакции
+        self.assertEqual((old.reaction.event, old.reaction.whose, old.reaction.action, old.reaction.effect_id),
+                         ("died", "ally", "apply_effect", "war_cry"))
 
     def test_validation(self):
         db = DB.copy()
@@ -218,7 +221,7 @@ class PassiveDataTests(unittest.TestCase):
     def test_create_assign_and_delete(self):
         db = DB.copy()
         passive_id = db.create("passives", "Bulwark", new_passive_data(db))
-        self.assertEqual(db.passives[passive_id].action, "effect")
+        self.assertEqual(db.passives[passive_id].reaction.action, "use_skill")  # по умолчанию контратака
         set_owners(db, "units", passive_id, ["orc"], field="passives")
         set_owners(db, "items", passive_id, ["shield"], field="passives")
         self.assertEqual(skill_owners(db, "units", passive_id, "passives"), ["orc"])
@@ -231,7 +234,7 @@ class PassiveDataTests(unittest.TestCase):
         db = DB.copy()
         add_cover(db, cover_tags=["melee", "physical"])
         db.delete("tags", "melee")
-        self.assertEqual(db.passives["cover"].cover_tags, ("physical",))
+        self.assertEqual(db.passives["cover"].reaction.attack_tags, ("physical",))
 
 
 if __name__ == "__main__":

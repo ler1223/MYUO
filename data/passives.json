@@ -1,42 +1,204 @@
 {
   "iron_will": {
     "name": "Iron Will",
-    "action": "effect",
-    "trigger": "BattleStarted",
-    "scope": "any",
     "pp_cost": 0,
-    "effect_id": "iron_will",
-    "cover_area": "row",
-    "cover_many": false,
-    "cover_tags": [],
-    "cover_skill_areas": []
+    "reaction": {
+      "event": "battle_start",
+      "whose": "any",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "iron_will",
+      "amount": 0,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
   },
   "avenger": {
     "name": "Avenger",
-    "action": "effect",
-    "trigger": "UnitDied",
-    "scope": "ally",
     "pp_cost": 1,
-    "effect_id": "war_cry",
-    "cover_area": "row",
-    "cover_many": false,
-    "cover_tags": [],
-    "cover_skill_areas": []
+    "reaction": {
+      "event": "died",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "war_cry",
+      "amount": 0,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
   },
   "shield_cover": {
     "name": "Shield Cover",
-    "action": "cover",
-    "trigger": "SkillUsed",
-    "scope": "any",
     "pp_cost": 1,
-    "effect_id": null,
-    "cover_area": "row",
-    "cover_many": false,
-    "cover_tags": [
-      "physical"
-    ],
-    "cover_skill_areas": [
-      "single"
-    ]
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": "row",
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [
+        "single"
+      ],
+      "outcome": "any",
+      "effect_filter": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "cover",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "riposte": {
+    "name": "Riposte",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "attacked",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "melee"
+      ],
+      "skill_areas": [],
+      "outcome": "landed",
+      "effect_filter": null,
+      "threshold": 0.5,
+      "limit": "round",
+      "action": "use_skill",
+      "skill_id": "attack",
+      "effect_id": null,
+      "amount": 0,
+      "to": "actor",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "berserk": {
+    "name": "Berserk",
+    "pp_cost": 0,
+    "reaction": {
+      "event": "hp_below",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "threshold": 0.5,
+      "limit": "battle",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "rage",
+      "amount": 0,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "assist": {
+    "name": "Assist",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "threshold": 0.5,
+      "limit": "round",
+      "action": "use_skill",
+      "skill_id": "shot",
+      "effect_id": null,
+      "amount": 0,
+      "to": "target",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "emergency_heal": {
+    "name": "Emergency Heal",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "hp_below",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "threshold": 0.4,
+      "limit": "none",
+      "action": "use_skill",
+      "skill_id": "heal",
+      "effect_id": null,
+      "amount": 0,
+      "to": "subject",
+      "to_area": null,
+      "cover_many": false
+    }
   }
 }
