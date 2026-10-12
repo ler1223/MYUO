@@ -133,6 +133,16 @@ class PassiveTriggered(Event):
 
 
 @dataclass(frozen=True)
+class Covered(Event):
+    """Защитник принял на себя удар, нацеленный на союзника."""
+
+    SUBJECT: ClassVar[Optional[str]] = "target"
+    protector: int
+    target: int   # кого прикрыли
+    cause: str    # id навыка врага
+
+
+@dataclass(frozen=True)
 class UnitDied(Event):
     SUBJECT: ClassVar[Optional[str]] = "unit"
     unit: int
@@ -190,6 +200,9 @@ def format_event(ev: Event, name_fn: Callable[[int], str], tr: Optional[Callable
             return t("  {target} loses {effect}", target=name_fn(ev.target), effect=t(ev.effect_id))
         case PassiveTriggered():
             return t("  {unit} triggers passive {passive}", unit=name_fn(ev.unit), passive=t(ev.passive_id))
+        case Covered():
+            return t("  {protector} covers {target} from {cause}",
+                     protector=name_fn(ev.protector), target=name_fn(ev.target), cause=t(ev.cause))
         case UnitDied():
             return t("  {unit} dies", unit=name_fn(ev.unit))
         case BattleEnded():

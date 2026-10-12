@@ -21,7 +21,7 @@
       "mag_def": 1
     },
     "ap_max": 4,
-    "pp_max": 1,
+    "pp_max": 2,
     "tags": [
       "infantry",
       "armored"
@@ -38,7 +38,8 @@
     ],
     "passives": [
       "iron_will",
-      "avenger"
+      "avenger",
+      "shield_cover"
     ],
     "tactics": [
       {
