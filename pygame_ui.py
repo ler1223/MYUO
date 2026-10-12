@@ -72,8 +72,13 @@ class Popup:
     scroll: int = 0
 
     def filtered(self) -> list[Option]:
+        """Варианты, содержащие поисковую строку: сначала точное совпадение, затем начало названия."""
         needle = self.search.casefold()
-        return [o for o in self.options if needle in o[1].casefold()]
+        found = [o for o in self.options if needle in o[1].casefold()]
+        if not needle:
+            return found
+        rank = lambda o: (o[1].casefold() != needle, not o[1].casefold().startswith(needle))
+        return sorted(found, key=rank)
 
 
 class UI:

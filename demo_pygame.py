@@ -25,6 +25,7 @@ from game.squad import Formation, Squad
 from game.unit import Unit
 from pygame_data_editors import ClassEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
+from pygame_item_editors import ItemEditor, TagEditor
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
 FPS = 60
@@ -123,6 +124,8 @@ class App:
             ("Tactics", TacticsEditor()),
             ("Skills", SkillEditor()),
             ("Classes", ClassEditor()),
+            ("Items", ItemEditor()),
+            ("Tags", TagEditor()),
         ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
