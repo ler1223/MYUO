@@ -132,7 +132,7 @@ RULE_COND_W, RULE_PARAM_W = 100, 84
 
 
 def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]], skill_ids: Sequence[str],
-               x: int, y: int) -> Optional[list[dict[str, Any]]]:
+               x: int, y: int, max_rules: int = MAX_RULES) -> Optional[list[dict[str, Any]]]:
     """Таблица правил тактики с кнопкой добавления. Возвращает новый список правил, если его изменили."""
     t = ui.t
     for label, offset in (("if self", RULE_SELF), ("if target", RULE_TARGET), ("pick", RULE_PICK),
@@ -169,7 +169,7 @@ def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]],
             new_rules = rules[:i] + [rules[i + 1], rule] + rules[i + 2:]
         if ui.button("x", pygame.Rect(x + RULE_MOVE + 60, ry, 26, 24), color=RED):
             new_rules = rules[:i] + rules[i + 1:]
-    can_add = len(rules) < MAX_RULES and bool(skill_choices)
+    can_add = len(rules) < max_rules and bool(skill_choices)
     if ui.button(t("+ Add rule"), pygame.Rect(x + 24, y + len(rules) * ROW_H + 4, 160, 24), enabled=can_add):
         new_rules = rules + [default_rule([s for s, _ in skill_choices])]
     return new_rules

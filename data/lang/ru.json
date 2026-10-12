@@ -256,5 +256,16 @@
   "yes": "да",
   "no": "нет",
   "saved, battle restarted": "сохранено, бой перезапущен",
-  "cannot build the demo squads": "не удалось собрать демо-отряды"
+  "cannot build the demo squads": "не удалось собрать демо-отряды",
+  "AP max": "Макс. AP",
+  "PP max": "Макс. PP",
+  "stat": "стат",
+  "base": "база",
+  "per level": "за уровень",
+  "Tags": "Теги",
+  "Passives": "Пассивки",
+  "Equipment slots: {n}": "Слоты снаряжения: {n}",
+  "+ add slot...": "+ добавить слот...",
+  "(remove slot)": "(убрать слот)",
+  "Default tactics (given to new units of the class)": "Тактики по умолчанию (их получают новые юниты класса)"
 }

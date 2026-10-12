@@ -23,6 +23,7 @@ from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_se
 from game.scenario import Scenario, build_demo
 from game.squad import Formation, Squad
 from game.unit import Unit
+from pygame_data_editors import ClassEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
@@ -121,6 +122,7 @@ class App:
             ("Squads", SquadEditor()),
             ("Tactics", TacticsEditor()),
             ("Skills", SkillEditor()),
+            ("Classes", ClassEditor()),
         ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
