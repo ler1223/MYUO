@@ -1,0 +1,149 @@
+{
+  "effects": {
+    "poison": {
+      "name": "Poison",
+      "tags": ["debuff"],
+      "duration": 3,
+      "stack_rule": "STACK",
+      "max_stacks": 3,
+      "periodic": [
+        {"kind": "damage", "amount": 4}
+      ]
+    },
+    "stun": {"name": "Stun", "flags": ["stunned"], "tags": ["debuff"], "duration": 1, "stack_rule": "REFRESH"},
+    "war_cry": {
+      "name": "War Cry",
+      "tags": ["buff"],
+      "duration": 3,
+      "stack_rule": "REFRESH",
+      "modifiers": [
+        {"stat": "atk", "op": "PERCENT_ADD", "value": 0.3}
+      ]
+    },
+    "iron_will": {
+      "name": "Iron Will",
+      "tags": ["passive"],
+      "duration": null,
+      "stack_rule": "IGNORE",
+      "modifiers": [
+        {"stat": "def", "op": "PERCENT_ADD", "value": 0.2}
+      ]
+    }
+  },
+  "items": {
+    "iron_sword": {
+      "name": "Iron Sword",
+      "modifiers": [
+        {"stat": "atk", "op": "FLAT", "value": 5}
+      ],
+      "slot": "light_sword"
+    },
+    "shield": {
+      "name": "Shield",
+      "modifiers": [
+        {"stat": "def", "op": "FLAT", "value": 4},
+        {"stat": "spd", "op": "FLAT", "value": -1}
+      ],
+      "slot": "light_shield"
+    }
+  },
+  "skills": {
+    "attack": {"name": "Attack", "ap_cost": 1, "power": 1.0, "kind": "damage"},
+    "power_strike": {"name": "Power Strike", "ap_cost": 2, "power": 1.8, "kind": "damage"},
+    "poison_arrow": {"name": "Poison Arrow", "ap_cost": 1, "power": 0.8, "kind": "damage", "effect_id": "poison"},
+    "fireball": {"name": "Fireball", "ap_cost": 2, "power": 2.2, "kind": "damage"},
+    "stun_bash": {"name": "Stun Bash", "ap_cost": 3, "power": 1.2, "kind": "damage", "effect_id": "stun"},
+    "heal": {"name": "Heal", "ap_cost": 2, "power": 2.0, "kind": "heal", "targets": "ally"}
+  },
+  "passives": {
+    "iron_will": {"name": "Iron Will", "trigger": "BattleStarted", "scope": "any", "pp_cost": 0, "effect_id": "iron_will"},
+    "avenger": {"name": "Avenger", "trigger": "UnitDied", "scope": "ally", "pp_cost": 1, "effect_id": "war_cry"}
+  },
+  "units": {
+    "knight": {
+      "name": "Knight",
+      "stats": {"hp": 60, "atk": 14, "def": 10, "spd": 5},
+      "growth": {"hp": 8, "atk": 2, "def": 2, "spd": 0},
+      "ap_max": 4,
+      "pp_max": 1,
+      "skills": ["attack", "power_strike"],
+      "passives": ["iron_will", "avenger"],
+      "tactics": [
+        {"condition": {"type": "always"}, "selector": "frontmost", "skill": "power_strike"},
+        {"condition": {"type": "always"}, "selector": "frontmost", "skill": "attack"}
+      ],
+      "slots": ["light_sword", "light_shield", "medium_armor", "artifact"]
+    },
+    "archer": {
+      "name": "Archer",
+      "stats": {"hp": 38, "atk": 13, "def": 4, "spd": 9},
+      "growth": {"hp": 5, "atk": 2, "def": 1, "spd": 1},
+      "ap_max": 4,
+      "pp_max": 1,
+      "skills": ["attack", "poison_arrow"],
+      "passives": [],
+      "tactics": [
+        {"condition": {"type": "lacks_effect", "effect_id": "poison"}, "selector": "strongest", "skill": "poison_arrow"},
+        {"condition": {"type": "always"}, "selector": "backmost", "skill": "attack"}
+      ],
+      "slots": ["bow", "light_armor", "artifact", "artifact"]
+    },
+    "cleric": {
+      "name": "Cleric",
+      "stats": {"hp": 34, "atk": 9, "def": 4, "spd": 6},
+      "growth": {"hp": 5, "atk": 1, "def": 1, "spd": 0},
+      "ap_max": 4,
+      "pp_max": 1,
+      "skills": ["attack", "heal"],
+      "passives": [],
+      "tactics": [
+        {"condition": {"type": "hp_below", "value": 0.6}, "selector": "weakest", "skill": "heal"},
+        {"condition": {"type": "always"}, "selector": "frontmost", "skill": "attack"}
+      ],
+      "slots": ["staff", "robe", "artifact"]
+    },
+    "mage": {
+      "name": "Mage",
+      "stats": {"hp": 30, "atk": 16, "def": 3, "spd": 7},
+      "growth": {"hp": 4, "atk": 3, "def": 0, "spd": 0},
+      "ap_max": 4,
+      "pp_max": 1,
+      "skills": ["attack", "fireball"],
+      "passives": [],
+      "tactics": [
+        {"condition": {"type": "always"}, "selector": "random", "skill": "fireball"},
+        {"condition": {"type": "always"}, "selector": "weakest", "skill": "attack"}
+      ],
+      "slots": ["staff", "robe", "artifact", "artifact"]
+    },
+    "goblin": {
+      "name": "Goblin",
+      "stats": {"hp": 28, "atk": 10, "def": 3, "spd": 8},
+      "growth": {"hp": 4, "atk": 2, "def": 1, "spd": 1},
+      "ap_max": 3,
+      "pp_max": 1,
+      "skills": ["attack"],
+      "passives": [],
+      "tactics": [
+        {"condition": {"type": "hp_below", "value": 0.5}, "selector": "weakest", "skill": "attack"},
+        {"condition": {"type": "always"}, "selector": "random", "skill": "attack"}
+      ],
+      "slots": ["dagger", "artifact"]
+    },
+    "orc": {
+      "name": "Orc",
+      "stats": {"hp": 80, "atk": 17, "def": 8, "spd": 4},
+      "growth": {"hp": 10, "atk": 3, "def": 1, "spd": 0},
+      "ap_max": 4,
+      "pp_max": 1,
+      "skills": ["attack", "power_strike", "stun_bash"],
+      "passives": ["avenger"],
+      "tactics": [
+        {"condition": {"type": "lacks_effect", "effect_id": "stun"}, "selector": "strongest", "skill": "stun_bash"},
+        {"condition": {"type": "has_flag", "flag": "stunned"}, "selector": "frontmost", "skill": "power_strike"},
+        {"condition": {"type": "always"}, "selector": "frontmost", "skill": "attack"}
+      ],
+      "slots": ["heavy_weapon", "medium_armor", "artifact"]
+    }
+  }
+}
