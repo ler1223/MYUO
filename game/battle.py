@@ -189,12 +189,13 @@ class BattleSimulation:
         if choice is None:
             # Ни одно правило не подошло: обычная атака по первому врагу, если на неё есть AP.
             fallback = skills.get(FALLBACK_SKILL_ID)
-            if fallback is None or not enemies or not unit.ap.can_spend(fallback.ap_cost):
+            if fallback is None or not enemies or not fallback.affordable(unit):
                 return False
             choice = (FALLBACK_SKILL_ID, enemies[0])
         skill_id, target = choice
         skill = skills[skill_id]
         unit.ap.spend(skill.ap_cost)
+        unit.pp.spend(skill.pp_cost)
         self._emit(SkillUsed(unit.uid, skill.id, target.uid))
         self._resolve_skill(unit, skill, target)
         return True
@@ -361,11 +362,11 @@ class BattleSimulation:
             self._finish(None, END_WIPEOUT)
 
     def _check_exhausted(self) -> None:
-        """Заканчивает бой, если ни у одного живого юнита нет AP даже на самый дешёвый навык."""
+        """Заканчивает бой, если ни одному живому юниту не хватает AP и PP ни на один его навык."""
         if self.finished:
             return
         for unit in self._alive():
-            if any(unit.ap.can_spend(self.db.skills[s].ap_cost) for s in unit.skill_ids if s in self.db.skills):
+            if any(self.db.skills[s].affordable(unit) for s in unit.skill_ids if s in self.db.skills):
                 return
         self._finish_by_hp(END_EXHAUSTED)
 

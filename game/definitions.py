@@ -130,6 +130,7 @@ class SkillDefinition:
     id: str
     name: str
     ap_cost: int = 1
+    pp_cost: int = 0                        # навык может стоить PP вместо AP или вместе с ним
     targets: str = "enemy"                  # кого можно выбрать целью: enemy / ally / self
     area: str = AREA_SINGLE                 # кого задевает вокруг цели, см. areas.AREAS
     hits: int = 1                           # число ударов; попадание, крит и блок бросаются на каждый
@@ -163,6 +164,7 @@ class SkillDefinition:
             id=skill_id,
             name=data.get("name", skill_id),
             ap_cost=data.get("ap_cost", 1),
+            pp_cost=data.get("pp_cost", 0),
             targets=targets,
             area=area,
             hits=hits,
@@ -177,10 +179,15 @@ class SkillDefinition:
             requires_target=condition_from_dict(data.get("requires_target")),
         )
 
+    def affordable(self, unit: Any) -> bool:
+        """Хватает ли юниту AP и PP на навык."""
+        return unit.ap.can_spend(self.ap_cost) and unit.pp.can_spend(self.pp_cost)
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "name": self.name,
             "ap_cost": self.ap_cost,
+            "pp_cost": self.pp_cost,
             "targets": self.targets,
             "area": self.area,
             "hits": self.hits,

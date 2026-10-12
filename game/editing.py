@@ -104,7 +104,7 @@ def new_part(category: str = PHYSICAL) -> dict[str, Any]:
 
 
 def new_skill_data() -> dict[str, Any]:
-    return {"ap_cost": 1, "targets": "enemy", "area": AREA_SINGLE, "hits": 1, "accuracy": 100, "parts": [new_part()]}
+    return {"ap_cost": 1, "pp_cost": 0, "targets": "enemy", "area": AREA_SINGLE, "hits": 1, "accuracy": 100, "parts": [new_part()]}
 
 
 def new_unit_data(db: Database) -> dict[str, Any]:
@@ -160,7 +160,8 @@ def describe_skill(skill: SkillDefinition, db: Database, t: Optional[Callable[..
     """Короткое описание навыка для интерфейса; t переводит названия."""
     t = t or _same
     aim = t(skill.targets) if skill.area == AREA_SINGLE else f"{t(skill.targets)}, {t(skill.area)}"
-    head = f"AP {skill.ap_cost} -> {aim}"
+    cost = f"AP {skill.ap_cost}" + (f" PP {skill.pp_cost}" if skill.pp_cost else "")
+    head = f"{cost} -> {aim}"
     if skill.hits > 1:
         head += f" x{skill.hits}"
     if skill.accuracy != 100:

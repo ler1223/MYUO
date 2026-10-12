@@ -341,7 +341,53 @@ class SkillRequirementTests(unittest.TestCase):
             self.assertIn(expected, turn_of(sim, 1))
 
 
+class PpCostTests(unittest.TestCase):
+    """Навык может стоить PP вместо AP или вместе с ним."""
+
+    def setUp(self):
+        self.db = plain_db()
+
+    def test_skill_spends_pp_and_ap(self):
+        add_skill(self.db, "guard_break", ["knight"], ap_cost=1, pp_cost=1, parts=[part(power=2)])
+        sim, knight, tank = duel(self.db, "knight", "knight", right_level=5)  # противник без оглушения
+        only(self.db, knight, "guard_break")
+        events = turn_of(sim, 1)
+        self.assertIn(SkillUsed(1, "guard_break", 2), events)
+        self.assertEqual((knight.ap.current, knight.pp.current), (3, 0))
+        # PP кончились: навык больше недоступен, срабатывает запасная атака за AP.
+        self.assertIn(SkillUsed(1, "attack", 2), turn_of(sim, 1))
+        self.assertEqual((knight.ap.current, knight.pp.current), (2, 0))
+
+    def test_pp_only_skill_and_exhaustion(self):
+        # У юнита единственный навык за 1 PP и ни одного за AP: бой кончается, когда PP потрачены.
+        add_skill(self.db, "spark", [], ap_cost=0, pp_cost=1, parts=[part("magical")])
+        data = self.db.units["mage"].to_dict()
+        self.db.update("units", "sparker", dict(data, skills=["spark"], pp_max=2, tactics=[
+            {"skill": "spark", "condition": {"type": "always"}, "selector": "frontmost"}]))
+        sim, a, b = duel(self.db, "sparker", "sparker")
+        events = sim.run()
+        used = [e for e in events if isinstance(e, SkillUsed)]
+        self.assertEqual(len(used), 4)                         # по 2 PP у каждого
+        self.assertEqual((a.pp.current, b.pp.current, a.ap.current), (0, 0, a.ap.max))
+        self.assertEqual(events[-1].reason, "exhausted")
+
+    def test_pp_cost_roundtrip_and_description(self):
+        add_skill(self.db, "spark", [], ap_cost=0, pp_cost=2, parts=[part("magical")])
+        skill = self.db.skills["spark"]
+        self.assertEqual(skill.to_dict()["pp_cost"], 2)
+        self.assertEqual(self.db.copy().skills["spark"], skill)
+        from game.editing import describe_skill
+        self.assertTrue(describe_skill(skill, self.db).startswith("AP 0 PP 2 ->"))
+        self.assertEqual(self.db.skills["attack"].pp_cost, 0)  # в старых данных поля нет: цена 0
+
+
 class DataSanityTests(unittest.TestCase):
+    def test_real_data_directory_loads(self):
+        """Папка data/ с правками песочницы должна загружаться и проходить проверку ссылок."""
+        from game.database import Database
+        live = Database.load()
+        self.assertTrue(live.units and live.skills)
+
     def test_every_class_attack_has_a_damage_type(self):
         for definition in DB.units.values():
             self.assertTrue(definition.tags, definition.id)

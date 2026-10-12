@@ -1,0 +1,426 @@
+{
+  "attack": {
+    "name": "Attack",
+    "ap_cost": 1,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "blunt"
+        ],
+        "weapon_tags": true
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "power_strike": {
+    "name": "Power Strike",
+    "ap_cost": 2,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "blunt"
+        ],
+        "weapon_tags": true
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "shot": {
+    "name": "Shot",
+    "ap_cost": 1,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "ranged"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "piercing"
+        ],
+        "weapon_tags": true
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "poison_arrow": {
+    "name": "Poison Arrow",
+    "ap_cost": 1,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "ranged"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.8,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "piercing"
+        ],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "poison",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "magic_bolt": {
+    "name": "Magic Bolt",
+    "ap_cost": 1,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "magical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "fireball": {
+    "name": "Fireball",
+    "ap_cost": 2,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "magical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "fire"
+        ],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "stun_bash": {
+    "name": "Stun Bash",
+    "ap_cost": 3,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 90,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "blunt"
+        ],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "stun",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "flurry": {
+    "name": "Flurry",
+    "ap_cost": 2,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 2,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.6,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "blunt"
+        ],
+        "weapon_tags": true
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "lance_charge": {
+    "name": "Lance Charge",
+    "ap_cost": 2,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.3,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [
+          "piercing"
+        ],
+        "weapon_tags": true
+      }
+    ],
+    "bonus_vs": {
+      "cavalry": 1.5
+    },
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "heal": {
+    "name": "Heal",
+    "ap_cost": 2,
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 1.2,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  },
+  "enchant_wind": {
+    "name": "Enchant Wind",
+    "ap_cost": 1,
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "wind_blade",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    }
+  }
+}

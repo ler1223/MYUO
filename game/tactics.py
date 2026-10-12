@@ -216,7 +216,7 @@ class TacticsSet:
         """Первое правило, которое можно выполнить.
 
         Правило пропускается, если навыка нет в skills (юниту он недоступен),
-        не хватает AP, не выполнено условие на себя (правила или самого навыка)
+        не хватает AP или PP, не выполнено условие на себя (правила или самого навыка)
         или не нашлось цели.
         allies включает самого actor; оба списка содержат только живых
         в порядке формации.
@@ -224,7 +224,7 @@ class TacticsSet:
         pools = {"enemy": enemies, "ally": allies, "self": [actor]}
         for rule in self.rules:
             skill = skills.get(rule.skill_id)
-            if skill is None or not actor.ap.can_spend(skill.ap_cost):
+            if skill is None or not skill.affordable(actor):
                 continue
             if not (skill.requires_self.check(actor, actor) and rule.self_condition.check(actor, actor)):
                 continue

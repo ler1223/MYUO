@@ -1,0 +1,453 @@
+{
+  "knight": {
+    "name": "Knight",
+    "stats": {
+      "hp": 60,
+      "phys_atk": 22,
+      "phys_def": 12,
+      "mag_atk": 4,
+      "mag_def": 5,
+      "initiative": 5,
+      "accuracy": 100,
+      "evasion": 5,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 25
+    },
+    "growth": {
+      "hp": 8,
+      "phys_atk": 2,
+      "phys_def": 2,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "medium_armor",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "power_strike"
+    ],
+    "passives": [
+      "iron_will",
+      "avenger"
+    ],
+    "tactics": [
+      {
+        "skill": "power_strike",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "archer": {
+    "name": "Archer",
+    "stats": {
+      "hp": 38,
+      "phys_atk": 20,
+      "phys_def": 5,
+      "mag_atk": 4,
+      "mag_def": 5,
+      "initiative": 9,
+      "accuracy": 110,
+      "evasion": 15,
+      "crit_rate": 15,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2,
+      "phys_def": 1,
+      "initiative": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "archer"
+    ],
+    "slots": [
+      "bow",
+      "light_armor",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "shot",
+      "poison_arrow"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "poison_arrow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "poison"
+        },
+        "selector": "strongest"
+      },
+      {
+        "skill": "shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "backmost"
+      }
+    ]
+  },
+  "cleric": {
+    "name": "Cleric",
+    "stats": {
+      "hp": 34,
+      "phys_atk": 8,
+      "phys_def": 4,
+      "mag_atk": 16,
+      "mag_def": 12,
+      "initiative": 6,
+      "accuracy": 100,
+      "evasion": 5,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 5,
+      "mag_atk": 2,
+      "phys_def": 1,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "robe",
+      "artifact"
+    ],
+    "skills": [
+      "magic_bolt",
+      "heal"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.6
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "magic_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "mage": {
+    "name": "Mage",
+    "stats": {
+      "hp": 30,
+      "phys_atk": 5,
+      "phys_def": 3,
+      "mag_atk": 24,
+      "mag_def": 10,
+      "initiative": 7,
+      "accuracy": 100,
+      "evasion": 5,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "mag_atk": 3,
+      "mag_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "robe",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "magic_bolt",
+      "fireball",
+      "enchant_wind"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "fireball",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "random"
+      },
+      {
+        "skill": "magic_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "weakest"
+      }
+    ]
+  },
+  "goblin": {
+    "name": "Goblin",
+    "stats": {
+      "hp": 28,
+      "phys_atk": 16,
+      "phys_def": 3,
+      "mag_atk": 2,
+      "mag_def": 2,
+      "initiative": 8,
+      "accuracy": 95,
+      "evasion": 20,
+      "crit_rate": 10,
+      "crit_damage": 150,
+      "guard_rate": 0
+    },
+    "growth": {
+      "hp": 4,
+      "phys_atk": 2,
+      "phys_def": 1,
+      "initiative": 1
+    },
+    "ap_max": 3,
+    "pp_max": 1,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "dagger",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "flurry"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "flurry",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.5
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "random"
+      }
+    ]
+  },
+  "orc": {
+    "name": "Orc",
+    "stats": {
+      "hp": 80,
+      "phys_atk": 26,
+      "phys_def": 8,
+      "mag_atk": 2,
+      "mag_def": 3,
+      "initiative": 4,
+      "accuracy": 90,
+      "evasion": 0,
+      "crit_rate": 5,
+      "crit_damage": 150,
+      "guard_rate": 10
+    },
+    "growth": {
+      "hp": 10,
+      "phys_atk": 3,
+      "phys_def": 1
+    },
+    "ap_max": 4,
+    "pp_max": 1,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "medium_armor",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "power_strike",
+      "stun_bash"
+    ],
+    "passives": [
+      "avenger"
+    ],
+    "tactics": [
+      {
+        "skill": "stun_bash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "lacks_effect",
+          "effect_id": "stun"
+        },
+        "selector": "strongest"
+      },
+      {
+        "skill": "power_strike",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "has_flag",
+          "flag": "stunned"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  },
+  "rider": {
+    "name": "Rider",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 21,
+      "phys_def": 8,
+      "mag_atk": 3,
+      "mag_def": 4,
+      "initiative": 8,
+      "accuracy": 100,
+      "evasion": 10,
+      "crit_rate": 10,
+      "crit_damage": 150,
+      "guard_rate": 10
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2,
+      "phys_def": 1,
+      "initiative": 1
+    },
+    "ap_max": 3,
+    "pp_max": 1,
+    "tags": [
+      "cavalry"
+    ],
+    "slots": [
+      "lance",
+      "medium_armor",
+      "artifact"
+    ],
+    "skills": [
+      "attack",
+      "lance_charge"
+    ],
+    "passives": [],
+    "tactics": [
+      {
+        "skill": "lance_charge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "has_tag",
+          "tag": "cavalry"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "has_tag",
+          "tag": "infantry"
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "attack",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ]
+  }
+}

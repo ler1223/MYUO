@@ -1,11 +1,16 @@
 """Общие заготовки для тестов."""
+from pathlib import Path
+
 from game.battle import BattleSimulation
 from game.database import Database
 from game.editing import set_owners
 from game.events import TurnStarted
 from game.squad import Squad
 
-DB = Database.load()  # только для чтения; тесты, меняющие данные, берут DB.copy()
+# Тесты работают на собственной замороженной копии данных (tests/data): папка data/ это
+# песочница, которую правят редакторы, и её содержимое тестам не указ.
+FIXTURE_DIR = Path(__file__).resolve().parent / "data"
+DB = Database.load(FIXTURE_DIR)  # только для чтения; тесты, меняющие данные, берут DB.copy()
 
 
 def plain_db() -> Database:

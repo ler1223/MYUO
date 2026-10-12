@@ -140,7 +140,11 @@ def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]],
         ui.text(t(label), x + offset, y, DIM, "small")
     y += 20
     new_rules: Optional[list[dict[str, Any]]] = None
-    skill_choices = [(s, f"{t(db.skills[s].name)} AP{db.skills[s].ap_cost}") for s in skill_ids if s in db.skills]
+    def cost(skill_id: str) -> str:
+        skill = db.skills[skill_id]
+        return f"AP{skill.ap_cost}" + (f" PP{skill.pp_cost}" if skill.pp_cost else "")
+
+    skill_choices = [(s, f"{t(db.skills[s].name)} {cost(s)}") for s in skill_ids if s in db.skills]
     for i, rule in enumerate(rules):
         ry = y + i * ROW_H
         ui.text(f"{i + 1}.", x, ry + 4)
@@ -425,13 +429,14 @@ class SkillEditor:
             new["name"] = name
         ui.text(f"id: {skill_id}", x + 320, TOP + 5, DIM, "small")
 
-        # Строка 2: цена, цель, область, удары, точность
+        # Строка 2: цена в AP и PP, цель, область, удары, точность
         y = TOP + 30
-        number("ap_cost", "AP cost", x, y, 76, 0, 9)
-        choice("targets", "Aimed at", x + 136, y, 70, 96, plain(ui, SIDES))
-        choice("area", "Area", x + 314, y, 64, 100, plain(ui, AREAS))
-        number("hits", "Hits", x + 490, y, 48, 1, 9)
-        number("accuracy", "Accuracy %", x + 594, y, 92, 0, 999, 50)
+        number("ap_cost", "AP cost", x, y, 60, 0, 9, 40)
+        number("pp_cost", "PP cost", x + 108, y, 60, 0, 9, 40)
+        choice("targets", "Aimed at", x + 220, y, 62, 90, plain(ui, SIDES))
+        choice("area", "Area", x + 382, y, 56, 96, plain(ui, AREAS))
+        number("hits", "Hits", x + 544, y, 44, 1, 9, 40)
+        number("accuracy", "Accuracy %", x + 638, y, 78, 0, 999, 46)
 
         # Строка 3: теги навыка, восстановление, бонус по тегу
         y = TOP + 60

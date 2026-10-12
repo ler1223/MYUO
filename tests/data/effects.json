@@ -1,0 +1,107 @@
+{
+  "poison": {
+    "name": "Poison",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 3,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 3,
+    "periodic": [
+      {
+        "kind": "damage",
+        "amount": 4
+      }
+    ]
+  },
+  "stun": {
+    "name": "Stun",
+    "modifiers": [],
+    "flags": [
+      "stunned"
+    ],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 1,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "periodic": []
+  },
+  "war_cry": {
+    "name": "War Cry",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.3
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 3,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "periodic": []
+  },
+  "iron_will": {
+    "name": "Iron Will",
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "passive"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "IGNORE",
+    "max_stacks": 1,
+    "periodic": []
+  },
+  "wind_blade": {
+    "name": "Wind Blade",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [
+          "slashing"
+        ],
+        "power_mult": 1.2,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null
+      }
+    ],
+    "duration": 3,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "periodic": []
+  }
+}
