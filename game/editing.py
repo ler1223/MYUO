@@ -139,19 +139,27 @@ def stat_default(stat: Stat) -> float:
     return STAT_DEFAULTS.get(stat, 0)
 
 
-def set_owners(db: Database, section: str, skill_id: str, owner_ids: Sequence[str]) -> None:
-    """Делает навык доступным ровно перечисленным классам (section="units") или предметам ("items")."""
+def set_owners(db: Database, section: str, skill_id: str, owner_ids: Sequence[str], field: str = "skills") -> None:
+    """Делает навык доступным ровно перечисленным классам (section="units") или предметам ("items").
+
+    field="passives" делает то же для пассивки.
+    """
     for owner in list(getattr(db, section).values()):
-        has, wanted = skill_id in owner.skills, owner.id in owner_ids
+        has, wanted = skill_id in getattr(owner, field), owner.id in owner_ids
         if has == wanted:
             continue
         data = owner.to_dict()
-        data["skills"] = [s for s in data["skills"] if s != skill_id] + ([skill_id] if wanted else [])
+        data[field] = [s for s in data[field] if s != skill_id] + ([skill_id] if wanted else [])
         db.update(section, owner.id, data)
 
 
-def skill_owners(db: Database, section: str, skill_id: str) -> list[str]:
-    return [owner.id for owner in getattr(db, section).values() if skill_id in owner.skills]
+def skill_owners(db: Database, section: str, skill_id: str, field: str = "skills") -> list[str]:
+    return [owner.id for owner in getattr(db, section).values() if skill_id in getattr(owner, field)]
+
+
+def new_passive_data(db: Database) -> dict[str, Any]:
+    return {"action": "effect", "trigger": "BattleStarted", "scope": "any", "pp_cost": 1,
+            "effect_id": next(iter(db.effects), None)}
 
 
 # --- описания --------------------------------------------------------------

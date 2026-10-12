@@ -28,6 +28,7 @@ from pygame_arena import ArenaScreen
 from pygame_data_editors import ClassEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
+from pygame_passive_editor import PassiveEditor
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
 FPS = 60
@@ -37,7 +38,7 @@ POPUP_RISE = 34
 LOG_LINES = 8
 
 TAB_BATTLE = 0
-TAB_W = 100
+TAB_W = 96
 FIRST_TAB_KEY = pygame.K_F1
 
 # Раскладка поля боя
@@ -128,6 +129,7 @@ class App:
             ("Classes", ClassEditor()),
             ("Items", ItemEditor()),
             ("Tags", TagEditor()),
+            ("Passives", PassiveEditor()),
             ("Arena", ArenaScreen()),
         ]
 

@@ -11,6 +11,8 @@ from .definitions import (
     APPLY_TARGET,
     MAGICAL,
     PART_HEAL,
+    PASSIVE_COVER,
+    PASSIVE_EFFECT,
     PHYSICAL,
     PassiveDefinition,
     SkillDefinition,
@@ -27,6 +29,7 @@ from .events import (
     AttackMissed,
     BattleEnded,
     BattleStarted,
+    Covered,
     DamageDealt,
     EffectApplied,
     EffectExpired,
@@ -210,10 +213,11 @@ class BattleSimulation:
         affected = self._affected(skill, target)
         used = self._attack_mods(user, skill)
         mods = [mod for _, mod in used]
+        affected, protector = self._apply_cover(user, skill, affected, mods)
         landed: list[Unit] = []  # по кому попал хотя бы один удар
         for _ in range(skill.hits):
             for unit in affected:
-                if unit.is_alive and self._hit(user, skill, unit, mods) and unit not in landed:
+                if unit.is_alive and self._hit(user, skill, unit, mods, unit is protector) and unit not in landed:
                     landed.append(unit)
         for unit in landed:
             if not unit.is_alive:
@@ -233,6 +237,56 @@ class BattleSimulation:
             self._emit(UnitDied(unit.uid))
         if dead:
             self._check_end()
+
+    def _apply_cover(self, user: Unit, skill: SkillDefinition, affected: list[Unit],
+                     mods: list[AttackMod]) -> tuple[list[Unit], Optional[Unit]]:
+        """Пассивки-прикрытия: перенаправляют вражеский навык с союзников на защитника.
+
+        Срабатывает первый подходящий защитник по порядку формации, один раз на навык.
+        Удары по всем прикрытым союзникам сливаются в один удар по защитнику.
+        Возвращает (новый список задетых, защитник или None).
+        """
+        if not affected or self._side[affected[0].uid] == self._side[user.uid]:
+            return affected, None  # навык по своим не перехватывается
+        attack_tags = {*skill.tags, *(part.category for part in skill.parts)}
+        for part in skill.parts:
+            attack_tags.update(self._part_tags(user, part))
+        for mod in mods:
+            attack_tags.update(mod.add_tags)
+        for owner in self._alive(self._side[affected[0].uid]):
+            if owner.has_flag(STUNNED_FLAG):
+                continue
+            for passive_id in owner.passive_ids:
+                passive = self.db.passives[passive_id]
+                if passive.action != PASSIVE_COVER or not owner.pp.can_spend(passive.pp_cost):
+                    continue
+                if passive.cover_tags and not attack_tags.intersection(passive.cover_tags):
+                    continue
+                if passive.cover_skill_areas and skill.area not in passive.cover_skill_areas:
+                    continue
+                in_zone = AREAS[passive.cover_area]
+                covered = [u for u in affected if u is not owner and in_zone(self._pos[owner.uid], self._pos[u.uid])]
+                if not covered:
+                    continue
+                if not passive.cover_many:
+                    covered = covered[:1]
+                owner.pp.spend(passive.pp_cost)
+                self._emit(PassiveTriggered(owner.uid, passive.id), from_passive=True)
+                for unit in covered:
+                    self._emit(Covered(owner.uid, unit.uid, skill.id), from_passive=True)
+                if passive.effect_id is not None:
+                    effect = self._add_effect(owner, passive.effect_id, owner.uid)
+                    if effect is not None:
+                        self._emit(EffectApplied(owner.uid, passive.effect_id, effect.stacks, owner.uid),
+                                   from_passive=True)
+                # Защитник встаёт на место первого прикрытого; сам он получает один удар.
+                result: list[Unit] = []
+                for unit in affected:
+                    replacement = owner if unit in covered else unit
+                    if replacement not in result:
+                        result.append(replacement)
+                return result, owner
+        return affected, None
 
     def _attack_mods(self, user: Unit, skill: SkillDefinition) -> list[tuple[ActiveEffect, AttackMod]]:
         """Изменения навыка от эффектов применяющего (зачарования и т. п.)."""
@@ -262,9 +316,11 @@ class BattleSimulation:
         weapon = user.weapon_damage_tags if part.weapon_tags else ()
         return {part.category, *(weapon or part.tags)}
 
-    def _hit(self, user: Unit, skill: SkillDefinition, unit: Unit, mods: list[AttackMod]) -> bool:
+    def _hit(self, user: Unit, skill: SkillDefinition, unit: Unit, mods: list[AttackMod],
+             unevadable: bool = False) -> bool:
         """Один удар по одному юниту: попадание, крит, блок, затем все части навыка.
 
+        unevadable: уклонение цели не учитывается (защитник, принявший удар на себя).
         Возвращает False при промахе.
         """
         hostile = self._side[unit.uid] != self._side[user.uid]
@@ -279,7 +335,7 @@ class BattleSimulation:
         chance = skill.accuracy * user.stat(Stat.ACCURACY) / 100
         chance *= rule_multipliers(self.db.rules, all_tags, target_tags)[1]
         chance += sum(mod.accuracy_add for mod in mods)
-        if hostile:
+        if hostile and not unevadable:
             chance -= unit.stat(Stat.EVASION)
         if self.rng.random() * 100 >= chance:
             self._emit(AttackMissed(user.uid, unit.uid, skill.id))
@@ -405,7 +461,9 @@ class BattleSimulation:
         for owner in self._alive():
             for passive_id in owner.passive_ids:
                 passive = self.db.passives[passive_id]
-                if passive.trigger != trigger or not self._scope_matches(passive, owner, event):
+                if passive.action != PASSIVE_EFFECT or passive.trigger != trigger:
+                    continue
+                if not self._scope_matches(passive, owner, event):
                     continue
                 if not owner.pp.can_spend(passive.pp_cost):
                     continue

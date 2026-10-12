@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Mapping
+from typing import Any, Mapping, Optional
 
 from .areas import AREA_SINGLE, AREAS
 from .stats import Modifier, Scale, Stat
@@ -23,6 +23,12 @@ APPLY_SELF = "self"
 APPLY_RECIPIENTS = (APPLY_TARGET, APPLY_SELF)
 
 SCOPES = ("self", "ally", "enemy", "any")
+
+# Что делает пассивка.
+PASSIVE_EFFECT = "effect"   # на событие trigger накладывает эффект на владельца
+PASSIVE_COVER = "cover"     # перенаправляет на владельца удар, нацеленный на союзника
+PASSIVE_ACTIONS = (PASSIVE_EFFECT, PASSIVE_COVER)
+COVER_TRIGGER = "SkillUsed"  # значение trigger у прикрытия (оно срабатывает на применение навыка врагом)
 
 
 @dataclass(frozen=True)
@@ -205,29 +211,69 @@ class SkillDefinition:
 
 @dataclass(frozen=True)
 class PassiveDefinition:
-    """Реакция на событие: при срабатывании эффект effect_id накладывается на владельца."""
+    """Пассивка: реакция, которая тратит PP.
+
+    action "effect": на событие trigger (чьё событие задаёт scope) эффект effect_id
+    накладывается на владельца.
+
+    action "cover": когда вражеский навык задевает союзников в зоне cover_area
+    относительно владельца, удар по ним перенаправляется на владельца. Уклониться
+    от такого удара владелец не может. Необязательный effect_id накладывается на
+    владельца перед ударом (например, усиление защиты).
+    """
 
     id: str
     name: str
     trigger: str   # имя класса события, например "UnitDied"
     scope: str     # чьё событие: self / ally / enemy / any
     pp_cost: int
-    effect_id: str
+    effect_id: Optional[str] = None
+    action: str = PASSIVE_EFFECT
+    cover_area: str = "row"                     # кого прикрывает: клетки из areas.AREAS относительно владельца
+    cover_many: bool = False                    # True: всех задетых союзников в зоне; False: одного
+    cover_tags: tuple[str, ...] = ()            # от атак с любым из этих тегов; пусто = от любых
+    cover_skill_areas: tuple[str, ...] = ()     # от навыков с этими областями; пусто = от любых
 
     @classmethod
     def from_dict(cls, passive_id: str, data: Mapping[str, Any]) -> "PassiveDefinition":
         scope = data.get("scope", "any")
         if scope not in SCOPES:
             raise ValueError(f"passive {passive_id}: unknown scope {scope!r}")
+        action = data.get("action", PASSIVE_EFFECT)
+        if action not in PASSIVE_ACTIONS:
+            raise ValueError(f"passive {passive_id}: unknown action {action!r}")
+        effect_id = data.get("effect_id") or None
+        if action == PASSIVE_EFFECT and effect_id is None:
+            raise ValueError(f"passive {passive_id}: an effect is required")
+        cover_area = data.get("cover_area", "row")
+        skill_areas = tuple(data.get("cover_skill_areas", ()))
+        for area in (cover_area, *skill_areas):
+            if area not in AREAS:
+                raise ValueError(f"passive {passive_id}: unknown area {area!r}")
         return cls(
             id=passive_id,
             name=data.get("name", passive_id),
-            trigger=data["trigger"],
+            trigger=data.get("trigger", COVER_TRIGGER),
             scope=scope,
             pp_cost=data.get("pp_cost", 0),
-            effect_id=data["effect_id"],
+            effect_id=effect_id,
+            action=action,
+            cover_area=cover_area,
+            cover_many=data.get("cover_many", False),
+            cover_tags=tuple(data.get("cover_tags", ())),
+            cover_skill_areas=skill_areas,
         )
 
     def to_dict(self) -> dict[str, Any]:
-        return {"name": self.name, "trigger": self.trigger, "scope": self.scope,
-                "pp_cost": self.pp_cost, "effect_id": self.effect_id}
+        return {
+            "name": self.name,
+            "action": self.action,
+            "trigger": self.trigger,
+            "scope": self.scope,
+            "pp_cost": self.pp_cost,
+            "effect_id": self.effect_id,
+            "cover_area": self.cover_area,
+            "cover_many": self.cover_many,
+            "cover_tags": list(self.cover_tags),
+            "cover_skill_areas": list(self.cover_skill_areas),
+        }

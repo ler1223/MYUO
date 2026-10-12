@@ -112,7 +112,8 @@ class Database:
             for mod in effect.attack_mods:
                 require(tags, mod.add_tags, f"effect {effect.id}")
         for passive in passives.values():
-            require(effects, [passive.effect_id], f"passive {passive.id}")
+            require(effects, [passive.effect_id] if passive.effect_id else [], f"passive {passive.id}")
+            require({*tags, *CATEGORIES}, passive.cover_tags, f"passive {passive.id}")
             if not hasattr(events, passive.trigger):
                 raise ValueError(f"passive {passive.id}: unknown event {passive.trigger!r}")
         for skill in skills.values():
@@ -184,6 +185,8 @@ class Database:
                 skill["bonus_vs"].pop(key, None)
                 for part in skill["parts"]:
                     drop(part, "tags")
+            for passive in data["passives"].values():
+                drop(passive, "cover_tags")
             for effect in data["effects"].values():
                 drop(effect, "grants_tags")
                 for mod in effect["attack_mods"]:

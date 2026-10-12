@@ -1,16 +1,42 @@
 {
   "iron_will": {
     "name": "Iron Will",
+    "action": "effect",
     "trigger": "BattleStarted",
     "scope": "any",
     "pp_cost": 0,
-    "effect_id": "iron_will"
+    "effect_id": "iron_will",
+    "cover_area": "row",
+    "cover_many": false,
+    "cover_tags": [],
+    "cover_skill_areas": []
   },
   "avenger": {
     "name": "Avenger",
+    "action": "effect",
     "trigger": "UnitDied",
     "scope": "ally",
     "pp_cost": 1,
-    "effect_id": "war_cry"
+    "effect_id": "war_cry",
+    "cover_area": "row",
+    "cover_many": false,
+    "cover_tags": [],
+    "cover_skill_areas": []
+  },
+  "shield_cover": {
+    "name": "Shield Cover",
+    "action": "cover",
+    "trigger": "SkillUsed",
+    "scope": "any",
+    "pp_cost": 1,
+    "effect_id": null,
+    "cover_area": "row",
+    "cover_many": false,
+    "cover_tags": [
+      "physical"
+    ],
+    "cover_skill_areas": [
+      "single"
+    ]
   }
 }
