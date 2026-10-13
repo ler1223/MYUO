@@ -477,15 +477,31 @@ class ArenaTests(WindowTestCase):
                 spawned.update(type(e).__name__ for e in arena.fx.effects)
                 now += 40
             hp_changes += sum(arena._hp[uid] != unit.max_hp for uid, unit in view.sim.units.items())
-        self.assertTrue({"Projectile", "FloatText", "Ring"} <= spawned, spawned)
+        self.assertTrue({"Projectile", "FloatText", "Ring", "WeaponStrike"} <= spawned, spawned)
         self.assertGreater(hp_changes, 0)                      # HP на картах меняется по ходу показа
         dead = {uid for uid, unit in view.sim.units.items() if not unit.is_alive}
         self.assertEqual(arena._dead, dead)
         # Карты повёрнуты: повёрнутая карта уже плоской, а погибшие карты кэшируются отдельно.
-        card = arena.art.flat("knight", "Knight", 3, "left", (100, 140), self.ui.fonts["small"])
-        tilted = arena.art.tilted("knight", "Knight", 3, "left", (100, 140), self.ui.fonts["small"])
+        knight = view.sim.units[1]
+        face = arena.face(knight, view)
+        self.assertEqual((face.title, face.level, face.style, face.ap, face.pp),
+                         ("Knight", 3, "armored", knight.ap.current, knight.pp.current))
+        card = arena.art.flat(face, (100, 140))
+        tilted = arena.art.tilted(face, "left", (100, 140))
         self.assertLess(tilted.get_width(), card.get_width())
+        self.assertIs(arena.art.tilted(face, "left", (100, 140)), tilted)     # повторно берётся из кэша
         self.assertTrue(arena.art.has_art("knight"))
+        self.assertEqual(arena.art.style_for({"infantry", "flying"}), "flying")
+        self.assertEqual(arena.art.style_for(set()), "infantry")
+
+    def test_weapon_kinds(self):
+        from pygame_arena import weapon_kind
+        db = Database.load(self.data_dir)
+        self.assertEqual(weapon_kind(db.create_unit("knight", 1, equipment=["iron_sword"]), "melee"), "sword")
+        self.assertEqual(weapon_kind(db.create_unit("orc", 2), "melee"), "axe")            # слот класса без предмета
+        self.assertEqual(weapon_kind(db.create_unit("rider", 3), "melee"), "spear")
+        self.assertEqual(weapon_kind(db.create_unit("archer", 4), "arrow"), "bow")
+        self.assertEqual(weapon_kind(None, "magic"), "staff")
 
 
 class ZoomAndWindowTests(WindowTestCase):

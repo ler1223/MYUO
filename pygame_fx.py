@@ -13,6 +13,7 @@ import math
 import random
 from dataclasses import dataclass, field
 from functools import lru_cache
+from pathlib import Path
 from typing import Optional
 
 import pygame
@@ -478,3 +479,130 @@ class FxSystem:
             add_glow(screen, (x, y), p.color, r * 2, k * 0.7)
         else:
             add_glow(screen, (x, y), p.color, size * 3 * (0.5 + k), k)
+
+
+# --- оружие ---------------------------------------------------------------
+
+WEAPON_DIR = Path(__file__).resolve().parent / "assets" / "weapons"
+WEAPON_KINDS = ("sword", "axe", "spear", "dagger", "bow", "staff", "shield", "fist")
+WEAPON_LENGTH = {"sword": 70, "axe": 64, "spear": 96, "dagger": 40, "bow": 70, "staff": 84, "shield": 54, "fist": 30}
+
+_weapon_cache: dict[tuple[str, int], pygame.Surface] = {}
+
+
+def _draw_weapon(kind: str, length: int) -> pygame.Surface:
+    """Оружие кодом, остриём вверх, в поверхности length x length."""
+    s = pygame.Surface((length, length), pygame.SRCALPHA)
+    c = length / 2
+    u = length / 100                                  # единица длины
+    wood, steel, edge, gold = (120, 80, 45), (196, 202, 214), (245, 248, 255), (222, 182, 82)
+    w = lambda v: max(1, round(v * u))
+    if kind in ("sword", "dagger"):
+        blade = 0.62 if kind == "sword" else 0.45
+        top, guard = length * 0.04, length * (0.04 + blade)
+        pygame.draw.polygon(s, steel, [(c, top), (c + w(6), top + w(10)), (c + w(5), guard), (c - w(5), guard), (c - w(6), top + w(10))])
+        pygame.draw.line(s, edge, (c, top + w(4)), (c, guard - w(2)), w(2))
+        pygame.draw.rect(s, gold, pygame.Rect(c - w(16), guard, w(32), w(5)), border_radius=w(2))
+        pygame.draw.rect(s, wood, pygame.Rect(c - w(3), guard + w(5), w(6), w(16)))
+        pygame.draw.circle(s, gold, (c, guard + w(24)), w(5))
+    elif kind == "axe":
+        pygame.draw.line(s, wood, (c, length * 0.12), (c, length * 0.98), w(6))
+        pygame.draw.polygon(s, steel, [(c + w(2), length * 0.12), (c + w(30), length * 0.04), (c + w(36), length * 0.24),
+                                       (c + w(30), length * 0.44), (c + w(2), length * 0.36)])
+        pygame.draw.line(s, edge, (c + w(31), length * 0.06), (c + w(33), length * 0.42), w(3))
+    elif kind == "spear":
+        pygame.draw.line(s, wood, (c, length * 0.16), (c, length * 0.99), w(4))
+        pygame.draw.polygon(s, steel, [(c, length * 0.01), (c + w(7), length * 0.1), (c, length * 0.2), (c - w(7), length * 0.1)])
+        pygame.draw.line(s, gold, (c - w(6), length * 0.21), (c + w(6), length * 0.21), w(3))
+    elif kind == "bow":
+        box = pygame.Rect(c - w(30), length * 0.04, w(44), length * 0.92)
+        pygame.draw.arc(s, wood, box, -math.pi / 2, math.pi / 2, w(6))
+        pygame.draw.line(s, (230, 230, 220), (box.centerx, box.top + w(3)), (box.centerx, box.bottom - w(3)), w(1))
+    elif kind == "staff":
+        pygame.draw.line(s, wood, (c, length * 0.14), (c, length * 0.99), w(5))
+        pygame.draw.circle(s, (150, 210, 255), (c, length * 0.1), w(9))
+        pygame.draw.circle(s, (240, 250, 255), (c - w(2), length * 0.08), w(4))
+    elif kind == "shield":
+        pts = [(c - w(40), length * 0.08), (c + w(40), length * 0.08), (c + w(36), length * 0.5), (c, length * 0.96),
+               (c - w(36), length * 0.5)]
+        pygame.draw.polygon(s, (60, 90, 160), pts)
+        pygame.draw.polygon(s, steel, pts, w(6))
+        pygame.draw.line(s, gold, (c, length * 0.16), (c, length * 0.8), w(6))
+        pygame.draw.line(s, gold, (c - w(24), length * 0.36), (c + w(24), length * 0.36), w(6))
+    else:   # fist
+        pygame.draw.circle(s, (230, 190, 150), (c, c), w(30))
+        pygame.draw.circle(s, (150, 110, 80), (c, c), w(30), w(4))
+    return s
+
+
+def weapon_sprite(kind: str, length: int) -> pygame.Surface:
+    """Оружие остриём вверх: картинка assets/weapons/<вид>.png, иначе нарисованное кодом."""
+    length = max(8, int(length))
+    key = (kind, length)
+    if key not in _weapon_cache:
+        if len(_weapon_cache) > 300:
+            _weapon_cache.clear()
+        path = WEAPON_DIR / f"{kind}.png"
+        if path.exists():
+            image = pygame.image.load(str(path)).convert_alpha()
+            k = length / max(image.get_size())
+            _weapon_cache[key] = pygame.transform.smoothscale(image, (max(1, round(image.get_width() * k)),
+                                                                      max(1, round(image.get_height() * k))))
+        else:
+            _weapon_cache[key] = _draw_weapon(kind, length)
+    return _weapon_cache[key]
+
+
+@dataclass
+class WeaponStrike(Effect):
+    """Оружие атакующего: появляется у него, летит к цели и бьёт.
+
+    Меч, топор, кинжал и кулак — замах и удар дугой; копьё — выпад; лук — натягивается
+    у стрелка; посох — поднимается над заклинателем; щит — встаёт перед целью (прикрытие).
+    """
+
+    kind: str = "sword"
+    source: Point = (0, 0)
+    target: Point = (0, 0)
+    facing: int = 1           # 1: атакующий слева, бьёт вправо
+
+    def draw(self, screen: pygame.Surface, now: int, cam: Camera) -> None:
+        t = self.progress(now)
+        if t is None:
+            return
+        appear = min(1.0, t / 0.15)
+        fade = 1 - max(0.0, (t - 0.8) / 0.2)
+        alpha = int(255 * min(appear, fade))
+        length = cam.s(WEAPON_LENGTH.get(self.kind, 60))
+        if self.kind == "bow":
+            pos = (self.source[0] + 34 * self.facing, self.source[1] - 6)
+            angle = -12 * self.facing
+            stretch = 1 - 0.2 * math.sin(min(1.0, t / 0.6) * math.pi)
+        elif self.kind == "staff":
+            pos = (self.source[0] + 18 * self.facing, self.source[1] - 30 - 20 * ease_out(min(1.0, t / 0.5)))
+            angle, stretch = -10 * self.facing, 1.0
+            glow_at(screen, cam, (pos[0], pos[1] - WEAPON_LENGTH["staff"] * 0.4), (150, 210, 255), 22, 0.8 * fade)
+        elif self.kind == "shield":
+            pos = lerp(self.source, self.target, 0.75)
+            angle, stretch = 0, 1.0
+        else:
+            # Полёт к цели, затем удар: дуга (рубящее) или выпад (колющее).
+            travel = ease_out(min(1.0, t / 0.6))
+            near = (self.target[0] - 40 * self.facing, self.target[1] - 20)
+            pos = lerp((self.source[0] + 20 * self.facing, self.source[1] - 30), near, travel)
+            pos = (pos[0], pos[1] - math.sin(travel * math.pi) * 30)
+            strike = max(0.0, (t - 0.55) / 0.3)
+            if self.kind == "spear":
+                angle = -90 * self.facing
+                pos = (pos[0] + 40 * self.facing * ease_out(min(1.0, strike)), pos[1] + 20)
+            else:
+                angle = (40 - 160 * ease_out(min(1.0, strike))) * -self.facing   # замах за голову и удар вниз
+            stretch = 1.0
+        image = weapon_sprite(self.kind, length)
+        if self.facing < 0 and self.kind in ("bow",):
+            image = pygame.transform.flip(image, True, False)
+        if stretch != 1.0:
+            image = pygame.transform.smoothscale(image, (max(1, int(image.get_width() * stretch)), image.get_height()))
+        rotated = pygame.transform.rotate(image, angle)
+        rotated.set_alpha(alpha)
+        screen.blit(rotated, rotated.get_rect(center=cam.p(*pos)))

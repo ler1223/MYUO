@@ -6,6 +6,7 @@
 """
 from __future__ import annotations
 
+import math
 from typing import Any, Optional
 
 import pygame
@@ -27,7 +28,7 @@ from game.events import (
     format_event,
 )
 from game.unit import Unit
-from pygame_cards import CardArt
+from pygame_cards import CardArt, CardFace, draw_wings
 from pygame_fx import (
     ELEMENT_COLORS,
     Beam,
@@ -40,6 +41,7 @@ from pygame_fx import (
     Ring,
     Slash,
     Thrust,
+    WeaponStrike,
     add_glow,
     fx_font,
 )
@@ -60,14 +62,30 @@ LOG_LINES = 5
 LOG_LINE_H = 18
 SKIP_BACKLOG_MS = 300      # после долгого перерыва старые события не проигрываются пачкой
 
-HP_BACK = (60, 30, 34)
 AP_COLOR = (90, 160, 240)
 PP_COLOR = (190, 120, 235)
 DEAD_TEXT = (120, 120, 125)
 ELEMENTS = ("lightning", "fire", "ice", "light", "dark", "poison")
 PHYSICAL = ("slashing", "piercing", "blunt")
 DOT_VISUALS = {"burn": "fire", "poison": "poison", "plague": "dark"}   # периодический урон эффектов
+# Слот оружия класса -> вид оружия в эффекте атаки.
+WEAPON_BY_SLOT = {"light_sword": "sword", "heavy_weapon": "axe", "lance": "spear", "dagger": "dagger",
+                  "bow": "bow", "staff": "staff"}
+FLYING_TAG = "flying"
+FLY_HEIGHT = 14            # насколько летающая карта поднята над землёй
 EFFECT_LOOKS = {"stun": "stun", "poison": "poison", "plague": "poison", "burn": "fire", "slow": "ice"}
+
+
+def weapon_kind(unit: Optional[Unit], delivery: str) -> str:
+    """Каким оружием бьёт юнит: надетое оружие, иначе оружейный слот класса, иначе по виду навыка."""
+    if unit is not None:
+        for item in unit.equipped:
+            if item.slot in WEAPON_BY_SLOT:
+                return WEAPON_BY_SLOT[item.slot]
+        for slot in unit.definition.slots:
+            if slot in WEAPON_BY_SLOT:
+                return WEAPON_BY_SLOT[slot]
+    return {"arrow": "bow", "magic": "staff"}.get(delivery, "fist")
 
 
 def skill_visual(skill: Optional[SkillDefinition], user: Optional[Unit]) -> tuple[str, Optional[str], str]:
@@ -177,6 +195,12 @@ class ArenaScreen:
             fx.add(FloatText(when, 900, (top(ev.user)[0], top(ev.user)[1] - 8), name, (255, 236, 170), 14, 18, False))
             if delivery in ("melee", "arrow", "magic") and ev.target != ev.user:
                 fx.card_lunges[ev.user] = (when, target)
+            if delivery in ("melee", "arrow", "magic"):
+                # Оружие атакующего: летит и бьёт (ближний бой), натягивается (лук), поднимается (посох).
+                kind = weapon_kind(units.get(ev.user), delivery)
+                if delivery == "magic" and kind not in ("staff",):
+                    kind = "staff"
+                fx.add(WeaponStrike(when, TRAVEL_MS + 220, kind, source, target, facing(ev.user)))
             if delivery == "arrow":
                 fx.add(Projectile(when, TRAVEL_MS, source, target, "arrow", color, arc=40))
             elif delivery == "magic" and element not in ("lightning", "light"):
@@ -252,6 +276,7 @@ class ArenaScreen:
         elif isinstance(ev, Covered):
             protector, covered = center(ev.protector), center(ev.target)
             fx.card_lunges[ev.protector] = (when, covered)
+            fx.add(WeaponStrike(when, 600, "shield", protector, covered, facing(ev.protector)))
             for pos in (protector, covered):
                 fx.add(Ring(when, 500, pos, ELEMENT_COLORS["guard"], 20, 60, 5, 1.0))
             fx.add(FloatText(when, 900, (protector[0], protector[1] - 50), t("cover").upper(), ELEMENT_COLORS["guard"], 22, 20))
@@ -432,9 +457,15 @@ class ArenaScreen:
         key = clip.size
         if self._background is None or self._background.get_size() != key:
             bg = pygame.Surface(key)
-            for y in range(key[1]):
-                k = y / key[1]
-                pygame.draw.line(bg, (int(26 + 22 * k), int(30 + 24 * k), int(44 + 10 * k)), (0, y), (key[0], y))
+            image = self.art.background()
+            if image is not None:      # картинка фона заполняет поле с обрезкой по краям
+                k = max(key[0] / image.get_width(), key[1] / image.get_height())
+                scaled = pygame.transform.smoothscale(image, (int(image.get_width() * k) + 1, int(image.get_height() * k) + 1))
+                bg.blit(scaled, (0, 0), pygame.Rect((scaled.get_width() - key[0]) // 2, (scaled.get_height() - key[1]) // 2, *key))
+            else:
+                for y in range(key[1]):
+                    k = y / key[1]
+                    pygame.draw.line(bg, (int(26 + 22 * k), int(30 + 24 * k), int(44 + 10 * k)), (0, y), (key[0], y))
             self._background = bg
         target.blit(self._background, clip.topleft)
         # Тёплая полоса между отрядами двигается вместе с полем при зуме.
@@ -445,52 +476,56 @@ class ArenaScreen:
             pygame.draw.line(band, (int(16 * k), int(14 * k), int(9 * k)), (i, 0), (i, clip.height))
         target.blit(band, (x - band.get_width() // 2, clip.top), special_flags=pygame.BLEND_RGB_ADD)
 
-    def _card_font(self, size: float) -> pygame.font.Font:
-        return fx_font(max(8, round(size)))
+    def face(self, unit: Unit, view: Any) -> CardFace:
+        """Что показать на карте юнита: класс, теги, уровень, AP, PP, HP (как в показанных событиях), эффекты."""
+        t = self._t
+        dead = unit.uid in self._dead
+        tags = sorted(unit.definition.tags)
+        return CardFace(
+            class_id=unit.definition.id,
+            title=t(unit.definition.name),
+            subtitle=" · ".join(t(tag) for tag in tags),
+            level=unit.state.level,
+            style=self.art.style_for(unit.tags),
+            ap=unit.ap.current, ap_max=unit.ap.max, pp=unit.pp.current, pp_max=unit.pp.max,
+            hp=0 if dead else self._hp.get(unit.uid, unit.hp), max_hp=unit.max_hp,
+            effects=tuple(t(e.definition.name) for e in unit.effects) if not dead else (),
+            dead=dead,
+        )
 
     def _draw_card(self, target: pygame.Surface, view: Any, unit: Unit, place: tuple, now: int, cam: Camera) -> None:
-        t = self._t
         (cx, cy), size, side = place
-        dead = unit.uid in self._dead
+        face = self.face(unit, view)
         dx, dy, flash = self.fx.card_offset(unit.uid, now, (cx, cy))
-        current = unit.uid == view.current_uid and not dead
+        current = unit.uid == view.current_uid and not face.dead
         lift = -8 if current else 0
+        flying = FLYING_TAG in unit.tags and not face.dead
+        if flying:   # летающая карта парит: поднята над землёй и покачивается
+            lift -= FLY_HEIGHT + 5 * math.sin(now / 320 + unit.uid)
+            shadow = pygame.Rect(0, 0, round(cam.s(size[0] * 0.8)), round(cam.s(12)))
+            shadow.center = cam.p(cx + dx, cy + size[1] / 2 + 6)
+            ground = pygame.Surface(shadow.size, pygame.SRCALPHA)
+            pygame.draw.ellipse(ground, (0, 0, 0, 90), ground.get_rect())
+            target.blit(ground, shadow)
         # Размер карты в пикселях окна; масштаб округлён, чтобы кэш повёрнутых карт не разрастался.
         k = round(cam.scale * 8) / 8
         px_size = (max(8, round(size[0] * k)), max(10, round(size[1] * k)))
-        font = self._card_font(11 * k)
-        card = self.art.tilted(unit.definition.id, t(unit.name), unit.state.level, side, px_size, font, dead)
+        card = self.art.tilted(face, side, px_size)
         rect = card.get_rect(center=cam.p(cx + dx, cy + dy + lift))
+        side_color = self.art.side_colors.get(side, (200, 200, 200))
+        if not face.dead:
+            add_glow(target, rect.center, tuple(c // 5 for c in side_color), max(rect.size) * 0.75, 1.0)
         if current:
-            add_glow(target, rect.center, (120, 100, 40), max(rect.size) * 0.8, 1.0)
+            add_glow(target, rect.center, (130, 110, 40), max(rect.size) * 0.85, 1.0)
+        if flying:
+            style = self.art.styles.get(face.style)
+            draw_wings(target, rect, now / 150 + unit.uid, style.light if style else (230, 236, 245),
+                       self.art.wing_image())
         target.blit(card, rect)
         if flash > 0:
             white = self.art.silhouette(card).copy()
             white.set_alpha(int(220 * flash))
             target.blit(white, rect)
-        if dead:
-            return
-
-        # HP, AP, PP — плоско под картой, чтобы читались.
-        bar = pygame.Rect(0, 0, round(cam.s(size[0] - 6)), max(2, round(cam.s(6))))
-        bar.midtop = (rect.centerx, rect.bottom + round(cam.s(3)))
-        pygame.draw.rect(target, HP_BACK, bar)
-        hp, max_hp = self._hp.get(unit.uid, unit.hp), max(1, unit.max_hp)
-        fill = bar.copy()
-        fill.width = round(bar.width * max(0, hp) / max_hp)
-        pygame.draw.rect(target, GREEN if hp * 3 > max_hp else RED, fill)
-        pips = [(AP_COLOR, i < unit.ap.current) for i in range(unit.ap.max)]
-        pips += [(PP_COLOR, i < unit.pp.current) for i in range(unit.pp.max)]
-        step, pip = cam.s(8), max(2, round(cam.s(6)))
-        px = rect.centerx - len(pips) * step / 2
-        for i, (color, filled) in enumerate(pips):
-            box = pygame.Rect(round(px + i * step), bar.bottom + round(cam.s(3)), pip, pip)
-            pygame.draw.rect(target, color, box, 0 if filled else 1)
-        names = [t(e.definition.name) for e in unit.effects]
-        if names:
-            small = self._card_font(12 * cam.scale)
-            line = small.render(fit(small, ", ".join(names), round(cam.s(size[0] + 30))), True, YELLOW)
-            target.blit(line, line.get_rect(midbottom=(rect.centerx, rect.top - round(cam.s(2)))))
 
     def _draw_log(self, ui: UI, view: Any, autoplay: bool) -> None:
         screen, t, small = ui.screen, ui.t, ui.fonts["small"]
