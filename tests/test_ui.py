@@ -465,35 +465,6 @@ class ArenaTests(WindowTestCase):
         self.assertEqual(skill_visual(db.skills["heal"], None)[0], "heal")
         self.assertEqual(skill_visual(db.skills["enchant_wind"], None)[0], "support")
 
-    def test_cards_play_a_whole_battle_with_effects(self):
-        arena = self.tab("Arena")
-        view = self.app.view
-        now, spawned, hp_changes = 1000, set(), 0
-        while not view.sim.finished:
-            view.consume(view.sim.step(), now)
-            while now < view.busy_until:                      # проигрываем эффекты шага кадр за кадром
-                self.ui.begin([])
-                d.draw_frame(self.ui, self.app, False, now)
-                spawned.update(type(e).__name__ for e in arena.fx.effects)
-                now += 40
-            hp_changes += sum(arena._hp[uid] != unit.max_hp for uid, unit in view.sim.units.items())
-        self.assertTrue({"Projectile", "FloatText", "Ring", "WeaponStrike"} <= spawned, spawned)
-        self.assertGreater(hp_changes, 0)                      # HP на картах меняется по ходу показа
-        dead = {uid for uid, unit in view.sim.units.items() if not unit.is_alive}
-        self.assertEqual(arena._dead, dead)
-        # Карты повёрнуты: повёрнутая карта уже плоской, а погибшие карты кэшируются отдельно.
-        knight = view.sim.units[1]
-        face = arena.face(knight, view)
-        self.assertEqual((face.title, face.level, face.style, face.ap, face.pp),
-                         ("Knight", 3, "armored", knight.ap.current, knight.pp.current))
-        card = arena.art.flat(face, (100, 140))
-        tilted = arena.art.tilted(face, "left", (100, 140))
-        self.assertLess(tilted.get_width(), card.get_width())
-        self.assertIs(arena.art.tilted(face, "left", (100, 140)), tilted)     # повторно берётся из кэша
-        self.assertTrue(arena.art.has_art("knight"))
-        self.assertEqual(arena.art.style_for({"infantry", "flying"}), "flying")
-        self.assertEqual(arena.art.style_for(set()), "infantry")
-
     def test_weapon_kinds(self):
         from pygame_arena import weapon_kind
         db = Database.load(self.data_dir)
@@ -557,10 +528,31 @@ class StageTests(WindowTestCase):
         self.play(stage, view)
 
 
+    def test_units_covering_the_attack_become_transparent(self):
+        from pygame_arena import FIELD_RECT
+        from pygame_fx import Camera
+        stage = self.tab("Stage")
+        stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))   # демо-отряды: юнитов больше
+        self.frame()
+        cam = Camera(1.0, FIELD_RECT.topleft, FIELD_RECT.topleft, FIELD_RECT)
+        order = sorted(stage.stage, key=lambda uid: stage.stage[uid].feet[1])
+        rects = {uid: stage._sprite_rect(uid, 0, cam) for uid in order}
+        # Дальний юнит и ближний, который его заметно перекрывает.
+        back, front = next((a, b) for i, a in enumerate(order) for b in order[i + 1:]
+                           if rects[b].inflate(-rects[b].width // 4, -rects[b].height // 8).colliderect(rects[a]))
+        stage.focus = (frozenset([back]), 0, 1000)
+        stage._last_draw = 0
+        stage._update_alpha(order, 500, cam)
+        self.assertLess(stage.alpha[front], 255)               # закрывающий стал прозрачным
+        self.assertEqual(stage.alpha[back], 255)               # участник атаки — нет
+        stage._update_alpha(order, 5000, cam)                  # атака кончилась: снова непрозрачный
+        self.assertEqual(stage.alpha[front], 255)
+
+
 class ZoomAndWindowTests(WindowTestCase):
     def test_zoom_keeps_point_under_cursor_pan_and_reset(self):
         from pygame_arena import FIELD_RECT, MAX_ZOOM
-        arena = self.tab("Arena")
+        arena = self.tab("Stage")
         under = lambda pos: (arena.origin[0] + (pos[0] - FIELD_RECT.left) / arena.zoom,
                              arena.origin[1] + (pos[1] - FIELD_RECT.top) / arena.zoom)
         cursor = (300, 250)
@@ -591,9 +583,9 @@ class ZoomAndWindowTests(WindowTestCase):
         self.assertEqual(click.pos, (100, 100))
         self.ui = UI(window.canvas, load_fonts())
         self.ui.transform = window.to_logical
-        arena = self.tab("Arena")
+        arena = self.tab("Stage")
         arena.zoom_at((300, 250), 4)
-        self.app.view.consume(self.app.view.sim.step(), 1000)
+        self.app.battle_view().consume(self.app.battle_view().sim.step(), 1000)
         self.ui.begin([])
         d.draw_frame(self.ui, self.app, False, 1300, window)
         self.assertTrue(arena.native)

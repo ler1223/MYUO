@@ -63,11 +63,15 @@ ROOT = Path(__file__).resolve().parent
 UNITS_DIR = ROOT / "assets" / "units"
 VISUALS_PATH = ROOT / "assets" / "visuals" / "skills.json"
 
-HUMAN_H = 112              # рост человека в ближней колонне, логические пиксели
-FAR_SCALE = 0.78           # масштаб дальней колонны относительно ближней
-GROUND_FAR, GROUND_NEAR = 228, 446   # линия земли дальней и ближней колонны
-ROW_GAP = 92               # передний ряд от центра поля
-ROW_STEP = 136             # шаг между рядами
+HUMAN_H = 185              # рост человека в ближней колонне, логические пиксели
+FAR_SCALE = 0.84           # масштаб дальней колонны относительно ближней
+GROUND_FAR, GROUND_NEAR = 305, 452   # линия земли дальней и ближней колонны
+ROW_GAP = 110              # передний ряд от центра поля
+ROW_STEP = 95              # шаг между рядами: спрайты соседних рядов перекрываются
+DIAGONAL = 40              # ближняя колонна дальше от центра: отряд стоит по диагонали
+FOCUS_MS = 700             # сколько после удара участники атаки остаются в фокусе
+SEE_THROUGH = 70           # непрозрачность юнита, закрывающего участника атаки (из 255)
+FADE_MS = 120              # скорость перехода прозрачности
 DEFAULT_WINDUP = 380
 DEATH_MS = 800
 TRAIL_GHOSTS = 4           # послеобразов при рывке
@@ -249,6 +253,9 @@ class StageScreen(ArenaScreen):
         self.tints: dict[int, list[Tint]] = {}
         self.deaths: dict[int, int] = {}
         self._hit_source: Optional[int] = None
+        self.focus: tuple[frozenset, int, int] = (frozenset(), 0, 0)   # участники атаки, с, по
+        self.alpha: dict[int, float] = {}   # текущая непрозрачность спрайта
+        self._last_draw = 0
 
     # --- бой этой вкладки ---
 
@@ -295,7 +302,7 @@ class StageScreen(ArenaScreen):
                 row, col = formation.position_of(unit.uid)
                 depth = col / (cols - 1) if cols > 1 else 1.0          # 0 дальняя, 1 ближняя
                 scale = FAR_SCALE + (1 - FAR_SCALE) * depth
-                offset = (ROW_GAP + row * ROW_STEP) * (0.8 + 0.2 * depth)
+                offset = ROW_GAP + row * ROW_STEP + DIAGONAL * depth
                 x = 500 - offset if side == "left" else 500 + offset
                 y = GROUND_FAR + (GROUND_NEAR - GROUND_FAR) * depth
                 sprite = self.bank.sprite_id(unit)
@@ -312,6 +319,8 @@ class StageScreen(ArenaScreen):
             self.motions.clear()
             self.tints.clear()
             self.deaths.clear()
+            self.alpha.clear()
+            self.focus = (frozenset(), 0, 0)
         super()._sync(view, now)
 
     # --- события -> движения и эффекты ---
@@ -329,6 +338,8 @@ class StageScreen(ArenaScreen):
                                       (255, 236, 170), 14, 18, False))
             context = {"self": ev.user, "target": ev.target, "targets": self._targets_of(view, ev),
                        "source": ev.user, "element": visual[1], "visual": visual}
+            windup = int(self.spec(unit, ev.skill_id).get("windup", DEFAULT_WINDUP))
+            self.focus = (frozenset([ev.user, *context["targets"]]), when, when + windup + FOCUS_MS)
             self._run(self.spec(unit, ev.skill_id).get("cast", []), when, context, "self")
         elif isinstance(ev, DamageDealt):
             self._hit_source = ev.source if ev.cause not in DOT_CAUSES and ev.cause not in db.effects else None
@@ -374,6 +385,8 @@ class StageScreen(ArenaScreen):
             return
         guard, ward = stage[ev.protector], stage[ev.target]
         f = ward.facing
+        self.focus = (self.focus[0] | {ev.protector, ev.target}, min(self.focus[1], when) if self.focus[0] else when,
+                      max(self.focus[2], when + 1050))
         dx = ward.feet[0] + f * 40 - guard.feet[0]
         dy = ward.feet[1] + 4 - guard.feet[1]
         self._move(ev.protector, Motion(when, 200, 500, 350, dx=dx, dy=dy, lift=24, trail=True))
@@ -533,12 +546,45 @@ class StageScreen(ArenaScreen):
         # Дальние раньше ближних; кто сейчас в движении — поверх стоящих на той же линии.
         order = sorted(visible, key=lambda uid: (self.stage[uid].feet[1] + self._offset(uid, now)[1]
                                                  + (30 if self.motions.get(uid) else 0)))
+        self._update_alpha(order, now, cam)
         for uid in order:
             self._draw_unit(target, units[uid], now, cam)
         for uid in order:
             self._draw_plate(target, units[uid], now, cam)
         self.fx.draw(target, now, cam)
         target.set_clip(previous_clip)
+
+    def _sprite_rect(self, uid: int, now: int, cam: Camera) -> pygame.Rect:
+        place = self.stage[uid]
+        sprite, _ = self._sprite_at(place, cam, now, uid)
+        dx, dy, lift, _ = self._offset(uid, now)
+        return sprite.get_rect(midbottom=cam.p(place.feet[0] + dx, place.feet[1] + dy - lift))
+
+    def _update_alpha(self, order: list[int], now: int, cam: Camera) -> None:
+        """Во время атаки юниты, нарисованные поверх атакующего или цели и закрывающие их, становятся прозрачными."""
+        members, start, end = self.focus
+        active = [uid for uid in order if uid in members] if start <= now <= end else []
+        rects = {uid: self._sprite_rect(uid, now, cam) for uid in order}
+        step = min(1.0, max(0, now - self._last_draw) / FADE_MS) if self._last_draw else 1.0
+        self._last_draw = now
+        for i, uid in enumerate(order):
+            covers = uid not in members and any(
+                order.index(a) < i and rects[uid].inflate(-rects[uid].width // 4, -rects[uid].height // 8)
+                .colliderect(rects[a]) for a in active)
+            goal = SEE_THROUGH if covers else 255
+            current = self.alpha.get(uid, 255)
+            self.alpha[uid] = current + (goal - current) * step
+
+    def _draw_background(self, target: pygame.Surface, cam: Camera) -> None:
+        """Пока без картинки фона: тёмный градиент и чуть светлее земля."""
+        clip = cam.clip
+        if self._background is None or self._background.get_size() != clip.size:
+            bg = pygame.Surface(clip.size)
+            for y in range(clip.height):
+                k = y / max(1, clip.height)
+                pygame.draw.line(bg, (int(22 + 20 * k), int(24 + 20 * k), int(32 + 14 * k)), (0, y), (clip.width, y))
+            self._background = bg
+        target.blit(self._background, clip.topleft)
 
     def _death_progress(self, uid: int, now: int) -> float:
         """0 жив, 0..1 падает и тает, 1 исчез."""
@@ -552,7 +598,7 @@ class StageScreen(ArenaScreen):
         place = self.stage[uid]
         dx, dy, lift, _ = self._offset(uid, now)
         fade = 1 - self._death_progress(uid, now)
-        width = HUMAN_H * place.scale * (0.9 if place.height > HUMAN_H * place.scale * 1.3 else 0.5)
+        width = HUMAN_H * place.scale * (0.75 if place.height > HUMAN_H * place.scale * 1.3 else 0.45)
         x, y = cam.p(place.feet[0] + dx, place.feet[1] + max(0.0, dy) + 2)
         shrink = 1 - min(0.5, lift / 80)
         rect = pygame.Rect(0, 0, max(2, round(cam.s(width) * shrink)), max(2, round(cam.s(width * 0.22) * shrink)))
@@ -586,7 +632,7 @@ class StageScreen(ArenaScreen):
                 gdx, gdy, glift, _ = self._offset(uid, now - i * 28)
                 ghost = sprite.copy()
                 ghost.fill((70, 90, 140), special_flags=pygame.BLEND_RGB_ADD)
-                ghost.set_alpha(int(120 * (1 - i / (TRAIL_GHOSTS + 1))))
+                ghost.set_alpha(int(120 * (1 - i / (TRAIL_GHOSTS + 1)) * self.alpha.get(uid, 255) / 255))
                 target.blit(ghost, ghost.get_rect(midbottom=cam.p(place.feet[0] + gdx, place.feet[1] + gdy - glift)))
         feet = cam.p(place.feet[0] + dx + shake_dx, place.feet[1] + dy - lift)
         image = sprite
@@ -595,9 +641,10 @@ class StageScreen(ArenaScreen):
             image = sprite.copy()
             for color, k in tint:
                 image.fill(tuple(int(c * k * 0.55) for c in color), special_flags=pygame.BLEND_RGB_ADD)
-        if dying > 0:
+        alpha = self.alpha.get(uid, 255) * (1 - dying)
+        if alpha < 254:
             image = image.copy() if image is sprite else image
-            image.set_alpha(int(255 * (1 - dying)))
+            image.set_alpha(int(alpha))
         if angle:
             image = pygame.transform.rotate(image, angle)
         rect = image.get_rect(midbottom=feet)
@@ -606,7 +653,7 @@ class StageScreen(ArenaScreen):
         target.blit(image, rect)
         if flash > 0 and not angle:
             white = white.copy()
-            white.set_alpha(int(200 * flash))
+            white.set_alpha(int(200 * flash * alpha / 255))
             target.blit(white, rect)
 
     def _draw_plate(self, target: pygame.Surface, unit: Unit, now: int, cam: Camera) -> None:

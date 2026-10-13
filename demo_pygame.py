@@ -2,8 +2,8 @@
 
 Запуск: python demo_pygame.py [seed]
 Вкладки переключаются клавишами F1, F2, ... или кликом; язык кнопкой справа от вкладок.
-Бой показывают три вкладки: Battle (карточки), Arena (карты) и Stage (статичные спрайты,
-свой бой тестовых отрядов).
+Бой показывают две вкладки: Battle (карточки) и Stage (статичные спрайты, свой бой
+тестовых отрядов).
 Экран боя делает sim.step() и рисует полученные события; в логику боя не вмешивается.
 Редакторы меняют справочник (app.db, папка data/) и расстановку (app.setup);
 бой каждый раз идёт на копии расстановки.
@@ -25,7 +25,6 @@ from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_se
 from game.scenario import Scenario, build_demo
 from game.squad import Formation, Squad
 from game.unit import Unit
-from pygame_arena import ArenaScreen
 from pygame_data_editors import ClassEditor
 from pygame_effect_editor import AreaEditor, EffectEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
@@ -173,7 +172,6 @@ class App:
             ("Passives", PassiveEditor()),
             ("Effects", EffectEditor()),
             ("Areas", AreaEditor()),
-            ("Arena", ArenaScreen()),
             ("Stage", stage),
         ]
 
@@ -474,7 +472,7 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int, window: Optional[Wind
         editor.draw_battle(ui, app.battle_view(), autoplay, now, POPUP_MS, POPUP_RISE)
     else:
         editor.draw(ui, app)
-        note = app.message or (t("unsaved changes: open the Battle or Arena tab to apply and save") if app.dirty else "")
+        note = app.message or (t("unsaved changes: open the Battle or Stage tab to apply and save") if app.dirty else "")
         ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
     ui.end()
     if window is not None:
