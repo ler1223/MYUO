@@ -129,6 +129,8 @@ class UI:
         self.scale = 1.0     # во сколько раз интерфейс крупнее базового 1000x620 (размеры списков, подсказок)
         self.releases: list[tuple[tuple[int, int], int]] = []
         # оформление кнопок и списков; окно башни задаёт своё (тёмно-синее с золотом)
+        # нарисованные рамки: frames(экран, вид, прямоугольник) -> True, если рамка нарисована картинкой
+        self.frames: Optional[Callable[[pygame.Surface, str, pygame.Rect], bool]] = None
         self.style = dict(button=BUTTON, hover=BUTTON_HOVER, selected=BUTTON_SELECTED, disabled=BUTTON_DISABLED,
                           border=DIM, accent=YELLOW, radius=3)
         # подсказка под курсором: строки (текст, цвет, шрифт) и картинка; рисуется поверх всего в end()
@@ -208,10 +210,11 @@ class UI:
             y = max(4, screen_h - height - 4)
         box = pygame.Rect(x, y, width, height)
         self.tip_box = box
-        shade = pygame.Surface(box.size, pygame.SRCALPHA)
-        shade.fill((*TIP_BG, 240))
-        self.screen.blit(shade, box.topleft)
-        pygame.draw.rect(self.screen, TIP_BORDER, box, max(1, round(k)))
+        if self.frames is None or not self.frames(self.screen, "tooltip", box):
+            shade = pygame.Surface(box.size, pygame.SRCALPHA)
+            shade.fill((*TIP_BG, 240))
+            self.screen.blit(shade, box.topleft)
+            pygame.draw.rect(self.screen, TIP_BORDER, box, max(1, round(k)))
         if image is not None:
             self.screen.blit(image, (x + pad, y + pad))
         cy = y + pad
@@ -373,8 +376,9 @@ class UI:
             y = max(4, popup.anchor.y - height - 2)
         box = pygame.Rect(x, y, width, height)
         self.popup_box = box
-        pygame.draw.rect(self.screen, POPUP_BG, box)
-        pygame.draw.rect(self.screen, YELLOW, box, 1)
+        if self.frames is None or not self.frames(self.screen, "inset", box):
+            pygame.draw.rect(self.screen, POPUP_BG, box)
+            pygame.draw.rect(self.screen, YELLOW, box, 1)
 
         prompt = self.t("search") + ": " + popup.search + "_"
         self.screen.blit(font.render(fit(font, prompt, width - 12), True, YELLOW), (x + 6, y + 5))

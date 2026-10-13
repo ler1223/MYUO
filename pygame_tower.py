@@ -32,7 +32,7 @@ from pygame_stage import TOWER_MODE, StageScreen, load_visuals
 from pygame_tips import STAT_COLORS, class_tip, modifier_text, tier_color, unit_tip
 import pygame_tower_style
 from pygame_tower_inventory import InventoryFilter
-from pygame_tower_prepare import MAIN, STATUS, UNIT, draw_prepare, go_back
+from pygame_tower_prepare import INVENTORY, MAIN, STATUS, UNIT, draw_prepare, go_back
 from pygame_tower_style import (ACCENTS, AP_COLOR, BACK, CELL, CELL_EMPTY, DIM, ENEMY, EXP, GOLD, GREEN, H, M,
                                 GOLD_LINE, PANEL_DARK, PP_COLOR, SIZE, SIZES, TEXT, TOP_H, W, background, bar, button,
                                 Skin, class_entries, framed, item_icon, make_ui, panel, portrait, skill_chip, stat_grid)
@@ -338,7 +338,7 @@ def draw_top(ui: UI, app: TowerApp, accent) -> None:
                                                    (t("Earned by winning floors, spent in the shop."), TEXT, "small")])
     ui.text(t("best floor {n}", n=run.best), 660, 24, DIM, "main")
     buttons = pygame.Rect(W - 760, 12, 280, 52), pygame.Rect(W - 466, 12, 300, 52), pygame.Rect(W - 152, 12, 128, 52)
-    if button(ui, t("Reload data (F5)"), buttons[0], enabled=not app.in_battle, font="small"):
+    if button(ui, t("Reload data (F5)"), buttons[0], enabled=not app.in_battle, font="small", icon="icon/settings"):
         if app.reload():
             app.message = t("data reloaded")
     label = t("Sure? Click again") if app.confirm_new else t("New run")
@@ -445,7 +445,7 @@ def draw_reward(ui: UI, app: TowerApp) -> None:
             ui.text(t(unit.name), ux, row.y + 10, TEXT, "main")
             ui.text(f"+{up.exp} {t('exp')}", ux + 300, row.y + 12, EXP, "small")
             bar(ui, pygame.Rect(ux, row.y + 50, row.right - ux - 20, 14), unit.state.exp, app.rules.exp.per_level,
-                EXP, (30, 40, 60))
+                EXP, (30, 40, 60), kind="exp")
             if up.levels:
                 ui.text(t("Level up! {a} -> {b}", a=up.old_level, b=up.new_level), ux, row.y + 74, GOLD, "main")
             news = [("skill", s) for s in up.skills] + [("passive", p) for p in up.passives]
@@ -551,6 +551,8 @@ def draw_battle(ui: UI, app: TowerApp) -> None:
     stage.update(ui, view, app.clock)
     sim = view.sim
     accent = ACCENTS["battle"]
+    hud = pygame.Rect(0, FIELD.bottom, W, H - FIELD.bottom)          # полотно под полем: фон bg/battle_hud
+    ui.screen.blit(app.art.image("bg/battle_hud", hud.size, cover=True), hud.topleft)
     pygame.draw.rect(ui.screen, PANEL_DARK, (0, 0, W, TOP_H))
     pygame.draw.rect(ui.screen, accent, (0, TOP_H - 5, W, 5))
     boss = app.rules.is_boss(app.run.floor)
@@ -596,11 +598,13 @@ def squad_hud(ui: UI, app: TowerApp, squad, rect: pygame.Rect, accent, title: st
         if dead:
             image = image.copy()
             image.fill((90, 80, 80, 255), special_flags=pygame.BLEND_RGBA_MULT)
-        framed(ui, image, pygame.Rect(card.x + 6, card.y + 6, side, side), accent, width=2)
+        framed(ui, image, pygame.Rect(card.x + 6, card.y + 6, side, side), accent, width=2,
+               kind="portrait_enemy" if enemy else "portrait")
         x = card.x + side + 14
         width = card.right - x - 8
         ui.text(t(unit.name), x, card.y + 6, DIM if dead else TEXT, "small", width)
         bar(ui, pygame.Rect(x, card.y + 34, width, 16), hp, unit.max_hp, GREEN if hp * 3 > unit.max_hp else RED,
+            kind="enemy" if enemy else "hp",
             label=f"{max(0, hp)}/{unit.max_hp}")
         pips(ui, x, card.y + 58, unit.ap.current, unit.ap.max, AP_COLOR)
         pips(ui, x, card.y + 76, unit.pp.current, unit.pp.max, PP_COLOR)
@@ -642,6 +646,7 @@ SCREENS: dict[str, Callable[[UI, TowerApp], None]] = {
 def draw_frame(ui: UI, app: TowerApp, window: Optional[Window] = None) -> None:
     """Кадр в ui.screen (1920x1280); с окном поле боя рисуется прямо в окно в полном разрешении."""
     ui.t = app.t
+    ui.frames = pygame_tower_style.SKIN.draw if pygame_tower_style.SKIN is not None else None
     ui.screen.fill(BACK)
     if app.in_battle:
         draw_battle(ui, app)
@@ -650,7 +655,8 @@ def draw_frame(ui: UI, app: TowerApp, window: Optional[Window] = None) -> None:
         draw_result(ui, app)
     else:
         phase = UNIT if app.view == UNIT and app.run.phase == PREPARE else app.run.phase
-        background(ui, app, phase)
+        scene = INVENTORY if app.view == INVENTORY and app.run.phase == PREPARE else phase
+        background(ui, app, scene)
         draw_top(ui, app, ACCENTS[phase])
         SCREENS[app.run.phase](ui, app)
     if app.message:

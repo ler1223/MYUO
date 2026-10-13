@@ -194,7 +194,8 @@ def draw_table(ui: UI, app: Any, flt: InventoryFilter, entries: list[Entry], ope
         item = db.items[entry.item_id]
         chosen = entry.owner is None and flt.picked == entry.item_id
         plate(ui, rect, (60, 52, 30) if chosen else (lighter(CELL, 14) if ui.hovered(rect) else CELL),
-              GOLD if chosen else GOLD_DIM, cut=10)
+              GOLD if chosen else GOLD_DIM, cut=10,
+              kind="card_selected" if chosen else ("row_hover" if ui.hovered(rect) else "row"))
         on_icon = bool(item_icon(ui, app, entry.item_id, pygame.Rect(rect.x + 8, rect.y + 6, 80, 80), entry.count))
         x = rect.x + 104
         ui.text(t(item.name), x, rect.y + 10, tier_color(item.tier), "main", rect.width - 660)
@@ -245,7 +246,8 @@ def draw_detail(ui: UI, app: Any, flt: InventoryFilter) -> None:
     ui.text(t("Put on:"), DETAIL.x + 20, wear_row(0).y - 40, GOLD, "main")
     for i, unit in enumerate(wearers[:5]):
         rect = wear_row(i)
-        plate(ui, rect, lighter(CELL, 14) if ui.hovered(rect) else CELL, GOLD_DIM, cut=8)
+        plate(ui, rect, lighter(CELL, 14) if ui.hovered(rect) else CELL, GOLD_DIM, cut=8,
+              kind="row_hover" if ui.hovered(rect) else "row")
         portrait(ui, app, unit.definition.id, pygame.Rect(rect.x + 6, rect.y + 6, 72, 72))
         ui.text(f"{t(unit.name)} {t('lv {n}', n=unit.state.level)}", rect.x + 88, rect.y + 8, TEXT, "small",
                 rect.width - 96)

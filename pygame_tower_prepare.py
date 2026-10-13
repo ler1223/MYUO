@@ -22,7 +22,7 @@ from pygame_tower_inventory import draw_inventory
 from pygame_editors import ROW_H, rule_table
 from pygame_tips import modifier_text, tier_color, unit_tip
 from pygame_tower_style import (ACCENTS, BOTTOM_Y, CONTENT_Y, CELL, CELL_EMPTY, DIM, ENEMY, EXP, GOLD, GOLD_DIM, GOLD_LINE, GREEN, H,
-                                M, PANEL_DARK, TEXT, W, bar, preview_stats, button, class_entries, crown, figure,
+                                M, PANEL_DARK, TEXT, W, bar, preview_stats, stretched, button, class_entries, crown, figure,
                                 item_icon, panel, plate, portrait, skill_chip, stat_grid)
 from pygame_ui import UI, lighter
 
@@ -135,9 +135,14 @@ def draw_field(ui: UI, app: Any, half: pygame.Rect, entries: list[dict], rows: i
             spot = places[(row, col)]
             tile = tile_rect(spot, dx)
             lit = hot == (row, col)
-            fill = lighter(side_fill, 40 if lit else (12 if row == 0 else 0))
-            pygame.draw.ellipse(ui.screen, fill, tile)
-            pygame.draw.ellipse(ui.screen, GOLD if lit else side_line, tile, 4 if lit else 2)
+            side = "enemy" if mirror else "ally"
+            image = stretched(f"field/tile_{side}_hot" if lit else f"field/tile_{side}", tile.size)
+            if image is not None:
+                ui.screen.blit(image, tile.topleft)
+            else:
+                fill = lighter(side_fill, 40 if lit else (12 if row == 0 else 0))
+                pygame.draw.ellipse(ui.screen, fill, tile)
+                pygame.draw.ellipse(ui.screen, GOLD if lit else side_line, tile, 4 if lit else 2)
             targets.append((tile, (row, col), None))
     plates = []
     for col in range(cols):
@@ -155,13 +160,13 @@ def draw_field(ui: UI, app: Any, half: pygame.Rect, entries: list[dict], rows: i
     # Плашки и короны поверх всех фигур, чтобы задние ряды не терялись за передними
     for entry, rect, x, y, scale in plates:
         plate_w = round(dx * 0.7)
-        label = pygame.Rect(round(x - plate_w / 2), round(y + dx * 0.15 * scale + 2), plate_w, 44)
-        pygame.draw.rect(ui.screen, PANEL_DARK, label)
-        pygame.draw.rect(ui.screen, ENEMY if mirror else GOLD_DIM, label, 1)
+        label = pygame.Rect(round(x - plate_w / 2), round(y + dx * 0.15 * scale + 2), plate_w, 52)
+        plate(ui, label, PANEL_DARK, ENEMY if mirror else GOLD_DIM, cut=6,
+              kind="nameplate_enemy" if mirror else "nameplate")
         name = f"{ui.t(app.db.units[entry['class_id']].name)}  {entry['level']}"
-        ui.text(name, label.x + 6, label.y + 2, ENEMY if entry.get("boss") else TEXT, "tiny", label.width - 12)
-        bar(ui, pygame.Rect(label.x + 6, label.y + 28, label.width - 12, 10), entry["hp"], entry["max_hp"],
-            GREEN if not mirror else ENEMY)
+        ui.text(name, label.x + 22, label.y + 6, ENEMY if entry.get("boss") else TEXT, "tiny", label.width - 44)
+        bar(ui, pygame.Rect(label.x + 22, label.y + 32, label.width - 44, 8), entry["hp"], entry["max_hp"],
+            GREEN if not mirror else ENEMY, kind="enemy" if mirror else "hp")
         if entry.get("leader") or entry.get("boss"):                # корона на плашке своего бойца
             crown(ui, app, (label.right - 4, label.y - 2), 30)
     return targets
@@ -210,11 +215,11 @@ def draw_bottom(ui: UI, app: Any) -> None:
     pygame.draw.rect(ui.screen, PANEL_DARK, (0, BOTTOM_Y, W, H - BOTTOM_Y))
     pygame.draw.line(ui.screen, GOLD_LINE, (0, BOTTOM_Y), (W, BOTTOM_Y), 2)
     t = ui.t
-    if button(ui, t("Squad"), SQUAD_BUTTON, selected=app.view == SQUAD):
+    if button(ui, t("Squad"), SQUAD_BUTTON, selected=app.view == SQUAD, icon="icon/squad_tab"):
         app.view = MAIN if app.view == SQUAD else SQUAD
-    if button(ui, t("Units"), UNITS_BUTTON, selected=app.view == UNITS):
+    if button(ui, t("Units"), UNITS_BUTTON, selected=app.view == UNITS, icon="icon/units"):
         app.view = MAIN if app.view == UNITS else UNITS
-    if button(ui, t("Inventory"), INVENTORY_BUTTON, selected=app.view == INVENTORY):
+    if button(ui, t("Inventory"), INVENTORY_BUTTON, selected=app.view == INVENTORY, icon="icon/inventory"):
         app.view = MAIN if app.view == INVENTORY else INVENTORY
     formation = app.run.squad.formation
     note = t("Fielded {n}/{max}", n=len(formation), max=formation.max_units)
@@ -232,7 +237,7 @@ def draw_formation(ui: UI, app: Any) -> None:
     targets = draw_field(ui, app, HALF_L, squad_entries(app), formation.rows, formation.cols, False,
                          hot=snap_cell(app, ui.mouse) if dragging(ui, app) else None)
     if shop_in:
-        ui.text(t("shop after {n} more floor(s)", n=shop_in), HALF_L.x + 24, HALF_L.bottom - 40, DIM, "small")
+        ui.text(t("shop after {n} more floor(s)", n=shop_in), HALF_L.x + 70, HALF_L.bottom - 44, DIM, "small")
     roster_targets: list[tuple[pygame.Rect, Optional[int]]] = []
     if app.view == SQUAD:
         roster_targets = draw_roster(ui, app)
@@ -259,13 +264,15 @@ def draw_roster(ui: UI, app: Any) -> list[tuple[pygame.Rect, Optional[int]]]:
         card = roster_card(i)
         fielded = formation.position_of(unit.uid) is not None
         dragging = app.drag is not None and app.drag[0] == unit.uid
-        plate(ui, card, lighter(CELL, 16) if ui.hovered(card) else CELL, GOLD if fielded else GOLD_DIM, cut=10)
+        plate(ui, card, lighter(CELL, 16) if ui.hovered(card) else CELL, GOLD if fielded else GOLD_DIM, cut=10,
+              kind="card_selected" if fielded else "card")
         portrait(ui, app, unit.definition.id, pygame.Rect(card.x + 10, card.y + 10, 110, 110),
-                 GOLD if fielded else GOLD_DIM)
+                 GOLD if fielded else GOLD_DIM, kind=leader_kind(app, unit))
         x = card.x + 132
         ui.text(t(unit.name), x, card.y + 12, DIM if dragging else TEXT, "small", card.right - x - 10)
         ui.text(t("lv {n}", n=unit.state.level), x, card.y + 44, GOLD, "small")
-        bar(ui, pygame.Rect(x, card.y + 76, card.right - x - 14, 8), unit.state.exp, app.rules.exp.per_level, EXP,
+        bar(ui, pygame.Rect(x, card.y + 76, card.right - x - 18, 8), unit.state.exp, app.rules.exp.per_level, EXP,
+            kind="exp", back=
             (30, 40, 60))
         ui.text(t("in squad") if fielded else t("reserve"), x, card.y + 94, GOLD if fielded else DIM, "tiny")
         if run.squad.leader_uid == unit.uid:
@@ -377,8 +384,9 @@ def draw_units(ui: UI, app: Any) -> None:
     for i, unit in enumerate(units[offset:offset + rows]):
         rect = unit_row(i)
         fielded = app.run.squad.formation.position_of(unit.uid) is not None
-        plate(ui, rect, lighter(CELL, 16) if ui.hovered(rect) else CELL, GOLD if fielded else GOLD_DIM, cut=10)
-        portrait(ui, app, unit.definition.id, pygame.Rect(rect.x + 10, rect.y + 6, 92, 92))
+        plate(ui, rect, lighter(CELL, 16) if ui.hovered(rect) else CELL, GOLD if fielded else GOLD_DIM, cut=10,
+              kind="row_hover" if ui.hovered(rect) else "row")
+        portrait(ui, app, unit.definition.id, pygame.Rect(rect.x + 10, rect.y + 6, 92, 92), kind=leader_kind(app, unit))
         x = rect.x + 14
         ui.text(t(unit.name), x + 104, rect.y + 16, TEXT, "main", 400)
         tags = ", ".join(t(db.tags[tag].name) for tag in unit.definition.tags if tag in db.tags)
@@ -386,8 +394,10 @@ def draw_units(ui: UI, app: Any) -> None:
         if app.run.squad.leader_uid == unit.uid:
             crown(ui, app, (rect.x + 94, rect.y + 16), 26)
         ui.text(str(unit.state.level), x + 560, rect.y + 20, GOLD, "big")
-        bar(ui, pygame.Rect(x + 560, rect.y + 70, 160, 10), unit.state.exp, app.rules.exp.per_level, EXP, (30, 40, 60))
-        bar(ui, pygame.Rect(x + 760, rect.y + 38, 160, 22), unit.hp, unit.max_hp, GREEN, label=f"{unit.max_hp}")
+        bar(ui, pygame.Rect(x + 560, rect.y + 70, 160, 10), unit.state.exp, app.rules.exp.per_level, EXP, (30, 40, 60),
+            kind="exp")
+        bar(ui, pygame.Rect(x + 760, rect.y + 38, 160, 22), unit.hp, unit.max_hp, GREEN, label=f"{unit.max_hp}",
+            kind="hp")
         ui.text(place_text(app, unit), x + 960, rect.y + 34, GOLD if fielded else DIM, "small", 350)
         on_icon = False
         for j, item_id in enumerate(i for i in unit.state.equipment if i is not None):
@@ -408,13 +418,14 @@ def draw_unit(ui: UI, app: Any, unit: Unit) -> None:
     ui.screen.blit(glow, (ART.x + 12, ART.y + 12))
     figure(ui, app, unit.definition.id, (ART.centerx, ART.bottom - 300), 640)
     name_plate = pygame.Rect(ART.x + 24, ART.bottom - 290, ART.width - 48, 186)
-    plate(ui, name_plate, (16, 24, 50), GOLD_LINE, cut=12)
+    plate(ui, name_plate, (16, 24, 50), GOLD_LINE, cut=12, kind="card")
     ui.text(t(unit.name), name_plate.x + 24, name_plate.y + 14, GOLD, "title", name_plate.width - 160)
     level = ui.fonts["big"].render(t("lv {n}", n=unit.state.level), True, TEXT)
     ui.screen.blit(level, (name_plate.right - level.get_width() - 24, name_plate.y + 24))
     need = app.rules.exp.per_level
     ui.text(t("exp {n}/{need}", n=unit.state.exp, need=need), name_plate.x + 24, name_plate.y + 84, EXP, "small")
     bar(ui, pygame.Rect(name_plate.x + 24, name_plate.y + 116, name_plate.width - 48, 12), unit.state.exp, need, EXP,
+        kind="exp", back=
         (30, 40, 60))
     ui.text(place_text(app, unit), name_plate.x + 24, name_plate.y + 144, DIM, "small", name_plate.width - 48)
     if run.squad.leader_uid == unit.uid:
@@ -424,10 +435,11 @@ def draw_unit(ui: UI, app: Any, unit: Unit) -> None:
         app.act(run.bench if fielded else run.field, unit.uid)
 
     for tab, rect in TABS.items():
-        if button(ui, t({STATUS: "Status", EQUIPMENT: "Equipment", TACTICS: "Tactics"}[tab]), rect,
+        if button(ui, t({STATUS: "Status", EQUIPMENT: "Equipment", TACTICS: "Tactics"}[tab]), rect, tab=True,
+                  icon={STATUS: "icon/units", EQUIPMENT: "icon/inventory", TACTICS: "icon/tactics"}[tab],
                   selected=app.tab == tab, font="big"):
             app.tab = tab
-    plate(ui, CONTENT, (18, 28, 56), GOLD_LINE)
+    plate(ui, CONTENT, (18, 28, 56), GOLD_LINE, kind="panel")
     {STATUS: draw_status, EQUIPMENT: draw_equipment, TACTICS: draw_tactics}[app.tab](ui, app, unit)
 
     pygame.draw.rect(ui.screen, PANEL_DARK, (0, BOTTOM_Y, W, H - BOTTOM_Y))
@@ -451,10 +463,11 @@ def section_title(ui: UI, text: str, x: int, y: int, width: int) -> int:
 
 def draw_status(ui: UI, app: Any, unit: Unit) -> None:
     t, db = ui.t, app.db
-    x, y = CONTENT.x + 30, CONTENT.y + 24
+    x, y = CONTENT.x + 46, CONTENT.y + 38
     left_w = 560
     y = section_title(ui, t("Parameters"), x, y, left_w)
-    bar(ui, pygame.Rect(x, y, left_w, 26), unit.hp, unit.max_hp, GREEN, label=f"HP {unit.hp}/{unit.max_hp}")
+    bar(ui, pygame.Rect(x, y, left_w, 26), unit.hp, unit.max_hp, GREEN, label=f"HP {unit.hp}/{unit.max_hp}",
+        kind="hp")
     y = stat_grid(ui, app, unit, x, y + 40, 1, left_w, 38)
     y = section_title(ui, t("Traits"), x, y + 16, left_w)
     for i, tag in enumerate(tag for tag in unit.definition.tags if tag in db.tags):
@@ -463,11 +476,11 @@ def draw_status(ui: UI, app: Any, unit: Unit) -> None:
         ui.text(t(db.tags[tag].name), chip.x + 12, chip.y + 7, TEXT, "small", chip.width - 20)
 
     sx = x + left_w + 60
-    width = CONTENT.right - sx - 30
+    width = CONTENT.right - sx - 46
     entries = class_entries(unit)
     items = [("skill", s) for item in unit.equipped for s in item.skills] + \
             [("passive", p) for item in unit.equipped for p in item.passives]
-    sy = section_title(ui, t("Active skills"), sx, CONTENT.y + 24, width)
+    sy = section_title(ui, t("Active skills"), sx, CONTENT.y + 38, width)
     for kind, entry_id, unlock in [e for e in entries if e[0] == "skill"] + [(k, i, 1) for k, i in items if k == "skill"]:
         skill_row(ui, app, unit, kind, entry_id, unlock, pygame.Rect(sx, sy, width, 70))
         sy += 78
@@ -497,7 +510,7 @@ def skill_row(ui: UI, app: Any, unit: Unit, kind: str, entry_id: str, unlock: in
 
 def draw_equipment(ui: UI, app: Any, unit: Unit) -> None:
     t, db, inventory = ui.t, app.db, app.run.inventory
-    x, y = CONTENT.x + 30, CONTENT.y + 24
+    x, y = CONTENT.x + 46, CONTENT.y + 38
     width = 640
     y = section_title(ui, t("Equipment"), x, y, width)
     slots = unit.definition.slots
@@ -506,7 +519,7 @@ def draw_equipment(ui: UI, app: Any, unit: Unit) -> None:
         row = pygame.Rect(x, y + index * SLOT_ROW, width, SLOT_ROW - 10)
         chosen = index == app.slot
         plate(ui, row, (60, 52, 30) if chosen else (lighter(CELL, 14) if ui.hovered(row) else CELL),
-              GOLD if chosen else GOLD_DIM, cut=10)
+              GOLD if chosen else GOLD_DIM, cut=10, kind="card_selected" if chosen else "card")
         current = unit.state.equipment[index]
         icon = pygame.Rect(row.x + 10, row.y + 10, 88, 88)
         ui.text(t(slot), row.x + 112, row.y + 8, GOLD if chosen else DIM, "tiny")
@@ -517,15 +530,15 @@ def draw_equipment(ui: UI, app: Any, unit: Unit) -> None:
             mods = ", ".join(modifier_text(t, m) for m in db.items[current].modifiers)
             ui.text(mods, row.x + 112, row.y + 72, TEXT, "tiny", row.width - 124)
         else:
-            plate(ui, icon, CELL_EMPTY, GOLD_DIM, cut=8)
+            plate(ui, icon, CELL_EMPTY, GOLD_DIM, cut=8, kind="slot_empty")
             ui.text(t("empty"), row.x + 112, row.y + 40, DIM, "main")
         if ui.clicked(row):
             app.slot = index
 
     # Справа: статы с разницей и подходящие предметы из инвентаря
     rx = x + width + 50
-    rwidth = CONTENT.right - rx - 30
-    ry = section_title(ui, t("Parameters"), rx, CONTENT.y + 24, rwidth)
+    rwidth = CONTENT.right - rx - 46
+    ry = section_title(ui, t("Parameters"), rx, CONTENT.y + 38, rwidth)
     preview = None
     hovered: Optional[str] = None
     candidates_y = ry + len(Stat) * 30 + 24
@@ -541,7 +554,8 @@ def draw_equipment(ui: UI, app: Any, unit: Unit) -> None:
         for i, item_id in enumerate(options[offset:offset + rows]):
             row = pygame.Rect(rx, cy + i * 92, rwidth, 84)
             hover = ui.hovered(row)
-            plate(ui, row, lighter(CELL, 16) if hover else CELL, GOLD if hover else GOLD_DIM, cut=8)
+            plate(ui, row, lighter(CELL, 16) if hover else CELL, GOLD if hover else GOLD_DIM, cut=8,
+                  kind="row_hover" if hover else "row")
             if item_id == NONE_ITEM:
                 ui.text(t("Take off"), row.x + 20, row.y + 24, DIM, "main")
             else:
@@ -563,7 +577,7 @@ def draw_equipment(ui: UI, app: Any, unit: Unit) -> None:
 
 def draw_tactics(ui: UI, app: Any, unit: Unit) -> None:
     t, db = ui.t, app.db
-    x, y = CONTENT.x + 30, CONTENT.y + 24
+    x, y = CONTENT.x + 46, CONTENT.y + 38
     ui.text(t("Rules are checked top to bottom: the first one whose conditions hold,"), x, y, DIM, "small")
     ui.text(t("with a valid target and enough AP, is used. Otherwise: Attack, if AP allows."), x, y + 28, DIM, "small")
     rules = unit.tactics.to_list()
@@ -587,6 +601,11 @@ def draw_tactics(ui: UI, app: Any, unit: Unit) -> None:
     for i, skill_id in enumerate(unit.skill_ids[:8]):
         skill_chip(ui, app, "skill", skill_id, pygame.Rect(x + (i % 3) * 400, sy + (i // 3) * 50, 390, 42),
                    costs=True)
+
+
+def leader_kind(app: Any, unit: Unit) -> str:
+    """Рамка портрета: у лидера отряда — с короной."""
+    return "portrait_leader" if app.run.squad.leader_uid == unit.uid else "portrait"
 
 
 def go_back(app: Any) -> bool:

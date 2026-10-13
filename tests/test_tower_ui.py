@@ -305,10 +305,10 @@ class ArtAndTipTests(unittest.TestCase):
     def test_keys_fall_back_to_the_general_placeholder_until_an_own_image_appears(self):
         self.assertEqual(self.art.find("item/bow/hero_bow")[0], "item")
         self.assertEqual(self.art.find("icon/gold")[0], "icon/gold")
-        self.assertEqual(self.art.find("icon/boss")[0], "icon")
+        self.assertEqual(self.art.find("icon/nothing_drawn_yet")[0], "icon")
         self.assertEqual(self.art.image("skill/fireball", (40, 30)).get_size(), (30, 30))   # вписана целиком
         own = pygame.Surface((10, 10))
-        (self.tmp / "ui" / "item" / "bow").mkdir(parents=True)
+        (self.tmp / "ui" / "item" / "bow").mkdir(parents=True, exist_ok=True)
         pygame.image.save(own, str(self.tmp / "ui" / "item" / "bow.png"))
         fresh = type(self.art)(self.tmp / "ui")
         self.assertEqual(fresh.find("item/bow/hero_bow")[0], "item/bow")                  # своя картинка слота
@@ -318,7 +318,7 @@ class ArtAndTipTests(unittest.TestCase):
         frame = pygame.Surface((96, 96), pygame.SRCALPHA)
         frame.fill((200, 0, 0, 255))
         frame.fill((0, 0, 200, 255), (32, 32, 32, 32))                     # середина другого цвета
-        (self.tmp / "ui" / "frame").mkdir()
+        (self.tmp / "ui" / "frame").mkdir(exist_ok=True)
         pygame.image.save(frame, str(self.tmp / "ui" / "frame" / "panel.png"))
         (self.tmp / "ui" / "frames.json").write_text('{"panel": {"border": 32, "scale": 1}}', encoding="utf-8")
         stretched = style.nine_slice(frame, (300, 200), 32, 1.0)
@@ -328,8 +328,36 @@ class ArtAndTipTests(unittest.TestCase):
         skin = style.Skin(type(self.art)(self.tmp / "ui"))
         screen = pygame.Surface((400, 300))
         self.assertTrue(skin.draw(screen, "panel", pygame.Rect(10, 10, 300, 200)))
-        self.assertFalse(skin.draw(screen, "button", pygame.Rect(10, 10, 100, 40)))   # нет картинки — кодом
+        self.assertFalse(skin.draw(screen, "no_such_frame", pygame.Rect(10, 10, 100, 40)))   # нет картинки — кодом
         self.assertEqual(screen.get_at((15, 15))[:3], (200, 0, 0))
+
+    def test_edge_motif_in_the_middle_is_not_stretched(self):
+        import pygame_tower_style as style
+        frame = pygame.Surface((100, 100), pygame.SRCALPHA)
+        frame.fill((0, 0, 200, 255))
+        frame.fill((200, 0, 0, 255), (40, 0, 20, 10))                       # узор посередине верхнего края
+        plain = style.nine_slice(frame, (300, 100), 20, 1.0)
+        kept = style.nine_slice(frame, (300, 100), 20, 1.0, (20, 0))
+        red = lambda s: sum(1 for x in range(300) if s.get_at((x, 2))[:3] == (200, 0, 0))
+        self.assertGreater(red(plain), 40)                                  # без middle узор растянут
+        self.assertEqual(red(kept), 20)                                     # с middle — как был
+
+    def test_sheet_is_cut_by_cells_without_the_halo(self):
+        from tools import cut_ui_sheet as cutter
+        sheet = pygame.Surface((1536, 1024), pygame.SRCALPHA)
+        sheet.fill((0, 0, 0, 0))
+        sheet.fill((255, 200, 50, 6), (60, 60, 300, 300))                   # ореол — почти прозрачный
+        sheet.fill((200, 160, 60, 255), (100, 100, 200, 120))               # элемент ячейки 1
+        sheet.fill((20, 30, 90, 255), (700, 650, 80, 80))                   # ячейка 8, два куска
+        sheet.fill((20, 30, 90, 255), (800, 650, 20, 80))
+        parts = cutter.cut(sheet)
+        self.assertEqual(set(parts), {1, 8})
+        self.assertLessEqual(parts[1].get_width(), 200 + 8)                 # ореол обрезан
+        self.assertGreaterEqual(parts[8].get_width(), 120)                  # куски одной ячейки вместе
+        self.assertEqual(parts[1].get_at((0, 0)).a, 0)
+        files = cutter.batch_files(cutter.PROMPTS.read_text(encoding="utf-8"))
+        self.assertEqual(files[1][1][1], "frame/panel")
+        self.assertEqual(len(files[6][1]), 10)
 
     def test_every_class_gets_a_portrait_and_a_figure(self):
         db = Database.load()
