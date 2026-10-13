@@ -1,0 +1,188 @@
+{
+  "_comment": "Визуал навыков на вкладке Stage. Ключ: id навыка или <id класса>/<id навыка> (точнее). windup: мс от начала навыка до удара. cast: шаги в момент применения, hit: шаги на каждое попадание (лечение, промах) по цели. Навык без описания берёт _defaults по виду доставки: melee, arrow, magic, heal, support. Шаг: at (мс от начала), do, who (self, target, targets — все задетые навыком), on (feet, body, head, sky), color (имя стихии, [r,g,b] или $element — стихия навыка). Движения: dash, hop, lunge, jump, rise, tilt, knockback, glow. Эффекты: projectile, slash, thrust, ring, beam, bolt, burst, sparkle, flash, shake, runes, pillars, arrow_rain, glint, dome, impact (общий удар по стихии).",
+  "_defaults": {
+    "melee": {
+      "windup": 380,
+      "cast": [{"do": "dash", "who": "self", "ms": 300, "gap": 70, "trail": true}],
+      "hit": [{"do": "impact"}, {"do": "knockback", "dist": 12}]
+    },
+    "arrow": {
+      "windup": 380,
+      "cast": [{"do": "hop", "who": "self", "dist": 14, "ms": 260},
+               {"do": "projectile", "at": 100, "ms": 280, "kind": "arrow", "arc": 40, "color": "$element"}],
+      "hit": [{"do": "impact"}, {"do": "knockback", "dist": 6}]
+    },
+    "magic": {
+      "windup": 380,
+      "cast": [{"do": "lunge", "who": "self", "dist": 10, "ms": 300},
+               {"do": "glow", "who": "self", "color": "$element", "ms": 380},
+               {"do": "projectile", "at": 120, "ms": 260, "kind": "orb", "color": "$element"}],
+      "hit": [{"do": "impact"}, {"do": "knockback", "dist": 10}]
+    },
+    "heal": {
+      "windup": 380,
+      "cast": [{"do": "glow", "who": "self", "color": "heal", "ms": 400},
+               {"do": "ring", "who": "self", "on": "feet", "color": "heal", "ms": 420, "to": 50}],
+      "hit": [{"do": "glow", "color": "heal", "ms": 500}]
+    },
+    "support": {
+      "windup": 380,
+      "cast": [{"do": "glow", "who": "self", "color": "buff", "ms": 400},
+               {"do": "ring", "who": "self", "on": "feet", "color": "buff", "ms": 420, "to": 50}],
+      "hit": []
+    }
+  },
+
+  "attack": {
+    "windup": 380,
+    "cast": [{"do": "dash", "who": "self", "ms": 300, "gap": 64, "trail": true},
+             {"do": "tilt", "who": "self", "at": 260, "angle": -10, "ms": 260}],
+    "hit": [{"do": "slash", "radius": 52},
+            {"do": "burst", "shape": "spark", "color": [255, 230, 180], "count": 16, "speed": 4.5},
+            {"do": "knockback", "dist": 14}]
+  },
+  "rider/attack": {
+    "windup": 380,
+    "cast": [{"do": "dash", "who": "self", "ms": 300, "gap": 90, "trail": true}],
+    "hit": [{"do": "thrust"},
+            {"do": "burst", "shape": "spark", "color": [255, 230, 180], "count": 12, "speed": 4},
+            {"do": "knockback", "dist": 16}]
+  },
+  "shield_bash": {
+    "windup": 420,
+    "cast": [{"do": "dash", "who": "self", "ms": 340, "gap": 46, "trail": true},
+             {"do": "tilt", "who": "self", "at": 300, "angle": -8, "ms": 240}],
+    "hit": [{"do": "ring", "color": [255, 240, 210], "from": 10, "to": 80, "thickness": 7, "ms": 380},
+            {"do": "burst", "shape": "spark", "color": [255, 230, 180], "count": 20, "speed": 5},
+            {"do": "shake", "ms": 260, "power": 6},
+            {"do": "knockback", "dist": 34}]
+  },
+  "smite": {
+    "windup": 650,
+    "cast": [{"do": "rise", "who": "self", "height": 8, "ms": 900},
+             {"do": "glow", "who": "self", "color": "light", "ms": 700},
+             {"do": "glint", "who": "self", "on": "head", "ms": 400},
+             {"do": "runes", "who": "target", "on": "feet", "color": "light", "radius": 46, "ms": 1100}],
+    "hit": [{"do": "beam", "color": "light", "thickness": 40, "ms": 500},
+            {"do": "burst", "color": "light", "count": 24, "speed": 2.5, "up": 1.5},
+            {"do": "flash", "color": [255, 240, 200], "power": 0.25, "ms": 200},
+            {"do": "knockback", "dist": 10}]
+  },
+  "group_heal": {
+    "windup": 520,
+    "cast": [{"do": "glow", "who": "self", "color": "heal", "ms": 700},
+             {"do": "ring", "who": "self", "on": "feet", "color": "heal", "to": 70, "ms": 500},
+             {"do": "runes", "who": "targets", "on": "feet", "color": "heal", "radius": 34, "ms": 1000}],
+    "hit": [{"do": "sparkle", "color": [180, 255, 160], "count": 18},
+            {"do": "glow", "color": "heal", "ms": 500}]
+  },
+
+  "shot": {
+    "windup": 380,
+    "cast": [{"do": "hop", "who": "self", "dist": 14, "ms": 260},
+             {"do": "projectile", "at": 100, "ms": 280, "kind": "arrow", "arc": 40, "color": [255, 240, 200]}],
+    "hit": [{"do": "burst", "shape": "spark", "color": [255, 240, 200], "count": 10, "speed": 3.5},
+            {"do": "knockback", "dist": 6}]
+  },
+  "fire_arrow": {
+    "windup": 460,
+    "cast": [{"do": "hop", "who": "self", "dist": 14, "ms": 300},
+             {"do": "glint", "who": "self", "on": "body", "color": "fire", "ms": 220},
+             {"do": "projectile", "at": 160, "ms": 300, "kind": "arrow", "arc": 36, "color": "fire"},
+             {"do": "projectile", "at": 160, "ms": 300, "kind": "orb", "arc": 36, "color": "fire", "small": true}],
+    "hit": [{"do": "ring", "color": "fire", "to": 60, "ms": 400},
+            {"do": "burst", "color": "fire", "count": 22, "speed": 3.5, "up": 1.0},
+            {"do": "burst", "color": [255, 220, 120], "count": 10, "speed": 1.5, "gravity": -0.03},
+            {"do": "knockback", "dist": 8}]
+  },
+  "poison_arrow": {
+    "windup": 380,
+    "cast": [{"do": "hop", "who": "self", "dist": 12, "ms": 260},
+             {"do": "projectile", "at": 100, "ms": 280, "kind": "arrow", "arc": 40, "color": "poison"}],
+    "hit": [{"do": "burst", "shape": "bubble", "color": "poison", "count": 16, "speed": 1.4, "up": 1.0},
+            {"do": "ring", "color": "poison", "to": 45, "ms": 500}]
+  },
+  "volley": {
+    "windup": 760,
+    "cast": [{"do": "jump", "who": "self", "height": 26, "ms": 420},
+             {"do": "hop", "who": "self", "dist": 18, "ms": 420},
+             {"do": "projectile", "at": 120, "ms": 260, "kind": "arrow", "to": "sky", "arc": 0, "color": [255, 240, 200]},
+             {"do": "arrow_rain", "who": "targets", "on": "feet", "at": 300, "ms": 560, "count": 9}],
+    "hit": [{"do": "burst", "shape": "spark", "color": [255, 240, 200], "count": 8, "speed": 3},
+            {"do": "knockback", "dist": 5}]
+  },
+  "piercing_shot": {
+    "windup": 640,
+    "cast": [{"do": "hop", "who": "self", "dist": 8, "ms": 640},
+             {"do": "glint", "who": "self", "on": "body", "ms": 360, "size": 30},
+             {"do": "projectile", "at": 420, "ms": 200, "kind": "arrow", "arc": 0, "color": [210, 230, 255]}],
+    "hit": [{"do": "thrust", "color": [210, 230, 255]},
+            {"do": "burst", "shape": "spark", "color": [210, 230, 255], "count": 12, "speed": 4},
+            {"do": "knockback", "dist": 10}]
+  },
+
+  "magic_bolt": {
+    "windup": 380,
+    "cast": [{"do": "lunge", "who": "self", "dist": 10, "ms": 300},
+             {"do": "projectile", "at": 120, "ms": 260, "kind": "orb", "color": "arcane", "small": true}],
+    "hit": [{"do": "ring", "color": "arcane", "to": 45, "ms": 360},
+            {"do": "burst", "color": "arcane", "count": 14, "speed": 3},
+            {"do": "knockback", "dist": 8}]
+  },
+  "cleric/magic_bolt": {
+    "windup": 380,
+    "cast": [{"do": "lunge", "who": "self", "dist": 10, "ms": 300},
+             {"do": "projectile", "at": 120, "ms": 260, "kind": "orb", "color": [255, 250, 230], "small": true}],
+    "hit": [{"do": "ring", "color": [255, 250, 230], "to": 45, "ms": 360},
+            {"do": "burst", "color": [255, 250, 230], "count": 14, "speed": 3},
+            {"do": "knockback", "dist": 8}]
+  },
+  "fireball": {
+    "windup": 720,
+    "cast": [{"do": "rise", "who": "self", "height": 18, "ms": 900},
+             {"do": "runes", "who": "self", "on": "feet", "color": "fire", "radius": 44, "ms": 900},
+             {"do": "glow", "who": "self", "color": "fire", "ms": 700},
+             {"do": "burst", "who": "self", "on": "head", "color": "fire", "count": 14, "speed": 1.2, "up": 0.5},
+             {"do": "projectile", "at": 320, "ms": 400, "kind": "orb", "arc": 60, "color": "fire", "big": true}],
+    "hit": [{"do": "ring", "color": "fire", "from": 15, "to": 90, "thickness": 7, "ms": 450},
+            {"do": "burst", "color": "fire", "count": 34, "speed": 4.5, "up": 1.0},
+            {"do": "burst", "color": [255, 220, 120], "count": 16, "speed": 2, "gravity": -0.03},
+            {"do": "flash", "color": [255, 160, 80], "power": 0.25, "ms": 200},
+            {"do": "shake", "ms": 260, "power": 6},
+            {"do": "knockback", "dist": 26}]
+  },
+  "firestorm": {
+    "windup": 800,
+    "cast": [{"do": "rise", "who": "self", "height": 12, "ms": 1100},
+             {"do": "glow", "who": "self", "color": "fire", "ms": 900},
+             {"do": "runes", "who": "self", "on": "feet", "color": "fire", "radius": 40, "ms": 1000},
+             {"do": "runes", "who": "targets", "on": "feet", "at": 200, "color": "fire", "radius": 40, "ms": 1100},
+             {"do": "flash", "at": 700, "color": [255, 110, 30], "power": 0.18, "ms": 500}],
+    "hit": [{"do": "pillars", "color": "fire", "count": 3, "radius": 26, "height": 130, "ms": 650},
+            {"do": "burst", "color": "fire", "count": 18, "speed": 2.5, "up": 1.6},
+            {"do": "shake", "ms": 200, "power": 4},
+            {"do": "knockback", "dist": 8}]
+  },
+  "heal": {
+    "windup": 560,
+    "cast": [{"do": "rise", "who": "self", "height": 6, "ms": 700},
+             {"do": "glow", "who": "self", "color": "heal", "ms": 600},
+             {"do": "glint", "who": "self", "on": "head", "color": "heal", "ms": 400},
+             {"do": "runes", "who": "target", "on": "feet", "color": "heal", "radius": 36, "ms": 1000}],
+    "hit": [{"do": "beam", "color": [150, 255, 170], "thickness": 30, "ms": 520},
+            {"do": "sparkle", "color": [180, 255, 160], "count": 20},
+            {"do": "glow", "color": "heal", "ms": 600}]
+  },
+  "lance_charge": {
+    "windup": 700,
+    "cast": [{"do": "hop", "who": "self", "dist": 40, "ms": 300, "hold": 60},
+             {"do": "dash", "who": "self", "at": 300, "ms": 400, "gap": -40, "trail": true, "back": 500},
+             {"do": "burst", "who": "self", "on": "feet", "at": 320, "color": [170, 140, 100], "count": 18, "speed": 2,
+              "gravity": 0.0, "up": 0.3}],
+    "hit": [{"do": "thrust", "color": [255, 250, 230]},
+            {"do": "ring", "color": [255, 240, 210], "from": 10, "to": 90, "thickness": 6, "ms": 400},
+            {"do": "burst", "shape": "spark", "color": [255, 230, 180], "count": 24, "speed": 5.5},
+            {"do": "shake", "ms": 320, "power": 8},
+            {"do": "knockback", "dist": 40}]
+  }
+}

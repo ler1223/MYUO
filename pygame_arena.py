@@ -426,6 +426,7 @@ class ArenaScreen:
             status += "   " + (t("{winner} wins", winner=t(winner)) if winner else t("draw")).upper()
         if self.zoom > 1:
             status += f"   x{self.zoom:g}"
+        status += self.status_note()
         status_img = font.render(status, True, YELLOW if view.ended else TEXT)
         screen.blit(status_img, status_img.get_rect(midtop=(CENTER_X, 31)))
         screen.blit(font.render(f"A: {t(sim.attacker.name)}", True, TEXT), (12, 31))
@@ -434,6 +435,10 @@ class ArenaScreen:
         self._draw_log(ui, view, autoplay)
         if not self.native:
             self.draw_field(screen, now, self.camera())
+
+    def status_note(self) -> str:
+        """Добавка к строке состояния (у наследников — подсказка своих клавиш)."""
+        return ""
 
     def draw_field(self, target: pygame.Surface, now: int, cam: Camera) -> None:
         """Поле боя: фон, карты и эффекты, в пикселях окна через камеру."""

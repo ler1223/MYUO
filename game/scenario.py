@@ -54,3 +54,38 @@ def build_demo(db: Database) -> Scenario:
     world.place(player_squad.id, 3, 2)
     world.place(enemy_squad.id, 4, 2)
     return Scenario(player, enemy, world, player_squad, enemy_squad)
+
+
+# Пять тестовых классов визуала (docs/test_classes.md): (класс, предметы, ряд, колонна) у каждой стороны.
+SHOWCASE_PLAYER = (
+    ("paladin", ("iron_sword", "shield"), 0, 1),
+    ("rider", ("lance",), 0, 2),
+    ("hunter", ("short_bow",), 1, 0),
+    ("pyromancer", ("oak_staff",), 1, 2),
+    ("cleric", ("oak_staff",), 2, 1),
+)
+SHOWCASE_ENEMY = (
+    ("paladin", ("iron_sword", "shield"), 0, 0),
+    ("rider", ("lance",), 0, 2),
+    ("pyromancer", ("oak_staff",), 1, 1),
+    ("hunter", ("short_bow",), 2, 0),
+    ("cleric", ("oak_staff",), 2, 2),
+)
+
+
+def build_showcase(db: Database, level: int = 3) -> Scenario:
+    """Бой тестовых классов против них же. Классы и предметы, которых нет в справочнике, пропускаются;
+    если не осталось никого, берётся обычное демо."""
+    def roster(entries):
+        return [(cls, level, tuple(i for i in items if i in db.items), row, col)
+                for cls, items, row, col in entries if cls in db.units]
+
+    player_roster, enemy_roster = roster(SHOWCASE_PLAYER), roster(SHOWCASE_ENEMY)
+    if not player_roster or not enemy_roster:
+        return build_demo(db)
+    player, player_squad = _build_army(db, "player", "Player", "vanguard", "Vanguard", player_roster, first_uid=1)
+    enemy, enemy_squad = _build_army(db, "enemy", "Enemy", "raiders", "Raiders", enemy_roster, first_uid=11)
+    world = WorldMap(*MAP_SIZE)
+    world.place(player_squad.id, 3, 2)
+    world.place(enemy_squad.id, 4, 2)
+    return Scenario(player, enemy, world, player_squad, enemy_squad)

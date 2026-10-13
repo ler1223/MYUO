@@ -1,0 +1,41 @@
+{
+  "_comment": "Спрайты юнитов для вкладки Stage. sprites и sheets пишет tools/cut_lineup.py: высота спрайта на листе и рост человека на листе (по нему считается общий масштаб). fallback: какой спрайт взять классу без своей картинки — по первому подходящему тегу, иначе default.",
+  "sprites": {
+    "paladin": {
+      "sheet": "lineup_1.png",
+      "height": 523,
+      "ground": 850
+    },
+    "hunter": {
+      "sheet": "lineup_1.png",
+      "height": 501,
+      "ground": 848
+    },
+    "pyromancer": {
+      "sheet": "lineup_1.png",
+      "height": 557,
+      "ground": 848
+    },
+    "cleric": {
+      "sheet": "lineup_1.png",
+      "height": 518,
+      "ground": 841
+    },
+    "rider": {
+      "sheet": "lineup_1.png",
+      "height": 842,
+      "ground": 851
+    }
+  },
+  "sheets": {
+    "lineup_1.png": {
+      "human_height": 523
+    }
+  },
+  "fallback": {
+    "classes": {"knight": "paladin", "fighter": "paladin", "spearman": "paladin", "archer": "hunter",
+                "mage": "pyromancer", "cryomancer": "pyromancer", "stormcaller": "pyromancer", "witch": "pyromancer"},
+    "tags": {"cavalry": "rider", "archer": "hunter", "caster": "pyromancer"},
+    "default": "paladin"
+  }
+}

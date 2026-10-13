@@ -504,6 +504,59 @@ class ArenaTests(WindowTestCase):
         self.assertEqual(weapon_kind(None, "magic"), "staff")
 
 
+class StageTests(WindowTestCase):
+    def play(self, stage, view):
+        """Весь бой кадр за кадром; какие эффекты появлялись и у кого были движения."""
+        now, spawned, moved = 1000, set(), set()
+        while not view.sim.finished:
+            view.consume(view.sim.step(), now)
+            while now < view.busy_until:
+                self.ui.begin([])
+                d.draw_frame(self.ui, self.app, False, now)
+                spawned.update(type(e).__name__ for e in stage.fx.effects)
+                moved.update(uid for uid, motions in stage.motions.items() if motions)
+                now += 40
+        return spawned, moved
+
+    def test_stage_plays_test_squads_with_skill_visuals(self):
+        stage = self.tab("Stage")
+        view = self.app.battle_view()
+        self.assertIs(view, stage.battle_view)
+        self.assertIsNot(view, self.app.view)                 # у вкладки свой бой
+        classes = {unit.definition.id for unit in view.sim.units.values()}
+        self.assertEqual(classes, {"rider", "cleric"})        # в тестовых данных есть только эти из пяти
+        spawned, moved = self.play(stage, view)
+        self.assertTrue({"FloatText", "Ring", "RuneCircle", "Thrust"} <= spawned, spawned)   # таран, лечение
+        self.assertTrue(moved)                                # рывки, отскоки, отбрасывание
+        self.assertEqual(stage.deaths.keys(), {uid for uid, u in view.sim.units.items() if not u.is_alive})
+
+    def test_windup_comes_from_visuals_and_targets_from_timeline(self):
+        from game.events import DamageDealt, SkillUsed
+        stage = self.tab("Stage")
+        view = stage.battle_view
+        rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
+        self.assertEqual(stage.windup(SkillUsed(rider.uid, "lance_charge", 11)),
+                         stage.visuals["lance_charge"]["windup"])
+        self.assertEqual(stage.spec(rider, "attack"), stage.visuals["rider/attack"])     # свой визуал класса
+        self.assertEqual(stage.spec(rider, "flurry"), stage.visuals["_defaults"]["melee"])
+        used = SkillUsed(rider.uid, "attack", 11)
+        view.timeline = [(0, used), (400, DamageDealt(rider.uid, 11, 5, 10, "attack")),
+                         (500, DamageDealt(rider.uid, 12, 5, 10, "attack")), (600, SkillUsed(11, "attack", 1))]
+        self.assertEqual(stage._targets_of(view, used), [11, 12])
+
+    def test_your_squads_use_fallback_sprites(self):
+        stage = self.tab("Stage")
+        stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))
+        view = stage.battle_view
+        self.assertFalse(stage.use_test)
+        self.assertIn("knight", {u.definition.id for u in view.sim.units.values()})
+        knight = next(u for u in view.sim.units.values() if u.definition.id == "knight")
+        self.assertEqual(stage.bank.sprite_id(knight), "paladin")
+        rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
+        self.assertGreater(stage.bank.height("rider"), stage.bank.height("paladin") * 1.4)   # всадник выше пехоты
+        self.play(stage, view)
+
+
 class ZoomAndWindowTests(WindowTestCase):
     def test_zoom_keeps_point_under_cursor_pan_and_reset(self):
         from pygame_arena import FIELD_RECT, MAX_ZOOM

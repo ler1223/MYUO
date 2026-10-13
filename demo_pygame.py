@@ -2,7 +2,8 @@
 
 Запуск: python demo_pygame.py [seed]
 Вкладки переключаются клавишами F1, F2, ... или кликом; язык кнопкой справа от вкладок.
-Бой показывают две вкладки: Battle (карточки) и Arena (спрайты юнитов).
+Бой показывают три вкладки: Battle (карточки), Arena (карты) и Stage (статичные спрайты,
+свой бой тестовых отрядов).
 Экран боя делает sim.step() и рисует полученные события; в логику боя не вмешивается.
 Редакторы меняют справочник (app.db, папка data/) и расстановку (app.setup);
 бой каждый раз идёт на копии расстановки.
@@ -30,6 +31,7 @@ from pygame_effect_editor import AreaEditor, EffectEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
 from pygame_passive_editor import PassiveEditor
+from pygame_stage import StageScreen
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
 FPS = 60
@@ -49,6 +51,7 @@ LOG_LINES = 8
 TAB_BATTLE = 0
 LANG_W = 44          # кнопка языка справа от вкладок
 FIRST_TAB_KEY = pygame.K_F1
+MAX_TAB_KEYS = 11    # F12 меняет размер окна: дальние вкладки только кликом
 
 # Раскладка поля боя
 CENTER_X = WIDTH // 2
@@ -78,9 +81,11 @@ class Popup:
 class BattleView:
     """Состояние отображения боя: строится только из событий симуляции."""
 
-    def __init__(self, db: Database, seed: int, scenario_factory: Callable[[], Scenario]):
+    def __init__(self, db: Database, seed: int, scenario_factory: Callable[[], Scenario],
+                 beat: Optional[Callable[[Event], Optional[int]]] = None):
         self.db = db
         self.scenario_factory = scenario_factory
+        self.beat = beat          # своя длительность показа события (замах навыка на вкладке Stage)
         self.restart(seed)
 
     def restart(self, seed: int) -> None:
@@ -106,7 +111,8 @@ class BattleView:
         times = []
         for ev in events:
             times.append(cursor)
-            cursor += BEAT_MS.get(type(ev).__name__, 0)
+            own = self.beat(ev) if self.beat is not None else None
+            cursor += own if own is not None else BEAT_MS.get(type(ev).__name__, 0)
         self.busy_until = cursor + SETTLE_MS
         return times
 
@@ -153,6 +159,8 @@ class App:
         self.resolution: tuple[int, int] = (WIDTH, HEIGHT)   # размер окна; сохраняется вместе с языком
         self.setup = self._load_setup(lang)
         self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
+        stage = StageScreen()
+        stage.battle_view = BattleView(db, seed, lambda: stage.scenario(self.db, self.setup), stage.windup)
         # (название вкладки, экран); у вкладки боя с карточками экрана нет
         self.tabs: list[tuple[str, Any]] = [
             ("Battle", None),
@@ -166,6 +174,7 @@ class App:
             ("Effects", EffectEditor()),
             ("Areas", AreaEditor()),
             ("Arena", ArenaScreen()),
+            ("Stage", stage),
         ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
@@ -243,9 +252,19 @@ class App:
         if not self.dirty:
             return
         self.dirty = False
-        self.view.restart(self.view.seed)
+        for view in self.views():
+            view.restart(view.seed)
         if self._save():
             self.message = self.t("saved, battle restarted")
+
+    def views(self) -> list[BattleView]:
+        """Все бои окна: общий и свои у вкладок (Stage)."""
+        own = [screen.battle_view for _, screen in self.tabs if getattr(screen, "battle_view", None) is not None]
+        return [self.view] + own
+
+    def battle_view(self) -> BattleView:
+        """Бой открытой вкладки: свой у вкладки, иначе общий."""
+        return getattr(self.tabs[self.tab][1], "battle_view", None) or self.view
 
     def on_battle_tab(self) -> bool:
         """Открыта ли вкладка, показывающая бой (карточки или спрайты)."""
@@ -442,7 +461,8 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int, window: Optional[Wind
     target = None
     for i, (name, _) in enumerate(app.tabs):
         width = tab_width(app)
-        if ui.button(f"F{i + 1} {t(name)}", pygame.Rect(8 + i * (width + 4), 4, width, 24), selected=i == app.tab):
+        key = f"F{i + 1} " if i < MAX_TAB_KEYS else ""
+        if ui.button(f"{key}{t(name)}", pygame.Rect(8 + i * (width + 4), 4, width, 24), selected=i == app.tab):
             target = i
     switch_language = ui.button(app.t.lang.upper(), language_rect(app))
 
@@ -451,7 +471,7 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int, window: Optional[Wind
         draw_battle(ui, app.view, autoplay, now)
     elif app.on_battle_tab():
         editor.native = window is not None
-        editor.draw_battle(ui, app.view, autoplay, now, POPUP_MS, POPUP_RISE)
+        editor.draw_battle(ui, app.battle_view(), autoplay, now, POPUP_MS, POPUP_RISE)
     else:
         editor.draw(ui, app)
         note = app.message or (t("unsaved changes: open the Battle or Arena tab to apply and save") if app.dirty else "")
@@ -484,7 +504,6 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
     ui = UI(window.canvas, load_fonts())
     ui.transform = window.to_logical
     clock = pygame.time.Clock()
-    view = app.view
     last_step = 0
     frames = 0
     running = True
@@ -492,6 +511,7 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
     while running:
         now = pygame.time.get_ticks()
         events = [window.logical_event(e) for e in pygame.event.get()]
+        view = app.battle_view()
         ui.begin(events)
         arena = app.tabs[app.tab][1] if app.on_battle_tab() else None
         for event in events:
@@ -513,7 +533,7 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
                 bigger = [r for r in presets if r[0] > current[0]]
                 window.resize(bigger[0] if bigger else presets[0])
                 app.resolution = window.surface.get_size()
-            elif 0 <= event.key - FIRST_TAB_KEY < len(app.tabs):
+            elif 0 <= event.key - FIRST_TAB_KEY < min(len(app.tabs), MAX_TAB_KEYS):
                 app.switch(event.key - FIRST_TAB_KEY)
             elif not app.on_battle_tab():
                 continue
@@ -531,7 +551,8 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
             view.step(now)
             last_step = now
 
-        view.prune(now)
+        for each in app.views():
+            each.prune(now)
         draw_frame(ui, app, autoplay, now, window)
         pygame.display.flip()
         clock.tick(FPS)

@@ -153,6 +153,7 @@ class Projectile(Effect):
     kind: str = "orb"         # orb | arrow | shards
     color: Color = (255, 255, 255)
     arc: float = 0.0          # высота дуги (стрелы летят навесом)
+    size: float = 1.0         # размер сферы
 
     def point(self, t: float) -> Point:
         x, y = lerp(self.source, self.target, t)
@@ -179,9 +180,10 @@ class Projectile(Effect):
                 glow_at(screen, cam, (x, y + offset), self.color, 12, 0.8)
         else:
             for i in range(8, 0, -1):          # хвост из гаснущих свечений
-                glow_at(screen, cam, self.point(max(0.0, t - i * 0.035)), self.color, 6 + 14 * (1 - i / 8), 0.35)
-            glow_at(screen, cam, head, self.color, 26, 1.0)
-            glow_at(screen, cam, head, (255, 255, 230), 10, 1.0)
+                glow_at(screen, cam, self.point(max(0.0, t - i * 0.035)), self.color,
+                        (6 + 14 * (1 - i / 8)) * self.size, 0.35)
+            glow_at(screen, cam, head, self.color, 26 * self.size, 1.0)
+            glow_at(screen, cam, head, (255, 255, 230), 10 * self.size, 1.0)
 
 
 @dataclass
@@ -353,6 +355,161 @@ class Flash(Effect):
             return
         k = self.strength * (1 - t) ** 2
         screen.fill(tuple(int(c * k) for c in self.color), cam.clip, special_flags=pygame.BLEND_RGB_ADD)
+
+
+@dataclass
+class RuneCircle(Effect):
+    """Магический круг на земле: два кольца с насечками, медленно вращается, вспыхивает и гаснет."""
+
+    center: Point = (0, 0)
+    color: Color = (255, 140, 60)
+    radius: float = 40
+    squash: float = 0.35
+
+    def draw(self, screen: pygame.Surface, now: int, cam: Camera) -> None:
+        t = self.progress(now)
+        if t is None:
+            return
+        strength = min(1.0, t / 0.2) * min(1.0, (1 - t) / 0.3)
+        r = cam.s(self.radius) * (0.7 + 0.3 * ease_out(min(1.0, t / 0.3)))
+        pad = 12
+        layer = pygame.Surface((int(r * 2) + pad * 2, int(r * 2 * self.squash) + pad * 2))
+        cx, cy = layer.get_width() / 2, layer.get_height() / 2
+        color = tuple(int(c * strength) for c in self.color)
+        line = max(1, round(cam.s(2)))
+        for k in (1.0, 0.78):
+            rect = pygame.Rect(0, 0, int(r * 2 * k), int(r * 2 * k * self.squash))
+            rect.center = (int(cx), int(cy))
+            pygame.draw.ellipse(layer, color, rect, line)
+        spin = (now - self.start) / 900
+        for i in range(12):                      # насечки рун между кольцами
+            a = spin + i * math.tau / 12
+            x0, y0 = cx + math.cos(a) * r * 0.8, cy + math.sin(a) * r * 0.8 * self.squash
+            x1, y1 = cx + math.cos(a + 0.12) * r * 0.97, cy + math.sin(a + 0.12) * r * 0.97 * self.squash
+            pygame.draw.line(layer, color, (x0, y0), (x1, y1), line)
+        for i in range(3):                       # треугольник внутри
+            a, b = spin * -1.5 + i * math.tau / 3, spin * -1.5 + (i + 1) * math.tau / 3
+            pygame.draw.line(layer, color, (cx + math.cos(a) * r * 0.76, cy + math.sin(a) * r * 0.76 * self.squash),
+                             (cx + math.cos(b) * r * 0.76, cy + math.sin(b) * r * 0.76 * self.squash), line)
+        x, y = cam.p(*self.center)
+        screen.blit(layer, (int(x - cx), int(y - cy)), special_flags=pygame.BLEND_RGB_ADD)
+        add_glow(screen, (x, y), self.color, r * 0.9, 0.35 * strength)
+
+
+@dataclass
+class Pillar(Effect):
+    """Столб пламени (или света), вырастающий из земли и опадающий."""
+
+    base: Point = (0, 0)
+    color: Color = (255, 120, 30)
+    height: float = 110
+    thickness: float = 26
+    seed: int = 0
+
+    def draw(self, screen: pygame.Surface, now: int, cam: Camera) -> None:
+        t = self.progress(now)
+        if t is None:
+            return
+        grow = ease_out(min(1.0, t / 0.3)) * min(1.0, (1 - t) / 0.35)
+        rng = random.Random(self.seed + (now - self.start) // 50)
+        h = cam.s(self.height) * grow * rng.uniform(0.9, 1.05)
+        w = max(2, int(cam.s(self.thickness) * (0.6 + 0.4 * grow)))
+        if h < 2:
+            return
+        x, bottom = cam.p(*self.base)
+        layer = pygame.transform.smoothscale(pillar_texture(self.color), (w, int(h)))
+        screen.blit(layer, (int(x - w / 2), int(bottom - h)), special_flags=pygame.BLEND_RGB_ADD)
+        add_glow(screen, (x, bottom), self.color, w * 1.6, grow)
+
+
+@lru_cache(maxsize=64)
+def pillar_texture(color: Color) -> pygame.Surface:
+    """Текстура столба 32x128: ярче в середине и у земли, к верху тоньше и темнее."""
+    w, h = 32, 128
+    surface = pygame.Surface((w, h))
+    for j in range(h):
+        up = 1 - j / h                            # 0 у верха, 1 у земли
+        for i in range(w):
+            across = max(0.0, 1 - abs(i - w / 2) / (w / 2 * (0.4 + 0.6 * up))) ** 1.5
+            k = across * up ** 0.7
+            surface.set_at((i, j), (min(255, int(color[0] * k + 120 * k * up)), min(255, int(color[1] * k + 40 * k * up)),
+                                    int(color[2] * k)))
+    return surface
+
+
+@dataclass
+class ArrowRain(Effect):
+    """Дождь стрел на область: стрелы падают сверху наискосок в случайные точки вокруг center."""
+
+    center: Point = (0, 0)
+    color: Color = (255, 240, 200)
+    count: int = 12
+    spread: float = 50
+    facing: int = 1
+    seed: int = 0
+
+    def draw(self, screen: pygame.Surface, now: int, cam: Camera) -> None:
+        t = self.progress(now)
+        if t is None:
+            return
+        rng = random.Random(self.seed)
+        for _ in range(self.count):
+            delay = rng.uniform(0, 0.55)
+            land = (self.center[0] + rng.uniform(-self.spread, self.spread), self.center[1] + rng.uniform(-12, 12))
+            k = (t - delay) / 0.4
+            if not 0 <= k <= 1:
+                continue
+            start = (land[0] - 70 * self.facing, land[1] - 200)
+            head = lerp(start, land, k)
+            tail = lerp(start, land, max(0.0, k - 0.18))
+            pygame.draw.line(screen, (90, 70, 50), cam.p(*tail), cam.p(*head), width(cam, 2))
+            pygame.draw.line(screen, (235, 235, 235), cam.p(*lerp(tail, head, 0.75)), cam.p(*head), width(cam, 2))
+            glow_at(screen, cam, head, self.color, 6, 0.5)
+
+
+@dataclass
+class Glint(Effect):
+    """Блик-звёздочка: прицеливание, готовность, наконечник стрелы."""
+
+    pos: Point = (0, 0)
+    color: Color = (255, 250, 220)
+    size: float = 22
+
+    def draw(self, screen: pygame.Surface, now: int, cam: Camera) -> None:
+        t = self.progress(now)
+        if t is None:
+            return
+        k = math.sin(t * math.pi)
+        x, y = cam.p(*self.pos)
+        r = cam.s(self.size) * k
+        line = max(1, round(cam.s(2) * k))
+        pygame.draw.line(screen, (255, 255, 255), (x - r, y), (x + r, y), line)
+        pygame.draw.line(screen, (255, 255, 255), (x, y - r * 0.7), (x, y + r * 0.7), line)
+        add_glow(screen, (x, y), self.color, r * 0.9, k)
+
+
+@dataclass
+class Dome(Effect):
+    """Полупрозрачный купол щита перед защитником."""
+
+    center: Point = (0, 0)
+    color: Color = (110, 170, 255)
+    radius: float = 50
+
+    def draw(self, screen: pygame.Surface, now: int, cam: Camera) -> None:
+        t = self.progress(now)
+        if t is None:
+            return
+        k = min(1.0, t / 0.15) * min(1.0, (1 - t) / 0.4)
+        r = cam.s(self.radius) * (0.8 + 0.2 * ease_out(min(1.0, t / 0.2)))
+        layer = pygame.Surface((int(r * 2) + 4, int(r * 2) + 4))
+        c = (layer.get_width() // 2, layer.get_height() // 2)
+        for i in range(6):                        # к краю купол ярче
+            rr = r * (1 - i * 0.12)
+            pygame.draw.circle(layer, tuple(int(v * k * (0.5 - i * 0.07)) for v in self.color), c, int(rr),
+                               max(1, round(cam.s(3))))
+        x, y = cam.p(*self.center)
+        screen.blit(layer, (int(x - c[0]), int(y - c[1])), special_flags=pygame.BLEND_RGB_ADD)
 
 
 @dataclass
