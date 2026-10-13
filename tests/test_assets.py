@@ -33,10 +33,14 @@ class SpriteAssetTests(unittest.TestCase):
         strips = list(SPRITE_DIR.glob("*/*.png"))
         self.assertTrue(strips)
         for path in strips:
+            meta = dict(META)
+            own = path.parent / "sprite.json"   # у класса может быть свой размер кадра
+            if own.exists():
+                meta.update(json.loads(own.read_text(encoding="utf-8")))
             width, height = png_size(path)
-            self.assertEqual(height, META["frame_height"], path)
-            self.assertEqual(width % META["frame_width"], 0, path)
-            frames = width // META["frame_width"]
+            self.assertEqual(height, meta["frame_height"], path)
+            self.assertEqual(width % meta["frame_width"], 0, path)
+            frames = width // meta["frame_width"]
             self.assertGreaterEqual(frames, 2 if path.stem == "idle" else 3, path)  # анимация, а не один кадр
 
 

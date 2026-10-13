@@ -341,6 +341,8 @@ def main() -> None:
     pygame.init()
     pygame.display.set_mode((1, 1))
     for name, look in LOOKS.items():
+        if (OUT.parent / "sprites_src" / name / "rig.json").exists():
+            continue  # у класса настоящий рисунок: его собирает tools/cutout_sprites.py
         folder = OUT / name
         folder.mkdir(parents=True, exist_ok=True)
         for animation, (poses, shot_kind) in animations(look).items():

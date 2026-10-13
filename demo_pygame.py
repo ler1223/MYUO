@@ -39,7 +39,7 @@ POPUP_RISE = 34
 LOG_LINES = 8
 
 TAB_BATTLE = 0
-TAB_W = 88
+LANG_W = 44          # кнопка языка справа от вкладок
 FIRST_TAB_KEY = pygame.K_F1
 
 # Раскладка поля боя
@@ -350,7 +350,12 @@ def draw_battle(ui: UI, view: BattleView, autoplay: bool, now: int) -> None:
 
 
 def language_rect(app: App) -> pygame.Rect:
-    return pygame.Rect(8 + len(app.tabs) * (TAB_W + 4) + 8, 4, 44, 24)
+    return pygame.Rect(WIDTH - LANG_W - 8, 4, LANG_W, 24)
+
+
+def tab_width(app: App) -> int:
+    """Вкладки делят ширину окна поровну, оставляя место кнопке языка."""
+    return (WIDTH - 16 - LANG_W - 8) // len(app.tabs) - 4
 
 
 def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
@@ -359,7 +364,8 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
     ui.screen.fill(BG)
     target = None
     for i, (name, _) in enumerate(app.tabs):
-        if ui.button(f"F{i + 1} {t(name)}", pygame.Rect(8 + i * (TAB_W + 4), 4, TAB_W, 24), selected=i == app.tab):
+        width = tab_width(app)
+        if ui.button(f"F{i + 1} {t(name)}", pygame.Rect(8 + i * (width + 4), 4, width, 24), selected=i == app.tab):
             target = i
     switch_language = ui.button(app.t.lang.upper(), language_rect(app))
 

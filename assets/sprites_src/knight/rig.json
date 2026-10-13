@@ -1,0 +1,457 @@
+{
+  "scale": 0.1,
+  "frame": [
+    200,
+    175
+  ],
+  "root": [
+    85,
+    104
+  ],
+  "ground_y": 163,
+  "parts": {
+    "head": {
+      "box": [
+        37,
+        99,
+        181,
+        230
+      ],
+      "pivot": [
+        128,
+        296
+      ]
+    },
+    "torso": {
+      "box": [
+        252,
+        44,
+        200,
+        500
+      ],
+      "pivot": [
+        352,
+        330
+      ]
+    },
+    "upper_arm": {
+      "box": [
+        657,
+        114,
+        121,
+        311
+      ],
+      "pivot": [
+        715,
+        175
+      ]
+    },
+    "forearm": {
+      "box": [
+        947,
+        154,
+        111,
+        339
+      ],
+      "pivot": [
+        1000,
+        172
+      ]
+    },
+    "upper_leg": {
+      "box": [
+        399,
+        604,
+        113,
+        314
+      ],
+      "pivot": [
+        455,
+        622
+      ]
+    },
+    "lower_leg": {
+      "box": [
+        736,
+        601,
+        152,
+        316
+      ],
+      "pivot": [
+        790,
+        622
+      ]
+    },
+    "sword": {
+      "box": [
+        1104,
+        64,
+        106,
+        583
+      ],
+      "pivot": [
+        1157,
+        150
+      ]
+    },
+    "shield": {
+      "box": [
+        1231,
+        120,
+        140,
+        499
+      ],
+      "pivot": [
+        1301,
+        330
+      ]
+    }
+  },
+  "bones": [
+    {
+      "name": "hips",
+      "part": null,
+      "parent": null
+    },
+    {
+      "name": "leg_far_lower",
+      "part": "lower_leg",
+      "parent": "leg_far_upper",
+      "attach": [
+        0,
+        280
+      ],
+      "z": 0,
+      "shade": [
+        140,
+        140,
+        160
+      ]
+    },
+    {
+      "name": "leg_far_upper",
+      "part": "upper_leg",
+      "parent": "hips",
+      "attach": [
+        -15,
+        -20
+      ],
+      "z": 1,
+      "shade": [
+        140,
+        140,
+        160
+      ]
+    },
+    {
+      "name": "arm_far_upper",
+      "part": "upper_arm",
+      "parent": "torso",
+      "attach": [
+        -25,
+        -200
+      ],
+      "z": 2,
+      "shade": [
+        140,
+        140,
+        160
+      ],
+      "part_scale": [
+        0.85,
+        0.85
+      ]
+    },
+    {
+      "name": "arm_far_lower",
+      "part": "forearm",
+      "parent": "arm_far_upper",
+      "attach": [
+        0,
+        200
+      ],
+      "z": 3,
+      "shade": [
+        140,
+        140,
+        160
+      ],
+      "part_scale": [
+        0.85,
+        0.85
+      ]
+    },
+    {
+      "name": "leg_near_lower",
+      "part": "lower_leg",
+      "parent": "leg_near_upper",
+      "attach": [
+        0,
+        280
+      ],
+      "z": 4
+    },
+    {
+      "name": "leg_near_upper",
+      "part": "upper_leg",
+      "parent": "hips",
+      "attach": [
+        10,
+        -20
+      ],
+      "z": 5
+    },
+    {
+      "name": "torso",
+      "part": "torso",
+      "parent": "hips",
+      "attach": [
+        0,
+        0
+      ],
+      "z": 6
+    },
+    {
+      "name": "head",
+      "part": "head",
+      "parent": "torso",
+      "attach": [
+        3,
+        -262
+      ],
+      "z": 7
+    },
+    {
+      "name": "shield",
+      "part": "shield",
+      "parent": "arm_far_lower",
+      "attach": [
+        7,
+        245
+      ],
+      "z": 8,
+      "angle": -75,
+      "part_scale": [
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "name": "arm_near_upper",
+      "part": "upper_arm",
+      "parent": "torso",
+      "attach": [
+        5,
+        -195
+      ],
+      "z": 9,
+      "part_scale": [
+        0.85,
+        0.85
+      ]
+    },
+    {
+      "name": "sword",
+      "part": "sword",
+      "parent": "arm_near_lower",
+      "attach": [
+        7,
+        245
+      ],
+      "z": 10,
+      "part_scale": [
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "name": "arm_near_lower",
+      "part": "forearm",
+      "parent": "arm_near_upper",
+      "attach": [
+        0,
+        200
+      ],
+      "z": 11,
+      "part_scale": [
+        0.85,
+        0.85
+      ]
+    }
+  ],
+  "animations": {
+    "idle": [
+      {
+        "arm_near_upper": 10,
+        "arm_near_lower": 30,
+        "sword": 30,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85
+      },
+      {
+        "arm_near_upper": 12,
+        "arm_near_lower": 33,
+        "sword": 30,
+        "arm_far_upper": 12,
+        "arm_far_lower": 85,
+        "root": [
+          0,
+          1
+        ]
+      }
+    ],
+    "melee": [
+      {
+        "arm_near_upper": -150,
+        "arm_near_lower": -20,
+        "sword": -10,
+        "arm_far_upper": 15,
+        "arm_far_lower": 85,
+        "torso": 6,
+        "root": [
+          -3,
+          0
+        ]
+      },
+      {
+        "arm_near_upper": 110,
+        "arm_near_lower": 10,
+        "sword": 20,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": -4,
+        "root": [
+          3,
+          0
+        ]
+      },
+      {
+        "arm_near_upper": 45,
+        "arm_near_lower": 10,
+        "sword": 5,
+        "arm_far_upper": 5,
+        "arm_far_lower": 85,
+        "torso": -10,
+        "root": [
+          7,
+          1
+        ]
+      },
+      {
+        "arm_near_upper": 20,
+        "arm_near_lower": 25,
+        "sword": 25,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": -3,
+        "root": [
+          2,
+          0
+        ]
+      }
+    ],
+    "ranged": [
+      {
+        "arm_near_upper": -20,
+        "arm_near_lower": 110,
+        "sword": -20,
+        "arm_far_upper": 15,
+        "arm_far_lower": 85,
+        "torso": 4,
+        "root": [
+          -3,
+          0
+        ]
+      },
+      {
+        "arm_near_upper": 40,
+        "arm_near_lower": 60,
+        "sword": -10,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": -4,
+        "root": [
+          2,
+          0
+        ]
+      },
+      {
+        "arm_near_upper": 80,
+        "arm_near_lower": 10,
+        "sword": 0,
+        "arm_far_upper": 5,
+        "arm_far_lower": 85,
+        "torso": -8,
+        "root": [
+          8,
+          0
+        ]
+      },
+      {
+        "arm_near_upper": 30,
+        "arm_near_lower": 30,
+        "sword": 20,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": -2,
+        "root": [
+          2,
+          0
+        ]
+      }
+    ],
+    "cast": [
+      {
+        "arm_near_upper": 90,
+        "arm_near_lower": 30,
+        "sword": 40,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85
+      },
+      {
+        "arm_near_upper": 130,
+        "arm_near_lower": 15,
+        "sword": 25,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": 3
+      },
+      {
+        "arm_near_upper": 130,
+        "arm_near_lower": 15,
+        "sword": 25,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": 3,
+        "glow": [
+          {
+            "bone": "sword",
+            "at": [
+              0,
+              495
+            ],
+            "radius": 9
+          }
+        ]
+      },
+      {
+        "arm_near_upper": 130,
+        "arm_near_lower": 15,
+        "sword": 25,
+        "arm_far_upper": 10,
+        "arm_far_lower": 85,
+        "torso": 3,
+        "glow": [
+          {
+            "bone": "sword",
+            "at": [
+              0,
+              495
+            ],
+            "radius": 14
+          }
+        ]
+      }
+    ]
+  }
+}

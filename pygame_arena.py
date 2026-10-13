@@ -79,6 +79,7 @@ class SpriteBank:
         self.meta = dict(DEFAULT_META)
         if meta_path.exists():
             self.meta.update(json.loads(meta_path.read_text(encoding="utf-8")))
+        self._class_meta: dict[str, dict] = {}
         self._frames: dict[tuple[str, str], list[pygame.Surface]] = {}
         self._variants: dict[tuple[str, str, int, bool, bool], pygame.Surface] = {}
 
@@ -92,6 +93,21 @@ class SpriteBank:
 
     def has_own_sprites(self, class_id: str) -> bool:
         return (self.directory / class_id / f"{IDLE}.png").exists()
+
+    def resolve(self, class_id: str) -> str:
+        """Чьи спрайты рисовать: свои у класса или заглушку default."""
+        return class_id if self.has_own_sprites(class_id) else DEFAULT_SPRITE
+
+    def meta_for(self, class_id: str) -> dict:
+        """Общие настройки, поверх них sprite.json из папки класса (свой размер кадра, масштаб)."""
+        class_id = self.resolve(class_id)
+        if class_id not in self._class_meta:
+            meta = {**self.meta, "scale": self.scale, "ground": GROUND_MARGIN}
+            path = self.directory / class_id / "sprite.json"
+            if path.exists():
+                meta.update(json.loads(path.read_text(encoding="utf-8")))
+            self._class_meta[class_id] = meta
+        return self._class_meta[class_id]
 
     def frames(self, class_id: str, animation: str = IDLE) -> list[pygame.Surface]:
         """Кадры анимации. Нет анимации: стойка; нет класса: заглушка default."""
@@ -113,17 +129,24 @@ class SpriteBank:
             pygame.draw.rect(blank, (150, 152, 160), pygame.Rect(self.anchor(False) - 20, 30, 40, 90))
             return [blank]
         sheet = pygame.image.load(str(path)).convert_alpha()
-        width, height = self.meta["frame_width"], self.meta["frame_height"]
+        meta = self.meta_for(class_id)
+        width, height, scale = meta["frame_width"], meta["frame_height"], meta["scale"]
         frames = []
         for i in range(max(1, sheet.get_width() // width)):
             frame = sheet.subsurface(pygame.Rect(i * width, 0, width, height))
-            frames.append(pygame.transform.scale(frame, (width * self.scale, height * self.scale)))
+            frames.append(frame if scale == 1 else pygame.transform.scale(frame, (width * scale, height * scale)))
         return frames
 
-    def anchor(self, flipped: bool) -> int:
+    def anchor(self, flipped: bool, class_id: str = DEFAULT_SPRITE) -> int:
         """Где в кадре на экране стоят ноги юнита (по горизонтали)."""
-        x = self.meta["anchor_x"] if not flipped else self.meta["frame_width"] - self.meta["anchor_x"]
-        return x * self.scale
+        meta = self.meta_for(class_id)
+        x = meta["anchor_x"] if not flipped else meta["frame_width"] - meta["anchor_x"]
+        return x * meta["scale"]
+
+    def ground(self, class_id: str) -> int:
+        """Сколько пикселей кадра на экране остаётся под ногами юнита."""
+        meta = self.meta_for(class_id)
+        return meta["ground"] * meta["scale"]
 
     def get(self, class_id: str, animation: str = IDLE, index: int = 0, flipped: bool = False,
             dead: bool = False) -> pygame.Surface:
@@ -263,8 +286,9 @@ class ArenaScreen:
         if alive:
             animation, index = self.current_frame(view, unit, now)
             sprite = self.bank.get(unit.definition.id, animation, index, flipped)
-            feet_in_frame = sprite.get_height() - GROUND_MARGIN * self.bank.scale
-            screen.blit(sprite, (x - self.bank.anchor(flipped), y + 4 - feet_in_frame))
+            class_id = unit.definition.id
+            feet_in_frame = sprite.get_height() - self.bank.ground(class_id)
+            screen.blit(sprite, (x - self.bank.anchor(flipped, class_id), y + 4 - feet_in_frame))
         else:
             sprite = self.bank.get(unit.definition.id, IDLE, 0, flipped, dead=True)
             screen.blit(sprite, sprite.get_rect(center=(x, y - 26)))
