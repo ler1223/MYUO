@@ -12,6 +12,18 @@
 
 Фоны (батч 8) — каждый отдельным запросом в размере 1536x1024, без сетки.
 
+Запросы можно отправлять скриптом `tools/gen_ui_image.py`: он собирает промпт из этого файла и обращается к OpenAI Images API (gpt-image). Нужна переменная окружения `OPENAI_API_KEY`; запросы платные, промпт и образцы уходят в OpenAI.
+
+```
+python tools/gen_ui_image.py --list                                 что можно сгенерировать
+python tools/gen_ui_image.py --batch 1 --dry-run                    показать промпт без запроса
+python tools/gen_ui_image.py --batch 1 --ref ref/uo_menu.png        лист батча по образцу скриншота
+python tools/gen_ui_image.py --batch 1 --force --extra "Redo cell 7 only, keep everything else identical."
+python tools/gen_ui_image.py --background bg/prepare                фон экрана
+```
+
+Лист сохраняется в `assets/ui/sheets/`, фон — в `assets/ui/bg/`, рядом `.txt` с отправленным промптом. Готовый файл без `--force` не перезаписывается. Параметры: `--quality low|medium|high`, `--size`, `--model` (по умолчанию `gpt-image-1`).
+
 ## STYLE — общий блок стиля
 
 ```
