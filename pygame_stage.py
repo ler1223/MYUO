@@ -60,7 +60,7 @@ from game.events import (
     UnitDied,
 )
 from game.save import clone_scenario
-from game.scenario import build_showcase
+from game.scenario import DEMO_SEED, build_demo_battle, build_showcase
 from game.unit import Unit
 from pygame_battle import FIELD_RECT, BattleScreen, skill_visual, weapon_kind
 from pygame_ui import GREEN, RED
@@ -81,6 +81,9 @@ FLYING_TAG = "flying"
 TALL = 1.3                 # спрайт выше человека в столько раз — «большой» (всадник): тень шире
 SIDE_RING = {"left": (60, 110, 220), "right": (220, 70, 60)}
 CURRENT_RING = (230, 200, 80)
+# Бои вкладки: демонстрация всех навыков и пассивок, пять тестовых классов, расстановка игрока.
+MODES = ("demo", "showcase", "setup")
+MODE_LABELS = {"demo": "demo battle (T)", "showcase": "test squads (T)", "setup": "your squads (T)"}
 
 
 # --- движения спрайтов --------------------------------------------------------
@@ -274,7 +277,7 @@ Context = dict[str, Any]
 
 
 class StageScreen(BattleScreen):
-    """Вкладка боя спрайтами. Свой бой: тестовые отряды (или расстановка игрока, клавиша T)."""
+    """Вкладка боя спрайтами. Свой бой: демонстрация, тестовые отряды или расстановка игрока (клавиша T)."""
 
     def __init__(self, scene: Optional[SceneConfig] = None, props_dir: Optional[Path] = None):
         super().__init__()
@@ -284,7 +287,7 @@ class StageScreen(BattleScreen):
         self.backdrop = Backdrop(FIELD_RECT, props_dir)
         self.skill_visuals = load_visuals()
         self.battle_view: Any = None        # свой BattleView; его создаёт окно
-        self.use_test = True                # тестовые отряды пяти классов, иначе расстановка игрока
+        self.mode = MODES[0]                # какой бой показывает вкладка (клавиша T)
         self.stage: dict[int, Place] = {}
         self.motions: dict[int, list[Motion]] = {}
         self.tints: dict[int, list[Tint]] = {}
@@ -306,7 +309,15 @@ class StageScreen(BattleScreen):
     # --- бой этой вкладки ---
 
     def scenario(self, db: Any, setup: Any) -> Any:
-        return build_showcase(db) if self.use_test else clone_scenario(db, setup)
+        if self.mode == "demo":
+            return build_demo_battle(db)
+        return build_showcase(db) if self.mode == "showcase" else clone_scenario(db, setup)
+
+    def next_mode(self) -> None:
+        """Следующий бой: демонстрация -> тестовые отряды -> ваша расстановка."""
+        self.mode = MODES[(MODES.index(self.mode) + 1) % len(MODES)]
+        if self.battle_view is not None:
+            self.battle_view.restart(DEMO_SEED if self.mode == "demo" else self.battle_view.seed)
 
     def windup(self, ev: Event) -> Optional[int]:
         """Сколько длится замах навыка: BattleView ставит удар после него."""
@@ -327,14 +338,13 @@ class StageScreen(BattleScreen):
         return visuals.get("_defaults", {}).get(skill_visual(skill, unit)[0], {})
 
     def status_note(self) -> str:
-        note = "   " + self.t("test squads (T)" if self.use_test else "your squads (T)")
+        note = "   " + self.t(MODE_LABELS[self.mode])
         return note + "   " + self.t("camera (C): {state}", state=self.t("on") if self.camera_view.auto else self.t("off"))
 
     def handle_event(self, event: pygame.event.Event, pos: tuple[float, float], window_scale: float = 1.0) -> None:
         super().handle_event(event, pos, window_scale)
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_t and self.battle_view is not None:
-            self.use_test = not self.use_test
-            self.battle_view.restart(self.battle_view.seed)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
+            self.next_mode()
 
     # --- раскладка ---
 

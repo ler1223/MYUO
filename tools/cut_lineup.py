@@ -8,7 +8,8 @@
 обрезанным по своим границам, без изменения размера: поэтому всадник остаётся выше
 пехотинца ровно во столько раз, во сколько на листе. В assets/units/units.json
 записывается рост человека на листе (по первому персонажу, если не задан --reference):
-арена масштабирует все спрайты одним коэффициентом от него.
+сцена масштабирует все спрайты одним коэффициентом от него. Персонаж с id, начинающимся
+с «_» (например, паладин-эталон на новом листе), не сохраняется: он только мера роста.
 """
 from __future__ import annotations
 
@@ -84,12 +85,15 @@ def main(argv: list[str]) -> int:
     human = None
     for unit_id, (left, right) in zip(ids, runs):
         image, box = crop(sheet, left, right)
+        if unit_id == reference:
+            human = box.height
+        if unit_id.startswith("_"):            # эталон роста с образца: только мера, файл не нужен
+            print(f"{unit_id}: reference {box.height}px, not saved")
+            continue
         pygame.image.save(image, str(OUT / f"{unit_id}.png"))
         # Рост на листе: от низа (линия земли) до верха; масштаб общий для всего листа.
         # Остальные ключи спрайта (опорные точки anchors) сохраняются.
         sprites.setdefault(unit_id, {}).update({"sheet": sheet_path.name, "height": box.height, "ground": box.bottom})
-        if unit_id == reference:
-            human = box.height
         print(f"{unit_id}: {box.width}x{box.height} at {box.topleft}")
     sheets = config.setdefault("sheets", {})
     if human:

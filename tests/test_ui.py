@@ -31,6 +31,7 @@ if pygame is not None:
     from engine.render import View
     from pygame_battle import FIELD_RECT
     from pygame_scene_editor import FORM_TOP, FORM_X, LABEL_W, ROW_H
+    from game.scenario import DEMO_AP, DEMO_SEED
     from pygame_stage import Motion
     from pygame_ui import UI, load_fonts
 
@@ -503,8 +504,22 @@ class StageTests(WindowTestCase):
                 now += 40
         return spawned, moved
 
+    def test_demo_battle_is_the_default_and_t_cycles_the_battles(self):
+        stage = self.tab("Stage")
+        view = stage.battle_view
+        self.assertEqual((stage.mode, view.seed), ("demo", DEMO_SEED))
+        classes = {unit.definition.id for unit in view.sim.units.values()}
+        self.assertEqual(classes, set(self.db.units))          # демонстрация: все классы справочника
+        self.assertEqual(max(u.ap.max for u in view.sim.units.values()), DEMO_AP)
+        spawned, _ = self.play(stage, view)
+        self.assertTrue({"Slash", "Projectile", "Beam"} <= spawned, spawned)   # удары, снаряды, лечение
+        for mode in ("showcase", "setup", "demo"):
+            stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))
+            self.assertEqual(stage.mode, mode)
+
     def test_stage_plays_test_squads_with_skill_visuals(self):
         stage = self.tab("Stage")
+        stage.next_mode()                                      # тестовые отряды пяти классов
         view = self.app.battle_view()
         self.assertIs(view, stage.battle_view)
         self.assertIsNot(view, self.app.view)                 # у вкладки свой бой
@@ -522,6 +537,7 @@ class StageTests(WindowTestCase):
     def test_windup_comes_from_visuals_and_targets_from_timeline(self):
         from game.events import DamageDealt, SkillUsed
         stage = self.tab("Stage")
+        stage.next_mode()
         view = stage.battle_view
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
         self.assertEqual(stage.windup(SkillUsed(rider.uid, "lance_charge", 11)),
@@ -535,10 +551,11 @@ class StageTests(WindowTestCase):
 
     def test_your_squads_use_fallback_sprites(self):
         stage = self.tab("Stage")
-        stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))
+        stage.next_mode()
+        stage.next_mode()
         self.frame()                                          # расстановка обновляется при отрисовке
         view = stage.battle_view
-        self.assertFalse(stage.use_test)
+        self.assertEqual(stage.mode, "setup")
         self.assertIn("knight", {u.definition.id for u in view.sim.units.values()})
         knight = next(u for u in view.sim.units.values() if u.definition.id == "knight")
         self.assertEqual(stage.bank.sprite_id(knight), "paladin")
@@ -551,8 +568,7 @@ class StageTests(WindowTestCase):
 
     def test_units_covering_the_attack_become_transparent(self):
         stage = self.tab("Stage")
-        stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))   # демо-отряды: юнитов больше
-        self.frame()
+        self.frame()                                           # демонстрация: юнитов много, они перекрываются
         view = View(stage.scene.projection(), Camera(1.0, FIELD_RECT.topleft, FIELD_RECT.topleft, FIELD_RECT), 500)
         far_first = sorted(stage.stage, key=lambda uid: -stage.stage[uid].z)
         rects = {uid: stage.unit_rect(uid, view) for uid in far_first}

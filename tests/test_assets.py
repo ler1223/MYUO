@@ -127,6 +127,29 @@ class SceneTests(unittest.TestCase):
             self.assertEqual(store.load("missing"), SceneConfig())  # нет файла — сцена по умолчанию
 
 
+class DemoBattleTests(unittest.TestCase):
+    def test_demo_battle_shows_almost_every_skill_and_every_passive(self):
+        from game.battle import BattleSimulation
+        from game.events import Covered, PassiveTriggered, SkillUsed, UnitDied
+        from game.scenario import DEMO_SEED, build_demo_battle
+        db = Database.load()                                    # демонстрация собрана под настоящие данные
+        scenario = build_demo_battle(db)
+        sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, db, seed=DEMO_SEED)
+        skills, passives, covers, deaths = set(), set(), 0, 0
+        while not sim.finished:
+            for ev in sim.step():
+                skills.add(ev.skill_id) if isinstance(ev, SkillUsed) else None
+                passives.add(ev.passive_id) if isinstance(ev, PassiveTriggered) else None
+                covers += isinstance(ev, Covered)
+                deaths += isinstance(ev, UnitDied)
+        owned = {s for unit in db.units.values() for s in unit.skills}   # навыки, которые есть у классов
+        self.assertGreaterEqual(len(skills), len(owned) - 1, sorted(owned - skills))
+        self.assertEqual(passives, set(db.passives))
+        self.assertGreater(covers, 0)
+        self.assertGreater(deaths, 0)
+        self.assertEqual(db.units["knight"].ap_max, Database.load().units["knight"].ap_max)   # справочник не тронут
+
+
 def xz(cell):
     return cell[0], 0.0, cell[1]
 

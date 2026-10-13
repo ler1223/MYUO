@@ -21,7 +21,7 @@ from game.database import Database
 from game.events import format_event
 from game.i18n import Translator, available_languages
 from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_setup, save_setup
-from game.scenario import Scenario, build_demo
+from game.scenario import DEMO_SEED, Scenario, build_demo
 from game.squad import Formation, Squad
 from game.unit import Unit
 from pygame_data_editors import ClassEditor
@@ -82,7 +82,7 @@ class App:
         if scenes_dir is not None and self.scene_id not in store.ids():
             self.scene_id = store.ids()[0] if store.ids() else DEFAULT_SCENE
         stage = StageScreen(store.load(self.scene_id) if scenes_dir is not None else None, props_dir)
-        stage.battle_view = BattleView(db, seed, lambda: stage.scenario(self.db, self.setup), stage.windup)
+        stage.battle_view = BattleView(db, DEMO_SEED, lambda: stage.scenario(self.db, self.setup), stage.windup)
         # (название вкладки, экран); у вкладки боя с карточками экрана нет
         self.tabs: list[tuple[str, Any]] = [
             ("Battle", None),
