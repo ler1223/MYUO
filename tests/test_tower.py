@@ -162,9 +162,14 @@ class TowerRunTests(unittest.TestCase):
         benched = run.reserve[0]
         with self.assertRaises(ValueError):
             run.place(benched.uid, 2, 2)                              # поле полно
+        with self.assertRaises(ValueError):
+            run.field(benched.uid)                                    # «В отряд», а мест нет
         run.finish(DB, run.battle(DB), won=True)
         run.take(DB, [])
         self.assertEqual(run.squad.formation.max_units, 3)
+        cell = run.field(benched.uid)                                 # на лучшую свободную клетку
+        self.assertEqual(run.squad.formation.position_of(benched.uid), cell)
+        run.bench(benched.uid)
         run.place(benched.uid, 2, 2)
         self.assertEqual(len(run.fielded), 3)
         occupant = run.fielded[0]

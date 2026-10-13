@@ -25,6 +25,7 @@ from tests.helpers import FIXTURE_DIR
 
 if pygame is not None:
     import pygame_tower as tw
+    import pygame_tower_prepare as pp
 
 ROOT = Path(__file__).resolve().parent.parent
 SEED = 7                     # забеги в тестах одинаковые
@@ -62,6 +63,12 @@ class TowerWindowTests(unittest.TestCase):
         self.frame([pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=(x, y), button=button)])
         self.frame()
 
+    def drag(self, start, end):
+        """Нажать в start, отпустить в end (start == end — клик)."""
+        self.frame([pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=start, button=1)])
+        self.frame([pygame.event.Event(pygame.MOUSEBUTTONUP, pos=end, button=1)])
+        self.frame()
+
     def draft(self):
         """Набор кликами по «Взять» на первой карточке."""
         while self.app.run.phase == DRAFT:
@@ -69,7 +76,7 @@ class TowerWindowTests(unittest.TestCase):
 
     def fight(self):
         """Кнопка боя, бой до конца, Enter — итог в забег."""
-        self.click(*tw.FIGHT.center)
+        self.click(*pp.FIGHT.center)
         self.assertTrue(self.app.in_battle)
         self.app.skip()
         self.app.tick(16)
@@ -113,29 +120,66 @@ class TowerWindowTests(unittest.TestCase):
         self.click(*tw.NEW_RUN.center)                       # «Новый забег»
         self.assertEqual((self.app.run.phase, self.app.run.best), (DRAFT, 4))
 
-    def test_prepare_equipment_reserve_and_tactics(self):
+    def test_formation_by_dragging_fighters(self):
         self.draft()
         self.frame()
         run, app = self.app.run, self.app
         unit = run.fielded[0]
-        app.selected = unit.uid
+        empty = next((r, c) for r in range(3) for c in range(3) if run.squad.formation.unit_at(r, c) is None)
+        self.drag(pp.unit_point(app, unit.uid), pp.cell_point(app, *empty))      # на пустую клетку
+        self.assertEqual(run.squad.formation.position_of(unit.uid), empty)
+        other = next(u for u in run.fielded if u is not unit)
+        where = run.squad.formation.position_of(other.uid)
+        self.drag(pp.unit_point(app, unit.uid), pp.unit_point(app, other.uid))   # на бойца — обмен
+        self.assertEqual(run.squad.formation.position_of(unit.uid), where)
+        self.click(*pp.SQUAD_BUTTON.center)                                     # справа — армия
+        self.assertEqual(app.view, pp.SQUAD)
+        self.drag(pp.unit_point(app, unit.uid), pp.roster_card(5).center)       # с поля в список — резерв
+        self.assertIn(unit, run.reserve)
+        index = pp.ordered_units(app).index(unit)
+        self.drag(pp.roster_card(index).center, pp.cell_point(app, *empty))     # из списка на поле
+        self.assertEqual(run.squad.formation.position_of(unit.uid), empty)
+        self.click(*pp.SQUAD_BUTTON.center)
+        self.assertEqual(app.view, pp.MAIN)                                     # снова враги справа
+
+    def test_units_list_and_fighter_editor(self):
+        self.draft()
+        run, app = self.app.run, self.app
+        self.frame()
+        unit = run.fielded[0]
+        self.drag(pp.unit_point(app, unit.uid), pp.unit_point(app, unit.uid))   # клик — редактор
+        self.assertEqual((app.view, app.selected), (pp.UNIT, unit.uid))
+        self.click(*pp.NEXT.center)
+        self.assertNotEqual(app.selected, unit.uid)
+        self.click(*pp.PREV.center)
+        self.assertEqual(app.selected, unit.uid)
+        self.click(*pp.TABS[pp.EQUIPMENT].center)
+        self.assertEqual(app.tab, pp.EQUIPMENT)
         slot = next(i for i, item in enumerate(unit.state.equipment) if item is not None)
         item = unit.state.equipment[slot]
-        app.change_equipment(unit, slot, tw.NONE_ITEM)
+        before = pp.preview_stats(app, unit, slot, item)
+        bare = pp.preview_stats(app, unit, slot, None)                         # «если снять»
+        self.assertTrue(any(bare[s] < before[s] for s in before))
+        self.assertEqual(unit.state.equipment[slot], item)                     # сам боец не изменился
+        app.change_equipment(unit, slot, pp.NONE_ITEM)
         self.assertTrue(run.inventory.has(item))
         app.change_equipment(unit, slot, item)
-        self.assertEqual(unit.state.equipment[slot], item)
         self.frame()
-        self.click(*tw.BENCH.center)                         # «В резерв»
+        self.click(*pp.TABS[pp.TACTICS].center)
+        self.frame()
+        self.click(*pp.FIELD_TOGGLE.center)                                     # «В резерв»
         self.assertIn(unit, run.reserve)
-        cell = tw.cell_rect(app, 2, 2)
-        self.click(*cell.center)                              # из резерва в пустую клетку
-        self.assertEqual(run.squad.formation.position_of(unit.uid), (2, 2))
-        self.click(*tw.TACTICS.center)                       # «Тактика»
-        self.assertTrue(app.tactics)
-        self.frame()
-        self.click(*tw.BACK_BUTTON.center)                   # «Назад»
-        self.assertFalse(app.tactics)
+        self.click(*pp.FIELD_TOGGLE.center)                                     # «В отряд»
+        self.assertIn(unit, run.fielded)
+        self.click(*pp.BACK.center)
+        self.assertEqual(app.view, pp.MAIN)
+        self.click(*pp.UNITS_BUTTON.center)
+        self.assertEqual(app.view, pp.UNITS)
+        self.click(*pp.unit_row(1).midleft)                                     # строка списка — редактор
+        self.assertEqual((app.view, app.back_view), (pp.UNIT, pp.UNITS))
+        self.assertEqual(app.selected, pp.ordered_units(app)[1].uid)
+        self.assertTrue(pp.go_back(app))                                        # Esc — обратно в список
+        self.assertEqual(app.view, pp.UNITS)
 
     def test_shop_by_clicks(self):
         rules = json.loads(TOWER_RULES_PATH.read_text(encoding="utf-8"))

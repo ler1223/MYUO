@@ -127,6 +127,10 @@ class UI:
         self._picked_next: Optional[tuple[Hashable, Any]] = None  # выбрано в конце прошлого кадра
         self.scrolls: dict[Hashable, int] = {}
         self.scale = 1.0     # во сколько раз интерфейс крупнее базового 1000x620 (размеры списков, подсказок)
+        self.releases: list[tuple[tuple[int, int], int]] = []
+        # оформление кнопок и списков; окно башни задаёт своё (тёмно-синее с золотом)
+        self.style = dict(button=BUTTON, hover=BUTTON_HOVER, selected=BUTTON_SELECTED, disabled=BUTTON_DISABLED,
+                          border=DIM, accent=YELLOW, radius=3)
         # подсказка под курсором: строки (текст, цвет, шрифт) и картинка; рисуется поверх всего в end()
         self._tip: Optional[tuple[list[TipLine], Optional[pygame.Surface]]] = None
         self.tip_box: Optional[pygame.Rect] = None    # где подсказка нарисована в этом кадре
@@ -140,6 +144,8 @@ class UI:
         self._tip, self.tip_box = None, None
         self._picked, self._picked_next = self._picked_next, None
         self.clicks = [(e.pos, e.button) for e in events if e.type == pygame.MOUSEBUTTONDOWN and e.button in (1, 3)]
+        # отпускания кнопки мыши: конец перетаскивания (окно само решает, что куда перетащили)
+        self.releases = [(e.pos, e.button) for e in events if e.type == pygame.MOUSEBUTTONUP and e.button in (1, 3)]
         self.wheel = sum(e.y for e in events if e.type == pygame.MOUSEWHEEL)
         self.mouse = self.transform(pygame.mouse.get_pos())
         keys = [e for e in events if e.type == pygame.KEYDOWN]
@@ -258,17 +264,19 @@ class UI:
                font: str = "small", color=TEXT, fill=None) -> int:
         """Кнопка. Возвращает +1/-1 (левый/правый клик) или 0. fill — свой цвет кнопки."""
         hover = rect.collidepoint(self.mouse) and self.popup is None
+        style = self.style
         if not enabled:
-            back = BUTTON_DISABLED
+            back = style["disabled"]
         elif selected:
-            back = BUTTON_SELECTED
+            back = style["selected"]
         elif fill is not None:
             back = lighter(fill, 28) if hover else fill
         else:
-            back = BUTTON_HOVER if hover else BUTTON
-        pygame.draw.rect(self.screen, back, rect, border_radius=round(3 * self.scale))
-        border = YELLOW if selected else (lighter(fill, 60) if fill is not None and enabled else DIM)
-        pygame.draw.rect(self.screen, border, rect, max(1, round(self.scale)), border_radius=round(3 * self.scale))
+            back = style["hover"] if hover else style["button"]
+        radius = round(style["radius"] * self.scale)
+        pygame.draw.rect(self.screen, back, rect, border_radius=radius)
+        border = style["accent"] if selected or (hover and enabled) else             (lighter(fill, 60) if fill is not None and enabled else style["border"])
+        pygame.draw.rect(self.screen, border, rect, max(1, round(self.scale)), border_radius=radius)
         if text:
             f = self.fonts[font]
             img = f.render(fit(f, text, rect.width - 8), True, color if enabled else DIM)

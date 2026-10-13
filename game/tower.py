@@ -279,6 +279,18 @@ class TowerRun:
     def bench(self, uid: int) -> None:
         self.army.unassign(uid)
 
+    def field(self, uid: int) -> tuple[int, int]:
+        """Из резерва в отряд, на лучшую свободную клетку для класса. ValueError, если отряд полон."""
+        formation = self.squad.formation
+        if formation.position_of(uid) is not None:
+            return formation.position_of(uid)
+        taken = [formation.position_of(u.uid) for u in formation.units]
+        cell = free_cell(taken, self.army.units[uid].definition, self.rules.squad_size(self.floor))
+        if cell is None:
+            raise ValueError("the squad is full")
+        self.army.assign(uid, PLAYER_SQUAD, *cell)
+        return cell
+
     def _resize(self) -> None:
         """Поле этажа: кто не помещается в новое поле, уходит в запас."""
         size = self.rules.squad_size(self.floor)
