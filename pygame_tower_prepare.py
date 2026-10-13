@@ -11,7 +11,6 @@
 from __future__ import annotations
 
 import math
-from dataclasses import replace
 from typing import Any, Optional
 
 import pygame
@@ -19,25 +18,26 @@ import pygame
 from game.editing import describe_reaction, describe_skill, set_tactics
 from game.stats import Stat
 from game.unit import Unit
+from pygame_tower_inventory import draw_inventory
 from pygame_editors import ROW_H, rule_table
 from pygame_tips import modifier_text, tier_color, unit_tip
-from pygame_tower_style import (ACCENTS, CELL, CELL_EMPTY, DIM, ENEMY, EXP, GOLD, GOLD_DIM, GOLD_LINE, GREEN, H,
-                                M, PANEL_DARK, TEXT, TOP_H, W, bar, button, class_entries, crown, figure,
+from pygame_tower_style import (ACCENTS, BOTTOM_Y, CONTENT_Y, CELL, CELL_EMPTY, DIM, ENEMY, EXP, GOLD, GOLD_DIM, GOLD_LINE, GREEN, H,
+                                M, PANEL_DARK, TEXT, W, bar, preview_stats, button, class_entries, crown, figure,
                                 item_icon, panel, plate, portrait, skill_chip, stat_grid)
 from pygame_ui import UI, lighter
 
-MAIN, SQUAD, UNITS, UNIT = "main", "squad", "units", "unit"
+MAIN, SQUAD, UNITS, UNIT, INVENTORY = "main", "squad", "units", "unit", "inventory"
 STATUS, EQUIPMENT, TACTICS = "status", "equipment", "tactics"
 NONE_ITEM = "__none__"
+SNAP = 1.6                          # прилипание: до скольких «радиусов клетки» от курсора
 DRAG_MIN = 12                       # дальше стольких пикселей от нажатия — уже перетаскивание
 
 # Раскладка
-CONTENT_Y = TOP_H + 16
-BOTTOM_Y = H - 100
 HALF_L = pygame.Rect(M, CONTENT_Y, W // 2 - M - 12, BOTTOM_Y - CONTENT_Y - 12)
 HALF_R = pygame.Rect(W // 2 + 12, CONTENT_Y, W // 2 - M - 12, HALF_L.height)
 SQUAD_BUTTON = pygame.Rect(M, BOTTOM_Y + 14, 280, 70)
 UNITS_BUTTON = pygame.Rect(M + 300, BOTTOM_Y + 14, 280, 70)
+INVENTORY_BUTTON = pygame.Rect(M + 600, BOTTOM_Y + 14, 280, 70)
 FIGHT = pygame.Rect(W - M - 380, BOTTOM_Y + 10, 380, 78)
 BACK = pygame.Rect(M, BOTTOM_Y + 14, 260, 70)
 PREV = pygame.Rect(M + 280, BOTTOM_Y + 14, 220, 70)
@@ -119,7 +119,7 @@ def unit_height(area: pygame.Rect, cols: int) -> float:
 
 
 def draw_field(ui: UI, app: Any, half: pygame.Rect, entries: list[dict], rows: int, cols: int, mirror: bool,
-               drop: bool = False) -> list[tuple[pygame.Rect, tuple[int, int], Optional[int]]]:
+               hot: Optional[tuple[int, int]] = None) -> list[tuple[pygame.Rect, tuple[int, int], Optional[int]]]:
     """Клетки и стоящие на них фигуры. entries: dict(uid, class_id, level, hp, max_hp, row, col, leader, boss).
     Возвращает цели для мыши: (прямоугольник, клетка, uid или None), ближние позже."""
     area = field_area(half)
@@ -134,10 +134,10 @@ def draw_field(ui: UI, app: Any, half: pygame.Rect, entries: list[dict], rows: i
         for row in range(rows):
             spot = places[(row, col)]
             tile = tile_rect(spot, dx)
-            hot = drop and tile.collidepoint(ui.mouse)
-            fill = lighter(side_fill, 30 if hot else (12 if row == 0 else 0))
+            lit = hot == (row, col)
+            fill = lighter(side_fill, 40 if lit else (12 if row == 0 else 0))
             pygame.draw.ellipse(ui.screen, fill, tile)
-            pygame.draw.ellipse(ui.screen, GOLD if hot else side_line, tile, 2)
+            pygame.draw.ellipse(ui.screen, GOLD if lit else side_line, tile, 4 if lit else 2)
             targets.append((tile, (row, col), None))
     plates = []
     for col in range(cols):
@@ -199,6 +199,8 @@ def draw_prepare(ui: UI, app: Any) -> None:
         return
     if app.view == UNITS:
         draw_units(ui, app)
+    elif app.view == INVENTORY:
+        draw_inventory(ui, app, open_unit)
     else:
         draw_formation(ui, app)
     draw_bottom(ui, app)
@@ -212,9 +214,11 @@ def draw_bottom(ui: UI, app: Any) -> None:
         app.view = MAIN if app.view == SQUAD else SQUAD
     if button(ui, t("Units"), UNITS_BUTTON, selected=app.view == UNITS):
         app.view = MAIN if app.view == UNITS else UNITS
+    if button(ui, t("Inventory"), INVENTORY_BUTTON, selected=app.view == INVENTORY):
+        app.view = MAIN if app.view == INVENTORY else INVENTORY
     formation = app.run.squad.formation
     note = t("Fielded {n}/{max}", n=len(formation), max=formation.max_units)
-    ui.text(note, UNITS_BUTTON.right + 40, BOTTOM_Y + 34, GOLD, "main")
+    ui.text(note, INVENTORY_BUTTON.right + 40, BOTTOM_Y + 34, GOLD, "main")
     if button(ui, t("Fight!"), FIGHT, primary=True, enabled=bool(app.run.fielded), font="title"):
         app.start_battle()
 
@@ -226,7 +230,7 @@ def draw_formation(ui: UI, app: Any) -> None:
         if app.rules.data["shop"]["every"] > 0 else None
     panel(ui, HALF_L, ACCENTS["prepare"], t("Your squad"), f"{len(formation)}/{formation.max_units}")
     targets = draw_field(ui, app, HALF_L, squad_entries(app), formation.rows, formation.cols, False,
-                         drop=app.drag is not None)
+                         hot=snap_cell(app, ui.mouse) if dragging(ui, app) else None)
     if shop_in:
         ui.text(t("shop after {n} more floor(s)", n=shop_in), HALF_L.x + 24, HALF_L.bottom - 40, DIM, "small")
     roster_targets: list[tuple[pygame.Rect, Optional[int]]] = []
@@ -271,8 +275,28 @@ def draw_roster(ui: UI, app: Any) -> list[tuple[pygame.Rect, Optional[int]]]:
     return targets
 
 
+def dragging(ui: UI, app: Any) -> bool:
+    """Бойца уже тащат (кнопка нажата на бойце, и курсор ушёл дальше DRAG_MIN)."""
+    return app.drag is not None and math.dist(ui.mouse, app.drag[1]) >= DRAG_MIN
+
+
+def snap_cell(app: Any, feet: tuple[float, float]) -> Optional[tuple[int, int]]:
+    """Клетка нашего поля, к которой прилипают ноги перетаскиваемого бойца: ближайшая к курсору
+    (расстояние меряется в размерах клетки, по глубине клетки ближе друг к другу), если она не дальше SNAP."""
+    formation = app.run.squad.formation
+    area = field_area(HALF_L)
+    dx = area.width * 0.84 / formation.rows
+    best, best_d = None, SNAP
+    for cell, (x, y, scale) in spots(area, formation.rows, formation.cols, False).items():
+        d = math.hypot((feet[0] - x) / (dx * 0.5 * scale), (feet[1] - y) / (dx * 0.3 * scale))
+        if d < best_d:
+            best, best_d = cell, d
+    return best
+
+
 def handle_drag(ui: UI, app: Any, field: list, roster: list) -> None:
     """Нажатие на бойца начинает перетаскивание; отпускание — поставить, поменять, убрать в резерв.
+    Бойца держат за ноги: клетка выбирается по точке курсора и прилипает к ближайшей.
     Отпустили там же, где нажали, — это клик: открыть редактор бойца."""
     run = app.run
     for pos, key in ui.clicks:
@@ -291,33 +315,33 @@ def handle_drag(ui: UI, app: Any, field: list, roster: list) -> None:
         if math.dist(pos, start) < DRAG_MIN:
             open_unit(app, uid, app.view)
             continue
-        cell = drop_cell(field, pos)
+        cell = snap_cell(app, pos)
         if cell is not None:
             app.act(run.place, uid, *cell)
         elif any(rect.collidepoint(pos) for rect, _u in roster):
             if run.squad.formation.position_of(uid) is not None:
                 app.act(run.bench, uid)
-    if app.drag is not None and math.dist(ui.mouse, app.drag[1]) >= DRAG_MIN:
-        unit = run.army.units.get(app.drag[0])       # фигура «в руке» за курсором
-        if unit is not None:
-            figure(ui, app, unit.definition.id, (ui.mouse[0], ui.mouse[1] + 120), 240, alpha=200)
+    if dragging(ui, app):
+        unit = run.army.units.get(app.drag[0])
+        if unit is None:
+            return
+        formation = run.squad.formation
+        area = field_area(HALF_L)
+        height = unit_height(area, formation.cols)
+        cell = snap_cell(app, ui.mouse)
+        if cell is not None:                         # тень на клетке, куда он встанет
+            x, y, scale = spots(area, formation.rows, formation.cols, False)[cell]
+            figure(ui, app, unit.definition.id, (round(x), round(y + 4)), round(height * scale), alpha=150)
+        else:                                        # в руке: ноги в точке курсора
+            figure(ui, app, unit.definition.id, ui.mouse, round(height * 0.9), alpha=210)
 
 
-def drop_cell(field: list, pos: tuple[int, int]) -> Optional[tuple[int, int]]:
-    """Клетка под курсором: сначала по клеткам земли, затем по фигуре ближнего бойца."""
-    for rect, cell, uid in field:
-        if uid is None and rect.inflate(20, 30).collidepoint(pos):
-            return cell
-    for rect, cell, uid in reversed(field):
-        if uid is not None and rect.collidepoint(pos):
-            return cell
-    return None
-
-
-def open_unit(app: Any, uid: int, back: str) -> None:
+def open_unit(app: Any, uid: int, back: str, tab: Optional[str] = None, slot: int = 0) -> None:
+    """Редактор бойца; back — куда вернёт «Назад», tab и slot — открыть сразу нужную вкладку и слот."""
     app.selected, app.back_view, app.view = uid, back if back != UNIT else MAIN, UNIT
-    app.slot, app.preview = 0, None
-
+    app.slot, app.preview = slot or 0, None
+    if tab is not None:
+        app.tab = tab
 
 def ordered_units(app: Any) -> list[Unit]:
     """Сначала стоящие в отряде (передний ряд первым), затем резерв."""
@@ -469,14 +493,6 @@ def skill_row(ui: UI, app: Any, unit: Unit, kind: str, entry_id: str, unlock: in
     else:
         line = ""
     ui.text(line, rect.x + 50, rect.y + 44, DIM, "tiny", rect.width - 60)
-
-
-def preview_stats(app: Any, unit: Unit, slot: int, item_id: Optional[str]) -> dict:
-    """Статы, если в слот slot надеть item_id (None — снять): копия юнита, сам юнит не меняется."""
-    state = replace(unit.state, equipment=list(unit.state.equipment))
-    state.equipment[slot] = item_id
-    ghost = Unit(unit.definition, state, app.db.items, strict=False)
-    return {stat: ghost.stat(stat) for stat in Stat}
 
 
 def draw_equipment(ui: UI, app: Any, unit: Unit) -> None:

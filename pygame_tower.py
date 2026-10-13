@@ -30,10 +30,12 @@ from pygame_art import ArtBank, Portraits
 from pygame_battle import FIELD_RECT, SKIP_BACKLOG_MS, BattleView
 from pygame_stage import TOWER_MODE, StageScreen, load_visuals
 from pygame_tips import STAT_COLORS, class_tip, modifier_text, tier_color, unit_tip
+import pygame_tower_style
+from pygame_tower_inventory import InventoryFilter
 from pygame_tower_prepare import MAIN, STATUS, UNIT, draw_prepare, go_back
 from pygame_tower_style import (ACCENTS, AP_COLOR, BACK, CELL, CELL_EMPTY, DIM, ENEMY, EXP, GOLD, GREEN, H, M,
                                 GOLD_LINE, PANEL_DARK, PP_COLOR, SIZE, SIZES, TEXT, TOP_H, W, background, bar, button,
-                                class_entries, framed, item_icon, make_ui, panel, portrait, skill_chip, stat_grid)
+                                Skin, class_entries, framed, item_icon, make_ui, panel, portrait, skill_chip, stat_grid)
 from pygame_ui import RED, UI, YELLOW, Window, fit, lighter
 
 FPS = 60
@@ -123,6 +125,7 @@ class TowerApp:
         self.message = ""
         self.run = self._load(lang)
         self.art = ArtBank()
+        pygame_tower_style.SKIN = Skin(self.art)   # нарисованные рамки, если они есть в assets/ui/frame
         self.store = SceneStore(scenes_dir or SCENES_DIR)
         self.stage = StageScreen(None, props_dir)
         self.portraits = Portraits(self.art, self.stage.bank)
@@ -142,6 +145,7 @@ class TowerApp:
         self.slot = 0
         self.drag: Optional[tuple[int, tuple[int, int]]] = None   # (uid, где нажали) — бойца тащат
         self.preview = None
+        self.inv = InventoryFilter()           # фильтры и сортировка экрана инвентаря
         self.picks: list[int] = []             # отмеченные предметы награды
         self.confirm_new = False               # «Новый забег» нажат один раз
         self._enemies: Any = None              # (этаж, справочник, враги этажа)

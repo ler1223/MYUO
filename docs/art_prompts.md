@@ -362,3 +362,50 @@ in the middle, no characters, no text
 | `bg/reward.png` | `a treasure room with scattered gold` |
 | `bg/shop.png` | `a merchant tent with weapons on racks` |
 | `bg/over.png` | `a ruined tower under a red sky` |
+
+## 8. Рамки и окна интерфейса (9-slice)
+
+Папка: `assets/ui/frame/<вид>.png`. Рамка растягивается по девяти частям: четыре угла рисуются как есть, края тянутся только вдоль, середина — во все стороны. Поэтому одна картинка 512x512 подходит для панели любого размера. Пока файла нет, рамка рисуется кодом.
+
+| Файл | Где используется | Размер картинки |
+| --- | --- | --- |
+| `frame/panel.png` | большие панели (отряд, враги, списки) | 512x512 |
+| `frame/header.png` | шапка панели под заголовком | 512x128 |
+| `frame/card.png` | карточки и строки списков | 512x256 |
+| `frame/slot.png` | ячейки иконок предметов и портретов | 256x256 |
+| `frame/button.png`, `button_hover.png`, `button_selected.png`, `button_primary.png`, `button_disabled.png` | кнопки по состояниям | 512x160 |
+
+Как генерировать, чтобы рамку можно было сразу использовать:
+
+1. Каждый элемент — отдельной картинкой. Не макет экрана целиком: из него элементы чисто не вырезать, и в них «запекается» текст.
+2. Вид строго спереди, без перспективы. Рамка занимает весь холст от края до края, снаружи прозрачно.
+3. Украшения только в четырёх углах. Прямые края между углами — ровные и одинаковые по всей длине, без узоров посередине: середину края будем растягивать.
+4. Середина — ровная тёмная заливка без текстуры, градиента и виньетки (тоже растягивается).
+5. Толщина рамки одинаковая со всех сторон: в промпте задаётся в пикселях (например, 64). Точно генератор не попадёт; я измерю и запишу в `assets/ui/frames.json` (`{"panel": {"border": 64, "scale": 0.5}}`, `scale` — во сколько раз рисовать край на экране).
+6. Сначала сделайте `panel.png`. Остальные элементы просите правкой этой же картинки («the same frame, but …»): так сохраняется стиль.
+7. Без текста, иконок и теней, выходящих за рамку.
+
+Общий промпт (подставить `<элемент>` и размер):
+
+```
+UI frame element for a fantasy tactics RPG, in the style of Unicorn Overlord menus: dark navy blue panel
+with ornate gold trim. <элемент>. Flat front view, no perspective, centered, the frame fills the whole canvas
+edge to edge. The border is exactly 64 px thick on every side; decorative ornaments only in the four corners;
+the straight edges between the corners are plain and uniform so they can be stretched; the center is a flat,
+even dark navy fill with no texture, gradient or vignette. No text, no icons, no drop shadow outside the frame.
+Transparent background outside the frame. <размер> PNG.
+```
+
+| Файл | `<элемент>` |
+| --- | --- |
+| `panel.png` | `a large window panel with a double gold border and small filigree corners` |
+| `header.png` | `a horizontal title bar: navy band with a thin gold line along the bottom edge, small gold end caps` |
+| `card.png` | `a list card with a thin single gold border and small cut corners` |
+| `slot.png` | `a square item slot with a thick bevelled gold frame and a dark recessed center` |
+| `button.png` | `a wide button with cut corners and a thin gold border` |
+| `button_hover.png` | `the same button, slightly brighter fill and a brighter gold border` |
+| `button_selected.png` | `the same button, deep amber fill, bright gold border` |
+| `button_primary.png` | `the same button, rich gold fill with darker gold border` |
+| `button_disabled.png` | `the same button, desaturated grey-blue, dim border` |
+
+Цвет тира у ячеек предметов (серый, синий, оранжевый) интерфейс дорисует сам тонкой линией внутри `slot.png`, поэтому ячейку делайте нейтральной.

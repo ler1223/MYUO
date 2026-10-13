@@ -6,6 +6,8 @@
 """
 from __future__ import annotations
 
+import json
+from dataclasses import replace
 from typing import Any, Optional
 
 import pygame
@@ -24,6 +26,8 @@ SCALE = 1.92                             # во сколько раз крупн
 SIZES = ((1200, 800), (1440, 960), (1620, 1080), (1920, 1280), (2400, 1600))
 TOP_H = 76                               # верхняя полоса
 M = 24                                   # поля
+CONTENT_Y = TOP_H + 16                   # верх содержимого экранов
+BOTTOM_Y = H - 100                       # нижняя полоса с кнопками экрана
 SERIF = ["georgia", "cambria", "constantia", "palatinolinotype", "bookantiqua", "timesnewroman", *FONT_NAMES]
 
 # Палитра: ночная синева и золото
@@ -80,8 +84,61 @@ def cut_corners(rect: pygame.Rect, cut: int = CUT) -> list[tuple[int, int]]:
             (r.right - cut, r.bottom), (r.x + cut, r.bottom), (r.x, r.bottom - cut), (r.x, r.y + cut)]
 
 
-def plate(ui: UI, rect: pygame.Rect, fill=PANEL, border=GOLD_LINE, cut: int = CUT, width: int = 2) -> None:
-    """Плашка со скошенными углами и золотой окантовкой (двойной, как в UO)."""
+class Skin:
+    """Нарисованные рамки: assets/ui/frame/<вид>.png растягиваются по девяти частям (углы не тянутся).
+
+    Виды: panel, header, button, button_hover, button_primary, button_selected, button_disabled, card, slot.
+    Ширина нетянущегося края в пикселях картинки — assets/ui/frames.json: {"panel": {"border": 48,
+    "scale": 0.5}} (scale — во сколько раз рисовать край на экране; по умолчанию border 32, scale 0.5).
+    Нет картинки — плашка рисуется кодом (скошенные углы и золотая окантовка).
+    """
+
+    def __init__(self, art: Any):
+        self.art = art
+        path = art.folder / "frames.json"
+        self.config: dict = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+        self._cache: dict = {}
+
+    def draw(self, screen: pygame.Surface, kind: str, rect: pygame.Rect) -> bool:
+        key = f"frame/{kind}"
+        if rect.width < 4 or rect.height < 4 or not self.art.has_own(key):
+            return False
+        cache = (kind, rect.size)
+        if cache not in self._cache:
+            config = self.config.get(kind, {})
+            self._cache[cache] = nine_slice(self.art.find(key)[1], rect.size, int(config.get("border", 32)),
+                                            float(config.get("scale", 0.5)))
+            if len(self._cache) > 400:
+                self._cache.pop(next(iter(self._cache)))
+        screen.blit(self._cache[cache], rect.topleft)
+        return True
+
+
+def nine_slice(image: pygame.Surface, size: tuple[int, int], border: int, scale: float = 0.5) -> pygame.Surface:
+    """Картинка рамки в размер size: углы как есть (с масштабом scale), края тянутся вдоль, середина — во все стороны."""
+    w, h = image.get_size()
+    b = max(1, min(border, w // 2 - 1, h // 2 - 1))
+    t = max(1, min(round(b * scale), size[0] // 2, size[1] // 2))
+    out = pygame.Surface(size, pygame.SRCALPHA)
+    xs, ys = (0, b, w - b, w), (0, b, h - b, h)
+    txs, tys = (0, t, size[0] - t, size[0]), (0, t, size[1] - t, size[1])
+    for i in range(3):
+        for j in range(3):
+            src = pygame.Rect(xs[i], ys[j], xs[i + 1] - xs[i], ys[j + 1] - ys[j])
+            dst = pygame.Rect(txs[i], tys[j], txs[i + 1] - txs[i], tys[j + 1] - tys[j])
+            if src.width > 0 and src.height > 0 and dst.width > 0 and dst.height > 0:
+                out.blit(pygame.transform.smoothscale(image.subsurface(src), dst.size), dst.topleft)
+    return out
+
+
+SKIN: Optional[Skin] = None       # задаёт окно башни (TowerApp); без него всё рисуется кодом
+
+
+def plate(ui: UI, rect: pygame.Rect, fill=PANEL, border=GOLD_LINE, cut: int = CUT, width: int = 2,
+          kind: str = "card") -> None:
+    """Плашка: нарисованная рамка вида kind, если она есть, иначе скошенные углы и двойная золотая окантовка."""
+    if SKIN is not None and SKIN.draw(ui.screen, kind, rect):
+        return
     pygame.draw.polygon(ui.screen, fill, cut_corners(rect, cut))
     pygame.draw.polygon(ui.screen, border, cut_corners(rect, cut), width)
     if rect.width > 3 * cut and rect.height > 3 * cut:
@@ -91,15 +148,16 @@ def plate(ui: UI, rect: pygame.Rect, fill=PANEL, border=GOLD_LINE, cut: int = CU
 
 def panel(ui: UI, rect: pygame.Rect, accent, title: str = "", right: str = "") -> pygame.Rect:
     """Панель с цветной шапкой и золотым заголовком. Возвращает область под шапкой."""
-    plate(ui, rect, PANEL)
+    plate(ui, rect, PANEL, kind="panel")
     if not title:
         return rect.inflate(-12, -12)
     head = pygame.Rect(rect.x + 6, rect.y + 6, rect.width - 12, 52)
-    band = pygame.Surface(head.size)
-    for x in range(head.width):                     # шапка — градиент цвета экрана к синеве
-        k = x / head.width
-        band.fill(tuple(round(a * (1 - k) + b * k) for a, b in zip(accent, PANEL)), (x, 0, 1, head.height))
-    ui.screen.blit(band, head.topleft)
+    if SKIN is None or not SKIN.draw(ui.screen, "header", head):
+        band = pygame.Surface(head.size)
+        for x in range(head.width):                 # шапка — градиент цвета экрана к синеве
+            k = x / head.width
+            band.fill(tuple(round(a * (1 - k) + b * k) for a, b in zip(accent, PANEL)), (x, 0, 1, head.height))
+        ui.screen.blit(band, head.topleft)
     pygame.draw.line(ui.screen, GOLD_LINE, (head.x + 8, head.bottom), (head.right - 8, head.bottom), 2)
     ui.text(title, head.x + 18, head.y + 8, GOLD, "big", head.width - 36)
     if right:
@@ -113,14 +171,15 @@ def button(ui: UI, text: str, rect: pygame.Rect, primary: bool = False, enabled:
     """Кнопка в стиле UO: скошенные углы, золотая рамка, главная — золотая."""
     hover = enabled and ui.hovered(rect)
     if not enabled:
-        fill, border, color = STYLE["disabled"], GOLD_DIM, DIM
+        fill, border, color, kind = STYLE["disabled"], GOLD_DIM, DIM, "button_disabled"
     elif primary:
-        fill, border, color = (lighter(PRIMARY, 24) if hover else PRIMARY), GOLD, TEXT
+        fill, border, color, kind = (lighter(PRIMARY, 24) if hover else PRIMARY), GOLD, TEXT, "button_primary"
     elif selected:
-        fill, border, color = STYLE["selected"], GOLD, GOLD
+        fill, border, color, kind = STYLE["selected"], GOLD, GOLD, "button_selected"
     else:
         fill, border, color = (STYLE["hover"] if hover else STYLE["button"]), (GOLD if hover else GOLD_LINE), TEXT
-    plate(ui, rect, fill, border, cut=min(12, rect.height // 3))
+        kind = "button_hover" if hover and SKIN is not None and SKIN.art.has_own("frame/button_hover") else "button"
+    plate(ui, rect, fill, border, cut=min(12, rect.height // 3), kind=kind)
     img = ui.fonts[font].render(text, True, color)
     if img.get_width() > rect.width - 16:
         img = pygame.transform.smoothscale(img, (rect.width - 16, img.get_height()))
@@ -141,8 +200,11 @@ def bar(ui: UI, rect: pygame.Rect, value: float, maximum: float, color, back=HP_
 
 
 def framed(ui: UI, image: pygame.Surface, rect: pygame.Rect, border=GOLD_LINE, back=PANEL_DARK, width: int = 2) -> None:
-    plate(ui, rect, back, border, cut=min(10, rect.width // 6), width=width)
+    """Картинка в рамке-ячейке. С нарисованной рамкой slot цвет (тир, сторона) — тонкой линией внутри."""
+    plate(ui, rect, back, border, cut=min(10, rect.width // 6), width=width, kind="slot")
     ui.screen.blit(image, image.get_rect(center=rect.center))
+    if SKIN is not None and SKIN.art.has_own("frame/slot") and border != GOLD_LINE:
+        pygame.draw.rect(ui.screen, border, rect.inflate(-8, -8), 2)
 
 
 def portrait(ui: UI, app: Any, class_id: str, rect: pygame.Rect, border=GOLD_LINE, flip: bool = False) -> None:
@@ -286,3 +348,11 @@ def stat_grid(ui: UI, app: Any, unit: Unit, x: int, y: int, cols: int, col_w: in
 
 def background(ui: UI, app: Any, screen_name: str) -> None:
     ui.screen.blit(app.art.image(f"bg/{screen_name}", SIZE, cover=True), (0, 0))
+
+
+def preview_stats(app: Any, unit: Unit, slot: int, item_id: Optional[str]) -> dict:
+    """Статы, если в слот slot надеть item_id (None — снять): копия юнита, сам юнит не меняется."""
+    state = replace(unit.state, equipment=list(unit.state.equipment))
+    state.equipment[slot] = item_id
+    ghost = Unit(unit.definition, state, app.db.items, strict=False)
+    return {stat: ghost.stat(stat) for stat in Stat}

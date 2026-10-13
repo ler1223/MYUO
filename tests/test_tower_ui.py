@@ -26,6 +26,7 @@ from tests.helpers import FIXTURE_DIR
 if pygame is not None:
     import pygame_tower as tw
     import pygame_tower_prepare as pp
+    import pygame_tower_inventory as inv
 
 ROOT = Path(__file__).resolve().parent.parent
 SEED = 7                     # забеги в тестах одинаковые
@@ -130,7 +131,7 @@ class TowerWindowTests(unittest.TestCase):
         self.assertEqual(run.squad.formation.position_of(unit.uid), empty)
         other = next(u for u in run.fielded if u is not unit)
         where = run.squad.formation.position_of(other.uid)
-        self.drag(pp.unit_point(app, unit.uid), pp.unit_point(app, other.uid))   # на бойца — обмен
+        self.drag(pp.unit_point(app, unit.uid), pp.cell_point(app, *where))     # ногами на бойца — обмен
         self.assertEqual(run.squad.formation.position_of(unit.uid), where)
         self.click(*pp.SQUAD_BUTTON.center)                                     # справа — армия
         self.assertEqual(app.view, pp.SQUAD)
@@ -141,6 +142,70 @@ class TowerWindowTests(unittest.TestCase):
         self.assertEqual(run.squad.formation.position_of(unit.uid), empty)
         self.click(*pp.SQUAD_BUTTON.center)
         self.assertEqual(app.view, pp.MAIN)                                     # снова враги справа
+
+    def test_dragged_fighter_snaps_to_the_nearest_cell_by_the_feet(self):
+        self.draft()
+        self.frame()
+        run, app = self.app.run, self.app
+        unit = run.fielded[0]
+        empty = next((r, c) for r in range(3) for c in range(3) if run.squad.formation.unit_at(r, c) is None)
+        x, y = pp.cell_point(app, *empty)
+        self.drag(pp.unit_point(app, unit.uid), (x + 30, y - 18))           # рядом с клеткой — прилипает
+        self.assertEqual(run.squad.formation.position_of(unit.uid), empty)
+        self.drag(pp.unit_point(app, unit.uid), (pp.HALF_R.centerx, pp.HALF_R.y + 100))   # далеко — не двигается
+        self.assertEqual(run.squad.formation.position_of(unit.uid), empty)
+
+    def test_inventory_filters_sorting_and_putting_items_on(self):
+        self.draft()
+        run, app = self.app.run, self.app
+        for item_id in ("iron_sword", "war_axe", "fire_charm", "short_bow"):
+            run.inventory.add(item_id)
+        self.frame()
+        self.click(*pp.INVENTORY_BUTTON.center)
+        self.assertEqual(app.view, pp.INVENTORY)
+        entries = inv.inventory_entries(app, app.inv)
+        worn = sum(1 for u in run.army.units.values() for i in u.state.equipment if i is not None)
+        self.assertEqual(sum(1 for e in entries if e.owner is not None), worn)
+        self.click(*inv.show_button(1).center)                              # только свободные
+        self.assertTrue(all(e.owner is None for e in inv.inventory_entries(app, app.inv)))
+        self.click(*inv.group_button(1).center)                             # только оружие
+        weapons = inv.inventory_entries(app, app.inv)
+        self.assertTrue(weapons and all(app.db.items[e.item_id].slot in inv.GROUPS["weapons"] for e in weapons))
+        app.inv.sort = "stat:phys_atk"
+        bonuses = [inv.stat_bonus(app.db.items[e.item_id], pp.Stat.PHYS_ATK)
+                   for e in inv.inventory_entries(app, app.inv)]
+        self.assertEqual(bonuses, sorted(bonuses, reverse=True))
+        app.inv.descending = False
+        self.assertEqual(inv.inventory_entries(app, app.inv)[0].item_id,
+                         sorted(weapons, key=lambda e: inv.stat_bonus(app.db.items[e.item_id], pp.Stat.PHYS_ATK))[0].item_id)
+        archer = next((u for u in run.army.units.values() if "bow" in u.definition.slots), None)
+        if archer is not None:
+            app.inv.fits = archer.uid                                         # только то, что он наденет
+            self.assertTrue(all(app.db.items[e.item_id].slot in archer.definition.slots
+                                for e in inv.inventory_entries(app, app.inv)))
+        self.click(*inv.RESET_BUTTON.center)
+        self.assertEqual((app.inv.show, app.inv.group, app.inv.fits), ("all", "all", None))
+        self.frame()
+        first = inv.inventory_entries(app, app.inv)
+        free_row = next(i for i, e in enumerate(first) if e.owner is None)
+        item_id = first[free_row].item_id
+        row = inv.table_row(free_row)
+        self.click(row.right - 40, row.centery)                            # выбрать свободный
+        self.assertEqual(app.inv.picked, item_id)
+        count = run.inventory.count(item_id)
+        wearers = [u for u in sorted(run.army.units.values(), key=lambda u: u.uid)
+                   if app.db.items[item_id].slot in u.definition.slots]
+        if wearers:
+            self.click(*inv.wear_row(0).center)                               # надеть на первого
+            self.assertIn(item_id, wearers[0].state.equipment)
+            self.assertLessEqual(run.inventory.count(item_id), count)
+        app.inv.show = "equipped"
+        self.frame()
+        worn_entry = inv.inventory_entries(app, app.inv)[0]
+        row = inv.table_row(0)
+        self.click(row.right - 40, row.centery)                            # надетый — редактор владельца
+        self.assertEqual((app.view, app.selected, app.tab, app.slot, app.back_view),
+                         (pp.UNIT, worn_entry.owner, pp.EQUIPMENT, worn_entry.slot, pp.INVENTORY))
 
     def test_units_list_and_fighter_editor(self):
         self.draft()
@@ -247,6 +312,24 @@ class ArtAndTipTests(unittest.TestCase):
         pygame.image.save(own, str(self.tmp / "ui" / "item" / "bow.png"))
         fresh = type(self.art)(self.tmp / "ui")
         self.assertEqual(fresh.find("item/bow/hero_bow")[0], "item/bow")                  # своя картинка слота
+
+    def test_drawn_frames_replace_the_coded_plates(self):
+        import pygame_tower_style as style
+        frame = pygame.Surface((96, 96), pygame.SRCALPHA)
+        frame.fill((200, 0, 0, 255))
+        frame.fill((0, 0, 200, 255), (32, 32, 32, 32))                     # середина другого цвета
+        (self.tmp / "ui" / "frame").mkdir()
+        pygame.image.save(frame, str(self.tmp / "ui" / "frame" / "panel.png"))
+        (self.tmp / "ui" / "frames.json").write_text('{"panel": {"border": 32, "scale": 1}}', encoding="utf-8")
+        stretched = style.nine_slice(frame, (300, 200), 32, 1.0)
+        self.assertEqual(stretched.get_size(), (300, 200))
+        self.assertEqual(stretched.get_at((5, 5))[:3], (200, 0, 0))         # угол как был
+        self.assertEqual(stretched.get_at((150, 100))[:3], (0, 0, 200))     # середина растянута
+        skin = style.Skin(type(self.art)(self.tmp / "ui"))
+        screen = pygame.Surface((400, 300))
+        self.assertTrue(skin.draw(screen, "panel", pygame.Rect(10, 10, 300, 200)))
+        self.assertFalse(skin.draw(screen, "button", pygame.Rect(10, 10, 100, 40)))   # нет картинки — кодом
+        self.assertEqual(screen.get_at((15, 15))[:3], (200, 0, 0))
 
     def test_every_class_gets_a_portrait_and_a_figure(self):
         db = Database.load()
