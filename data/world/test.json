@@ -1,0 +1,63 @@
+{
+  "_comment": "Тестовая карта открытого мира. Координаты: x вправо, z вглубь (вверх по карте), единицы мира (рост человека 185). Регионы — многоугольники без щелей между ними; open — по региону можно ходить с начала, liberated — он уже наш, unlocks — что откроется после освобождения (победы над отрядом с boss: true в этом регионе), scene — сцена боя для стычек. Объекты: town и fort — отдых и точка возврата после поражения, chest — добыча (loot: [id, сколько], gold), ruins — пока только осмотр, decor — декор (radius — непроходимый круг). Предметы добычи — id снаряжения из data/items.json или товара из goods.",
+  "name": "Test Lands",
+  "size": [3200, 2600],
+  "start": [500, 380],
+  "scene": "default",
+  "goods": {
+    "herb": {"name": "Herb", "kind": "material"},
+    "iron_ore": {"name": "Iron Ore", "kind": "material"},
+    "potion": {"name": "Potion", "kind": "consumable"},
+    "gem": {"name": "Gem", "kind": "valuable"}
+  },
+  "regions": [
+    {"id": "meadow", "name": "Green Meadow", "ground": "meadow.png", "scene": "default", "open": true, "liberated": true,
+     "polygon": [[0, 0], [1400, 0], [1550, 650], [1300, 1250], [0, 1350]]},
+    {"id": "forest", "name": "Darkwood", "ground": "dirt.png", "scene": "forest", "open": true,
+     "unlocks": ["snowfields", "desert"],
+     "polygon": [[1400, 0], [3200, 0], [3200, 1300], [1650, 1350], [1300, 1250], [1550, 650]]},
+    {"id": "snowfields", "name": "Frost Vale", "ground": "snow.png", "scene": "winter",
+     "polygon": [[0, 1350], [1300, 1250], [1650, 1350], [1600, 2600], [0, 2600]]},
+    {"id": "desert", "name": "Amber Sands", "ground": "sand.png", "scene": "desert",
+     "polygon": [[1650, 1350], [3200, 1300], [3200, 2600], [1600, 2600]]}
+  ],
+  "objects": [
+    {"id": "town_cornia", "kind": "town", "name": "Cornia", "x": 650, "z": 700, "size": 300, "radius": 110},
+    {"id": "fort_west", "kind": "fort", "name": "Westwatch", "x": 1150, "z": 200, "size": 280, "radius": 100},
+    {"id": "ruins_old", "kind": "ruins", "name": "Old Shrine", "x": 2250, "z": 1050, "size": 220, "radius": 80},
+    {"id": "fort_frost", "kind": "fort", "name": "Frostgate", "x": 900, "z": 1700, "size": 280, "radius": 100},
+    {"id": "town_amber", "kind": "town", "name": "Ambergate", "x": 2400, "z": 1650, "size": 300, "radius": 110},
+    {"id": "chest_meadow", "kind": "chest", "name": "Chest", "x": 250, "z": 1100, "size": 70,
+     "loot": [["herb", 3], ["potion", 1]], "gold": 50},
+    {"id": "chest_forest", "kind": "chest", "name": "Chest", "x": 2950, "z": 220, "size": 70,
+     "loot": [["fire_charm", 1], ["iron_ore", 2]], "gold": 80},
+    {"id": "chest_snow", "kind": "chest", "name": "Chest", "x": 400, "z": 2300, "size": 70,
+     "loot": [["short_bow", 1], ["gem", 1]]},
+    {"id": "chest_desert", "kind": "chest", "name": "Chest", "x": 2950, "z": 2350, "size": 70,
+     "loot": [["iron_sword", 1]], "gold": 200},
+    {"id": "tree_1", "kind": "decor", "name": "", "image": "tree.png", "x": 900, "z": 1000, "size": 300, "radius": 30},
+    {"id": "tree_2", "kind": "decor", "name": "", "image": "tree.png", "x": 1050, "z": 1150, "size": 260, "radius": 30},
+    {"id": "tree_3", "kind": "decor", "name": "", "image": "tree.png", "x": 1700, "z": 250, "size": 320, "radius": 30},
+    {"id": "tree_4", "kind": "decor", "name": "", "image": "tree.png", "x": 1850, "z": 1000, "size": 300, "radius": 30},
+    {"id": "tree_5", "kind": "decor", "name": "", "image": "tree.png", "x": 2100, "z": 300, "size": 340, "radius": 30},
+    {"id": "tree_6", "kind": "decor", "name": "", "image": "tree.png", "x": 2600, "z": 600, "size": 320, "radius": 30},
+    {"id": "tree_7", "kind": "decor", "name": "", "image": "tree.png", "x": 3000, "z": 900, "size": 300, "radius": 30},
+    {"id": "tree_8", "kind": "decor", "name": "", "image": "tree.png", "x": 300, "z": 1900, "size": 280, "radius": 30},
+    {"id": "rock_1", "kind": "decor", "name": "", "image": "rock.png", "x": 300, "z": 600, "size": 90, "radius": 45},
+    {"id": "rock_2", "kind": "decor", "name": "", "image": "rock.png", "x": 2000, "z": 700, "size": 110, "radius": 55},
+    {"id": "rock_3", "kind": "decor", "name": "", "image": "rock.png", "x": 2700, "z": 1900, "size": 120, "radius": 60}
+  ],
+  "enemies": [
+    {"id": "scouts", "name": "Goblin Scouts", "x": 1900, "z": 450, "roam": 260,
+     "roster": [["goblin", 2, 0, 1], ["goblin", 2, 1, 1]], "loot": [["herb", 2]], "gold": 40},
+    {"id": "patrol", "name": "Orc Patrol", "x": 2450, "z": 800, "roam": 300,
+     "roster": [["orc", 3, 0, 1], ["goblin", 2, 1, 0], ["archer", 2, 1, 2]], "loot": [["iron_ore", 1]], "gold": 80},
+    {"id": "raider_camp", "name": "Raider Camp", "x": 2850, "z": 1100, "boss": true, "roam": 120, "aggro": 380,
+     "roster": [["orc", 4, 0, 1], ["knight", 3, 0, 0], ["archer", 3, 1, 1], ["mage", 3, 2, 2]],
+     "loot": [["war_axe", 1], ["gem", 1]], "gold": 300},
+    {"id": "frost_riders", "name": "Frost Riders", "x": 650, "z": 2050, "roam": 320,
+     "roster": [["rider", 3, 0, 1], ["rider", 3, 0, 2]], "gold": 120},
+    {"id": "desert_band", "name": "Desert Band", "x": 2300, "z": 2150, "roam": 300,
+     "roster": [["orc", 4, 0, 1], ["archer", 3, 1, 0], ["cleric", 3, 2, 1]], "loot": [["potion", 2]], "gold": 150}
+  ]
+}

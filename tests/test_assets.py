@@ -100,7 +100,7 @@ class SpriteEffectFileTests(unittest.TestCase):
             files = [spec["back"], spec["front"]] if spec.get("layer") == "wrap" else [f"{name}.png"]
             for file in files:
                 width, height = png_size(FX_DIR / file)
-                self.assertEqual((width % cols, height % rows), (0, 0), (name, file))   # кадры ровной сеткой
+                self.assertGreaterEqual(min(width // cols, height // rows), 32, (name, file))   # кадры не крошечные
 
 
 class SceneTests(unittest.TestCase):

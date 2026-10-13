@@ -21,6 +21,7 @@ from game.database import Database
 from game.events import format_event
 from game.i18n import Translator, available_languages
 from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_setup, save_setup
+from game.overworld import DEFAULT_WORLD, WORLD_DIR, WorldDef, encounter_scenario
 from game.scenario import DEMO_SEED, Scenario, build_demo
 from game.squad import Formation, Squad
 from game.unit import Unit
@@ -31,7 +32,8 @@ from pygame_item_editors import ItemEditor, TagEditor
 from pygame_passive_editor import PassiveEditor
 from pygame_battle import POPUP_MS, BattleView
 from pygame_scene_editor import SceneEditor
-from pygame_stage import StageScreen
+from pygame_stage import WORLD_MODE, StageScreen
+from pygame_world import WorldScreen
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
 FPS = 60
@@ -65,7 +67,8 @@ class App:
     """Справочник, редактируемая расстановка, бой на её копии, вкладки и язык."""
 
     def __init__(self, db: Database, seed: int, save_path: Union[str, Path, None], lang: Optional[str] = None,
-                 scenes_dir: Optional[Path] = SCENES_DIR, props_dir: Optional[Path] = None):
+                 scenes_dir: Optional[Path] = SCENES_DIR, props_dir: Optional[Path] = None,
+                 world_dir: Optional[Path] = None):
         self.db = db
         self.save_path = Path(save_path) if save_path else None
         self.message = ""
@@ -97,7 +100,58 @@ class App:
             ("Areas", AreaEditor()),
             ("Stage", stage),
             ("Scene", SceneEditor(stage, store, self.scene_id, self._select_scene, props_dir, scenes_dir is not None)),
+            ("World", self._world_screen(world_dir)),
         ]
+        self.store, self.stage = store, stage
+        self._stage_before: Optional[tuple[str, Any]] = None   # режим и сцена Stage до боя из мира
+
+    # --- открытый мир ---
+
+    def _world_screen(self, world_dir: Optional[Path]) -> WorldScreen:
+        """Вкладка мира; прогресс — saves/world.json рядом с расстановкой (без save_path не пишется)."""
+        world = WorldDef.load(DEFAULT_WORLD, world_dir or WORLD_DIR)
+        screen = WorldScreen(world, self.save_path.parent / "world.json" if self.save_path else None)
+        screen.start_battle = self._start_world_battle
+        screen.finish_battle = self._finish_world_battle
+        screen.on_change = self.changed
+        return screen
+
+    def tab_index(self, name: str) -> int:
+        return [n for n, _ in self.tabs].index(name)
+
+    def _start_world_battle(self, enemy_id: str) -> None:
+        """Враг настиг героя: бой основного отряда с ним на вкладке Stage, в сцене региона."""
+        world_screen = self.tabs[self.tab_index("World")][1]
+        enemy = world_screen.world.enemy(enemy_id)
+        try:
+            encounter_scenario(self.db, self.setup, enemy)
+        except ValueError as error:            # в справочнике нет ни одного класса отряда
+            world_screen.pending = None
+            world_screen.state.resolve_battle(enemy_id, True)
+            self.message = str(error)
+            return
+        stage = self.stage
+        self._stage_before = (stage.mode, stage.scene)
+        stage.mode = WORLD_MODE
+        stage.encounter = lambda: encounter_scenario(self.db, self.setup, enemy)
+        scene_id = world_screen.world.battle_scene((enemy.x, enemy.z))
+        if scene_id in self.store.ids():
+            stage.set_scene(self.store.load(scene_id))
+        stage.on_return = lambda: self.switch(self.tab_index("World"))
+        stage.battle_view.restart(stage.battle_view.seed + 1)
+        self.switch(self.tab_index("Stage"))
+
+    def _finish_world_battle(self) -> Optional[bool]:
+        """Итог боя из мира (None — бой не доигран) и прежний режим и сцена Stage."""
+        stage, view = self.stage, self.stage.battle_view
+        outcome = (view.sim.winner_id == view.sim.attacker.id) if view.sim.finished else None
+        if self._stage_before is not None:
+            stage.mode, scene = self._stage_before
+            stage.set_scene(scene)
+            self._stage_before = None
+        stage.encounter = None
+        view.restart(DEMO_SEED if stage.mode == "demo" else view.seed)
+        return outcome
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
         scenario = None

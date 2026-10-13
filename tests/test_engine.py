@@ -113,13 +113,13 @@ class SpriteEffectTests(unittest.TestCase):
     def test_flipbook_frames_and_duration(self):
         frames = self.library.frames("fire_burst", "main")
         self.assertEqual(len(frames), 16)
-        self.assertEqual(frames[0].get_size(), (256, 256))
+        self.assertEqual(sum(f.get_width() for f in frames[:4]), frames[0].get_parent().get_width())   # ряд кадров = весь лист
         self.assertEqual(self.library.duration("fire_burst"), 1000 * 16 // 24)
         self.assertEqual(self.library.duration("burning", 700), 700)        # зацикленный — сколько попросили
 
     def test_layers_wrap_ground_and_front(self):
         z = 200
-        wrap = SpriteEffect(0, 500, self.library, "heal", (0, 90, z)).parts(100)
+        wrap = SpriteEffect(0, 500, self.library, "buff", (0, 90, z)).parts(100)
         self.assertEqual(sorted(p.depth for p in wrap), [z - 0.5, z + 0.5])   # за юнитом и перед ним
         ground = SpriteEffect(0, 500, self.library, "rune_circle", (0, 0, z)).parts(100)
         self.assertEqual([p.layer for p in ground], [GROUND])

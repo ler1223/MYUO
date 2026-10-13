@@ -33,6 +33,7 @@ if pygame is not None:
     from pygame_scene_editor import FORM_TOP, FORM_X, LABEL_W, ROW_H
     from game.scenario import DEMO_AP, DEMO_SEED
     from pygame_stage import Motion
+    from pygame_world import NONE_ITEM
     from pygame_ui import UI, load_fonts
 
 X, TOP = 222, 44                      # левый край формы и верх под вкладками
@@ -708,6 +709,61 @@ class SceneEditorTests(WindowTestCase):
 
 def form_y(line):
     return FORM_TOP + line * ROW_H
+
+
+class WorldTests(WindowTestCase):
+    def test_hero_moves_camera_follows_and_chest_is_opened(self):
+        world = self.tab("World")
+        start = world.state.hero
+        for now in range(1000, 2000, 16):
+            world.update(now, (1.0, 0.0))
+        self.assertGreater(world.state.hero[0], start[0] + 200)
+        self.assertLess(abs(world.cam[0] - world.state.hero[0]), 60)     # камера догнала героя
+        world.state.hero = (260, 1040)                                   # у сундука на лугу
+        self.frame()
+        world.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_e), (0, 0))
+        self.assertIn("chest_meadow", world.state.opened)
+        self.assertEqual(world.state.inventory.count("herb"), 3)
+        self.assertTrue((Path(self.tmp) / "world.json").exists())        # прогресс сохранён
+
+    def test_panel_equips_items_from_the_inventory_on_the_main_squad(self):
+        world = self.tab("World")
+        world.state.inventory.add("iron_sword")
+        world.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_i), (0, 0))
+        self.assertTrue(world.panel)
+        squad = self.app.setup.player_squad
+        knight = next(u for u in squad.formation.units if "light_sword" in u.definition.slots)
+        slot = knight.definition.slots.index("light_sword")
+        was = knight.state.equipment[slot]
+        world.change_equipment(knight, slot, NONE_ITEM)
+        self.assertIsNone(knight.state.equipment[slot])
+        self.assertEqual(world.state.inventory.count("iron_sword"), 1 + (was == "iron_sword"))
+        world.change_equipment(knight, slot, "iron_sword")
+        self.assertEqual(knight.state.equipment[slot], "iron_sword")
+        self.assertTrue(self.app.dirty)                                  # расстановка сохранится
+        self.frame()                                                     # панель рисуется
+
+    def test_enemy_contact_starts_a_stage_battle_and_the_result_returns(self):
+        world = self.tab("World")
+        enemy = world.world.enemy("scouts")
+        world.state.hero = (enemy.x - 40, enemy.z)
+        world.state.enemies["scouts"].x, world.state.enemies["scouts"].z = enemy.x, enemy.z
+        world.update(5000, (0.0, 0.0))
+        self.assertEqual(world.pending, "scouts")
+        self.assertEqual(self.app.tabs[self.app.tab][0], "Stage")        # бой на вкладке Stage
+        stage = self.app.stage
+        self.assertEqual(stage.mode, "world")
+        view = stage.battle_view
+        self.assertEqual({u.definition.id for u in view.sim.defender.formation.units}, {"goblin"})
+        while not view.sim.finished:
+            view.step(0)
+        won = view.sim.winner_id == view.sim.attacker.id
+        stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN), (0, 0))
+        self.assertEqual(self.app.tabs[self.app.tab][0], "World")
+        self.frame()
+        self.assertIsNone(world.pending)
+        self.assertEqual("scouts" in world.state.defeated, won)
+        self.assertNotEqual(stage.mode, "world")                          # Stage вернулась к своему бою
 
 
 class ZoomAndWindowTests(WindowTestCase):

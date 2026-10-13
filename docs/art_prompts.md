@@ -264,3 +264,29 @@ the image height, the bottom quarter is a plain empty field with no details, no 
 hand-painted 2D fantasy game asset, clean ink linework, soft cel shading, crisp edges, centered,
 no text, transparent background
 ```
+
+## 6. Открытый мир — объекты карты
+
+Папка: `assets/world/<имя>.png`, прозрачный фон, объект стоит на нижнем крае картинки (там земля), вид сбоку-сверху, как юниты. Сейчас там заглушки (`tools/make_world_placeholders.py`); файл с тем же именем заменяет заглушку. Размер в мире задаётся в карте (`size` — высота объекта), поэтому картинки можно рисовать в любом разрешении, лучше 1024 по большей стороне.
+
+Общая часть промпта (1024x1024, прозрачный фон):
+
+```
+2D fantasy overworld map object sprite for a tactics RPG, seen from a three-quarter top-down side view,
+<объект>, standing on an invisible ground line at the bottom edge, centered, full object visible,
+no ground patch, no shadow, no text.
+<STYLE>
+transparent background PNG
+```
+
+| Файл | `<объект>` |
+| --- | --- |
+| `town.png` | `a small medieval town: half-timbered houses with red roofs around a bell tower, low stone wall` |
+| `fort.png` | `a compact stone fort with two square towers, battlements, wooden gate and a blue banner` |
+| `ruins.png` | `ancient overgrown temple ruins: broken columns, a fallen arch, moss and ivy` |
+| `chest.png` | `a closed wooden treasure chest with iron bands and a gold lock` |
+| `chest_open.png` | `the same treasure chest, open and empty` |
+| `tree.png` | `a single tall pine tree` |
+| `rock.png` | `a large mossy boulder` |
+
+Чтобы объекты совпали по стилю с юнитами, прикладывайте `assets/sprites_src/lineup/lineup_2.png` как образец стиля.

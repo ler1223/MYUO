@@ -82,8 +82,12 @@ class FxLibrary:
             image = image.convert_alpha() if has_display else image
         cols, rows = spec.get("grid", [1, 1])
         count = spec.get("frames", cols * rows)
-        w, h = image.get_width() // cols, image.get_height() // rows
-        frames = [image.subsurface(pygame.Rect((i % cols) * w, (i // cols) * h, w, h)) for i in range(count)]
+        # Границы кадров — по долям размера: лист любого размера (1024, 1254...) режется ровно.
+        iw, ih = image.get_size()
+        xs = [round(c * iw / cols) for c in range(cols + 1)]
+        ys = [round(r * ih / rows) for r in range(rows + 1)]
+        frames = [image.subsurface(pygame.Rect(xs[i % cols], ys[i // cols], xs[i % cols + 1] - xs[i % cols],
+                                               ys[i // cols + 1] - ys[i // cols])) for i in range(count)]
         return [trim(frame) for frame in frames] if spec.get("frames", 1) == 1 else frames
 
     def scaled(self, name: str, part: str, frame: int, height: int, width: Optional[int] = None,

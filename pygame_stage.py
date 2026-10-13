@@ -84,7 +84,9 @@ SIDE_RING = {"left": (60, 110, 220), "right": (220, 70, 60)}
 CURRENT_RING = (230, 200, 80)
 # Бои вкладки: демонстрация всех навыков и пассивок, пять тестовых классов, расстановка игрока.
 MODES = ("demo", "showcase", "setup")
-MODE_LABELS = {"demo": "demo battle (T)", "showcase": "test squads (T)", "setup": "your squads (T)"}
+MODE_LABELS = {"demo": "demo battle (T)", "showcase": "test squads (T)", "setup": "your squads (T)",
+               "world": "world battle (ENTER — back)"}
+WORLD_MODE = "world"       # бой со стычки в открытом мире; в круг клавиши T не входит
 
 
 # --- движения спрайтов --------------------------------------------------------
@@ -207,15 +209,18 @@ class SpriteBank(ImageBank):
 
     def sprite_id(self, unit: Unit) -> Optional[str]:
         """Какой спрайт у юнита: свой, по классу из fallback, по тегу, по умолчанию."""
+        return self.sprite_for(unit.definition.id, unit.tags)
+
+    def sprite_for(self, class_id: str, tags: Any = ()) -> Optional[str]:
+        """Спрайт класса (и его тегов), когда юнита ещё нет — например, отряд врага на карте мира."""
         sprites = self.sprites
-        class_id = unit.definition.id
         if class_id in sprites:
             return class_id
         fallback = self.config.get("fallback", {})
         if fallback.get("classes", {}).get(class_id) in sprites:
             return fallback["classes"][class_id]
         for tag, sprite in fallback.get("tags", {}).items():
-            if tag in unit.tags and sprite in sprites:
+            if tag in tags and sprite in sprites:
                 return sprite
         default = fallback.get("default")
         return default if default in sprites else None
@@ -301,6 +306,8 @@ class StageScreen(BattleScreen):
         self.sprites = FxLibrary()
         self.battle_view: Any = None        # свой BattleView; его создаёт окно
         self.mode = MODES[0]                # какой бой показывает вкладка (клавиша T)
+        self.encounter: Optional[Callable[[], Any]] = None   # бой из открытого мира (режим world)
+        self.on_return: Callable[[], None] = lambda: None     # Enter после боя из мира
         self.stage: dict[int, Place] = {}
         self.motions: dict[int, list[Motion]] = {}
         self.tints: dict[int, list[Tint]] = {}
@@ -322,13 +329,15 @@ class StageScreen(BattleScreen):
     # --- бой этой вкладки ---
 
     def scenario(self, db: Any, setup: Any) -> Any:
+        if self.mode == WORLD_MODE and self.encounter is not None:
+            return self.encounter()
         if self.mode == "demo":
             return build_demo_battle(db)
         return build_showcase(db) if self.mode == "showcase" else clone_scenario(db, setup)
 
     def next_mode(self) -> None:
         """Следующий бой: демонстрация -> тестовые отряды -> ваша расстановка."""
-        self.mode = MODES[(MODES.index(self.mode) + 1) % len(MODES)]
+        self.mode = MODES[(MODES.index(self.mode) + 1) % len(MODES)] if self.mode in MODES else MODES[0]
         if self.battle_view is not None:
             self.battle_view.restart(DEMO_SEED if self.mode == "demo" else self.battle_view.seed)
 
@@ -356,7 +365,12 @@ class StageScreen(BattleScreen):
 
     def handle_event(self, event: pygame.event.Event, pos: tuple[float, float], window_scale: float = 1.0) -> None:
         super().handle_event(event, pos, window_scale)
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
+        if event.type != pygame.KEYDOWN:
+            return
+        if self.mode == WORLD_MODE:          # бой из мира: только вернуться, когда он закончен
+            if event.key in (pygame.K_RETURN, pygame.K_KP_ENTER) and self.battle_view is not None                     and self.battle_view.sim.finished:
+                self.on_return()
+        elif event.key == pygame.K_t:
             self.next_mode()
 
     # --- раскладка ---
