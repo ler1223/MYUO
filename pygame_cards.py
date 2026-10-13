@@ -62,11 +62,13 @@ class CardArt:
              font: pygame.font.Font) -> pygame.Surface:
         """Карта без поворота: рамка цвета стороны, арт, плашка с именем, уровень."""
         w, h = size
+        f = h / 140                              # рамка, плашка и значок растут вместе с картой
+        px = lambda value: max(1, round(value * f))
         light, dark = SIDE_FRAMES[side]
         card = pygame.Surface((w, h), pygame.SRCALPHA)
-        pygame.draw.rect(card, dark, card.get_rect(), border_radius=7)
-        pygame.draw.rect(card, light, card.get_rect(), 2, border_radius=7)
-        window = pygame.Rect(5, 5, w - 10, h - 10)
+        pygame.draw.rect(card, dark, card.get_rect(), border_radius=px(7))
+        pygame.draw.rect(card, light, card.get_rect(), px(2), border_radius=px(7))
+        window = pygame.Rect(px(5), px(5), w - 2 * px(5), h - 2 * px(5))
         pygame.draw.rect(card, CARD_BACK, window)
         art = self.art(class_id)
         if art is not None:
@@ -83,9 +85,9 @@ class CardArt:
             if sprite is not None:
                 k = min(window.width * 0.9 / sprite.get_width(), window.height * 0.78 / sprite.get_height())
                 sprite = pygame.transform.scale(sprite, (max(1, int(sprite.get_width() * k)), max(1, int(sprite.get_height() * k))))
-                card.blit(sprite, sprite.get_rect(midbottom=(window.centerx, window.bottom - 16)))
-        pygame.draw.rect(card, light, window, 1)
-        plate = pygame.Rect(window.left, window.bottom - 18, window.width, 18)
+                card.blit(sprite, sprite.get_rect(midbottom=(window.centerx, window.bottom - px(16))))
+        pygame.draw.rect(card, light, window, px(1))
+        plate = pygame.Rect(window.left, window.bottom - px(18), window.width, px(18))
         shade = pygame.Surface(plate.size, pygame.SRCALPHA)
         shade.fill((10, 10, 16, 190))
         card.blit(shade, plate)
@@ -93,9 +95,9 @@ class CardArt:
         if label.get_width() > plate.width - 6:
             label = pygame.transform.smoothscale(label, (plate.width - 6, label.get_height()))
         card.blit(label, label.get_rect(center=plate.center))
-        badge = pygame.Rect(window.left + 3, window.top + 3, 22, 16)
-        pygame.draw.rect(card, dark, badge, border_radius=4)
-        pygame.draw.rect(card, light, badge, 1, border_radius=4)
+        badge = pygame.Rect(window.left + px(3), window.top + px(3), px(22), px(16))
+        pygame.draw.rect(card, dark, badge, border_radius=px(4))
+        pygame.draw.rect(card, light, badge, px(1), border_radius=px(4))
         lvl = font.render(str(level), True, (250, 240, 200))
         card.blit(lvl, lvl.get_rect(center=badge.center))
         return card

@@ -89,6 +89,7 @@ class UI:
         self.clicks: list[tuple[tuple[int, int], int]] = []
         self.wheel = 0
         self.mouse = (0, 0)
+        self.transform = lambda pos: pos   # окно -> логические координаты (окно может быть больше)
         self.captured = False  # клавиатура занята полем ввода или списком: горячие клавиши не работают
         # поле ввода
         self.focus: Optional[Hashable] = None
@@ -111,7 +112,7 @@ class UI:
         self._picked, self._picked_next = self._picked_next, None
         self.clicks = [(e.pos, e.button) for e in events if e.type == pygame.MOUSEBUTTONDOWN and e.button in (1, 3)]
         self.wheel = sum(e.y for e in events if e.type == pygame.MOUSEWHEEL)
-        self.mouse = pygame.mouse.get_pos()
+        self.mouse = self.transform(pygame.mouse.get_pos())
         keys = [e for e in events if e.type == pygame.KEYDOWN]
 
         if self.popup is not None:

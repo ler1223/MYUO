@@ -150,6 +150,7 @@ class App:
         self.data_dirty = False   # менялся справочник: его надо записать в data/
         self.tab = TAB_BATTLE
         self.t = Translator()
+        self.resolution: tuple[int, int] = (WIDTH, HEIGHT)   # размер окна; сохраняется вместе с языком
         self.setup = self._load_setup(lang)
         self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
         # (название вкладки, экран); у вкладки боя с карточками экрана нет
@@ -172,7 +173,10 @@ class App:
         if self.save_path and self.save_path.exists():
             try:
                 scenario = load_setup(self.save_path, self.db)
-                lang = lang or load_settings(self.save_path).get("language")
+                settings = load_settings(self.save_path)
+                lang = lang or settings.get("language")
+                if settings.get("resolution"):
+                    self.resolution = tuple(settings["resolution"])
             except (OSError, ValueError, KeyError, TypeError) as error:  # JSONDecodeError = ValueError
                 self.message = f"save ignored ({error}); demo setup loaded"
         if lang in available_languages():
@@ -228,7 +232,7 @@ class App:
             if self.data_dirty:
                 self.db.save()
                 self.data_dirty = False
-            save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang})
+            save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang, "resolution": list(self.resolution)})
             return True
         except OSError as error:
             self.message = f"{self.t('cannot save')}: {error}"
@@ -252,6 +256,48 @@ class App:
         if tab != self.tab and 0 <= tab < len(self.tabs):
             self.tab = tab
             self.commit()
+
+
+RESOLUTIONS = ((1000, 620), (1280, 794), (1440, 893), (1600, 992), (1920, 1190), (2560, 1587))
+
+
+class Window:
+    """Окно любого размера: интерфейс рисуется в логическом размере WIDTH x HEIGHT и
+    масштабируется с сохранением пропорций; поле арены рисуется прямо в окно, чётко."""
+
+    def __init__(self, size: tuple[int, int]):
+        self.canvas = pygame.Surface((WIDTH, HEIGHT))
+        self.resize(size)
+
+    def resize(self, size: tuple[int, int]) -> None:
+        self.surface = pygame.display.set_mode(size, pygame.RESIZABLE)
+        w, h = self.surface.get_size()
+        self.scale = min(w / WIDTH, h / HEIGHT)
+        self.offset = ((w - WIDTH * self.scale) / 2, (h - HEIGHT * self.scale) / 2)
+
+    def to_logical(self, pos: tuple[int, int]) -> tuple[int, int]:
+        return (int((pos[0] - self.offset[0]) / self.scale), int((pos[1] - self.offset[1]) / self.scale))
+
+    def logical_event(self, event: pygame.event.Event) -> pygame.event.Event:
+        """Событие мыши с координатами в логических пикселях интерфейса."""
+        if event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP, pygame.MOUSEMOTION):
+            data = dict(event.dict, pos=self.to_logical(event.pos))
+            return pygame.event.Event(event.type, data)
+        return event
+
+    def present(self) -> None:
+        """Интерфейс в окно: масштаб с сохранением пропорций, по краям чёрные поля."""
+        self.surface.fill((0, 0, 0))
+        size = (round(WIDTH * self.scale), round(HEIGHT * self.scale))
+        image = self.canvas if size == self.canvas.get_size() else pygame.transform.smoothscale(self.canvas, size)
+        self.surface.blit(image, (round(self.offset[0]), round(self.offset[1])))
+
+    @staticmethod
+    def presets() -> list[tuple[int, int]]:
+        """Размеры окна, которые помещаются на экран."""
+        desktop = pygame.display.get_desktop_sizes()[0] if pygame.display.get_init() else (10 ** 5, 10 ** 5)
+        fitting = [r for r in RESOLUTIONS if r[0] <= desktop[0] and r[1] <= desktop[1] - 60]
+        return fitting or [RESOLUTIONS[0]]
 
 
 def cell_rect(formation: Formation, side: str, row: int, col: int) -> pygame.Rect:
@@ -387,7 +433,9 @@ def tab_width(app: App) -> int:
     return (WIDTH - 16 - LANG_W - 8) // len(app.tabs) - 4
 
 
-def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
+def draw_frame(ui: UI, app: App, autoplay: bool, now: int, window: Optional[Window] = None) -> None:
+    """Кадр интерфейса в ui.screen. С окном (window) он масштабируется в окно, а поле арены
+    рисуется поверх прямо в окно в полном разрешении."""
     ui.t = app.t
     t = ui.t
     ui.screen.fill(BG)
@@ -402,12 +450,17 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int) -> None:
     if editor is None:
         draw_battle(ui, app.view, autoplay, now)
     elif app.on_battle_tab():
+        editor.native = window is not None
         editor.draw_battle(ui, app.view, autoplay, now, POPUP_MS, POPUP_RISE)
     else:
         editor.draw(ui, app)
         note = app.message or (t("unsaved changes: open the Battle or Arena tab to apply and save") if app.dirty else "")
         ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
     ui.end()
+    if window is not None:
+        window.present()
+        if app.on_battle_tab() and hasattr(editor, "draw_field"):
+            editor.draw_field(window.surface, now, editor.camera(window.scale, window.offset))
 
     if switch_language:
         app.next_language()
@@ -424,11 +477,13 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
     lang=None берёт язык из сохранения (или английский). data_dir: папка данных вместо data/.
     """
     pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Squad auto-battle prototype")
-    ui = UI(screen, load_fonts())
-    clock = pygame.time.Clock()
+    pygame.display.set_mode((WIDTH, HEIGHT))
     app = App(Database.load(data_dir), seed, save_path, lang)
+    window = Window(app.resolution)
+    ui = UI(window.canvas, load_fonts())
+    ui.transform = window.to_logical
+    clock = pygame.time.Clock()
     view = app.view
     last_step = 0
     frames = 0
@@ -436,15 +491,28 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
 
     while running:
         now = pygame.time.get_ticks()
-        events = pygame.event.get()
+        events = [window.logical_event(e) for e in pygame.event.get()]
         ui.begin(events)
+        arena = app.tabs[app.tab][1] if app.on_battle_tab() else None
         for event in events:
+            if arena is not None and hasattr(arena, "handle_event") and not ui.captured:
+                mouse = event.pos if hasattr(event, "pos") else ui.mouse
+                arena.handle_event(event, mouse, window.scale)
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.VIDEORESIZE:
+                window.resize(event.size)
+                app.resolution = window.surface.get_size()
             elif event.type != pygame.KEYDOWN or ui.captured:
                 continue  # пока открыт список или идёт ввод, клавиши достаются им
             elif event.key == pygame.K_ESCAPE:
                 running = False
+            elif event.key == pygame.K_F12:                    # следующий размер окна
+                presets = Window.presets()
+                current = window.surface.get_size()
+                bigger = [r for r in presets if r[0] > current[0]]
+                window.resize(bigger[0] if bigger else presets[0])
+                app.resolution = window.surface.get_size()
             elif 0 <= event.key - FIRST_TAB_KEY < len(app.tabs):
                 app.switch(event.key - FIRST_TAB_KEY)
             elif not app.on_battle_tab():
@@ -464,7 +532,7 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
             last_step = now
 
         view.prune(now)
-        draw_frame(ui, app, autoplay, now)
+        draw_frame(ui, app, autoplay, now, window)
         pygame.display.flip()
         clock.tick(FPS)
         frames += 1

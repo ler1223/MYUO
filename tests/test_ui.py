@@ -488,5 +488,50 @@ class ArenaTests(WindowTestCase):
         self.assertTrue(arena.art.has_art("knight"))
 
 
+class ZoomAndWindowTests(WindowTestCase):
+    def test_zoom_keeps_point_under_cursor_pan_and_reset(self):
+        from pygame_arena import FIELD_RECT, MAX_ZOOM
+        arena = self.tab("Arena")
+        under = lambda pos: (arena.origin[0] + (pos[0] - FIELD_RECT.left) / arena.zoom,
+                             arena.origin[1] + (pos[1] - FIELD_RECT.top) / arena.zoom)
+        cursor = (300, 250)
+        before = under(cursor)
+        arena.zoom_at(cursor, 4)                              # x2
+        self.assertEqual(arena.zoom, 2.0)
+        self.assertAlmostEqual(under(cursor)[0], before[0])   # точка под курсором не уехала
+        self.assertAlmostEqual(under(cursor)[1], before[1])
+        arena.pan(-10_000, -10_000)                           # дальше края поля не утащить
+        vw, vh = arena.view_size()
+        self.assertEqual(arena.origin, (FIELD_RECT.right - vw, FIELD_RECT.bottom - vh))
+        arena.zoom_at(cursor, 100)
+        self.assertEqual(arena.zoom, MAX_ZOOM)
+        arena.zoom_at((500, 600), 1)                          # колесо над логом поле не трогает
+        self.assertEqual(arena.zoom, MAX_ZOOM)
+        arena.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_HOME, unicode=""), (0, 0))
+        self.assertEqual((arena.zoom, arena.origin), (1.0, FIELD_RECT.topleft))
+        drag = pygame.event.Event(pygame.MOUSEMOTION, rel=(50, 0), buttons=(1, 0, 0))
+        arena.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN, button=1, pos=cursor), cursor)
+        arena.handle_event(drag, cursor)
+        self.assertEqual(arena.origin, FIELD_RECT.topleft)    # без зума перетаскивать нечего
+
+    def test_large_window_maps_mouse_and_draws_the_field(self):
+        window = d.Window((1600, 992))
+        self.assertAlmostEqual(window.scale, 1.6)
+        self.assertEqual(window.to_logical((800, 496)), (500, 310))
+        click = window.logical_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=(160, 160), button=1))
+        self.assertEqual(click.pos, (100, 100))
+        self.ui = UI(window.canvas, load_fonts())
+        self.ui.transform = window.to_logical
+        arena = self.tab("Arena")
+        arena.zoom_at((300, 250), 4)
+        self.app.view.consume(self.app.view.sim.step(), 1000)
+        self.ui.begin([])
+        d.draw_frame(self.ui, self.app, False, 1300, window)
+        self.assertTrue(arena.native)
+        cam = arena.camera(window.scale, window.offset)
+        self.assertAlmostEqual(cam.scale, 3.2)                # окно 1.6 x зум 2
+        self.assertEqual(window.surface.get_size(), (1600, 992))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -510,5 +510,6 @@
   "A skill used as a reaction costs only this PP and does not trigger attack reactions.": "Навык-реакция стоит только эти PP и не вызывает реакций на атаку.",
   "edit": "изменить",
   "< Back": "< Назад",
-  "{effect}: behaviour rule {n}": "{effect}: правило поведения {n}"
+  "{effect}: behaviour rule {n}": "{effect}: правило поведения {n}",
+  "SPACE step   A auto [{auto}]   R restart   wheel zoom, drag to move": "ПРОБЕЛ шаг   A авто [{auto}]   R заново   колесо зум, тянуть мышью"
 }
