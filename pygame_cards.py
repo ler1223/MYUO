@@ -36,10 +36,14 @@ PERSPECTIVE = 0.22          # насколько дальний край кар�
 CACHE_LIMIT = 400           # сколько повёрнутых карт держать в памяти
 BASE_HEIGHT = 140           # размеры частей карты заданы для карты этой высоты
 
-ART_BOTTOM = 0.62           # доли высоты карты: где кончается арт, лента, поле эффектов
-BANNER = (0.56, 0.67)
-TEXT_BOX = (0.68, 0.85)
-HP_ROW = 0.905
+# Раскладка нарисованной кодом рамки в долях карты: прямоугольники [лево, верх, право, низ],
+# самоцветы и эмблема [центр x, центр y, радиус в долях ширины]. Для картинок рамок
+# раскладка задаётся в frames.json (image_layout).
+CODE_LAYOUT = {
+    "art": [0.07, 0.05, 0.93, 0.62], "banner": [0.02, 0.56, 0.98, 0.67], "text": [0.09, 0.68, 0.91, 0.85],
+    "hp": [0.25, 0.87, 0.75, 0.94], "level": [0.149, 0.107, 0.129], "emblem": [0.861, 0.1, 0.099],
+    "ap": [0.149, 0.893, 0.119], "pp": [0.851, 0.893, 0.119],
+}
 
 CARD_BACK = (24, 26, 36)
 TEXT_LIGHT = (246, 240, 222)
@@ -83,9 +87,13 @@ class CardFace:
     dead: bool = False
 
 
-def load_styles(card_dir: Path = CARD_DIR) -> tuple[dict[str, FrameStyle], list[str], str, dict[str, tuple]]:
+def load_frames_config(card_dir: Path = CARD_DIR) -> dict:
     path = Path(card_dir) / "frames.json"
-    data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def load_styles(card_dir: Path = CARD_DIR) -> tuple[dict[str, FrameStyle], list[str], str, dict[str, tuple]]:
+    data = load_frames_config(card_dir)
     styles = {name: FrameStyle(name, tuple(s["light"]), tuple(s["dark"]), tuple(s["gem"]), s.get("emblem", "sword"))
               for name, s in data.get("styles", {}).items()}
     if not styles:
@@ -230,6 +238,7 @@ class CardArt:
     def __init__(self, card_dir: Path = CARD_DIR):
         self.card_dir = Path(card_dir)
         self.styles, self.order, self.default_style, self.side_colors = load_styles(self.card_dir)
+        self.image_layout = {**CODE_LAYOUT, **load_frames_config(self.card_dir).get("image_layout", {})}
         self._images: dict[str, Optional[pygame.Surface]] = {}
         self._cards: "OrderedDict[tuple, pygame.Surface]" = OrderedDict()
         self._masks: dict[int, pygame.Surface] = {}
@@ -266,69 +275,81 @@ class CardArt:
         f = h / BASE_HEIGHT
         px = lambda value: max(1, round(value * f))
         style = self.styles.get(face.style) or self.styles[self.default_style]
+        frame_image = self._image(f"frames/{style.name}.png")
+        layout = self.image_layout if frame_image is not None else CODE_LAYOUT
+        box_of = lambda name: pygame.Rect(round(layout[name][0] * w), round(layout[name][1] * h),
+                                          round((layout[name][2] - layout[name][0]) * w),
+                                          round((layout[name][3] - layout[name][1]) * h))
+        spot = lambda name: ((round(layout[name][0] * w), round(layout[name][1] * h)), max(2, round(layout[name][2] * w)))
         card = pygame.Surface((w, h), pygame.SRCALPHA)
-        outer = card.get_rect()
 
-        # Основа и рамка с фаской
-        pygame.draw.rect(card, shade(style.dark, 0.7), outer, border_radius=px(9))
-        pygame.draw.rect(card, style.light, outer, px(3), border_radius=px(9))
-        pygame.draw.rect(card, shade(style.dark, 1.3), outer.inflate(-px(6), -px(6)), px(2), border_radius=px(7))
+        if frame_image is None:   # основа и рамка с фаской
+            outer = card.get_rect()
+            pygame.draw.rect(card, shade(style.dark, 0.7), outer, border_radius=px(9))
+            pygame.draw.rect(card, style.light, outer, px(3), border_radius=px(9))
+            pygame.draw.rect(card, shade(style.dark, 1.3), outer.inflate(-px(6), -px(6)), px(2), border_radius=px(7))
 
-        # Арт
-        window = pygame.Rect(px(7), px(7), w - 2 * px(7), int(h * ART_BOTTOM) - px(7))
+        # Арт (под картинкой рамки он шире окна: края закрывает рамка)
+        window = box_of("art")
         pygame.draw.rect(card, CARD_BACK, window)
         self._draw_art(card, face.class_id, window, f)
-        for i in range(px(18)):                          # затемнение низа арта под ленту
-            k = i / px(18)
-            line = pygame.Surface((window.width, 1), pygame.SRCALPHA)
-            line.fill((0, 0, 0, int(150 * k)))
-            card.blit(line, (window.left, window.bottom - px(18) + i))
-        frame_image = self._image(f"frames/{style.name}.png")
         if frame_image is not None:
             card.blit(pygame.transform.smoothscale(frame_image, (w, h)), (0, 0))
         else:
+            for i in range(px(18)):                      # затемнение низа арта под ленту
+                line = pygame.Surface((window.width, 1), pygame.SRCALPHA)
+                line.fill((0, 0, 0, int(150 * i / px(18))))
+                card.blit(line, (window.left, window.bottom - px(18) + i))
             pygame.draw.rect(card, style.light, window, px(1))
 
         # Лента с названием класса
-        top, bottom = int(h * BANNER[0]), int(h * BANNER[1])
-        notch = px(6)
-        ribbon = [(px(2), top), (w - px(2), top), (w - px(2) - notch, (top + bottom) // 2), (w - px(2), bottom),
-                  (px(2), bottom), (px(2) + notch, (top + bottom) // 2)]
+        banner = box_of("banner")
         if frame_image is None:
+            notch = px(6)
+            mid = banner.centery
+            ribbon = [banner.topleft, banner.topright, (banner.right - notch, mid), banner.bottomright,
+                      banner.bottomleft, (banner.left + notch, mid)]
             pygame.draw.polygon(card, shade(style.dark, 0.9), ribbon)
             pygame.draw.polygon(card, style.light, ribbon, px(1))
-        draw_text(card, face.title.upper(), px(10), TEXT_LIGHT, ((w) // 2, (top + bottom) // 2), w - 2 * notch - px(10))
+        draw_text(card, face.title.upper(), px(10), TEXT_LIGHT, banner.center, banner.width - px(16))
 
         # Поле: теги класса и активные эффекты
-        box = pygame.Rect(px(9), int(h * TEXT_BOX[0]), w - 2 * px(9), int(h * (TEXT_BOX[1] - TEXT_BOX[0])))
+        box = box_of("text")
         if frame_image is None:
             pygame.draw.rect(card, (18, 20, 28), box, border_radius=px(3))
             pygame.draw.rect(card, shade(style.light, 0.6), box, px(1), border_radius=px(3))
-        draw_text(card, face.subtitle, px(7), shade(style.light, 1.1), (box.centerx, box.top + px(6)),
+        # Две строки по высоте поля: теги сверху, эффекты снизу (без эффектов теги по центру).
+        line = max(6, min(px(7), int(box.height * 0.42)))
+        tags_y = box.top + box.height * (0.3 if face.effects else 0.5)
+        draw_text(card, face.subtitle, line, shade(style.light, 1.1), (box.centerx, round(tags_y)),
                   box.width - px(6), outline=False, bold=False)
         if face.effects:
-            draw_text(card, ", ".join(face.effects), px(7), (250, 214, 110), (box.centerx, box.top + px(15)),
+            draw_text(card, ", ".join(face.effects), line, (250, 214, 110), (box.centerx, round(box.top + box.height * 0.74)),
                       box.width - px(6), outline=False)
 
-        # HP: полоса с числами между самоцветами AP и PP
-        bar = pygame.Rect(int(w * 0.25), int(h * HP_ROW) - px(5), int(w * 0.5), px(10))
+        # HP: полоса с числами
+        bar = box_of("hp")
         pygame.draw.rect(card, HP_BACK, bar, border_radius=px(3))
         fill = bar.copy()
         fill.width = round(bar.width * max(0, face.hp) / max(1, face.max_hp))
         pygame.draw.rect(card, HP_FULL if face.hp * 3 > face.max_hp else HP_LOW, fill, border_radius=px(3))
         pygame.draw.rect(card, style.light, bar, px(1), border_radius=px(3))
-        draw_text(card, f"{max(0, face.hp)}/{face.max_hp}", px(8), TEXT_LIGHT, bar.center)
+        draw_text(card, f"{max(0, face.hp)}/{face.max_hp}", max(px(8), int(bar.height * 0.9)), TEXT_LIGHT, bar.center)
 
-        gem = px(12)
-        self._gem(card, "ap", (px(15), h - px(15)), gem, AP_GEM, str(face.ap), style, dim=face.ap == 0)
-        self._gem(card, "pp", (w - px(15), h - px(15)), gem, PP_GEM, str(face.pp), style, dim=face.pp == 0)
-        self._gem(card, f"level_{style.name}", (px(15), px(15)), px(13), style.gem, str(face.level), style, diamond=True)
+        # Самоцветы и эмблема
+        center, radius = spot("ap")
+        self._gem(card, "ap", center, radius, AP_GEM, str(face.ap), style, dim=face.ap == 0)
+        center, radius = spot("pp")
+        self._gem(card, "pp", center, radius, PP_GEM, str(face.pp), style, dim=face.pp == 0)
+        center, radius = spot("level")
+        self._gem(card, f"level_{style.name}", center, radius, style.gem, str(face.level), style, diamond=True)
+        center, radius = spot("emblem")
         emblem = self._image(f"emblems/{style.emblem}.png")
         if emblem is not None:
-            size = px(22)
-            card.blit(pygame.transform.smoothscale(emblem, (size, size)), (w - px(14) - size // 2, px(14) - size // 2))
+            sprite = pygame.transform.smoothscale(emblem, (radius * 2, radius * 2))
+            card.blit(sprite, sprite.get_rect(center=center))
         else:
-            draw_emblem(card, (w - px(14), px(14)), px(10), style)
+            draw_emblem(card, center, radius, style)
         return card
 
     def _gem(self, card: pygame.Surface, name: str, center: tuple[int, int], radius: int, color, text: str,
