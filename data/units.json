@@ -37,8 +37,14 @@
       "power_strike"
     ],
     "passives": [
-      "iron_will",
-      "avenger",
+      {
+        "id": "iron_will",
+        "level": 5
+      },
+      {
+        "id": "avenger",
+        "level": 10
+      },
       "shield_cover"
     ],
     "tactics": [
@@ -99,10 +105,16 @@
     ],
     "skills": [
       "shot",
-      "poison_arrow"
+      {
+        "id": "poison_arrow",
+        "level": 3
+      }
     ],
     "passives": [
-      "assist"
+      {
+        "id": "assist",
+        "level": 6
+      }
     ],
     "tactics": [
       {
@@ -165,7 +177,10 @@
       "heal"
     ],
     "passives": [
-      "emergency_heal"
+      {
+        "id": "emergency_heal",
+        "level": 5
+      }
     ],
     "tactics": [
       {
@@ -226,7 +241,10 @@
     "skills": [
       "magic_bolt",
       "fireball",
-      "enchant_wind"
+      {
+        "id": "enchant_wind",
+        "level": 5
+      }
     ],
     "passives": [],
     "tactics": [
@@ -284,7 +302,10 @@
     ],
     "skills": [
       "attack",
-      "flurry"
+      {
+        "id": "flurry",
+        "level": 3
+      }
     ],
     "passives": [],
     "tactics": [
@@ -344,12 +365,24 @@
     "skills": [
       "attack",
       "power_strike",
-      "stun_bash",
-      "crushing_blow"
+      {
+        "id": "stun_bash",
+        "level": 5
+      },
+      {
+        "id": "crushing_blow",
+        "level": 10
+      }
     ],
     "passives": [
-      "avenger",
-      "berserk"
+      {
+        "id": "avenger",
+        "level": 3
+      },
+      {
+        "id": "berserk",
+        "level": 8
+      }
     ],
     "tactics": [
       {
@@ -489,12 +522,21 @@
     ],
     "skills": [
       "attack",
-      "flame_strike",
-      "venom_strike",
+      {
+        "id": "flame_strike",
+        "level": 5
+      },
+      {
+        "id": "venom_strike",
+        "level": 10
+      },
       "cleave"
     ],
     "passives": [
-      "riposte"
+      {
+        "id": "riposte",
+        "level": 3
+      }
     ],
     "tactics": [
       {
@@ -574,10 +616,16 @@
     "skills": [
       "attack",
       "impale",
-      "defend"
+      {
+        "id": "defend",
+        "level": 4
+      }
     ],
     "passives": [
-      "riposte"
+      {
+        "id": "riposte",
+        "level": 7
+      }
     ],
     "tactics": [
       {
@@ -647,13 +695,25 @@
     ],
     "skills": [
       "shot",
-      "fire_arrow",
+      {
+        "id": "fire_arrow",
+        "level": 4
+      },
       "poison_arrow",
-      "volley",
-      "piercing_shot"
+      {
+        "id": "volley",
+        "level": 12
+      },
+      {
+        "id": "piercing_shot",
+        "level": 8
+      }
     ],
     "passives": [
-      "assist"
+      {
+        "id": "assist",
+        "level": 6
+      }
     ],
     "tactics": [
       {
@@ -735,7 +795,10 @@
     "skills": [
       "magic_bolt",
       "fireball",
-      "firestorm"
+      {
+        "id": "firestorm",
+        "level": 8
+      }
     ],
     "passives": [],
     "tactics": [
@@ -807,7 +870,10 @@
     "skills": [
       "magic_bolt",
       "ice_shard",
-      "blizzard"
+      {
+        "id": "blizzard",
+        "level": 8
+      }
     ],
     "passives": [],
     "tactics": [
@@ -879,7 +945,10 @@
     "skills": [
       "magic_bolt",
       "lightning_bolt",
-      "chain_lightning"
+      {
+        "id": "chain_lightning",
+        "level": 8
+      }
     ],
     "passives": [],
     "tactics": [
@@ -952,11 +1021,20 @@
     "skills": [
       "attack",
       "shield_bash",
-      "smite",
-      "group_heal"
+      {
+        "id": "smite",
+        "level": 4
+      },
+      {
+        "id": "group_heal",
+        "level": 9
+      }
     ],
     "passives": [
-      "shield_cover"
+      {
+        "id": "shield_cover",
+        "level": 6
+      }
     ],
     "tactics": [
       {
@@ -1036,7 +1114,10 @@
     "skills": [
       "magic_bolt",
       "plague_touch",
-      "rally"
+      {
+        "id": "rally",
+        "level": 5
+      }
     ],
     "passives": [],
     "tactics": [

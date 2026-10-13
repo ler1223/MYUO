@@ -39,10 +39,12 @@ class ItemDefinition:
     passives: tuple[str, ...] = ()          # пассивки носителя
     tags: tuple[str, ...] = ()              # теги, которые получает носитель
     damage_tags: tuple[str, ...] = ()       # тип урона оружия (для частей навыков с weapon_tags)
+    tier: int = 1                           # ступень предмета: 1 — новичок, 2 — наёмник, 3 — герой
+    price: int = 0                          # цена в магазине; продаётся дешевле
 
     @classmethod
     def from_dict(cls, item_id: str, data: Mapping[str, Any]) -> "ItemDefinition":
-        return cls(
+        item = cls(
             id=item_id,
             name=data.get("name", item_id),
             slot=data["slot"],
@@ -51,12 +53,19 @@ class ItemDefinition:
             passives=tuple(data.get("passives", ())),
             tags=tuple(data.get("tags", ())),
             damage_tags=tuple(data.get("damage_tags", ())),
+            tier=int(data.get("tier", 1)),
+            price=int(data.get("price", 0)),
         )
+        if item.tier < 1 or item.price < 0:
+            raise ValueError(f"item {item_id}: tier must be at least 1 and price not negative")
+        return item
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "name": self.name,
             "slot": self.slot,
+            "tier": self.tier,
+            "price": self.price,
             "modifiers": [m.to_dict() for m in self.modifiers],
             "skills": list(self.skills),
             "passives": list(self.passives),

@@ -239,6 +239,11 @@ class BattleScreen:
         """Добавка к строке состояния (подсказка своих клавиш)."""
         return ""
 
+    def log_hint(self, autoplay: bool) -> str:
+        """Подсказка клавиш над логом боя."""
+        auto = self.t("on") if autoplay else self.t("off")
+        return self.t("SPACE step   A auto [{auto}]   R restart   wheel zoom, drag to move", auto=auto)
+
     # --- события -> эффекты ---
 
     def update(self, ui: UI, view: Any, now: int) -> None:
@@ -469,8 +474,7 @@ class BattleScreen:
         panel = pygame.Rect(8, LOG_TOP, WIDTH - 16, HEIGHT - LOG_TOP - 8)
         pygame.draw.rect(screen, PANEL, panel)
         pygame.draw.rect(screen, DIM, panel, 1)
-        auto = t("on") if autoplay else t("off")
-        hint = small.render(t("SPACE step   A auto [{auto}]   R restart   wheel zoom, drag to move", auto=auto), True, DIM)
+        hint = small.render(self.log_hint(autoplay), True, DIM)
         screen.blit(hint, (panel.right - hint.get_width() - 8, panel.y + 6))
         sim = view.sim
         name = lambda uid: f"{t(sim.units[uid].name)}({uid})"

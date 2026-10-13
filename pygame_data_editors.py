@@ -13,11 +13,13 @@ import pygame
 from game.editing import new_unit_data, stat_default
 from game.stats import Stat
 from game.tags import TAG_UNIT
+from game.unit import learned_to_list
 from pygame_editors import EMPTY, FORM_X, TOP, EditorHost, apply, entity_list, named, plain, rule_table, tag_options
-from pygame_ui import DIM, HEIGHT, RED, UI
+from pygame_ui import DIM, HEIGHT, RED, TEXT, UI
 
 CLASS_RULES = 6     # сколько правил тактики по умолчанию помещается в редакторе класса
 MAX_SLOTS = 6
+UNLOCK_CELLS = 9    # сколько уровней открытия помещается под слотами (три ряда по три)
 
 
 def list_buttons(ui: UI, can_delete: bool) -> tuple[bool, bool]:
@@ -89,8 +91,11 @@ class ClassEditor:
                 if value == 0:
                     del new["growth"][stat.value]
 
-        # Теги, навыки, пассивки
+        # Теги, навыки, пассивки. Навыки и пассивки хранят уровень открытия: {"id", "level"}.
         rx = x + 262
+        levels = {field: {i: definition_levels.get(i, 1) for i in ids}
+                  for field, ids, definition_levels in (("skills", definition.skills, definition.skill_levels),
+                                                        ("passives", definition.passives, definition.passive_levels))}
         lists = (
             ("tags", "Tags", tag_options(ui, db, TAG_UNIT)),
             ("skills", "Skills", named(ui, db.skills.values())),
@@ -99,9 +104,10 @@ class ClassEditor:
         for row, (field, label, choices) in enumerate(lists):
             ry = y + row * 30
             ui.text(t(label), rx, ry + 4, font="small")
-            picked = ui.multiselect((key, field), pygame.Rect(rx + 80, ry, 420, 24), choices, data[field])
+            current = list(levels[field]) if field in levels else data[field]
+            picked = ui.multiselect((key, field), pygame.Rect(rx + 80, ry, 420, 24), choices, current)
             if picked is not None:
-                new[field] = picked
+                new[field] = picked if field not in levels else learned(picked, levels[field])
 
         # Слоты снаряжения: тип каждого слота выбирается из фиксированного списка
         sy = y + 96
@@ -118,16 +124,36 @@ class ClassEditor:
             if picked is not None and picked != slot:
                 new["slots"] = slots[:i] + ([picked] if picked else []) + slots[i + 1:]
 
+        # С какого уровня класса открывается навык или пассивка
+        uy = sy + 30 + 2 * 28 + 6
+        ui.text(t("Unlocks at level"), rx, uy, DIM, "small")
+        entries = [("skills", i, db.skills) for i in levels["skills"]] + [("passives", i, db.passives)
+                                                                          for i in levels["passives"]]
+        for n, (field, entry_id, section) in enumerate(entries[:UNLOCK_CELLS]):
+            ex, ey = rx + (n % 3) * 168, uy + 18 + (n // 3) * 26
+            name = t(section[entry_id].name) if entry_id in section else entry_id
+            ui.text(name, ex, ey + 3, DIM if field == "passives" else TEXT, "small", 112)
+            value = ui.number_input((key, "unlock", field, entry_id), pygame.Rect(ex + 116, ey, 44, 22),
+                                    levels[field][entry_id], 1, 99)
+            if value is not None:
+                new[field] = learned(list(levels[field]), dict(levels[field], **{entry_id: value}))
+
         # Тактики по умолчанию: их получают новые юниты класса
         ty = y + 18 + len(Stat) * 24 + 8
         ui.text(t("Default tactics (given to new units of the class)"), x, ty, font="small")
         rules = data["tactics"]
-        skill_ids = [s for s in data["skills"] if s in db.skills]
+        skill_ids = [s for s in definition.skills if s in db.skills]
         new_rules = rule_table(ui, db, (key, "tactics"), rules, skill_ids, x, ty + 20, CLASS_RULES)
         if new_rules is not None:
             new["tactics"] = new_rules
 
         if new != data:
             # Навык убрали у класса: правила по умолчанию с ним тоже убираются.
-            new["tactics"] = [r for r in new["tactics"] if r["skill"] in new["skills"]]
+            skills = {s if isinstance(s, str) else s["id"] for s in new["skills"]}
+            new["tactics"] = [r for r in new["tactics"] if r["skill"] in skills]
             apply(app, "units", unit_id, new)
+
+
+def learned(ids: list[str], levels: dict[str, int]) -> list:
+    """Список навыков класса в формате данных: уровень пишется, только если он выше первого."""
+    return learned_to_list(ids, {i: levels.get(i, 1) for i in ids})

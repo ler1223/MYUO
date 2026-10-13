@@ -34,7 +34,7 @@ from pygame_battle import POPUP_MS, BattleView
 from pygame_scene_editor import SceneEditor
 from pygame_stage import WORLD_MODE, StageScreen
 from pygame_world import WorldScreen
-from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
+from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, Window, fit, load_fonts
 
 FPS = 60
 AUTO_STEP_MS = 600
@@ -259,55 +259,6 @@ class App:
             self.commit()
 
 
-RESOLUTIONS = ((1000, 620), (1280, 794), (1440, 893), (1600, 992), (1920, 1190), (2560, 1587))
-
-
-class Window:
-    """Окно любого размера: интерфейс рисуется в логическом размере WIDTH x HEIGHT и
-    масштабируется с сохранением пропорций; поле арены рисуется прямо в окно, чётко."""
-
-    def __init__(self, size: tuple[int, int]):
-        self.canvas = pygame.Surface((WIDTH, HEIGHT))
-        self.resize(size)
-
-    def resize(self, size: tuple[int, int]) -> None:
-        self.surface = pygame.display.set_mode(size, pygame.RESIZABLE)
-        w, h = self.surface.get_size()
-        self.scale = min(w / WIDTH, h / HEIGHT)
-        self.offset = ((w - WIDTH * self.scale) / 2, (h - HEIGHT * self.scale) / 2)
-
-    def to_logical(self, pos: tuple[int, int]) -> tuple[int, int]:
-        return (int((pos[0] - self.offset[0]) / self.scale), int((pos[1] - self.offset[1]) / self.scale))
-
-    def logical_event(self, event: pygame.event.Event) -> pygame.event.Event:
-        """Событие мыши с координатами в логических пикселях интерфейса."""
-        if event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP, pygame.MOUSEMOTION):
-            data = dict(event.dict, pos=self.to_logical(event.pos))
-            return pygame.event.Event(event.type, data)
-        return event
-
-    def present(self, area: Optional[pygame.Rect] = None) -> None:
-        """Интерфейс в окно: масштаб с сохранением пропорций, по краям чёрные поля.
-
-        area: только эта часть интерфейса (логические пиксели) — например, открытый список поверх поля.
-        """
-        if area is None:
-            self.surface.fill((0, 0, 0))
-            area = self.canvas.get_rect()
-        area = area.clip(self.canvas.get_rect())
-        size = (round(area.width * self.scale), round(area.height * self.scale))
-        part = self.canvas.subsurface(area)
-        image = part if size == part.get_size() else pygame.transform.smoothscale(part, size)
-        self.surface.blit(image, (round(self.offset[0] + area.x * self.scale), round(self.offset[1] + area.y * self.scale)))
-
-    @staticmethod
-    def presets() -> list[tuple[int, int]]:
-        """Размеры окна, которые помещаются на экран."""
-        desktop = pygame.display.get_desktop_sizes()[0] if pygame.display.get_init() else (10 ** 5, 10 ** 5)
-        fitting = [r for r in RESOLUTIONS if r[0] <= desktop[0] and r[1] <= desktop[1] - 60]
-        return fitting or [RESOLUTIONS[0]]
-
-
 def cell_rect(formation: Formation, side: str, row: int, col: int) -> pygame.Rect:
     """Передний ряд (row 0) ближе к центру, колонки формации идут по вертикали."""
     cell_w, cell_h = SIDE_W // formation.rows, SIDE_H // formation.cols
@@ -520,10 +471,7 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
             elif event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_F12:                    # следующий размер окна
-                presets = Window.presets()
-                current = window.surface.get_size()
-                bigger = [r for r in presets if r[0] > current[0]]
-                window.resize(bigger[0] if bigger else presets[0])
+                window.next_size()
                 app.resolution = window.surface.get_size()
             elif 0 <= event.key - FIRST_TAB_KEY < min(len(app.tabs), MAX_TAB_KEYS):
                 app.switch(event.key - FIRST_TAB_KEY)

@@ -23,6 +23,30 @@ def _stat_map(data: Mapping[str, float]) -> Mapping[Stat, float]:
     return MappingProxyType({Stat(k): v for k, v in data.items()})
 
 
+def parse_learned(entries: Sequence[Any]) -> tuple[tuple[str, ...], Mapping[str, int]]:
+    """Список навыков (или пассивок) класса: id или {"id": ..., "level": ...}.
+
+    Возвращает все id по порядку и уровни открытия тех, что открываются выше первого уровня.
+    """
+    ids, levels = [], {}
+    for entry in entries:
+        if isinstance(entry, str):
+            ids.append(entry)
+            continue
+        level = int(entry.get("level", 1))
+        if level < 1:
+            raise ValueError(f"unlock level of {entry['id']!r} must be at least 1")
+        ids.append(entry["id"])
+        if level > 1:
+            levels[entry["id"]] = level
+    return tuple(ids), MappingProxyType(levels)
+
+
+def learned_to_list(ids: Sequence[str], levels: Mapping[str, int]) -> list[Any]:
+    """Обратно в формат данных: открытые с первого уровня — просто id."""
+    return [{"id": i, "level": levels[i]} if levels.get(i, 1) > 1 else i for i in ids]
+
+
 def place_equipment(
     slots: Sequence[str], items: Mapping[str, ItemDefinition], item_ids: Sequence[Optional[str]],
     strict: bool = True,
@@ -69,21 +93,28 @@ class UnitDefinition:
     tags: tuple[str, ...] = ()          # особенности класса: пехота, конница и т. д.
     ap_max: int = DEFAULT_AP_MAX
     pp_max: int = DEFAULT_PP_MAX
+    # Уровень класса, с которого открывается навык или пассивка; кого здесь нет — с первого.
+    skill_levels: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
+    passive_levels: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
 
     @classmethod
     def from_dict(cls, unit_id: str, data: Mapping[str, Any]) -> "UnitDefinition":
+        skills, skill_levels = parse_learned(data.get("skills", ()))
+        passives, passive_levels = parse_learned(data.get("passives", ()))
         return cls(
             id=unit_id,
             name=data.get("name", unit_id),
             base_stats=_stat_map(data["stats"]),
             growth=_stat_map(data.get("growth", {})),
-            skills=tuple(data.get("skills", ())),
-            passives=tuple(data.get("passives", ())),
+            skills=skills,
+            passives=passives,
             tactics=TacticsSet.from_list(data.get("tactics", ())),
             slots=tuple(data.get("slots", ())),
             tags=tuple(data.get("tags", ())),
             ap_max=data.get("ap_max", DEFAULT_AP_MAX),
             pp_max=data.get("pp_max", DEFAULT_PP_MAX),
+            skill_levels=skill_levels,
+            passive_levels=passive_levels,
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -95,10 +126,22 @@ class UnitDefinition:
             "pp_max": self.pp_max,
             "tags": list(self.tags),
             "slots": list(self.slots),
-            "skills": list(self.skills),
-            "passives": list(self.passives),
+            "skills": learned_to_list(self.skills, self.skill_levels),
+            "passives": learned_to_list(self.passives, self.passive_levels),
             "tactics": self.tactics.to_list(),
         }
+
+    def skills_at(self, level: int) -> tuple[str, ...]:
+        """Навыки класса, открытые к этому уровню."""
+        return tuple(s for s in self.skills if self.skill_levels.get(s, 1) <= level)
+
+    def passives_at(self, level: int) -> tuple[str, ...]:
+        return tuple(p for p in self.passives if self.passive_levels.get(p, 1) <= level)
+
+    @property
+    def top_unlock(self) -> int:
+        """Уровень, к которому открыто всё, что есть у класса."""
+        return max((*self.skill_levels.values(), *self.passive_levels.values()), default=1)
 
 
 @dataclass
@@ -113,6 +156,7 @@ class UnitState:
     level: int
     current_hp: int
     equipment: list[Optional[str]] = field(default_factory=list)
+    exp: int = 0          # опыт к следующему уровню
 
 
 class Unit:
@@ -164,14 +208,14 @@ class Unit:
 
     @property
     def skill_ids(self) -> tuple[str, ...]:
-        """Доступные навыки: класса и надетых предметов."""
-        ids = self.definition.skills + tuple(s for item in self.equipped for s in item.skills)
+        """Доступные навыки: класса (открытые к уровню юнита) и надетых предметов."""
+        ids = self.definition.skills_at(self.state.level) + tuple(s for item in self.equipped for s in item.skills)
         return tuple(dict.fromkeys(ids))
 
     @property
     def passive_ids(self) -> tuple[str, ...]:
-        """Пассивки класса и надетых предметов."""
-        ids = self.definition.passives + tuple(p for item in self.equipped for p in item.passives)
+        """Пассивки класса (открытые к уровню юнита) и надетых предметов."""
+        ids = self.definition.passives_at(self.state.level) + tuple(p for item in self.equipped for p in item.passives)
         return tuple(dict.fromkeys(ids))
 
     @property

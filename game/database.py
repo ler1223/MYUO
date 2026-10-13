@@ -182,7 +182,7 @@ class Database:
         def drop(container: dict[str, Any], *fields: str) -> None:
             for field in fields:
                 if field in container:
-                    container[field] = [x for x in container[field] if x != key]
+                    container[field] = [x for x in container[field] if _entry_id(x) != key]
 
         _clean_reactions(data, section, key)
         if section == "skills":
@@ -251,6 +251,11 @@ class Database:
         return unit
 
 
+def _entry_id(entry: Any) -> Any:
+    """id элемента списка: строка или {"id": ...} (навык класса, открываемый с уровня)."""
+    return entry.get("id") if isinstance(entry, dict) else entry
+
+
 def _clean_reactions(data: dict[str, Any], section: str, key: str) -> None:
     """Убирает из реакций ссылки на удалённое определение (данные в формате JSON).
 
@@ -284,4 +289,4 @@ def _clean_reactions(data: dict[str, Any], section: str, key: str) -> None:
     for passive_id in gone:
         del data["passives"][passive_id]
         for owner in (*data["units"].values(), *data["items"].values()):
-            owner["passives"] = [p for p in owner["passives"] if p != passive_id]
+            owner["passives"] = [p for p in owner["passives"] if _entry_id(p) != passive_id]

@@ -22,11 +22,19 @@ class Scenario:
     enemy_squad: Squad
 
 
-def _build_army(db: Database, army_id: str, name: str, squad_id: str, squad_name: str, roster, first_uid: int):
-    """roster: список (definition_id, level, equipment, row, col)."""
+def full_level(db: Database, class_id: str, level: int) -> int:
+    """Уровень не ниже того, с которого у класса открыты все навыки и пассивки: демо показывает всё."""
+    return max(level, db.units[class_id].top_unlock)
+
+
+def _build_army(db: Database, army_id: str, name: str, squad_id: str, squad_name: str, roster, first_uid: int,
+                show_all: bool = False):
+    """roster: список (definition_id, level, equipment, row, col). show_all: уровни поднимаются до full_level."""
     army = Army(army_id, name)
     squad = army.create_squad(squad_id, squad_name, db.formation)
     for offset, (definition_id, level, equipment, row, col) in enumerate(roster):
+        if show_all:
+            level = full_level(db, definition_id, level)
         unit = army.recruit(db.create_unit(definition_id, first_uid + offset, level, equipment))
         army.assign(unit.uid, squad_id, row, col)
     return army, squad
@@ -41,7 +49,7 @@ def build_demo(db: Database) -> Scenario:
             ("mage", 1, ("oak_staff",), 1, 2),
             ("cleric", 1, ("oak_staff",), 2, 1),
         ],
-        first_uid=1,
+        first_uid=1, show_all=True,
     )
     enemy, enemy_squad = _build_army(
         db, "enemy", "Enemy", "raiders", "Raiders",
@@ -51,7 +59,7 @@ def build_demo(db: Database) -> Scenario:
             ("rider", 2, ("lance",), 0, 2),
             ("mage", 2, ("oak_staff",), 1, 1),
         ],
-        first_uid=11,
+        first_uid=11, show_all=True,
     )
     world = WorldMap(*MAP_SIZE)
     world.place(player_squad.id, 3, 2)
@@ -86,8 +94,10 @@ def build_showcase(db: Database, level: int = 3) -> Scenario:
     player_roster, enemy_roster = roster(SHOWCASE_PLAYER), roster(SHOWCASE_ENEMY)
     if not player_roster or not enemy_roster:
         return build_demo(db)
-    player, player_squad = _build_army(db, "player", "Player", "vanguard", "Vanguard", player_roster, first_uid=1)
-    enemy, enemy_squad = _build_army(db, "enemy", "Enemy", "raiders", "Raiders", enemy_roster, first_uid=11)
+    player, player_squad = _build_army(db, "player", "Player", "vanguard", "Vanguard", player_roster, first_uid=1,
+                                       show_all=True)
+    enemy, enemy_squad = _build_army(db, "enemy", "Enemy", "raiders", "Raiders", enemy_roster, first_uid=11,
+                                     show_all=True)
     world = WorldMap(*MAP_SIZE)
     world.place(player_squad.id, 3, 2)
     world.place(enemy_squad.id, 4, 2)
@@ -181,8 +191,10 @@ def build_demo_battle(db: Database, level: int = DEMO_LEVEL) -> Scenario:
         growth[Stat.HP] = growth.get(Stat.HP, 0) * hp
         demo_db.units[class_id] = replace(definition, ap_max=max(definition.ap_max, DEMO_AP),
                                            pp_max=max(definition.pp_max, DEMO_PP), base_stats=stats, growth=growth)
-    player, player_squad = _build_army(demo_db, "player", "Player", "vanguard", "Vanguard", player_roster, first_uid=1)
-    enemy, enemy_squad = _build_army(demo_db, "enemy", "Enemy", "raiders", "Raiders", enemy_roster, first_uid=11)
+    player, player_squad = _build_army(demo_db, "player", "Player", "vanguard", "Vanguard", player_roster, first_uid=1,
+                                       show_all=True)
+    enemy, enemy_squad = _build_army(demo_db, "enemy", "Enemy", "raiders", "Raiders", enemy_roster, first_uid=11,
+                                     show_all=True)
     tactics = VarietyTactics()
     for squad in (player_squad, enemy_squad):
         for unit in squad.formation.units:

@@ -174,7 +174,9 @@ def set_owners(db: Database, section: str, skill_id: str, owner_ids: Sequence[st
         if has == wanted:
             continue
         data = owner.to_dict()
-        data[field] = [s for s in data[field] if s != skill_id] + ([skill_id] if wanted else [])
+        # Элемент списка класса может быть {"id", "level"}: навык, открываемый с уровня
+        kept = [s for s in data[field] if (s["id"] if isinstance(s, dict) else s) != skill_id]
+        data[field] = kept + ([skill_id] if wanted else [])
         db.update(section, owner.id, data)
 
 

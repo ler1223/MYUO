@@ -85,8 +85,12 @@ CURRENT_RING = (230, 200, 80)
 # Бои вкладки: демонстрация всех навыков и пассивок, пять тестовых классов, расстановка игрока.
 MODES = ("demo", "showcase", "setup")
 MODE_LABELS = {"demo": "demo battle (T)", "showcase": "test squads (T)", "setup": "your squads (T)",
-               "world": "world battle (ENTER — back)"}
-WORLD_MODE = "world"       # бой со стычки в открытом мире; в круг клавиши T не входит
+               "world": "world battle (ENTER — back)", "tower": "tower floor (ENTER when over)"}
+# Чужие бои: сцена показывает бой, который дал хозяин (encounter), и по Enter после боя зовёт on_return.
+# В круг клавиши T они не входят.
+WORLD_MODE = "world"       # стычка в открытом мире
+TOWER_MODE = "tower"       # этаж башни (окно tower.py)
+EXTERNAL_MODES = (WORLD_MODE, TOWER_MODE)
 
 
 # --- движения спрайтов --------------------------------------------------------
@@ -306,8 +310,8 @@ class StageScreen(BattleScreen):
         self.sprites = FxLibrary()
         self.battle_view: Any = None        # свой BattleView; его создаёт окно
         self.mode = MODES[0]                # какой бой показывает вкладка (клавиша T)
-        self.encounter: Optional[Callable[[], Any]] = None   # бой из открытого мира (режим world)
-        self.on_return: Callable[[], None] = lambda: None     # Enter после боя из мира
+        self.encounter: Optional[Callable[[], Any]] = None   # чужой бой (EXTERNAL_MODES): мир, башня
+        self.on_return: Callable[[], None] = lambda: None     # Enter после чужого боя
         self.stage: dict[int, Place] = {}
         self.motions: dict[int, list[Motion]] = {}
         self.tints: dict[int, list[Tint]] = {}
@@ -329,7 +333,7 @@ class StageScreen(BattleScreen):
     # --- бой этой вкладки ---
 
     def scenario(self, db: Any, setup: Any) -> Any:
-        if self.mode == WORLD_MODE and self.encounter is not None:
+        if self.mode in EXTERNAL_MODES and self.encounter is not None:
             return self.encounter()
         if self.mode == "demo":
             return build_demo_battle(db)
@@ -363,12 +367,18 @@ class StageScreen(BattleScreen):
         note = "   " + self.t(MODE_LABELS[self.mode])
         return note + "   " + self.t("camera (C): {state}", state=self.t("on") if self.camera_view.auto else self.t("off"))
 
+    def log_hint(self, autoplay: bool) -> str:
+        if self.mode == TOWER_MODE:
+            return self.t("SPACE pause   1/2/3 speed   S skip   ENTER after the battle   wheel zoom")
+        return super().log_hint(autoplay)
+
     def handle_event(self, event: pygame.event.Event, pos: tuple[float, float], window_scale: float = 1.0) -> None:
         super().handle_event(event, pos, window_scale)
         if event.type != pygame.KEYDOWN:
             return
-        if self.mode == WORLD_MODE:          # бой из мира: только вернуться, когда он закончен
-            if event.key in (pygame.K_RETURN, pygame.K_KP_ENTER) and self.battle_view is not None                     and self.battle_view.sim.finished:
+        if self.mode in EXTERNAL_MODES:      # чужой бой: только вернуться, когда он закончен
+            if event.key in (pygame.K_RETURN, pygame.K_KP_ENTER) and self.battle_view is not None \
+                    and self.battle_view.sim.finished:
                 self.on_return()
         elif event.key == pygame.K_t:
             self.next_mode()
