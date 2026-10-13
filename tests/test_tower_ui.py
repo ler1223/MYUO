@@ -25,11 +25,9 @@ from tests.helpers import FIXTURE_DIR
 
 if pygame is not None:
     import pygame_tower as tw
-    from pygame_ui import HEIGHT, UI, WIDTH, load_fonts
 
 ROOT = Path(__file__).resolve().parent.parent
 SEED = 7                     # забеги в тестах одинаковые
-TAKE_Y =tw.TOP + 44 + (620 - tw.TOP - 110) - 36 + 14 if pygame is not None else 0
 
 
 def setUpModule():
@@ -46,7 +44,8 @@ class TowerWindowTests(unittest.TestCase):
         self.save_path = Path(self.tmp) / "tower.json"
         self.scenes_dir = Path(self.tmp) / "scenes"
         shutil.copytree(SCENES_DIR, self.scenes_dir)
-        self.ui = UI(pygame.display.set_mode((WIDTH, HEIGHT)), load_fonts())
+        pygame.display.set_mode(tw.SIZE)
+        self.ui = tw.make_ui(pygame.Surface(tw.SIZE))
         self.app = self.open_app()
 
     def tearDown(self):
@@ -66,16 +65,16 @@ class TowerWindowTests(unittest.TestCase):
     def draft(self):
         """Набор кликами по «Взять» на первой карточке."""
         while self.app.run.phase == DRAFT:
-            self.click(16 + tw.CARD_W // 2, TAKE_Y)
+            self.click(*tw.take_button(tw.draft_card(0)).center)
 
     def fight(self):
         """Кнопка боя, бой до конца, Enter — итог в забег."""
-        self.click(100, HEIGHT - 66)
+        self.click(*tw.FIGHT.center)
         self.assertTrue(self.app.in_battle)
         self.app.skip()
         self.app.tick(16)
         self.frame()
-        self.app.stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN), (0, 0))
+        self.app.handle_battle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN), (0, 0), 1.0)
         self.assertFalse(self.app.in_battle)
 
     def test_draft_by_clicks_and_the_run_is_saved(self):
@@ -95,10 +94,11 @@ class TowerWindowTests(unittest.TestCase):
         self.assertEqual(run.phase, REWARD)                   # на этом seed первый этаж выигран
         self.frame()
         for i in (0, 1, 2):                                   # третий не отмечается: можно взять два
-            self.click(tw.SIDE_X + 100, tw.TOP + 32 + i * 66 + 30)
+            card = tw.reward_card(i)
+            self.click(card.right - 30, card.centery)        # мимо иконки (у неё своя подсказка)
         self.assertEqual(self.app.picks, [0, 1])
         taken = [run.reward[0], run.reward[1]]
-        self.click(tw.SIDE_X + 100, HEIGHT - 54)
+        self.click(*tw.TAKE.center)
         self.assertEqual(self.app.run.floor, 2)
         for item in taken:
             self.assertTrue(self.app.run.inventory.has(item))
@@ -110,7 +110,7 @@ class TowerWindowTests(unittest.TestCase):
         run.finish(self.app.db, run.battle(self.app.db), won=False)
         self.assertEqual(run.phase, OVER)
         self.frame()
-        self.click(100, HEIGHT - 63)                          # «Новый забег»
+        self.click(*tw.NEW_RUN.center)                       # «Новый забег»
         self.assertEqual((self.app.run.phase, self.app.run.best), (DRAFT, 4))
 
     def test_prepare_equipment_reserve_and_tactics(self):
@@ -126,15 +126,15 @@ class TowerWindowTests(unittest.TestCase):
         app.change_equipment(unit, slot, item)
         self.assertEqual(unit.state.equipment[slot], item)
         self.frame()
-        self.click(tw.SIDE_X + 50, tw.TOP + 4 + 24 + 10)      # «В резерв»
+        self.click(*tw.BENCH.center)                         # «В резерв»
         self.assertIn(unit, run.reserve)
         cell = tw.cell_rect(app, 2, 2)
         self.click(*cell.center)                              # из резерва в пустую клетку
         self.assertEqual(run.squad.formation.position_of(unit.uid), (2, 2))
-        self.click(tw.SIDE_X + 116 + 50, tw.TOP + 4 + 24 + 10)   # «Тактика»
+        self.click(*tw.TACTICS.center)                       # «Тактика»
         self.assertTrue(app.tactics)
         self.frame()
-        self.click(80, HEIGHT - 56)                           # «Назад»
+        self.click(*tw.BACK_BUTTON.center)                   # «Назад»
         self.assertFalse(app.tactics)
 
     def test_shop_by_clicks(self):
@@ -151,9 +151,9 @@ class TowerWindowTests(unittest.TestCase):
         self.assertEqual(self.app.run.phase, SHOP)
         self.frame()
         units = len(self.app.run.army.units)
-        self.click(16 + 85, tw.TOP + 58 + 92 - 20)            # «Нанять» у первого
+        self.click(*tw.hire_button(tw.recruit_card(0)).center)   # «Нанять» у первого
         self.assertEqual(len(self.app.run.army.units), units + 1)
-        self.click(252 + 100, HEIGHT - 54)                    # «Выйти из магазина»
+        self.click(*tw.LEAVE.center)                         # «Выйти из магазина»
         self.assertEqual(self.app.run.phase, PREPARE)
 
     def test_f5_picks_up_data_edited_elsewhere(self):
@@ -178,6 +178,62 @@ class TowerWindowTests(unittest.TestCase):
                                 timeout=120)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue(self.save_path.exists())
+
+
+@unittest.skipIf(pygame is None, "pygame-ce is not installed")
+class ArtAndTipTests(unittest.TestCase):
+    def setUp(self):
+        pygame.display.set_mode((64, 64))
+        from pygame_art import UI_DIR, ArtBank, Portraits
+        self.tmp = Path(tempfile.mkdtemp())
+        shutil.copytree(UI_DIR, self.tmp / "ui")
+        self.art = ArtBank(self.tmp / "ui")
+        self.portraits = Portraits(self.art)
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_keys_fall_back_to_the_general_placeholder_until_an_own_image_appears(self):
+        self.assertEqual(self.art.find("item/bow/hero_bow")[0], "item")
+        self.assertEqual(self.art.find("icon/gold")[0], "icon/gold")
+        self.assertEqual(self.art.find("icon/boss")[0], "icon")
+        self.assertEqual(self.art.image("skill/fireball", (40, 30)).get_size(), (30, 30))   # вписана целиком
+        own = pygame.Surface((10, 10))
+        (self.tmp / "ui" / "item" / "bow").mkdir(parents=True)
+        pygame.image.save(own, str(self.tmp / "ui" / "item" / "bow.png"))
+        fresh = type(self.art)(self.tmp / "ui")
+        self.assertEqual(fresh.find("item/bow/hero_bow")[0], "item/bow")                  # своя картинка слота
+
+    def test_every_class_gets_a_portrait_and_a_figure(self):
+        db = Database.load()
+        for class_id in db.units:
+            self.assertEqual(self.portraits.portrait(class_id, 96).get_size(), (96, 96), class_id)
+            figure = self.portraits.full(class_id, (200, 300))
+            self.assertLessEqual(figure.get_width(), 200)
+            self.assertLessEqual(figure.get_height(), 300)
+        self.assertEqual(self.portraits.portrait("no_such_class", 50).get_size(), (50, 50))   # заглушка
+
+    def test_tooltip_appears_only_under_the_cursor(self):
+        ui = tw.make_ui(pygame.Surface(tw.SIZE))
+        ui.begin([])
+        ui.mouse = (100, 100)
+        self.assertFalse(ui.tip(pygame.Rect(500, 500, 50, 50), lambda: [("x", (255, 255, 255), "main")]))
+        self.assertTrue(ui.tip(pygame.Rect(80, 80, 50, 50), lambda: [("Title", (255, 255, 255), "main")] +
+                               [("a long line of help text " * 3, (200, 200, 200), "small")]))
+        ui.end()
+        self.assertIsNotNone(ui.tip_box)
+        self.assertTrue(pygame.Rect(0, 0, *tw.SIZE).contains(ui.tip_box))                  # не вылезает за экран
+
+    def test_tips_describe_items_skills_and_unlock_levels(self):
+        from pygame_tips import item_tip, skill_tip
+        db = Database.load()
+        t = lambda text, **kw: text.format(**kw) if kw else text
+        lines = [text for text, *_ in item_tip(t, db, "hero_feather", price=380)]
+        self.assertIn("initiative +5", lines)
+        self.assertIn("Price: 380", lines)
+        volley = [text for text, *_ in skill_tip(t, db, "volley", unlock=12, level=3)]
+        self.assertIn("Unlocks at level 12", volley)
+        self.assertTrue(any(text.startswith("AP ") for text in volley))
 
 
 if __name__ == "__main__":

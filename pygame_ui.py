@@ -7,7 +7,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Hashable, Optional, Sequence
+from typing import Any, Callable, Hashable, Optional, Sequence
 
 import pygame
 
@@ -35,7 +35,12 @@ POPUP_ROWS = 10
 POPUP_MIN_W = 200
 POPUP_MAX_W = 380
 
+TIP_BG = (16, 18, 26)
+TIP_BORDER = (200, 170, 90)
+TIP_W = 330           # ширина подсказки при базовом масштабе
+
 Option = tuple[Any, str]  # (значение, подпись)
+TipLine = tuple[str, Any, str]  # строка подсказки: (текст, цвет, шрифт); пустой текст — отступ
 
 
 def load_fonts() -> dict[str, pygame.font.Font]:
@@ -53,6 +58,25 @@ def fit(font: pygame.font.Font, text: str, width: int) -> str:
     while text and font.size(text + "~")[0] > width:
         text = text[:-1]
     return text + "~"
+
+
+def wrap(font: pygame.font.Font, text: str, width: int) -> list[str]:
+    """Разбивает текст на строки не шире width пикселей (по словам; длинное слово обрезается)."""
+    lines, line = [], ""
+    for word in text.split(" "):
+        candidate = f"{line} {word}" if line else word
+        if font.size(candidate)[0] <= width or not line:
+            line = candidate
+        else:
+            lines.append(line)
+            line = word
+    lines.append(line)
+    return [fit(font, part, width) for part in lines]
+
+
+def lighter(color, amount: int):
+    """Цвет светлее на amount (отрицательное — темнее)."""
+    return tuple(max(0, min(255, c + amount)) for c in color[:3])
 
 
 def format_number(value: float) -> str:
@@ -102,6 +126,10 @@ class UI:
         self._picked: Optional[tuple[Hashable, Any]] = None       # доставляется виджету в этом кадре
         self._picked_next: Optional[tuple[Hashable, Any]] = None  # выбрано в конце прошлого кадра
         self.scrolls: dict[Hashable, int] = {}
+        self.scale = 1.0     # во сколько раз интерфейс крупнее базового 1000x620 (размеры списков, подсказок)
+        # подсказка под курсором: строки (текст, цвет, шрифт) и картинка; рисуется поверх всего в end()
+        self._tip: Optional[tuple[list[TipLine], Optional[pygame.Surface]]] = None
+        self.tip_box: Optional[pygame.Rect] = None    # где подсказка нарисована в этом кадре
 
     # --- кадр ---
 
@@ -109,6 +137,7 @@ class UI:
         """Вызывается раз в кадр до отрисовки."""
         self.captured = self.focus is not None or self.popup is not None
         self._committed = None
+        self._tip, self.tip_box = None, None
         self._picked, self._picked_next = self._picked_next, None
         self.clicks = [(e.pos, e.button) for e in events if e.type == pygame.MOUSEBUTTONDOWN and e.button in (1, 3)]
         self.wheel = sum(e.y for e in events if e.type == pygame.MOUSEWHEEL)
@@ -129,10 +158,60 @@ class UI:
                 self._commit()  # клик мимо поля завершает ввод
 
     def end(self) -> None:
-        """Вызывается после отрисовки кадра: рисует открытый список поверх всего."""
+        """Вызывается после отрисовки кадра: рисует подсказку и открытый список поверх всего."""
         if self.popup is not None:
             self._draw_popup(self.popup)
+        elif self._tip is not None:
+            self._draw_tip(*self._tip)
         self._popup_clicks = []
+
+    # --- подсказки ---
+
+    def hovered(self, rect: pygame.Rect) -> bool:
+        return self.popup is None and rect.collidepoint(self.mouse)
+
+    def tip(self, rect: pygame.Rect, lines: Callable[[], list[TipLine]],
+            image: Optional[Callable[[], Optional[pygame.Surface]]] = None) -> bool:
+        """Подсказка, пока курсор над rect. lines и image вызываются только при наведении."""
+        if not self.hovered(rect):
+            return False
+        self._tip = (lines(), image() if image else None)
+        return True
+
+    def _draw_tip(self, lines: list[TipLine], image: Optional[pygame.Surface]) -> None:
+        k = self.scale
+        pad, max_w = round(10 * k), round(TIP_W * k)
+        rows: list[tuple[pygame.Surface, int]] = []     # (строка, отступ сверху)
+        for text, color, font_name in lines:
+            font = self.fonts.get(font_name, self.fonts["small"])
+            if not text:
+                rows.append((pygame.Surface((1, max(2, font.get_height() // 3)), pygame.SRCALPHA), 0))
+                continue
+            for part in wrap(font, text, max_w - 2 * pad - (image.get_width() + pad if image else 0)):
+                rows.append((font.render(part, True, color), 0))
+        text_w = max((img.get_width() for img, _ in rows), default=0)
+        text_h = sum(img.get_height() + 2 for img, _ in rows)
+        img_w = image.get_width() + pad if image else 0
+        width = text_w + img_w + 2 * pad
+        height = max(text_h, image.get_height() if image else 0) + 2 * pad
+        screen_w, screen_h = self.screen.get_size()
+        x, y = self.mouse[0] + round(18 * k), self.mouse[1] + round(18 * k)
+        if x + width > screen_w - 4:
+            x = max(4, self.mouse[0] - width - round(12 * k))
+        if y + height > screen_h - 4:
+            y = max(4, screen_h - height - 4)
+        box = pygame.Rect(x, y, width, height)
+        self.tip_box = box
+        shade = pygame.Surface(box.size, pygame.SRCALPHA)
+        shade.fill((*TIP_BG, 240))
+        self.screen.blit(shade, box.topleft)
+        pygame.draw.rect(self.screen, TIP_BORDER, box, max(1, round(k)))
+        if image is not None:
+            self.screen.blit(image, (x + pad, y + pad))
+        cy = y + pad
+        for img, _ in rows:
+            self.screen.blit(img, (x + pad + img_w, cy))
+            cy += img.get_height() + 2
 
     def _commit(self) -> None:
         self._committed = (self.focus, self.buffer)
@@ -176,16 +255,20 @@ class UI:
         return 0
 
     def button(self, text: str, rect: pygame.Rect, selected: bool = False, enabled: bool = True,
-               font: str = "small", color=TEXT) -> int:
-        """Кнопка. Возвращает +1/-1 (левый/правый клик) или 0."""
+               font: str = "small", color=TEXT, fill=None) -> int:
+        """Кнопка. Возвращает +1/-1 (левый/правый клик) или 0. fill — свой цвет кнопки."""
+        hover = rect.collidepoint(self.mouse) and self.popup is None
         if not enabled:
-            fill = BUTTON_DISABLED
+            back = BUTTON_DISABLED
         elif selected:
-            fill = BUTTON_SELECTED
+            back = BUTTON_SELECTED
+        elif fill is not None:
+            back = lighter(fill, 28) if hover else fill
         else:
-            fill = BUTTON_HOVER if rect.collidepoint(self.mouse) and self.popup is None else BUTTON
-        pygame.draw.rect(self.screen, fill, rect)
-        pygame.draw.rect(self.screen, YELLOW if selected else DIM, rect, 1)
+            back = BUTTON_HOVER if hover else BUTTON
+        pygame.draw.rect(self.screen, back, rect, border_radius=round(3 * self.scale))
+        border = YELLOW if selected else (lighter(fill, 60) if fill is not None and enabled else DIM)
+        pygame.draw.rect(self.screen, border, rect, max(1, round(self.scale)), border_radius=round(3 * self.scale))
         if text:
             f = self.fonts[font]
             img = f.render(fit(f, text, rect.width - 8), True, color if enabled else DIM)
@@ -268,13 +351,17 @@ class UI:
     def _draw_popup(self, popup: Popup) -> None:
         font = self.fonts["small"]
         found = popup.filtered()
+        k = self.scale
+        row_h = max(POPUP_ROW_H, font.get_height() + 6)
+        head = row_h + 4
+        screen_w, screen_h = self.screen.get_size()
         longest = max((font.size(text)[0] for _, text in popup.options), default=0)
-        width = max(POPUP_MIN_W, min(POPUP_MAX_W, max(popup.anchor.width, longest + 44)))
+        width = max(round(POPUP_MIN_W * k), min(round(POPUP_MAX_W * k), max(popup.anchor.width, longest + 44)))
         rows = min(POPUP_ROWS, max(1, len(found)))
-        height = 26 + rows * POPUP_ROW_H + 4
-        x = min(popup.anchor.x, WIDTH - width - 4)
+        height = head + rows * row_h + 4
+        x = min(popup.anchor.x, screen_w - width - 4)
         y = popup.anchor.bottom + 2
-        if y + height > HEIGHT - 4:
+        if y + height > screen_h - 4:
             y = max(4, popup.anchor.y - height - 2)
         box = pygame.Rect(x, y, width, height)
         self.popup_box = box
@@ -285,11 +372,11 @@ class UI:
         self.screen.blit(font.render(fit(font, prompt, width - 12), True, YELLOW), (x + 6, y + 5))
         popup.scroll = max(0, min(popup.scroll, len(found) - rows))
         if not found:
-            self.screen.blit(font.render(self.t("nothing found"), True, DIM), (x + 6, y + 30))
+            self.screen.blit(font.render(self.t("nothing found"), True, DIM), (x + 6, y + head + 4))
 
         picked = None
         for row, (value, text) in enumerate(found[popup.scroll:popup.scroll + rows]):
-            rect = pygame.Rect(x + 2, y + 26 + row * POPUP_ROW_H, width - 4, POPUP_ROW_H)
+            rect = pygame.Rect(x + 2, y + head + row * row_h, width - 4, row_h)
             marked = popup.multi and value in popup.chosen
             if rect.collidepoint(self.mouse):
                 pygame.draw.rect(self.screen, BUTTON_HOVER, rect)
@@ -322,18 +409,25 @@ RESOLUTIONS = ((1000, 620), (1280, 794), (1440, 893), (1600, 992), (1920, 1190),
 
 
 class Window:
-    """Окно любого размера: интерфейс рисуется в логическом размере WIDTH x HEIGHT и
-    масштабируется с сохранением пропорций; поле боя рисуется прямо в окно, чётко."""
+    """Окно любого размера: интерфейс рисуется в логическом размере (logical, по умолчанию
+    WIDTH x HEIGHT) и масштабируется с сохранением пропорций; поле боя рисуется прямо в окно, чётко.
 
-    def __init__(self, size: tuple[int, int]):
-        self.canvas = pygame.Surface((WIDTH, HEIGHT))
+    sizes: размеры окна, которые перебирает F12 (берутся только помещающиеся на экран).
+    """
+
+    def __init__(self, size: tuple[int, int], logical: tuple[int, int] = (WIDTH, HEIGHT),
+                 sizes: Sequence[tuple[int, int]] = RESOLUTIONS):
+        self.logical = logical
+        self.sizes = tuple(sizes)
+        self.canvas = pygame.Surface(logical)
         self.resize(size)
 
     def resize(self, size: tuple[int, int]) -> None:
         self.surface = pygame.display.set_mode(size, pygame.RESIZABLE)
         w, h = self.surface.get_size()
-        self.scale = min(w / WIDTH, h / HEIGHT)
-        self.offset = ((w - WIDTH * self.scale) / 2, (h - HEIGHT * self.scale) / 2)
+        lw, lh = self.logical
+        self.scale = min(w / lw, h / lh)
+        self.offset = ((w - lw * self.scale) / 2, (h - lh * self.scale) / 2)
 
     def to_logical(self, pos: tuple[int, int]) -> tuple[int, int]:
         return (int((pos[0] - self.offset[0]) / self.scale), int((pos[1] - self.offset[1]) / self.scale))
@@ -361,14 +455,14 @@ class Window:
 
     def next_size(self) -> None:
         """Следующий размер окна из помещающихся на экран (F12)."""
-        presets = Window.presets()
+        presets = Window.presets(self.sizes)
         current = self.surface.get_size()
         bigger = [r for r in presets if r[0] > current[0]]
         self.resize(bigger[0] if bigger else presets[0])
 
     @staticmethod
-    def presets() -> list[tuple[int, int]]:
+    def presets(sizes: Sequence[tuple[int, int]] = RESOLUTIONS) -> list[tuple[int, int]]:
         """Размеры окна, которые помещаются на экран."""
         desktop = pygame.display.get_desktop_sizes()[0] if pygame.display.get_init() else (10 ** 5, 10 ** 5)
-        fitting = [r for r in RESOLUTIONS if r[0] <= desktop[0] and r[1] <= desktop[1] - 60]
-        return fitting or [RESOLUTIONS[0]]
+        fitting = [r for r in sizes if r[0] <= desktop[0] and r[1] <= desktop[1] - 60]
+        return fitting or [sizes[0]]

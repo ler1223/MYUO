@@ -290,3 +290,75 @@ transparent background PNG
 | `rock.png` | `a large mossy boulder` |
 
 Чтобы объекты совпали по стилю с юнитами, прикладывайте `assets/sprites_src/lineup/lineup_2.png` как образец стиля.
+
+## 7. Интерфейс — иконки, портреты и фоны (окно башни)
+
+Папка: `assets/ui/<ключ>.png`. Ключ идёт от частного к общему, картинка ищется по самому точному ключу, который есть (`pygame_art.py`):
+
+| Ключ | Что это | Если файла нет |
+| --- | --- | --- |
+| `item/<слот>/<id предмета>` | иконка предмета, например `item/bow/hero_bow.png` | `item/<слот>.png`, затем общая `item.png` |
+| `skill/<id>`, `passive/<id>` | значок навыка и пассивки, например `skill/fireball.png` | `skill.png`, `passive.png` |
+| `stat/<стат>` | значок стата, например `stat/initiative.png` | `stat.png` (белый ромб, окрашивается цветом стата) |
+| `icon/<имя>` | значки интерфейса: `gold`, `floor`, `boss`, `exp`, `level` | `icon.png` |
+| `portrait/<класс>` | портрет класса, квадрат | верхняя часть спрайта класса из `assets/units`, затем `portrait.png` |
+| `bg/<экран>` | фон экрана: `draft`, `prepare`, `reward`, `shop`, `over`, `tactics` | `bg.png` |
+
+Сейчас в папке только общие заглушки (`tools/make_ui_placeholders.py`). Можно рисовать по одной картинке на слот (`item/bow.png` сразу даст иконку всем лукам) и постепенно уточнять до отдельных предметов. Код менять не нужно.
+
+Общая часть промпта иконки (512x512, прозрачный фон):
+
+```
+2D fantasy RPG inventory icon, <предмет>, single object centered, slight three-quarter view,
+bold readable silhouette, clean ink outline, soft cel shading, no background, no frame, no text.
+<STYLE>
+transparent background PNG
+```
+
+Цвет тира рисовать не надо: рамку цвета тира рисует интерфейс. Тиры различаются материалом: новичок — дерево, кожа, железо; наёмник — сталь, бронза; герой — серебро, золото, свечение.
+
+| Ключ | `<предмет>` |
+| --- | --- |
+| `item/light_sword.png` | `a one-handed straight steel sword` |
+| `item/light_shield.png` | `a round wooden shield with an iron rim` |
+| `item/bow.png` | `a recurve hunting bow` |
+| `item/staff.png` | `a wooden mage staff with a glowing crystal` |
+| `item/dagger.png` | `a short curved dagger` |
+| `item/heavy_weapon.png` | `a heavy two-handed battle axe` |
+| `item/lance.png` | `a long cavalry lance with a pennant` |
+| `item/light_armor.png` | `a leather jerkin` |
+| `item/medium_armor.png` | `a chainmail shirt` |
+| `item/robe.png` | `a mage robe with embroidered hem` |
+| `item/artifact/*_pendant.png` | `a heart-shaped red gem pendant` |
+| `item/artifact/*_brooch.png` | `an ornate brooch with a red stone` |
+| `item/artifact/*_ring.png` | `a heavy iron signet ring` |
+| `item/artifact/*_rune.png` | `a glowing violet rune stone` |
+| `item/artifact/*_amulet.png` | `a blue protective amulet` |
+| `item/artifact/*_feather.png` | `a single bright cyan feather` |
+| `item/artifact/*_lens.png` | `a brass monocle lens` |
+| `item/artifact/*_ribbon.png` | `a flowing green silk ribbon` |
+| `item/artifact/*_fang.png` | `a sharp beast fang on a cord` |
+| `item/artifact/*_claw.png` | `a curved dragon claw` |
+| `item/artifact/*_emblem.png` | `a bronze shield-shaped emblem` |
+| `skill.png`, `passive.png` | `a round skill badge with a <символ навыка>` — по одному на навык, символ из названия навыка |
+| `icon/floor.png`, `icon/boss.png` | `a stone tower icon`, `a horned skull icon` |
+
+Звёздочка `*` — три файла на артефакт: `novice_`, `mercenary_`, `hero_` (например `item/artifact/hero_feather.png`).
+
+Портреты (`portrait/<класс>.png`, 512x512) нужны, только если вырезка из спрайта не нравится. Голова и плечи, взгляд вправо, тот же стиль, что у листа юнитов. Подправить вырезку без новой картинки можно в `assets/units/units.json`: `"portrait": [центр x, верх, размер]` в долях картинки спрайта.
+
+Фоны экранов (`bg/<экран>.png`, 1920x1280, без прозрачности): тёмные и спокойные, без деталей в центре, потому что поверх лежат панели.
+
+```
+dark atmospheric fantasy background for a game menu, <место>, muted colors, soft vignette, low detail
+in the middle, no characters, no text
+<STYLE>
+```
+
+| Ключ | `<место>` |
+| --- | --- |
+| `bg/draft.png` | `a mercenary guild hall with banners at night` |
+| `bg/prepare.png` | `the inside of a stone tower, torches and a war table` |
+| `bg/reward.png` | `a treasure room with scattered gold` |
+| `bg/shop.png` | `a merchant tent with weapons on racks` |
+| `bg/over.png` | `a ruined tower under a red sky` |

@@ -25,6 +25,7 @@
       "sheet": "lineup_2.png",
       "height": 790,
       "ground": 836,
+      "portrait": [0.48, 0.28, 0.25],
       "anchors": {
         "head": 0.68,
         "body": 0.45

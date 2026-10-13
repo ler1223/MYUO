@@ -109,15 +109,19 @@ def param_label(ui: UI, value: Any) -> str:
 
 def condition_widgets(ui: UI, db: Database, key: Hashable, condition: dict[str, Any], x: int, y: int,
                       type_w: int, param_w: int) -> Optional[dict[str, Any]]:
-    """Выбор типа условия и его параметров. Возвращает новое условие, если его изменили."""
+    """Выбор типа условия и его параметров. Возвращает новое условие, если его изменили.
+
+    Ширины заданы в базовом масштабе и умножаются на ui.scale (окно башни крупнее)."""
+    k = ui.scale
+    type_w, param_w, h, gap = round(type_w * k), round(param_w * k), round(24 * k), round(4 * k)
     result = None
-    picked = ui.dropdown((key, "type"), pygame.Rect(x, y, type_w, 24), plain(ui, CONDITIONS), condition["type"])
+    picked = ui.dropdown((key, "type"), pygame.Rect(x, y, type_w, h), plain(ui, CONDITIONS), condition["type"])
     if picked is not None and picked != condition["type"]:
         result = default_condition(picked, db)
     params = condition_params(condition["type"])
     for i, (param, kind) in enumerate(params.items()):
-        width = (param_w - 4 * (len(params) - 1)) // len(params)
-        rect = pygame.Rect(x + type_w + 4 + i * (width + 4), y, width, 24)
+        width = (param_w - gap * (len(params) - 1)) // len(params)
+        rect = pygame.Rect(x + type_w + gap + i * (width + gap), y, width, h)
         choices = [(value, param_label(ui, value)) for value in param_options(kind, db)]
         picked = ui.dropdown((key, param), rect, choices, condition[param])
         if picked is not None and picked != condition[param]:
@@ -125,56 +129,61 @@ def condition_widgets(ui: UI, db: Database, key: Hashable, condition: dict[str, 
     return result
 
 
-# Смещения колонок таблицы правил от её левого края.
+# Смещения колонок таблицы правил от её левого края (базовый масштаб).
 RULE_SELF, RULE_TARGET, RULE_PICK, RULE_SKILL, RULE_MOVE = 24, 216, 408, 506, 680
 RULE_COND_W, RULE_PARAM_W = 100, 84
 
 
 def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]], skill_ids: Sequence[str],
                x: int, y: int, max_rules: int = MAX_RULES) -> Optional[list[dict[str, Any]]]:
-    """Таблица правил тактики с кнопкой добавления. Возвращает новый список правил, если его изменили."""
+    """Таблица правил тактики с кнопкой добавления. Возвращает новый список правил, если его изменили.
+
+    Размеры в базовом масштабе умножаются на ui.scale."""
     t = ui.t
+    s = lambda v: round(v * ui.scale)
+    h, row_h = s(24), s(ROW_H)
     for label, offset in (("if self", RULE_SELF), ("if target", RULE_TARGET), ("pick", RULE_PICK),
                           ("skill", RULE_SKILL)):
-        ui.text(t(label), x + offset, y, DIM, "small")
-    y += 20
+        ui.text(t(label), x + s(offset), y, DIM, "small")
+    y += s(20)
     new_rules: Optional[list[dict[str, Any]]] = None
     def cost(skill_id: str) -> str:
         skill = db.skills[skill_id]
         return f"AP{skill.ap_cost}" + (f" PP{skill.pp_cost}" if skill.pp_cost else "")
 
-    skill_choices = [(s, f"{t(db.skills[s].name)} {cost(s)}") for s in skill_ids if s in db.skills]
+    skill_choices = [(s_id, f"{t(db.skills[s_id].name)} {cost(s_id)}") for s_id in skill_ids if s_id in db.skills]
     for i, rule in enumerate(rules):
-        ry = y + i * ROW_H
-        ui.text(f"{i + 1}.", x, ry + 4)
+        ry = y + i * row_h
+        ui.text(f"{i + 1}.", x, ry + s(4))
         edited = dict(rule)
         for field, offset in (("self_condition", RULE_SELF), ("condition", RULE_TARGET)):
-            condition = condition_widgets(ui, db, (key, i, field), rule[field], x + offset, ry,
+            condition = condition_widgets(ui, db, (key, i, field), rule[field], x + s(offset), ry,
                                           RULE_COND_W, RULE_PARAM_W)
             if condition is not None:
                 edited[field] = condition
-        picked = ui.dropdown((key, i, "selector"), pygame.Rect(x + RULE_PICK, ry, 94, 24),
+        picked = ui.dropdown((key, i, "selector"), pygame.Rect(x + s(RULE_PICK), ry, s(94), h),
                              plain(ui, SELECTORS), rule["selector"])
         if picked is not None:
             edited["selector"] = picked
         # Красным: навык недоступен (сняли с класса или предмета), правило в бою пропускается.
         available = rule["skill"] in skill_ids
-        choices = skill_choices if available else [(rule["skill"], f"! {rule['skill']}"), *skill_choices]
-        picked = ui.dropdown((key, i, "skill"), pygame.Rect(x + RULE_SKILL, ry, 170, 24), choices, rule["skill"],
+        missing = t(db.skills[rule["skill"]].name) if rule["skill"] in db.skills else rule["skill"]
+        choices = skill_choices if available else [(rule["skill"], f"! {missing}"), *skill_choices]
+        picked = ui.dropdown((key, i, "skill"), pygame.Rect(x + s(RULE_SKILL), ry, s(170), h), choices, rule["skill"],
                              color=TEXT if available else RED)
         if picked is not None:
             edited["skill"] = picked
         if edited != rule:
             new_rules = rules[:i] + [edited] + rules[i + 1:]
-        if ui.button("^", pygame.Rect(x + RULE_MOVE, ry, 26, 24), enabled=i > 0):
+        if ui.button("^", pygame.Rect(x + s(RULE_MOVE), ry, s(26), h), enabled=i > 0):
             new_rules = rules[:i - 1] + [rule, rules[i - 1]] + rules[i + 1:]
-        if ui.button("v", pygame.Rect(x + RULE_MOVE + 30, ry, 26, 24), enabled=i < len(rules) - 1):
+        if ui.button("v", pygame.Rect(x + s(RULE_MOVE + 30), ry, s(26), h), enabled=i < len(rules) - 1):
             new_rules = rules[:i] + [rules[i + 1], rule] + rules[i + 2:]
-        if ui.button("x", pygame.Rect(x + RULE_MOVE + 60, ry, 26, 24), color=RED):
+        if ui.button("x", pygame.Rect(x + s(RULE_MOVE + 60), ry, s(26), h), color=RED):
             new_rules = rules[:i] + rules[i + 1:]
     can_add = len(rules) < max_rules and bool(skill_choices)
-    if ui.button(t("+ Add rule"), pygame.Rect(x + 24, y + len(rules) * ROW_H + 4, 160, 24), enabled=can_add):
-        new_rules = rules + [default_rule([s for s, _ in skill_choices])]
+    if ui.button(t("+ Add rule"), pygame.Rect(x + s(24), y + len(rules) * row_h + s(4), s(160), h), enabled=can_add):
+        new_rules = rules + [default_rule([s_id for s_id, _ in skill_choices])]
     return new_rules
 
 
