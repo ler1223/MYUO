@@ -26,6 +26,7 @@ from game.squad import Formation, Squad
 from game.unit import Unit
 from pygame_arena import ArenaScreen
 from pygame_data_editors import ClassEditor
+from pygame_effect_editor import AreaEditor, EffectEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
 from pygame_passive_editor import PassiveEditor
@@ -38,16 +39,15 @@ POPUP_RISE = 34
 LOG_LINES = 8
 
 TAB_BATTLE = 0
-TAB_W = 96
+TAB_W = 88
 FIRST_TAB_KEY = pygame.K_F1
 
 # Раскладка поля боя
 CENTER_X = WIDTH // 2
 CENTER_GAP = 18
 GRID_TOP = 52
-CELL_W, CELL_H = 155, 122
-CARD_W, CARD_H = 145, 112
-LOG_TOP = GRID_TOP + CELL_H * Formation.COLS + 12
+SIDE_W, SIDE_H = 465, 366     # место под поле одного отряда; клетки делят его поровну
+LOG_TOP = GRID_TOP + SIDE_H + 12
 LOG_LINE_H = 18
 PIP = 10
 
@@ -133,6 +133,8 @@ class App:
             ("Items", ItemEditor()),
             ("Tags", TagEditor()),
             ("Passives", PassiveEditor()),
+            ("Effects", EffectEditor()),
+            ("Areas", AreaEditor()),
             ("Arena", ArenaScreen()),
         ]
 
@@ -223,14 +225,14 @@ class App:
             self.commit()
 
 
-def cell_rect(side: str, row: int, col: int) -> pygame.Rect:
+def cell_rect(formation: Formation, side: str, row: int, col: int) -> pygame.Rect:
     """Передний ряд (row 0) ближе к центру, колонки формации идут по вертикали."""
+    cell_w, cell_h = SIDE_W // formation.rows, SIDE_H // formation.cols
     if side == "left":
-        x = CENTER_X - CENTER_GAP - (row + 1) * CELL_W
+        x = CENTER_X - CENTER_GAP - (row + 1) * cell_w
     else:
-        x = CENTER_X + CENTER_GAP + row * CELL_W
-    y = GRID_TOP + col * CELL_H
-    return pygame.Rect(x + (CELL_W - CARD_W) // 2, y + (CELL_H - CARD_H) // 2, CARD_W, CARD_H)
+        x = CENTER_X + CENTER_GAP + row * cell_w
+    return pygame.Rect(x + 5, GRID_TOP + col * cell_h + 5, cell_w - 10, cell_h - 10)
 
 
 def draw_pips(screen, font, label: str, current: int, maximum: int, color, x: int, y: int, text_color) -> None:
@@ -243,18 +245,21 @@ def draw_pips(screen, font, label: str, current: int, maximum: int, color, x: in
 
 
 def draw_unit(ui: UI, unit: Unit, rect: pygame.Rect, side: str, is_current: bool) -> None:
+    """Карточка юнита. На большом поле карточки мельче, и нижние строки в них не рисуются."""
     screen, t = ui.screen, ui.t
-    font, small = ui.fonts["main"], ui.fonts["small"]
+    small = ui.fonts["small"]
+    font = ui.fonts["main"] if rect.width >= 130 else small
     alive = unit.is_alive
     text_color = TEXT if alive else DEAD_TEXT
     pygame.draw.rect(screen, SIDE_FILL[side] if alive else DEAD_FILL, rect)
     pygame.draw.rect(screen, YELLOW if is_current else DIM, rect, 3 if is_current else 1)
 
+    inner = rect.width - 12
     x, y = rect.x + 6, rect.y + 4
-    title = fit(font, f"{t(unit.name)}({unit.uid}) L{unit.state.level}", CARD_W - 12)
+    title = fit(font, f"{t(unit.name)}({unit.uid}) L{unit.state.level}", inner)
     screen.blit(font.render(title, True, text_color), (x, y))
 
-    bar = pygame.Rect(x, y + 22, CARD_W - 12, 14)
+    bar = pygame.Rect(x, y + 22, inner, 14)
     pygame.draw.rect(screen, HP_BACK if alive else DEAD_FILL, bar)
     max_hp = max(1, unit.max_hp)
     fill = bar.copy()
@@ -266,23 +271,26 @@ def draw_unit(ui: UI, unit: Unit, rect: pygame.Rect, side: str, is_current: bool
 
     ap_color = AP_COLOR if alive else DEAD_TEXT
     pp_color = PP_COLOR if alive else DEAD_TEXT
-    draw_pips(screen, small, "AP", unit.ap.current, unit.ap.max, ap_color, x, y + 44, text_color)
-    draw_pips(screen, small, "PP", unit.pp.current, unit.pp.max, pp_color, x, y + 60, text_color)
-
-    if alive:
-        names = [t(e.definition.name) + (f" x{e.stacks}" if e.stacks > 1 else "") for e in unit.effects]
-    else:
-        names = [t("dead")]
-    line = fit(small, ", ".join(names), CARD_W - 12)
-    screen.blit(small.render(line, True, YELLOW if alive else DEAD_TEXT), (x, y + 78))
+    if rect.height >= 62:
+        draw_pips(screen, small, "AP", unit.ap.current, unit.ap.max, ap_color, x, y + 44, text_color)
+    if rect.height >= 80:
+        draw_pips(screen, small, "PP", unit.pp.current, unit.pp.max, pp_color, x, y + 60, text_color)
+    if rect.height >= 98:
+        if alive:
+            names = [t(e.definition.name) + (f" x{e.stacks}" if e.stacks > 1 else "") for e in unit.effects]
+        else:
+            names = [t("dead")]
+        line = fit(small, ", ".join(names), inner)
+        screen.blit(small.render(line, True, YELLOW if alive else DEAD_TEXT), (x, y + 78))
 
 
 def draw_squad(ui: UI, squad: Squad, side: str, current_uid: Optional[int]) -> dict[int, pygame.Rect]:
     rects: dict[int, pygame.Rect] = {}
-    for row in range(Formation.ROWS):
-        for col in range(Formation.COLS):
-            rect = cell_rect(side, row, col)
-            unit = squad.formation.unit_at(row, col)
+    formation = squad.formation
+    for row in range(formation.rows):
+        for col in range(formation.cols):
+            rect = cell_rect(formation, side, row, col)
+            unit = formation.unit_at(row, col)
             if unit is None:
                 pygame.draw.rect(ui.screen, SLOT, rect, 1)
                 continue
@@ -321,7 +329,7 @@ def draw_battle(ui: UI, view: BattleView, autoplay: bool, now: int) -> None:
         shown[popup.uid] = index + 1
         progress = (now - popup.born) / POPUP_MS
         img = big.render(popup.text, True, popup.color)
-        pos = (rect.x + 40 + index * 50, rect.y - 4 - round(POPUP_RISE * progress))
+        pos = (rect.x + min(40, rect.width // 4) + index * 50, rect.y - 4 - round(POPUP_RISE * progress))
         outline = big.render(popup.text, True, BG)
         for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
             screen.blit(outline, (pos[0] + dx, pos[1] + dy))

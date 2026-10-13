@@ -4,8 +4,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping, Optional
 
-from .areas import AREA_SINGLE, AREAS
+from .areas import AREA_SINGLE
 from .stats import Modifier, Scale, Stat
+from .reactions import DO_APPLY_EFFECT, DO_COVER, LEGACY_EVENTS, ON_TARGETED, Reaction
 from .tactics import SIDES, Always, ICondition, condition_from_dict, condition_to_dict
 
 PART_DAMAGE = "damage"
@@ -24,11 +25,6 @@ APPLY_RECIPIENTS = (APPLY_TARGET, APPLY_SELF)
 
 SCOPES = ("self", "ally", "enemy", "any")
 
-# Что делает пассивка.
-PASSIVE_EFFECT = "effect"   # на событие trigger накладывает эффект на владельца
-PASSIVE_COVER = "cover"     # перенаправляет на владельца удар, нацеленный на союзника
-PASSIVE_ACTIONS = (PASSIVE_EFFECT, PASSIVE_COVER)
-COVER_TRIGGER = "SkillUsed"  # значение trigger у прикрытия (оно срабатывает на применение навыка врагом)
 
 
 @dataclass(frozen=True)
@@ -138,7 +134,7 @@ class SkillDefinition:
     ap_cost: int = 1
     pp_cost: int = 0                        # навык может стоить PP вместо AP или вместе с ним
     targets: str = "enemy"                  # кого можно выбрать целью: enemy / ally / self
-    area: str = AREA_SINGLE                 # кого задевает вокруг цели, см. areas.AREAS
+    area: str = AREA_SINGLE                 # id области вокруг цели (Database.areas)
     hits: int = 1                           # число ударов; попадание, крит и блок бросаются на каждый
     accuracy: int = 100                     # шанс попадания навыка, % (может быть больше 100)
     tags: tuple[str, ...] = ()              # вид навыка: ближний, дальний, магия
@@ -157,8 +153,6 @@ class SkillDefinition:
         if targets not in SIDES:
             raise ValueError(f"skill {skill_id}: unknown targets {targets!r}")
         area = data.get("area", AREA_SINGLE)
-        if area not in AREAS:
-            raise ValueError(f"skill {skill_id}: unknown area {area!r}")
         hits = data.get("hits", 1)
         if hits < 1:
             raise ValueError(f"skill {skill_id}: hits must be at least 1")
@@ -211,69 +205,41 @@ class SkillDefinition:
 
 @dataclass(frozen=True)
 class PassiveDefinition:
-    """Пассивка: реакция, которая тратит PP.
+    """Пассивка: реакция владельца на событие боя, которая стоит PP.
 
-    action "effect": на событие trigger (чьё событие задаёт scope) эффект effect_id
-    накладывается на владельца.
-
-    action "cover": когда вражеский навык задевает союзников в зоне cover_area
-    относительно владельца, удар по ним перенаправляется на владельца. Уклониться
-    от такого удара владелец не может. Необязательный effect_id накладывается на
-    владельца перед ударом (например, усиление защиты).
+    Что именно происходит, описывает reaction (см. game.reactions): например,
+    «союзника выбрали целью -> принять удар на себя» или «по мне попали ->
+    применить навык контратаки к атаковавшему».
     """
 
     id: str
     name: str
-    trigger: str   # имя класса события, например "UnitDied"
-    scope: str     # чьё событие: self / ally / enemy / any
     pp_cost: int
-    effect_id: Optional[str] = None
-    action: str = PASSIVE_EFFECT
-    cover_area: str = "row"                     # кого прикрывает: клетки из areas.AREAS относительно владельца
-    cover_many: bool = False                    # True: всех задетых союзников в зоне; False: одного
-    cover_tags: tuple[str, ...] = ()            # от атак с любым из этих тегов; пусто = от любых
-    cover_skill_areas: tuple[str, ...] = ()     # от навыков с этими областями; пусто = от любых
+    reaction: Reaction
 
     @classmethod
     def from_dict(cls, passive_id: str, data: Mapping[str, Any]) -> "PassiveDefinition":
-        scope = data.get("scope", "any")
-        if scope not in SCOPES:
-            raise ValueError(f"passive {passive_id}: unknown scope {scope!r}")
-        action = data.get("action", PASSIVE_EFFECT)
-        if action not in PASSIVE_ACTIONS:
-            raise ValueError(f"passive {passive_id}: unknown action {action!r}")
-        effect_id = data.get("effect_id") or None
-        if action == PASSIVE_EFFECT and effect_id is None:
-            raise ValueError(f"passive {passive_id}: an effect is required")
-        cover_area = data.get("cover_area", "row")
-        skill_areas = tuple(data.get("cover_skill_areas", ()))
-        for area in (cover_area, *skill_areas):
-            if area not in AREAS:
-                raise ValueError(f"passive {passive_id}: unknown area {area!r}")
-        return cls(
-            id=passive_id,
-            name=data.get("name", passive_id),
-            trigger=data.get("trigger", COVER_TRIGGER),
-            scope=scope,
-            pp_cost=data.get("pp_cost", 0),
-            effect_id=effect_id,
-            action=action,
-            cover_area=cover_area,
-            cover_many=data.get("cover_many", False),
-            cover_tags=tuple(data.get("cover_tags", ())),
-            cover_skill_areas=skill_areas,
-        )
+        try:
+            reaction = Reaction.from_dict(data["reaction"] if "reaction" in data else _legacy_passive(data))
+        except (ValueError, KeyError) as error:
+            raise ValueError(f"passive {passive_id}: {error}") from None
+        return cls(passive_id, data.get("name", passive_id), data.get("pp_cost", 0), reaction)
 
     def to_dict(self) -> dict[str, Any]:
+        return {"name": self.name, "pp_cost": self.pp_cost, "reaction": self.reaction.to_dict()}
+
+
+def _legacy_passive(data: Mapping[str, Any]) -> dict[str, Any]:
+    """Пассивка старого формата: эффект на событие (trigger, scope) или прикрытие (cover_*)."""
+    if data.get("action") == "cover":
         return {
-            "name": self.name,
-            "action": self.action,
-            "trigger": self.trigger,
-            "scope": self.scope,
-            "pp_cost": self.pp_cost,
-            "effect_id": self.effect_id,
-            "cover_area": self.cover_area,
-            "cover_many": self.cover_many,
-            "cover_tags": list(self.cover_tags),
-            "cover_skill_areas": list(self.cover_skill_areas),
+            "event": ON_TARGETED, "whose": "ally", "action": DO_COVER, "to": "owner",
+            "area": data.get("cover_area", "row"), "cover_many": data.get("cover_many", False),
+            "attack_tags": data.get("cover_tags", ()), "skill_areas": data.get("cover_skill_areas", ()),
+            "effect_id": data.get("effect_id"),
         }
+    event, outcome = LEGACY_EVENTS.get(data["trigger"], (None, None))
+    if event is None:
+        raise ValueError(f"unknown event {data['trigger']!r}")
+    return {"event": event, "outcome": outcome, "whose": data.get("scope", "any"), "action": DO_APPLY_EFFECT,
+            "effect_id": data["effect_id"], "to": "owner"}

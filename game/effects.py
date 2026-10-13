@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Collection, Iterator, Mapping, Optional
 
+from .reactions import ON_TURN_START, TO_OWNER, Reaction
 from .stats import Modifier, Scale
 
 
@@ -13,14 +14,6 @@ class StackRule(str, Enum):
     STACK = "STACK"      # +1 стак (до max_stacks) и обновить длительность
     IGNORE = "IGNORE"    # повторное наложение ничего не делает
     REPLACE = "REPLACE"  # старый экземпляр заменяется новым
-
-
-@dataclass(frozen=True)
-class PeriodicAction:
-    """Действие в начале хода носителя. amount умножается на число стаков."""
-
-    kind: str  # "damage" | "heal"
-    amount: int
 
 
 @dataclass(frozen=True)
@@ -69,10 +62,19 @@ class EffectDefinition:
     charges: Optional[int] = None                # на сколько применений навыков хватает attack_mods
     stack_rule: StackRule = StackRule.REFRESH
     max_stacks: int = 1
-    periodic: tuple[PeriodicAction, ...] = ()
+    triggers: tuple[Reaction, ...] = ()          # поведение: реакции носителя, пока эффект висит
 
     @classmethod
     def from_dict(cls, effect_id: str, data: Mapping[str, Any]) -> "EffectDefinition":
+        try:
+            # Правило старого формата {when, ...} переводится в реакцию.
+            triggers = [Reaction.from_legacy_effect_trigger(t) if "when" in t else Reaction.from_dict(t)
+                        for t in data.get("triggers", ())]
+        except (ValueError, KeyError) as error:
+            raise ValueError(f"effect {effect_id}: {error}") from None
+        # Ещё более старая запись "periodic" = урон или лечение себе в начале хода.
+        triggers += [Reaction(ON_TURN_START, p["kind"], amount=p["amount"], to=TO_OWNER)
+                     for p in data.get("periodic", ())]
         return cls(
             id=effect_id,
             name=data.get("name", effect_id),
@@ -85,7 +87,7 @@ class EffectDefinition:
             charges=data.get("charges"),
             stack_rule=StackRule(data.get("stack_rule", StackRule.REFRESH.value)),
             max_stacks=data.get("max_stacks", 1),
-            periodic=tuple(PeriodicAction(p["kind"], p["amount"]) for p in data.get("periodic", ())),
+            triggers=tuple(triggers),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -100,7 +102,7 @@ class EffectDefinition:
             "charges": self.charges,
             "stack_rule": self.stack_rule.value,
             "max_stacks": self.max_stacks,
-            "periodic": [{"kind": p.kind, "amount": p.amount} for p in self.periodic],
+            "triggers": [t.to_dict() for t in self.triggers],
         }
 
 

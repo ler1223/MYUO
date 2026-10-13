@@ -11,6 +11,23 @@ from typing import Any, Callable, Iterable, Mapping, Optional, Sequence
 from .areas import AREA_SINGLE
 from .database import Database, slugify
 from .definitions import APPLY_SELF, APPLY_TARGET, MAGICAL, PART_DAMAGE, PHYSICAL, SkillDefinition
+from .reactions import (
+    AMOUNT_ACTIONS,
+    DO_APPLY_EFFECT,
+    DO_COVER,
+    DO_USE_SKILL,
+    EFFECT_ACTIONS,
+    EVENTS_WITHOUT_SUBJECT,
+    GROUPS,
+    ON_ATTACKED,
+    ON_HP_BELOW,
+    ON_TARGETED,
+    ROLES,
+    THIS_EFFECT,
+    TO_ACTOR,
+    TO_OWNER,
+    Reaction,
+)
 from .stats import STAT_DEFAULTS, Stat
 from .tactics import CONDITIONS, TacticsSet
 from .tags import TAG_UNIT
@@ -121,6 +138,14 @@ def new_item_data(db: Database) -> dict[str, Any]:
     return {"slot": db.slot_types[0]}
 
 
+def new_effect_data() -> dict[str, Any]:
+    return {"duration": 3, "tags": ["debuff"]}
+
+
+def new_area_data() -> dict[str, Any]:
+    return {"cells": [[0, 0]]}
+
+
 def new_tag_data() -> dict[str, Any]:
     return {"kind": TAG_UNIT}
 
@@ -158,11 +183,64 @@ def skill_owners(db: Database, section: str, skill_id: str, field: str = "skills
 
 
 def new_passive_data(db: Database) -> dict[str, Any]:
-    return {"action": "effect", "trigger": "BattleStarted", "scope": "any", "pp_cost": 1,
-            "effect_id": next(iter(db.effects), None)}
+    """Новая пассивка: контратака обычной атакой по тому, кто попал по владельцу."""
+    skill_id = "attack" if "attack" in db.skills else next(iter(db.skills))
+    reaction = Reaction(ON_ATTACKED, DO_USE_SKILL, whose="self", outcome="landed", skill_id=skill_id, to="actor")
+    return {"pp_cost": 1, "reaction": reaction.to_dict()}
+
+
+def reaction_defaults(db: Database, data: Mapping[str, Any], field: str, value: Any) -> dict[str, Any]:
+    """Меняет одно поле реакции (формат JSON) и чинит зависящие от него поля.
+
+    Например, при выборе действия «применить навык» подставляется навык и цель
+    «тот, кто вызвал событие»; прикрытие переводит событие на «выбран целью».
+    """
+    new = dict(data, **{field: value})
+    if field == "action":
+        if value == DO_USE_SKILL:
+            new["skill_id"] = new.get("skill_id") or ("attack" if "attack" in db.skills else next(iter(db.skills)))
+            if new["to"] not in ROLES:
+                new["to"] = TO_ACTOR
+        if value in EFFECT_ACTIONS and not new.get("effect_id"):
+            new["effect_id"] = next(iter(db.effects))
+        if value == DO_COVER:
+            new.update(event=ON_TARGETED, whose="ally", to=TO_OWNER)
+        if value in AMOUNT_ACTIONS and not new.get("amount"):
+            new["amount"] = 1
+    if field == "event" and value != ON_TARGETED and new["action"] == DO_COVER:
+        new["action"] = DO_APPLY_EFFECT
+        new["effect_id"] = new.get("effect_id") or next(iter(db.effects))
+    return new
 
 
 # --- описания --------------------------------------------------------------
+
+def describe_reaction(reaction: Reaction, db: Database, t: Optional[Callable[..., str]] = None) -> str:
+    """Одна строка вида «когда -> что -> кому» для списков в редакторах."""
+    t = t or _same
+    when = t(reaction.event)
+    if reaction.event not in EVENTS_WITHOUT_SUBJECT:
+        when += f" ({t(reaction.whose)})"
+    if reaction.event == ON_HP_BELOW:
+        when += f" < {round(reaction.threshold * 100)}%"
+    if reaction.event == ON_ATTACKED and reaction.outcome != "any":
+        when += f", {t(reaction.outcome)}"
+    if reaction.effect_filter:
+        when += f", {t('this effect') if reaction.effect_filter == THIS_EFFECT else t(reaction.effect_filter)}"
+    what = t(reaction.action)
+    if reaction.action == DO_USE_SKILL and reaction.skill_id in db.skills:
+        what += f" {t(db.skills[reaction.skill_id].name)}"
+    elif reaction.action in EFFECT_ACTIONS and reaction.effect_id in db.effects:
+        what += f" {t(db.effects[reaction.effect_id].name)}"
+    elif reaction.action in AMOUNT_ACTIONS:
+        what += f" {reaction.amount}"
+    to = t(reaction.to) if reaction.action != DO_COVER else t("owner")
+    if reaction.to_area and reaction.to in GROUPS:
+        to += f" ({t(reaction.to_area)})"
+    text = f"{when} -> {what} -> {to}"
+    if reaction.limit != "none":
+        text += f" [{t(reaction.limit)}]"
+    return text
 
 def describe_skill(skill: SkillDefinition, db: Database, t: Optional[Callable[..., str]] = None) -> str:
     """Короткое описание навыка для интерфейса; t переводит названия."""

@@ -12,7 +12,6 @@ from typing import Any, Hashable, Iterable, Mapping, Optional, Protocol, Sequenc
 
 import pygame
 
-from game.areas import AREAS
 from game.database import Database
 from game.definitions import APPLY_RECIPIENTS, CATEGORIES, PART_DAMAGE, PART_KINDS
 from game.editing import (
@@ -30,7 +29,7 @@ from game.editing import (
 )
 from game.i18n import Translator
 from game.scenario import Scenario
-from game.squad import Formation
+from game.squad import MAX_GRID, MAX_SQUAD_UNITS, MIN_GRID
 from game.stats import SCALING_STATS, Stat
 from game.tactics import CONDITIONS, SELECTORS, SIDES
 from game.tags import TAG_DAMAGE, TAG_SKILL, TAG_UNIT
@@ -182,8 +181,8 @@ def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]],
 # --- отряды ----------------------------------------------------------------
 
 class SquadEditor:
-    CELL_W, CELL_H = 150, 84
     GRID_X, GRID_Y = 16, 104
+    GRID_W, GRID_H = 450, 252     # место под поле отряда; клетки делят его поровну
     SIDE_X = 500
 
     def __init__(self) -> None:
@@ -202,31 +201,66 @@ class SquadEditor:
             app.reset_setup()
             self.selected = None
             return
+        if self._draw_field_size(ui, app):
+            self.selected = None
+            return
         army, squad = armies[self.army_key]
         formation = squad.formation
+        cell_w, cell_h = self.GRID_W // formation.cols, self.GRID_H // formation.rows
 
-        ui.text(t("Formation {n}/{max}  (top row = front, * = leader)", n=len(formation), max=Formation.MAX_UNITS),
+        ui.text(t("Formation {n}/{max}  (top row = front, * = leader)", n=len(formation), max=formation.max_units),
                 16, TOP + 34)
-        for row in range(Formation.ROWS):
-            for col in range(Formation.COLS):
-                rect = pygame.Rect(self.GRID_X + col * self.CELL_W, self.GRID_Y + row * self.CELL_H,
-                                   self.CELL_W - 8, self.CELL_H - 8)
+        for row in range(formation.rows):
+            for col in range(formation.cols):
+                rect = pygame.Rect(self.GRID_X + col * cell_w, self.GRID_Y + row * cell_h, cell_w - 6, cell_h - 6)
                 if ui.button("", rect, self.selected == ("cell", (row, col))):
                     self._click_cell(app, army, squad, (row, col))
                 unit = formation.unit_at(row, col)
                 if unit is not None:
+                    # Чем мельче клетка, тем меньше строк в ней помещается.
                     leader = " *" if squad.leader_uid == unit.uid else ""
-                    ui.text(f"{app.label(unit)}{leader}", rect.x + 6, rect.y + 5, width=rect.width - 12)
-                    ui.text(f"L{unit.state.level}  HP {unit.max_hp}  INIT {unit.stat(Stat.INITIATIVE)}",
-                            rect.x + 6, rect.y + 28, DIM, "small", rect.width - 12)
-                    ui.text(f"ATK {unit.stat(Stat.PHYS_ATK)}/{unit.stat(Stat.MAG_ATK)}  "
-                            f"DEF {unit.stat(Stat.PHYS_DEF)}/{unit.stat(Stat.MAG_DEF)}",
-                            rect.x + 6, rect.y + 46, DIM, "small", rect.width - 12)
+                    roomy = rect.height >= 56
+                    ui.text(f"{app.label(unit)}{leader}", rect.x + 5, rect.y + 4, font="main" if roomy else "small",
+                            width=rect.width - 10)
+                    if roomy:
+                        ui.text(f"L{unit.state.level}  HP {unit.max_hp}  INIT {unit.stat(Stat.INITIATIVE)}",
+                                rect.x + 5, rect.y + 26, DIM, "small", rect.width - 10)
+                    elif rect.height >= 36:
+                        ui.text(f"L{unit.state.level} HP {unit.max_hp}", rect.x + 5, rect.y + 20, DIM, "small",
+                                rect.width - 10)
+                    if rect.height >= 74:
+                        ui.text(f"ATK {unit.stat(Stat.PHYS_ATK)}/{unit.stat(Stat.MAG_ATK)}  "
+                                f"DEF {unit.stat(Stat.PHYS_DEF)}/{unit.stat(Stat.MAG_DEF)}",
+                                rect.x + 5, rect.y + 44, DIM, "small", rect.width - 10)
 
         self._draw_reserve(ui, app, army)
         self._draw_selection(ui, app, army, squad)
         ui.text(t("Click a unit, then a cell to move or swap. Click a reserve unit, then a cell to place it."),
                 16, HEIGHT - 44, DIM, "small")
+
+    @staticmethod
+    def _draw_field_size(ui: UI, app: EditorHost) -> bool:
+        """Размер поля отряда и предел числа юнитов (общие для всех отрядов). True, если изменили."""
+        t, size = ui.t, app.db.formation
+        values = {"rows": size.rows, "cols": size.cols, "max_units": size.max_units}
+        ui.text(t("Field"), 436, TOP + 4, font="small")
+        fields = (("rows", "rows", 480, MIN_GRID, MAX_GRID), ("cols", "columns", 566, MIN_GRID, MAX_GRID),
+                  ("max_units", "units", 676, 1, MAX_SQUAD_UNITS))
+        changed = False
+        for field, label, fx, low, high in fields:
+            value = ui.number_input(("field", field), pygame.Rect(fx, TOP, 34, 24), values[field], low, high)
+            ui.text(t(label), fx + 38, TOP + 5, DIM, "small")
+            if value is not None:
+                values[field], changed = value, True
+        if changed:
+            values["max_units"] = min(values["max_units"], values["rows"] * values["cols"])
+            try:
+                app.db.set_formation(**values)
+                app.data_changed()
+            except ValueError as error:
+                app.message = str(error)
+                return False
+        return changed
 
     def _selected_unit(self, army, squad) -> Optional[Unit]:
         if self.selected is None:
@@ -277,7 +311,7 @@ class SquadEditor:
 
     def _draw_selection(self, ui: UI, app: EditorHost, army, squad) -> None:
         t, db = ui.t, app.db
-        y = self.GRID_Y + Formation.ROWS * self.CELL_H + 4
+        y = self.GRID_Y + self.GRID_H + 4
         unit = self._selected_unit(army, squad)
         if unit is None:
             ui.text(t("Nothing selected"), 16, y, DIM)
@@ -434,7 +468,7 @@ class SkillEditor:
         number("ap_cost", "AP cost", x, y, 60, 0, 9, 40)
         number("pp_cost", "PP cost", x + 108, y, 60, 0, 9, 40)
         choice("targets", "Aimed at", x + 220, y, 62, 90, plain(ui, SIDES))
-        choice("area", "Area", x + 382, y, 56, 96, plain(ui, AREAS))
+        choice("area", "Area", x + 382, y, 56, 96, named(ui, db.areas.values()))
         number("hits", "Hits", x + 544, y, 44, 1, 9, 40)
         number("accuracy", "Accuracy %", x + 638, y, 78, 0, 999, 46)
 

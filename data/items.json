@@ -142,5 +142,22 @@
       "fire_resistant"
     ],
     "damage_tags": []
+  },
+  "spear": {
+    "name": "Spear",
+    "slot": "lance",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 4
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": [
+      "piercing"
+    ]
   }
 }

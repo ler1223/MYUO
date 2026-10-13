@@ -64,11 +64,13 @@ def army_from_save(db: Database, data: Mapping[str, Any]) -> Army:
         if unit is not None:
             army.recruit(unit)
     for squad_data in data["squads"]:
-        squad = army.create_squad(squad_data["id"], squad_data["name"])
+        squad = army.create_squad(squad_data["id"], squad_data["name"], db.formation)
         for uid, row, col in squad_data["cells"]:
-            if uid in army.units:
+            # Поле могли уменьшить: кто не поместился, остаётся в резерве.
+            fits = squad.formation.contains(row, col) and len(squad.formation) < squad.formation.max_units
+            if uid in army.units and fits:
                 army.assign(uid, squad.id, row, col)
-        if squad_data["leader_uid"] in army.units:
+        if squad.formation.position_of(squad_data["leader_uid"] or -1) is not None:
             squad.leader_uid = squad_data["leader_uid"]
     return army
 

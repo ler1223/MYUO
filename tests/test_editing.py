@@ -8,7 +8,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from game.areas import AREAS
 from game.battle import BattleSimulation
 from game.database import Database
 from game.definitions import SkillDefinition
@@ -357,7 +356,7 @@ class SkillAreaTests(unittest.TestCase):
         return [e.target for e in events if isinstance(e, DamageDealt)]
 
     def test_registered_areas(self):
-        self.assertEqual(set(AREAS), {"single", "row", "column", "all"})
+        self.assertEqual(set(DB.areas), {"single", "row", "column", "all"})
 
     def test_single(self):
         self.assertEqual(self.hit_targets("single"), [2])

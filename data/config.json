@@ -1,4 +1,9 @@
 {
+  "formation": {
+    "rows": 3,
+    "cols": 3,
+    "max_units": 5
+  },
   "slot_types": [
     "light_sword",
     "light_shield",

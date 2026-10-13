@@ -22,7 +22,7 @@ class Scenario:
 def _build_army(db: Database, army_id: str, name: str, squad_id: str, squad_name: str, roster, first_uid: int):
     """roster: список (definition_id, level, equipment, row, col)."""
     army = Army(army_id, name)
-    squad = army.create_squad(squad_id, squad_name)
+    squad = army.create_squad(squad_id, squad_name, db.formation)
     for offset, (definition_id, level, equipment, row, col) in enumerate(roster):
         unit = army.recruit(db.create_unit(definition_id, first_uid + offset, level, equipment))
         army.assign(unit.uid, squad_id, row, col)
