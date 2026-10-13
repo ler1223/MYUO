@@ -11,7 +11,6 @@ import re
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence, Union
 
-from . import events
 from .areas import AREA_SINGLE, BUILTIN_AREAS, AreaDefinition
 from .definitions import CATEGORIES, ItemDefinition, PassiveDefinition, SkillDefinition
 from .effects import EffectDefinition

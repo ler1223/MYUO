@@ -1,14 +1,23 @@
-"""Проверка набора спрайтов (без pygame: только наличие и формат файлов)."""
+"""Проверка файлов вкладки Stage без pygame: спрайты, визуал навыков, сцена."""
 import json
 import struct
 import unittest
 from pathlib import Path
 
-from tests.helpers import DB
+from game.database import Database
+from pygame_scene import SCENE_PATH, SceneConfig
 
-SPRITE_DIR = Path(__file__).resolve().parent.parent / "assets" / "sprites"
+ROOT = Path(__file__).resolve().parent.parent
+UNITS_DIR = ROOT / "assets" / "units"
+UNITS = json.loads((UNITS_DIR / "units.json").read_text(encoding="utf-8"))
+VISUALS = json.loads((ROOT / "assets" / "visuals" / "skills.json").read_text(encoding="utf-8"))
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
-META = json.loads((SPRITE_DIR / "sprites.json").read_text(encoding="utf-8"))
+# Действия шагов визуала: должны совпадать с StageScreen.steps (проверяется в tests/test_ui.py).
+STEP_ACTIONS = {"dash", "hop", "lunge", "jump", "rise", "tilt", "knockback", "glow", "projectile", "slash", "thrust",
+                "ring", "beam", "bolt", "burst", "sparkle", "flash", "shake", "runes", "pillars", "arrow_rain",
+                "glint", "dome", "weapon", "impact"}
+WHO = {"self", "target", "targets"}
+DELIVERIES = {"melee", "arrow", "magic", "heal", "support"}
 
 
 def png_size(path: Path) -> tuple[int, int]:
@@ -18,30 +27,80 @@ def png_size(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", data[16:24])
 
 
-class SpriteAssetTests(unittest.TestCase):
-    def test_meta(self):
-        self.assertEqual(META["animations"], ["idle", "melee", "ranged", "cast"])
-        self.assertGreater(META["frame_ms"], 0)
-        self.assertLess(META["anchor_x"], META["frame_width"])
+class UnitSpriteTests(unittest.TestCase):
+    def test_every_sprite_has_a_png_of_its_recorded_height_and_a_sheet(self):
+        self.assertTrue(UNITS["sprites"])
+        for sprite_id, info in UNITS["sprites"].items():
+            width, height = png_size(UNITS_DIR / f"{sprite_id}.png")
+            self.assertEqual(height, info["height"], sprite_id)
+            self.assertIn(info["sheet"], UNITS["sheets"], sprite_id)
+            for value in info.get("anchors", {}).values():
+                self.assertTrue(0 < value <= 1, sprite_id)
 
-    def test_every_class_has_every_animation_and_there_is_a_fallback(self):
-        for name in (*DB.units, "default"):
-            for animation in META["animations"]:
-                self.assertTrue((SPRITE_DIR / name / f"{animation}.png").exists(), (name, animation))
+    def test_fallback_points_to_existing_sprites_and_classes(self):
+        fallback = UNITS["fallback"]
+        self.assertIn(fallback["default"], UNITS["sprites"])
+        for class_id, sprite in fallback["classes"].items():
+            self.assertIn(sprite, UNITS["sprites"], class_id)
+        for sprite in fallback["tags"].values():
+            self.assertIn(sprite, UNITS["sprites"])
 
-    def test_strips_are_made_of_whole_frames(self):
-        strips = list(SPRITE_DIR.glob("*/*.png"))
-        self.assertTrue(strips)
-        for path in strips:
-            meta = dict(META)
-            own = path.parent / "sprite.json"   # у класса может быть свой размер кадра
-            if own.exists():
-                meta.update(json.loads(own.read_text(encoding="utf-8")))
-            width, height = png_size(path)
-            self.assertEqual(height, meta["frame_height"], path)
-            self.assertEqual(width % meta["frame_width"], 0, path)
-            frames = width // meta["frame_width"]
-            self.assertGreaterEqual(frames, 2 if path.stem == "idle" else 3, path)  # анимация, а не один кадр
+
+class SkillVisualDataTests(unittest.TestCase):
+    def entries(self):
+        for key, entry in VISUALS.items():
+            if key == "_defaults":
+                yield from ((f"_defaults/{k}", v) for k, v in entry.items())
+            elif not key.startswith("_"):
+                yield key, entry
+
+    def test_steps_use_known_actions_and_roles(self):
+        for key, entry in self.entries():
+            self.assertGreater(entry.get("windup", 380), 0, key)
+            for phase in ("cast", "hit"):
+                for step in entry.get(phase, []):
+                    self.assertIn(step["do"], STEP_ACTIONS, (key, step))
+                    self.assertIn(step.get("who", "self"), WHO, (key, step))
+                    self.assertGreaterEqual(step.get("at", 0), 0, (key, step))
+
+    def test_keys_name_real_skills_and_classes(self):
+        db = Database.load()                                    # визуал описан для настоящих данных data/
+        self.assertEqual(set(VISUALS["_defaults"]), DELIVERIES)
+        for key in VISUALS:
+            if key.startswith("_"):
+                continue
+            class_id, _, skill_id = key.rpartition("/")
+            self.assertIn(skill_id, db.skills, key)
+            if class_id:
+                self.assertIn(class_id, db.units, key)
+
+
+class SceneTests(unittest.TestCase):
+    def test_saved_scene_loads_and_projection_round_trips(self):
+        scene = SceneConfig.load(SCENE_PATH)
+        for row in range(3):
+            for col in range(3):
+                x, z = scene.cell("left", row, col, 3)
+                sx, sy, k = scene.project(x, z)
+                back = scene.unproject(sx, sy)
+                self.assertAlmostEqual(back[0], x, places=6)
+                self.assertAlmostEqual(back[1], z, places=6)
+        near = scene.project(*scene.cell("left", 0, 2, 3))
+        far = scene.project(*scene.cell("left", 0, 0, 3))
+        self.assertLess(far[1], near[1])                     # дальняя колонна выше
+        self.assertLess(far[2], near[2])                     # и мельче
+        right = scene.cell("right", 1, 1, 3)
+        self.assertEqual(right[0], -scene.cell("left", 1, 1, 3)[0])   # противник зеркален
+
+    def test_bigger_field_continues_the_lines_and_bad_values_are_clamped(self):
+        scene = SceneConfig(rows=[100, 200], columns=[200, 100, 0])
+        self.assertEqual(scene.row_distance(3), 400)
+        self.assertEqual(scene.column_depth(4, 5), 0)          # ближняя колонна всегда на ближней линии
+        self.assertEqual(scene.column_depth(0, 5), 400)        # лишние уходят вглубь с тем же шагом
+        bad = SceneConfig.from_dict({"horizon": 900, "ground": 400, "focal": -5, "rows": [], "unknown": 1})
+        self.assertLess(bad.horizon, bad.ground)
+        self.assertGreaterEqual(bad.focal, 100)
+        self.assertTrue(bad.rows)
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@
 tests/data и временном файле сохранения, настоящая папка data/ не трогается.
 Без установленного pygame-ce тесты пропускаются.
 """
+import json
 import os
 import shutil
 import tempfile
@@ -21,6 +22,7 @@ from game.database import Database
 from game.events import DamageDealt, EffectApplied, EffectExpired, PassiveTriggered
 from game.stats import Stat
 from game.tactics import condition_to_dict
+from pygame_scene import SceneConfig
 from tests.helpers import FIXTURE_DIR
 
 if pygame is not None:
@@ -57,7 +59,7 @@ class WindowTestCase(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def open_app(self, lang=None):
-        return d.App(Database.load(self.data_dir), 1, self.save_path, lang)
+        return d.App(Database.load(self.data_dir), 1, self.save_path, lang, Path(self.tmp) / "scene.json")
 
     def tab(self, name):
         index = [n for n, _ in self.app.tabs].index(name)
@@ -452,9 +454,9 @@ class ReactionEditorTests(WindowTestCase):
             self.fail("no riposte or thorns in 7 battles")
 
 
-class ArenaTests(WindowTestCase):
+class SkillVisualTests(WindowTestCase):
     def test_skill_visuals(self):
-        from pygame_arena import skill_visual
+        from pygame_battle import skill_visual
         db = Database.load(self.data_dir)
         knight = db.create_unit("knight", 1, equipment=["iron_sword"])
         archer = db.create_unit("archer", 2)
@@ -466,7 +468,7 @@ class ArenaTests(WindowTestCase):
         self.assertEqual(skill_visual(db.skills["enchant_wind"], None)[0], "support")
 
     def test_weapon_kinds(self):
-        from pygame_arena import weapon_kind
+        from pygame_battle import weapon_kind
         db = Database.load(self.data_dir)
         self.assertEqual(weapon_kind(db.create_unit("knight", 1, equipment=["iron_sword"]), "melee"), "sword")
         self.assertEqual(weapon_kind(db.create_unit("orc", 2), "melee"), "axe")            # слот класса без предмета
@@ -501,15 +503,19 @@ class StageTests(WindowTestCase):
         self.assertTrue(moved)                                # рывки, отскоки, отбрасывание
         self.assertEqual(stage.deaths.keys(), {uid for uid, u in view.sim.units.items() if not u.is_alive})
 
+    def test_step_actions_match_the_data_check(self):
+        from tests.test_assets import STEP_ACTIONS
+        self.assertEqual(set(self.tab("Stage").steps), STEP_ACTIONS)
+
     def test_windup_comes_from_visuals_and_targets_from_timeline(self):
         from game.events import DamageDealt, SkillUsed
         stage = self.tab("Stage")
         view = stage.battle_view
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
         self.assertEqual(stage.windup(SkillUsed(rider.uid, "lance_charge", 11)),
-                         stage.visuals["lance_charge"]["windup"])
-        self.assertEqual(stage.spec(rider, "attack"), stage.visuals["rider/attack"])     # свой визуал класса
-        self.assertEqual(stage.spec(rider, "flurry"), stage.visuals["_defaults"]["melee"])
+                         stage.skill_visuals["lance_charge"]["windup"])
+        self.assertEqual(stage.spec(rider, "attack"), stage.skill_visuals["rider/attack"])     # свой визуал класса
+        self.assertEqual(stage.spec(rider, "flurry"), stage.skill_visuals["_defaults"]["melee"])
         used = SkillUsed(rider.uid, "attack", 11)
         view.timeline = [(0, used), (400, DamageDealt(rider.uid, 11, 5, 10, "attack")),
                          (500, DamageDealt(rider.uid, 12, 5, 10, "attack")), (600, SkillUsed(11, "attack", 1))]
@@ -518,25 +524,28 @@ class StageTests(WindowTestCase):
     def test_your_squads_use_fallback_sprites(self):
         stage = self.tab("Stage")
         stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))
+        self.frame()                                          # расстановка обновляется при отрисовке
         view = stage.battle_view
         self.assertFalse(stage.use_test)
         self.assertIn("knight", {u.definition.id for u in view.sim.units.values()})
         knight = next(u for u in view.sim.units.values() if u.definition.id == "knight")
         self.assertEqual(stage.bank.sprite_id(knight), "paladin")
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
-        self.assertGreater(stage.bank.height("rider"), stage.bank.height("paladin") * 1.4)   # всадник выше пехоты
+        self.assertEqual(stage.stage[rider.uid].sprite, "rider")
+        self.assertTrue(stage.stage[rider.uid].tall)
+        self.assertGreater(stage.bank.ratio("rider"), stage.bank.ratio("paladin") * 1.4)   # всадник выше пехоты
         self.play(stage, view)
 
 
     def test_units_covering_the_attack_become_transparent(self):
-        from pygame_arena import FIELD_RECT
+        from pygame_battle import FIELD_RECT
         from pygame_fx import Camera
         stage = self.tab("Stage")
         stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))   # демо-отряды: юнитов больше
         self.frame()
         cam = Camera(1.0, FIELD_RECT.topleft, FIELD_RECT.topleft, FIELD_RECT)
         order = sorted(stage.stage, key=lambda uid: stage.stage[uid].feet[1])
-        rects = {uid: stage._sprite_rect(uid, 0, cam) for uid in order}
+        rects = {uid: stage.sprite_rect(uid, 0, cam) for uid in order}
         # Дальний юнит и ближний, который его заметно перекрывает.
         back, front = next((a, b) for i, a in enumerate(order) for b in order[i + 1:]
                            if rects[b].inflate(-rects[b].width // 4, -rects[b].height // 8).colliderect(rects[a]))
@@ -549,9 +558,52 @@ class StageTests(WindowTestCase):
         self.assertEqual(stage.alpha[front], 255)
 
 
+class SceneEditorTests(WindowTestCase):
+    def test_dragging_a_cell_moves_its_column_and_row_and_saves(self):
+        editor = self.tab("Scene")
+        scene = editor.scene
+        before_col, before_row = list(scene.columns), list(scene.rows)
+        handle = editor.handles()[(1, 0)]                      # средний ряд, дальняя колонна
+        down = pygame.event.Event(pygame.MOUSEBUTTONDOWN, button=1, pos=handle)
+        editor.handle_event(down, handle)
+        self.assertEqual(editor.drag, (1, 0))
+        target = (handle[0] - 30, handle[1] - 20)              # дальше от центра и глубже
+        editor.handle_event(pygame.event.Event(pygame.MOUSEMOTION, pos=target, rel=(-30, -20), buttons=(1, 0, 0)), target)
+        editor.handle_event(pygame.event.Event(pygame.MOUSEBUTTONUP, button=1, pos=target), target)
+        self.assertGreater(scene.columns[0], before_col[0])
+        self.assertGreater(scene.rows[1], before_row[1])
+        self.assertEqual(scene.columns[1:], before_col[1:])    # остальные линии на месте
+        moved = editor.handles()[(1, 0)]
+        self.assertAlmostEqual(moved[0], target[0], delta=2)   # ручка пришла под курсор
+        self.assertAlmostEqual(moved[1], target[1], delta=2)
+        saved = json.loads((Path(self.tmp) / "scene.json").read_text(encoding="utf-8"))
+        self.assertEqual(saved["columns"], scene.columns)
+        self.assertIs(self.app.tabs[[n for n, _ in self.app.tabs].index("Stage")][1].scene, scene)   # общая со Stage
+
+    def test_form_changes_numbers_lines_and_background(self):
+        editor = self.tab("Scene")
+        scene = editor.scene
+        self.write(8 + 78 + 5, editor_form_y(0) + 5, "-500")   # поле «Горизонт»
+        self.assertEqual(scene.horizon, -500)
+        lines = len(scene.rows)
+        plus_x = 8 + 78 + lines * 56 + 5
+        self.click(plus_x, editor_form_y(1) + 5)               # + ряд
+        self.assertEqual(len(scene.rows), lines + 1)
+        self.assertEqual(scene.rows[-1] - scene.rows[-2], scene.rows[-2] - scene.rows[-3])   # шаг продолжен
+        self.pick(8 + 78 + 5, editor_form_y(2) + 5, "meadow")   # список фонов
+        self.assertEqual(scene.background, "meadow.png")
+        self.click(465, editor_form_y(2) + 5)                  # сброс
+        self.assertEqual(scene.horizon, SceneConfig().horizon)
+
+
+def editor_form_y(line):
+    from pygame_scene_editor import FORM_TOP, ROW_H
+    return FORM_TOP + line * ROW_H
+
+
 class ZoomAndWindowTests(WindowTestCase):
     def test_zoom_keeps_point_under_cursor_pan_and_reset(self):
-        from pygame_arena import FIELD_RECT, MAX_ZOOM
+        from pygame_battle import FIELD_RECT, MAX_ZOOM
         arena = self.tab("Stage")
         under = lambda pos: (arena.origin[0] + (pos[0] - FIELD_RECT.left) / arena.zoom,
                              arena.origin[1] + (pos[1] - FIELD_RECT.top) / arena.zoom)

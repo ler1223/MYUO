@@ -1,41 +1,57 @@
 {
-  "_comment": "Спрайты юнитов для вкладки Stage. sprites и sheets пишет tools/cut_lineup.py: высота спрайта на листе и рост человека на листе (по нему считается общий масштаб). fallback: какой спрайт взять классу без своей картинки — по первому подходящему тегу, иначе default.",
+  "_comment": "Спрайты юнитов для вкладки Stage. sheet, height, ground и sheets пишет tools/cut_lineup.py: высота спрайта на листе и рост человека на листе (по нему считается общий масштаб). anchors (необязательно): где у спрайта голова и тело, в долях его высоты от ног; без них берётся рост человека — нужно для высоких спрайтов (всадник). fallback: какой спрайт взять классу без своей картинки — по классу, по первому подходящему тегу, иначе default.",
   "sprites": {
     "paladin": {
-      "sheet": "lineup_1.png",
-      "height": 523,
-      "ground": 850
+      "sheet": "lineup_2.png",
+      "height": 435,
+      "ground": 835
     },
     "hunter": {
-      "sheet": "lineup_1.png",
-      "height": 501,
-      "ground": 848
+      "sheet": "lineup_2.png",
+      "height": 407,
+      "ground": 836
     },
     "pyromancer": {
-      "sheet": "lineup_1.png",
-      "height": 557,
-      "ground": 848
+      "sheet": "lineup_2.png",
+      "height": 465,
+      "ground": 837
     },
     "cleric": {
-      "sheet": "lineup_1.png",
-      "height": 518,
-      "ground": 841
+      "sheet": "lineup_2.png",
+      "height": 443,
+      "ground": 835
     },
     "rider": {
-      "sheet": "lineup_1.png",
-      "height": 842,
-      "ground": 851
+      "sheet": "lineup_2.png",
+      "height": 790,
+      "ground": 836,
+      "anchors": {
+        "head": 0.68,
+        "body": 0.45
+      }
     }
   },
   "sheets": {
-    "lineup_1.png": {
-      "human_height": 523
+    "lineup_2.png": {
+      "human_height": 435
     }
   },
   "fallback": {
-    "classes": {"knight": "paladin", "fighter": "paladin", "spearman": "paladin", "archer": "hunter",
-                "mage": "pyromancer", "cryomancer": "pyromancer", "stormcaller": "pyromancer", "witch": "pyromancer"},
-    "tags": {"cavalry": "rider", "archer": "hunter", "caster": "pyromancer"},
+    "classes": {
+      "knight": "paladin",
+      "fighter": "paladin",
+      "spearman": "paladin",
+      "archer": "hunter",
+      "mage": "pyromancer",
+      "cryomancer": "pyromancer",
+      "stormcaller": "pyromancer",
+      "witch": "pyromancer"
+    },
+    "tags": {
+      "cavalry": "rider",
+      "archer": "hunter",
+      "caster": "pyromancer"
+    },
     "default": "paladin"
   }
 }

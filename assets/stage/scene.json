@@ -1,0 +1,30 @@
+{
+  "horizon": -360,
+  "ground": 452,
+  "focal": 1200,
+  "human_height": 185,
+  "rows": [
+    150.0,
+    245.0,
+    340.0
+  ],
+  "columns": [
+    260.0,
+    130.0,
+    0.0
+  ],
+  "slant": 15,
+  "fly_height": 40,
+  "background": "",
+  "darken": 0,
+  "sky": [
+    22,
+    24,
+    32
+  ],
+  "earth": [
+    42,
+    44,
+    46
+  ]
+}

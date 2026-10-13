@@ -71,6 +71,7 @@ def fx_font(size: int, numbers: bool = False) -> pygame.font.Font:
     return pygame.font.Font(None, size) if numbers else pygame.font.SysFont(FONT_NAMES, size, bold=True)
 
 
+GLOW_LEVELS = 16          # ступеней яркости свечения
 _glow_cache: dict[tuple[Color, int], pygame.Surface] = {}
 
 
@@ -94,8 +95,10 @@ def add_glow(screen: pygame.Surface, pos: tuple[float, float], color: Color, rad
     """Свечение в пикселях окна (pos и radius уже переведены камерой)."""
     if strength <= 0.02 or radius < 2:
         return
-    tint = tuple(int(c * min(1.0, strength)) for c in color)
-    sprite = glow_sprite(tint, int(radius))
+    # Яркость и радиус округлены, чтобы гаснущие свечения брали готовые картинки из кэша.
+    k = round(min(1.0, strength) * GLOW_LEVELS) / GLOW_LEVELS
+    tint = tuple(int(c * k) for c in color)
+    sprite = glow_sprite(tint, int(radius) // 2 * 2 or 2)
     screen.blit(sprite, sprite.get_rect(center=(int(pos[0]), int(pos[1]))), special_flags=pygame.BLEND_RGB_ADD)
 
 
@@ -512,15 +515,17 @@ class Dome(Effect):
         screen.blit(layer, (int(x - c[0]), int(y - c[1])), special_flags=pygame.BLEND_RGB_ADD)
 
 
+HIT_MS = 260               # сколько длится реакция юнита на попадание
+
+
 @dataclass
 class FxSystem:
-    """Все активные эффекты, частицы и «реакции» карт (тряска, вспышка, выпад)."""
+    """Все активные эффекты, частицы, дрожь поля и реакция юнитов на попадание (дрожь и вспышка)."""
 
     effects: list[Effect] = field(default_factory=list)
     particles: list[Particle] = field(default_factory=list)
     shakes: list[tuple[int, int, float]] = field(default_factory=list)   # (начало, длительность, сила) экрана
-    card_hits: dict[int, int] = field(default_factory=dict)              # uid -> когда по карте попали
-    card_lunges: dict[int, tuple[int, Point]] = field(default_factory=dict)  # uid -> (когда, куда)
+    hits: dict[int, int] = field(default_factory=dict)                   # uid -> когда по юниту попали
     rng: random.Random = field(default_factory=lambda: random.Random(7))
     last_draw: int = 0
 
@@ -528,8 +533,7 @@ class FxSystem:
         self.effects.clear()
         self.particles.clear()
         self.shakes.clear()
-        self.card_hits.clear()
-        self.card_lunges.clear()
+        self.hits.clear()
 
     def add(self, effect: Effect) -> None:
         self.effects.append(effect)
@@ -568,23 +572,13 @@ class FxSystem:
         self.shakes = [s for s in self.shakes if now <= s[0] + s[1]]
         return dx, dy
 
-    def card_offset(self, uid: int, now: int, home: Point) -> tuple[float, float, float]:
-        """(dx, dy, яркость вспышки 0..1) для карты: выпад к цели и дрожь от удара."""
-        dx = dy = 0.0
-        lunge = self.card_lunges.get(uid)
-        if lunge is not None:
-            start, target = lunge
-            t = (now - start) / 380
-            if 0 <= t <= 1:
-                k = math.sin(t * math.pi) * 0.28           # туда и обратно
-                dx, dy = (target[0] - home[0]) * k, (target[1] - home[1]) * k
-        flash = 0.0
-        hit = self.card_hits.get(uid)
-        if hit is not None and 0 <= now - hit <= 260:
-            t = (now - hit) / 260
-            dx += math.sin(t * 40) * 7 * (1 - t)
-            flash = (1 - t) ** 2
-        return dx, dy, flash
+    def hit_reaction(self, uid: int, now: int) -> tuple[float, float]:
+        """(сдвиг по x, яркость белой вспышки 0..1) юнита, по которому только что попали."""
+        hit = self.hits.get(uid)
+        if hit is None or not 0 <= now - hit <= HIT_MS:
+            return 0.0, 0.0
+        t = (now - hit) / HIT_MS
+        return math.sin(t * 40) * 7 * (1 - t), (1 - t) ** 2
 
     def draw(self, screen: pygame.Surface, now: int, cam: Camera = IDENTITY) -> None:
         dt = max(1, min(50, now - self.last_draw)) if self.last_draw else 16

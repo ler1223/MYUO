@@ -1,4 +1,4 @@
-"""Окно прототипа (pygame-ce): бой и редакторы. Только прямоугольники и текст.
+"""Окно прототипа (pygame-ce): бой и редакторы.
 
 Запуск: python demo_pygame.py [seed]
 Вкладки переключаются клавишами F1, F2, ... или кликом; язык кнопкой справа от вкладок.
@@ -19,7 +19,7 @@ import pygame
 
 from game.battle import BattleSimulation
 from game.database import Database
-from game.events import BattleEnded, DamageDealt, Event, Healed, RoundStarted, SkillUsed, TurnStarted, format_event
+from game.events import BattleEnded, DamageDealt, Event, Healed, RoundStarted, TurnStarted, format_event
 from game.i18n import Translator, available_languages
 from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_setup, save_setup
 from game.scenario import Scenario, build_demo
@@ -30,6 +30,8 @@ from pygame_effect_editor import AreaEditor, EffectEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
 from pygame_passive_editor import PassiveEditor
+from pygame_scene import SCENE_PATH, SceneConfig
+from pygame_scene_editor import SceneEditor
 from pygame_stage import StageScreen
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
@@ -93,7 +95,6 @@ class BattleView:
         self.sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, self.db, seed=seed)
         self.log: list[Event] = []  # последние события; текст строится при отрисовке на текущем языке
         self.popups: list[Popup] = []
-        self.actions: dict[int, tuple[str, int]] = {}  # uid -> (id последнего навыка, когда применён): для анимации
         self.current_uid: Optional[int] = None
         self.round = 0
         self.ended: Optional[BattleEnded] = None
@@ -123,13 +124,11 @@ class BattleView:
         self.log = (self.log + events)[-LOG_LINES:]
 
     def _consume_one(self, ev: Event, now: int) -> None:
-        """Состояние для вкладки с карточками; now это время показа события."""
+        """Ход, раунд, итог и всплывающие числа вкладки Battle; now это время показа события."""
         if isinstance(ev, RoundStarted):
             self.round = ev.round
         elif isinstance(ev, TurnStarted):
             self.current_uid = ev.unit
-        elif isinstance(ev, SkillUsed):
-            self.actions[ev.user] = (ev.skill_id, now)
         elif isinstance(ev, DamageDealt):
             self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
         elif isinstance(ev, Healed):
@@ -147,7 +146,8 @@ class BattleView:
 class App:
     """Справочник, редактируемая расстановка, бой на её копии, вкладки и язык."""
 
-    def __init__(self, db: Database, seed: int, save_path: Union[str, Path, None], lang: Optional[str] = None):
+    def __init__(self, db: Database, seed: int, save_path: Union[str, Path, None], lang: Optional[str] = None,
+                 scene_path: Optional[Path] = SCENE_PATH):
         self.db = db
         self.save_path = Path(save_path) if save_path else None
         self.message = ""
@@ -158,7 +158,8 @@ class App:
         self.resolution: tuple[int, int] = (WIDTH, HEIGHT)   # размер окна; сохраняется вместе с языком
         self.setup = self._load_setup(lang)
         self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
-        stage = StageScreen()
+        # Сцена (сетка, фон) общая у вкладки Stage и её редактора; scene_path=None — не записывать.
+        stage = StageScreen(SceneConfig.load(scene_path) if scene_path else SceneConfig())
         stage.battle_view = BattleView(db, seed, lambda: stage.scenario(self.db, self.setup), stage.windup)
         # (название вкладки, экран); у вкладки боя с карточками экрана нет
         self.tabs: list[tuple[str, Any]] = [
@@ -173,6 +174,7 @@ class App:
             ("Effects", EffectEditor()),
             ("Areas", AreaEditor()),
             ("Stage", stage),
+            ("Scene", SceneEditor(stage, scene_path)),
         ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
@@ -302,12 +304,19 @@ class Window:
             return pygame.event.Event(event.type, data)
         return event
 
-    def present(self) -> None:
-        """Интерфейс в окно: масштаб с сохранением пропорций, по краям чёрные поля."""
-        self.surface.fill((0, 0, 0))
-        size = (round(WIDTH * self.scale), round(HEIGHT * self.scale))
-        image = self.canvas if size == self.canvas.get_size() else pygame.transform.smoothscale(self.canvas, size)
-        self.surface.blit(image, (round(self.offset[0]), round(self.offset[1])))
+    def present(self, area: Optional[pygame.Rect] = None) -> None:
+        """Интерфейс в окно: масштаб с сохранением пропорций, по краям чёрные поля.
+
+        area: только эта часть интерфейса (логические пиксели) — например, открытый список поверх поля.
+        """
+        if area is None:
+            self.surface.fill((0, 0, 0))
+            area = self.canvas.get_rect()
+        area = area.clip(self.canvas.get_rect())
+        size = (round(area.width * self.scale), round(area.height * self.scale))
+        part = self.canvas.subsurface(area)
+        image = part if size == part.get_size() else pygame.transform.smoothscale(part, size)
+        self.surface.blit(image, (round(self.offset[0] + area.x * self.scale), round(self.offset[1] + area.y * self.scale)))
 
     @staticmethod
     def presets() -> list[tuple[int, int]]:
@@ -469,16 +478,19 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int, window: Optional[Wind
         draw_battle(ui, app.view, autoplay, now)
     elif app.on_battle_tab():
         editor.native = window is not None
-        editor.draw_battle(ui, app.battle_view(), autoplay, now, POPUP_MS, POPUP_RISE)
+        editor.draw_battle(ui, app.battle_view(), autoplay, now)
     else:
+        editor.native = window is not None
         editor.draw(ui, app)
         note = app.message or (t("unsaved changes: open the Battle or Stage tab to apply and save") if app.dirty else "")
         ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
     ui.end()
     if window is not None:
         window.present()
-        if app.on_battle_tab() and hasattr(editor, "draw_field"):
+        if hasattr(editor, "draw_field"):   # поле в полном разрешении окна; открытый список остаётся поверх
             editor.draw_field(window.surface, now, editor.camera(window.scale, window.offset))
+            if ui.popup is not None and ui.popup_box is not None:
+                window.present(ui.popup_box)
 
     if switch_language:
         app.next_language()
@@ -511,11 +523,11 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
         events = [window.logical_event(e) for e in pygame.event.get()]
         view = app.battle_view()
         ui.begin(events)
-        arena = app.tabs[app.tab][1] if app.on_battle_tab() else None
+        screen = app.tabs[app.tab][1]
         for event in events:
-            if arena is not None and hasattr(arena, "handle_event") and not ui.captured:
+            if hasattr(screen, "handle_event") and not ui.captured:
                 mouse = event.pos if hasattr(event, "pos") else ui.mouse
-                arena.handle_event(event, mouse, window.scale)
+                screen.handle_event(event, mouse, window.scale)
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.VIDEORESIZE:
