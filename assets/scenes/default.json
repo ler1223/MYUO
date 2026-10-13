@@ -21,10 +21,10 @@
   "ground_depth": 700.0,
   "ground_darken": 0.0,
   "backdrop": "hills.png",
-  "backdrop_line": 73,
+  "backdrop_line": 80,
   "backdrop_width": 100.0,
   "backdrop_darken": 0.0,
-  "haze": 25,
+  "haze": 20,
   "sky": [
     22,
     24,

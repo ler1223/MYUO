@@ -32,53 +32,53 @@
     },
     "knight": {
       "sheet": "lineup_a.png",
-      "height": 547,
-      "ground": 932
+      "height": 513,
+      "ground": 828
     },
     "fighter": {
       "sheet": "lineup_a.png",
-      "height": 488,
-      "ground": 931
+      "height": 444,
+      "ground": 827
     },
     "spearman": {
       "sheet": "lineup_a.png",
-      "height": 736,
-      "ground": 931
+      "height": 608,
+      "ground": 827
     },
     "orc": {
       "sheet": "lineup_a.png",
-      "height": 549,
-      "ground": 934
+      "height": 501,
+      "ground": 828
     },
     "archer": {
       "sheet": "lineup_b.png",
-      "height": 463,
-      "ground": 940
+      "height": 457,
+      "ground": 771
     },
     "goblin": {
       "sheet": "lineup_b.png",
-      "height": 309,
-      "ground": 938
+      "height": 301,
+      "ground": 775
     },
     "mage": {
       "sheet": "lineup_b.png",
-      "height": 589,
-      "ground": 940
+      "height": 533,
+      "ground": 773
     },
     "witch": {
       "sheet": "lineup_b.png",
-      "height": 523,
-      "ground": 940
+      "height": 539,
+      "ground": 773
     },
     "cryomancer": {
       "sheet": "lineup_c.png",
-      "height": 811,
-      "ground": 972
+      "height": 567,
+      "ground": 756
     },
     "stormcaller": {
       "sheet": "lineup_c.png",
-      "height": 827,
-      "ground": 973
+      "height": 551,
+      "ground": 755
     }
   },
   "sheets": {
@@ -86,13 +86,13 @@
       "human_height": 435
     },
     "lineup_a.png": {
-      "human_height": 494
+      "human_height": 462
     },
     "lineup_b.png": {
-      "human_height": 512
+      "human_height": 496
     },
     "lineup_c.png": {
-      "human_height": 670
+      "human_height": 474
     }
   },
   "fallback": {

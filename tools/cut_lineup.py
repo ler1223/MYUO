@@ -160,7 +160,7 @@ def main(argv: list[str]) -> int:
         if unit_id == reference:
             human = box.height
         if unit_id.startswith("_"):            # эталон роста с образца: только мера, файл не нужен
-            print(f"{unit_id}: reference {box.height}px, not saved")
+            print(f"{unit_id}: {'reference' if unit_id == reference else 'skipped'} ({box.height}px), not saved")
             continue
         pygame.image.save(image, str(OUT / f"{unit_id}.png"))
         # Рост на листе: от низа (линия земли) до верха; масштаб общий для всего листа.

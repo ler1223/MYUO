@@ -401,12 +401,10 @@
     ],
     "frames": 1,
     "blend": "add",
-    "layer": "wrap",
-    "size": 160,
+    "layer": "front",
+    "size": 200,
     "anchor": "body",
-    "animate": "pulse",
-    "back": "shield_dome_back.png",
-    "front": "shield_dome_front.png"
+    "animate": "pulse"
   },
   "stun_stars": {
     "grid": [
@@ -441,6 +439,102 @@
     "blend": "add",
     "layer": "front",
     "size": 160,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "magic_circle": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "back",
+    "size": 230,
+    "anchor": "body",
+    "animate": "pulse"
+  },
+  "sand_burst": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 200,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "embers": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 120,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "snow_particles": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 120,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "rock_debris": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 110,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "leaves": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 90,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "petals": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 90,
+    "anchor": "body",
+    "animate": "grow"
+  },
+  "dust_puff": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 100,
     "anchor": "body",
     "animate": "grow"
   }

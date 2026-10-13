@@ -1,0 +1,39 @@
+{
+  "name": "Лавовое поле",
+  "horizon": -360.0,
+  "ground": 452.0,
+  "focal": 1200.0,
+  "human_height": 185.0,
+  "rows": [
+    150.0,
+    300.0,
+    450.0
+  ],
+  "columns": [
+    260.0,
+    137.0,
+    0.0
+  ],
+  "slant": 30.0,
+  "fly_height": 40.0,
+  "ground_texture": "lava.png",
+  "ground_tile": 180,
+  "ground_depth": 700.0,
+  "ground_darken": 0.0,
+  "backdrop": "desert.png",
+  "backdrop_line": 80.0,
+  "backdrop_width": 100.0,
+  "backdrop_darken": 35,
+  "haze": 20.0,
+  "sky": [
+    40,
+    20,
+    16
+  ],
+  "earth": [
+    42,
+    44,
+    46
+  ],
+  "objects": []
+}
