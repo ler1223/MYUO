@@ -22,11 +22,16 @@ from game.database import Database
 from game.events import DamageDealt, EffectApplied, EffectExpired, PassiveTriggered
 from game.stats import Stat
 from game.tactics import condition_to_dict
-from pygame_scene import SceneConfig
+from engine.scene import SCENES_DIR
 from tests.helpers import FIXTURE_DIR
 
 if pygame is not None:
     import demo_pygame as d
+    from engine.camera import MAX_ZOOM, Camera
+    from engine.render import View
+    from pygame_battle import FIELD_RECT
+    from pygame_scene_editor import FORM_TOP, FORM_X, LABEL_W, ROW_H
+    from pygame_stage import Motion
     from pygame_ui import UI, load_fonts
 
 X, TOP = 222, 44                      # левый край формы и верх под вкладками
@@ -51,6 +56,13 @@ class WindowTestCase(unittest.TestCase):
         self.data_dir = Path(self.tmp) / "data"
         shutil.copytree(FIXTURE_DIR, self.data_dir)
         self.save_path = Path(self.tmp) / "setup.json"
+        self.scenes_dir = Path(self.tmp) / "scenes"
+        shutil.copytree(SCENES_DIR, self.scenes_dir)
+        self.props_dir = Path(self.tmp) / "props"
+        self.props_dir.mkdir()
+        post = pygame.Surface((20, 60), pygame.SRCALPHA)       # декорация для страницы объектов
+        post.fill((150, 110, 70))
+        pygame.image.save(post, str(self.props_dir / "post.png"))
         self.ui = UI(pygame.display.set_mode((d.WIDTH, d.HEIGHT)), load_fonts())
         self.app = self.open_app()
         self.db = self.app.db
@@ -59,7 +71,7 @@ class WindowTestCase(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def open_app(self, lang=None):
-        return d.App(Database.load(self.data_dir), 1, self.save_path, lang, Path(self.tmp) / "scene.json")
+        return d.App(Database.load(self.data_dir), 1, self.save_path, lang, self.scenes_dir, self.props_dir)
 
     def tab(self, name):
         index = [n for n, _ in self.app.tabs].index(name)
@@ -538,27 +550,61 @@ class StageTests(WindowTestCase):
 
 
     def test_units_covering_the_attack_become_transparent(self):
-        from pygame_battle import FIELD_RECT
-        from pygame_fx import Camera
         stage = self.tab("Stage")
         stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))   # демо-отряды: юнитов больше
         self.frame()
-        cam = Camera(1.0, FIELD_RECT.topleft, FIELD_RECT.topleft, FIELD_RECT)
-        order = sorted(stage.stage, key=lambda uid: stage.stage[uid].feet[1])
-        rects = {uid: stage.sprite_rect(uid, 0, cam) for uid in order}
+        view = View(stage.scene.projection(), Camera(1.0, FIELD_RECT.topleft, FIELD_RECT.topleft, FIELD_RECT), 500)
+        far_first = sorted(stage.stage, key=lambda uid: -stage.stage[uid].z)
+        rects = {uid: stage.unit_rect(uid, view) for uid in far_first}
         # Дальний юнит и ближний, который его заметно перекрывает.
-        back, front = next((a, b) for i, a in enumerate(order) for b in order[i + 1:]
-                           if rects[b].inflate(-rects[b].width // 4, -rects[b].height // 8).colliderect(rects[a]))
+        back, front = next((a, b) for i, a in enumerate(far_first) for b in far_first[i + 1:]
+                           if stage.stage[b].z < stage.stage[a].z
+                           and rects[b].inflate(-rects[b].width // 4, -rects[b].height // 8).colliderect(rects[a]))
         stage.focus = (frozenset([back]), 0, 1000)
         stage._last_draw = 0
-        stage._update_alpha(order, 500, cam)
+        stage._update_alpha(far_first, view)
         self.assertLess(stage.alpha[front], 255)               # закрывающий стал прозрачным
         self.assertEqual(stage.alpha[back], 255)               # участник атаки — нет
-        stage._update_alpha(order, 5000, cam)                  # атака кончилась: снова непрозрачный
+        stage._update_alpha(far_first, View(view.projection, view.cam, 5000))   # атака кончилась
         self.assertEqual(stage.alpha[front], 255)
+
+    def test_camera_moves_in_on_the_attack_and_back(self):
+        from game.events import SkillUsed
+        stage = self.tab("Stage")
+        view = stage.battle_view
+        rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
+        target = next(u.uid for u in view.sim.units.values() if stage.facing(u.uid) != stage.facing(rider.uid))
+        used = SkillUsed(rider.uid, "attack", target)
+        view.timeline = [(1000, used)]
+        stage.spawn(view, used, 1000)
+        self.assertGreater(stage.camera_view.goal[0], 1.0)     # наезд на атакующего и цель
+        stage.camera_view.settle()
+        self.assertGreater(stage.camera_view.zoom, 1.0)
+        stage.camera_view.update(stage.camera_view.focus_until + 1)
+        self.assertEqual(stage.camera_view.goal[0], 1.0)       # после удара — снова обзор
+        stage.camera_view.auto = False
+        stage.spawn(view, used, 9000)
+        self.assertEqual(stage.camera_view.goal[0], 1.0)       # наезды выключены (клавиша C)
+
+    def test_motions_happen_in_the_world(self):
+        stage = self.tab("Stage")
+        uid = next(iter(stage.stage))
+        place = stage.stage[uid]
+        stage._move(uid, Motion(0, 100, 100, 100, dz=200))     # рывок вглубь
+        feet, _ = stage.world_at(uid, 150)
+        self.assertEqual(feet[2], place.z + 200)
+        view = View(stage.scene.projection(), Camera(), 150)
+        self.assertLess(view.p(feet)[2], view.p((place.x, 0, place.z))[2])   # вдали спрайт мельче
 
 
 class SceneEditorTests(WindowTestCase):
+    def saved(self, editor):
+        return json.loads((self.scenes_dir / f"{editor.scene_id}.json").read_text(encoding="utf-8"))
+
+    def page(self, name):
+        from pygame_scene_editor import PAGES
+        self.click(20, form_y(0) + PAGES.index(name) * 22 + 8)
+
     def test_dragging_a_cell_moves_its_column_and_row_and_saves(self):
         editor = self.tab("Scene")
         scene = editor.scene
@@ -576,56 +622,97 @@ class SceneEditorTests(WindowTestCase):
         moved = editor.handles()[(1, 0)]
         self.assertAlmostEqual(moved[0], target[0], delta=2)   # ручка пришла под курсор
         self.assertAlmostEqual(moved[1], target[1], delta=2)
-        saved = json.loads((Path(self.tmp) / "scene.json").read_text(encoding="utf-8"))
-        self.assertEqual(saved["columns"], scene.columns)
-        self.assertIs(self.app.tabs[[n for n, _ in self.app.tabs].index("Stage")][1].scene, scene)   # общая со Stage
+        self.assertEqual(self.saved(editor)["columns"], scene.columns)
+        self.assertIs(self.tab("Stage").scene, scene)          # общая со Stage
 
-    def test_form_changes_numbers_lines_and_background(self):
+    def test_grid_ground_and_backdrop_pages(self):
         editor = self.tab("Scene")
         scene = editor.scene
-        self.write(8 + 78 + 5, editor_form_y(0) + 5, "-500")   # поле «Горизонт»
+        self.write(FORM_X + LABEL_W + 5, form_y(0) + 5, "-500")   # «Горизонт»
         self.assertEqual(scene.horizon, -500)
         lines = len(scene.rows)
-        plus_x = 8 + 78 + lines * 56 + 5
-        self.click(plus_x, editor_form_y(1) + 5)               # + ряд
+        self.click(FORM_X + LABEL_W + lines * 56 + 5, form_y(1) + 5)   # + ряд
         self.assertEqual(len(scene.rows), lines + 1)
         self.assertEqual(scene.rows[-1] - scene.rows[-2], scene.rows[-2] - scene.rows[-3])   # шаг продолжен
-        self.pick(8 + 78 + 5, editor_form_y(2) + 5, "meadow")   # список фонов
-        self.assertEqual(scene.background, "meadow.png")
-        self.click(465, editor_form_y(2) + 5)                  # сброс
-        self.assertEqual(scene.horizon, SceneConfig().horizon)
+        self.page("Backdrop")
+        self.pick(FORM_X + LABEL_W + 5, form_y(0) + 5, "meadow")
+        self.assertEqual(scene.backdrop, "meadow.png")
+        self.page("Ground")
+        self.write(FORM_X + LABEL_W + 5, form_y(1) + 5, "300")   # «Плитка»
+        self.assertEqual(scene.ground_tile, 300)
+        self.assertEqual(self.saved(editor)["backdrop"], "meadow.png")
+
+    def test_scenes_page_creates_switches_renames_and_deletes(self):
+        editor = self.tab("Scene")
+        first = editor.scene_id
+        self.page("Scenes")
+        self.click(FORM_X + 5, form_y(1) + 5)                  # «Новая»
+        created = editor.scene_id
+        self.assertNotEqual(created, first)
+        self.assertIn(created, editor.store.ids())
+        self.assertEqual(self.app.scene_id, created)           # окно запомнило выбор
+        self.assertIs(self.tab("Stage").scene, editor.scene)
+        self.tab("Scene")
+        self.write(FORM_X + LABEL_W * 2 + 245, form_y(0) + 5, "Castle")   # название
+        self.assertEqual(self.saved(editor)["name"], "Castle")
+        self.click(FORM_X + 205, form_y(1) + 5)                # «Удалить»
+        self.assertNotIn(created, editor.store.ids())
+        self.assertEqual(editor.scene_id, first)
+
+    def test_objects_are_added_selected_dragged_and_sorted_by_depth(self):
+        editor = self.tab("Scene")
+        scene = editor.scene
+        self.page("Objects")
+        self.click(FORM_X + LABEL_W + 195, form_y(0) + 5)      # «Добавить»
+        self.assertEqual(len(scene.objects), 1)
+        obj = scene.objects[0]
+        self.assertEqual(obj.image, "post.png")
+        editor.selected = None
+        view = View(scene.projection(), Camera(1.0, FIELD_RECT.topleft, FIELD_RECT.topleft), 0)
+        grab = editor.stage.prop_rect(obj, view).center
+        editor.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN, button=1, pos=grab), grab)
+        self.assertEqual(editor.selected, 0)                   # выбран кликом
+        z_before = obj.z
+        to = (grab[0] + 60, grab[1] + 30)                      # правее и ближе
+        editor.handle_event(pygame.event.Event(pygame.MOUSEMOTION, pos=to, rel=(60, 30), buttons=(1, 0, 0)), to)
+        editor.handle_event(pygame.event.Event(pygame.MOUSEBUTTONUP, button=1, pos=to), to)
+        self.assertGreater(obj.x, 0)
+        self.assertLess(obj.z, z_before)
+        self.assertEqual(self.saved(editor)["objects"][0]["x"], obj.x)
+        self.assertEqual([p.depth for p in editor.stage.prop_parts(view)], [obj.z])   # сортируется по глубине
+        self.click(FORM_X + 95, form_y(2) + 5)                 # стоит -> лежит на земле
+        self.assertEqual(obj.layer, "ground")
+        self.assertEqual(editor.stage.prop_parts(view), [])    # лежащие рисуются в заднике
+        self.click(FORM_X + 329, form_y(2) + 5)                # «Удалить»
+        self.assertEqual(scene.objects, [])
 
 
-def editor_form_y(line):
-    from pygame_scene_editor import FORM_TOP, ROW_H
+def form_y(line):
     return FORM_TOP + line * ROW_H
 
 
 class ZoomAndWindowTests(WindowTestCase):
     def test_zoom_keeps_point_under_cursor_pan_and_reset(self):
-        from pygame_battle import FIELD_RECT, MAX_ZOOM
-        arena = self.tab("Stage")
-        under = lambda pos: (arena.origin[0] + (pos[0] - FIELD_RECT.left) / arena.zoom,
-                             arena.origin[1] + (pos[1] - FIELD_RECT.top) / arena.zoom)
+        stage = self.tab("Stage")
+        cam = stage.camera_view
+        under = lambda pos: (cam.origin[0] + (pos[0] - FIELD_RECT.left) / cam.zoom,
+                             cam.origin[1] + (pos[1] - FIELD_RECT.top) / cam.zoom)
         cursor = (300, 250)
         before = under(cursor)
-        arena.zoom_at(cursor, 4)                              # x2
-        self.assertEqual(arena.zoom, 2.0)
-        self.assertAlmostEqual(under(cursor)[0], before[0])   # точка под курсором не уехала
+        cam.zoom_at(cursor, 4)                                 # x2
+        self.assertEqual(cam.zoom, 2.0)
+        self.assertTrue(cam.manual)                            # игрок выбрал зум: наезды не мешают
+        self.assertAlmostEqual(under(cursor)[0], before[0])    # точка под курсором не уехала
         self.assertAlmostEqual(under(cursor)[1], before[1])
-        arena.pan(-10_000, -10_000)                           # дальше края поля не утащить
-        vw, vh = arena.view_size()
-        self.assertEqual(arena.origin, (FIELD_RECT.right - vw, FIELD_RECT.bottom - vh))
-        arena.zoom_at(cursor, 100)
-        self.assertEqual(arena.zoom, MAX_ZOOM)
-        arena.zoom_at((500, 600), 1)                          # колесо над логом поле не трогает
-        self.assertEqual(arena.zoom, MAX_ZOOM)
-        arena.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_HOME, unicode=""), (0, 0))
-        self.assertEqual((arena.zoom, arena.origin), (1.0, FIELD_RECT.topleft))
-        drag = pygame.event.Event(pygame.MOUSEMOTION, rel=(50, 0), buttons=(1, 0, 0))
-        arena.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN, button=1, pos=cursor), cursor)
-        arena.handle_event(drag, cursor)
-        self.assertEqual(arena.origin, FIELD_RECT.topleft)    # без зума перетаскивать нечего
+        cam.pan(-10_000, -10_000)                              # дальше края поля не утащить
+        vw, vh = cam.view_size()
+        self.assertEqual(cam.origin, (FIELD_RECT.right - vw, FIELD_RECT.bottom - vh))
+        cam.zoom_at(cursor, 100)
+        self.assertEqual(cam.zoom, MAX_ZOOM)
+        cam.zoom_at((500, 600), 1)                             # колесо над логом поле не трогает
+        self.assertEqual(cam.zoom, MAX_ZOOM)
+        stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_HOME, unicode=""), (0, 0))
+        self.assertEqual((cam.zoom, cam.origin, cam.manual), (1.0, FIELD_RECT.topleft, False))
 
     def test_large_window_maps_mouse_and_draws_the_field(self):
         window = d.Window((1600, 992))
@@ -635,15 +722,17 @@ class ZoomAndWindowTests(WindowTestCase):
         self.assertEqual(click.pos, (100, 100))
         self.ui = UI(window.canvas, load_fonts())
         self.ui.transform = window.to_logical
-        arena = self.tab("Stage")
-        arena.zoom_at((300, 250), 4)
+        stage = self.tab("Stage")
+        stage.camera_view.zoom_at((300, 250), 4)
         self.app.battle_view().consume(self.app.battle_view().sim.step(), 1000)
         self.ui.begin([])
         d.draw_frame(self.ui, self.app, False, 1300, window)
-        self.assertTrue(arena.native)
-        cam = arena.camera(window.scale, window.offset)
-        self.assertAlmostEqual(cam.scale, 3.2)                # окно 1.6 x зум 2
+        self.assertTrue(stage.native)
+        self.assertAlmostEqual(stage.camera(window.scale, window.offset).scale, 3.2)   # окно 1.6 x зум 2
         self.assertEqual(window.surface.get_size(), (1600, 992))
+        self.tab("Scene")                                      # редактор тоже рисует поле в окно
+        self.ui.begin([])
+        d.draw_frame(self.ui, self.app, False, 1400, window)
 
 
 if __name__ == "__main__":

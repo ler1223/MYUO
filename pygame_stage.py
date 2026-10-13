@@ -1,13 +1,13 @@
-"""Вкладка Stage: бой статичными спрайтами юнитов, как в Unicorn Overlord.
+"""Вкладка Stage: бой статичными спрайтами юнитов в сцене 2.5D, как в Unicorn Overlord.
 
-Юниты не анимируются покадрово: живость дают движения спрайта (рывок с послеобразами,
-прыжок, отскок, наклон, отбрасывание, подъём в воздух, свечение) и эффекты. Что делает
-каждый навык, задаётся данными в assets/visuals/skills.json: шаги в момент применения
-(cast) и на каждое попадание (hit). Навыки без описания берут общий визуал по виду.
+Юниты стоят в трёхмерной сцене (engine.scene) и не анимируются покадрово: живость дают
+движения в мире (рывок с послеобразами, прыжок, отскок, наклон, отбрасывание, подъём,
+свечение) и трёхмерные эффекты (engine.fx). Рывок вглубь уменьшает спрайт, к зрителю —
+увеличивает. Камера наезжает на атакующего и цели (engine.camera).
 
-Юниты стоят в трёхмерной сцене (pygame_scene.SceneConfig): клетка формации -> мировая
-точка -> экран с перспективой. Спрайты: assets/units/<id>.png, нарезанные
-tools/cut_lineup.py с одного листа, поэтому их размеры согласованы.
+Что делает каждый навык, задаётся данными в assets/visuals/skills.json: шаги в момент
+применения (cast) и на каждое попадание (hit). Навыки без описания берут общий визуал по виду.
+Спрайты: assets/units/<id>.png, нарезанные tools/cut_lineup.py с одного листа.
 """
 from __future__ import annotations
 
@@ -20,6 +20,33 @@ from typing import Any, Callable, Optional
 
 import pygame
 
+from engine.backdrop import Backdrop
+from engine.camera import FOCUS_ZOOM, Camera
+from engine.fx import (
+    ELEMENT_COLORS,
+    SKY_HEIGHT,
+    ArrowRain,
+    Beam,
+    Bolt,
+    Dome,
+    Flash,
+    FloatText,
+    Glint,
+    Pillar,
+    Projectile,
+    Ring,
+    RuneCircle,
+    Slash,
+    Thrust,
+    WeaponStrike,
+    WrapRing,
+    add_glow,
+    ease_out,
+    fx_font,
+)
+from engine.projection import World
+from engine.render import GROUND, OVERLAY, UPRIGHT, Part, View, draw_parts
+from engine.scene import PROPS_DIR, SceneConfig, SceneObject
 from game.events import (
     AttackMissed,
     Covered,
@@ -35,29 +62,7 @@ from game.events import (
 from game.save import clone_scenario
 from game.scenario import build_showcase
 from game.unit import Unit
-from pygame_battle import FIELD_RECT, FIELD_TOP, BattleScreen, skill_visual, weapon_kind
-from pygame_fx import (
-    ELEMENT_COLORS,
-    ArrowRain,
-    Beam,
-    Bolt,
-    Camera,
-    Dome,
-    Flash,
-    FloatText,
-    Glint,
-    Pillar,
-    Projectile,
-    Ring,
-    RuneCircle,
-    Slash,
-    Thrust,
-    WeaponStrike,
-    add_glow,
-    ease_out,
-    fx_font,
-)
-from pygame_scene import BACKGROUND_DIR, SceneConfig
+from pygame_battle import FIELD_RECT, BattleScreen, skill_visual, weapon_kind
 from pygame_ui import GREEN, RED
 
 ROOT = Path(__file__).resolve().parent
@@ -65,7 +70,7 @@ UNITS_DIR = ROOT / "assets" / "units"
 VISUALS_PATH = ROOT / "assets" / "visuals" / "skills.json"
 
 FOCUS_MS = 700             # сколько после удара участники атаки остаются в фокусе
-SEE_THROUGH = 70           # непрозрачность юнита, закрывающего участника атаки (из 255)
+SEE_THROUGH = 70           # непрозрачность того, кто закрывает участника атаки (из 255)
 FADE_MS = 120              # скорость перехода прозрачности
 DEFAULT_WINDUP = 380
 DEATH_MS = 800
@@ -82,10 +87,10 @@ CURRENT_RING = (230, 200, 80)
 
 @dataclass
 class Motion:
-    """Сдвиг спрайта: туда (go мс), держится (hold), обратно (back).
+    """Сдвиг юнита в мире: туда (go мс), держится (hold), обратно (back).
 
-    dx, dy: смещение в логических пикселях; lift: высота дуги прыжка; angle: наклон в градусах.
-    trail: рисовать послеобразы, пока спрайт движется.
+    dx, dz: сдвиг по полю и вглубь; dy: подъём (держится); lift: высота дуги прыжка;
+    angle: наклон в градусах. trail: рисовать послеобразы, пока юнит движется.
     """
 
     start: int
@@ -93,6 +98,7 @@ class Motion:
     hold: int
     back: int
     dx: float = 0.0
+    dz: float = 0.0
     dy: float = 0.0
     lift: float = 0.0
     angle: float = 0.0
@@ -103,7 +109,7 @@ class Motion:
         return self.start + self.go + self.hold + self.back
 
     def at(self, now: int) -> Optional[tuple[float, float, float, float]]:
-        """(dx, dy, высота над землёй, угол) в момент now; None вне движения."""
+        """(dx, высота, dz, угол) в момент now; None вне движения."""
         t = now - self.start
         total = self.go + self.hold + self.back
         if t < 0 or t > total:
@@ -115,7 +121,7 @@ class Motion:
         else:
             u = (t - self.go - self.hold) / max(1, self.back)
             k = 1 - u * u * (3 - 2 * u)
-        return self.dx * k, self.dy * k, self.lift * math.sin(math.pi * t / max(1, total)), self.angle * k
+        return self.dx * k, self.dy * k + self.lift * math.sin(math.pi * t / max(1, total)), self.dz * k, self.angle * k
 
     def moving(self, now: int) -> bool:
         t = now - self.start
@@ -135,17 +141,61 @@ class Tint:
         return math.sin(math.pi * t) if 0 <= t <= 1 else 0.0
 
 
-# --- спрайты ------------------------------------------------------------------
+# --- картинки -----------------------------------------------------------------
 
-class SpriteBank:
+class ImageBank:
+    """Картинки папки и их масштабированные копии (с белым силуэтом для вспышки), с кэшем."""
+
+    def __init__(self, folder: Path):
+        self.folder = Path(folder)
+        self._images: dict[str, Optional[pygame.Surface]] = {}
+        self._scaled: OrderedDict = OrderedDict()
+
+    def image(self, name: str) -> Optional[pygame.Surface]:
+        if name not in self._images:
+            path = self.folder / name
+            image = None
+            if name and path.is_file():
+                image = pygame.image.load(str(path))
+                if pygame.display.get_surface() is not None:
+                    image = image.convert_alpha()
+            self._images[name] = image
+        return self._images[name]
+
+    def scaled(self, name: str, px_height: int, flip: bool, fallback: Callable[[], pygame.Surface]):
+        """(картинка, белый силуэт) нужной высоты в пикселях окна."""
+        key = (name, px_height, flip)
+        if key in self._scaled:
+            self._scaled.move_to_end(key)
+            return self._scaled[key]
+        image = self.image(name) or fallback()
+        k = px_height / image.get_height()
+        sprite = pygame.transform.smoothscale(image, (max(1, round(image.get_width() * k)), max(1, px_height)))
+        if flip:
+            sprite = pygame.transform.flip(sprite, True, False)
+        white = sprite.copy()
+        white.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
+        self._scaled[key] = (sprite, white)
+        if len(self._scaled) > SPRITE_CACHE:
+            self._scaled.popitem(last=False)
+        return sprite, white
+
+
+def placeholder() -> pygame.Surface:
+    """Силуэт для картинки, которой нет: голова и плащ."""
+    s = pygame.Surface((60, 150), pygame.SRCALPHA)
+    pygame.draw.ellipse(s, (150, 150, 165), (10, 30, 40, 120))
+    pygame.draw.circle(s, (190, 180, 170), (30, 20), 16)
+    return s
+
+
+class SpriteBank(ImageBank):
     """Спрайты классов, их рост относительно человека и опорные точки (assets/units/units.json)."""
 
     def __init__(self, folder: Path = UNITS_DIR):
-        self.folder = folder
-        path = folder / "units.json"
+        super().__init__(folder)
+        path = self.folder / "units.json"
         self.config: dict[str, Any] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-        self._images: dict[Optional[str], Optional[pygame.Surface]] = {}
-        self._scaled: OrderedDict = OrderedDict()
 
     @property
     def sprites(self) -> dict[str, dict[str, Any]]:
@@ -178,43 +228,8 @@ class SpriteBank:
         """Своя опорная точка спрайта (head, body) в долях его высоты от ног, если задана."""
         return self.sprites.get(sprite_id or "", {}).get("anchors", {}).get(on)
 
-    def image(self, sprite_id: Optional[str]) -> pygame.Surface:
-        if sprite_id not in self._images:
-            path = self.folder / f"{sprite_id}.png"
-            image = None
-            if sprite_id and path.exists():
-                image = pygame.image.load(str(path))
-                if pygame.display.get_surface() is not None:
-                    image = image.convert_alpha()
-            self._images[sprite_id] = image
-        return self._images[sprite_id] or self._placeholder()
-
-    def _placeholder(self) -> pygame.Surface:
-        """Силуэт для класса без картинки: голова и плащ."""
-        if self._images.get("") is None:
-            s = pygame.Surface((60, 150), pygame.SRCALPHA)
-            pygame.draw.ellipse(s, (150, 150, 165), (10, 30, 40, 120))
-            pygame.draw.circle(s, (190, 180, 170), (30, 20), 16)
-            self._images[""] = s
-        return self._images[""]
-
-    def scaled(self, sprite_id: Optional[str], px_height: int, flip: bool) -> tuple[pygame.Surface, pygame.Surface]:
-        """(спрайт, белый силуэт) нужной высоты в пикселях окна; повёрнут к противнику."""
-        key = (sprite_id, px_height, flip)
-        if key in self._scaled:
-            self._scaled.move_to_end(key)
-            return self._scaled[key]
-        image = self.image(sprite_id)
-        k = px_height / image.get_height()
-        sprite = pygame.transform.smoothscale(image, (max(1, round(image.get_width() * k)), max(1, px_height)))
-        if flip:
-            sprite = pygame.transform.flip(sprite, True, False)
-        white = sprite.copy()
-        white.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
-        self._scaled[key] = (sprite, white)
-        if len(self._scaled) > SPRITE_CACHE:
-            self._scaled.popitem(last=False)
-        return sprite, white
+    def unit_sprite(self, sprite_id: Optional[str], px_height: int, flip: bool):
+        return self.scaled(f"{sprite_id}.png" if sprite_id else "", px_height, flip, placeholder)
 
 
 def load_visuals(path: Path = VISUALS_PATH) -> dict[str, Any]:
@@ -223,18 +238,17 @@ def load_visuals(path: Path = VISUALS_PATH) -> dict[str, Any]:
 
 @dataclass
 class Place:
-    """Где стоит юнит: мировая точка, ноги на экране, масштаб глубины, сторона, спрайт и его рост."""
+    """Где стоит юнит: мировая точка на земле, сторона, спрайт и его рост в единицах мира."""
 
-    world: tuple[float, float]       # (x, z) в сцене
-    feet: tuple[float, float]        # логические пиксели поля
-    scale: float
+    x: float
+    z: float
     side: str
     sprite: Optional[str]
-    height: float                    # высота спрайта, логические пиксели
-    human: float                     # рост человека на этой глубине
+    height: float                    # высота спрайта
+    human: float                     # рост человека
     head: Optional[float] = None     # свои опорные точки спрайта, доли высоты
     body: Optional[float] = None
-    flying: bool = False
+    hover: float = 0.0               # высота парения летающих
 
     @property
     def facing(self) -> int:
@@ -244,15 +258,16 @@ class Place:
     def tall(self) -> bool:
         return self.height > self.human * TALL
 
-    def anchor(self, on: str) -> tuple[float, float]:
-        x, y = self.feet
+    def anchor(self, on: str) -> World:
         if on == "feet":
-            return x, y
+            return self.x, 0.0, self.z
         if on == "sky":
-            return x, FIELD_TOP - 20
+            return self.x, SKY_HEIGHT, self.z
         if on == "head":
-            return x, y - (self.height * self.head if self.head else self.human * 0.9)
-        return x, y - (self.height * self.body if self.body else self.human * 0.5)
+            y = self.height * self.head if self.head else self.human * 0.9
+        else:
+            y = self.height * self.body if self.body else self.human * 0.5
+        return self.x, y + self.hover, self.z
 
 
 Context = dict[str, Any]
@@ -261,10 +276,12 @@ Context = dict[str, Any]
 class StageScreen(BattleScreen):
     """Вкладка боя спрайтами. Свой бой: тестовые отряды (или расстановка игрока, клавиша T)."""
 
-    def __init__(self, scene: Optional[SceneConfig] = None):
+    def __init__(self, scene: Optional[SceneConfig] = None, props_dir: Optional[Path] = None):
         super().__init__()
-        self.scene = scene or SceneConfig.load()
+        self.scene = scene or SceneConfig()
         self.bank = SpriteBank()
+        self.props = ImageBank(props_dir or PROPS_DIR)
+        self.backdrop = Backdrop(FIELD_RECT, props_dir)
         self.skill_visuals = load_visuals()
         self.battle_view: Any = None        # свой BattleView; его создаёт окно
         self.use_test = True                # тестовые отряды пяти классов, иначе расстановка игрока
@@ -273,16 +290,14 @@ class StageScreen(BattleScreen):
         self.tints: dict[int, list[Tint]] = {}
         self.deaths: dict[int, int] = {}
         self.focus: tuple[frozenset, int, int] = (frozenset(), 0, 0)   # участники атаки, с, по
-        self.alpha: dict[int, float] = {}   # текущая непрозрачность спрайта
+        self.alpha: dict[Any, float] = {}   # непрозрачность юнита (uid) или объекта (("prop", i))
         self._last_draw = 0
-        self._background: tuple[Any, Optional[pygame.Surface]] = (None, None)
-        self._background_images: dict[str, Optional[pygame.Surface]] = {}
         # Шаги визуала навыков: имя -> обработчик (шаг, момент, юнит, контекст).
         self.steps: dict[str, Callable[[dict, int, int, Context], None]] = {
             "dash": self._dash, "hop": self._hop, "lunge": self._hop, "jump": self._jump, "rise": self._rise,
             "tilt": self._tilt, "knockback": self._knockback, "glow": self._glow,
             "projectile": self._projectile, "slash": self._slash, "thrust": self._thrust, "ring": self._ring,
-            "beam": self._beam, "bolt": self._bolt, "burst": self._burst, "sparkle": self._sparkle,
+            "wrap": self._wrap, "beam": self._beam, "bolt": self._bolt, "burst": self._burst, "sparkle": self._sparkle,
             "flash": self._flash, "shake": self._shake, "runes": self._runes, "pillars": self._pillars,
             "arrow_rain": self._arrow_rain, "glint": self._glint, "dome": self._dome, "weapon": self._weapon,
             "impact": self._impact,
@@ -312,7 +327,8 @@ class StageScreen(BattleScreen):
         return visuals.get("_defaults", {}).get(skill_visual(skill, unit)[0], {})
 
     def status_note(self) -> str:
-        return "   " + self.t("test squads (T)" if self.use_test else "your squads (T)")
+        note = "   " + self.t("test squads (T)" if self.use_test else "your squads (T)")
+        return note + "   " + self.t("camera (C): {state}", state=self.t("on") if self.camera_view.auto else self.t("off"))
 
     def handle_event(self, event: pygame.event.Event, pos: tuple[float, float], window_scale: float = 1.0) -> None:
         super().handle_event(event, pos, window_scale)
@@ -323,14 +339,13 @@ class StageScreen(BattleScreen):
     # --- раскладка ---
 
     def place_for(self, unit: Unit, side: str, row: int, col: int, cols: int) -> Place:
-        """Юнит в клетке формации -> место на поле по сцене."""
+        """Юнит в клетке формации -> место в мире по сцене."""
         scene = self.scene
         x, z = scene.cell(side, row, col, cols)
-        sx, sy, k = scene.project(x, z)
         sprite = self.bank.sprite_id(unit)
-        human = scene.human_height * k
-        return Place((x, z), (sx, sy), k, side, sprite, human * self.bank.ratio(sprite), human,
-                     self.bank.anchor(sprite, "head"), self.bank.anchor(sprite, "body"), FLYING_TAG in unit.tags)
+        human = scene.human_height
+        return Place(x, z, side, sprite, human * self.bank.ratio(sprite), human, self.bank.anchor(sprite, "head"),
+                     self.bank.anchor(sprite, "body"), scene.fly_height if FLYING_TAG in unit.tags else 0.0)
 
     def layout(self, sim: Any) -> None:
         self.stage = {}
@@ -340,13 +355,17 @@ class StageScreen(BattleScreen):
                 row, col = formation.position_of(unit.uid)
                 self.stage[unit.uid] = self.place_for(unit, side, row, col, formation.cols)
 
-    def point(self, uid: int, on: str = "body") -> tuple[float, float]:
+    def point(self, uid: int, on: str = "body") -> World:
         place = self.stage.get(uid)
         return place.anchor(on) if place else super().point(uid, on)
 
     def facing(self, uid: int) -> int:
         place = self.stage.get(uid)
         return place.facing if place else 1
+
+    def screen_point(self, x: float, y: float) -> World:
+        ground = self.scene.projection().unproject(x, y)
+        return (ground[0], 0.0, ground[1]) if ground else (0.0, 0.0, 0.0)
 
     def reset(self) -> None:
         super().reset()
@@ -355,6 +374,7 @@ class StageScreen(BattleScreen):
         self.deaths.clear()
         self.alpha.clear()
         self.focus = (frozenset(), 0, 0)
+        self.camera_view.focus_until = 0
 
     # --- события -> движения и эффекты ---
 
@@ -367,13 +387,13 @@ class StageScreen(BattleScreen):
             visual = skill_visual(skill, unit)
             self.visuals[ev.user] = visual
             if ev.user in stage:
-                head = stage[ev.user].anchor("head")
-                self.fx.add(FloatText(when, 900, (head[0], head[1] - 14), self.t(skill.name) if skill else ev.skill_id,
+                self.fx.add(FloatText(when, 900, stage[ev.user].anchor("head"), self.t(skill.name) if skill else ev.skill_id,
                                       (255, 236, 170), 14, 18, False))
             spec = self.spec(unit, ev.skill_id)
             context = self._context(ev.user, ev.target, self._targets_of(view, ev))
-            windup = int(spec.get("windup", DEFAULT_WINDUP))
-            self.focus = (frozenset([ev.user, *context["targets"]]), when, when + windup + FOCUS_MS)
+            until = when + int(spec.get("windup", DEFAULT_WINDUP)) + FOCUS_MS
+            self.focus = (frozenset([ev.user, *context["targets"]]), when, until)
+            self._focus_camera(self.focus[0], until)
             self.run(spec.get("cast", []), when, context, "self")
         elif isinstance(ev, DamageDealt) and not self.is_periodic(ev, view.db):
             self.run(self.spec(units.get(ev.source), ev.cause).get("hit", []), when,
@@ -388,26 +408,39 @@ class StageScreen(BattleScreen):
         elif isinstance(ev, UnitDied):
             self.deaths[ev.unit] = when
 
+    def _focus_camera(self, members, until: int) -> None:
+        """Камера наезжает на участников: прямоугольник их ног и голов на экране."""
+        projection = self.scene.projection()
+        points = []
+        for uid in members:
+            place = self.stage.get(uid)
+            if place is None:
+                continue
+            for y in (0.0, place.height + place.hover):
+                lx, ly, _ = projection.project(place.x, y, place.z)
+                points.append((lx, ly))
+        if points:
+            xs, ys = [p[0] for p in points], [p[1] for p in points]
+            box = pygame.Rect(min(xs), min(ys), max(1, max(xs) - min(xs)), max(1, max(ys) - min(ys)))
+            self.camera_view.focus(box.inflate(80, 40), until)
+
     def _context(self, source: int, target: int, targets: list[int]) -> Context:
         visual = self.visuals.get(source, ("melee", None, "slashing"))
         return {"self": source, "source": source, "target": target, "targets": targets,
                 "element": visual[1], "visual": visual}
 
     def _cover(self, ev: Covered, when: int) -> None:
-        """Прикрытие: защитник прыжком встаёт перед союзником, перед ним купол щита."""
+        """Прикрытие: защитник прыжком встаёт перед союзником, вокруг них купол щита."""
         stage = self.stage
         if ev.protector not in stage or ev.target not in stage:
             return
         guard, ward = stage[ev.protector], stage[ev.target]
-        f = ward.facing
         members, start, end = self.focus
         self.focus = (members | {ev.protector, ev.target}, min(start, when) if members else when, max(end, when + 1050))
-        dx = ward.feet[0] + f * 40 * ward.scale - guard.feet[0]
-        dy = ward.feet[1] + 4 - guard.feet[1]
-        self._move(ev.protector, Motion(when, 200, 500, 350, dx=dx, dy=dy, lift=24, trail=True))
-        front = (ward.feet[0] + f * 60 * ward.scale, ward.anchor("body")[1])
-        self.fx.add(Dome(when + 150, 700, front, ELEMENT_COLORS["guard"], 56 * ward.scale))
-        self.fx.add(FloatText(when, 900, (front[0], front[1] - 70), self.t("cover").upper(), ELEMENT_COLORS["guard"], 20, 20))
+        front_x = ward.x + ward.facing * 40
+        self._move(ev.protector, Motion(when, 200, 500, 350, dx=front_x - guard.x, dz=ward.z - 4 - guard.z, lift=24, trail=True))
+        self.fx.add(Dome(when + 150, 700, (front_x, 0.0, ward.z - 4), ELEMENT_COLORS["guard"], ward.human * 0.45))
+        self.fx.add(FloatText(when, 900, ward.anchor("head"), self.t("cover").upper(), ELEMENT_COLORS["guard"], 20, 20))
 
     @staticmethod
     def _targets_of(view: Any, ev: SkillUsed) -> list[int]:
@@ -436,7 +469,7 @@ class StageScreen(BattleScreen):
                 if uid in self.stage:
                     handler(step, base + int(step.get("at", 0)), uid, context)
 
-    # --- шаги: движения ---
+    # --- шаги: движения (единицы мира) ---
 
     def _move(self, uid: int, motion: Motion) -> None:
         self.motions.setdefault(uid, []).append(motion)
@@ -449,7 +482,8 @@ class StageScreen(BattleScreen):
             return ELEMENT_COLORS.get(color, (255, 255, 255))
         return tuple(color)
 
-    def _ms(self, step: dict, default: int = 400) -> int:
+    @staticmethod
+    def _ms(step: dict, default: int = 400) -> int:
         return int(step.get("ms", default))
 
     def _dash(self, step: dict, at: int, uid: int, context: Context) -> None:
@@ -457,29 +491,26 @@ class StageScreen(BattleScreen):
         place, target = self.stage[uid], self.stage.get(context["target"], self.stage[uid])
         if uid == context["target"]:
             return
-        gap = step.get("gap", 64) * target.scale
-        dx = target.feet[0] + target.facing * gap - place.feet[0]
-        dy = target.feet[1] - place.feet[1]
+        front_x = target.x + target.facing * step.get("gap", 64)
         self._move(uid, Motion(at, self._ms(step), int(step.get("hold", 150)), int(step.get("back", 350)),
-                               dx=dx, dy=dy, trail=step.get("trail", False)))
+                               dx=front_x - place.x, dz=target.z - place.z, trail=step.get("trail", False)))
 
     def _hop(self, step: dict, at: int, uid: int, context: Context) -> None:
         """hop — шаг назад и обратно, lunge — вперёд."""
         place, ms = self.stage[uid], self._ms(step)
         sign = -1 if step.get("do") == "hop" else 1
         go = int(ms * 0.4)
-        self._move(uid, Motion(at, go, int(step.get("hold", ms * 0.2)), ms - go,
-                               dx=sign * place.facing * step.get("dist", 14) * place.scale))
+        self._move(uid, Motion(at, go, int(step.get("hold", ms * 0.2)), ms - go, dx=sign * place.facing * step.get("dist", 14)))
 
     def _jump(self, step: dict, at: int, uid: int, context: Context) -> None:
         ms = self._ms(step)
-        self._move(uid, Motion(at, ms // 2, 0, ms - ms // 2, lift=step.get("height", 24) * self.stage[uid].scale))
+        self._move(uid, Motion(at, ms // 2, 0, ms - ms // 2, lift=step.get("height", 24)))
 
     def _rise(self, step: dict, at: int, uid: int, context: Context) -> None:
         """Подъём в воздух, зависание и спуск."""
         ms = self._ms(step)
         go, hold = int(ms * 0.3), int(ms * 0.4)
-        self._move(uid, Motion(at, go, hold, ms - go - hold, dy=-step.get("height", 16) * self.stage[uid].scale))
+        self._move(uid, Motion(at, go, hold, ms - go - hold, dy=step.get("height", 16)))
 
     def _tilt(self, step: dict, at: int, uid: int, context: Context) -> None:
         ms = self._ms(step)
@@ -488,15 +519,14 @@ class StageScreen(BattleScreen):
 
     def _knockback(self, step: dict, at: int, uid: int, context: Context) -> None:
         """Отброс назад, к своему краю поля."""
-        place = self.stage[uid]
-        self._move(uid, Motion(at, 90, 70, 320, dx=-place.facing * step.get("dist", 14) * place.scale))
+        self._move(uid, Motion(at, 90, 70, 320, dx=-self.stage[uid].facing * step.get("dist", 14)))
 
     def _glow(self, step: dict, at: int, uid: int, context: Context) -> None:
         self.tints.setdefault(uid, []).append(Tint(at, self._ms(step), self._color(step, context)))
 
-    # --- шаги: эффекты ---
+    # --- шаги: эффекты (единицы мира) ---
 
-    def _pos(self, step: dict, uid: int) -> tuple[float, float]:
+    def _pos(self, step: dict, uid: int) -> World:
         return self.stage[uid].anchor(step.get("on", "body"))
 
     def _source(self, uid: int, context: Context) -> Place:
@@ -505,35 +535,40 @@ class StageScreen(BattleScreen):
     def _projectile(self, step: dict, at: int, uid: int, context: Context) -> None:
         source = self._source(uid, context)
         target = self.stage.get(context["target"], self.stage[uid])
-        start = source.anchor("body")
-        start = (start[0] + 22 * source.facing * source.scale, start[1] - 6)
-        end = (start[0] + 50 * source.facing, FIELD_TOP - 30) if step.get("to") == "sky" else target.anchor("body")
+        sx, sy, sz = source.anchor("body")
+        start = (sx + 22 * source.facing, sy + 6, sz)
+        end = (start[0] + 50 * source.facing, SKY_HEIGHT * 0.5, sz) if step.get("to") == "sky" else target.anchor("body")
         size = 0.6 if step.get("small") else 1.7 if step.get("big") else 1.0
         self.fx.add(Projectile(at, self._ms(step), start, end, step.get("kind", "orb"), self._color(step, context),
-                               step.get("arc", 0) * source.scale, size))
+                               step.get("arc", 0), size))
 
     def _slash(self, step: dict, at: int, uid: int, context: Context) -> None:
         self.fx.add(Slash(at, self._ms(step, 320), self._pos(step, uid), self._color(step, context),
-                          step.get("radius", 48) * self.stage[uid].scale, self._source(uid, context).facing))
+                          step.get("radius", 48), self._source(uid, context).facing))
 
     def _thrust(self, step: dict, at: int, uid: int, context: Context) -> None:
         self.fx.add(Thrust(at, self._ms(step, 280), self._pos(step, uid), self._color(step, context),
                            self._source(uid, context).facing))
 
     def _ring(self, step: dict, at: int, uid: int, context: Context) -> None:
-        k = self.stage[uid].scale
-        self.fx.add(Ring(at, self._ms(step), self._pos(step, uid), self._color(step, context), step.get("from", 10) * k,
-                         step.get("to", 60) * k, int(step.get("thickness", 4)), 0.35 if step.get("on") == "feet" else 0.6))
+        """На земле (on: feet) — под юнитом; на высоте — обвивает юнита."""
+        self.fx.add(Ring(at, self._ms(step), self._pos(step, uid), self._color(step, context), step.get("from", 10),
+                         step.get("to", 60), step.get("thickness", 4)))
+
+    def _wrap(self, step: dict, at: int, uid: int, context: Context) -> None:
+        """Кольца поднимаются вокруг юнита, обвивая его спереди и сзади."""
+        place = self.stage[uid]
+        self.fx.add(WrapRing(at, self._ms(step, 800), place.anchor("feet"), self._color(step, context, "heal"),
+                             step.get("radius", place.human * 0.25), step.get("height", place.height * 0.9),
+                             int(step.get("rings", 3))))
 
     def _beam(self, step: dict, at: int, uid: int, context: Context) -> None:
-        place = self.stage[uid]
-        self.fx.add(Beam(at, self._ms(step), place.anchor("feet"), self._color(step, context),
-                         int(step.get("thickness", 34) * place.scale)))
+        self.fx.add(Beam(at, self._ms(step), self.stage[uid].anchor("feet"), self._color(step, context),
+                         step.get("thickness", 34)))
 
     def _bolt(self, step: dict, at: int, uid: int, context: Context) -> None:
-        pos = self._pos(step, uid)
-        self.fx.add(Bolt(at, self._ms(step, 300), (pos[0] + 20 * self._source(uid, context).facing, FIELD_TOP - 10), pos,
-                         self._color(step, context), seed=at))
+        self.fx.add(Bolt(at, self._ms(step, 300), self._pos(step, uid), self._color(step, context), seed=at,
+                         lean=20 * self._source(uid, context).facing))
 
     def _burst(self, step: dict, at: int, uid: int, context: Context) -> None:
         self.fx.burst(at, self._pos(step, uid), self._color(step, context), int(step.get("count", 18)),
@@ -541,11 +576,10 @@ class StageScreen(BattleScreen):
                       step.get("gravity", 0.05), step.get("shape", "glow"), step.get("up", 0.0))
 
     def _sparkle(self, step: dict, at: int, uid: int, context: Context) -> None:
-        """Искры поднимаются от тела."""
+        """Искры поднимаются вокруг юнита."""
         place = self.stage[uid]
-        rect = pygame.Rect(0, 0, int(place.human * 0.35), int(place.human))
-        rect.midbottom = (int(place.feet[0]), int(place.feet[1]))
-        self.fx.rise(at, rect, self._color(step, context), int(step.get("count", 16)), step.get("shape", "glow"), 1.5, 900, 3)
+        self.fx.rise(at, place.anchor("feet"), place.human * 0.2, place.height, self._color(step, context),
+                     int(step.get("count", 16)), step.get("shape", "glow"), 1.5, 900, 3)
 
     def _flash(self, step: dict, at: int, uid: int, context: Context) -> None:
         self.fx.add(Flash(at, self._ms(step), self._color(step, context), step.get("power", 0.3)))
@@ -554,35 +588,33 @@ class StageScreen(BattleScreen):
         self.fx.shake(at, self._ms(step), step.get("power", 5))
 
     def _runes(self, step: dict, at: int, uid: int, context: Context) -> None:
-        place = self.stage[uid]
-        self.fx.add(RuneCircle(at, self._ms(step), place.anchor("feet"), self._color(step, context),
-                               step.get("radius", 40) * place.scale))
+        self.fx.add(RuneCircle(at, self._ms(step), self.stage[uid].anchor("feet"), self._color(step, context),
+                               step.get("radius", 40)))
 
     def _pillars(self, step: dict, at: int, uid: int, context: Context) -> None:
-        """Столбы вокруг цели: в центре и по сторонам."""
+        """Столбы по кругу вокруг цели: дальние за ней, ближние перед ней."""
         place = self.stage[uid]
-        count, k = int(step.get("count", 3)), place.scale
-        radius = step.get("radius", 26) * k
-        x, y = place.feet
+        count = int(step.get("count", 3))
+        radius = step.get("radius", 26) * 1.6
         for i in range(count):
-            a = (i - (count - 1) / 2) * 1.2
-            base = (x + math.sin(a) * radius * 1.4, y + math.cos(a) * radius * 0.25 - (0 if i == count // 2 else 6))
-            self.fx.add(Pillar(at + abs(i - count // 2) * 70, self._ms(step), base, self._color(step, context),
-                               step.get("height", 120) * k, step.get("thickness", 28) * k, seed=at + i))
+            a = 0.4 + i * math.tau / count
+            base = (place.x + math.cos(a) * radius, 0.0, place.z + math.sin(a) * radius * 0.8)
+            self.fx.add(Pillar(at + i * 70, self._ms(step), base, self._color(step, context),
+                               step.get("height", 120), step.get("thickness", 28), seed=at + i))
 
     def _arrow_rain(self, step: dict, at: int, uid: int, context: Context) -> None:
-        place = self.stage[uid]
-        self.fx.add(ArrowRain(at, self._ms(step), place.anchor("feet"), self._color(step, context, [255, 240, 200]),
-                              int(step.get("count", 10)), 34 * place.scale, self._source(uid, context).facing, seed=at + uid))
+        self.fx.add(ArrowRain(at, self._ms(step), self.stage[uid].anchor("feet"), self._color(step, context, [255, 240, 200]),
+                              int(step.get("count", 10)), 34, self._source(uid, context).facing, seed=at + uid))
 
     def _glint(self, step: dict, at: int, uid: int, context: Context) -> None:
-        place, pos = self.stage[uid], self._pos(step, uid)
-        self.fx.add(Glint(at, self._ms(step), (pos[0] + 16 * place.facing * place.scale, pos[1]),
-                          self._color(step, context, [255, 250, 220]), step.get("size", 22) * place.scale))
+        place = self.stage[uid]
+        x, y, z = self._pos(step, uid)
+        self.fx.add(Glint(at, self._ms(step), (x + 16 * place.facing, y, z), self._color(step, context, [255, 250, 220]),
+                          step.get("size", 22)))
 
     def _dome(self, step: dict, at: int, uid: int, context: Context) -> None:
-        self.fx.add(Dome(at, self._ms(step), self._pos(step, uid), self._color(step, context, "guard"),
-                         step.get("radius", 50) * self.stage[uid].scale))
+        self.fx.add(Dome(at, self._ms(step), self.stage[uid].anchor("feet"), self._color(step, context, "guard"),
+                         step.get("radius", 50)))
 
     def _weapon(self, step: dict, at: int, uid: int, context: Context) -> None:
         """Оружие юнита (по предмету или слоту класса) появляется и бьёт цель."""
@@ -596,81 +628,25 @@ class StageScreen(BattleScreen):
         """Общий эффект удара по виду навыка и стихии."""
         self.impact(at, self._pos(step, uid), context["visual"], self._source(uid, context).facing)
 
-    # --- отрисовка ---
+    # --- положение в кадре ---
 
     def offset(self, uid: int, now: int) -> tuple[float, float, float, float]:
-        """Сумма движений юнита: (dx, dy, высота над землёй, угол); летающие ещё и парят."""
-        dx = dy = lift = angle = 0.0
+        """Сумма движений юнита: (dx, высота, dz, угол); летающие ещё и парят."""
+        dx = dy = dz = angle = 0.0
         for motion in self.motions.get(uid, ()):
             value = motion.at(now)
             if value is not None:
-                dx, dy, lift, angle = dx + value[0], dy + value[1], lift + value[2], angle + value[3]
+                dx, dy, dz, angle = dx + value[0], dy + value[1], dz + value[2], angle + value[3]
         place = self.stage.get(uid)
-        if place is not None and place.flying and uid not in self.dead:
-            lift += (self.scene.fly_height + 5 * math.sin(now / 320 + uid)) * place.scale
-        return dx, dy, lift, angle
+        if place is not None and place.hover and uid not in self.dead:
+            dy += place.hover + 5 * math.sin(now / 320 + uid)
+        return dx, dy, dz, angle
 
-    def draw_field(self, target: pygame.Surface, now: int, cam: Camera) -> None:
-        view = self.view
-        if view is None:
-            return
-        for uid in list(self.motions):      # закончившиеся движения больше не нужны
-            self.motions[uid] = [m for m in self.motions[uid] if m.end >= now]
-        for uid in list(self.tints):
-            self.tints[uid] = [t for t in self.tints[uid] if t.start + t.duration >= now]
-        previous_clip = target.get_clip()
-        target.set_clip(cam.clip)
-        shake = self.fx.screen_offset(now)
-        cam = Camera(cam.scale, (cam.origin[0] - shake[0], cam.origin[1] - shake[1]), cam.offset, cam.clip)
-        self.draw_background(target, cam)
-        units = view.sim.units
-        visible = [uid for uid in self.stage if self.death_progress(uid, now) < 1]
-        for uid in visible:
-            self._draw_ground(target, uid, now, cam)
-        # Дальние раньше ближних; кто сейчас в движении — поверх стоящих на той же линии.
-        order = sorted(visible, key=lambda uid: (self.stage[uid].feet[1] + self.offset(uid, now)[1]
-                                                 + (30 if self.motions.get(uid) else 0)))
-        self._update_alpha(order, now, cam)
-        for uid in order:
-            self._draw_unit(target, units[uid], now, cam)
-        for uid in order:
-            self._draw_plate(target, units[uid], cam)
-        self.fx.draw(target, now, cam)
-        target.set_clip(previous_clip)
-
-    def draw_background(self, target: pygame.Surface, cam: Camera) -> None:
-        """Фон сцены: картинка из assets/backgrounds (заполняет поле, движется с зумом) или градиент."""
-        scene = self.scene
-        size = (max(1, round(cam.s(FIELD_RECT.width))), max(1, round(cam.s(FIELD_RECT.height))))
-        key = (size, scene.background, scene.darken, tuple(scene.sky), tuple(scene.earth))
-        if self._background[0] != key:
-            self._background = (key, self._render_background(size))
-        target.blit(self._background[1], cam.p(*FIELD_RECT.topleft))
-
-    def _render_background(self, size: tuple[int, int]) -> pygame.Surface:
-        scene = self.scene
-        bg = pygame.Surface(size)
-        image = self._background_image(scene.background)
-        if image is not None:
-            k = max(size[0] / image.get_width(), size[1] / image.get_height())
-            scaled = pygame.transform.smoothscale(image, (int(image.get_width() * k) + 1, int(image.get_height() * k) + 1))
-            bg.blit(scaled, (0, 0), pygame.Rect((scaled.get_width() - size[0]) // 2, (scaled.get_height() - size[1]) // 2, *size))
-        else:
-            for y in range(size[1]):
-                k = y / size[1]
-                color = tuple(int(a + (b - a) * k) for a, b in zip(scene.sky, scene.earth))
-                pygame.draw.line(bg, color, (0, y), (size[0], y))
-        if scene.darken > 0:
-            shade = pygame.Surface(size, pygame.SRCALPHA)
-            shade.fill((0, 0, 0, int(255 * scene.darken / 100)))
-            bg.blit(shade, (0, 0))
-        return bg
-
-    def _background_image(self, name: str) -> Optional[pygame.Surface]:
-        if name not in self._background_images:
-            path = BACKGROUND_DIR / name
-            self._background_images[name] = pygame.image.load(str(path)) if name and path.is_file() else None
-        return self._background_images[name]
+    def world_at(self, uid: int, now: int) -> tuple[World, float]:
+        """(точка ног юнита в мире с учётом движений, угол наклона)."""
+        place = self.stage[uid]
+        dx, dy, dz, angle = self.offset(uid, now)
+        return (place.x + dx, dy, place.z + dz), angle
 
     def death_progress(self, uid: int, now: int) -> float:
         """0 жив, 0..1 падает и тает, 1 исчез."""
@@ -679,60 +655,128 @@ class StageScreen(BattleScreen):
         died = self.deaths.get(uid)
         return 1.0 if died is None else min(1.0, max(0.0, (now - died) / DEATH_MS))
 
-    def _draw_ground(self, target: pygame.Surface, uid: int, now: int, cam: Camera) -> None:
-        """Тень под ногами и цветное кольцо стороны; у ходящего юнита кольцо жёлтое."""
+    # --- отрисовка ---
+
+    def set_scene(self, scene: SceneConfig) -> None:
+        """Другая сцена: расстановка пересчитается в следующем кадре."""
+        self.scene = scene
+
+    def draw_field(self, target: pygame.Surface, now: int, cam: Camera) -> None:
+        previous_clip = target.get_clip()
+        target.set_clip(cam.clip)
+        cam = cam.shifted(*self.fx.screen_offset(now))
+        quality = cam.scale / max(1.0, self.camera_view.zoom) * FOCUS_ZOOM
+        self.backdrop.draw(target, self.scene, cam, quality)
+        view = View(self.scene.projection(), cam, now)
+        parts = self.prop_parts(view)
+        if self.view is not None:
+            for uid in list(self.motions):      # закончившиеся движения больше не нужны
+                self.motions[uid] = [m for m in self.motions[uid] if m.end >= now]
+            for uid in list(self.tints):
+                self.tints[uid] = [t for t in self.tints[uid] if t.start + t.duration >= now]
+            units = self.view.sim.units
+            visible = [uid for uid in self.stage if self.death_progress(uid, now) < 1]
+            self._update_alpha(visible, view)
+            for uid in visible:
+                parts.extend(self.unit_parts(units[uid], view))
+            parts.extend(self.fx.parts(now))
+        draw_parts(target, view, parts)
+        target.set_clip(previous_clip)
+
+    def prop_parts(self, view: View) -> list[Part]:
+        """Стоящие объекты сцены (лежащие нарисованы в заднике)."""
+        parts = []
+        for i, obj in enumerate(self.scene.objects):
+            if obj.layer == "upright":
+                parts.append(Part(UPRIGHT, obj.z, lambda s, v, i=i, obj=obj: self._draw_prop(s, v, i, obj)))
+        return parts
+
+    def prop_rect(self, obj: SceneObject, view: View) -> Optional[pygame.Rect]:
+        x, y, k = view.p((obj.x, obj.y, obj.z))
+        image = self.props.image(obj.image)
+        if image is None:
+            return None
+        h = max(2, round(obj.size * k))
+        w = max(1, round(h * image.get_width() / image.get_height()))
+        return pygame.Rect(x - w // 2, y - h, w, h)
+
+    def _draw_prop(self, target: pygame.Surface, view: View, index: int, obj: SceneObject) -> None:
+        k = view.p((obj.x, obj.y, obj.z))[2]
+        if self.props.image(obj.image) is None:
+            return
+        sprite, _ = self.props.scaled(obj.image, max(2, round(obj.size * k / 2) * 2), obj.flip, placeholder)
+        alpha = self.alpha.get(("prop", index), 255)
+        if alpha < 254:
+            sprite = sprite.copy()
+            sprite.set_alpha(int(alpha))
+        target.blit(sprite, sprite.get_rect(midbottom=view.xy((obj.x, obj.y, obj.z))))
+
+    def _sprite(self, uid: int, view: View, now: int, feet: World):
         place = self.stage[uid]
-        dx, dy, lift, _ = self.offset(uid, now)
-        fade = 1 - self.death_progress(uid, now)
-        width = place.human * (0.75 if place.tall else 0.45)
-        x, y = cam.p(place.feet[0] + dx, place.feet[1] + max(0.0, dy) + 2)
-        shrink = 1 - min(0.5, lift / (place.human * 0.5))
-        rect = pygame.Rect(0, 0, max(2, round(cam.s(width) * shrink)), max(2, round(cam.s(width * 0.22) * shrink)))
+        k = view.p(feet)[2]
+        breath = 1 + 0.012 * math.sin(now / 650 + uid * 1.7)      # еле заметное дыхание
+        px_height = max(4, round(place.height * k * breath / 2) * 2)
+        return self.bank.unit_sprite(place.sprite, px_height, place.side == "right")
+
+    def unit_rect(self, uid: int, view: View) -> pygame.Rect:
+        feet, _ = self.world_at(uid, view.now)
+        sprite, _ = self._sprite(uid, view, view.now, feet)
+        return sprite.get_rect(midbottom=view.xy(feet))
+
+    def _update_alpha(self, visible: list[int], view: View) -> None:
+        """Во время атаки всё, что стоит ближе атакующего или цели и закрывает их, становится прозрачным."""
+        now = view.now
+        members, start, end = self.focus
+        active = [uid for uid in visible if uid in members] if start <= now <= end else []
+        targets = [(self.world_at(uid, now)[0][2], self.unit_rect(uid, view)) for uid in active]
+        step = min(1.0, max(0, now - self._last_draw) / FADE_MS) if self._last_draw else 1.0
+        self._last_draw = now
+        things: list[tuple[Any, float, Optional[pygame.Rect]]] = [
+            (uid, self.world_at(uid, now)[0][2], self.unit_rect(uid, view)) for uid in visible if uid not in members]
+        things += [(("prop", i), obj.z, self.prop_rect(obj, view)) for i, obj in enumerate(self.scene.objects)
+                   if obj.layer == "upright"]
+        for key, z, rect in things:
+            covers = rect is not None and any(
+                z < tz and rect.inflate(-rect.width // 4, -rect.height // 8).colliderect(trect) for tz, trect in targets)
+            goal = SEE_THROUGH if covers else 255
+            current = self.alpha.get(key, 255)
+            self.alpha[key] = current + (goal - current) * step
+        for uid in active:
+            self.alpha[uid] = 255
+
+    def unit_parts(self, unit: Unit, view: View) -> list[Part]:
+        """Тень (земля), спрайт с послеобразами (стоящие) и плашка HP (надписи)."""
+        uid = unit.uid
+        feet, angle = self.world_at(uid, view.now)
+        parts = [Part(GROUND, feet[2], lambda s, v: self._draw_ground(s, v, uid, feet)),
+                 Part(UPRIGHT, feet[2], lambda s, v: self._draw_unit(s, v, uid, feet, angle))]
+        if uid not in self.dead:
+            parts.append(Part(OVERLAY, 0, lambda s, v: self._draw_plate(s, v, unit), 1))
+        return parts
+
+    def _draw_ground(self, target: pygame.Surface, view: View, uid: int, feet: World) -> None:
+        """Тень под ногами (остаётся на земле при прыжке) и кольцо стороны; у ходящего кольцо жёлтое."""
+        place = self.stage[uid]
+        x, y, k = view.p((feet[0], 0.0, feet[2]))
+        fade = 1 - self.death_progress(uid, view.now)
+        shrink = 1 - min(0.5, feet[1] / (place.human * 0.5))
+        width = place.human * (0.75 if place.tall else 0.45) * k * shrink
+        rect = pygame.Rect(0, 0, max(2, round(width)), max(2, round(width * 0.22)))
         rect.center = (x, y)
         shadow = pygame.Surface(rect.size, pygame.SRCALPHA)
         pygame.draw.ellipse(shadow, (0, 0, 0, int(110 * fade)), shadow.get_rect())
         target.blit(shadow, rect)
         if fade < 1:
             return
-        color = CURRENT_RING if uid == self.view.current_uid else SIDE_RING[place.side]
+        color = CURRENT_RING if self.view is not None and uid == self.view.current_uid else SIDE_RING[place.side]
         ring = pygame.Surface(rect.inflate(8, 6).size)
-        pygame.draw.ellipse(ring, color, ring.get_rect(), max(1, round(cam.s(1.5))))
+        pygame.draw.ellipse(ring, color, ring.get_rect(), max(1, round(1.5 * k)))
         target.blit(ring, rect.inflate(8, 6), special_flags=pygame.BLEND_RGB_ADD)
 
-    def _sprite_at(self, place: Place, cam: Camera, now: int, uid: int) -> tuple[pygame.Surface, pygame.Surface]:
-        breath = 1 + 0.012 * math.sin(now / 650 + uid * 1.7)      # еле заметное дыхание
-        px_height = max(4, round(cam.s(place.height) * breath / 2) * 2)
-        return self.bank.scaled(place.sprite, px_height, place.side == "right")
-
-    def sprite_rect(self, uid: int, now: int, cam: Camera) -> pygame.Rect:
-        place = self.stage[uid]
-        sprite, _ = self._sprite_at(place, cam, now, uid)
-        dx, dy, lift, _ = self.offset(uid, now)
-        return sprite.get_rect(midbottom=cam.p(place.feet[0] + dx, place.feet[1] + dy - lift))
-
-    def _update_alpha(self, order: list[int], now: int, cam: Camera) -> None:
-        """Во время атаки юниты, нарисованные поверх атакующего или цели и закрывающие их, становятся прозрачными."""
-        members, start, end = self.focus
-        active = {uid for uid in order if uid in members} if start <= now <= end else set()
-        rects = {uid: self.sprite_rect(uid, now, cam) for uid in order}
-        step = min(1.0, max(0, now - self._last_draw) / FADE_MS) if self._last_draw else 1.0
-        self._last_draw = now
-        drawn: list[int] = []               # активные юниты, уже нарисованные (под текущим)
-        for uid in order:
-            rect = rects[uid]
-            core = rect.inflate(-rect.width // 4, -rect.height // 8)
-            covers = uid not in members and any(core.colliderect(rects[a]) for a in drawn)
-            goal = SEE_THROUGH if covers else 255
-            current = self.alpha.get(uid, 255)
-            self.alpha[uid] = current + (goal - current) * step
-            if uid in active:
-                drawn.append(uid)
-
-    def _draw_unit(self, target: pygame.Surface, unit: Unit, now: int, cam: Camera) -> None:
-        uid, place = unit.uid, self.stage[unit.uid]
-        sprite, white = self._sprite_at(place, cam, now, uid)
-        dx, dy, lift, angle = self.offset(uid, now)
-        shake_dx, flash = self.fx.hit_reaction(uid, now)
+    def _draw_unit(self, target: pygame.Surface, view: View, uid: int, feet: World, angle: float) -> None:
+        place, now = self.stage[uid], view.now
+        sprite, white = self._sprite(uid, view, now, feet)
+        shake, flash = self.fx.hit_reaction(uid, now)
         dying = self.death_progress(uid, now)
         alpha = self.alpha.get(uid, 255) * (1 - dying)
         if dying > 0:   # падает назад и тает
@@ -742,9 +786,9 @@ class StageScreen(BattleScreen):
             ghost = sprite.copy()
             ghost.fill((70, 90, 140), special_flags=pygame.BLEND_RGB_ADD)
             for i in range(TRAIL_GHOSTS, 0, -1):
-                gdx, gdy, glift, _ = self.offset(uid, now - i * TRAIL_STEP_MS)
+                past, _ = self.world_at(uid, now - i * TRAIL_STEP_MS)
                 ghost.set_alpha(int(120 * (1 - i / (TRAIL_GHOSTS + 1)) * alpha / 255))
-                target.blit(ghost, ghost.get_rect(midbottom=cam.p(place.feet[0] + gdx, place.feet[1] + gdy - glift)))
+                target.blit(ghost, ghost.get_rect(midbottom=view.xy(past)))
         image = sprite
         tint = [(t.color, t.strength(now)) for t in self.tints.get(uid, ()) if t.strength(now) > 0.02]
         if tint:
@@ -756,7 +800,7 @@ class StageScreen(BattleScreen):
             image.set_alpha(int(alpha))
         if angle:
             image = pygame.transform.rotate(image, angle)
-        rect = image.get_rect(midbottom=cam.p(place.feet[0] + dx + shake_dx, place.feet[1] + dy - lift))
+        rect = image.get_rect(midbottom=view.xy((feet[0] + shake, feet[1], feet[2])))
         if angle:   # поворот вокруг ног: сдвиг, чтобы ноги остались на месте
             rect.centerx += round(math.sin(math.radians(angle)) * -sprite.get_height() * 0.3)
         target.blit(image, rect)
@@ -765,27 +809,26 @@ class StageScreen(BattleScreen):
             white.set_alpha(int(200 * flash * alpha / 255))
             target.blit(white, rect)
 
-    def _draw_plate(self, target: pygame.Surface, unit: Unit, cam: Camera) -> None:
+    def _draw_plate(self, target: pygame.Surface, view: View, unit: Unit) -> None:
         """Под ногами: полоса HP, числа HP, AP и PP, ниже активные эффекты."""
         uid, place = unit.uid, self.stage[unit.uid]
-        if uid in self.dead:
-            return
+        x, y, k = view.p((place.x, 0.0, place.z))
         hp, max_hp = self.hp.get(uid, unit.hp), max(1, unit.max_hp)
-        w = place.human * 0.3
-        bar = pygame.Rect(cam.p(place.feet[0] - w / 2, place.feet[1] + 8), (max(4, round(cam.s(w))), max(2, round(cam.s(5)))))
+        w = max(4, round(place.human * 0.3 * k))
+        bar = pygame.Rect(x - w // 2, y + round(8 * k), w, max(2, round(5 * k)))
         pygame.draw.rect(target, (30, 20, 22), bar.inflate(2, 2))
         fill = bar.copy()
         fill.width = round(bar.width * max(0, hp) / max_hp)
         pygame.draw.rect(target, GREEN if hp * 3 > max_hp else RED, fill)
-        font = fx_font(round(cam.s(11)), True)
+        font = fx_font(round(11 * k), True)
         text = f"{hp}   AP {unit.ap.current}  PP {unit.pp.current}"
         img, shade = font.render(text, True, (235, 235, 240)), font.render(text, True, (10, 10, 14))
-        pos = img.get_rect(midtop=(bar.centerx, bar.bottom + max(1, round(cam.s(1)))))
+        pos = img.get_rect(midtop=(bar.centerx, bar.bottom + max(1, round(k))))
         target.blit(shade, pos.move(1, 1))
         target.blit(img, pos)
         if unit.effects:
             names = ", ".join(self.t(e.definition.name) for e in unit.effects)
-            line = fx_font(round(cam.s(10)), False).render(names, True, (220, 190, 255))
+            line = fx_font(round(10 * k), False).render(names, True, (220, 190, 255))
             target.blit(line, line.get_rect(midtop=(bar.centerx, pos.bottom)))
-        if uid == self.view.current_uid:
-            add_glow(target, cam.p(*place.anchor("head")), (60, 50, 15), cam.s(30), 1.0)
+        if self.view is not None and uid == self.view.current_uid:
+            add_glow(target, view.xy(place.anchor("head")), (60, 50, 15), 30 * k, 1.0)

@@ -11,15 +11,14 @@
 from __future__ import annotations
 
 import sys
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Optional, Union
+from typing import Any, Optional, Union
 
 import pygame
 
-from game.battle import BattleSimulation
+from engine.scene import DEFAULT_SCENE, SCENES_DIR, SceneStore
 from game.database import Database
-from game.events import BattleEnded, DamageDealt, Event, Healed, RoundStarted, TurnStarted, format_event
+from game.events import format_event
 from game.i18n import Translator, available_languages
 from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_setup, save_setup
 from game.scenario import Scenario, build_demo
@@ -30,22 +29,13 @@ from pygame_effect_editor import AreaEditor, EffectEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
 from pygame_passive_editor import PassiveEditor
-from pygame_scene import SCENE_PATH, SceneConfig
+from pygame_battle import POPUP_MS, BattleView
 from pygame_scene_editor import SceneEditor
 from pygame_stage import StageScreen
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, fit, load_fonts
 
 FPS = 60
 AUTO_STEP_MS = 600
-POPUP_MS = 900
-SETTLE_MS = 250             # пауза после последнего события шага
-TIMELINE_KEEP_MS = 3000     # сколько хранить показанные события (эффектам хватает)
-# Сколько длится показ события, прежде чем показывать следующее (по имени класса события).
-BEAT_MS = {
-    "SkillUsed": 380, "DamageDealt": 110, "AttackMissed": 110, "Healed": 110, "Covered": 200,
-    "EffectApplied": 60, "EffectExpired": 40, "ResourceGained": 60, "PassiveTriggered": 120,
-    "UnitDied": 250, "RoundStarted": 450, "TurnSkipped": 200,
-}
 POPUP_RISE = 34
 LOG_LINES = 8
 
@@ -71,83 +61,11 @@ DEAD_TEXT = (120, 120, 125)
 SIDE_FILL = {"left": (44, 62, 92), "right": (96, 52, 52)}
 
 
-@dataclass
-class Popup:
-    uid: int
-    text: str
-    color: tuple[int, int, int]
-    born: int
-
-
-class BattleView:
-    """Состояние отображения боя: строится только из событий симуляции."""
-
-    def __init__(self, db: Database, seed: int, scenario_factory: Callable[[], Scenario],
-                 beat: Optional[Callable[[Event], Optional[int]]] = None):
-        self.db = db
-        self.scenario_factory = scenario_factory
-        self.beat = beat          # своя длительность показа события (замах навыка на вкладке Stage)
-        self.restart(seed)
-
-    def restart(self, seed: int) -> None:
-        scenario = self.scenario_factory()
-        self.seed = seed
-        self.sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, self.db, seed=seed)
-        self.log: list[Event] = []  # последние события; текст строится при отрисовке на текущем языке
-        self.popups: list[Popup] = []
-        self.current_uid: Optional[int] = None
-        self.round = 0
-        self.ended: Optional[BattleEnded] = None
-        # Расписание проигрывания: шаг боя мгновенный, а события показываются по очереди.
-        self.timeline: list[tuple[int, Event]] = []
-        self.busy_until = 0
-
-    def step(self, now: int) -> None:
-        self.consume(self.sim.step(), now)
-
-    def schedule(self, events: list[Event], now: int) -> list[int]:
-        """Время показа каждого события: замах, полёт снаряда, удары по очереди, гибель."""
-        cursor = max(now, self.busy_until - SETTLE_MS)
-        times = []
-        for ev in events:
-            times.append(cursor)
-            own = self.beat(ev) if self.beat is not None else None
-            cursor += own if own is not None else BEAT_MS.get(type(ev).__name__, 0)
-        self.busy_until = cursor + SETTLE_MS
-        return times
-
-    def consume(self, events: list[Event], now: int) -> None:
-        times = self.schedule(events, now)
-        self.timeline.extend(zip(times, events))
-        for when, ev in zip(times, events):
-            self._consume_one(ev, when)
-        self.log = (self.log + events)[-LOG_LINES:]
-
-    def _consume_one(self, ev: Event, now: int) -> None:
-        """Ход, раунд, итог и всплывающие числа вкладки Battle; now это время показа события."""
-        if isinstance(ev, RoundStarted):
-            self.round = ev.round
-        elif isinstance(ev, TurnStarted):
-            self.current_uid = ev.unit
-        elif isinstance(ev, DamageDealt):
-            self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
-        elif isinstance(ev, Healed):
-            self.popups.append(Popup(ev.target, f"+{ev.amount}" + ("!" if ev.crit else ""), GREEN, now))
-        elif isinstance(ev, BattleEnded):
-            self.current_uid = None
-            self.ended = ev
-
-    def prune(self, now: int) -> None:
-        # Всплывающие числа живут POPUP_MS с момента показа (он может быть в будущем).
-        self.popups = [p for p in self.popups if now - p.born < POPUP_MS]
-        self.timeline = [(when, ev) for when, ev in self.timeline if now - when < TIMELINE_KEEP_MS]
-
-
 class App:
     """Справочник, редактируемая расстановка, бой на её копии, вкладки и язык."""
 
     def __init__(self, db: Database, seed: int, save_path: Union[str, Path, None], lang: Optional[str] = None,
-                 scene_path: Optional[Path] = SCENE_PATH):
+                 scenes_dir: Optional[Path] = SCENES_DIR, props_dir: Optional[Path] = None):
         self.db = db
         self.save_path = Path(save_path) if save_path else None
         self.message = ""
@@ -156,10 +74,14 @@ class App:
         self.tab = TAB_BATTLE
         self.t = Translator()
         self.resolution: tuple[int, int] = (WIDTH, HEIGHT)   # размер окна; сохраняется вместе с языком
+        self.scene_id = DEFAULT_SCENE                        # сцена вкладки Stage; тоже в настройках
         self.setup = self._load_setup(lang)
         self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
-        # Сцена (сетка, фон) общая у вкладки Stage и её редактора; scene_path=None — не записывать.
-        stage = StageScreen(SceneConfig.load(scene_path) if scene_path else SceneConfig())
+        # Сцены: scenes_dir=None — не читать и не записывать (сцена по умолчанию в памяти).
+        store = SceneStore(scenes_dir or SCENES_DIR)
+        if scenes_dir is not None and self.scene_id not in store.ids():
+            self.scene_id = store.ids()[0] if store.ids() else DEFAULT_SCENE
+        stage = StageScreen(store.load(self.scene_id) if scenes_dir is not None else None, props_dir)
         stage.battle_view = BattleView(db, seed, lambda: stage.scenario(self.db, self.setup), stage.windup)
         # (название вкладки, экран); у вкладки боя с карточками экрана нет
         self.tabs: list[tuple[str, Any]] = [
@@ -174,7 +96,7 @@ class App:
             ("Effects", EffectEditor()),
             ("Areas", AreaEditor()),
             ("Stage", stage),
-            ("Scene", SceneEditor(stage, scene_path)),
+            ("Scene", SceneEditor(stage, store, self.scene_id, self._select_scene, props_dir, scenes_dir is not None)),
         ]
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
@@ -186,6 +108,7 @@ class App:
                 lang = lang or settings.get("language")
                 if settings.get("resolution"):
                     self.resolution = tuple(settings["resolution"])
+                self.scene_id = settings.get("scene") or self.scene_id
             except (OSError, ValueError, KeyError, TypeError) as error:  # JSONDecodeError = ValueError
                 self.message = f"save ignored ({error}); demo setup loaded"
         if lang in available_languages():
@@ -193,6 +116,10 @@ class App:
         if scenario is not None:
             self.message = self.t("loaded {file}", file=self.save_path.name)
         return scenario or build_demo(self.db)
+
+    def _select_scene(self, scene_id: str) -> None:
+        self.scene_id = scene_id
+        self._save()
 
     # --- интерфейс для редакторов ---
 
@@ -241,7 +168,8 @@ class App:
             if self.data_dirty:
                 self.db.save()
                 self.data_dirty = False
-            save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang, "resolution": list(self.resolution)})
+            save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang, "resolution": list(self.resolution),
+                                                                 "scene": self.scene_id})
             return True
         except OSError as error:
             self.message = f"{self.t('cannot save')}: {error}"

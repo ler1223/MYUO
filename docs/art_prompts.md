@@ -1,16 +1,73 @@
 # Картинки для сцены боя: что нужно и промпты
 
-Спрайты героев генерируются листом-линейкой — промпт и правила масштаба в `docs/test_classes.md`. Здесь остальное. Картинки рам, самоцветов и эмблем карт больше не нужны: бой картами убран (его картинки лежат в git под тегом `cards-arena`).
+Спрайты героев генерируются листом-линейкой: промпт и правила масштаба в `docs/test_classes.md`. Здесь земля, задники и оружие. Объекты (декорации) пока не делаем.
 
-## Фон сцены
+Как это ложится в сцену: земля — плитка, которую движок сам кладёт на плоскость в перспективе и повторяет. Задник — далёкий пейзаж за краем земли: его линия земли ставится на дальний край поля. Поэтому земля рисуется **строго сверху, без перспективы**, а задник — **без переднего плана**.
 
-Папка: `assets/backgrounds/`, PNG или JPG, 1920x1080 или больше, без прозрачности. Фон выбирается в редакторе сцены (вкладка Scene) и заполняет поле с обрезкой по краям. Юниты стоят в нижних двух третях поля, по центру между отрядами нужно спокойное место для эффектов. Сейчас есть `meadow.png`.
+Общий блок стиля в конец каждого промпта земли и задника (тот же, что у героев):
 
 ```
-wide side-view fantasy battlefield, ground plane seen slightly from above, grassy plain or castle courtyard,
-distant hills or walls in the upper third, calm empty middle and foreground, painterly style, muted colours,
-no characters, no text, 16:9
+hand-painted 2D fantasy illustration in the manner of premium Japanese console tactics RPGs,
+painterly texture, soft natural light, rich but slightly muted colors, no text, no characters
 ```
+
+## Земля — плитки текстур
+
+Папка: `assets/grounds/`, PNG 1024x1024, без прозрачности. Выбирается в редакторе сцены (вкладка «Макет», страница «Земля»); там же размер плитки в единицах мира (рост человека 185: плитка 160–250 обычно выглядит естественно).
+
+Требования, без которых будет видно шов или «ковёр»:
+- бесшовная по всем четырём краям (seamless, tileable);
+- вид строго сверху (orthographic top-down), без перспективы и горизонта;
+- ровное освещение без пятна света и виньетки, без теней от предметов;
+- без крупных приметных деталей (одинокий камень будет повторяться рядами) — мелкие детали равномерно.
+
+Промпт (перед блоком стиля):
+
+```
+seamless tileable ground texture, orthographic top-down view, flat even lighting, no perspective,
+no horizon, no vignette, no large unique features, small details evenly distributed, 1024x1024,
+<покрытие>
+```
+
+| Файл | `<покрытие>` |
+| --- | --- |
+| `meadow.png` | `short green meadow grass with tiny wildflowers and a few small pebbles` |
+| `dirt.png` | `trampled brown dirt with small stones and sparse dry grass tufts` |
+| `cobblestone.png` | `old grey cobblestone pavement with moss in the gaps` |
+| `flagstone.png` | `large worn castle courtyard flagstones, beige and grey` |
+| `sand.png` | `fine desert sand with soft wind ripples and scattered small rocks` |
+| `snow.png` | `packed snow with light footprints and a few ice patches` |
+
+Если шов всё же виден: попросите модель «make the texture seamless, fix the edges so it tiles», или проверьте, разложив картинку 2x2.
+
+## Задники
+
+Папка: `assets/backgrounds/`, PNG или JPG, 2560x1080 (21:9) или шире, без прозрачности. Выбирается на странице «Задник»; там же «Линия %» — на какой высоте картинки (в % от верха) её земля встречается с полем боя, и ширина задника.
+
+Требования:
+- только дальний план: небо и далёкий пейзаж (холмы, лес, стены замка, горы);
+- ровная, почти горизонтальная линия, где дальняя земля уходит к полю, на 70–75% высоты; ниже неё — спокойная земля без деталей (её закроет поле);
+- без переднего плана, без персонажей, без крупных объектов у нижнего края;
+- взгляд немного сверху, как на поле боя.
+
+Промпт (перед блоком стиля):
+
+```
+wide panoramic distant landscape backdrop for a side-view battle scene, camera slightly above,
+only far background: sky and <пейзаж>, the distant ground meets a flat even plain at about 72% of
+the image height, the bottom quarter is a plain empty field with no details, no foreground objects,
+21:9 panorama
+```
+
+| Файл | `<пейзаж>` |
+| --- | --- |
+| `hills.png` | `rolling green hills, small distant forests and a village on the horizon, soft morning clouds` |
+| `castle.png` | `tall stone castle walls and towers in the distance, banners, warm afternoon light` |
+| `forest.png` | `edge of a dark pine forest and misty mountains behind it` |
+| `desert.png` | `distant sand dunes and ancient ruins under a hot hazy sky` |
+| `winter.png` | `snowy mountains and frozen pine forest under a pale winter sky` |
+
+Сейчас есть `meadow.png` (бывший фон карт): его линия земли примерно на 70%.
 
 ## Оружие в атаках — 8 штук
 

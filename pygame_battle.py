@@ -1,43 +1,140 @@
-"""Основа экранов боя: события симуляции -> эффекты по расписанию, зум, строка состояния и лог.
+"""Проигрывание боя: расписание событий (BattleView) и основа экрана боя (BattleScreen).
 
-Экран только читает бой; в логику не вмешивается. Где стоит юнит и куда он смотрит,
-решает наследник (point, facing, layout, draw_field). Здесь — общие эффекты событий,
-одинаковые для любого вида юнитов: числа урона и лечения, промах, крит, блок, эффекты,
-пассивки, раунд и конец боя, а также общий удар по стихии (impact).
+BattleView делает шаги симуляции и даёт каждому событию время показа, чтобы удары, эффекты
+и гибель шли друг за другом. BattleScreen превращает наступившие события в общие эффекты
+(числа урона и лечения, промах, крит, блок, эффекты, пассивки, раунд, конец боя), рисует
+строку состояния и лог и держит камеру. Где стоят юниты (point, facing) и как выглядит
+поле (draw_field), решает наследник. Экран только читает бой; в логику не вмешивается.
 """
 from __future__ import annotations
 
-from typing import Any, Optional
+from dataclasses import dataclass
+from typing import Any, Callable, Optional
 
 import pygame
 
+from engine.camera import Camera, ViewCamera
+from engine.fx import ELEMENT_COLORS, Beam, Bolt, Flash, FloatText, FxSystem, Ring, Slash, Thrust
+from engine.projection import World
+from game.battle import BattleSimulation
 from game.definitions import PART_HEAL, SkillDefinition
 from game.events import (
     AttackMissed,
     BattleEnded,
+    Covered,
     DamageDealt,
     EffectApplied,
     EffectExpired,
+    Event,
     Healed,
     PassiveTriggered,
     ResourceGained,
     RoundStarted,
+    SkillUsed,
+    TurnSkipped,
+    TurnStarted,
     UnitDied,
     format_event,
 )
 from game.unit import Unit
-from pygame_fx import ELEMENT_COLORS, Beam, Bolt, Camera, Flash, FloatText, FxSystem, Ring, Slash, Thrust
-from pygame_ui import DIM, GREEN, HEIGHT, PANEL, TEXT, UI, WIDTH, YELLOW, fit
+from pygame_ui import DIM, GREEN, HEIGHT, PANEL, RED, TEXT, UI, WIDTH, YELLOW, fit
 
 CENTER_X = WIDTH // 2
 FIELD_RECT = pygame.Rect(0, 52, WIDTH, 440)   # область поля в логических пикселях окна
-FIELD_TOP = FIELD_RECT.top + 12
-MAX_ZOOM = 3.0
-ZOOM_STEP = 0.25
 LOG_TOP = FIELD_RECT.bottom + 8
 LOG_LINES = 5
 LOG_LINE_H = 18
 SKIP_BACKLOG_MS = 300      # после долгого перерыва старые события не проигрываются пачкой
+
+# --- расписание ------------------------------------------------------------------
+
+SETTLE_MS = 250             # пауза после последнего события шага
+TIMELINE_KEEP_MS = 3000     # сколько хранить показанные события (эффектам хватает)
+POPUP_MS = 900              # всплывающие числа вкладки Battle
+KEEP_LOG = 8
+# Сколько длится показ события, прежде чем показывать следующее.
+BEAT_MS: dict[type, int] = {
+    SkillUsed: 380, DamageDealt: 110, AttackMissed: 110, Healed: 110, Covered: 200,
+    EffectApplied: 60, EffectExpired: 40, ResourceGained: 60, PassiveTriggered: 120,
+    UnitDied: 250, RoundStarted: 450, TurnSkipped: 200,
+}
+
+
+@dataclass
+class Popup:
+    uid: int
+    text: str
+    color: tuple[int, int, int]
+    born: int
+
+
+class BattleView:
+    """Состояние показа боя: строится только из событий симуляции.
+
+    beat: своя длительность показа события (замах навыка на вкладке Stage) или None.
+    """
+
+    def __init__(self, db: Any, seed: int, scenario_factory: Callable[[], Any],
+                 beat: Optional[Callable[[Event], Optional[int]]] = None):
+        self.db = db
+        self.scenario_factory = scenario_factory
+        self.beat = beat
+        self.restart(seed)
+
+    def restart(self, seed: int) -> None:
+        scenario = self.scenario_factory()
+        self.seed = seed
+        self.sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, self.db, seed=seed)
+        self.log: list[Event] = []  # последние события; текст строится при отрисовке на текущем языке
+        self.popups: list[Popup] = []
+        self.current_uid: Optional[int] = None
+        self.round = 0
+        self.ended: Optional[BattleEnded] = None
+        self.timeline: list[tuple[int, Event]] = []   # (когда показать, событие)
+        self.busy_until = 0
+
+    def step(self, now: int) -> None:
+        self.consume(self.sim.step(), now)
+
+    def schedule(self, events: list[Event], now: int) -> list[int]:
+        """Время показа каждого события: замах, удары по очереди, гибель."""
+        cursor = max(now, self.busy_until - SETTLE_MS)
+        times = []
+        for ev in events:
+            times.append(cursor)
+            own = self.beat(ev) if self.beat is not None else None
+            cursor += own if own is not None else BEAT_MS.get(type(ev), 0)
+        self.busy_until = cursor + SETTLE_MS
+        return times
+
+    def consume(self, events: list[Event], now: int) -> None:
+        times = self.schedule(events, now)
+        self.timeline.extend(zip(times, events))
+        for when, ev in zip(times, events):
+            self._consume_one(ev, when)
+        self.log = (self.log + events)[-KEEP_LOG:]
+
+    def _consume_one(self, ev: Event, now: int) -> None:
+        """Ход, раунд, итог и всплывающие числа вкладки Battle; now — время показа события."""
+        if isinstance(ev, RoundStarted):
+            self.round = ev.round
+        elif isinstance(ev, TurnStarted):
+            self.current_uid = ev.unit
+        elif isinstance(ev, DamageDealt):
+            self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
+        elif isinstance(ev, Healed):
+            self.popups.append(Popup(ev.target, f"+{ev.amount}" + ("!" if ev.crit else ""), GREEN, now))
+        elif isinstance(ev, BattleEnded):
+            self.current_uid = None
+            self.ended = ev
+
+    def prune(self, now: int) -> None:
+        # Всплывающие числа живут POPUP_MS с момента показа (он может быть в будущем).
+        self.popups = [p for p in self.popups if now - p.born < POPUP_MS]
+        self.timeline = [(when, ev) for when, ev in self.timeline if now - when < TIMELINE_KEEP_MS]
+
+
+# --- вид навыка ----------------------------------------------------------------
 
 AP_COLOR = (90, 160, 240)
 PP_COLOR = (190, 120, 235)
@@ -91,6 +188,8 @@ def skill_visual(skill: Optional[SkillDefinition], user: Optional[Unit]) -> Visu
     return "melee", element, physical
 
 
+# --- экран боя -------------------------------------------------------------------
+
 class BattleScreen:
     """Вкладка боя. is_battle: на ней работают клавиши боя. Наследник задаёт, где стоят юниты."""
 
@@ -98,6 +197,7 @@ class BattleScreen:
 
     def __init__(self) -> None:
         self.fx = FxSystem()
+        self.camera_view = ViewCamera(FIELD_RECT)
         self._sim: Any = None
         self._shown_until = 0               # события до этого момента уже показаны
         self._prev_frame = 0
@@ -107,8 +207,6 @@ class BattleScreen:
         self.view: Any = None
         self.t: Any = str
         self.native = False                 # поле рисуется отдельно, прямо в окно (draw_field)
-        self.zoom = 1.0
-        self.origin: tuple[float, float] = FIELD_RECT.topleft
         self.dragging = False
 
     # --- что задаёт наследник ---
@@ -116,9 +214,9 @@ class BattleScreen:
     def layout(self, sim: Any) -> None:
         """Расставить юнитов боя sim."""
 
-    def point(self, uid: int, on: str = "body") -> tuple[float, float]:
-        """Точка юнита на поле: feet, body, head."""
-        return CENTER_X, FIELD_RECT.centery
+    def point(self, uid: int, on: str = "body") -> World:
+        """Точка юнита в мире: feet, body, head."""
+        return 0.0, 0.0, 0.0
 
     def facing(self, uid: int) -> int:
         """1 — смотрит вправо (отряд игрока), -1 — влево."""
@@ -139,7 +237,7 @@ class BattleScreen:
     # --- события -> эффекты ---
 
     def update(self, ui: UI, view: Any, now: int) -> None:
-        """Состояние на момент now: новый бой, расстановка, эффекты наступивших событий."""
+        """Состояние на момент now: новый бой, расстановка, эффекты наступивших событий, камера."""
         self.t, self.view = ui.t, view
         sim = view.sim
         if sim is not self._sim or now - self._prev_frame > SKIP_BACKLOG_MS:
@@ -155,6 +253,7 @@ class BattleScreen:
             if self._shown_until < when <= now:
                 self.spawn(view, ev, when)
         self._shown_until = max(self._shown_until, now)
+        self.camera_view.update(now)
 
     def spawn(self, view: Any, ev: Any, when: int) -> None:
         """Общие эффекты события; наследник добавляет свои движения и визуал навыков."""
@@ -167,72 +266,67 @@ class BattleScreen:
                 look = DOT_VISUALS.get(ev.cause, "dark")
                 fx.burst(when, pos, ELEMENT_COLORS[look], 12, 1.4, 600, 3, up=1.2,
                          shape="bubble" if look == "poison" else "glow")
+            head = self.point(ev.target, "head")
             size = 1.4 if ev.crit else 1.0
-            fx.add(FloatText(when, 1000, (pos[0], pos[1] - 20), str(ev.amount), (255, 90, 70) if not ev.crit else (255, 230, 80),
+            fx.add(FloatText(when, 1000, head, str(ev.amount), (255, 90, 70) if not ev.crit else (255, 230, 80),
                              int(40 * size), 44, numbers=True))
             if ev.crit:
-                fx.add(FloatText(when, 900, (pos[0], pos[1] - 60), t("crit").upper() + "!", (255, 230, 80), 22, 20))
+                fx.add(FloatText(when, 900, (head[0], head[1] + 40, head[2]), t("crit").upper() + "!", (255, 230, 80), 22, 20))
                 fx.add(Flash(when, 160, (255, 240, 200), 0.35))
                 fx.shake(when, 300, 7)
             if ev.guarded:
-                fx.add(Ring(when, 450, pos, ELEMENT_COLORS["guard"], 20, 55, 5, 1.0))
-                fx.add(FloatText(when, 800, (pos[0], pos[1] + 30), t("guarded").upper(), ELEMENT_COLORS["guard"], 14, 10))
+                fx.add(Ring(when, 450, pos, ELEMENT_COLORS["guard"], 20, 55, 5))
+                fx.add(FloatText(when, 800, self.point(ev.target, "feet"), t("guarded").upper(), ELEMENT_COLORS["guard"], 14, 10))
 
         elif isinstance(ev, AttackMissed):
             pos = self.point(ev.target)
-            fx.add(Thrust(when, 260, (pos[0] + 30 * self.facing(ev.source), pos[1]), (160, 160, 170), self.facing(ev.source)))
-            fx.add(FloatText(when, 900, (pos[0], pos[1] - 30), "MISS", (200, 200, 210), 22, 30))
+            f = self.facing(ev.source)
+            fx.add(Thrust(when, 260, (pos[0] + 30 * f, pos[1], pos[2]), (160, 160, 170), f))
+            fx.add(FloatText(when, 900, self.point(ev.target, "head"), "MISS", (200, 200, 210), 22, 30))
 
         elif isinstance(ev, Healed):
-            pos = self.point(ev.target)
             self.hp[ev.target] = ev.hp_left
             if ev.amount <= 0:
                 return  # лечить было нечего: эффект не нужен
-            rect = pygame.Rect(0, 0, 60, 90)
-            rect.center = (int(pos[0]), int(pos[1]))
-            fx.rise(when, rect, ELEMENT_COLORS["heal"], 18, "star" if ev.crit else "glow", 1.4, 900, 3)
-            fx.add(FloatText(when, 1000, (pos[0], pos[1] - 20), f"+{ev.amount}", GREEN, 36, 40, numbers=True))
+            fx.rise(when, self.point(ev.target, "feet"), 30, 120, ELEMENT_COLORS["heal"], 18,
+                    "star" if ev.crit else "glow", 1.4, 900, 3)
+            fx.add(FloatText(when, 1000, self.point(ev.target, "head"), f"+{ev.amount}", GREEN, 36, 40, numbers=True))
 
         elif isinstance(ev, EffectApplied):
-            pos = self.point(ev.target)
+            pos, feet = self.point(ev.target), self.point(ev.target, "feet")
             effect = db.effects.get(ev.effect_id)
             look = EFFECT_LOOKS.get(ev.effect_id) or ("buff" if effect and "buff" in effect.tags else "debuff")
-            rect = pygame.Rect(0, 0, 60, 80)
-            rect.center = (int(pos[0]), int(pos[1]))
             if look == "stun":
                 head = self.point(ev.target, "head")
-                fx.burst(when, (head[0], head[1] - 10), (255, 230, 90), 6, 1.0, 900, 3, gravity=0.0, shape="star")
+                fx.burst(when, (head[0], head[1] + 14, head[2]), (255, 230, 90), 6, 1.0, 900, 3, gravity=0.0, shape="star")
             elif look == "poison":
-                fx.rise(when, rect, ELEMENT_COLORS["poison"], 12, "bubble", 1.0, 900, 4)
+                fx.rise(when, feet, 26, 110, ELEMENT_COLORS["poison"], 12, "bubble", 1.0, 900, 4)
             elif look == "fire":
-                fx.rise(when, rect, ELEMENT_COLORS["fire"], 14, "glow", 1.6, 700, 3)
+                fx.rise(when, feet, 26, 110, ELEMENT_COLORS["fire"], 14, "glow", 1.6, 700, 3)
             elif look == "ice":
                 fx.burst(when, pos, ELEMENT_COLORS["ice"], 10, 1.2, 900, 3, gravity=0.02, shape="flake")
             elif look == "buff":
-                fx.rise(when, rect, ELEMENT_COLORS["buff"], 16, "glow", 1.5, 900, 3)
-                fx.add(Ring(when, 500, self.point(ev.target, "feet"), ELEMENT_COLORS["buff"], 15, 55, 3, 0.35))
+                fx.rise(when, feet, 30, 120, ELEMENT_COLORS["buff"], 16, "glow", 1.5, 900, 3)
+                fx.add(Ring(when, 500, feet, ELEMENT_COLORS["buff"], 15, 55, 3))
             else:
                 fx.burst(when, pos, ELEMENT_COLORS["debuff"], 14, 1.6, 700, 3, gravity=0.06)
             name = t(effect.name) if effect else ev.effect_id
             color = ELEMENT_COLORS["buff"] if look == "buff" else (210, 170, 255)
-            fx.add(FloatText(when + 120, 900, (pos[0], pos[1] + 26), name, color, 13, 16, False))
+            fx.add(FloatText(when + 120, 900, (pos[0], pos[1] - 26, pos[2]), name, color, 13, 16, False))
 
         elif isinstance(ev, EffectExpired):
             fx.burst(when, self.point(ev.target), (120, 120, 130), 6, 0.8, 400, 2, gravity=0.0)
 
         elif isinstance(ev, PassiveTriggered):
-            pos = self.point(ev.unit)
             passive = db.passives.get(ev.passive_id)
-            fx.add(Ring(when, 600, self.point(ev.unit, "feet"), (255, 210, 110), 30, 80, 4, 0.35))
+            fx.add(Ring(when, 600, self.point(ev.unit, "feet"), (255, 210, 110), 30, 80, 4))
             head = self.point(ev.unit, "head")
-            fx.add(FloatText(when, 1100, (head[0], head[1] - 30), t(passive.name) if passive else ev.passive_id,
+            fx.add(FloatText(when, 1100, (head[0], head[1] + 30, head[2]), t(passive.name) if passive else ev.passive_id,
                              (255, 214, 120), 14, 14))
 
         elif isinstance(ev, ResourceGained):
-            rect = pygame.Rect(0, 0, 50, 70)
-            pos = self.point(ev.target)
-            rect.center = (int(pos[0]), int(pos[1]))
-            fx.rise(when, rect, AP_COLOR if ev.resource == "AP" else PP_COLOR, 10, "glow", 1.2, 700, 3)
+            fx.rise(when, self.point(ev.target, "feet"), 24, 100, AP_COLOR if ev.resource == "AP" else PP_COLOR,
+                    10, "glow", 1.2, 700, 3)
 
         elif isinstance(ev, UnitDied):
             pos = self.point(ev.unit)
@@ -242,19 +336,23 @@ class BattleScreen:
             fx.burst(when, pos, (90, 90, 100), 24, 2.0, 1100, 4, gravity=-0.02, spread=5)
 
         elif isinstance(ev, RoundStarted):
-            fx.add(FloatText(when, 900, (CENTER_X, 200), t("Round {n}", n=ev.round).upper(), (255, 236, 170),
-                             56, 0, numbers=True))
+            fx.add(FloatText(when, 900, self.screen_point(CENTER_X, 200), t("Round {n}", n=ev.round).upper(),
+                             (255, 236, 170), 56, 0, numbers=True))
 
         elif isinstance(ev, BattleEnded):
             text = t("{winner} wins", winner=t(ev.winner_id)) if ev.winner_id else t("draw")
-            fx.add(FloatText(when, 2500, (CENTER_X, 250), text.upper(), (255, 236, 170), 64, 10, numbers=True))
+            fx.add(FloatText(when, 2500, self.screen_point(CENTER_X, 250), text.upper(), (255, 236, 170), 64, 10, numbers=True))
+
+    def screen_point(self, x: float, y: float) -> World:
+        """Мировая точка, которая видна в логической точке (x, y) поля (для надписей по центру)."""
+        return 0.0, 0.0, 0.0
 
     @staticmethod
     def is_periodic(ev: DamageDealt, db: Any) -> bool:
         """Урон от эффекта (горение, яд), а не от навыка."""
         return ev.source is None or ev.cause in DOT_VISUALS or ev.cause in db.effects
 
-    def impact(self, when: int, pos: tuple[float, float], visual: Visual, facing: int) -> None:
+    def impact(self, when: int, pos: World, visual: Visual, facing: int) -> None:
         """Общий эффект попадания в точке pos по виду навыка и стихии."""
         fx = self.fx
         delivery, element, physical = visual
@@ -263,7 +361,7 @@ class BattleScreen:
             if physical == "piercing":
                 fx.add(Thrust(when, 280, pos, ELEMENT_COLORS["steel"], facing))
             elif physical == "blunt":
-                fx.add(Ring(when, 380, pos, (255, 240, 210), 10, 70, 6, 0.8))
+                fx.add(Ring(when, 380, pos, (255, 240, 210), 10, 70, 6))
                 fx.shake(when, 200, 4)
             else:
                 fx.add(Slash(when, 320, pos, ELEMENT_COLORS["steel"], 48, facing))
@@ -276,7 +374,7 @@ class BattleScreen:
             if element:
                 fx.burst(when, pos, color, 16, 2.5, 600, 4, up=0.8)
         elif element == "lightning":
-            fx.add(Bolt(when, 300, (pos[0] + 20 * facing, FIELD_TOP - 10), pos, color, seed=when))
+            fx.add(Bolt(when, 300, pos, color, seed=when, lean=20 * facing))
             fx.add(Flash(when, 140, (180, 180, 255), 0.4))
             fx.burst(when, pos, color, 18, 4.0, 400, 2, gravity=0.0, shape="spark")
         elif element == "light":
@@ -294,60 +392,33 @@ class BattleScreen:
             fx.add(Ring(when, 420, pos, color, 12, 65, 5))
             fx.burst(when, pos, color, 24, 3.5, 650, 4)
 
-    # --- зум и перетаскивание ---
+    # --- камера ---
 
-    def view_size(self) -> tuple[float, float]:
-        """Сколько логических пикселей поля видно при текущем зуме."""
-        return FIELD_RECT.width / self.zoom, FIELD_RECT.height / self.zoom
-
-    def _clamp(self) -> None:
-        vw, vh = self.view_size()
-        x = min(max(self.origin[0], FIELD_RECT.left), FIELD_RECT.right - vw)
-        y = min(max(self.origin[1], FIELD_RECT.top), FIELD_RECT.bottom - vh)
-        self.origin = (x, y)
-
-    def zoom_at(self, pos: tuple[float, float], steps: float) -> None:
-        """Зум колесом мыши: точка поля под курсором (pos в логических пикселях окна) остаётся на месте."""
-        if not FIELD_RECT.collidepoint(pos):
-            return
-        fx = self.origin[0] + (pos[0] - FIELD_RECT.left) / self.zoom
-        fy = self.origin[1] + (pos[1] - FIELD_RECT.top) / self.zoom
-        self.zoom = min(MAX_ZOOM, max(1.0, round((self.zoom + steps * ZOOM_STEP) * 4) / 4))
-        self.origin = (fx - (pos[0] - FIELD_RECT.left) / self.zoom, fy - (pos[1] - FIELD_RECT.top) / self.zoom)
-        self._clamp()
-
-    def pan(self, dx: float, dy: float) -> None:
-        """Сдвиг поля на (dx, dy) логических пикселей окна (мышь тянет поле за собой)."""
-        self.origin = (self.origin[0] - dx / self.zoom, self.origin[1] - dy / self.zoom)
-        self._clamp()
-
-    def reset_zoom(self) -> None:
-        self.zoom, self.origin = 1.0, FIELD_RECT.topleft
+    def camera(self, window_scale: float = 1.0, window_offset: tuple[float, float] = (0, 0)) -> Camera:
+        return self.camera_view.camera(window_scale, window_offset)
 
     def handle_event(self, event: pygame.event.Event, pos: tuple[float, float], window_scale: float = 1.0) -> None:
         """Мышь и клавиши поля. pos: курсор в логических пикселях окна."""
+        cam = self.camera_view
         if event.type == pygame.MOUSEWHEEL:
-            self.zoom_at(pos, event.y)
+            cam.zoom_at(pos, event.y)
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button in (1, 3) and FIELD_RECT.collidepoint(pos):
-            self.dragging = self.zoom > 1
+            self.dragging = cam.zoom > 1
         elif event.type == pygame.MOUSEBUTTONUP and event.button in (1, 3):
             self.dragging = False
         elif event.type == pygame.MOUSEMOTION and self.dragging:
-            self.pan(event.rel[0] / window_scale, event.rel[1] / window_scale)
+            if not cam.manual:
+                cam.manual = True
+            cam.pan(event.rel[0] / window_scale, event.rel[1] / window_scale)
         elif event.type == pygame.KEYDOWN:
             if event.key in (pygame.K_HOME, pygame.K_0):
-                self.reset_zoom()
+                cam.reset()
             elif event.key in (pygame.K_EQUALS, pygame.K_PLUS, pygame.K_KP_PLUS):
-                self.zoom_at(FIELD_RECT.center, 1)
+                cam.zoom_at(FIELD_RECT.center, 1)
             elif event.key in (pygame.K_MINUS, pygame.K_KP_MINUS):
-                self.zoom_at(FIELD_RECT.center, -1)
-
-    def camera(self, window_scale: float = 1.0, window_offset: tuple[float, float] = (0, 0)) -> Camera:
-        """Камера поля: размер окна x зум; область поля в окне."""
-        clip = pygame.Rect(round(window_offset[0] + FIELD_RECT.left * window_scale),
-                           round(window_offset[1] + FIELD_RECT.top * window_scale),
-                           round(FIELD_RECT.width * window_scale), round(FIELD_RECT.height * window_scale))
-        return Camera(window_scale * self.zoom, self.origin, clip.topleft, clip)
+                cam.zoom_at(FIELD_RECT.center, -1)
+            elif event.key == pygame.K_c:
+                cam.auto = not cam.auto
 
     # --- отрисовка ---
 
@@ -361,8 +432,8 @@ class BattleScreen:
         if view.ended:
             winner = view.ended.winner_id
             status += "   " + (t("{winner} wins", winner=t(winner)) if winner else t("draw")).upper()
-        if self.zoom > 1:
-            status += f"   x{self.zoom:g}"
+        if self.camera_view.manual:
+            status += f"   x{self.camera_view.zoom:g}"
         status += self.status_note()
         status_img = font.render(status, True, YELLOW if view.ended else TEXT)
         screen.blit(status_img, status_img.get_rect(midtop=(CENTER_X, 31)))

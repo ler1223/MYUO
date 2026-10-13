@@ -1,11 +1,12 @@
 """Проверка файлов вкладки Stage без pygame: спрайты, визуал навыков, сцена."""
 import json
 import struct
+import tempfile
 import unittest
 from pathlib import Path
 
 from game.database import Database
-from pygame_scene import SCENE_PATH, SceneConfig
+from engine.scene import DEFAULT_SCENE, SCENES_DIR, SceneConfig, SceneObject, SceneStore
 
 ROOT = Path(__file__).resolve().parent.parent
 UNITS_DIR = ROOT / "assets" / "units"
@@ -15,7 +16,7 @@ PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 # Действия шагов визуала: должны совпадать с StageScreen.steps (проверяется в tests/test_ui.py).
 STEP_ACTIONS = {"dash", "hop", "lunge", "jump", "rise", "tilt", "knockback", "glow", "projectile", "slash", "thrust",
                 "ring", "beam", "bolt", "burst", "sparkle", "flash", "shake", "runes", "pillars", "arrow_rain",
-                "glint", "dome", "weapon", "impact"}
+                "glint", "dome", "weapon", "impact", "wrap"}
 WHO = {"self", "target", "targets"}
 DELIVERIES = {"melee", "arrow", "magic", "heal", "support"}
 
@@ -76,17 +77,23 @@ class SkillVisualDataTests(unittest.TestCase):
 
 
 class SceneTests(unittest.TestCase):
-    def test_saved_scene_loads_and_projection_round_trips(self):
-        scene = SceneConfig.load(SCENE_PATH)
+    def test_every_saved_scene_loads_and_projection_round_trips(self):
+        store = SceneStore(SCENES_DIR)
+        self.assertIn(DEFAULT_SCENE, store.ids())
+        for scene_id in store.ids():
+            scene = store.load(scene_id)
+            self.assertEqual(SceneConfig.from_dict(scene.to_dict()), scene, scene_id)   # файл уже в чистом виде
+        scene = store.load(DEFAULT_SCENE)
+        projection = scene.projection()
         for row in range(3):
             for col in range(3):
                 x, z = scene.cell("left", row, col, 3)
-                sx, sy, k = scene.project(x, z)
-                back = scene.unproject(sx, sy)
+                sx, sy, _ = projection.project(x, 0, z)
+                back = projection.unproject(sx, sy)
                 self.assertAlmostEqual(back[0], x, places=6)
                 self.assertAlmostEqual(back[1], z, places=6)
-        near = scene.project(*scene.cell("left", 0, 2, 3))
-        far = scene.project(*scene.cell("left", 0, 0, 3))
+        near = projection.project(*xz(scene.cell("left", 0, 2, 3)))
+        far = projection.project(*xz(scene.cell("left", 0, 0, 3)))
         self.assertLess(far[1], near[1])                     # дальняя колонна выше
         self.assertLess(far[2], near[2])                     # и мельче
         right = scene.cell("right", 1, 1, 3)
@@ -101,6 +108,27 @@ class SceneTests(unittest.TestCase):
         self.assertLess(bad.horizon, bad.ground)
         self.assertGreaterEqual(bad.focal, 100)
         self.assertTrue(bad.rows)
+
+    def test_store_creates_copies_and_deletes_scenes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            store = SceneStore(Path(folder))
+            first = store.create("Castle Yard")
+            self.assertEqual(first, "castle_yard")
+            source = store.load(first)
+            source.objects.append(SceneObject("tree.png", 10, 300, layer="nowhere"))
+            source.clamp()
+            self.assertEqual(source.objects[0].layer, "upright")   # неизвестный слой исправлен
+            copy = store.create("Castle Yard", source)
+            self.assertEqual(copy, "castle_yard_2")                 # id не повторяется
+            self.assertEqual(store.load(copy).objects[0].image, "tree.png")
+            self.assertEqual(store.names(), {first: "Castle Yard", copy: "Castle Yard"})
+            store.delete(first)
+            self.assertEqual(store.ids(), [copy])
+            self.assertEqual(store.load("missing"), SceneConfig())  # нет файла — сцена по умолчанию
+
+
+def xz(cell):
+    return cell[0], 0.0, cell[1]
 
 
 if __name__ == "__main__":

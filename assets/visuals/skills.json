@@ -1,5 +1,5 @@
 {
-  "_comment": "Визуал навыков на вкладке Stage. Ключ: id навыка или <id класса>/<id навыка> (точнее). windup: мс от начала навыка до удара. cast: шаги в момент применения, hit: шаги на каждое попадание (лечение, промах) по цели. Навык без описания берёт _defaults по виду доставки: melee, arrow, magic, heal, support. Шаг: at (мс от начала), do, who (self, target, targets — все задетые навыком), on (feet, body, head, sky), color (имя стихии, [r,g,b] или $element — стихия навыка). Движения: dash, hop, lunge, jump, rise, tilt, knockback, glow. Эффекты: projectile, slash, thrust, ring, beam, bolt, burst, sparkle, flash, shake, runes, pillars, arrow_rain, glint, dome, impact (общий удар по стихии).",
+  "_comment": "Визуал навыков на вкладке Stage. Ключ: id навыка или <id класса>/<id навыка> (точнее). windup: мс от начала навыка до удара. cast: шаги в момент применения, hit: шаги на каждое попадание (лечение, промах) по цели. Навык без описания берёт _defaults по виду доставки: melee, arrow, magic, heal, support. Шаг: at (мс от начала), do, who (self, target, targets — все задетые навыком), on (feet, body, head, sky), color (имя стихии, [r,g,b] или $element — стихия навыка). Движения: dash, hop, lunge, jump, rise, tilt, knockback, glow. Эффекты: projectile, slash, thrust, ring (on: feet — на земле, иначе обвивает юнита), wrap (кольца поднимаются вокруг юнита), beam, bolt, burst, sparkle, flash, shake, runes, pillars, arrow_rain, glint, dome, weapon, impact (общий удар по стихии). Расстояния и высоты — в единицах мира (на ближней линии = пикселям).",
   "_defaults": {
     "melee": {
       "windup": 380,
@@ -73,7 +73,8 @@
     "cast": [{"do": "glow", "who": "self", "color": "heal", "ms": 700},
              {"do": "ring", "who": "self", "on": "feet", "color": "heal", "to": 70, "ms": 500},
              {"do": "runes", "who": "targets", "on": "feet", "color": "heal", "radius": 34, "ms": 1000}],
-    "hit": [{"do": "sparkle", "color": [180, 255, 160], "count": 18},
+    "hit": [{"do": "wrap", "color": "heal", "ms": 900},
+            {"do": "sparkle", "color": [180, 255, 160], "count": 18},
             {"do": "glow", "color": "heal", "ms": 500}]
   },
 
@@ -170,6 +171,7 @@
              {"do": "glint", "who": "self", "on": "head", "color": "heal", "ms": 400},
              {"do": "runes", "who": "target", "on": "feet", "color": "heal", "radius": 36, "ms": 1000}],
     "hit": [{"do": "beam", "color": [150, 255, 170], "thickness": 30, "ms": 520},
+            {"do": "wrap", "color": [150, 255, 170], "ms": 900, "rings": 2},
             {"do": "sparkle", "color": [180, 255, 160], "count": 20},
             {"do": "glow", "color": "heal", "ms": 600}]
   },
