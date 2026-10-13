@@ -512,7 +512,7 @@ class StageTests(WindowTestCase):
         self.assertEqual(classes, set(self.db.units))          # демонстрация: все классы справочника
         self.assertEqual(max(u.ap.max for u in view.sim.units.values()), DEMO_AP)
         spawned, _ = self.play(stage, view)
-        self.assertTrue({"Slash", "Projectile", "Beam"} <= spawned, spawned)   # удары, снаряды, лечение
+        self.assertTrue({"SpriteEffect", "SpriteProjectile"} <= spawned, spawned)   # спрайтовые удары и снаряды
         for mode in ("showcase", "setup", "demo"):
             stage.handle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_t), (0, 0))
             self.assertEqual(stage.mode, mode)
@@ -526,7 +526,7 @@ class StageTests(WindowTestCase):
         classes = {unit.definition.id for unit in view.sim.units.values()}
         self.assertEqual(classes, {"rider", "cleric"})        # в тестовых данных есть только эти из пяти
         spawned, moved = self.play(stage, view)
-        self.assertTrue({"FloatText", "Ring", "RuneCircle", "Thrust"} <= spawned, spawned)   # таран, лечение
+        self.assertTrue({"FloatText", "SpriteEffect"} <= spawned, spawned)   # таран, лечение — спрайтами
         self.assertTrue(moved)                                # рывки, отскоки, отбрасывание
         self.assertEqual(stage.deaths.keys(), {uid for uid, u in view.sim.units.items() if not u.is_alive})
 
@@ -543,7 +543,7 @@ class StageTests(WindowTestCase):
         self.assertEqual(stage.windup(SkillUsed(rider.uid, "lance_charge", 11)),
                          stage.skill_visuals["lance_charge"]["windup"])
         self.assertEqual(stage.spec(rider, "attack"), stage.skill_visuals["rider/attack"])     # свой визуал класса
-        self.assertEqual(stage.spec(rider, "flurry"), stage.skill_visuals["_defaults"]["melee"])
+        self.assertEqual(stage.spec(rider, "unknown_skill"), stage.skill_visuals["_defaults"]["melee"])
         used = SkillUsed(rider.uid, "attack", 11)
         view.timeline = [(0, used), (400, DamageDealt(rider.uid, 11, 5, 10, "attack")),
                          (500, DamageDealt(rider.uid, 12, 5, 10, "attack")), (600, SkillUsed(11, "attack", 1))]
@@ -558,6 +558,8 @@ class StageTests(WindowTestCase):
         self.assertEqual(stage.mode, "setup")
         self.assertIn("knight", {u.definition.id for u in view.sim.units.values()})
         knight = next(u for u in view.sim.units.values() if u.definition.id == "knight")
+        self.assertEqual(stage.bank.sprite_id(knight), "knight")              # свой спрайт
+        del stage.bank.config["sprites"]["knight"]                            # без него — похожий
         self.assertEqual(stage.bank.sprite_id(knight), "paladin")
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
         self.assertEqual(stage.stage[rider.uid].sprite, "rider")
@@ -673,7 +675,8 @@ class SceneEditorTests(WindowTestCase):
         self.assertEqual(self.saved(editor)["name"], "Castle")
         self.click(FORM_X + 205, form_y(1) + 5)                # «Удалить»
         self.assertNotIn(created, editor.store.ids())
-        self.assertEqual(editor.scene_id, first)
+        self.assertIn(editor.scene_id, editor.store.ids())     # выбрана одна из оставшихся
+        self.assertIn(first, editor.store.ids())
 
     def test_objects_are_added_selected_dragged_and_sorted_by_depth(self):
         editor = self.tab("Scene")

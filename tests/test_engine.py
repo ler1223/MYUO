@@ -24,6 +24,7 @@ if pygame is not None:
     from engine.camera import Camera, ViewCamera
     from engine.fx import Beam, Burst, FxSystem, Pillar, Ring, WrapRing
     from engine.render import GROUND, OVERLAY, UPRIGHT, Part, View, draw_parts
+    from engine.sprites import FxLibrary, SpriteBeam, SpriteEffect, SpriteProjectile
 
 FIELD = (0, 52, 1000, 440)
 
@@ -96,6 +97,49 @@ class LayerTests(unittest.TestCase):
         for now in range(1001, 3000, 16):
             cam.update(now)
         self.assertEqual((cam.zoom, cam.origin), (1.0, (0, 52)))
+
+
+@unittest.skipIf(pygame is None, "pygame-ce is not installed")
+class SpriteEffectTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        pygame.init()
+        pygame.display.set_mode((10, 10))
+        cls.library = FxLibrary()
+
+    def setUp(self):
+        self.view = View(Projection(), Camera(1.0, (0, 52), (0, 52), pygame.Rect(FIELD)), 0)
+
+    def test_flipbook_frames_and_duration(self):
+        frames = self.library.frames("fire_burst", "main")
+        self.assertEqual(len(frames), 16)
+        self.assertEqual(frames[0].get_size(), (256, 256))
+        self.assertEqual(self.library.duration("fire_burst"), 1000 * 16 // 24)
+        self.assertEqual(self.library.duration("burning", 700), 700)        # зацикленный — сколько попросили
+
+    def test_layers_wrap_ground_and_front(self):
+        z = 200
+        wrap = SpriteEffect(0, 500, self.library, "heal", (0, 90, z)).parts(100)
+        self.assertEqual(sorted(p.depth for p in wrap), [z - 0.5, z + 0.5])   # за юнитом и перед ним
+        ground = SpriteEffect(0, 500, self.library, "rune_circle", (0, 0, z)).parts(100)
+        self.assertEqual([p.layer for p in ground], [GROUND])
+        front = SpriteEffect(0, 500, self.library, "hit_spark", (0, 90, z)).parts(100)
+        self.assertLess(front[0].depth, z)
+        surface = pygame.Surface((1000, 620))
+        draw_parts(surface, self.view, wrap + ground + front)
+        self.assertGreater(surface.get_bounding_rect().width, 0)              # что-то нарисовано
+
+    def test_opaque_background_of_alpha_effects_becomes_transparent(self):
+        stars = self.library.frames("stun_stars", "main")[0]                  # у картинки жёлтый фон без прозрачности
+        self.assertEqual(stars.get_at((0, 0)).a, 0)
+        self.assertLess(stars.get_width(), 1024)                              # одиночная картинка обрезана по рисунку
+
+    def test_projectile_turns_along_its_flight_and_beam_stretches(self):
+        arrow = SpriteProjectile(0, 300, self.library, "arrow", (-300, 90, 0), (300, 90, 0), 40, 0.45)
+        beam = SpriteBeam(0, 300, self.library, "chain_arc", (-300, 90, 0), (300, 90, 200))
+        surface = pygame.Surface((1000, 620))
+        draw_parts(surface, self.view, arrow.parts(150) + beam.parts(150))
+        self.assertGreater(surface.get_bounding_rect().width, 100)
 
 
 @unittest.skipIf(pygame is None, "pygame-ce is not installed")

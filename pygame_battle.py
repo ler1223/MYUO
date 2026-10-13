@@ -16,6 +16,7 @@ import pygame
 from engine.camera import Camera, ViewCamera
 from engine.fx import ELEMENT_COLORS, Beam, Bolt, Flash, FloatText, FxSystem, Ring, Slash, Thrust
 from engine.projection import World
+from engine.sprites import SINGLE_MS, FxLibrary, SpriteEffect
 from game.battle import BattleSimulation
 from game.definitions import PART_HEAL, SkillDefinition
 from game.events import (
@@ -142,6 +143,9 @@ ELEMENTS = ("lightning", "fire", "ice", "light", "dark", "poison")
 PHYSICAL = ("slashing", "piercing", "blunt")
 DOT_VISUALS = {"burn": "fire", "poison": "poison", "plague": "dark"}   # периодический урон эффектов
 EFFECT_LOOKS = {"stun": "stun", "poison": "poison", "plague": "poison", "burn": "fire", "slow": "ice"}
+# Вид эффекта -> спрайтовый эффект из assets/fx (если он есть).
+EFFECT_SPRITES = {"stun": "stun_stars", "poison": "poison_cloud", "fire": "burning", "ice": "ice_burst",
+                  "buff": "buff", "debuff": "debuff"}
 # Слот оружия класса -> вид оружия в эффекте атаки.
 WEAPON_BY_SLOT = {"light_sword": "sword", "heavy_weapon": "axe", "lance": "spear", "dagger": "dagger",
                   "bow": "bow", "staff": "staff"}
@@ -208,6 +212,7 @@ class BattleScreen:
         self.t: Any = str
         self.native = False                 # поле рисуется отдельно, прямо в окно (draw_field)
         self.dragging = False
+        self.sprites: Optional[FxLibrary] = None   # спрайтовые эффекты (assets/fx); None — только кодом
 
     # --- что задаёт наследник ---
 
@@ -271,6 +276,7 @@ class BattleScreen:
             fx.add(FloatText(when, 1000, head, str(ev.amount), (255, 90, 70) if not ev.crit else (255, 230, 80),
                              int(40 * size), 44, numbers=True))
             if ev.crit:
+                self.sprite("crit", when, pos, 1.2)
                 fx.add(FloatText(when, 900, (head[0], head[1] + 40, head[2]), t("crit").upper() + "!", (255, 230, 80), 22, 20))
                 fx.add(Flash(when, 160, (255, 240, 200), 0.35))
                 fx.shake(when, 300, 7)
@@ -296,7 +302,11 @@ class BattleScreen:
             pos, feet = self.point(ev.target), self.point(ev.target, "feet")
             effect = db.effects.get(ev.effect_id)
             look = EFFECT_LOOKS.get(ev.effect_id) or ("buff" if effect and "buff" in effect.tags else "debuff")
-            if look == "stun":
+            head = self.point(ev.target, "head")
+            if self.sprite(EFFECT_SPRITES.get(look, ""), when, (head[0], head[1] + 20, head[2]) if look == "stun" else pos,
+                           0.6 if look == "stun" else 1.0, ms=1200):
+                pass                                   # спрайт эффекта вместо нарисованного кодом
+            elif look == "stun":
                 head = self.point(ev.target, "head")
                 fx.burst(when, (head[0], head[1] + 14, head[2]), (255, 230, 90), 6, 1.0, 900, 3, gravity=0.0, shape="star")
             elif look == "poison":
@@ -331,6 +341,7 @@ class BattleScreen:
         elif isinstance(ev, UnitDied):
             pos = self.point(ev.unit)
             self.dead.add(ev.unit)
+            self.sprite("death_smoke", when + 300, pos, 1.2)
             color = (230, 190, 110) if self.facing(ev.unit) > 0 else (230, 120, 90)
             fx.burst(when, pos, color, 40, 4.0, 900, 3, gravity=0.08, spread=4)
             fx.burst(when, pos, (90, 90, 100), 24, 2.0, 1100, 4, gravity=-0.02, spread=5)
@@ -342,6 +353,15 @@ class BattleScreen:
         elif isinstance(ev, BattleEnded):
             text = t("{winner} wins", winner=t(ev.winner_id)) if ev.winner_id else t("draw")
             fx.add(FloatText(when, 2500, self.screen_point(CENTER_X, 250), text.upper(), (255, 236, 170), 64, 10, numbers=True))
+
+    def sprite(self, name: str, when: int, pos: World, scale: float = 1.0, facing: int = 1,
+               ms: Optional[int] = None) -> bool:
+        """Спрайтовый эффект name в точке pos, если он есть в assets/fx; иначе False."""
+        library = self.sprites
+        if library is None or name not in library:
+            return False
+        self.fx.add(SpriteEffect(when, library.duration(name, ms or SINGLE_MS), library, name, pos, scale, facing))
+        return True
 
     def screen_point(self, x: float, y: float) -> World:
         """Мировая точка, которая видна в логической точке (x, y) поля (для надписей по центру)."""

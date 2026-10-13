@@ -16,7 +16,11 @@ PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 # Действия шагов визуала: должны совпадать с StageScreen.steps (проверяется в tests/test_ui.py).
 STEP_ACTIONS = {"dash", "hop", "lunge", "jump", "rise", "tilt", "knockback", "glow", "projectile", "slash", "thrust",
                 "ring", "beam", "bolt", "burst", "sparkle", "flash", "shake", "runes", "pillars", "arrow_rain",
-                "glint", "dome", "weapon", "impact", "wrap"}
+                "glint", "dome", "weapon", "impact", "wrap", "sprite", "sprite_beam"}
+FX_DIR = ROOT / "assets" / "fx"
+FX = json.loads((FX_DIR / "effects.json").read_text(encoding="utf-8"))
+FX_LAYERS = {"front", "back", "wrap", "ground"}
+FX_ANIMATIONS = {"sweep", "stretch", "spin", "grow", "pulse"}
 WHO = {"self", "target", "targets"}
 DELIVERIES = {"melee", "arrow", "magic", "heal", "support"}
 
@@ -64,6 +68,13 @@ class SkillVisualDataTests(unittest.TestCase):
                     self.assertIn(step.get("who", "self"), WHO, (key, step))
                     self.assertGreaterEqual(step.get("at", 0), 0, (key, step))
 
+    def test_sprite_steps_name_existing_effects(self):
+        for key, entry in self.entries():
+            for step in entry.get("cast", []) + entry.get("hit", []):
+                name = step.get("fx") if step["do"] in ("sprite", "sprite_beam") else step.get("sprite")
+                if name is not None:
+                    self.assertIn(name, FX, (key, step))
+
     def test_keys_name_real_skills_and_classes(self):
         db = Database.load()                                    # визуал описан для настоящих данных data/
         self.assertEqual(set(VISUALS["_defaults"]), DELIVERIES)
@@ -74,6 +85,22 @@ class SkillVisualDataTests(unittest.TestCase):
             self.assertIn(skill_id, db.skills, key)
             if class_id:
                 self.assertIn(class_id, db.units, key)
+
+
+class SpriteEffectFileTests(unittest.TestCase):
+    def test_every_effect_has_its_images_and_valid_settings(self):
+        self.assertTrue(FX)
+        for name, spec in FX.items():
+            cols, rows = spec.get("grid", [1, 1])
+            self.assertLessEqual(spec.get("frames", 1), cols * rows, name)
+            self.assertIn(spec.get("blend"), ("add", "alpha"), name)
+            self.assertIn(spec.get("layer", "front"), FX_LAYERS, name)
+            if "animate" in spec:
+                self.assertIn(spec["animate"], FX_ANIMATIONS, name)
+            files = [spec["back"], spec["front"]] if spec.get("layer") == "wrap" else [f"{name}.png"]
+            for file in files:
+                width, height = png_size(FX_DIR / file)
+                self.assertEqual((width % cols, height % rows), (0, 0), (name, file))   # кадры ровной сеткой
 
 
 class SceneTests(unittest.TestCase):

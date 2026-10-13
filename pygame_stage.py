@@ -47,6 +47,7 @@ from engine.fx import (
 from engine.projection import World
 from engine.render import GROUND, OVERLAY, UPRIGHT, Part, View, draw_parts
 from engine.scene import PROPS_DIR, SceneConfig, SceneObject
+from engine.sprites import FxLibrary, SpriteBeam, SpriteEffect, SpriteProjectile
 from game.events import (
     AttackMissed,
     Covered,
@@ -231,6 +232,11 @@ class SpriteBank(ImageBank):
         """Своя опорная точка спрайта (head, body) в долях его высоты от ног, если задана."""
         return self.sprites.get(sprite_id or "", {}).get("anchors", {}).get(on)
 
+    def aspect(self, sprite_id: Optional[str]) -> float:
+        """Ширина картинки к высоте."""
+        image = self.image(f"{sprite_id}.png" if sprite_id else "") or placeholder()
+        return image.get_width() / image.get_height()
+
     def unit_sprite(self, sprite_id: Optional[str], px_height: int, flip: bool):
         return self.scaled(f"{sprite_id}.png" if sprite_id else "", px_height, flip, placeholder)
 
@@ -252,6 +258,7 @@ class Place:
     head: Optional[float] = None     # свои опорные точки спрайта, доли высоты
     body: Optional[float] = None
     hover: float = 0.0               # высота парения летающих
+    width: float = 0.0               # ширина спрайта (по картинке)
 
     @property
     def facing(self) -> int:
@@ -260,6 +267,11 @@ class Place:
     @property
     def tall(self) -> bool:
         return self.height > self.human * TALL
+
+    @property
+    def shadow(self) -> float:
+        """Ширина тени: по ширине спрайта, в разумных пределах."""
+        return min(self.human * 0.85, max(self.human * 0.35, (self.width or self.human * 0.6) * 0.55))
 
     def anchor(self, on: str) -> World:
         if on == "feet":
@@ -286,6 +298,7 @@ class StageScreen(BattleScreen):
         self.props = ImageBank(props_dir or PROPS_DIR)
         self.backdrop = Backdrop(FIELD_RECT, props_dir)
         self.skill_visuals = load_visuals()
+        self.sprites = FxLibrary()
         self.battle_view: Any = None        # свой BattleView; его создаёт окно
         self.mode = MODES[0]                # какой бой показывает вкладка (клавиша T)
         self.stage: dict[int, Place] = {}
@@ -303,7 +316,7 @@ class StageScreen(BattleScreen):
             "wrap": self._wrap, "beam": self._beam, "bolt": self._bolt, "burst": self._burst, "sparkle": self._sparkle,
             "flash": self._flash, "shake": self._shake, "runes": self._runes, "pillars": self._pillars,
             "arrow_rain": self._arrow_rain, "glint": self._glint, "dome": self._dome, "weapon": self._weapon,
-            "impact": self._impact,
+            "impact": self._impact, "sprite": self._sprite_step, "sprite_beam": self._sprite_beam,
         }
 
     # --- бой этой вкладки ---
@@ -354,8 +367,10 @@ class StageScreen(BattleScreen):
         x, z = scene.cell(side, row, col, cols)
         sprite = self.bank.sprite_id(unit)
         human = scene.human_height
-        return Place(x, z, side, sprite, human * self.bank.ratio(sprite), human, self.bank.anchor(sprite, "head"),
-                     self.bank.anchor(sprite, "body"), scene.fly_height if FLYING_TAG in unit.tags else 0.0)
+        height = human * self.bank.ratio(sprite)
+        return Place(x, z, side, sprite, height, human, self.bank.anchor(sprite, "head"),
+                     self.bank.anchor(sprite, "body"), scene.fly_height if FLYING_TAG in unit.tags else 0.0,
+                     height * self.bank.aspect(sprite))
 
     def layout(self, sim: Any) -> None:
         self.stage = {}
@@ -449,7 +464,8 @@ class StageScreen(BattleScreen):
         self.focus = (members | {ev.protector, ev.target}, min(start, when) if members else when, max(end, when + 1050))
         front_x = ward.x + ward.facing * 40
         self._move(ev.protector, Motion(when, 200, 500, 350, dx=front_x - guard.x, dz=ward.z - 4 - guard.z, lift=24, trail=True))
-        self.fx.add(Dome(when + 150, 700, (front_x, 0.0, ward.z - 4), ELEMENT_COLORS["guard"], ward.human * 0.45))
+        if not self.sprite("shield_dome", when + 150, (front_x, ward.human * 0.45, ward.z - 4), 1.3, ward.facing, 800):
+            self.fx.add(Dome(when + 150, 700, (front_x, 0.0, ward.z - 4), ELEMENT_COLORS["guard"], ward.human * 0.45))
         self.fx.add(FloatText(when, 900, ward.anchor("head"), self.t("cover").upper(), ELEMENT_COLORS["guard"], 20, 20))
 
     @staticmethod
@@ -549,6 +565,10 @@ class StageScreen(BattleScreen):
         start = (sx + 22 * source.facing, sy + 6, sz)
         end = (start[0] + 50 * source.facing, SKY_HEIGHT * 0.5, sz) if step.get("to") == "sky" else target.anchor("body")
         size = 0.6 if step.get("small") else 1.7 if step.get("big") else 1.0
+        if step.get("sprite") in self.sprites:      # снаряд-картинка из assets/fx
+            self.fx.add(SpriteProjectile(at, self._ms(step), self.sprites, step["sprite"], start, end,
+                                         step.get("arc", 0), step.get("scale", 0.5)))
+            return
         self.fx.add(Projectile(at, self._ms(step), start, end, step.get("kind", "orb"), self._color(step, context),
                                step.get("arc", 0), size))
 
@@ -633,6 +653,26 @@ class StageScreen(BattleScreen):
         units = self.view.sim.units if self.view is not None else {}
         kind = step.get("kind") or weapon_kind(units.get(context["source"]), context["visual"][0])
         self.fx.add(WeaponStrike(at, self._ms(step, 600), kind, source.anchor("body"), target.anchor("body"), source.facing))
+
+    def _sprite_step(self, step: dict, at: int, uid: int, context: Context) -> None:
+        """Спрайтовый эффект из assets/fx на юните: тело, голова или ноги (лежащие — на земле)."""
+        name = step.get("fx", "")
+        if name not in self.sprites:
+            return
+        place = self.stage[uid]
+        x, y, z = self._pos(step, uid)
+        if self.sprites.spec(name).get("layer") == "ground":
+            y = 0.0
+        ms = self.sprites.duration(name, self._ms(step, 500))
+        self.fx.add(SpriteEffect(at, ms, self.sprites, name, (x + step.get("dx", 0) * place.facing, y + step.get("dy", 0), z),
+                                 step.get("scale", 1.0), self._source(uid, context).facing))
+
+    def _sprite_beam(self, step: dict, at: int, uid: int, context: Context) -> None:
+        """Картинка, растянутая от источника до юнита (цепная молния)."""
+        name = step.get("fx", "")
+        if name in self.sprites:
+            self.fx.add(SpriteBeam(at, self._ms(step, 400), self.sprites, name, self._source(uid, context).anchor("body"),
+                                   self.stage[uid].anchor("body"), step.get("thickness", 60)))
 
     def _impact(self, step: dict, at: int, uid: int, context: Context) -> None:
         """Общий эффект удара по виду навыка и стихии."""
@@ -770,7 +810,7 @@ class StageScreen(BattleScreen):
         x, y, k = view.p((feet[0], 0.0, feet[2]))
         fade = 1 - self.death_progress(uid, view.now)
         shrink = 1 - min(0.5, feet[1] / (place.human * 0.5))
-        width = place.human * (0.75 if place.tall else 0.45) * k * shrink
+        width = place.shadow * k * shrink
         rect = pygame.Rect(0, 0, max(2, round(width)), max(2, round(width * 0.22)))
         rect.center = (x, y)
         shadow = pygame.Surface(rect.size, pygame.SRCALPHA)

@@ -1,0 +1,447 @@
+{
+  "hit_spark": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "blunt_impact": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "fire_burst": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "fire_pillar": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 235,
+    "blend": "add",
+    "layer": "wrap",
+    "anchor": "body",
+    "loop": false,
+    "back": "fire_pillar_back.png",
+    "front": "fire_pillar_front.png"
+  },
+  "burning": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 18,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": true
+  },
+  "fireball": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 18,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": true,
+    "orient": "travel"
+  },
+  "ice_burst": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "blizzard": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 18,
+    "size": 235,
+    "blend": "alpha",
+    "layer": "front",
+    "anchor": "body",
+    "loop": true
+  },
+  "lightning_strike": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 235,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "chain_arc": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 18,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": true,
+    "orient": "travel"
+  },
+  "holy_burst": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "heal": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "wrap",
+    "anchor": "body",
+    "loop": false,
+    "back": "heal_back.png",
+    "front": "heal_front.png"
+  },
+  "buff": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "wrap",
+    "anchor": "body",
+    "loop": false,
+    "back": "buff_back.png",
+    "front": "buff_front.png"
+  },
+  "debuff": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "poison_cloud": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 18,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "front",
+    "anchor": "body",
+    "loop": true
+  },
+  "plague": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "wind_blade": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "wrap",
+    "anchor": "body",
+    "loop": false,
+    "back": "wind_blade_back.png",
+    "front": "wind_blade_front.png"
+  },
+  "dust_cloud": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "ground",
+    "anchor": "ground",
+    "loop": false
+  },
+  "death_smoke": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "alpha",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "arcane_burst": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 24,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": false
+  },
+  "magic_orb": {
+    "grid": [
+      4,
+      4
+    ],
+    "frames": 16,
+    "fps": 18,
+    "size": 160,
+    "blend": "add",
+    "layer": "front",
+    "anchor": "body",
+    "loop": true,
+    "orient": "travel"
+  },
+  "slash": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "sweep"
+  },
+  "slash_heavy": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "sweep"
+  },
+  "thrust": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "stretch"
+  },
+  "arrow": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "stretch",
+    "orient": "travel"
+  },
+  "fire_arrow_trail": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "stretch",
+    "orient": "travel"
+  },
+  "ice_shard": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "stretch",
+    "orient": "travel"
+  },
+  "rune_circle": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "ground",
+    "size": 160,
+    "anchor": "ground",
+    "animate": "spin"
+  },
+  "ring_wave": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "ground",
+    "size": 160,
+    "anchor": "ground",
+    "animate": "grow"
+  },
+  "light_pillar": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "pulse"
+  },
+  "shield_dome": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "wrap",
+    "size": 160,
+    "anchor": "body",
+    "animate": "pulse",
+    "back": "shield_dome_back.png",
+    "front": "shield_dome_front.png"
+  },
+  "stun_stars": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "alpha",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "spin"
+  },
+  "glint": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "pulse"
+  },
+  "crit": {
+    "grid": [
+      1,
+      1
+    ],
+    "frames": 1,
+    "blend": "add",
+    "layer": "front",
+    "size": 160,
+    "anchor": "body",
+    "animate": "grow"
+  }
+}
