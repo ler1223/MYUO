@@ -452,5 +452,41 @@ class ReactionEditorTests(WindowTestCase):
             self.fail("no riposte or thorns in 7 battles")
 
 
+class ArenaTests(WindowTestCase):
+    def test_skill_visuals(self):
+        from pygame_arena import skill_visual
+        db = Database.load(self.data_dir)
+        knight = db.create_unit("knight", 1, equipment=["iron_sword"])
+        archer = db.create_unit("archer", 2)
+        self.assertEqual(skill_visual(db.skills["attack"], knight), ("melee", None, "slashing"))   # тип от меча
+        self.assertEqual(skill_visual(db.skills["poison_arrow"], archer), ("arrow", "poison", "piercing"))
+        self.assertEqual(skill_visual(db.skills["fireball"], None), ("magic", "fire", "slashing"))
+        self.assertEqual(skill_visual(db.skills["magic_bolt"], None)[:2], ("magic", "arcane"))
+        self.assertEqual(skill_visual(db.skills["heal"], None)[0], "heal")
+        self.assertEqual(skill_visual(db.skills["enchant_wind"], None)[0], "support")
+
+    def test_cards_play_a_whole_battle_with_effects(self):
+        arena = self.tab("Arena")
+        view = self.app.view
+        now, spawned, hp_changes = 1000, set(), 0
+        while not view.sim.finished:
+            view.consume(view.sim.step(), now)
+            while now < view.busy_until:                      # проигрываем эффекты шага кадр за кадром
+                self.ui.begin([])
+                d.draw_frame(self.ui, self.app, False, now)
+                spawned.update(type(e).__name__ for e in arena.fx.effects)
+                now += 40
+            hp_changes += sum(arena._hp[uid] != unit.max_hp for uid, unit in view.sim.units.items())
+        self.assertTrue({"Projectile", "FloatText", "Ring"} <= spawned, spawned)
+        self.assertGreater(hp_changes, 0)                      # HP на картах меняется по ходу показа
+        dead = {uid for uid, unit in view.sim.units.items() if not unit.is_alive}
+        self.assertEqual(arena._dead, dead)
+        # Карты повёрнуты: повёрнутая карта уже плоской, а погибшие карты кэшируются отдельно.
+        card = arena.art.flat("knight", "Knight", 3, "left", (100, 140), self.ui.fonts["small"])
+        tilted = arena.art.tilted("knight", "Knight", 3, "left", (100, 140), self.ui.fonts["small"])
+        self.assertLess(tilted.get_width(), card.get_width())
+        self.assertTrue(arena.art.has_art("knight"))
+
+
 if __name__ == "__main__":
     unittest.main()

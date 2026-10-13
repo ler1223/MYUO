@@ -35,6 +35,14 @@ from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH,
 FPS = 60
 AUTO_STEP_MS = 600
 POPUP_MS = 900
+SETTLE_MS = 250             # пауза после последнего события шага
+TIMELINE_KEEP_MS = 3000     # сколько хранить показанные события (эффектам хватает)
+# Сколько длится показ события, прежде чем показывать следующее (по имени класса события).
+BEAT_MS = {
+    "SkillUsed": 380, "DamageDealt": 110, "AttackMissed": 110, "Healed": 110, "Covered": 200,
+    "EffectApplied": 60, "EffectExpired": 40, "ResourceGained": 60, "PassiveTriggered": 120,
+    "UnitDied": 250, "RoundStarted": 450, "TurnSkipped": 200,
+}
 POPUP_RISE = 34
 LOG_LINES = 8
 
@@ -85,29 +93,50 @@ class BattleView:
         self.current_uid: Optional[int] = None
         self.round = 0
         self.ended: Optional[BattleEnded] = None
+        # Расписание проигрывания: шаг боя мгновенный, а события показываются по очереди.
+        self.timeline: list[tuple[int, Event]] = []
+        self.busy_until = 0
 
     def step(self, now: int) -> None:
         self.consume(self.sim.step(), now)
 
-    def consume(self, events: list[Event], now: int) -> None:
+    def schedule(self, events: list[Event], now: int) -> list[int]:
+        """Время показа каждого события: замах, полёт снаряда, удары по очереди, гибель."""
+        cursor = max(now, self.busy_until - SETTLE_MS)
+        times = []
         for ev in events:
-            if isinstance(ev, RoundStarted):
-                self.round = ev.round
-            elif isinstance(ev, TurnStarted):
-                self.current_uid = ev.unit
-            elif isinstance(ev, SkillUsed):
-                self.actions[ev.user] = (ev.skill_id, now)
-            elif isinstance(ev, DamageDealt):
-                self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
-            elif isinstance(ev, Healed):
-                self.popups.append(Popup(ev.target, f"+{ev.amount}" + ("!" if ev.crit else ""), GREEN, now))
-            elif isinstance(ev, BattleEnded):
-                self.current_uid = None
-                self.ended = ev
+            times.append(cursor)
+            cursor += BEAT_MS.get(type(ev).__name__, 0)
+        self.busy_until = cursor + SETTLE_MS
+        return times
+
+    def consume(self, events: list[Event], now: int) -> None:
+        times = self.schedule(events, now)
+        self.timeline.extend(zip(times, events))
+        for when, ev in zip(times, events):
+            self._consume_one(ev, when)
         self.log = (self.log + events)[-LOG_LINES:]
 
+    def _consume_one(self, ev: Event, now: int) -> None:
+        """Состояние для вкладки с карточками; now это время показа события."""
+        if isinstance(ev, RoundStarted):
+            self.round = ev.round
+        elif isinstance(ev, TurnStarted):
+            self.current_uid = ev.unit
+        elif isinstance(ev, SkillUsed):
+            self.actions[ev.user] = (ev.skill_id, now)
+        elif isinstance(ev, DamageDealt):
+            self.popups.append(Popup(ev.target, f"-{ev.amount}" + ("!" if ev.crit else ""), RED, now))
+        elif isinstance(ev, Healed):
+            self.popups.append(Popup(ev.target, f"+{ev.amount}" + ("!" if ev.crit else ""), GREEN, now))
+        elif isinstance(ev, BattleEnded):
+            self.current_uid = None
+            self.ended = ev
+
     def prune(self, now: int) -> None:
+        # Всплывающие числа живут POPUP_MS с момента показа (он может быть в будущем).
         self.popups = [p for p in self.popups if now - p.born < POPUP_MS]
+        self.timeline = [(when, ev) for when, ev in self.timeline if now - when < TIMELINE_KEEP_MS]
 
 
 class App:
@@ -429,7 +458,8 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
             elif event.key == pygame.K_r:
                 view.restart(view.seed + 1)
 
-        if app.on_battle_tab() and autoplay and not view.sim.finished and now - last_step >= AUTO_STEP_MS:
+        ready = now - last_step >= AUTO_STEP_MS and now >= view.busy_until   # эффекты прошлого шага доиграли
+        if app.on_battle_tab() and autoplay and not view.sim.finished and ready:
             view.step(now)
             last_step = now
 
