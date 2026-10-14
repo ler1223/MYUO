@@ -474,8 +474,9 @@ class WorldScreen:
     def _enemy_parts(self, enemy_id: str, state: Any, now: int) -> list[Part]:
         enemy = self.world.enemy(enemy_id)
         db = self.app.db if self.app is not None else None
-        tags = db.units[enemy.leader_class].tags if db is not None and enemy.leader_class in db.units else ()
-        sprite = self.bank.sprite_for(enemy.leader_class, tags)
+        leader = enemy.leader_in(list(db.units)) if db is not None else enemy.leader_class
+        tags = db.units[leader].tags if db is not None and leader in db.units else ()
+        sprite = self.bank.sprite_for(leader, tags)
         height = HUMAN * self.bank.ratio(sprite)
         bob = 3 * abs(math.sin(now / 140 + hash(enemy_id) % 7)) if state.target is not None or state.chasing else 0
         facing = self._enemy_facing.get(enemy_id, -1)

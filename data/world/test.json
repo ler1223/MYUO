@@ -49,15 +49,15 @@
   ],
   "enemies": [
     {"id": "scouts", "name": "Goblin Scouts", "x": 1900, "z": 450, "roam": 260,
-     "roster": [["goblin", 2, 0, 1], ["goblin", 2, 1, 1]], "loot": [["herb", 2]], "gold": 40},
+     "roster": [[["thief", "goblin"], 2, 0, 1], [["thief", "goblin"], 2, 1, 1]], "loot": [["herb", 2]], "gold": 40},
     {"id": "patrol", "name": "Orc Patrol", "x": 2450, "z": 800, "roam": 300,
-     "roster": [["orc", 3, 0, 1], ["goblin", 2, 1, 0], ["archer", 2, 1, 2]], "loot": [["iron_ore", 1]], "gold": 80},
+     "roster": [[["gladiator", "orc"], 3, 0, 1], [["thief", "goblin"], 2, 1, 0], [["hunter", "archer"], 2, 1, 2]], "loot": [["iron_ore", 1]], "gold": 80},
     {"id": "raider_camp", "name": "Raider Camp", "x": 2850, "z": 1100, "boss": true, "roam": 120, "aggro": 380,
-     "roster": [["orc", 4, 0, 1], ["knight", 3, 0, 0], ["archer", 3, 1, 1], ["mage", 3, 2, 2]],
+     "roster": [[["gladiator", "orc"], 4, 0, 1], [["fighter", "knight"], 3, 0, 0], [["hunter", "archer"], 3, 1, 1], [["wizard", "mage"], 3, 2, 2]],
      "loot": [["war_axe", 1], ["gem", 1]], "gold": 300},
     {"id": "frost_riders", "name": "Frost Riders", "x": 650, "z": 2050, "roam": 320,
-     "roster": [["rider", 3, 0, 1], ["rider", 3, 0, 2]], "gold": 120},
+     "roster": [[["rider", "knight"], 3, 0, 1], [["rider", "knight"], 3, 0, 2]], "gold": 120},
     {"id": "desert_band", "name": "Desert Band", "x": 2300, "z": 2150, "roam": 300,
-     "roster": [["orc", 4, 0, 1], ["archer", 3, 1, 0], ["cleric", 3, 2, 1]], "loot": [["potion", 2]], "gold": 150}
+     "roster": [[["gladiator", "orc"], 4, 0, 1], [["hunter", "archer"], 3, 1, 0], ["cleric", 3, 2, 1]], "loot": [["potion", 2]], "gold": 150}
   ]
 }

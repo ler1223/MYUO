@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
+from typing import Optional, Sequence
 
 from .database import Database
 from .squad import Squad
@@ -27,11 +28,34 @@ def full_level(db: Database, class_id: str, level: int) -> int:
     return max(level, db.units[class_id].top_unlock)
 
 
+def pick(db: Database, candidates) -> Optional[str]:
+    """Первый класс из кандидатов, который есть в справочнике (классы UO, иначе прежние)."""
+    for class_id in (candidates,) if isinstance(candidates, str) else candidates:
+        if class_id in db.units:
+            return class_id
+    return None
+
+
+def fitting(db: Database, class_id: str, items: Sequence[str]) -> tuple[str, ...]:
+    """Предметы из списка, которые есть и влезают в слоты класса (каждый слот — один раз)."""
+    free = list(db.definition_for(class_id, db.lineage(class_id)).slots)
+    chosen = []
+    for item_id in items:
+        item = db.items.get(item_id)
+        if item is not None and item.slot in free:
+            free.remove(item.slot)
+            chosen.append(item_id)
+    return tuple(chosen)
+
+
 def _build_army(db: Database, army_id: str, name: str, squad_id: str, squad_name: str, roster, first_uid: int,
                 show_all: bool = False):
-    """roster: список (definition_id, level, equipment, row, col). show_all: уровни поднимаются до full_level."""
+    """roster: список (класс или кандидаты, level, equipment, row, col). show_all: уровни до full_level.
+    Классы, которых нет, пропускаются; неподходящие предметы не надеваются."""
     army = Army(army_id, name)
     squad = army.create_squad(squad_id, squad_name, db.formation)
+    roster = [(pick(db, c), level, equipment, row, col) for c, level, equipment, row, col in roster]
+    roster = [(c, level, fitting(db, c, equipment), row, col) for c, level, equipment, row, col in roster if c]
     for offset, (definition_id, level, equipment, row, col) in enumerate(roster):
         if show_all:
             level = full_level(db, definition_id, level)
@@ -44,9 +68,9 @@ def build_demo(db: Database) -> Scenario:
     player, player_squad = _build_army(
         db, "player", "Player", "vanguard", "Vanguard",
         [
-            ("knight", 3, ("iron_sword", "shield"), 0, 1),
-            ("archer", 1, ("short_bow",), 1, 0),
-            ("mage", 1, ("oak_staff",), 1, 2),
+            (("fighter", "knight"), 3, ("iron_sword", "shield"), 0, 1),
+            (("hunter", "archer"), 1, ("short_bow",), 1, 0),
+            (("wizard", "mage"), 1, ("oak_staff",), 1, 2),
             ("cleric", 1, ("oak_staff",), 2, 1),
         ],
         first_uid=1, show_all=True,
@@ -54,10 +78,10 @@ def build_demo(db: Database) -> Scenario:
     enemy, enemy_squad = _build_army(
         db, "enemy", "Enemy", "raiders", "Raiders",
         [
-            ("orc", 2, ("war_axe",), 0, 1),
-            ("goblin", 2, ("rusty_dagger",), 0, 0),
-            ("rider", 2, ("lance",), 0, 2),
-            ("mage", 2, ("oak_staff",), 1, 1),
+            (("gladiator", "orc"), 2, ("war_axe",), 0, 1),
+            (("thief", "goblin"), 2, ("rusty_dagger", "iron_sword"), 0, 0),
+            (("rider", "knight"), 2, ("lance",), 0, 2),
+            (("wizard", "mage"), 2, ("oak_staff",), 1, 1),
         ],
         first_uid=11, show_all=True,
     )
@@ -68,17 +92,18 @@ def build_demo(db: Database) -> Scenario:
 
 
 # Пять тестовых классов визуала (docs/test_classes.md): (класс, предметы, ряд, колонна) у каждой стороны.
+# Классы UO со спрайтами тестовых классов (паладин, всадник, охотник, пиромант, клирик), иначе прежние.
 SHOWCASE_PLAYER = (
-    ("paladin", ("iron_sword", "shield"), 0, 1),
-    ("rider", ("lance",), 0, 2),
+    (("lord", "paladin"), ("iron_sword", "shield"), 0, 1),
+    (("rider", "knight"), ("lance",), 0, 2),
     ("hunter", ("short_bow",), 1, 0),
-    ("pyromancer", ("oak_staff",), 1, 2),
+    (("warlock", "pyromancer"), ("oak_staff",), 1, 2),
     ("cleric", ("oak_staff",), 2, 1),
 )
 SHOWCASE_ENEMY = (
-    ("paladin", ("iron_sword", "shield"), 0, 0),
-    ("rider", ("lance",), 0, 2),
-    ("pyromancer", ("oak_staff",), 1, 1),
+    (("lord", "paladin"), ("iron_sword", "shield"), 0, 0),
+    (("rider", "knight"), ("lance",), 0, 2),
+    (("warlock", "pyromancer"), ("oak_staff",), 1, 1),
     ("hunter", ("short_bow",), 2, 0),
     ("cleric", ("oak_staff",), 2, 2),
 )
@@ -88,8 +113,7 @@ def build_showcase(db: Database, level: int = 3) -> Scenario:
     """Бой тестовых классов против них же. Классы и предметы, которых нет в справочнике, пропускаются;
     если не осталось никого, берётся обычное демо."""
     def roster(entries):
-        return [(cls, level, tuple(i for i in items if i in db.items), row, col)
-                for cls, items, row, col in entries if cls in db.units]
+        return [(pick(db, cls), level, items, row, col) for cls, items, row, col in entries if pick(db, cls)]
 
     player_roster, enemy_roster = roster(SHOWCASE_PLAYER), roster(SHOWCASE_ENEMY)
     if not player_roster or not enemy_roster:
@@ -106,23 +130,23 @@ def build_showcase(db: Database, level: int = 3) -> Scenario:
 
 # --- демонстрационный бой: как можно больше разных навыков и пассивок ------------
 
-# Все классы по разу у кого-то из отрядов: (класс, ряд, колонна).
+# 18 разных классов UO (иначе прежних): (кандидаты, ряд, колонна).
 DEMO_PLAYER = (
-    ("paladin", 0, 1), ("fighter", 0, 0), ("rider", 0, 2),
-    ("hunter", 1, 0), ("spearman", 1, 1), ("stormcaller", 1, 2),
-    ("pyromancer", 2, 0), ("cleric", 2, 1), ("witch", 2, 2),
+    (("lord", "paladin"), 0, 1), (("fighter",), 0, 0), (("rider", "knight"), 0, 2),
+    (("hunter",), 1, 0), (("soldier", "spearman"), 1, 1), (("shaman", "stormcaller"), 1, 2),
+    (("wizard", "pyromancer"), 2, 0), (("cleric",), 2, 1), (("witch",), 2, 2),
 )
 DEMO_ENEMY = (
-    ("knight", 0, 1), ("orc", 0, 0), ("goblin", 0, 2),
-    ("archer", 1, 0), ("cryomancer", 1, 1), ("mage", 1, 2),
-    ("cleric", 2, 0), ("rider", 2, 1), ("fighter", 2, 2),
+    (("hoplite", "knight"), 0, 1), (("gladiator", "orc"), 0, 0), (("thief", "goblin"), 0, 2),
+    (("arbalist", "archer"), 1, 0), (("sellsword", "cryomancer"), 1, 1), (("priestess", "mage"), 1, 2),
+    (("radiant_knight", "cleric"), 2, 0), (("dark_knight", "rider"), 2, 1), (("gryphon_knight", "fighter"), 2, 2),
 )
 DEMO_LEVEL = 5
 DEMO_AP = 8                 # запас AP в демонстрации: хватает, чтобы каждый показал все свои навыки
 DEMO_HP = 3                 # во столько раз больше HP: юниты живут, пока не покажут навыки
 DEMO_PP = 4                 # запас PP: пассивки срабатывают чаще
 DEMO_SEED = 25              # на этом сиде 29 навыков (всё, кроме «Шквала» и whirlwind) и все 7 пассивок
-DEMO_FRAGILE = ("goblin",)  # эти без запаса HP: их гибель показывает реакции на смерть союзника
+DEMO_FRAGILE = ("thief", "goblin")  # эти без запаса HP: их гибель показывает реакции на смерть союзника
 
 
 @dataclass(frozen=True)
@@ -174,9 +198,10 @@ def build_demo_battle(db: Database, level: int = DEMO_LEVEL) -> Scenario:
 
     def roster(entries):
         """Классы из справочника, на клетках, которые есть на поле, не больше max_units."""
-        fitting = [(cls, level, auto_equipment(db, cls), row, col) for cls, row, col in entries
-                   if cls in db.units and row < size.rows and col < size.cols]
-        return fitting[:size.max_units]
+        chosen = [(pick(db, cls), row, col) for cls, row, col in entries]
+        placed = [(cls, level, auto_equipment(db, cls), row, col) for cls, row, col in chosen
+                  if cls and row < size.rows and col < size.cols]
+        return placed[:size.max_units]
 
     player_roster, enemy_roster = roster(DEMO_PLAYER), roster(DEMO_ENEMY)
     if not player_roster or not enemy_roster:

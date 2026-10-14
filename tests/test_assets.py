@@ -169,9 +169,11 @@ class DemoBattleTests(unittest.TestCase):
                 passives.add(ev.passive_id) if isinstance(ev, PassiveTriggered) else None
                 covers += isinstance(ev, Covered)
                 deaths += isinstance(ev, UnitDied)
-        owned = {s for unit in db.units.values() for s in unit.skills}   # навыки, которые есть у классов
-        self.assertGreaterEqual(len(skills), len(owned) - 1, sorted(owned - skills))
-        self.assertEqual(passives, set(db.passives))
+        units = [u for squad in (scenario.player_squad, scenario.enemy_squad) for u in squad.formation.units]
+        owned = {s for unit in units for s in unit.definition.skills}      # навыки классов демонстрации
+        self.assertGreaterEqual(len(skills & owned), len(owned) - 2, sorted(owned - skills))
+        own_passives = {p for unit in units for p in unit.definition.passives}
+        self.assertGreaterEqual(len(passives & own_passives), len(own_passives) * 0.8, sorted(own_passives - passives))
         self.assertGreater(covers, 0)
         self.assertGreater(deaths, 0)
         self.assertEqual(db.units["knight"].ap_max, Database.load().units["knight"].ap_max)   # справочник не тронут

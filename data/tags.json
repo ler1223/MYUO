@@ -88,5 +88,35 @@
     "name": "Magic",
     "kind": "skill",
     "unblockable": false
+  },
+  "shield": {
+    "name": "Shield",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "greatshield": {
+    "name": "Greatshield",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "scout": {
+    "name": "Scout",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "elf": {
+    "name": "Elf",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "bestral": {
+    "name": "Bestral",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "angel": {
+    "name": "Angel",
+    "kind": "unit",
+    "unblockable": false
   }
 }

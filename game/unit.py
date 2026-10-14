@@ -101,6 +101,7 @@ class UnitDefinition:
     promotions: tuple["Promotion", ...] = ()   # в кого класс повышается и с какого уровня
     # Классы, которыми боец был до этого (game/promotion.py): их статы на уровне бойца — нижняя граница.
     ancestors: tuple["UnitDefinition", ...] = ()
+    grades: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))   # оценки UO (S..F), справочно
 
     @classmethod
     def from_dict(cls, unit_id: str, data: Mapping[str, Any]) -> "UnitDefinition":
@@ -122,6 +123,7 @@ class UnitDefinition:
             passive_levels=passive_levels,
             tier=check_tier(int(data.get("tier", 10)), f"unit {unit_id}"),
             promotions=tuple(Promotion.from_dict(p) for p in data.get("promotions", ())),
+            grades=MappingProxyType(dict(data.get("grades", {}))),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -138,6 +140,7 @@ class UnitDefinition:
             "tactics": self.tactics.to_list(),
             "tier": self.tier,
             "promotions": [p.to_dict() for p in self.promotions],
+            **({"grades": dict(self.grades)} if self.grades else {}),
         }
 
     def base_stat(self, stat: Stat, level: int) -> float:

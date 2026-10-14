@@ -110,7 +110,7 @@ class EnemySquadDef:
     name: str
     x: float
     z: float
-    roster: tuple[tuple[str, int, int, int], ...]   # (класс, уровень, ряд, колонна)
+    roster: tuple[tuple[str, int, int, int], ...]   # (класс, уровень, ряд, колонна); класс: "a|b" — кандидаты
     boss: bool = False                       # разбит — регион освобождён
     roam: float = 260                        # бродит в таком радиусе от дома
     aggro: float = 420                       # замечает героя на таком расстоянии
@@ -121,7 +121,11 @@ class EnemySquadDef:
 
     @property
     def leader_class(self) -> str:
-        return self.roster[0][0] if self.roster else ""
+        return self.roster[0][0].split("|")[0] if self.roster else ""
+
+    def leader_in(self, classes: Sequence[str]) -> str:
+        """Класс вожака, который есть в справочнике (первый подходящий кандидат)."""
+        return next((c for c in self.roster[0][0].split("|") if c in classes), self.leader_class) if self.roster else ""
 
 
 @dataclass(frozen=True)
@@ -151,7 +155,8 @@ class WorldDef:
                                     o.get("image", ""), float(o.get("size", 200)), float(o.get("radius", 0)),
                                     pairs(o.get("loot", ())), int(o.get("gold", 0))) for o in data.get("objects", ()))
         enemies = tuple(EnemySquadDef(e["id"], e["name"], float(e["x"]), float(e["z"]),
-                                      tuple((str(c), int(lv), int(r), int(col)) for c, lv, r, col in e["roster"]),
+                                      tuple(("|".join(c) if isinstance(c, list) else str(c), int(lv), int(r), int(col))
+                                            for c, lv, r, col in e["roster"]),
                                       bool(e.get("boss")), float(e.get("roam", 260)), float(e.get("aggro", 420)),
                                       float(e.get("leash", 900)), float(e.get("speed", 230)),
                                       pairs(e.get("loot", ())), int(e.get("gold", 0))) for e in data.get("enemies", ()))
@@ -190,7 +195,8 @@ class WorldDef:
         known_items = set(items) | set(self.goods)
         problems = []
         for enemy in self.enemies:
-            problems += [f"{enemy.id}: class {c!r}" for c, *_ in enemy.roster if c not in classes]
+            problems += [f"{enemy.id}: class {c!r}" for c, *_ in enemy.roster
+                         if not any(x in classes for x in c.split("|"))]
             problems += [f"{enemy.id}: item {i!r}" for i, _ in enemy.loot if i not in known_items]
         for obj in self.objects:
             problems += [f"{obj.id}: item {i!r}" for i, _ in obj.loot if i not in known_items]
@@ -435,12 +441,13 @@ def encounter_scenario(db: "Database", setup: "Scenario", enemy: EnemySquadDef) 
     Классы, которых нет в справочнике, и не помещающиеся в поле клетки пропускаются.
     """
     from .save import clone_scenario
-    from .scenario import Scenario, _build_army, auto_equipment
+    from .scenario import Scenario, _build_army, auto_equipment, pick
 
     player = clone_scenario(db, setup)
     size = db.formation
-    roster = [(cls, level, auto_equipment(db, cls), row, col) for cls, level, row, col in enemy.roster
-              if cls in db.units and row < size.rows and col < size.cols][:size.max_units]
+    chosen = [(pick(db, cls.split("|")), level, row, col) for cls, level, row, col in enemy.roster]
+    roster = [(cls, level, auto_equipment(db, cls), row, col) for cls, level, row, col in chosen
+              if cls and row < size.rows and col < size.cols][:size.max_units]
     if not roster:
         raise ValueError(f"enemy squad {enemy.id} has no units this database knows")
     army, squad = _build_army(db, "enemy", enemy.name, enemy.id, enemy.name, roster, first_uid=ENEMY_FIRST_UID)

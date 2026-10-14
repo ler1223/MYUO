@@ -540,6 +540,9 @@ class StageTests(WindowTestCase):
         stage = self.tab("Stage")
         stage.next_mode()
         view = stage.battle_view
+        # визуал в assets описан для навыков UO; навыкам тестовых данных — свой
+        stage.skill_visuals["lance_charge"] = {"windup": 420, "cast": [], "hit": []}
+        stage.skill_visuals["rider/attack"] = {"windup": 300, "cast": [], "hit": []}
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
         self.assertEqual(stage.windup(SkillUsed(rider.uid, "lance_charge", 11)),
                          stage.skill_visuals["lance_charge"]["windup"])
@@ -559,8 +562,12 @@ class StageTests(WindowTestCase):
         self.assertEqual(stage.mode, "setup")
         self.assertIn("knight", {u.definition.id for u in view.sim.units.values()})
         knight = next(u for u in view.sim.units.values() if u.definition.id == "knight")
-        self.assertEqual(stage.bank.sprite_id(knight), "knight")              # свой спрайт
-        del stage.bank.config["sprites"]["knight"]                            # без него — похожий
+        classes = stage.bank.config["fallback"]["classes"]
+        classes["knight"] = "rider"
+        self.assertEqual(stage.bank.sprite_id(knight), "rider")               # явное соответствие класса — первым
+        del classes["knight"]
+        self.assertEqual(stage.bank.sprite_id(knight), "knight")              # иначе свой спрайт
+        del stage.bank.config["sprites"]["knight"]                            # без него — по тегу или по умолчанию
         self.assertEqual(stage.bank.sprite_id(knight), "paladin")
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
         self.assertEqual(stage.stage[rider.uid].sprite, "rider")

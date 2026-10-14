@@ -12,6 +12,7 @@ from .definitions import (
     MAGICAL,
     PART_DAMAGE,
     PART_HEAL,
+    PART_HEAL_PCT,
     PHYSICAL,
     PassiveDefinition,
     SkillDefinition,
@@ -353,6 +354,9 @@ class BattleSimulation:
             for apply in skill.applies:
                 if apply.to == APPLY_SELF and user.is_alive and apply.condition.check(user, target):
                     self._give_effect(user, apply.effect_id, user.uid)
+            if user.is_alive:
+                self._restore(user.uid, user, "AP", user.ap, extras.hit_ap, skill.id)
+                self._restore(user.uid, user, "PP", user.pp, extras.hit_pp, skill.id)
             if user.is_alive and extras.heal_on_hit > 0:
                 self._heal(user, round(user.max_hp * extras.heal_on_hit), user.uid, skill.id)
             if user.is_alive and extras.lifesteal > 0 and self._skill_damage:
@@ -507,6 +511,9 @@ class BattleSimulation:
             power = part.power + potency
             if part.kind == PART_HEAL:
                 self._heal(unit, round(value * power * power_mult * crit_mult), user.uid, skill.id, crit)
+                continue
+            if part.kind == PART_HEAL_PCT:
+                self._heal(unit, round(unit.max_hp * part.power), user.uid, skill.id)
                 continue
             if negated:
                 self._deal(unit, 0, user.uid, skill.id)

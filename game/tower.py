@@ -50,8 +50,10 @@ DRAFT, PREPARE, REWARD, SHOP, OVER = "draft", "prepare", "reward", "shop", "over
 
 
 def base_classes(db: Database) -> list[str]:
-    """Классы, в которые никто не повышается: из них набор, найм и враги (повышенные — повышением)."""
-    return sorted(c for c in db.units if not db.parents(c)) or sorted(db.units)
+    """Классы, в которые никто не повышается и с тиром ниже 20: из них набор, найм и враги
+    (повышенные — повышением; сразу повышенные классы вроде эльфов в набор не попадают)."""
+    roots = sorted(c for c in db.units if not db.parents(c))
+    return [c for c in roots if db.units[c].tier < 20] or roots or sorted(db.units)
 
 
 def by_floor(table: Sequence[Mapping[str, Any]], floor: int) -> Mapping[str, Any]:

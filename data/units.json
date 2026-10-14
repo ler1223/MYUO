@@ -1,97 +1,32 @@
 {
-  "knight": {
-    "name": "Knight",
+  "arbalist": {
+    "name": "Arbalist",
     "stats": {
-      "hp": 60,
-      "phys_atk": 22,
-      "phys_def": 12,
-      "mag_atk": 4,
-      "mag_def": 5,
-      "initiative": 5,
-      "accuracy": 100,
-      "evasion": 5,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 25
+      "hp": 48,
+      "phys_atk": 25,
+      "phys_def": 7,
+      "mag_atk": 12,
+      "mag_def": 11,
+      "accuracy": 115,
+      "evasion": 4,
+      "crit_rate": 4,
+      "guard_rate": 25,
+      "initiative": 6,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 8,
-      "phys_atk": 2,
-      "phys_def": 2,
-      "mag_def": 1
-    },
-    "ap_max": 4,
-    "pp_max": 2,
-    "tags": [
-      "infantry",
-      "armored"
-    ],
-    "slots": [
-      "light_sword",
-      "light_shield",
-      "medium_armor",
-      "artifact"
-    ],
-    "skills": [
-      "attack",
-      "power_strike"
-    ],
-    "passives": [
-      {
-        "id": "iron_will",
-        "level": 5
-      },
-      {
-        "id": "avenger",
-        "level": 10
-      },
-      "shield_cover"
-    ],
-    "tactics": [
-      {
-        "skill": "power_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      },
-      {
-        "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      }
-    ]
-  },
-  "archer": {
-    "name": "Archer",
-    "stats": {
-      "hp": 38,
-      "phys_atk": 20,
-      "phys_def": 5,
-      "mag_atk": 4,
-      "mag_def": 5,
-      "initiative": 9,
-      "accuracy": 110,
-      "evasion": 15,
-      "crit_rate": 15,
-      "crit_damage": 150,
-      "guard_rate": 0
-    },
-    "growth": {
-      "hp": 5,
-      "phys_atk": 2,
+      "hp": 6,
+      "phys_atk": 2.9,
       "phys_def": 1,
-      "initiative": 1
+      "mag_atk": 1.6,
+      "mag_def": 1.6,
+      "accuracy": 0.5,
+      "evasion": 0.1,
+      "crit_rate": 0.1,
+      "guard_rate": 0.3,
+      "initiative": 0.3
     },
-    "ap_max": 4,
+    "ap_max": 2,
     "pp_max": 2,
     "tags": [
       "infantry",
@@ -99,87 +34,229 @@
     ],
     "slots": [
       "bow",
-      "light_armor",
       "artifact",
       "artifact"
     ],
     "skills": [
-      "shot",
+      "power_bolt",
       {
-        "id": "poison_arrow",
-        "level": 3
+        "id": "toxic_bolt",
+        "level": 10
       }
     ],
     "passives": [
+      "medical_aid",
       {
-        "id": "assist",
-        "level": 6
+        "id": "quick_reload",
+        "level": 15
       }
     ],
     "tactics": [
       {
-        "skill": "poison_arrow",
+        "skill": "toxic_bolt",
         "self_condition": {
           "type": "always"
         },
         "condition": {
-          "type": "lacks_effect",
-          "effect_id": "poison"
+          "type": "always"
         },
-        "selector": "strongest"
+        "selector": "frontmost"
       },
       {
-        "skill": "shot",
+        "skill": "power_bolt",
         "self_condition": {
           "type": "always"
         },
         "condition": {
           "type": "always"
         },
-        "selector": "backmost"
+        "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "shieldshooter",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "A",
+      "phys_def": "D",
+      "mag_atk": "E",
+      "mag_def": "B",
+      "accuracy": "A",
+      "evasion": "E",
+      "crit_rate": "E",
+      "guard_rate": "B",
+      "initiative": "E"
+    }
   },
-  "cleric": {
-    "name": "Cleric",
+  "berserker": {
+    "name": "Berserker",
     "stats": {
-      "hp": 34,
-      "phys_atk": 8,
-      "phys_def": 4,
-      "mag_atk": 16,
-      "mag_def": 12,
-      "initiative": 6,
-      "accuracy": 100,
-      "evasion": 5,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 0
+      "hp": 70,
+      "phys_atk": 25,
+      "phys_def": 3,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 95,
+      "evasion": 0,
+      "crit_rate": 4,
+      "guard_rate": 12,
+      "initiative": 4,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 5,
-      "mag_atk": 2,
-      "phys_def": 1,
-      "mag_def": 1
+      "hp": 9,
+      "phys_atk": 2.9,
+      "phys_def": 0.4,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.3,
+      "crit_rate": 0.1,
+      "guard_rate": 0.2,
+      "initiative": 0.25
     },
-    "ap_max": 4,
-    "pp_max": 2,
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "wide_smash",
+      {
+        "id": "mounting_charge",
+        "level": 20
+      },
+      {
+        "id": "grand_smash",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "bulk_up",
+      {
+        "id": "wide_counter",
+        "level": 15
+      },
+      {
+        "id": "berserk",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "mounting_charge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "grand_smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "wide_smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "S",
+      "phys_atk": "A",
+      "phys_def": "F",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "E",
+      "evasion": "F",
+      "crit_rate": "E",
+      "guard_rate": "D",
+      "initiative": "F"
+    }
+  },
+  "bishop": {
+    "name": "Bishop",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 8,
+      "phys_def": 7,
+      "mag_atk": 19,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 15,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 1.2,
+      "phys_def": 1,
+      "mag_atk": 2.3,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.3
+    },
+    "ap_max": 3,
+    "pp_max": 3,
     "tags": [
       "infantry",
       "caster"
     ],
     "slots": [
       "staff",
-      "robe",
+      "artifact",
+      "artifact",
       "artifact"
     ],
     "skills": [
-      "magic_bolt",
-      "heal"
+      "heal",
+      {
+        "id": "sacred_heal",
+        "level": 25
+      }
     ],
     "passives": [
+      "quick_heal",
       {
-        "id": "emergency_heal",
-        "level": 5
+        "id": "refresh",
+        "level": 10
+      },
+      {
+        "id": "lifesaver",
+        "level": 15
+      },
+      {
+        "id": "parting_resurrection",
+        "level": 20
       }
     ],
     "tactics": [
@@ -190,12 +267,119 @@
         },
         "condition": {
           "type": "hp_below",
-          "value": 0.6
+          "value": 0.7
         },
         "selector": "weakest"
       },
       {
-        "skill": "magic_bolt",
+        "skill": "sacred_heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "F",
+      "phys_def": "D",
+      "mag_atk": "C",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "E"
+    }
+  },
+  "breaker": {
+    "name": "Breaker",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 28,
+      "phys_def": 13,
+      "mag_atk": 8,
+      "mag_def": 9,
+      "accuracy": 100,
+      "evasion": 7,
+      "crit_rate": 0,
+      "guard_rate": 25,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 3.2,
+      "phys_def": 1.9,
+      "mag_atk": 1.2,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "heavy_smash",
+      {
+        "id": "assaulting_blow",
+        "level": 10
+      },
+      {
+        "id": "row_smash",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "binding_guard",
+      {
+        "id": "enrage",
+        "level": 20
+      },
+      {
+        "id": "heavy_counter",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "row_smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "assaulting_blow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "heavy_smash",
         "self_condition": {
           "type": "always"
         },
@@ -204,211 +388,170 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "S",
+      "phys_def": "A",
+      "mag_atk": "F",
+      "mag_def": "C",
+      "accuracy": "D",
+      "evasion": "D",
+      "crit_rate": "F",
+      "guard_rate": "B",
+      "initiative": "C"
+    }
   },
-  "mage": {
-    "name": "Mage",
+  "cleric": {
+    "name": "Cleric",
     "stats": {
-      "hp": 30,
-      "phys_atk": 5,
-      "phys_def": 3,
-      "mag_atk": 24,
-      "mag_def": 10,
-      "initiative": 7,
-      "accuracy": 100,
-      "evasion": 5,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 0
+      "hp": 42,
+      "phys_atk": 8,
+      "phys_def": 5,
+      "mag_atk": 19,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 15,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 6,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 4,
-      "mag_atk": 3,
-      "mag_def": 1
+      "hp": 5,
+      "phys_atk": 1.2,
+      "phys_def": 0.7,
+      "mag_atk": 2.3,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.3
     },
-    "ap_max": 4,
-    "pp_max": 1,
+    "ap_max": 2,
+    "pp_max": 2,
     "tags": [
       "infantry",
       "caster"
     ],
     "slots": [
       "staff",
-      "robe",
       "artifact",
       "artifact"
     ],
     "skills": [
-      "magic_bolt",
-      "fireball",
-      {
-        "id": "enchant_wind",
-        "level": 5
-      }
+      "heal"
     ],
-    "passives": [],
-    "tactics": [
+    "passives": [
+      "quick_heal",
       {
-        "skill": "fireball",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "random"
+        "id": "refresh",
+        "level": 10
       },
       {
-        "skill": "magic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "weakest"
-      }
-    ]
-  },
-  "goblin": {
-    "name": "Goblin",
-    "stats": {
-      "hp": 28,
-      "phys_atk": 16,
-      "phys_def": 3,
-      "mag_atk": 2,
-      "mag_def": 2,
-      "initiative": 8,
-      "accuracy": 95,
-      "evasion": 20,
-      "crit_rate": 10,
-      "crit_damage": 150,
-      "guard_rate": 0
-    },
-    "growth": {
-      "hp": 4,
-      "phys_atk": 2,
-      "phys_def": 1,
-      "initiative": 1
-    },
-    "ap_max": 3,
-    "pp_max": 1,
-    "tags": [
-      "infantry"
-    ],
-    "slots": [
-      "dagger",
-      "artifact"
-    ],
-    "skills": [
-      "attack",
-      {
-        "id": "flurry",
-        "level": 3
+        "id": "lifesaver",
+        "level": 15
       }
     ],
-    "passives": [],
     "tactics": [
       {
-        "skill": "flurry",
+        "skill": "heal",
         "self_condition": {
           "type": "always"
         },
         "condition": {
           "type": "hp_below",
-          "value": 0.5
+          "value": 0.7
         },
         "selector": "weakest"
-      },
-      {
-        "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "random"
       }
-    ]
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "bishop",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "F",
+      "phys_def": "E",
+      "mag_atk": "C",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "E"
+    }
   },
-  "orc": {
-    "name": "Orc",
+  "crusader": {
+    "name": "Crusader",
     "stats": {
-      "hp": 80,
-      "phys_atk": 26,
-      "phys_def": 8,
-      "mag_atk": 2,
-      "mag_def": 3,
-      "initiative": 4,
-      "accuracy": 90,
-      "evasion": 0,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 10
+      "hp": 55,
+      "phys_atk": 25,
+      "phys_def": 11,
+      "mag_atk": 12,
+      "mag_def": 9,
+      "accuracy": 105,
+      "evasion": 4,
+      "crit_rate": 4,
+      "guard_rate": 40,
+      "initiative": 6,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 10,
-      "phys_atk": 3,
-      "phys_def": 1
+      "hp": 7,
+      "phys_atk": 2.9,
+      "phys_def": 1.6,
+      "mag_atk": 1.6,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.1,
+      "crit_rate": 0.1,
+      "guard_rate": 0.5,
+      "initiative": 0.3
     },
-    "ap_max": 4,
-    "pp_max": 1,
+    "ap_max": 2,
+    "pp_max": 2,
     "tags": [
+      "shield",
       "infantry"
     ],
     "slots": [
-      "heavy_weapon",
-      "medium_armor",
+      "light_sword",
+      "light_shield",
+      "light_shield",
       "artifact"
     ],
     "skills": [
-      "attack",
-      "power_strike",
+      "vertical_edge",
       {
-        "id": "stun_bash",
-        "level": 5
-      },
-      {
-        "id": "crushing_blow",
+        "id": "iron_crusher",
         "level": 10
       }
     ],
     "passives": [
       {
-        "id": "avenger",
-        "level": 3
-      },
-      {
-        "id": "berserk",
-        "level": 8
+        "id": "maidens_hammer",
+        "level": 15
       }
     ],
     "tactics": [
       {
-        "skill": "stun_bash",
+        "skill": "iron_crusher",
         "self_condition": {
           "type": "always"
         },
         "condition": {
-          "type": "lacks_effect",
-          "effect_id": "stun"
-        },
-        "selector": "strongest"
-      },
-      {
-        "skill": "power_strike",
-        "self_condition": {
           "type": "always"
-        },
-        "condition": {
-          "type": "has_flag",
-          "flag": "stunned"
         },
         "selector": "frontmost"
       },
       {
-        "skill": "attack",
+        "skill": "vertical_edge",
         "self_condition": {
           "type": "always"
         },
@@ -417,69 +560,427 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 15,
+    "promotions": [
+      {
+        "class": "valkyria",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "A",
+      "phys_def": "B",
+      "mag_atk": "E",
+      "mag_def": "C",
+      "accuracy": "C",
+      "evasion": "E",
+      "crit_rate": "E",
+      "guard_rate": "S",
+      "initiative": "E"
+    }
   },
-  "rider": {
-    "name": "Rider",
+  "dark_knight": {
+    "name": "Dark Knight",
     "stats": {
       "hp": 55,
-      "phys_atk": 21,
-      "phys_def": 8,
-      "mag_atk": 3,
-      "mag_def": 4,
-      "initiative": 8,
+      "phys_atk": 28,
+      "phys_def": 9,
+      "mag_atk": 19,
+      "mag_def": 5,
       "accuracy": 100,
-      "evasion": 10,
+      "evasion": 0,
+      "crit_rate": 4,
+      "guard_rate": 20,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 3.2,
+      "phys_def": 1.3,
+      "mag_atk": 2.3,
+      "mag_def": 0.7,
+      "accuracy": 0.4,
+      "crit_rate": 0.1,
+      "guard_rate": 0.3,
+      "initiative": 0.3
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "light_shield",
+      "artifact"
+    ],
+    "skills": [
+      "vengeful_axe",
+      {
+        "id": "venom_axe",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "vengeance",
+      {
+        "id": "sanguine_arts",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "venom_axe",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "vengeful_axe",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "doom_knight",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "S",
+      "phys_def": "C",
+      "mag_atk": "C",
+      "mag_def": "E",
+      "accuracy": "D",
+      "evasion": "F",
+      "crit_rate": "E",
+      "guard_rate": "C",
+      "initiative": "E"
+    }
+  },
+  "doom_knight": {
+    "name": "Doom Knight",
+    "stats": {
+      "hp": 62,
+      "phys_atk": 28,
+      "phys_def": 11,
+      "mag_atk": 25,
+      "mag_def": 7,
+      "accuracy": 100,
+      "evasion": 0,
+      "crit_rate": 4,
+      "guard_rate": 25,
+      "initiative": 8,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 8,
+      "phys_atk": 3.2,
+      "phys_def": 1.6,
+      "mag_atk": 2.9,
+      "mag_def": 1,
+      "accuracy": 0.4,
+      "crit_rate": 0.1,
+      "guard_rate": 0.3,
+      "initiative": 0.35
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "vengeful_axe",
+      {
+        "id": "venom_axe",
+        "level": 10
+      },
+      {
+        "id": "dark_flame",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "vengeance",
+      {
+        "id": "sanguine_arts",
+        "level": 15
+      },
+      {
+        "id": "demonic_pact",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "dark_flame",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "venom_axe",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "vengeful_axe",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "A",
+      "phys_atk": "S",
+      "phys_def": "B",
+      "mag_atk": "A",
+      "mag_def": "D",
+      "accuracy": "D",
+      "evasion": "F",
+      "crit_rate": "E",
+      "guard_rate": "B",
+      "initiative": "D"
+    }
+  },
+  "dreadnought": {
+    "name": "Dreadnought",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 28,
+      "phys_def": 11,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 110,
+      "evasion": 0,
+      "crit_rate": 0,
+      "guard_rate": 30,
+      "initiative": 4,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 3.2,
+      "phys_def": 1.6,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.5,
+      "guard_rate": 0.4,
+      "initiative": 0.25
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "greatshield",
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "heavy_slash",
+      {
+        "id": "penetrate",
+        "level": 10
+      },
+      {
+        "id": "omega_shatter",
+        "level": 35
+      }
+    ],
+    "passives": [
+      "heavy_guard",
+      {
+        "id": "wild_kick",
+        "level": 15
+      },
+      {
+        "id": "hawk_eye",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "omega_shatter",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "penetrate",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "heavy_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "S",
+      "phys_def": "B",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "B",
+      "evasion": "F",
+      "crit_rate": "F",
+      "guard_rate": "A",
+      "initiative": "F"
+    }
+  },
+  "druid": {
+    "name": "Druid",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 16,
+      "phys_def": 9,
+      "mag_atk": 16,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 15,
       "crit_rate": 10,
-      "crit_damage": 150,
-      "guard_rate": 10
+      "guard_rate": 0,
+      "initiative": 14,
+      "crit_damage": 150
     },
     "growth": {
       "hp": 7,
       "phys_atk": 2,
-      "phys_def": 1,
-      "initiative": 1
+      "phys_def": 1.3,
+      "mag_atk": 2,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "crit_rate": 0.2,
+      "initiative": 0.5
     },
     "ap_max": 3,
-    "pp_max": 1,
+    "pp_max": 3,
     "tags": [
-      "cavalry"
+      "infantry",
+      "caster"
     ],
     "slots": [
-      "lance",
-      "medium_armor",
+      "staff",
+      "artifact",
+      "artifact",
       "artifact"
     ],
     "skills": [
-      "attack",
-      "lance_charge"
+      "passive_curse",
+      {
+        "id": "offensive_curse",
+        "level": 10
+      },
+      {
+        "id": "defensive_curse",
+        "level": 20
+      },
+      {
+        "id": "compounding_curse",
+        "level": 30
+      }
     ],
-    "passives": [],
+    "passives": [
+      "quick_curse",
+      {
+        "id": "cursed_swamp",
+        "level": 25
+      }
+    ],
     "tactics": [
       {
-        "skill": "lance_charge",
+        "skill": "compounding_curse",
         "self_condition": {
           "type": "always"
         },
         "condition": {
-          "type": "has_tag",
-          "tag": "cavalry"
+          "type": "always"
         },
         "selector": "frontmost"
       },
       {
-        "skill": "attack",
+        "skill": "defensive_curse",
         "self_condition": {
           "type": "always"
         },
         "condition": {
-          "type": "has_tag",
-          "tag": "infantry"
+          "type": "always"
         },
-        "selector": "weakest"
+        "selector": "frontmost"
       },
       {
-        "skill": "attack",
+        "skill": "offensive_curse",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "passive_curse",
         "self_condition": {
           "type": "always"
         },
@@ -488,81 +989,2676 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "D",
+      "phys_def": "C",
+      "mag_atk": "D",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "C",
+      "guard_rate": "F",
+      "initiative": "A"
+    }
+  },
+  "elven_archer": {
+    "name": "Elven Archer",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 19,
+      "phys_def": 5,
+      "mag_atk": 25,
+      "mag_def": 13,
+      "accuracy": 120,
+      "evasion": 7,
+      "crit_rate": 7,
+      "guard_rate": 0,
+      "initiative": 14,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.3,
+      "phys_def": 0.7,
+      "mag_atk": 2.9,
+      "mag_def": 1.9,
+      "accuracy": 0.6,
+      "evasion": 0.2,
+      "crit_rate": 0.2,
+      "initiative": 0.5
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "archer",
+      "caster",
+      "elf"
+    ],
+    "slots": [
+      "bow",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "wind_arrow",
+      {
+        "id": "icicle_arrow",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "quick_cure",
+      {
+        "id": "selfless_heal",
+        "level": 15
+      },
+      {
+        "id": "pure_field",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "icicle_arrow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "wind_arrow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "C",
+      "phys_def": "E",
+      "mag_atk": "A",
+      "mag_def": "A",
+      "accuracy": "S",
+      "evasion": "D",
+      "crit_rate": "D",
+      "guard_rate": "F",
+      "initiative": "A"
+    }
+  },
+  "elven_augur": {
+    "name": "Elven Augur",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 22,
+      "phys_def": 7,
+      "mag_atk": 22,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 20,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.6,
+      "phys_def": 1,
+      "mag_atk": 2.6,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "caster",
+      "elf"
+    ],
+    "slots": [
+      "lance",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "primus_edge",
+      {
+        "id": "sylphic_wind",
+        "level": 20
+      },
+      {
+        "id": "elemental_roar",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "curing_heal",
+      {
+        "id": "rage_of_the_faeries",
+        "level": 25
+      },
+      {
+        "id": "elemental_impetus",
+        "level": 35
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "elemental_roar",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "sylphic_wind",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "primus_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "B",
+      "phys_def": "D",
+      "mag_atk": "B",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "A",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "C"
+    }
+  },
+  "elven_fencer": {
+    "name": "Elven Fencer",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 7,
+      "mag_atk": 25,
+      "mag_def": 11,
+      "accuracy": 105,
+      "evasion": 15,
+      "crit_rate": 7,
+      "guard_rate": 12,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 1,
+      "mag_atk": 2.9,
+      "mag_def": 1.6,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "crit_rate": 0.2,
+      "guard_rate": 0.2,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "caster",
+      "elf"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "lightning_blade",
+      {
+        "id": "natures_wrath",
+        "level": 20
+      },
+      {
+        "id": "mirage_stab",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "slyphic_barrier",
+      {
+        "id": "remove_weakness",
+        "level": 15
+      },
+      {
+        "id": "evasive_impetus",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "mirage_stab",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "natures_wrath",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "lightning_blade",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "D",
+      "mag_atk": "A",
+      "mag_def": "B",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "D",
+      "guard_rate": "D",
+      "initiative": "C"
+    }
+  },
+  "elven_sibyl": {
+    "name": "Elven Sibyl",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 19,
+      "phys_def": 7,
+      "mag_atk": 25,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 20,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.3,
+      "phys_def": 1,
+      "mag_atk": 2.9,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "caster",
+      "elf"
+    ],
+    "slots": [
+      "lance",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "primus_edge",
+      {
+        "id": "faerie_heal",
+        "level": 20
+      },
+      {
+        "id": "elemental_roar",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "curing_heal",
+      {
+        "id": "boon_of_the_faeries",
+        "level": 25
+      },
+      {
+        "id": "elemental_impetus",
+        "level": 35
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "faerie_heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "elemental_roar",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "primus_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "C",
+      "phys_def": "D",
+      "mag_atk": "A",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "A",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "C"
+    }
+  },
+  "feathersword": {
+    "name": "Feathersword",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 19,
+      "phys_def": 9,
+      "mag_atk": 16,
+      "mag_def": 11,
+      "accuracy": 110,
+      "evasion": 25,
+      "crit_rate": 4,
+      "guard_rate": 25,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.3,
+      "phys_def": 1.3,
+      "mag_atk": 2,
+      "mag_def": 1.6,
+      "accuracy": 0.5,
+      "evasion": 0.4,
+      "crit_rate": 0.1,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "flying",
+      "angel"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "spiral_sword",
+      {
+        "id": "shield_smite",
+        "level": 10
+      },
+      {
+        "id": "honed_slash",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "accelerate",
+      {
+        "id": "diurnal_guard",
+        "level": 15
+      },
+      {
+        "id": "discharge",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "honed_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "shield_smite",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "spiral_sword",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "C",
+      "phys_def": "C",
+      "mag_atk": "D",
+      "mag_def": "B",
+      "accuracy": "B",
+      "evasion": "S",
+      "crit_rate": "E",
+      "guard_rate": "B",
+      "initiative": "C"
+    }
   },
   "fighter": {
     "name": "Fighter",
     "stats": {
-      "hp": 52,
-      "phys_atk": 21,
-      "phys_def": 8,
-      "mag_atk": 4,
+      "hp": 48,
+      "phys_atk": 19,
+      "phys_def": 11,
+      "mag_atk": 16,
       "mag_def": 5,
-      "initiative": 6,
-      "accuracy": 100,
-      "evasion": 8,
-      "crit_rate": 8,
-      "crit_damage": 150,
-      "guard_rate": 10
+      "accuracy": 105,
+      "evasion": 4,
+      "crit_rate": 7,
+      "guard_rate": 40,
+      "initiative": 10,
+      "crit_damage": 150
     },
     "growth": {
       "hp": 6,
-      "phys_atk": 2,
-      "phys_def": 1
+      "phys_atk": 2.3,
+      "phys_def": 1.6,
+      "mag_atk": 2,
+      "mag_def": 0.7,
+      "accuracy": 0.4,
+      "evasion": 0.1,
+      "crit_rate": 0.2,
+      "guard_rate": 0.5,
+      "initiative": 0.4
     },
-    "ap_max": 4,
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "shield",
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact"
+    ],
+    "skills": [
+      "warding_slash",
+      {
+        "id": "shield_bash",
+        "level": 15
+      }
+    ],
+    "passives": [
+      "arrow_cover",
+      {
+        "id": "quick_guard",
+        "level": 10
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "shield_bash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "warding_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "vanguard",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "C",
+      "phys_def": "B",
+      "mag_atk": "D",
+      "mag_def": "E",
+      "accuracy": "C",
+      "evasion": "E",
+      "crit_rate": "D",
+      "guard_rate": "S",
+      "initiative": "C"
+    }
+  },
+  "gladiator": {
+    "name": "Gladiator",
+    "stats": {
+      "hp": 70,
+      "phys_atk": 22,
+      "phys_def": 3,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 90,
+      "evasion": 0,
+      "crit_rate": 4,
+      "guard_rate": 6,
+      "initiative": 4,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 9,
+      "phys_atk": 2.6,
+      "phys_def": 0.4,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.3,
+      "crit_rate": 0.1,
+      "guard_rate": 0.1,
+      "initiative": 0.25
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "wide_smash"
+    ],
+    "passives": [
+      "bulk_up",
+      {
+        "id": "wide_counter",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "wide_smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "berserker",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "S",
+      "phys_atk": "B",
+      "phys_def": "F",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "F",
+      "evasion": "F",
+      "crit_rate": "E",
+      "guard_rate": "E",
+      "initiative": "F"
+    }
+  },
+  "great_knight": {
+    "name": "Great Knight",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 25,
+      "phys_def": 13,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 95,
+      "evasion": 0,
+      "crit_rate": 15,
+      "guard_rate": 25,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.9,
+      "phys_def": 1.9,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.3,
+      "crit_rate": 0.3,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "lance",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "assaulting_lance",
+      {
+        "id": "wild_rush",
+        "level": 10
+      },
+      {
+        "id": "pile_thrust",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "quick_guard",
+      {
+        "id": "cavalier_call",
+        "level": 15
+      },
+      {
+        "id": "knights_pursuit",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "pile_thrust",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "wild_rush",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "assaulting_lance",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "A",
+      "phys_def": "A",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "E",
+      "evasion": "F",
+      "crit_rate": "B",
+      "guard_rate": "B",
+      "initiative": "C"
+    }
+  },
+  "gryphon_knight": {
+    "name": "Gryphon Knight",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 22,
+      "phys_def": 7,
+      "mag_atk": 12,
+      "mag_def": 11,
+      "accuracy": 100,
+      "evasion": 25,
+      "crit_rate": 7,
+      "guard_rate": 0,
+      "initiative": 8,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.6,
+      "phys_def": 1,
+      "mag_atk": 1.6,
+      "mag_def": 1.6,
+      "accuracy": 0.4,
+      "evasion": 0.4,
+      "crit_rate": 0.2,
+      "initiative": 0.35
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "flying"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "high_swing"
+    ],
+    "passives": [
+      "wing_rest",
+      {
+        "id": "feathering",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "high_swing",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "gryphon_master",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "B",
+      "phys_def": "D",
+      "mag_atk": "E",
+      "mag_def": "B",
+      "accuracy": "D",
+      "evasion": "S",
+      "crit_rate": "D",
+      "guard_rate": "F",
+      "initiative": "D"
+    }
+  },
+  "gryphon_master": {
+    "name": "Gryphon Master",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 9,
+      "mag_atk": 12,
+      "mag_def": 13,
+      "accuracy": 100,
+      "evasion": 25,
+      "crit_rate": 7,
+      "guard_rate": 0,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 1.3,
+      "mag_atk": 1.6,
+      "mag_def": 1.9,
+      "accuracy": 0.4,
+      "evasion": 0.4,
+      "crit_rate": 0.2,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "flying"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "high_swing",
+      {
+        "id": "fatal_dive",
+        "level": 20
+      },
+      {
+        "id": "aerial_smite",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "wing_rest",
+      {
+        "id": "feathering",
+        "level": 15
+      },
+      {
+        "id": "gryphon_glide",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "aerial_smite",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "fatal_dive",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "high_swing",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "C",
+      "mag_atk": "E",
+      "mag_def": "A",
+      "accuracy": "D",
+      "evasion": "S",
+      "crit_rate": "D",
+      "guard_rate": "F",
+      "initiative": "C"
+    }
+  },
+  "high_lord": {
+    "name": "High Lord",
+    "stats": {
+      "hp": 62,
+      "phys_atk": 19,
+      "phys_def": 13,
+      "mag_atk": 19,
+      "mag_def": 13,
+      "accuracy": 110,
+      "evasion": 20,
+      "crit_rate": 10,
+      "guard_rate": 40,
+      "initiative": 14,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 8,
+      "phys_atk": 2.3,
+      "phys_def": 1.9,
+      "mag_atk": 2.3,
+      "mag_def": 1.9,
+      "accuracy": 0.5,
+      "evasion": 0.3,
+      "crit_rate": 0.2,
+      "guard_rate": 0.5,
+      "initiative": 0.5
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "lean_edge",
+      {
+        "id": "cavalry_slayer",
+        "level": 10
+      },
+      {
+        "id": "spinning_edge",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "noble_guard",
+      {
+        "id": "luminous_cover",
+        "level": 5
+      },
+      {
+        "id": "rapid_order",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "spinning_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "cavalry_slayer",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "lean_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 25,
+    "promotions": [],
+    "grades": {
+      "hp": "A",
+      "phys_atk": "C",
+      "phys_def": "A",
+      "mag_atk": "C",
+      "mag_def": "A",
+      "accuracy": "B",
+      "evasion": "A",
+      "crit_rate": "C",
+      "guard_rate": "S",
+      "initiative": "A"
+    }
+  },
+  "high_priestess": {
+    "name": "High Priestess",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 12,
+      "phys_def": 9,
+      "mag_atk": 22,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 20,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 8,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 1.6,
+      "phys_def": 1.3,
+      "mag_atk": 2.6,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.35
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "holy_light",
+      {
+        "id": "curing_call",
+        "level": 10
+      },
+      {
+        "id": "innocent_ray",
+        "level": 30
+      }
+    ],
+    "passives": [
+      {
+        "id": "passive_miracle",
+        "level": 15
+      },
+      {
+        "id": "saints_barrier",
+        "level": 25
+      },
+      {
+        "id": "divine_blessing",
+        "level": 35
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "curing_call",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "innocent_ray",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "holy_light",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 25,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "E",
+      "phys_def": "C",
+      "mag_atk": "B",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "A",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "D"
+    }
+  },
+  "hoplite": {
+    "name": "Hoplite",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 16,
+      "phys_def": 16,
+      "mag_atk": 12,
+      "mag_def": 3,
+      "accuracy": 100,
+      "evasion": 0,
+      "crit_rate": 0,
+      "guard_rate": 40,
+      "initiative": 4,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2,
+      "phys_def": 2.2,
+      "mag_atk": 1.6,
+      "mag_def": 0.4,
+      "accuracy": 0.4,
+      "guard_rate": 0.5,
+      "initiative": 0.25
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "greatshield",
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "lance",
+      "light_shield",
+      "artifact"
+    ],
+    "skills": [
+      "sting"
+    ],
+    "passives": [
+      "heavy_cover",
+      {
+        "id": "guardian",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "sting",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "legionnaire",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "D",
+      "phys_def": "S",
+      "mag_atk": "E",
+      "mag_def": "F",
+      "accuracy": "D",
+      "evasion": "F",
+      "crit_rate": "F",
+      "guard_rate": "S",
+      "initiative": "F"
+    }
+  },
+  "housecarl": {
+    "name": "Housecarl",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 25,
+      "phys_def": 9,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 100,
+      "evasion": 7,
+      "crit_rate": 4,
+      "guard_rate": 12,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.9,
+      "phys_def": 1.3,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "crit_rate": 0.1,
+      "guard_rate": 0.2,
+      "initiative": 0.45
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "smash",
+      {
+        "id": "rolling_axe",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "parting_blow",
+      {
+        "id": "frenzied_strike",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "rolling_axe",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "viking",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "A",
+      "phys_def": "C",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "D",
+      "evasion": "D",
+      "crit_rate": "E",
+      "guard_rate": "D",
+      "initiative": "B"
+    }
+  },
+  "hunter": {
+    "name": "Hunter",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 19,
+      "phys_def": 5,
+      "mag_atk": 16,
+      "mag_def": 11,
+      "accuracy": 120,
+      "evasion": 10,
+      "crit_rate": 15,
+      "guard_rate": 6,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.3,
+      "phys_def": 0.7,
+      "mag_atk": 2,
+      "mag_def": 1.6,
+      "accuracy": 0.6,
+      "evasion": 0.2,
+      "crit_rate": 0.3,
+      "guard_rate": 0.1,
+      "initiative": 0.4
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry",
+      "archer"
+    ],
+    "slots": [
+      "bow",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "single_shot",
+      {
+        "id": "dual_shot",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "eagle_eye",
+      {
+        "id": "pursuit",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "dual_shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "single_shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "sniper",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "C",
+      "phys_def": "E",
+      "mag_atk": "D",
+      "mag_def": "B",
+      "accuracy": "S",
+      "evasion": "C",
+      "crit_rate": "B",
+      "guard_rate": "E",
+      "initiative": "C"
+    }
+  },
+  "knight": {
+    "name": "Knight",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 11,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 95,
+      "evasion": 0,
+      "crit_rate": 10,
+      "guard_rate": 20,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 1.6,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.3,
+      "crit_rate": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "lance",
+      "light_shield",
+      "artifact"
+    ],
+    "skills": [
+      "assaulting_lance",
+      {
+        "id": "wild_rush",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "quick_guard",
+      {
+        "id": "cavalier_call",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "wild_rush",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "assaulting_lance",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "great_knight",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "B",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "E",
+      "evasion": "F",
+      "crit_rate": "C",
+      "guard_rate": "C",
+      "initiative": "C"
+    }
+  },
+  "landsknecht": {
+    "name": "Landsknecht",
+    "stats": {
+      "hp": 62,
+      "phys_atk": 28,
+      "phys_def": 11,
+      "mag_atk": 8,
+      "mag_def": 7,
+      "accuracy": 95,
+      "evasion": 4,
+      "crit_rate": 10,
+      "guard_rate": 25,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 8,
+      "phys_atk": 3.2,
+      "phys_def": 1.6,
+      "mag_atk": 1.2,
+      "mag_def": 1,
+      "accuracy": 0.3,
+      "evasion": 0.1,
+      "crit_rate": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.3
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "heavy_slash",
+      {
+        "id": "killing_chain",
+        "level": 10
+      },
+      {
+        "id": "bastards_cross",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "following_slash",
+      {
+        "id": "vengeful_guard",
+        "level": 25
+      },
+      {
+        "id": "bull_force",
+        "level": 30
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "bastards_cross",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "killing_chain",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "heavy_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "A",
+      "phys_atk": "S",
+      "phys_def": "B",
+      "mag_atk": "F",
+      "mag_def": "D",
+      "accuracy": "E",
+      "evasion": "E",
+      "crit_rate": "C",
+      "guard_rate": "B",
+      "initiative": "E"
+    }
+  },
+  "legionnaire": {
+    "name": "Legionnaire",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 19,
+      "phys_def": 16,
+      "mag_atk": 12,
+      "mag_def": 3,
+      "accuracy": 100,
+      "evasion": 0,
+      "crit_rate": 0,
+      "guard_rate": 40,
+      "initiative": 4,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.3,
+      "phys_def": 2.2,
+      "mag_atk": 1.6,
+      "mag_def": 0.4,
+      "accuracy": 0.4,
+      "guard_rate": 0.5,
+      "initiative": 0.25
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "greatshield",
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "lance",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "sting",
+      {
+        "id": "row_protection",
+        "level": 25
+      },
+      {
+        "id": "greatshield",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "heavy_cover",
+      {
+        "id": "guardian",
+        "level": 15
+      },
+      {
+        "id": "row_cover",
+        "level": 20
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "row_protection",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "greatshield",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "sting",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "C",
+      "phys_def": "S",
+      "mag_atk": "E",
+      "mag_def": "F",
+      "accuracy": "D",
+      "evasion": "F",
+      "crit_rate": "F",
+      "guard_rate": "S",
+      "initiative": "F"
+    }
+  },
+  "lord": {
+    "name": "Lord",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 19,
+      "phys_def": 11,
+      "mag_atk": 19,
+      "mag_def": 11,
+      "accuracy": 110,
+      "evasion": 15,
+      "crit_rate": 10,
+      "guard_rate": 30,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.3,
+      "phys_def": 1.6,
+      "mag_atk": 2.3,
+      "mag_def": 1.6,
+      "accuracy": 0.5,
+      "evasion": 0.3,
+      "crit_rate": 0.2,
+      "guard_rate": 0.4,
+      "initiative": 0.45
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "shield",
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact"
+    ],
+    "skills": [
+      "lean_edge",
+      {
+        "id": "cavalry_slayer",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "noble_guard",
+      {
+        "id": "luminous_cover",
+        "level": 5
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "cavalry_slayer",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "lean_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 15,
+    "promotions": [
+      {
+        "class": "high_lord",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "C",
+      "phys_def": "B",
+      "mag_atk": "C",
+      "mag_def": "B",
+      "accuracy": "B",
+      "evasion": "B",
+      "crit_rate": "C",
+      "guard_rate": "A",
+      "initiative": "B"
+    }
+  },
+  "paladin": {
+    "name": "Paladin",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 22,
+      "phys_def": 9,
+      "mag_atk": 22,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 4,
+      "crit_rate": 7,
+      "guard_rate": 25,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.6,
+      "phys_def": 1.3,
+      "mag_atk": 2.6,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.1,
+      "crit_rate": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "slice",
+      {
+        "id": "heal",
+        "level": 5
+      },
+      {
+        "id": "divine_cross",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "holy_barrier",
+      {
+        "id": "holy_guard",
+        "level": 10
+      },
+      {
+        "id": "pursuit",
+        "level": 20
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "divine_cross",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "slice",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "B",
+      "phys_def": "C",
+      "mag_atk": "B",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "E",
+      "crit_rate": "D",
+      "guard_rate": "B",
+      "initiative": "C"
+    }
+  },
+  "priestess": {
+    "name": "Priestess",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 12,
+      "phys_def": 7,
+      "mag_atk": 19,
+      "mag_def": 13,
+      "accuracy": 105,
+      "evasion": 15,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 8,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 1.6,
+      "phys_def": 1,
+      "mag_atk": 2.3,
+      "mag_def": 1.9,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.35
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "holy_light",
+      {
+        "id": "curing_call",
+        "level": 10
+      }
+    ],
+    "passives": [
+      {
+        "id": "passive_miracle",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "curing_call",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "holy_light",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 15,
+    "promotions": [
+      {
+        "class": "high_priestess",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "E",
+      "phys_def": "D",
+      "mag_atk": "C",
+      "mag_def": "A",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "D"
+    }
+  },
+  "prince": {
+    "name": "Prince",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 19,
+      "phys_def": 9,
+      "mag_atk": 19,
+      "mag_def": 9,
+      "accuracy": 105,
+      "evasion": 10,
+      "crit_rate": 10,
+      "guard_rate": 20,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.3,
+      "phys_def": 1.3,
+      "mag_atk": 2.3,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "crit_rate": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "banishing_stab",
+      {
+        "id": "defensive_order",
+        "level": 10
+      },
+      {
+        "id": "offensive_order",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "rapid_order",
+      {
+        "id": "guard_order",
+        "level": 15
+      },
+      {
+        "id": "sniping_order",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "defensive_order",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "offensive_order",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "banishing_stab",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "C",
+      "phys_def": "C",
+      "mag_atk": "C",
+      "mag_def": "C",
+      "accuracy": "C",
+      "evasion": "C",
+      "crit_rate": "C",
+      "guard_rate": "C",
+      "initiative": "C"
+    }
+  },
+  "radiant_knight": {
+    "name": "Radiant Knight",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 16,
+      "phys_def": 9,
+      "mag_atk": 19,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 0,
+      "crit_rate": 0,
+      "guard_rate": 25,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2,
+      "phys_def": 1.3,
+      "mag_atk": 2.3,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact"
+    ],
+    "skills": [
+      "hache",
+      {
+        "id": "row_heal",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "magick_barrier",
+      {
+        "id": "holy_guard",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "row_heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "hache",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "sainted_knight",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "D",
+      "phys_def": "C",
+      "mag_atk": "C",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "F",
+      "crit_rate": "F",
+      "guard_rate": "B",
+      "initiative": "C"
+    }
+  },
+  "rogue": {
+    "name": "Rogue",
+    "stats": {
+      "hp": 36,
+      "phys_atk": 16,
+      "phys_def": 3,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 115,
+      "evasion": 25,
+      "crit_rate": 25,
+      "guard_rate": 0,
+      "initiative": 16,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 4.5,
+      "phys_atk": 2,
+      "phys_def": 0.4,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.5,
+      "evasion": 0.4,
+      "crit_rate": 0.4,
+      "initiative": 0.6
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "scout"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "passive_steal",
+      {
+        "id": "toxic_throw",
+        "level": 10
+      },
+      {
+        "id": "shadowbite",
+        "level": 20
+      },
+      {
+        "id": "active_steal",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "evade",
+      {
+        "id": "sneaking_edge",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "active_steal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "shadowbite",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "toxic_throw",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "passive_steal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "E",
+      "phys_atk": "D",
+      "phys_def": "F",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "A",
+      "evasion": "S",
+      "crit_rate": "S",
+      "guard_rate": "F",
+      "initiative": "S"
+    }
+  },
+  "sainted_knight": {
+    "name": "Sainted Knight",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 19,
+      "phys_def": 9,
+      "mag_atk": 22,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 0,
+      "crit_rate": 0,
+      "guard_rate": 25,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.3,
+      "phys_def": 1.3,
+      "mag_atk": 2.6,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "guard_rate": 0.3,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "cavalry"
+    ],
+    "slots": [
+      "lance",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "hache",
+      {
+        "id": "row_heal",
+        "level": 10
+      },
+      {
+        "id": "saints_blade",
+        "level": 25
+      }
+    ],
+    "passives": [
+      "magick_barrier",
+      {
+        "id": "holy_guard",
+        "level": 15
+      },
+      {
+        "id": "row_barrier",
+        "level": 20
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "row_heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      },
+      {
+        "skill": "saints_blade",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "hache",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "C",
+      "phys_def": "C",
+      "mag_atk": "B",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "F",
+      "crit_rate": "F",
+      "guard_rate": "B",
+      "initiative": "C"
+    }
+  },
+  "sellsword": {
+    "name": "Sellsword",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 28,
+      "phys_def": 11,
+      "mag_atk": 8,
+      "mag_def": 7,
+      "accuracy": 95,
+      "evasion": 4,
+      "crit_rate": 7,
+      "guard_rate": 20,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 3.2,
+      "phys_def": 1.6,
+      "mag_atk": 1.2,
+      "mag_def": 1,
+      "accuracy": 0.3,
+      "evasion": 0.1,
+      "crit_rate": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.3
+    },
+    "ap_max": 2,
     "pp_max": 2,
     "tags": [
       "infantry"
     ],
     "slots": [
       "light_sword",
-      "light_armor",
+      "artifact",
       "artifact"
     ],
     "skills": [
-      "attack",
+      "heavy_slash",
       {
-        "id": "flame_strike",
-        "level": 5
-      },
-      {
-        "id": "venom_strike",
+        "id": "killing_chain",
         "level": 10
-      },
-      "cleave"
+      }
     ],
     "passives": [
+      "following_slash"
+    ],
+    "tactics": [
       {
-        "id": "riposte",
-        "level": 3
+        "skill": "killing_chain",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "heavy_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "landsknecht",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "S",
+      "phys_def": "B",
+      "mag_atk": "F",
+      "mag_def": "D",
+      "accuracy": "E",
+      "evasion": "E",
+      "crit_rate": "D",
+      "guard_rate": "C",
+      "initiative": "E"
+    }
+  },
+  "sergeant": {
+    "name": "Sergeant",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 11,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 105,
+      "evasion": 10,
+      "crit_rate": 7,
+      "guard_rate": 6,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 1.6,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "crit_rate": 0.2,
+      "guard_rate": 0.1,
+      "initiative": 0.45
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "lance",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "long_thrust",
+      {
+        "id": "javelin",
+        "level": 10
+      },
+      {
+        "id": "honed_spear",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "first_aid",
+      {
+        "id": "keen_call",
+        "level": 15
+      },
+      {
+        "id": "active_gift",
+        "level": 25
       }
     ],
     "tactics": [
       {
-        "skill": "flame_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "burn"
-        },
-        "selector": "strongest"
-      },
-      {
-        "skill": "venom_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "poison"
-        },
-        "selector": "frontmost"
-      },
-      {
-        "skill": "cleave",
+        "skill": "honed_spear",
         "self_condition": {
           "type": "always"
         },
@@ -572,7 +3668,17 @@
         "selector": "frontmost"
       },
       {
-        "skill": "attack",
+        "skill": "javelin",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "long_thrust",
         "self_condition": {
           "type": "always"
         },
@@ -581,50 +3687,790 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "B",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "C",
+      "evasion": "C",
+      "crit_rate": "D",
+      "guard_rate": "E",
+      "initiative": "B"
+    }
   },
-  "spearman": {
-    "name": "Spearman",
+  "shaman": {
+    "name": "Shaman",
     "stats": {
-      "hp": 50,
-      "phys_atk": 20,
+      "hp": 48,
+      "phys_atk": 16,
       "phys_def": 9,
-      "mag_atk": 3,
-      "mag_def": 5,
-      "initiative": 6,
+      "mag_atk": 16,
+      "mag_def": 16,
       "accuracy": 105,
-      "evasion": 5,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 15
+      "evasion": 15,
+      "crit_rate": 10,
+      "guard_rate": 0,
+      "initiative": 12,
+      "crit_damage": 150
     },
     "growth": {
       "hp": 6,
       "phys_atk": 2,
-      "phys_def": 1
+      "phys_def": 1.3,
+      "mag_atk": 2,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "crit_rate": 0.2,
+      "initiative": 0.45
     },
-    "ap_max": 4,
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "passive_curse",
+      {
+        "id": "offensive_curse",
+        "level": 10
+      }
+    ],
+    "passives": [
+      "quick_curse"
+    ],
+    "tactics": [
+      {
+        "skill": "offensive_curse",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "passive_curse",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "druid",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "D",
+      "phys_def": "C",
+      "mag_atk": "D",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "C",
+      "guard_rate": "F",
+      "initiative": "B"
+    }
+  },
+  "shieldshooter": {
+    "name": "Shieldshooter",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 25,
+      "phys_def": 9,
+      "mag_atk": 12,
+      "mag_def": 11,
+      "accuracy": 120,
+      "evasion": 4,
+      "crit_rate": 4,
+      "guard_rate": 40,
+      "initiative": 8,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.9,
+      "phys_def": 1.3,
+      "mag_atk": 1.6,
+      "mag_def": 1.6,
+      "accuracy": 0.6,
+      "evasion": 0.1,
+      "crit_rate": 0.1,
+      "guard_rate": 0.5,
+      "initiative": 0.35
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "greatshield",
+      "infantry",
+      "archer"
+    ],
+    "slots": [
+      "bow",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "power_bolt",
+      {
+        "id": "toxic_bolt",
+        "level": 10
+      },
+      {
+        "id": "heavy_bolt",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "medical_aid",
+      {
+        "id": "quick_reload",
+        "level": 15
+      },
+      {
+        "id": "aid_cover",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "heavy_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "toxic_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "power_bolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "A",
+      "phys_def": "C",
+      "mag_atk": "E",
+      "mag_def": "B",
+      "accuracy": "S",
+      "evasion": "E",
+      "crit_rate": "E",
+      "guard_rate": "S",
+      "initiative": "D"
+    }
+  },
+  "sniper": {
+    "name": "Sniper",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 5,
+      "mag_atk": 16,
+      "mag_def": 13,
+      "accuracy": 120,
+      "evasion": 15,
+      "crit_rate": 20,
+      "guard_rate": 6,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 0.7,
+      "mag_atk": 2,
+      "mag_def": 1.9,
+      "accuracy": 0.6,
+      "evasion": 0.3,
+      "crit_rate": 0.3,
+      "guard_rate": 0.1,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "archer"
+    ],
+    "slots": [
+      "bow",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "single_shot",
+      {
+        "id": "dual_shot",
+        "level": 10
+      },
+      {
+        "id": "row_shot",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "eagle_eye",
+      {
+        "id": "pursuit",
+        "level": 15
+      },
+      {
+        "id": "aerial_snipe",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "row_shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "dual_shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "single_shot",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "E",
+      "mag_atk": "D",
+      "mag_def": "A",
+      "accuracy": "S",
+      "evasion": "B",
+      "crit_rate": "A",
+      "guard_rate": "E",
+      "initiative": "C"
+    }
+  },
+  "snow_ranger": {
+    "name": "Snow Ranger",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 19,
+      "phys_def": 7,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 120,
+      "evasion": 25,
+      "crit_rate": 25,
+      "guard_rate": 0,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.3,
+      "phys_def": 1,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.6,
+      "evasion": 0.4,
+      "crit_rate": 0.4,
+      "initiative": 0.45
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "archer"
+    ],
+    "slots": [
+      "bow",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "mystic_arrow",
+      {
+        "id": "sonic_shaft",
+        "level": 20
+      },
+      {
+        "id": "glacial_rain",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "eagles_eye",
+      {
+        "id": "triple_counter",
+        "level": 15
+      },
+      {
+        "id": "snow_white_strike",
+        "level": 35
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "glacial_rain",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "sonic_shaft",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "mystic_arrow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "C",
+      "phys_def": "D",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "S",
+      "evasion": "S",
+      "crit_rate": "S",
+      "guard_rate": "F",
+      "initiative": "B"
+    }
+  },
+  "soldier": {
+    "name": "Soldier",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 9,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 100,
+      "evasion": 10,
+      "crit_rate": 7,
+      "guard_rate": 6,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 1.3,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "crit_rate": 0.2,
+      "guard_rate": 0.1,
+      "initiative": 0.4
+    },
+    "ap_max": 2,
     "pp_max": 2,
     "tags": [
       "infantry"
     ],
     "slots": [
       "lance",
-      "medium_armor",
+      "artifact",
       "artifact"
     ],
     "skills": [
-      "attack",
-      "impale",
+      "long_thrust",
       {
-        "id": "defend",
-        "level": 4
+        "id": "javelin",
+        "level": 10
       }
     ],
     "passives": [
+      "first_aid",
       {
-        "id": "riposte",
-        "level": 7
+        "id": "keen_call",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "javelin",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "long_thrust",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "sergeant",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "C",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "D",
+      "evasion": "C",
+      "crit_rate": "D",
+      "guard_rate": "E",
+      "initiative": "C"
+    }
+  },
+  "sorceress": {
+    "name": "Sorceress",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 8,
+      "phys_def": 5,
+      "mag_atk": 25,
+      "mag_def": 16,
+      "accuracy": 100,
+      "evasion": 10,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 1.2,
+      "phys_def": 0.7,
+      "mag_atk": 2.9,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "initiative": 0.3
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "icebolt",
+      {
+        "id": "magick_missile",
+        "level": 10
+      },
+      {
+        "id": "ice_coffin",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "magick_conferral",
+      {
+        "id": "focus_sight",
+        "level": 15
+      },
+      {
+        "id": "quick_cast",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "ice_coffin",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "magick_missile",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "icebolt",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "F",
+      "phys_def": "E",
+      "mag_atk": "A",
+      "mag_def": "S",
+      "accuracy": "D",
+      "evasion": "C",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "E"
+    }
+  },
+  "sword_master": {
+    "name": "Sword Master",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 19,
+      "phys_def": 5,
+      "mag_atk": 16,
+      "mag_def": 11,
+      "accuracy": 120,
+      "evasion": 25,
+      "crit_rate": 25,
+      "guard_rate": 6,
+      "initiative": 16,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.3,
+      "phys_def": 0.7,
+      "mag_atk": 2,
+      "mag_def": 1.6,
+      "accuracy": 0.6,
+      "evasion": 0.4,
+      "crit_rate": 0.4,
+      "guard_rate": 0.1,
+      "initiative": 0.6
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "keen_edge",
+      {
+        "id": "impale",
+        "level": 15
+      },
+      {
+        "id": "meteor_slash",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "hastened_strike",
+      {
+        "id": "parry",
+        "level": 10
+      },
+      {
+        "id": "charged_impetus",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "meteor_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "impale",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "keen_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "C",
+      "phys_def": "E",
+      "mag_atk": "D",
+      "mag_def": "B",
+      "accuracy": "S",
+      "evasion": "S",
+      "crit_rate": "S",
+      "guard_rate": "E",
+      "initiative": "S"
+    }
+  },
+  "swordfighter": {
+    "name": "Swordfighter",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 19,
+      "phys_def": 5,
+      "mag_atk": 16,
+      "mag_def": 11,
+      "accuracy": 120,
+      "evasion": 25,
+      "crit_rate": 25,
+      "guard_rate": 6,
+      "initiative": 16,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.3,
+      "phys_def": 0.7,
+      "mag_atk": 2,
+      "mag_def": 1.6,
+      "accuracy": 0.6,
+      "evasion": 0.4,
+      "crit_rate": 0.4,
+      "guard_rate": 0.1,
+      "initiative": 0.6
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "keen_edge",
+      {
+        "id": "impale",
+        "level": 15
+      }
+    ],
+    "passives": [
+      "hastened_strike",
+      {
+        "id": "parry",
+        "level": 10
       }
     ],
     "tactics": [
@@ -639,18 +4485,7 @@
         "selector": "frontmost"
       },
       {
-        "skill": "defend",
-        "self_condition": {
-          "type": "hp_below",
-          "value": 0.5
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      },
-      {
-        "skill": "attack",
+        "skill": "keen_edge",
         "self_condition": {
           "type": "always"
         },
@@ -659,87 +4494,77 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "sword_master",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "C",
+      "phys_def": "E",
+      "mag_atk": "D",
+      "mag_def": "B",
+      "accuracy": "S",
+      "evasion": "S",
+      "crit_rate": "S",
+      "guard_rate": "E",
+      "initiative": "S"
+    }
   },
-  "hunter": {
-    "name": "Hunter",
+  "thief": {
+    "name": "Thief",
     "stats": {
       "hp": 36,
-      "phys_atk": 21,
-      "phys_def": 4,
-      "mag_atk": 4,
-      "mag_def": 5,
-      "initiative": 10,
+      "phys_atk": 16,
+      "phys_def": 3,
+      "mag_atk": 16,
+      "mag_def": 9,
       "accuracy": 115,
-      "evasion": 18,
-      "crit_rate": 15,
-      "crit_damage": 150,
-      "guard_rate": 0
+      "evasion": 25,
+      "crit_rate": 20,
+      "guard_rate": 0,
+      "initiative": 16,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 4,
+      "hp": 4.5,
       "phys_atk": 2,
-      "initiative": 1
+      "phys_def": 0.4,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.5,
+      "evasion": 0.4,
+      "crit_rate": 0.3,
+      "initiative": 0.6
     },
-    "ap_max": 4,
+    "ap_max": 2,
     "pp_max": 2,
     "tags": [
       "infantry",
-      "archer"
+      "scout"
     ],
     "slots": [
-      "bow",
-      "light_armor",
+      "light_sword",
       "artifact",
       "artifact"
     ],
     "skills": [
-      "shot",
+      "passive_steal",
       {
-        "id": "fire_arrow",
-        "level": 4
-      },
-      "poison_arrow",
-      {
-        "id": "volley",
-        "level": 12
-      },
-      {
-        "id": "piercing_shot",
-        "level": 8
+        "id": "toxic_throw",
+        "level": 10
       }
     ],
     "passives": [
-      {
-        "id": "assist",
-        "level": 6
-      }
+      "evade"
     ],
     "tactics": [
       {
-        "skill": "fire_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "burn"
-        },
-        "selector": "strongest"
-      },
-      {
-        "skill": "poison_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "poison"
-        },
-        "selector": "backmost"
-      },
-      {
-        "skill": "piercing_shot",
+        "skill": "toxic_throw",
         "self_condition": {
           "type": "always"
         },
@@ -749,61 +4574,436 @@
         "selector": "frontmost"
       },
       {
-        "skill": "shot",
+        "skill": "passive_steal",
         "self_condition": {
           "type": "always"
         },
         "condition": {
           "type": "always"
         },
-        "selector": "weakest"
+        "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "rogue",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "E",
+      "phys_atk": "D",
+      "phys_def": "F",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "A",
+      "evasion": "S",
+      "crit_rate": "A",
+      "guard_rate": "F",
+      "initiative": "S"
+    }
   },
-  "pyromancer": {
-    "name": "Pyromancer",
+  "valkyria": {
+    "name": "Valkyria",
     "stats": {
-      "hp": 30,
-      "phys_atk": 5,
-      "phys_def": 3,
-      "mag_atk": 25,
+      "hp": 62,
+      "phys_atk": 25,
+      "phys_def": 13,
+      "mag_atk": 12,
       "mag_def": 9,
-      "initiative": 6,
-      "accuracy": 100,
-      "evasion": 5,
-      "crit_rate": 8,
-      "crit_damage": 150,
-      "guard_rate": 0
+      "accuracy": 105,
+      "evasion": 4,
+      "crit_rate": 7,
+      "guard_rate": 40,
+      "initiative": 8,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 4,
-      "mag_atk": 3,
-      "mag_def": 1
+      "hp": 8,
+      "phys_atk": 2.9,
+      "phys_def": 1.9,
+      "mag_atk": 1.6,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.1,
+      "crit_rate": 0.2,
+      "guard_rate": 0.5,
+      "initiative": 0.35
     },
-    "ap_max": 4,
-    "pp_max": 1,
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "infantry"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "vertical_edge",
+      {
+        "id": "iron_crusher",
+        "level": 10
+      },
+      {
+        "id": "brandish",
+        "level": 30
+      }
+    ],
+    "passives": [
+      {
+        "id": "maidens_hammer",
+        "level": 15
+      },
+      {
+        "id": "iron_veil",
+        "level": 25
+      },
+      {
+        "id": "undying_will",
+        "level": 35
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "brandish",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "iron_crusher",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "vertical_edge",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 25,
+    "promotions": [],
+    "grades": {
+      "hp": "A",
+      "phys_atk": "A",
+      "phys_def": "A",
+      "mag_atk": "E",
+      "mag_def": "C",
+      "accuracy": "C",
+      "evasion": "E",
+      "crit_rate": "D",
+      "guard_rate": "S",
+      "initiative": "D"
+    }
+  },
+  "vanguard": {
+    "name": "Vanguard",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 19,
+      "phys_def": 13,
+      "mag_atk": 16,
+      "mag_def": 5,
+      "accuracy": 105,
+      "evasion": 4,
+      "crit_rate": 7,
+      "guard_rate": 40,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.3,
+      "phys_def": 1.9,
+      "mag_atk": 2,
+      "mag_def": 0.7,
+      "accuracy": 0.4,
+      "evasion": 0.1,
+      "crit_rate": 0.2,
+      "guard_rate": 0.5,
+      "initiative": 0.4
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "shield",
+      "infantry",
+      "armored"
+    ],
+    "slots": [
+      "light_sword",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "warding_slash",
+      {
+        "id": "shield_bash",
+        "level": 15
+      },
+      {
+        "id": "defender",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "arrow_cover",
+      {
+        "id": "quick_guard",
+        "level": 10
+      },
+      {
+        "id": "provoke",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "defender",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "shield_bash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "warding_slash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "C",
+      "phys_def": "A",
+      "mag_atk": "D",
+      "mag_def": "E",
+      "accuracy": "C",
+      "evasion": "E",
+      "crit_rate": "D",
+      "guard_rate": "S",
+      "initiative": "C"
+    }
+  },
+  "viking": {
+    "name": "Viking",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 25,
+      "phys_def": 9,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 105,
+      "evasion": 7,
+      "crit_rate": 7,
+      "guard_rate": 20,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.9,
+      "phys_def": 1.3,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "crit_rate": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.45
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "smash",
+      {
+        "id": "rolling_axe",
+        "level": 10
+      },
+      {
+        "id": "wide_breaker",
+        "level": 20
+      }
+    ],
+    "passives": [
+      "parting_blow",
+      {
+        "id": "frenzied_strike",
+        "level": 15
+      },
+      {
+        "id": "war_horn",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "wide_breaker",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "rolling_axe",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "A",
+      "phys_def": "C",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "C",
+      "evasion": "D",
+      "crit_rate": "D",
+      "guard_rate": "C",
+      "initiative": "B"
+    }
+  },
+  "warlock": {
+    "name": "Warlock",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 8,
+      "phys_def": 5,
+      "mag_atk": 28,
+      "mag_def": 16,
+      "accuracy": 95,
+      "evasion": 7,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 1.2,
+      "phys_def": 0.7,
+      "mag_atk": 3.2,
+      "mag_def": 2.2,
+      "accuracy": 0.3,
+      "evasion": 0.2,
+      "initiative": 0.3
+    },
+    "ap_max": 3,
+    "pp_max": 3,
     "tags": [
       "infantry",
       "caster"
     ],
     "slots": [
       "staff",
-      "robe",
+      "artifact",
       "artifact",
       "artifact"
     ],
     "skills": [
-      "magic_bolt",
       "fireball",
       {
-        "id": "firestorm",
-        "level": 8
+        "id": "thunderous_strike",
+        "level": 20
+      },
+      {
+        "id": "volcano",
+        "level": 30
       }
     ],
-    "passives": [],
+    "passives": [
+      "magick_counter",
+      {
+        "id": "magick_pursuit",
+        "level": 15
+      },
+      {
+        "id": "concentrate",
+        "level": 25
+      }
+    ],
     "tactics": [
       {
-        "skill": "firestorm",
+        "skill": "volcano",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "thunderous_strike",
         "self_condition": {
           "type": "always"
         },
@@ -818,238 +5018,405 @@
           "type": "always"
         },
         "condition": {
-          "type": "lacks_effect",
-          "effect_id": "burn"
-        },
-        "selector": "random"
-      },
-      {
-        "skill": "magic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "weakest"
-      }
-    ]
-  },
-  "cryomancer": {
-    "name": "Cryomancer",
-    "stats": {
-      "hp": 30,
-      "phys_atk": 5,
-      "phys_def": 3,
-      "mag_atk": 22,
-      "mag_def": 11,
-      "initiative": 7,
-      "accuracy": 100,
-      "evasion": 5,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 0
-    },
-    "growth": {
-      "hp": 4,
-      "mag_atk": 3,
-      "mag_def": 1
-    },
-    "ap_max": 4,
-    "pp_max": 1,
-    "tags": [
-      "infantry",
-      "caster"
-    ],
-    "slots": [
-      "staff",
-      "robe",
-      "artifact",
-      "artifact"
-    ],
-    "skills": [
-      "magic_bolt",
-      "ice_shard",
-      {
-        "id": "blizzard",
-        "level": 8
-      }
-    ],
-    "passives": [],
-    "tactics": [
-      {
-        "skill": "blizzard",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      },
-      {
-        "skill": "ice_shard",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "slow"
-        },
-        "selector": "strongest"
-      },
-      {
-        "skill": "magic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
           "type": "always"
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "F",
+      "phys_def": "E",
+      "mag_atk": "S",
+      "mag_def": "S",
+      "accuracy": "E",
+      "evasion": "D",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "E"
+    }
   },
-  "stormcaller": {
-    "name": "Stormcaller",
+  "warrior": {
+    "name": "Warrior",
     "stats": {
-      "hp": 28,
-      "phys_atk": 5,
-      "phys_def": 3,
-      "mag_atk": 24,
+      "hp": 48,
+      "phys_atk": 28,
+      "phys_def": 11,
+      "mag_atk": 8,
       "mag_def": 9,
-      "initiative": 9,
-      "accuracy": 95,
-      "evasion": 8,
-      "crit_rate": 10,
-      "crit_damage": 150,
-      "guard_rate": 0
-    },
-    "growth": {
-      "hp": 4,
-      "mag_atk": 3,
-      "initiative": 1
-    },
-    "ap_max": 4,
-    "pp_max": 1,
-    "tags": [
-      "infantry",
-      "caster"
-    ],
-    "slots": [
-      "staff",
-      "robe",
-      "artifact",
-      "artifact"
-    ],
-    "skills": [
-      "magic_bolt",
-      "lightning_bolt",
-      {
-        "id": "chain_lightning",
-        "level": 8
-      }
-    ],
-    "passives": [],
-    "tactics": [
-      {
-        "skill": "lightning_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "stun"
-        },
-        "selector": "strongest"
-      },
-      {
-        "skill": "chain_lightning",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      },
-      {
-        "skill": "magic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      }
-    ]
-  },
-  "paladin": {
-    "name": "Paladin",
-    "stats": {
-      "hp": 64,
-      "phys_atk": 18,
-      "phys_def": 13,
-      "mag_atk": 10,
-      "mag_def": 10,
-      "initiative": 4,
       "accuracy": 100,
-      "evasion": 3,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 30
+      "evasion": 7,
+      "crit_rate": 0,
+      "guard_rate": 20,
+      "initiative": 10,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 8,
-      "phys_atk": 1,
-      "phys_def": 2,
-      "mag_def": 1
+      "hp": 6,
+      "phys_atk": 3.2,
+      "phys_def": 1.6,
+      "mag_atk": 1.2,
+      "mag_def": 1.3,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "guard_rate": 0.3,
+      "initiative": 0.4
     },
-    "ap_max": 4,
+    "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "infantry",
-      "armored"
+      "infantry"
     ],
     "slots": [
-      "light_sword",
-      "light_shield",
-      "medium_armor",
+      "heavy_weapon",
+      "artifact",
       "artifact"
     ],
     "skills": [
-      "attack",
-      "shield_bash",
+      "heavy_smash",
       {
-        "id": "smite",
-        "level": 4
-      },
-      {
-        "id": "group_heal",
-        "level": 9
+        "id": "assaulting_blow",
+        "level": 10
       }
     ],
     "passives": [
+      "binding_guard"
+    ],
+    "tactics": [
       {
-        "id": "shield_cover",
-        "level": 6
+        "skill": "assaulting_blow",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "heavy_smash",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "breaker",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "S",
+      "phys_def": "B",
+      "mag_atk": "F",
+      "mag_def": "C",
+      "accuracy": "D",
+      "evasion": "D",
+      "crit_rate": "F",
+      "guard_rate": "C",
+      "initiative": "C"
+    }
+  },
+  "werebear": {
+    "name": "Werebear",
+    "stats": {
+      "hp": 70,
+      "phys_atk": 22,
+      "phys_def": 9,
+      "mag_atk": 8,
+      "mag_def": 3,
+      "accuracy": 90,
+      "evasion": 0,
+      "crit_rate": 4,
+      "guard_rate": 40,
+      "initiative": 4,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 9,
+      "phys_atk": 2.6,
+      "phys_def": 1.3,
+      "mag_atk": 1.2,
+      "mag_def": 0.4,
+      "accuracy": 0.3,
+      "crit_rate": 0.1,
+      "guard_rate": 0.5,
+      "initiative": 0.25
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "greatshield",
+      "infantry",
+      "armored",
+      "bestral"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "light_shield",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "bear_crush",
+      {
+        "id": "round_swing",
+        "level": 10
+      },
+      {
+        "id": "earthshaker",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "heavy_guard",
+      {
+        "id": "nocturnal_rest",
+        "level": 15
+      },
+      {
+        "id": "life_blow",
+        "level": 25
       }
     ],
     "tactics": [
       {
-        "skill": "group_heal",
+        "skill": "earthshaker",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "round_swing",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "bear_crush",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "S",
+      "phys_atk": "B",
+      "phys_def": "C",
+      "mag_atk": "F",
+      "mag_def": "F",
+      "accuracy": "F",
+      "evasion": "F",
+      "crit_rate": "E",
+      "guard_rate": "S",
+      "initiative": "F"
+    }
+  },
+  "werefox": {
+    "name": "Werefox",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 19,
+      "phys_def": 5,
+      "mag_atk": 16,
+      "mag_def": 9,
+      "accuracy": 115,
+      "evasion": 25,
+      "crit_rate": 25,
+      "guard_rate": 0,
+      "initiative": 16,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 2.3,
+      "phys_def": 0.7,
+      "mag_atk": 2,
+      "mag_def": 1.3,
+      "accuracy": 0.5,
+      "evasion": 0.4,
+      "crit_rate": 0.4,
+      "initiative": 0.6
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "scout",
+      "bestral"
+    ],
+    "slots": [
+      "lance",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "piercing_lance",
+      {
+        "id": "passive_hold",
+        "level": 10
+      },
+      {
+        "id": "venom_thrust",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "nocturnal_evade",
+      {
+        "id": "shadow_pursuit",
+        "level": 15
+      },
+      {
+        "id": "weakness_hunter",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "venom_thrust",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "passive_hold",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "piercing_lance",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "C",
+      "phys_def": "E",
+      "mag_atk": "D",
+      "mag_def": "C",
+      "accuracy": "A",
+      "evasion": "S",
+      "crit_rate": "S",
+      "guard_rate": "F",
+      "initiative": "S"
+    }
+  },
+  "werelion": {
+    "name": "Werelion",
+    "stats": {
+      "hp": 70,
+      "phys_atk": 25,
+      "phys_def": 3,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 95,
+      "evasion": 0,
+      "crit_rate": 4,
+      "guard_rate": 12,
+      "initiative": 4,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 9,
+      "phys_atk": 2.9,
+      "phys_def": 0.4,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.3,
+      "crit_rate": 0.1,
+      "guard_rate": 0.2,
+      "initiative": 0.25
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "bestral"
+    ],
+    "slots": [
+      "heavy_weapon",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "wide_smash",
+      {
+        "id": "mounting_charge",
+        "level": 20
+      },
+      {
+        "id": "grand_smash",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "bulk_up",
+      {
+        "id": "wide_counter",
+        "level": 15
+      },
+      {
+        "id": "berserk",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "mounting_charge",
         "self_condition": {
           "type": "always"
         },
         "condition": {
           "type": "hp_below",
-          "value": 0.5
+          "value": 0.7
         },
         "selector": "weakest"
       },
       {
-        "skill": "shield_bash",
+        "skill": "grand_smash",
         "self_condition": {
           "type": "always"
         },
@@ -1059,17 +5426,7 @@
         "selector": "frontmost"
       },
       {
-        "skill": "smite",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
-      },
-      {
-        "skill": "attack",
+        "skill": "wide_smash",
         "self_condition": {
           "type": "always"
         },
@@ -1078,62 +5435,300 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "S",
+      "phys_atk": "A",
+      "phys_def": "F",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "E",
+      "evasion": "F",
+      "crit_rate": "E",
+      "guard_rate": "D",
+      "initiative": "F"
+    }
+  },
+  "wereowl": {
+    "name": "Wereowl",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 8,
+      "phys_def": 3,
+      "mag_atk": 19,
+      "mag_def": 16,
+      "accuracy": 105,
+      "evasion": 15,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 1.2,
+      "phys_def": 0.4,
+      "mag_atk": 2.3,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "initiative": 0.45
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "flying",
+      "caster",
+      "bestral"
+    ],
+    "slots": [
+      "staff",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "aurora_veil",
+      {
+        "id": "night_vision",
+        "level": 10
+      },
+      {
+        "id": "extra_heal",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "restore",
+      {
+        "id": "quick_dispel",
+        "level": 15
+      },
+      {
+        "id": "circle_barrier",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "aurora_veil",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "night_vision",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "extra_heal",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "hp_below",
+          "value": 0.7
+        },
+        "selector": "weakest"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "F",
+      "phys_def": "F",
+      "mag_atk": "C",
+      "mag_def": "S",
+      "accuracy": "C",
+      "evasion": "B",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "B"
+    }
+  },
+  "werewolf": {
+    "name": "Werewolf",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 22,
+      "phys_def": 7,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 120,
+      "evasion": 10,
+      "crit_rate": 15,
+      "guard_rate": 0,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.6,
+      "phys_def": 1,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.6,
+      "evasion": 0.2,
+      "crit_rate": 0.3,
+      "initiative": 0.45
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "infantry",
+      "bestral"
+    ],
+    "slots": [
+      "light_sword",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "finishing_stab",
+      {
+        "id": "decimate",
+        "level": 10
+      },
+      {
+        "id": "wild_fang",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "nocturnal_strike",
+      {
+        "id": "bestral_howl",
+        "level": 15
+      },
+      {
+        "id": "killing_pursuit",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "wild_fang",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "decimate",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "finishing_stab",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "B",
+      "phys_def": "D",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "S",
+      "evasion": "C",
+      "crit_rate": "B",
+      "guard_rate": "F",
+      "initiative": "B"
+    }
   },
   "witch": {
     "name": "Witch",
     "stats": {
-      "hp": 30,
-      "phys_atk": 5,
-      "phys_def": 3,
-      "mag_atk": 20,
-      "mag_def": 10,
-      "initiative": 6,
+      "hp": 36,
+      "phys_atk": 8,
+      "phys_def": 5,
+      "mag_atk": 22,
+      "mag_def": 16,
       "accuracy": 100,
-      "evasion": 8,
-      "crit_rate": 5,
-      "crit_damage": 150,
-      "guard_rate": 0
+      "evasion": 10,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 6,
+      "crit_damage": 150
     },
     "growth": {
-      "hp": 4,
-      "mag_atk": 2,
-      "mag_def": 1
+      "hp": 4.5,
+      "phys_atk": 1.2,
+      "phys_def": 0.7,
+      "mag_atk": 2.6,
+      "mag_def": 2.2,
+      "accuracy": 0.4,
+      "evasion": 0.2,
+      "initiative": 0.3
     },
-    "ap_max": 4,
-    "pp_max": 1,
+    "ap_max": 2,
+    "pp_max": 2,
     "tags": [
       "infantry",
       "caster"
     ],
     "slots": [
       "staff",
-      "robe",
+      "artifact",
       "artifact"
     ],
     "skills": [
-      "magic_bolt",
-      "plague_touch",
+      "icebolt",
       {
-        "id": "rally",
-        "level": 5
+        "id": "magick_missile",
+        "level": 10
       }
     ],
-    "passives": [],
+    "passives": [
+      "magick_conferral",
+      {
+        "id": "focus_sight",
+        "level": 15
+      }
+    ],
     "tactics": [
       {
-        "skill": "plague_touch",
+        "skill": "magick_missile",
         "self_condition": {
           "type": "always"
         },
         "condition": {
-          "type": "lacks_effect",
-          "effect_id": "plague"
+          "type": "always"
         },
         "selector": "frontmost"
       },
       {
-        "skill": "magic_bolt",
+        "skill": "icebolt",
         "self_condition": {
           "type": "always"
         },
@@ -1142,6 +5737,289 @@
         },
         "selector": "frontmost"
       }
-    ]
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "sorceress",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "E",
+      "phys_atk": "F",
+      "phys_def": "E",
+      "mag_atk": "B",
+      "mag_def": "S",
+      "accuracy": "D",
+      "evasion": "C",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "E"
+    }
+  },
+  "wizard": {
+    "name": "Wizard",
+    "stats": {
+      "hp": 42,
+      "phys_atk": 8,
+      "phys_def": 5,
+      "mag_atk": 25,
+      "mag_def": 13,
+      "accuracy": 95,
+      "evasion": 7,
+      "crit_rate": 0,
+      "guard_rate": 0,
+      "initiative": 6,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 5,
+      "phys_atk": 1.2,
+      "phys_def": 0.7,
+      "mag_atk": 2.9,
+      "mag_def": 1.9,
+      "accuracy": 0.3,
+      "evasion": 0.2,
+      "initiative": 0.3
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "infantry",
+      "caster"
+    ],
+    "slots": [
+      "staff",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "fireball"
+    ],
+    "passives": [
+      "magick_counter",
+      {
+        "id": "magick_pursuit",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "fireball",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "warlock",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "D",
+      "phys_atk": "F",
+      "phys_def": "E",
+      "mag_atk": "A",
+      "mag_def": "A",
+      "accuracy": "E",
+      "evasion": "D",
+      "crit_rate": "F",
+      "guard_rate": "F",
+      "initiative": "E"
+    }
+  },
+  "wyvern_knight": {
+    "name": "Wyvern Knight",
+    "stats": {
+      "hp": 48,
+      "phys_atk": 22,
+      "phys_def": 11,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 105,
+      "evasion": 20,
+      "crit_rate": 10,
+      "guard_rate": 6,
+      "initiative": 10,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 6,
+      "phys_atk": 2.6,
+      "phys_def": 1.6,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.4,
+      "evasion": 0.3,
+      "crit_rate": 0.2,
+      "guard_rate": 0.1,
+      "initiative": 0.4
+    },
+    "ap_max": 2,
+    "pp_max": 2,
+    "tags": [
+      "flying"
+    ],
+    "slots": [
+      "lance",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "diving_thrust"
+    ],
+    "passives": [
+      "ground_counter",
+      {
+        "id": "deflect",
+        "level": 15
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "diving_thrust",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 10,
+    "promotions": [
+      {
+        "class": "wyvern_master",
+        "level": 10
+      }
+    ],
+    "grades": {
+      "hp": "C",
+      "phys_atk": "B",
+      "phys_def": "B",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "C",
+      "evasion": "A",
+      "crit_rate": "C",
+      "guard_rate": "E",
+      "initiative": "C"
+    }
+  },
+  "wyvern_master": {
+    "name": "Wyvern Master",
+    "stats": {
+      "hp": 55,
+      "phys_atk": 25,
+      "phys_def": 11,
+      "mag_atk": 8,
+      "mag_def": 5,
+      "accuracy": 110,
+      "evasion": 25,
+      "crit_rate": 10,
+      "guard_rate": 6,
+      "initiative": 12,
+      "crit_damage": 150
+    },
+    "growth": {
+      "hp": 7,
+      "phys_atk": 2.9,
+      "phys_def": 1.6,
+      "mag_atk": 1.2,
+      "mag_def": 0.7,
+      "accuracy": 0.5,
+      "evasion": 0.4,
+      "crit_rate": 0.2,
+      "guard_rate": 0.1,
+      "initiative": 0.45
+    },
+    "ap_max": 3,
+    "pp_max": 3,
+    "tags": [
+      "flying"
+    ],
+    "slots": [
+      "lance",
+      "artifact",
+      "artifact",
+      "artifact"
+    ],
+    "skills": [
+      "diving_thrust",
+      {
+        "id": "fire_breath",
+        "level": 20
+      },
+      {
+        "id": "tempest_drive",
+        "level": 30
+      }
+    ],
+    "passives": [
+      "ground_counter",
+      {
+        "id": "deflect",
+        "level": 15
+      },
+      {
+        "id": "dragons_roar",
+        "level": 25
+      }
+    ],
+    "tactics": [
+      {
+        "skill": "tempest_drive",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "fire_breath",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      },
+      {
+        "skill": "diving_thrust",
+        "self_condition": {
+          "type": "always"
+        },
+        "condition": {
+          "type": "always"
+        },
+        "selector": "frontmost"
+      }
+    ],
+    "tier": 20,
+    "promotions": [],
+    "grades": {
+      "hp": "B",
+      "phys_atk": "A",
+      "phys_def": "B",
+      "mag_atk": "F",
+      "mag_def": "E",
+      "accuracy": "B",
+      "evasion": "S",
+      "crit_rate": "C",
+      "guard_rate": "E",
+      "initiative": "B"
+    }
   }
 }

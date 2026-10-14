@@ -180,35 +180,7 @@
       }
     ]
   },
-  "rider/attack": {
-    "windup": 380,
-    "cast": [
-      {
-        "do": "dash",
-        "who": "self",
-        "ms": 300,
-        "gap": 90,
-        "trail": true
-      }
-    ],
-    "hit": [
-      {
-        "do": "sprite",
-        "fx": "thrust",
-        "ms": 320
-      },
-      {
-        "do": "sprite",
-        "fx": "hit_spark",
-        "scale": 0.8
-      },
-      {
-        "do": "knockback",
-        "dist": 16
-      }
-    ]
-  },
-  "power_strike": {
+  "heavy_slash": {
     "windup": 460,
     "cast": [
       {
@@ -254,7 +226,99 @@
       }
     ]
   },
-  "crushing_blow": {
+  "smash": {
+    "windup": 460,
+    "cast": [
+      {
+        "do": "dash",
+        "who": "self",
+        "ms": 320,
+        "gap": 60,
+        "trail": true
+      },
+      {
+        "do": "jump",
+        "who": "self",
+        "at": 260,
+        "height": 30,
+        "ms": 300
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "slash_heavy",
+        "ms": 420
+      },
+      {
+        "do": "sprite",
+        "fx": "blunt_impact"
+      },
+      {
+        "do": "shake",
+        "ms": 240,
+        "power": 6
+      },
+      {
+        "do": "knockback",
+        "dist": 24
+      },
+      {
+        "do": "sprite",
+        "fx": "rock_debris",
+        "on": "feet",
+        "dy": 40,
+        "ms": 500
+      }
+    ]
+  },
+  "heavy_smash": {
+    "windup": 460,
+    "cast": [
+      {
+        "do": "dash",
+        "who": "self",
+        "ms": 320,
+        "gap": 60,
+        "trail": true
+      },
+      {
+        "do": "jump",
+        "who": "self",
+        "at": 260,
+        "height": 30,
+        "ms": 300
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "slash_heavy",
+        "ms": 420
+      },
+      {
+        "do": "sprite",
+        "fx": "blunt_impact"
+      },
+      {
+        "do": "shake",
+        "ms": 240,
+        "power": 6
+      },
+      {
+        "do": "knockback",
+        "dist": 24
+      },
+      {
+        "do": "sprite",
+        "fx": "rock_debris",
+        "on": "feet",
+        "dy": 40,
+        "ms": 500
+      }
+    ]
+  },
+  "grand_smash": {
     "windup": 560,
     "cast": [
       {
@@ -329,7 +393,82 @@
       }
     ]
   },
-  "stun_bash": {
+  "wide_smash": {
+    "windup": 560,
+    "cast": [
+      {
+        "do": "dash",
+        "who": "self",
+        "ms": 340,
+        "gap": 60,
+        "trail": true
+      },
+      {
+        "do": "jump",
+        "who": "self",
+        "at": 300,
+        "height": 44,
+        "ms": 300
+      },
+      {
+        "do": "glint",
+        "who": "self",
+        "on": "head",
+        "at": 280,
+        "ms": 220
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "slash_heavy",
+        "scale": 1.3,
+        "ms": 450
+      },
+      {
+        "do": "sprite",
+        "fx": "blunt_impact",
+        "scale": 1.3
+      },
+      {
+        "do": "sprite",
+        "fx": "ring_wave",
+        "on": "feet",
+        "scale": 1.4,
+        "ms": 450
+      },
+      {
+        "do": "sprite",
+        "fx": "dust_cloud",
+        "scale": 1.2
+      },
+      {
+        "do": "shake",
+        "ms": 340,
+        "power": 9
+      },
+      {
+        "do": "knockback",
+        "dist": 36
+      },
+      {
+        "do": "sprite",
+        "fx": "rock_debris",
+        "on": "feet",
+        "dy": 40,
+        "ms": 500
+      },
+      {
+        "do": "sprite",
+        "fx": "sand_burst",
+        "on": "feet",
+        "dy": 70,
+        "scale": 0.8,
+        "ms": 550
+      }
+    ]
+  },
+  "shield_smite": {
     "windup": 440,
     "cast": [
       {
@@ -370,7 +509,7 @@
       }
     ]
   },
-  "flurry": {
+  "spinning_edge": {
     "windup": 340,
     "cast": [
       {
@@ -408,47 +547,7 @@
       }
     ]
   },
-  "flame_strike": {
-    "windup": 420,
-    "cast": [
-      {
-        "do": "dash",
-        "who": "self",
-        "ms": 300,
-        "gap": 64,
-        "trail": true
-      },
-      {
-        "do": "glow",
-        "who": "self",
-        "color": "fire",
-        "ms": 500
-      }
-    ],
-    "hit": [
-      {
-        "do": "sprite",
-        "fx": "slash",
-        "ms": 360
-      },
-      {
-        "do": "sprite",
-        "fx": "fire_burst",
-        "scale": 0.9
-      },
-      {
-        "do": "knockback",
-        "dist": 14
-      },
-      {
-        "do": "sprite",
-        "fx": "embers",
-        "at": 80,
-        "ms": 600
-      }
-    ]
-  },
-  "venom_strike": {
+  "venom_thrust": {
     "windup": 420,
     "cast": [
       {
@@ -483,7 +582,113 @@
       }
     ]
   },
-  "cleave": {
+  "venom_axe": {
+    "windup": 420,
+    "cast": [
+      {
+        "do": "dash",
+        "who": "self",
+        "ms": 300,
+        "gap": 64,
+        "trail": true
+      },
+      {
+        "do": "glow",
+        "who": "self",
+        "color": "poison",
+        "ms": 500
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "slash",
+        "ms": 360
+      },
+      {
+        "do": "sprite",
+        "fx": "poison_cloud",
+        "scale": 0.8,
+        "ms": 900
+      },
+      {
+        "do": "knockback",
+        "dist": 12
+      }
+    ]
+  },
+  "toxic_throw": {
+    "windup": 420,
+    "cast": [
+      {
+        "do": "dash",
+        "who": "self",
+        "ms": 300,
+        "gap": 64,
+        "trail": true
+      },
+      {
+        "do": "glow",
+        "who": "self",
+        "color": "poison",
+        "ms": 500
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "slash",
+        "ms": 360
+      },
+      {
+        "do": "sprite",
+        "fx": "poison_cloud",
+        "scale": 0.8,
+        "ms": 900
+      },
+      {
+        "do": "knockback",
+        "dist": 12
+      }
+    ]
+  },
+  "round_swing": {
+    "windup": 460,
+    "cast": [
+      {
+        "do": "dash",
+        "who": "self",
+        "ms": 320,
+        "gap": 64,
+        "trail": true
+      },
+      {
+        "do": "tilt",
+        "who": "self",
+        "at": 300,
+        "angle": -14,
+        "ms": 300
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "slash_heavy",
+        "scale": 1.2,
+        "ms": 420
+      },
+      {
+        "do": "sprite",
+        "fx": "hit_spark",
+        "scale": 0.7
+      },
+      {
+        "do": "knockback",
+        "dist": 16
+      }
+    ]
+  },
+  "row_smash": {
     "windup": 460,
     "cast": [
       {
@@ -555,26 +760,6 @@
       }
     ]
   },
-  "defend": {
-    "windup": 380,
-    "cast": [
-      {
-        "do": "glow",
-        "who": "self",
-        "color": "guard",
-        "ms": 600
-      },
-      {
-        "do": "sprite",
-        "who": "self",
-        "fx": "shield_dome",
-        "at": 100,
-        "ms": 900,
-        "dy": 80
-      }
-    ],
-    "hit": []
-  },
   "shield_bash": {
     "windup": 420,
     "cast": [
@@ -623,7 +808,7 @@
       }
     ]
   },
-  "smite": {
+  "saints_blade": {
     "windup": 650,
     "cast": [
       {
@@ -685,7 +870,69 @@
       }
     ]
   },
-  "group_heal": {
+  "divine_cross": {
+    "windup": 650,
+    "cast": [
+      {
+        "do": "rise",
+        "who": "self",
+        "height": 8,
+        "ms": 900
+      },
+      {
+        "do": "glow",
+        "who": "self",
+        "color": "light",
+        "ms": 700
+      },
+      {
+        "do": "sprite",
+        "who": "self",
+        "fx": "glint",
+        "on": "head",
+        "ms": 400,
+        "scale": 0.5
+      },
+      {
+        "do": "sprite",
+        "who": "target",
+        "fx": "magic_circle",
+        "ms": 1100,
+        "on": "feet",
+        "dy": 110,
+        "scale": 1.0
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "light_pillar",
+        "scale": 2.2,
+        "dy": 80,
+        "ms": 600
+      },
+      {
+        "do": "sprite",
+        "fx": "holy_burst",
+        "scale": 1.1
+      },
+      {
+        "do": "flash",
+        "color": [
+          255,
+          240,
+          200
+        ],
+        "power": 0.25,
+        "ms": 200
+      },
+      {
+        "do": "knockback",
+        "dist": 10
+      }
+    ]
+  },
+  "row_heal": {
     "windup": 520,
     "cast": [
       {
@@ -730,7 +977,52 @@
       }
     ]
   },
-  "shot": {
+  "sacred_heal": {
+    "windup": 520,
+    "cast": [
+      {
+        "do": "glow",
+        "who": "self",
+        "color": "heal",
+        "ms": 700
+      },
+      {
+        "do": "sprite",
+        "who": "self",
+        "fx": "ring_wave",
+        "scale": 1.2,
+        "ms": 500
+      },
+      {
+        "do": "sprite",
+        "who": "targets",
+        "fx": "magic_circle",
+        "ms": 1000,
+        "on": "feet",
+        "dy": 110,
+        "scale": 0.9
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "heal"
+      },
+      {
+        "do": "glow",
+        "color": "heal",
+        "ms": 500
+      },
+      {
+        "do": "sprite",
+        "fx": "petals",
+        "at": 150,
+        "dy": 40,
+        "ms": 700
+      }
+    ]
+  },
+  "single_shot": {
     "windup": 380,
     "cast": [
       {
@@ -760,58 +1052,37 @@
       }
     ]
   },
-  "fire_arrow": {
-    "windup": 460,
+  "power_bolt": {
+    "windup": 380,
     "cast": [
       {
         "do": "hop",
         "who": "self",
         "dist": 14,
-        "ms": 300
-      },
-      {
-        "do": "sprite",
-        "who": "self",
-        "fx": "glint",
-        "dx": 30,
-        "ms": 220,
-        "scale": 0.4
+        "ms": 260
       },
       {
         "do": "projectile",
-        "at": 160,
-        "ms": 300,
+        "at": 100,
+        "ms": 280,
         "sprite": "arrow",
-        "arc": 36,
-        "scale": 0.45
-      },
-      {
-        "do": "projectile",
-        "at": 160,
-        "ms": 300,
-        "sprite": "fire_arrow_trail",
-        "arc": 36,
+        "arc": 40,
         "scale": 0.45
       }
     ],
     "hit": [
       {
         "do": "sprite",
-        "fx": "fire_burst"
+        "fx": "hit_spark",
+        "scale": 0.6
       },
       {
         "do": "knockback",
-        "dist": 8
-      },
-      {
-        "do": "sprite",
-        "fx": "embers",
-        "at": 80,
-        "ms": 600
+        "dist": 6
       }
     ]
   },
-  "poison_arrow": {
+  "toxic_bolt": {
     "windup": 380,
     "cast": [
       {
@@ -838,7 +1109,7 @@
       }
     ]
   },
-  "volley": {
+  "row_shot": {
     "windup": 760,
     "cast": [
       {
@@ -882,7 +1153,7 @@
       }
     ]
   },
-  "piercing_shot": {
+  "sonic_shaft": {
     "windup": 640,
     "cast": [
       {
@@ -924,7 +1195,7 @@
       }
     ]
   },
-  "magic_bolt": {
+  "magick_missile": {
     "windup": 380,
     "cast": [
       {
@@ -1023,7 +1294,7 @@
       }
     ]
   },
-  "firestorm": {
+  "volcano": {
     "windup": 800,
     "cast": [
       {
@@ -1081,7 +1352,7 @@
       }
     ]
   },
-  "ice_shard": {
+  "icebolt": {
     "windup": 400,
     "cast": [
       {
@@ -1121,7 +1392,7 @@
       }
     ]
   },
-  "blizzard": {
+  "glacial_rain": {
     "windup": 800,
     "cast": [
       {
@@ -1178,191 +1449,6 @@
         "ms": 600
       }
     ]
-  },
-  "lightning_bolt": {
-    "windup": 520,
-    "cast": [
-      {
-        "do": "rise",
-        "who": "self",
-        "height": 10,
-        "ms": 700
-      },
-      {
-        "do": "glow",
-        "who": "self",
-        "color": "lightning",
-        "ms": 600
-      },
-      {
-        "do": "sprite",
-        "who": "self",
-        "fx": "glint",
-        "on": "head",
-        "ms": 300,
-        "scale": 0.5
-      }
-    ],
-    "hit": [
-      {
-        "do": "sprite",
-        "fx": "lightning_strike",
-        "dy": 40
-      },
-      {
-        "do": "flash",
-        "color": [
-          180,
-          180,
-          255
-        ],
-        "power": 0.35,
-        "ms": 150
-      },
-      {
-        "do": "shake",
-        "ms": 200,
-        "power": 5
-      },
-      {
-        "do": "knockback",
-        "dist": 10
-      }
-    ]
-  },
-  "chain_lightning": {
-    "windup": 560,
-    "cast": [
-      {
-        "do": "rise",
-        "who": "self",
-        "height": 12,
-        "ms": 800
-      },
-      {
-        "do": "glow",
-        "who": "self",
-        "color": "lightning",
-        "ms": 700
-      },
-      {
-        "do": "sprite_beam",
-        "who": "targets",
-        "at": 420,
-        "fx": "chain_arc",
-        "ms": 420
-      }
-    ],
-    "hit": [
-      {
-        "do": "sprite",
-        "fx": "lightning_strike",
-        "scale": 0.8,
-        "dy": 30
-      },
-      {
-        "do": "flash",
-        "color": [
-          180,
-          180,
-          255
-        ],
-        "power": 0.25,
-        "ms": 150
-      },
-      {
-        "do": "knockback",
-        "dist": 8
-      }
-    ]
-  },
-  "plague_touch": {
-    "windup": 460,
-    "cast": [
-      {
-        "do": "lunge",
-        "who": "self",
-        "dist": 12,
-        "ms": 320
-      },
-      {
-        "do": "glow",
-        "who": "self",
-        "color": "dark",
-        "ms": 500
-      },
-      {
-        "do": "projectile",
-        "at": 140,
-        "ms": 300,
-        "sprite": "magic_orb",
-        "scale": 0.4
-      }
-    ],
-    "hit": [
-      {
-        "do": "sprite",
-        "fx": "plague"
-      },
-      {
-        "do": "knockback",
-        "dist": 8
-      }
-    ]
-  },
-  "rally": {
-    "windup": 520,
-    "cast": [
-      {
-        "do": "jump",
-        "who": "self",
-        "height": 20,
-        "ms": 360
-      },
-      {
-        "do": "sprite",
-        "who": "self",
-        "fx": "ring_wave",
-        "scale": 1.6,
-        "ms": 600
-      },
-      {
-        "do": "sprite",
-        "who": "self",
-        "fx": "buff",
-        "at": 100
-      }
-    ],
-    "hit": []
-  },
-  "enchant_wind": {
-    "windup": 460,
-    "cast": [
-      {
-        "do": "glow",
-        "who": "self",
-        "color": [
-          150,
-          255,
-          200
-        ],
-        "ms": 500
-      },
-      {
-        "do": "sprite",
-        "who": "target",
-        "fx": "wind_blade",
-        "at": 200
-      },
-      {
-        "do": "sprite",
-        "who": "target",
-        "fx": "leaves",
-        "at": 250,
-        "ms": 700
-      }
-    ],
-    "hit": []
   },
   "heal": {
     "windup": 560,
@@ -1423,7 +1509,70 @@
       }
     ]
   },
-  "lance_charge": {
+  "assaulting_lance": {
+    "windup": 700,
+    "cast": [
+      {
+        "do": "hop",
+        "who": "self",
+        "dist": 40,
+        "ms": 300,
+        "hold": 60
+      },
+      {
+        "do": "dash",
+        "who": "self",
+        "at": 300,
+        "ms": 400,
+        "gap": -40,
+        "trail": true,
+        "back": 500
+      },
+      {
+        "do": "sprite",
+        "who": "self",
+        "fx": "dust_cloud",
+        "at": 300,
+        "scale": 1.3
+      }
+    ],
+    "hit": [
+      {
+        "do": "sprite",
+        "fx": "thrust",
+        "scale": 1.3,
+        "ms": 360
+      },
+      {
+        "do": "sprite",
+        "fx": "blunt_impact"
+      },
+      {
+        "do": "sprite",
+        "fx": "ring_wave",
+        "on": "feet",
+        "scale": 1.3,
+        "ms": 400
+      },
+      {
+        "do": "shake",
+        "ms": 320,
+        "power": 8
+      },
+      {
+        "do": "knockback",
+        "dist": 40
+      },
+      {
+        "do": "sprite",
+        "fx": "sand_burst",
+        "on": "feet",
+        "dy": 80,
+        "ms": 550
+      }
+    ]
+  },
+  "piercing_lance": {
     "windup": 700,
     "cast": [
       {

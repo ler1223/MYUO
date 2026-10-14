@@ -216,13 +216,14 @@ class SpriteBank(ImageBank):
         return self.sprite_for(unit.definition.id, unit.tags)
 
     def sprite_for(self, class_id: str, tags: Any = ()) -> Optional[str]:
-        """Спрайт класса (и его тегов), когда юнита ещё нет — например, отряд врага на карте мира."""
+        """Спрайт класса (и его тегов), когда юнита ещё нет — например, отряд врага на карте мира.
+        Порядок: явное соответствие класса (fallback.classes), свой спрайт с тем же id, по тегу, по умолчанию."""
         sprites = self.sprites
-        if class_id in sprites:
-            return class_id
         fallback = self.config.get("fallback", {})
         if fallback.get("classes", {}).get(class_id) in sprites:
             return fallback["classes"][class_id]
+        if class_id in sprites:
+            return class_id
         for tag, sprite in fallback.get("tags", {}).items():
             if tag in tags and sprite in sprites:
                 return sprite

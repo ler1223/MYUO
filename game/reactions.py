@@ -168,8 +168,7 @@ class Reaction:
         if reaction.action == DO_USE_SKILL:
             if reaction.skill_id is None:
                 raise ValueError("action use_skill needs a skill")
-            if reaction.to not in ROLES:
-                raise ValueError("a skill is used on one unit: owner, subject, actor, target or source")
+            # навык применяется к одному: роли из события или первому живому из группы (по строю)
         if reaction.action in EFFECT_ACTIONS and reaction.effect_id is None:
             raise ValueError(f"action {reaction.action!r} needs an effect")
         if reaction.action == DO_DISPEL and reaction.label is None:

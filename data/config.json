@@ -20,28 +20,6 @@
   "tag_rules": [
     {
       "attack": [
-        "cavalry"
-      ],
-      "attack_not": [],
-      "target": [
-        "infantry"
-      ],
-      "damage": 1.5,
-      "hit": 1.0
-    },
-    {
-      "attack": [
-        "archer"
-      ],
-      "attack_not": [],
-      "target": [
-        "flying"
-      ],
-      "damage": 1.5,
-      "hit": 1.0
-    },
-    {
-      "attack": [
         "melee"
       ],
       "attack_not": [
@@ -63,6 +41,51 @@
       ],
       "damage": 0.5,
       "hit": 1.0
+    },
+    {
+      "attack": [
+        "cavalry"
+      ],
+      "attack_not": [],
+      "target": [
+        "infantry"
+      ],
+      "damage": 2.0,
+      "hit": 1.0
+    },
+    {
+      "attack": [
+        "archer"
+      ],
+      "attack_not": [],
+      "target": [
+        "flying"
+      ],
+      "damage": 2.0,
+      "hit": 1.0
+    },
+    {
+      "attack": [
+        "flying"
+      ],
+      "attack_not": [],
+      "target": [
+        "cavalry"
+      ],
+      "damage": 2.0,
+      "hit": 1.0
     }
-  ]
+  ],
+  "guard": {
+    "levels": {
+      "small": 0.25,
+      "medium": 0.5,
+      "heavy": 0.75
+    },
+    "base": "small",
+    "tags": {
+      "shield": "medium",
+      "greatshield": "heavy"
+    }
+  }
 }

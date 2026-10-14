@@ -12,7 +12,8 @@ from .tiers import check_tier, rank_of
 
 PART_DAMAGE = "damage"
 PART_HEAL = "heal"
-PART_KINDS = (PART_DAMAGE, PART_HEAL)
+PART_HEAL_PCT = "heal_pct"   # лечение долей макс. HP цели: power 0.25 = 25%
+PART_KINDS = (PART_DAMAGE, PART_HEAL, PART_HEAL_PCT)
 
 # Категория урона определяет, какая защита цели вычитается.
 PHYSICAL = "physical"   # phys_def; может быть заблокирован (guard)
@@ -186,7 +187,7 @@ class SkillExtras:
     hp_cost — доля макс. HP, которую применяющий платит перед навыком (не опускается ниже 1);
     heal_on_hit — доля макс. HP применяющего за попадание; lifesteal — доля нанесённого урона;
     ap_drain / pp_drain — сколько AP/PP теряет каждый задетый; steal — забрать их себе;
-    dispel — метки эффектов (buff, debuff), снимаемых с задетых;
+    dispel — метки эффектов (buff, debuff), снимаемых с задетых; hit_ap / hit_pp — применяющему за попадание;
     kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла."""
 
     unguardable: bool = False
@@ -203,6 +204,8 @@ class SkillExtras:
     pp_drain: int = 0
     steal: bool = False
     dispel: tuple[str, ...] = ()
+    hit_ap: int = 0
+    hit_pp: int = 0
     kill_ap: int = 0
     kill_pp: int = 0
     kill_heal: float = 0.0

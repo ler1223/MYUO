@@ -385,9 +385,9 @@ class ArtAndTipTests(unittest.TestCase):
         lines = [text for text, *_ in item_tip(t, db, "hero_feather", price=380)]
         self.assertIn("initiative +5", lines)
         self.assertIn("Price: 380", lines)
-        volley = [text for text, *_ in skill_tip(t, db, "volley", unlock=12, level=3)]
-        self.assertIn("Unlocks at level 12", volley)
-        self.assertTrue(any(text.startswith("AP ") for text in volley))
+        bash = [text for text, *_ in skill_tip(t, db, "shield_bash", unlock=15, level=3)]
+        self.assertIn("Unlocks at level 15", bash)
+        self.assertTrue(any(text.startswith("AP ") for text in bash))
 
 
 if __name__ == "__main__":

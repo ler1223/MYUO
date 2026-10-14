@@ -2,6 +2,8 @@
   "iron_sword": {
     "name": "Iron Sword",
     "slot": "light_sword",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_atk",
@@ -14,13 +16,13 @@
     "tags": [],
     "damage_tags": [
       "slashing"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "shield": {
     "name": "Shield",
     "slot": "light_shield",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_def",
@@ -41,13 +43,13 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": [],
-    "tier": 5,
-    "price": 50
+    "damage_tags": []
   },
   "short_bow": {
     "name": "Short Bow",
     "slot": "bow",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_atk",
@@ -60,13 +62,13 @@
     "tags": [],
     "damage_tags": [
       "piercing"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "oak_staff": {
     "name": "Oak Staff",
     "slot": "staff",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "mag_atk",
@@ -79,13 +81,13 @@
     "tags": [],
     "damage_tags": [
       "blunt"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "rusty_dagger": {
     "name": "Rusty Dagger",
     "slot": "dagger",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_atk",
@@ -98,13 +100,13 @@
     "tags": [],
     "damage_tags": [
       "piercing"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "war_axe": {
     "name": "War Axe",
     "slot": "heavy_weapon",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_atk",
@@ -117,13 +119,13 @@
     "tags": [],
     "damage_tags": [
       "slashing"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "lance": {
     "name": "Lance",
     "slot": "lance",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_atk",
@@ -136,13 +138,13 @@
     "tags": [],
     "damage_tags": [
       "piercing"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "fire_charm": {
     "name": "Fire Charm",
     "slot": "artifact",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "mag_def",
@@ -155,13 +157,13 @@
     "tags": [
       "fire_resistant"
     ],
-    "damage_tags": [],
-    "tier": 5,
-    "price": 50
+    "damage_tags": []
   },
   "spear": {
     "name": "Spear",
     "slot": "lance",
+    "tier": 5,
+    "price": 50,
     "modifiers": [
       {
         "stat": "phys_atk",
@@ -174,9 +176,7 @@
     "tags": [],
     "damage_tags": [
       "piercing"
-    ],
-    "tier": 5,
-    "price": 50
+    ]
   },
   "novice_sword": {
     "name": "Novice Sword",

@@ -234,7 +234,6 @@ class DataTests(unittest.TestCase):
             dict(counter(), event="sometime"),
             dict(counter(), skill_id=None),
             dict(counter(), skill_id="no_such_skill"),
-            dict(counter(), to="allies"),            # навык применяется к одному юниту
             dict(counter(), action="cover"),         # прикрытие только в фазе «до»
             dict(counter(), area="cone"),
             dict(counter(), attack_tags=["no_such_tag"]),
