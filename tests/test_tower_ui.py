@@ -366,6 +366,8 @@ class ArtAndTipTests(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def test_keys_fall_back_to_the_general_placeholder_until_an_own_image_appears(self):
+        (self.tmp / "ui" / "item" / "bow.png").unlink(missing_ok=True)       # своей картинки слота ещё нет
+        self.art = type(self.art)(self.tmp / "ui")
         self.assertEqual(self.art.find("item/bow/hero_bow")[0], "item")
         self.assertEqual(self.art.find("icon/gold")[0], "icon/gold")
         self.assertEqual(self.art.find("icon/nothing_drawn_yet")[0], "icon")
@@ -403,6 +405,8 @@ class ArtAndTipTests(unittest.TestCase):
         from game.database import Database
         from pygame_art import passive_key, skill_key
         db = Database.load()
+        shutil.rmtree(self.tmp / "ui" / "skill", ignore_errors=True)            # значков типов ещё нет
+        self.art = type(self.art)(self.tmp / "ui")
         self.assertEqual(skill_key(db, "attack"), "skill/attack/attack")
         self.assertEqual(self.art.find(skill_key(db, "attack"))[0], "skill")              # пока общая заглушка
         (self.tmp / "ui" / "skill").mkdir(parents=True, exist_ok=True)

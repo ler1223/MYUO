@@ -81,7 +81,7 @@ def main(argv: list[str]) -> int:
     print(f"{source.name} -> {destination.relative_to(ROOT)}")
     if args.cut:
         if "--force" not in command and kind == "batch":
-            command.append("--force")
+            command += ["--force", "--by-order"]          # генератор не всегда держит сетку 5x2
         command[0] = sys.executable if command[0] == "python" else command[0]
         return subprocess.call(command, cwd=ROOT)
     print("cut: " + " ".join(command))
