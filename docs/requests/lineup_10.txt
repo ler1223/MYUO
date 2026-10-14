@@ -1,30 +1,27 @@
-Using the attached lineup as the scale and style reference, draw a new horizontal lineup sheet of
-full-body unit sprites standing in one row on the same flat ground line, evenly spaced, nothing
-overlapping or cropped. Far left: the paladin from the reference at exactly the same size.
+Using the attached lineup sheet as the scale and style reference, draw a new horizontal lineup sheet of
+full-body unit sprites of the same cast, standing in one row on the same flat ground line, evenly spaced with
+clear empty space between them, nothing overlapping or cropped. Far left: the Fighter from the reference
+(the first character there), unchanged and at exactly the same size.
 
-SCALE RULES: everything at exactly the same scale as the reference, as if photographed together.
-A normal human is as tall as the paladin. All feet touch the same ground line near the bottom edge.
-No character is enlarged or shrunk to fill its slot.
+SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
+is as tall as that Fighter. Heights of the others are given in their lines relative to a human (no note = human height; a
+weapon, hat or ears may rise above the head). All feet touch the same ground line near the bottom edge;
+flying units hover just above it. No character is enlarged or shrunk to fill its slot.
 
-POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm
-combat-ready stance, weapons held close to the body.
+POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm combat-ready
+stance, weapons held close to the body. Mounts and wings fully visible, not cut by the image edge.
 
 FROM LEFT TO RIGHT:
-1. The paladin from the reference (unchanged).
-2. Sergeant: brigandine with rank sash, plumed kettle hat, long spear, commanding pose.
-3. Shaman: tribal layered robes with feathers and bones, gnarled wooden staff with charms.
-4. Shieldshooter: heavy plate, crossbow mounted on a large greatshield, armored marksman.
-5. Sniper: dark green long coat, feathered hat, long elegant bow, cold focused gaze.
+1. The Fighter from the reference (unchanged).
+2. Lord, male: young noble prince in blue and silver armor with short cape, longsword and heater shield with a unicorn crest.
+3. High Lord (cavalry), female: noble in gleaming royal armor on a white warhorse, sword and unicorn shield; about 180% human height.
+4. Prince, male: regal young prince in a red and gold coat, rapier-like sword, no armor.
 
-STYLE: menu interface art for a high-fantasy tactics RPG, in the spirit of the menus of Vanillaware's
-Unicorn Overlord. Refined, heraldic and calm, like an illuminated manuscript bound in midnight-blue cloth.
-Surfaces: deep midnight navy and ink blue (#0d1530 to #1b2a55) with a very subtle woven-cloth / vellum grain,
-never glossy. Ornament: antique matte gold leaf (#c9a45c, shadows #7a5f2e), drawn as thin double hairlines
-(2-3 px) with restrained filigree; fleur-de-lis, acanthus scroll tips and small diamond studs only at corners
-and centers of edges. Secondary accents: ivory (#efe6cf) and deep crimson (#7a1f24), used sparingly.
-Hand-painted 2D look with crisp clean edges. Flat front view, no perspective, no 3D bevel, no plastic shine,
-no chrome, no neon glow, no lens flare, no gemstones unless asked, no sci-fi or mobile-game chunky frames.
-Elegant restraint: thin lines, generous calm empty space, nothing cluttered.
+STYLE: hand-painted 2D fantasy character art in the spirit of the battle sprites of Vanillaware's
+Unicorn Overlord (do not copy any existing character): rich painterly shading with soft light from the upper
+left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds and metal highlights,
+heroic realistic proportions about 7 heads tall, faces and silhouettes readable at small size. Every character
+in one consistent style, palette and lighting, like one cast of the same game.
 
 OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels.
 

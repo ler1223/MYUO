@@ -1,27 +1,27 @@
 {
   "_comment": "Спрайты юнитов для вкладки Stage. sheet, height, ground и sheets пишет tools/cut_lineup.py: высота спрайта на листе и рост человека на листе (по нему считается общий масштаб). anchors (необязательно): где у спрайта голова и тело, в долях его высоты от ног; без них берётся рост человека — нужно для высоких спрайтов (всадник). fallback: какой спрайт взять классу без своей картинки — по классу, по первому подходящему тегу, иначе default.",
   "sprites": {
-    "paladin": {
+    "old_paladin": {
       "sheet": "lineup_2.png",
       "height": 435,
       "ground": 835
     },
-    "hunter": {
+    "old_hunter": {
       "sheet": "lineup_2.png",
       "height": 407,
       "ground": 836
     },
-    "pyromancer": {
+    "old_pyromancer": {
       "sheet": "lineup_2.png",
       "height": 465,
       "ground": 837
     },
-    "cleric": {
+    "old_cleric": {
       "sheet": "lineup_2.png",
       "height": 443,
       "ground": 835
     },
-    "rider": {
+    "old_rider": {
       "sheet": "lineup_2.png",
       "height": 790,
       "ground": 836,
@@ -35,52 +35,52 @@
         "body": 0.45
       }
     },
-    "knight": {
+    "old_knight": {
       "sheet": "lineup_a.png",
       "height": 513,
       "ground": 828
     },
-    "fighter": {
+    "old_fighter": {
       "sheet": "lineup_a.png",
       "height": 444,
       "ground": 827
     },
-    "spearman": {
+    "old_spearman": {
       "sheet": "lineup_a.png",
       "height": 608,
       "ground": 827
     },
-    "orc": {
+    "old_orc": {
       "sheet": "lineup_a.png",
       "height": 501,
       "ground": 828
     },
-    "archer": {
+    "old_archer": {
       "sheet": "lineup_b.png",
       "height": 457,
       "ground": 771
     },
-    "goblin": {
+    "old_goblin": {
       "sheet": "lineup_b.png",
       "height": 301,
       "ground": 775
     },
-    "mage": {
+    "old_mage": {
       "sheet": "lineup_b.png",
       "height": 533,
       "ground": 773
     },
-    "witch": {
+    "old_witch": {
       "sheet": "lineup_b.png",
       "height": 539,
       "ground": 773
     },
-    "cryomancer": {
+    "old_cryomancer": {
       "sheet": "lineup_c.png",
       "height": 567,
       "ground": 756
     },
-    "stormcaller": {
+    "old_stormcaller": {
       "sheet": "lineup_c.png",
       "height": 551,
       "ground": 755
@@ -102,72 +102,72 @@
   },
   "fallback": {
     "classes": {
-      "arbalist": "archer",
-      "berserker": "orc",
-      "bishop": "cleric",
-      "breaker": "knight",
-      "cleric": "cleric",
-      "crusader": "paladin",
-      "dark_knight": "rider",
-      "doom_knight": "rider",
-      "dreadnought": "knight",
-      "druid": "cryomancer",
-      "elven_archer": "archer",
-      "elven_augur": "stormcaller",
-      "elven_fencer": "fighter",
-      "elven_sibyl": "cryomancer",
-      "feathersword": "paladin",
-      "fighter": "knight",
-      "gladiator": "orc",
-      "great_knight": "rider",
-      "gryphon_knight": "rider",
-      "gryphon_master": "rider",
-      "high_lord": "rider",
-      "high_priestess": "cleric",
-      "hoplite": "spearman",
-      "housecarl": "fighter",
-      "hunter": "hunter",
-      "knight": "rider",
-      "landsknecht": "fighter",
-      "legionnaire": "spearman",
-      "lord": "paladin",
-      "paladin": "rider",
-      "priestess": "cleric",
-      "prince": "fighter",
-      "radiant_knight": "rider",
-      "rogue": "fighter",
-      "sainted_knight": "rider",
-      "sellsword": "fighter",
-      "sergeant": "spearman",
-      "shaman": "stormcaller",
-      "shieldshooter": "archer",
-      "sniper": "hunter",
-      "snow_ranger": "hunter",
-      "soldier": "spearman",
-      "sorceress": "witch",
-      "sword_master": "fighter",
-      "swordfighter": "fighter",
-      "thief": "fighter",
-      "valkyria": "paladin",
-      "vanguard": "knight",
-      "viking": "fighter",
-      "warlock": "pyromancer",
-      "warrior": "knight",
-      "werebear": "orc",
-      "werefox": "spearman",
-      "werelion": "orc",
-      "wereowl": "witch",
-      "werewolf": "fighter",
-      "witch": "witch",
-      "wizard": "mage",
-      "wyvern_knight": "rider",
-      "wyvern_master": "rider"
+      "arbalist": "old_archer",
+      "berserker": "old_orc",
+      "bishop": "old_cleric",
+      "breaker": "old_knight",
+      "cleric": "old_cleric",
+      "crusader": "old_paladin",
+      "dark_knight": "old_rider",
+      "doom_knight": "old_rider",
+      "dreadnought": "old_knight",
+      "druid": "old_cryomancer",
+      "elven_archer": "old_archer",
+      "elven_augur": "old_stormcaller",
+      "elven_fencer": "old_fighter",
+      "elven_sibyl": "old_cryomancer",
+      "feathersword": "old_paladin",
+      "fighter": "old_knight",
+      "gladiator": "old_orc",
+      "great_knight": "old_rider",
+      "gryphon_knight": "old_rider",
+      "gryphon_master": "old_rider",
+      "high_lord": "old_rider",
+      "high_priestess": "old_cleric",
+      "hoplite": "old_spearman",
+      "housecarl": "old_fighter",
+      "hunter": "old_hunter",
+      "knight": "old_rider",
+      "landsknecht": "old_fighter",
+      "legionnaire": "old_spearman",
+      "lord": "old_paladin",
+      "paladin": "old_rider",
+      "priestess": "old_cleric",
+      "prince": "old_fighter",
+      "radiant_knight": "old_rider",
+      "rogue": "old_fighter",
+      "sainted_knight": "old_rider",
+      "sellsword": "old_fighter",
+      "sergeant": "old_spearman",
+      "shaman": "old_stormcaller",
+      "shieldshooter": "old_archer",
+      "sniper": "old_hunter",
+      "snow_ranger": "old_hunter",
+      "soldier": "old_spearman",
+      "sorceress": "old_witch",
+      "sword_master": "old_fighter",
+      "swordfighter": "old_fighter",
+      "thief": "old_fighter",
+      "valkyria": "old_paladin",
+      "vanguard": "old_knight",
+      "viking": "old_fighter",
+      "warlock": "old_pyromancer",
+      "warrior": "old_knight",
+      "werebear": "old_orc",
+      "werefox": "old_spearman",
+      "werelion": "old_orc",
+      "wereowl": "old_witch",
+      "werewolf": "old_fighter",
+      "witch": "old_witch",
+      "wizard": "old_mage",
+      "wyvern_knight": "old_rider",
+      "wyvern_master": "old_rider"
     },
     "tags": {
-      "cavalry": "rider",
-      "archer": "hunter",
-      "caster": "pyromancer"
+      "cavalry": "old_rider",
+      "archer": "old_hunter",
+      "caster": "old_pyromancer"
     },
-    "default": "paladin"
+    "default": "old_paladin"
   }
 }

@@ -376,6 +376,18 @@ class ArtAndTipTests(unittest.TestCase):
         fresh = type(self.art)(self.tmp / "ui")
         self.assertEqual(fresh.find("item/bow/hero_bow")[0], "item/bow")                  # своя картинка слота
 
+    def test_skill_icon_is_shared_by_its_kind(self):
+        from game.database import Database
+        from pygame_art import passive_key, skill_key
+        db = Database.load()
+        self.assertEqual(skill_key(db, "attack"), "skill/attack/attack")
+        self.assertEqual(self.art.find(skill_key(db, "attack"))[0], "skill")              # пока общая заглушка
+        (self.tmp / "ui" / "skill").mkdir(parents=True, exist_ok=True)
+        pygame.image.save(pygame.Surface((10, 10)), str(self.tmp / "ui" / "skill" / "attack.png"))
+        fresh = type(self.art)(self.tmp / "ui")
+        self.assertEqual(fresh.find(skill_key(db, "attack"))[0], "skill/attack")          # значок типа
+        self.assertTrue(passive_key(db, next(iter(db.passives))).startswith("passive/"))
+
     def test_sheet_is_cut_by_cells_without_the_halo(self):
         from tools import cut_ui_sheet as cutter
         sheet = pygame.Surface((1536, 1024), pygame.SRCALPHA)

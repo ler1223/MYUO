@@ -5,8 +5,8 @@
 
 Каждый файл — полный текст одного запроса, копируется в ChatGPT целиком:
   batch_NN.txt   — лист 5x2: строка про образец + STYLE + SHEET + ячейки батча;
-  lineup_NN.txt  — линейка спрайтов классов: общий промпт линейки (docs/art_prompts.md, раздел 1)
-                   со строками персонажей листа и STYLE.
+  lineup_NN.txt  — линейка спрайтов классов: общий промпт линейки (первого или следующих листов)
+                   со строками персонажей листа.
 docs/requests/README.md — оглавление: что приложить, куда сохранить картинку, чем нарезать.
 """
 from __future__ import annotations
@@ -19,11 +19,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from tools.gen_ui_image import REF_LINE, assemble, block_after, code_blocks, sections  # noqa: E402
+from tools.gen_ui_image import REF_LINE, assemble, block_after, sections  # noqa: E402
 
 UI_PROMPTS = ROOT / "docs" / "ui_prompts.md"
 UO_PROMPTS = ROOT / "docs" / "uo_art_prompts.md"
-ART_PROMPTS = ROOT / "docs" / "art_prompts.md"
 OUT = ROOT / "docs" / "requests"
 REFS = "1-2 скриншота меню UO из assets/ref/"
 NAME_LINE = ("FILE NAME: give the finished PNG for download exactly this file name: {name} "
@@ -51,12 +50,14 @@ def batch_request(source: str, ui_text: str, number: int) -> str:
     return f"{REF_LINE}\n\n{assemble(ui_text, block)}\n\n{name_line(sheet)}\n"
 
 
-def lineup_template(art_text: str, ui_text: str) -> str:
-    """Общий промпт линейки из раздела 1 docs/art_prompts.md, STYLE подставлен."""
-    start = art_text.index("## 1.")
-    template = next(block for pos, block in code_blocks(art_text) if pos > start)
-    _, style = block_after(ui_text, "STYLE")
-    return template.replace("<STYLE>", style)
+def lineup_template(text: str, number: int) -> str:
+    """Общий промпт линейки из docs/uo_art_prompts.md: у первого листа свой (он задаёт эталон роста)."""
+    return block_after(text, "Линейка: первый лист" if number == 1 else "Линейка: остальные листы")[1]
+
+
+def lineup_attach(number: int) -> str:
+    return ("по желанию 1-2 скриншота боя UO (только стиль)" if number == 1
+            else "готовый assets/sprites_src/lineup/uo_01.png — эталон роста и стиля")
 
 
 def lineups(text: str) -> list[tuple[int, str, str, str]]:
@@ -72,19 +73,16 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8")
     ui_text = UI_PROMPTS.read_text(encoding="utf-8")
     uo_text = UO_PROMPTS.read_text(encoding="utf-8")
-    art_text = ART_PROMPTS.read_text(encoding="utf-8")
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
     rows = []
 
-    template = lineup_template(art_text, ui_text)
-    for number, path, command, people in lineups(uo_text):
+    for number, path, _command, people in lineups(uo_text):
         name = f"lineup_{number:02d}.txt"
-        text = template.replace("<персонажи>", people).strip()
+        text = lineup_template(uo_text, number).replace("<персонажи>", people).strip()
         (OUT / name).write_text(f"{text}\n\n{name_line(path)}\n", encoding="utf-8")
-        rows.append((name, f"Спрайты классов, лист {number}", "старая линейка с паладином "
-                     "(assets/sprites_src/lineup/lineup_a.png) — образец масштаба", path,
+        rows.append((name, f"Спрайты классов, лист {number}", lineup_attach(number), path,
                      f"python tools/take_image.py lineup {number} --cut"))
 
     sources = [(uo_text, batches(uo_text))]
@@ -99,13 +97,13 @@ def main() -> None:
                          f"python tools/take_image.py {number} --cut"))
 
     index = ["# Готовые запросы для генерации картинок", "",
-             "Собрано `python tools/build_requests.py` из `docs/uo_art_prompts.md`, `docs/ui_prompts.md` и "
-             "`docs/art_prompts.md` — перегенерируйте после их изменения. Файл — полный текст одного запроса: "
+             "Собрано `python tools/build_requests.py` из `docs/uo_art_prompts.md` и `docs/ui_prompts.md` — "
+             "перегенерируйте после их изменения. Файл — полный текст одного запроса: "
              "откройте, скопируйте целиком в ChatGPT, приложите образец, сохраните картинку (PNG с прозрачным "
              "фоном, 1536x1024) и выполните команду из последней колонки: она заберёт самую свежую картинку из "
              "«Загрузок» (или файл с нужным именем — его просит последняя строка запроса), положит по пути из "
              "таблицы и нарежет. Без `--cut` — только переложит и покажет команду нарезки.", "",
-             f"Всего запросов: {len(rows)}. Начать лучше с `batch_11.txt` (экран бойца) и первых линеек.", "",
+             f"Всего запросов: {len(rows)}. Линейки — по порядку: `lineup_01.txt` задаёт рост и стиль, его картинка прикладывается ко всем следующим.", "",
              "| Файл | Что | Приложить | Куда ляжет | Забрать и нарезать |", "| --- | --- | --- | --- | --- |"]
     index += [f"| `{n}` | {w} | {a} | `{s}` | `{c}` |" for n, w, a, s, c in rows]
     (OUT / "README.md").write_text("\n".join(index) + "\n", encoding="utf-8")

@@ -2,15 +2,15 @@
 
     python tools/make_art_prompts.py
 
-Собирается из справочника data/ и docs/uo/: спрайты классов — листами-линейками (эталон паладин + 4
-класса, режет tools/cut_lineup.py), элементы экрана бойца и тактики, значки навыков и пассивок,
-иконки предметов — листами 5x2 по 10 (режет tools/cut_ui_sheet.py, номера батчей с 11).
+Собирается из справочника data/: спрайты всех классов — листами-линейками (режет tools/cut_lineup.py),
+элементы экрана бойца и тактики, значки типов навыков и иконки видов предметов — листами 5x2
+(режет tools/cut_ui_sheet.py, номера батчей с 11). Как в UO, своей картинки у навыка и предмета нет:
+значок общий на тип навыка (game.skill_kinds), иконка — на вид предмета (слот).
 Перегенерируйте после изменения справочника: список листов и файлов меняется вместе с ним.
 """
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -20,10 +20,52 @@ sys.path.insert(0, str(ROOT))
 from game.database import Database  # noqa: E402
 
 OUT = ROOT / "docs" / "uo_art_prompts.md"
-CLASSES_JSON = ROOT / "docs" / "uo" / "classes.json"
-ITEMS_JSON = ROOT / "docs" / "uo" / "items.json"
+NAMES_JSON = ROOT / "data" / "names.json"
 FIRST_BATCH = 11
-PER_LINEUP = 4
+ANCHOR = "fighter"          # первый персонаж первого листа — эталон роста для всех остальных листов
+SHEET_WIDTH = 4.0           # сколько «пехотинцев» помещается на лист после эталона
+WIDTH = {"cavalry": 1.8, "flying": 2.0}   # ширина всадника и летуна в пехотинцах
+
+CHARACTER_STYLE = """STYLE: hand-painted 2D fantasy character art in the spirit of the battle sprites of Vanillaware's
+Unicorn Overlord (do not copy any existing character): rich painterly shading with soft light from the upper
+left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds and metal highlights,
+heroic realistic proportions about 7 heads tall, faces and silhouettes readable at small size. Every character
+in one consistent style, palette and lighting, like one cast of the same game."""
+LINEUP_RULES = """SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
+is <HUMAN>. Heights of the others are given in their lines relative to a human (no note = human height; a
+weapon, hat or ears may rise above the head). All feet touch the same ground line near the bottom edge;
+flying units hover just above it. No character is enlarged or shrunk to fill its slot.
+
+POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm combat-ready
+stance, weapons held close to the body. Mounts and wings fully visible, not cut by the image edge."""
+LINEUP_OUTPUT = "OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels."
+FIRST_LINEUP = f"""Draw a horizontal lineup sheet of full-body unit sprites for a high-fantasy tactics RPG, standing
+in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
+overlapping or cropped. This sheet sets the scale and style for all later sheets of the same cast.
+If screenshots are attached, use them only as a style reference and do not copy any character.
+
+{LINEUP_RULES.replace("<HUMAN>", "as tall as the first character, about 40% of the image height")}
+
+FROM LEFT TO RIGHT:
+<персонажи>
+
+{CHARACTER_STYLE}
+
+{LINEUP_OUTPUT}"""
+NEXT_LINEUP = f"""Using the attached lineup sheet as the scale and style reference, draw a new horizontal lineup sheet of
+full-body unit sprites of the same cast, standing in one row on the same flat ground line, evenly spaced with
+clear empty space between them, nothing overlapping or cropped. Far left: the Fighter from the reference
+(the first character there), unchanged and at exactly the same size.
+
+{LINEUP_RULES.replace("<HUMAN>", "as tall as that Fighter")}
+
+FROM LEFT TO RIGHT:
+1. The Fighter from the reference (unchanged).
+<персонажи>
+
+{CHARACTER_STYLE}
+
+{LINEUP_OUTPUT}"""
 
 # Внешность классов (английский — для генератора): одна строка, рост относительно человека
 LOOK = {
@@ -88,57 +130,110 @@ LOOK = {
     "werelion": "Werelion: lion-headed beastman with a mane, bare chest and gold armor pieces, huge axe; about 115% human height",
     "feathersword": "Feathersword (flying): angelic knight with white feathered wings, sword and shield",
 }
-MATERIALS = {   # слово названия -> подсказка материала для иконки
-    "Bronze": "dull bronze", "Recruit's": "plain simple iron, recruit issue", "Baroque": "ornate baroque gilded",
-    "Iron": "plain grey iron", "Templar's": "holy white enamel with a gold cross", "Black-Iron": "blackened iron",
-    "Greatwood": "pale carved wood with leaf motifs and a green gem", "Carnat": "red-lacquered steel",
-    "Steel": "polished steel", "Spellsteel": "bluish runed steel faintly glowing", "Vorpal": "razor-keen silver steel",
-    "Sanguine": "blood-red crimson metal", "Dragonbone": "ivory dragon bone with scales", "Thorn": "dark thorny wood and iron",
-    "Icefall": "frosty pale-blue steel with icicles", "Wingcrest": "white steel with a feather crest",
-    "Carnelian": "inlaid with red carnelian stones", "Phantom": "ghostly translucent violet metal",
-    "Zenoiran": "imperial black and gold ornamented", "Meteorite": "dark meteoric iron with starry flecks",
-    "Sacral": "sacred white and gold with a halo motif", "Holy": "white and gold holy", "Golden": "golden",
-    "Gold": "gold", "Silver": "silver", "Hoarfrost": "icy white frost", "Searing": "red-hot glowing",
-    "Viper": "green serpent motifs", "Luminous": "softly glowing pale gold", "Moonlight": "silver-blue moonlit",
-    "Obsidian": "black obsidian", "Flame": "flame-wreathed", "Thundering": "crackling with lightning",
-    "Rose": "rose and thorn motifs", "Royal": "royal blue and gold", "Runic": "carved runes",
-    "Crimson": "crimson", "White": "white enamel", "Blue": "blue", "Kingsblade": "kingly legendary",
+# Значки типов навыков (game.skill_kinds): символ типа; активные и пассивные различаются цветом
+SKILL_SYMBOLS = {
+    "attack": "two crossed swords",
+    "support": "a heater shield with a rising chevron arrow above it",
+    "healing": "a cupped pair of hands holding a small glowing leaf-shaped light",
+    "sabotage": "a cracked shield with a downward chevron arrow below it",
 }
-KIND_NOUN = {"light_sword": "sword", "heavy_weapon": "axe or hammer", "lance": "spear", "bow": "bow",
-             "staff": "mage staff", "light_shield": "shield", "greatshield": "large tower greatshield",
-             "artifact": "accessory"}
+SKILL_FIELDS = {
+    "skill": "warm antique gold symbol on a deep crimson round field (#7a1f24)",
+    "passive": "pale silver-blue symbol on a deep navy round field (#1b2a55)",
+}
+# Иконки видов предметов (слоты data/config.json): одна на вид, рамку цвета тира рисует интерфейс
+ITEM_LOOKS = {
+    "light_sword": "a plain steel one-handed arming sword, blade pointing to the upper right",
+    "heavy_weapon": "a heavy two-handed bearded war axe, head at the upper right",
+    "lance": "a long cavalry spear with a leaf-shaped steel head, diagonal",
+    "bow": "a wooden recurve bow with its string, held diagonally",
+    "staff": "a mage's wooden staff topped with a small glowing blue crystal, diagonal",
+    "light_shield": "a round-topped heater shield with a simple gold border",
+    "greatshield": "a large rectangular tower greatshield with iron rivets",
+    "artifact": "a gold ring with a small blue gem",
+}
 
 
-def chunks(items: list, size: int) -> list[list]:
-    return [items[i:i + size] for i in range(0, len(items), size)]
+def gender(db: Database) -> dict[str, str]:
+    female = set(json.loads(NAMES_JSON.read_text(encoding="utf-8")).get("female_classes", ()))
+    return {c: "female" if c in female else "male" for c in db.units}
 
 
-def item_hint(name: str) -> str:
-    hints = [MATERIALS[w] for w in name.replace("'s", "'s").split() if w in MATERIALS]
-    return ", ".join(dict.fromkeys(hints))
+def look_line(class_id: str, sex: str) -> str:
+    """«Knight (cavalry), female: ...»: пол после названия — тот же, что у имён бойцов этого класса."""
+    head, rest = LOOK[class_id].split(":", 1)
+    return f"{head}, {sex}:{rest}."
 
 
-def skill_text(reference: dict, name: str) -> str:
-    entry = reference.get(name)
-    if not entry:
-        return ""
-    text = re.sub(r"\s+", " ", entry["text"].replace("\n", " ")).strip()
-    text = re.sub(r"\b(AP|PP) ?\1\b", r"\1", text)           # «AP AP» из картинки и подписи в вики
-    return text[:150].rstrip(" .")
+def families(db: Database) -> list[list[str]]:
+    """Семьи классов: базовый, затем его повышения; первой — семья эталона ANCHOR."""
+    seen: set[str] = set()
+    result = []
+
+    def walk(class_id: str, family: list[str]) -> None:
+        if class_id in seen or class_id not in LOOK:
+            return
+        seen.add(class_id)
+        family.append(class_id)
+        for promotion in db.units[class_id].promotions:
+            walk(promotion.class_id, family)
+
+    for class_id in [ANCHOR, *(c for c in db.units if not db.parents(c)), *db.units]:
+        family: list[str] = []
+        walk(class_id, family)
+        if family:
+            result.append(family)
+    return result
+
+
+def width(db: Database, class_id: str) -> float:
+    tags = db.units[class_id].tags
+    return max((w for tag, w in WIDTH.items() if tag in tags), default=1.0)
+
+
+def lineup_sheets(db: Database) -> list[list[str]]:
+    """Семьи целиком на первый лист, где хватает места (семья шире листа делится). На первом листе эталон —
+    сам первый персонаж, на остальных он ещё и занимает место слева, поэтому первый лист на одного шире."""
+    sheets: list[list[str]] = []
+    used: list[float] = []
+
+    def room(index: int) -> float:
+        return SHEET_WIDTH + (1 if index == 0 else 0) - used[index]
+
+    for family in families(db):
+        parts, part, size = [], [], 0.0               # семья, разрезанная по ширине листа
+        for class_id in family:
+            w = width(db, class_id)
+            if part and size + w > SHEET_WIDTH:
+                parts.append((part, size))
+                part, size = [], 0.0
+            part.append(class_id)
+            size += w
+        parts.append((part, size))
+        for part, size in parts:
+            index = next((i for i in range(len(sheets)) if room(i) >= size), None)
+            if index is None:
+                sheets.append([])
+                used.append(0.0)
+                index = len(sheets) - 1
+            sheets[index] += part
+            used[index] += size
+    return sheets
+
+
+def cell_table(rows: list[tuple[int, str, str]]) -> list[str]:
+    return ["| Ячейка | Файл | Итог |", "| --- | --- | --- |", *(f"| {k} | `{f}` | {s} |" for k, f, s in rows), ""]
 
 
 def main() -> None:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     db = Database.load()
-    classes_ref = json.loads(CLASSES_JSON.read_text(encoding="utf-8"))["skills"]
-    items_ref = json.loads(ITEMS_JSON.read_text(encoding="utf-8"))
-    skills_ref = {**classes_ref, **items_ref.get("skills", {})}
     out = ["# Промпты картинок: классы, навыки и предметы Unicorn Overlord",
            "",
            "Собрано `python tools/make_art_prompts.py` из справочника — перегенерируйте после его изменений. "
-           "Промпты на английском. Запросы скрипт не делает: отправляйте вручную в ChatGPT или через "
-           "`tools/gen_ui_image.py` по вашей команде.",
+           "Промпты на английском. Запросы скрипт не делает: готовые тексты целиком — в `docs/requests/` "
+           "(`python tools/build_requests.py`).",
            "",
            "## Как пользоваться", "",
            "1. Листы с сеткой 5x2 (1536x1024, прозрачный фон): в начало запроса — блоки **STYLE** и **SHEET** из "
@@ -146,26 +241,40 @@ def main() -> None:
            "screenshots, but do not copy any text, logo or exact artwork.` и 1-2 скриншота UO.",
            "2. Готовый лист — в `assets/ui/sheets/` под именем батча и нарезка: "
            "`python tools/cut_ui_sheet.py <номер> --force` (батчи 11+ ищутся в этом файле).",
-           "3. Спрайты классов — листы-линейки (раздел 1): общий промпт листа из `docs/art_prompts.md`, раздел 1, "
-           "плюс строки персонажей; лист — в `assets/sprites_src/lineup/` и `python tools/cut_lineup.py ...` "
-           "(команда у каждого листа). Свой спрайт сразу заменяет временный похожий.",
-           "4. Иконки и значки без своего файла берут общую заглушку, поэтому рисовать можно в любом порядке.",
+           "3. Спрайты классов — листы-линейки (раздел 1): общий промпт листа ниже плюс строки персонажей; лист — в "
+           "`assets/sprites_src/lineup/` и `python tools/cut_lineup.py ...` (команда у каждого листа). Первый лист "
+           "задаёт рост и стиль: его Fighter — эталон, готовый `uo_01.png` прикладывается ко всем следующим листам. "
+           "Свой спрайт сразу заменяет временный похожий (прежние спрайты — `assets/units/old_*`).",
+           "4. Как в UO, у навыка и предмета нет своей картинки: значок — на тип навыка (атака, поддержка, лечение, "
+           "помеха; активный или пассивный), иконка — на вид предмета. Тип навыка выводится из самого навыка "
+           "(`game/skill_kinds.py`). Если всё же нужен свой значок, достаточно положить `skill/<тип>/<id>.png` "
+           "или `item/<слот>/<id>.png`.",
            ""]
     batch = FIRST_BATCH
     totals = {}
 
     # 1. Спрайты классов
-    ids = [c for c in db.units if c in LOOK]
-    sheets = chunks(ids, PER_LINEUP)
+    sexes = gender(db)
+    sheets = lineup_sheets(db)
+    count = sum(len(s) for s in sheets)
     out += ["## 1. Спрайты классов — листы-линейки", "",
-            f"{len(ids)} классов, по {PER_LINEUP} на лист после эталона-паладина: {len(sheets)} запросов. "
-            "Конница и летуны выше человека — рост указан в строке.", ""]
+            f"Все {count} классов заново, семьями (базовый класс и его повышения рядом): {len(sheets)} листов. "
+            "Конница и летуны шире — их на листе меньше; рост выше человека указан в строке. Пол — тот же, что "
+            "у имён бойцов класса (`female_classes` в `data/names.json`).", "",
+            "## Линейка: первый лист", "", "Приложить по желанию 1-2 скриншота боя UO — только как образец стиля.",
+            "", "```", FIRST_LINEUP, "```", "",
+            "## Линейка: остальные листы", "", "Приложить готовый `assets/sprites_src/lineup/uo_01.png`.",
+            "", "```", NEXT_LINEUP, "```", "",
+            "## Листы линеек", ""]
     for n, group in enumerate(sheets, start=1):
         name = f"uo_{n:02d}.png"
+        first = 1 if n == 1 else 2
+        who = " ".join(group) if n == 1 else "_ref " + " ".join(group)
+        reference = ANCHOR if n == 1 else "_ref"
         out += [f"**Лист {n}** (`assets/sprites_src/lineup/{name}`): "
-                f"`python tools/cut_lineup.py assets/sprites_src/lineup/{name} _ref {' '.join(group)} --reference _ref`",
+                f"`python tools/cut_lineup.py assets/sprites_src/lineup/{name} {who} --reference {reference}`",
                 "", "```"]
-        out += [f"{k}. {LOOK[c]}." for k, c in enumerate(group, start=2)]
+        out += [f"{k}. {look_line(c, sexes[c])}" for k, c in enumerate(group, start=first)]
         out += ["```", ""]
     totals["спрайты классов"] = len(sheets)
 
@@ -187,61 +296,50 @@ def main() -> None:
             "Cell 10: unit pedestal, 300x120: low round stone dais seen from the front at a slight top-down angle, "
             "carved edge with gold inlay, like the formation board of Unicorn Overlord.",
             "```", "",
-            "| Ячейка | Файл | Итог |", "| --- | --- | --- |",
-            "| 1 | `frame/tactic_ap.png` | 512x128 |", "| 2 | `frame/tactic_pp.png` | 512x128 |",
-            "| 3 | `frame/tactic_condition.png` | 512x128 |", "| 4 | `frame/priority.png` | 160x128 |",
-            "| 5 | `frame/grade.png` | 96x96 |", "| 6 | `frame/picker.png` | 384x448 |",
-            "| 7 | `icon/up.png` | 96x96 |", "| 8 | `icon/down.png` | 96x96 |", "| 9 | `icon/remove.png` | 96x96 |",
-            "| 10 | `field/pedestal.png` | 512x192 |", ""]
+            *cell_table([(1, "frame/tactic_ap.png", "512x128"), (2, "frame/tactic_pp.png", "512x128"),
+                         (3, "frame/tactic_condition.png", "512x128"), (4, "frame/priority.png", "160x128"),
+                         (5, "frame/grade.png", "96x96"), (6, "frame/picker.png", "384x448"),
+                         (7, "icon/up.png", "96x96"), (8, "icon/down.png", "96x96"), (9, "icon/remove.png", "96x96"),
+                         (10, "field/pedestal.png", "512x192")])]
     batch += 1
     totals["экран бойца"] = 1
 
-    # 3. Значки навыков и пассивок
-    entries = [("skill", k, d) for k, d in sorted(db.skills.items()) if not k.endswith(("_strike", "_heal"))] + \
-              [("passive", k, d) for k, d in sorted(db.passives.items()) if not k.startswith("uo_item_heal")]
-    sheets = chunks(entries, 10)
-    out += ["## 3. Значки навыков и пассивок", "",
-            f"{len(entries)} значков, {len(sheets)} листов. Ячейка: круглый значок 200x200 внутри кольца "
-            "(кольцо рисует интерфейс — рисовать только сам символ на тёмном круге). Красноватые тона — физические, "
-            "синие и фиолетовые — магия, золотые — лечение и защита.", ""]
-    for group in sheets:
-        out += [f"## Батч {batch} — значки навыков (`b{batch}_skills.png`)", "", "```", "<STYLE>", "<SHEET>"]
-        rows = []
-        for k, (kind, key, definition) in enumerate(group, start=1):
-            what = "active skill" if kind == "skill" else "passive skill"
-            hint = skill_text(skills_ref, definition.name)
-            out.append(f"Cell {k}: round {what} icon, 200x200, \"{definition.name}\": {hint or 'a fitting emblem'}. "
-                       "A single bold symbol on a dark round field, no ring, no text.")
-            rows.append(f"| {k} | `{kind}/{key}.png` | 256x256 |")
-        out += ["```", "", "| Ячейка | Файл | Итог |", "| --- | --- | --- |", *rows, ""]
-        batch += 1
-    totals["значки навыков"] = len(sheets)
+    # 3. Значки типов навыков
+    out += [f"## Батч {batch} — значки типов навыков (`b{batch}_skills.png`)", "",
+            "Круглый значок внутри кольца (кольцо рисует интерфейс). Верхний ряд — активные навыки (AP), нижний — "
+            "пассивные (PP): тот же символ, другой цвет. Ячейки 5 и 10 пустые.", "",
+            "```", "<STYLE>", "<SHEET>"]
+    rows = []
+    for row, (kind, field) in enumerate(SKILL_FIELDS.items()):
+        what = "active skill" if kind == "skill" else "passive skill"
+        for k, (skill_type, symbol) in enumerate(SKILL_SYMBOLS.items(), start=1 + row * 5):
+            out.append(f"Cell {k}: round {what} type icon \"{skill_type}\", 200x200: {symbol}; {field}. "
+                       "A single bold symbol, no ring, no text.")
+            rows.append((k, f"{kind}/{skill_type}.png", "256x256"))
+    out += ["Cells 5 and 10: leave empty.", "```", "", *cell_table(rows)]
+    batch += 1
+    totals["значки навыков"] = 1
 
-    # 4. Иконки предметов по видам
-    out += ["## 4. Иконки предметов", "",
-            "Ячейка: иконка предмета 200x200, лёгкий поворот три четверти, чистый силуэт, без рамки и фона "
-            "(рамку цвета тира рисует интерфейс). Материал серии указан в строке.", ""]
-    count = 0
-    for slot in ("light_sword", "heavy_weapon", "lance", "bow", "staff", "light_shield", "greatshield", "artifact"):
-        items = sorted((d.tier, k, d) for k, d in db.items.items() if d.slot == slot)
-        for group in chunks(items, 10):
-            out += [f"## Батч {batch} — иконки: {KIND_NOUN[slot]} (`b{batch}_items.png`)", "", "```", "<STYLE>", "<SHEET>"]
-            rows = []
-            for k, (_tier, key, definition) in enumerate(group, start=1):
-                hint = item_hint(definition.name)
-                out.append(f"Cell {k}: inventory icon, 200x200, {KIND_NOUN[slot]} \"{definition.name}\""
-                           f"{': ' + hint if hint else ''}. Single object, slight three-quarter view, no frame.")
-                rows.append(f"| {k} | `item/{slot}/{key}.png` | 256x256 |")
-            out += ["```", "", "| Ячейка | Файл | Итог |", "| --- | --- | --- |", *rows, ""]
-            batch += 1
-            count += 1
-    totals["иконки предметов"] = count
+    # 4. Иконки видов предметов
+    out += [f"## Батч {batch} — иконки видов предметов (`b{batch}_items.png`)", "",
+            "Одна иконка на вид предмета: лёгкий поворот три четверти, чистый силуэт, без рамки и фона "
+            "(рамку цвета тира рисует интерфейс). Ячейки 9 и 10 пустые.", "",
+            "```", "<STYLE>", "<SHEET>"]
+    rows = []
+    for k, (slot, look) in enumerate(ITEM_LOOKS.items(), start=1):
+        out.append(f"Cell {k}: inventory icon, 200x200: {look}. Single object, slight three-quarter view, "
+                   "no frame, no background.")
+        rows.append((k, f"item/{slot}.png", "256x256"))
+    out += ["Cells 9 and 10: leave empty.", "```", "", *cell_table(rows)]
+    totals["иконки предметов"] = 1
+
     summary = ", ".join(f"{k} — {v}" for k, v in totals.items())
     out.insert(4, f"Всего запросов: {sum(totals.values())} ({summary}).")
     out.insert(5, "")
     OUT.write_text("\n".join(out) + "\n", encoding="utf-8")
     missing = [c for c in db.units if c not in LOOK]
-    print(f"{OUT}: {sum(totals.values())} requests; classes without a look: {missing}")
+    slots = [s for s in db.slot_types if s not in ITEM_LOOKS]
+    print(f"{OUT}: {sum(totals.values())} requests; classes without a look: {missing}; slots without an icon: {slots}")
 
 
 if __name__ == "__main__":

@@ -17,15 +17,14 @@ no text, no letters, no icons unless the cell asks for one, no drop shadow outsi
 For every FRAME element: decoration only in the four corners (and optionally a small motif at the middle of
 each edge); the straight parts of the edges between them are plain and uniform; the inner area is a flat even
 fill with no texture, gradient or vignette - these parts will be stretched to any size.
-Cell 1: round active skill icon, 200x200, "Active Steal": Attack a single enemy. Steal 1 of the enemy's AP. (Does not apply if they guard the first hit.). A single bold symbol on a dark round field, no ring, no text.
-Cell 2: round active skill icon, 200x200, "Aerial Smite": Attack a row of enemies. Cavalry targets cannot guard against this attack. Grants the user -1 AP if a target is at 100% HP. A single bold symbol on a dark round field, no ring, no text.
-Cell 3: round active skill icon, 200x200, "Assaulting Blow": Attack a single enemy. Grants the user +1 AP if the target is defeated. A single bold symbol on a dark round field, no ring, no text.
-Cell 4: round active skill icon, 200x200, "Assaulting Lance": Attacks a single enemy. Grants the user +1AP if the target is defeated. A single bold symbol on a dark round field, no ring, no text.
-Cell 5: round active skill icon, 200x200, "Attack": a fitting emblem. A single bold symbol on a dark round field, no ring, no text.
-Cell 6: round active skill icon, 200x200, "Aurora Veil": Grants HP regeneration to a row of allies. Grants targets +50 Mag. Defense. A single bold symbol on a dark round field, no ring, no text.
-Cell 7: round active skill icon, 200x200, "Banishing Stab": Attack a single enemy. Remove all of the target's buff. A single bold symbol on a dark round field, no ring, no text.
-Cell 8: round active skill icon, 200x200, "Bastard's Cross": Attack a single enemy. Potency increases based on the target's HP. (Maximum increases: +60.). A single bold symbol on a dark round field, no ring, no text.
-Cell 9: round active skill icon, 200x200, "Bear Crush": Attack a single enemy. Inflicts Stun. A single bold symbol on a dark round field, no ring, no text.
-Cell 10: round active skill icon, 200x200, "Brandish": Attack a single enemy. Ignores 50% of the target's Defense. Grants the user +1 PP if the attack hits. A single bold symbol on a dark round field, no ring, no text.
+Cell 1: round active skill type icon "attack", 200x200: two crossed swords; warm antique gold symbol on a deep crimson round field (#7a1f24). A single bold symbol, no ring, no text.
+Cell 2: round active skill type icon "support", 200x200: a heater shield with a rising chevron arrow above it; warm antique gold symbol on a deep crimson round field (#7a1f24). A single bold symbol, no ring, no text.
+Cell 3: round active skill type icon "healing", 200x200: a cupped pair of hands holding a small glowing leaf-shaped light; warm antique gold symbol on a deep crimson round field (#7a1f24). A single bold symbol, no ring, no text.
+Cell 4: round active skill type icon "sabotage", 200x200: a cracked shield with a downward chevron arrow below it; warm antique gold symbol on a deep crimson round field (#7a1f24). A single bold symbol, no ring, no text.
+Cell 6: round passive skill type icon "attack", 200x200: two crossed swords; pale silver-blue symbol on a deep navy round field (#1b2a55). A single bold symbol, no ring, no text.
+Cell 7: round passive skill type icon "support", 200x200: a heater shield with a rising chevron arrow above it; pale silver-blue symbol on a deep navy round field (#1b2a55). A single bold symbol, no ring, no text.
+Cell 8: round passive skill type icon "healing", 200x200: a cupped pair of hands holding a small glowing leaf-shaped light; pale silver-blue symbol on a deep navy round field (#1b2a55). A single bold symbol, no ring, no text.
+Cell 9: round passive skill type icon "sabotage", 200x200: a cracked shield with a downward chevron arrow below it; pale silver-blue symbol on a deep navy round field (#1b2a55). A single bold symbol, no ring, no text.
+Cells 5 and 10: leave empty.
 
 FILE NAME: give the finished PNG for download exactly this file name: b12_skills.png (this is only the file name - never draw it or any other text in the image).

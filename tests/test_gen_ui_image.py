@@ -57,9 +57,22 @@ class BuiltRequestTests(unittest.TestCase):
             self.assertIn("Cell 1:", text)
         sheets = br.lineups(uo_text)
         self.assertEqual(sum(len(people.splitlines()) for *_x, people in sheets), 60)   # все классы UO
-        template = br.lineup_template(br.ART_PROMPTS.read_text(encoding="utf-8"), ui_text)
-        self.assertIn("<персонажи>", template)
-        self.assertNotIn("<STYLE>", template)
+        for number in (1, 2):
+            template = br.lineup_template(uo_text, number)
+            self.assertIn("<персонажи>", template)
+            self.assertIn("Unicorn Overlord", template)                    # свой стиль персонажей
+            self.assertNotIn("<STYLE>", template)
+            self.assertNotIn("menu interface", template)                  # не стиль меню
+        self.assertNotIn("attached lineup", br.lineup_template(uo_text, 1))  # первый лист ни на что не опирается
+        self.assertIn("attached lineup", br.lineup_template(uo_text, 2))
+        number, _path, command, people = sheets[0]
+        self.assertTrue(people.startswith("1. Fighter, male:"))           # эталон роста — первым
+        self.assertIn("--reference fighter", command)
+        self.assertTrue(all("_ref" in c for _n, _p, c, _x in sheets[1:]))
+        self.assertTrue(all(", male:" in line or ", female:" in line
+                            for *_x, p in sheets for line in p.splitlines()))
+        found = dict((n, s) for n, s, _t in br.batches(uo_text))
+        self.assertEqual(set(found), {11, 12, 13})                        # иконки — по типам, а не поштучно
 
 
 class TakeImageTests(unittest.TestCase):

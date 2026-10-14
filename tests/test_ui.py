@@ -563,16 +563,18 @@ class StageTests(WindowTestCase):
         self.assertIn("knight", {u.definition.id for u in view.sim.units.values()})
         knight = next(u for u in view.sim.units.values() if u.definition.id == "knight")
         classes = stage.bank.config["fallback"]["classes"]
-        classes["knight"] = "rider"
-        self.assertEqual(stage.bank.sprite_id(knight), "rider")               # явное соответствие класса — первым
+        sprites = stage.bank.config["sprites"]
+        sprites["knight"] = dict(sprites["old_knight"])                       # будто нарисован свой спрайт
+        classes["knight"] = "old_rider"
+        self.assertEqual(stage.bank.sprite_id(knight), "old_rider")           # явное соответствие класса — первым
         del classes["knight"]
         self.assertEqual(stage.bank.sprite_id(knight), "knight")              # иначе свой спрайт
-        del stage.bank.config["sprites"]["knight"]                            # без него — по тегу или по умолчанию
-        self.assertEqual(stage.bank.sprite_id(knight), "paladin")
+        del sprites["knight"]                                                 # без него — по тегу или по умолчанию
+        self.assertEqual(stage.bank.sprite_id(knight), "old_paladin")
         rider = next(u for u in view.sim.units.values() if u.definition.id == "rider")
-        self.assertEqual(stage.stage[rider.uid].sprite, "rider")
+        self.assertEqual(stage.stage[rider.uid].sprite, "old_rider")          # по тегу cavalry
         self.assertTrue(stage.stage[rider.uid].tall)
-        self.assertGreater(stage.bank.ratio("rider"), stage.bank.ratio("paladin") * 1.4)   # всадник выше пехоты
+        self.assertGreater(stage.bank.ratio("old_rider"), stage.bank.ratio("old_paladin") * 1.4)   # всадник выше
         self.play(stage, view)
 
 

@@ -209,7 +209,7 @@ def skill_chip(ui: Gui, app: Any, kind: str, entry_id: str, rect: pygame.Rect, u
     body, _ = w.selectable(ui, rect, "row", layer=layer)
     ring = place(rect, (rect.height + 8, rect.height + 8), "left", (-6, 0))
     inner = ui.skin.body("skill", ring) if ui.skin.has("skill") else inset(ring, 4)
-    image = app.art.image(skill_key(entry_id) if kind == "skill" else passive_key(entry_id), inner.size)
+    image = app.art.image(skill_key(db, entry_id) if kind == "skill" else passive_key(db, entry_id), inner.size)
     if locked:
         image = image.copy()
         image.fill((90, 90, 90, 255), special_flags=pygame.BLEND_RGBA_MULT)

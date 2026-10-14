@@ -57,11 +57,15 @@ ITEMS_REFERENCE = ROOT / "docs" / "uo" / "items.json"
 WORLD_JSON = ROOT / "data" / "world" / "test.json"
 TOWER_JSON = ROOT / "data" / "tower.json"
 LOOT_MAP = {"short_bow": "recruits_shortbow", "war_axe": "iron_axe", "fire_charm": "salamander_ring"}
-OLD_SHEETS = {"lineup_2.png", "lineup_a.png", "lineup_b.png", "lineup_c.png"}   # спрайты прежних 15 классов
-FEMALE_SPRITES = {"cleric", "mage", "cryomancer", "stormcaller", "witch", "rider"}
+OLD_SHEETS = {"lineup_2.png", "lineup_a.png", "lineup_b.png", "lineup_c.png"}   # спрайты прежних 15 классов (old_*)
+# Женские классы: имена в data/names.json и пол на спрайтах (tools/make_art_prompts.py)
+FEMALE = {"bishop", "cleric", "dark_knight", "doom_knight", "druid", "elven_augur", "elven_sibyl", "great_knight",
+          "gryphon_knight", "gryphon_master", "high_lord", "high_priestess", "knight", "paladin", "priestess",
+          "radiant_knight", "sainted_knight", "shaman", "sorceress", "valkyria", "werefox", "wereowl", "witch",
+          "wizard", "wyvern_knight", "wyvern_master"}
 STATS = ["hp", "phys_atk", "phys_def", "mag_atk", "mag_def", "accuracy", "evasion", "crit_rate", "guard_rate",
          "initiative"]
-# Спрайт для класса UO (своих спрайтов у новых классов нет)
+# Временный спрайт для класса UO, пока не нарисован свой: id прежнего спрайта без приставки old_
 SPRITE = {
     "fighter": "knight", "vanguard": "knight", "lord": "paladin", "high_lord": "rider", "prince": "fighter",
     "crusader": "paladin", "valkyria": "paladin", "feathersword": "paladin", "dreadnought": "knight",
@@ -839,10 +843,10 @@ def main() -> None:
     LANG.write_text(json.dumps(lang, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     sprites = json.loads(SPRITES_JSON.read_text(encoding="utf-8"))
     own = {c for c, info in sprites.get("sprites", {}).items() if info.get("sheet") not in OLD_SHEETS}
-    sprites["fallback"]["classes"] = {c: SPRITE.get(c, "knight") for c in classes if c not in own}
+    sprites["fallback"]["classes"] = {c: "old_" + SPRITE.get(c, "knight") for c in classes if c not in own}
     SPRITES_JSON.write_text(json.dumps(sprites, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     names = json.loads(NAMES_JSON.read_text(encoding="utf-8"))
-    names["female_classes"] = sorted(c for c in classes if SPRITE.get(c) in FEMALE_SPRITES)
+    names["female_classes"] = sorted(c for c in classes if c in FEMALE)
     NAMES_JSON.write_text(json.dumps(names, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"{len(classes)} classes, {len(db.skills)} skills, {len(db.passives)} passives, {len(db.effects)} effects")
 

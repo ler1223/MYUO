@@ -1,0 +1,27 @@
+Using the attached lineup sheet as the scale and style reference, draw a new horizontal lineup sheet of
+full-body unit sprites of the same cast, standing in one row on the same flat ground line, evenly spaced with
+clear empty space between them, nothing overlapping or cropped. Far left: the Fighter from the reference
+(the first character there), unchanged and at exactly the same size.
+
+SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
+is as tall as that Fighter. Heights of the others are given in their lines relative to a human (no note = human height; a
+weapon, hat or ears may rise above the head). All feet touch the same ground line near the bottom edge;
+flying units hover just above it. No character is enlarged or shrunk to fill its slot.
+
+POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm combat-ready
+stance, weapons held close to the body. Mounts and wings fully visible, not cut by the image edge.
+
+FROM LEFT TO RIGHT:
+1. The Fighter from the reference (unchanged).
+2. Wizard, female: deep blue robe, pointed wide hat, staff with a fire-red orb.
+3. Warlock, male: black and violet robes with high collar, staff with a dark crystal, sinister.
+
+STYLE: hand-painted 2D fantasy character art in the spirit of the battle sprites of Vanillaware's
+Unicorn Overlord (do not copy any existing character): rich painterly shading with soft light from the upper
+left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds and metal highlights,
+heroic realistic proportions about 7 heads tall, faces and silhouettes readable at small size. Every character
+in one consistent style, palette and lighting, like one cast of the same game.
+
+OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels.
+
+FILE NAME: give the finished PNG for download exactly this file name: uo_18.png (this is only the file name - never draw it or any other text in the image).

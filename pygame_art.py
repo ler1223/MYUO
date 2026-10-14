@@ -8,8 +8,9 @@
 
 Ключи (см. функции ниже и FEATURES.md):
   bg/<экран>                 фон экрана: bg/draft, bg/prepare, bg/battle, bg/reward, bg/shop, bg/over
-  item/<слот>/<id>           предмет                -> item/<слот> -> item
-  skill/<id>, passive/<id>   навык и пассивка       -> skill, passive
+  item/<слот>/<id>           предмет                -> item/<слот> -> item   (как в UO: иконка на вид)
+  skill/<тип>/<id>           навык                  -> skill/<тип> -> skill   (тип: game.skill_kinds)
+  passive/<тип>/<id>         пассивка               -> passive/<тип> -> passive
   stat/<стат>                иконка стата           -> stat
   icon/<имя>                 значки интерфейса      -> icon  (gold, exp, floor, boss, level)
   portrait/<класс>           портрет класса         -> верх спрайта класса (assets/units) -> portrait
@@ -22,6 +23,7 @@ from typing import Optional
 
 import pygame
 
+from game.skill_kinds import passive_kind, skill_kind
 from pygame_stage import SpriteBank
 
 UI_DIR = Path(__file__).resolve().parent / "assets" / "ui"
@@ -33,12 +35,12 @@ def item_key(item) -> str:
     return f"item/{item.slot}/{item.id}"
 
 
-def skill_key(skill_id: str) -> str:
-    return f"skill/{skill_id}"
+def skill_key(db, skill_id: str) -> str:
+    return f"skill/{skill_kind(db, skill_id)}/{skill_id}"
 
 
-def passive_key(passive_id: str) -> str:
-    return f"passive/{passive_id}"
+def passive_key(db, passive_id: str) -> str:
+    return f"passive/{passive_kind(db, passive_id)}/{passive_id}"
 
 
 def stat_key(stat) -> str:

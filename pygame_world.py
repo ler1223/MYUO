@@ -39,6 +39,7 @@ FOLLOW_MS = 160            # чем меньше, тем плотнее каме
 GROUND_RES = 1.0           # пикселей карты земли на единицу мира
 TILE = 180                 # сторона плитки земли, единицы мира
 HUMAN = 95                 # рост человека на карте мира (спрайты здесь мельче, чем в бою)
+HERO_CLASS = "high_lord"   # чей спрайт у героя на карте (конный лорд)
 VOID = (18, 22, 30)        # за краем карты
 HAZE = (150, 170, 200)     # дымка вдали
 HAZE_TOP = 0.45            # насколько сильна дымка у верхнего края поля
@@ -488,7 +489,7 @@ class WorldScreen:
 
     def _hero_parts(self, now: int) -> list[Part]:
         x, z = self.state.hero
-        sprite = "rider" if "rider" in self.bank.sprites else self.bank.config.get("fallback", {}).get("default")
+        sprite = self.bank.sprite_for(HERO_CLASS, ("cavalry",))
         height = HUMAN * self.bank.ratio(sprite)
         bob = 2 * math.sin(now / 160)
         parts = [self._shadow(x, z, HUMAN * 0.9), self._sprite(f"{sprite}.png", x, z, height, self.state.facing < 0,
