@@ -376,6 +376,29 @@ class ArtAndTipTests(unittest.TestCase):
         fresh = type(self.art)(self.tmp / "ui")
         self.assertEqual(fresh.find("item/bow/hero_bow")[0], "item/bow")                  # своя картинка слота
 
+    def test_temporary_sprites_replace_old_stand_ins_but_not_own_sprites(self):
+        from pygame_stage import UNITS_DIR, SpriteBank
+        folder = self.tmp / "ref"
+        folder.mkdir()
+        image = pygame.Surface((30, 100), pygame.SRCALPHA)
+        image.fill((255, 0, 0, 255), (0, 0, 10, 100))                       # красная полоса слева
+        for class_id in ("fighter", "knight"):
+            pygame.image.save(image, str(folder / f"{class_id}.png"))
+        (folder / "units.json").write_text(json.dumps({"sprites": {
+            "fighter": {"height": 100, "ratio": 1.0, "flip": True},
+            "knight": {"height": 100, "ratio": 1.8}}}), encoding="utf-8")
+        bank = SpriteBank(UNITS_DIR, folder)
+        self.assertEqual(bank.sprite_for("fighter"), "ref:fighter")          # вместо old_knight
+        self.assertAlmostEqual(bank.ratio("ref:knight"), 1.8)                # всадник выше человека
+        flipped = bank.image("ref:fighter.png")
+        self.assertEqual(flipped.get_at((29, 50))[:3], (255, 0, 0))           # отражён: полоса справа
+        self.assertFalse(str(SpriteBank(UNITS_DIR, None).sprite_for("fighter")).startswith("ref:"))  # без папки
+        own = SpriteBank(UNITS_DIR, folder)
+        own.sprites.clear()
+        own.config["sprites"]["fighter"] = {"sheet": "x", "height": 1}
+        own._add_temporary(json.loads((folder / "units.json").read_text(encoding="utf-8")))
+        self.assertEqual(own.sprite_for("fighter"), "fighter")               # свой спрайт важнее
+
     def test_skill_icon_is_shared_by_its_kind(self):
         from game.database import Database
         from pygame_art import passive_key, skill_key

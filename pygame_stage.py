@@ -68,6 +68,8 @@ from pygame_ui import GREEN, RED
 
 ROOT = Path(__file__).resolve().parent
 UNITS_DIR = ROOT / "assets" / "units"
+TEMP_SPRITES_DIR = ROOT / "assets" / "ref" / "sprites"   # временные спрайты из референсов (tools/ref_sprites.py)
+TEMP_PREFIX = "ref:"
 VISUALS_PATH = ROOT / "assets" / "visuals" / "skills.json"
 
 FOCUS_MS = 700             # сколько после удара участники атаки остаются в фокусе
@@ -200,12 +202,41 @@ def placeholder() -> pygame.Surface:
 
 
 class SpriteBank(ImageBank):
-    """Спрайты классов, их рост относительно человека и опорные точки (assets/units/units.json)."""
+    """Спрайты классов, их рост относительно человека и опорные точки (assets/units/units.json).
 
-    def __init__(self, folder: Path = UNITS_DIR):
+    Временные спрайты из референсов (папка temporary, tools/ref_sprites.py) встают вместо временных
+    похожих старых (fallback.classes), но не вместо своих спрайтов класса из assets/units."""
+
+    def __init__(self, folder: Path = UNITS_DIR, temporary: Optional[Path] = TEMP_SPRITES_DIR):
         super().__init__(folder)
         path = self.folder / "units.json"
         self.config: dict[str, Any] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        self.temporary = Path(temporary) if temporary else None
+        if self.temporary and (self.temporary / "units.json").is_file():
+            self._add_temporary(json.loads((self.temporary / "units.json").read_text(encoding="utf-8")))
+
+    def _add_temporary(self, index: dict[str, Any]) -> None:
+        sprites = self.config.setdefault("sprites", {})
+        sheets = self.config.setdefault("sheets", {})
+        classes = self.config.setdefault("fallback", {}).setdefault("classes", {})
+        for class_id, info in index.get("sprites", {}).items():
+            if class_id in sprites or not (self.temporary / f"{class_id}.png").is_file():
+                continue                                     # свой спрайт класса важнее временного
+            sprite_id = TEMP_PREFIX + class_id
+            sheets[sprite_id] = {"human_height": info["height"] / max(0.1, info.get("ratio", 1.0))}
+            sprites[sprite_id] = {"sheet": sprite_id, "height": info["height"], "flip": bool(info.get("flip"))}
+            classes[class_id] = sprite_id
+
+    def image(self, name: str) -> Optional[pygame.Surface]:
+        if self.temporary and name.startswith(TEMP_PREFIX) and name not in self._images:
+            path = self.temporary / name[len(TEMP_PREFIX):]
+            image = pygame.image.load(str(path)) if path.is_file() else None
+            if image is not None and pygame.display.get_surface() is not None:
+                image = image.convert_alpha()
+            if image is not None and self.sprites.get(name[:-len(".png")], {}).get("flip"):
+                image = pygame.transform.flip(image, True, False)      # на арте смотрит влево
+            self._images[name] = image
+        return super().image(name)
 
     @property
     def sprites(self) -> dict[str, dict[str, Any]]:
