@@ -1,0 +1,24 @@
+Match the art direction of the attached screenshots, but do not copy any text, logo or exact artwork.
+
+STYLE: menu interface art for a high-fantasy tactics RPG, in the spirit of the menus of Vanillaware's
+Unicorn Overlord. Refined, heraldic and calm, like an illuminated manuscript bound in midnight-blue cloth.
+Surfaces: deep midnight navy and ink blue (#0d1530 to #1b2a55) with a very subtle woven-cloth / vellum grain,
+never glossy. Ornament: antique matte gold leaf (#c9a45c, shadows #7a5f2e), drawn as thin double hairlines
+(2-3 px) with restrained filigree; fleur-de-lis, acanthus scroll tips and small diamond studs only at corners
+and centers of edges. Secondary accents: ivory (#efe6cf) and deep crimson (#7a1f24), used sparingly.
+Hand-painted 2D look with crisp clean edges. Flat front view, no perspective, no 3D bevel, no plastic shine,
+no chrome, no neon glow, no lens flare, no gemstones unless asked, no sci-fi or mobile-game chunky frames.
+Elegant restraint: thin lines, generous calm empty space, nothing cluttered.
+SHEET: one image, 1536x1024, fully transparent background. Divide it into an invisible grid of 5 columns and
+2 rows; each cell is about 300x500 px. Draw exactly one element per cell, centered in its cell, with at least
+30 px of empty transparent space around it; elements never touch or overlap. Cells are numbered left to right,
+top to bottom: 1-5 on the top row, 6-10 on the bottom row. Draw only what is listed, no labels, no numbers,
+no text, no letters, no icons unless the cell asks for one, no drop shadow outside the element.
+For every FRAME element: decoration only in the four corners (and optionally a small motif at the middle of
+each edge); the straight parts of the edges between them are plain and uniform; the inner area is a flat even
+fill with no texture, gradient or vignette - these parts will be stretched to any size.
+Cell 1: inventory icon, 200x200, accessory "Ruby Pendant". Single object, slight three-quarter view, no frame.
+Cell 2: inventory icon, 200x200, accessory "Veteran's Eyepatch". Single object, slight three-quarter view, no frame.
+Cell 3: inventory icon, 200x200, accessory "Bloodstained Ribbon". Single object, slight three-quarter view, no frame.
+Cell 4: inventory icon, 200x200, accessory "Lionheart". Single object, slight three-quarter view, no frame.
+Cell 5: inventory icon, 200x200, accessory "Onyx Pendant". Single object, slight three-quarter view, no frame.

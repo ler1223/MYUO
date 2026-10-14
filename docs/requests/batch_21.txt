@@ -1,0 +1,29 @@
+Match the art direction of the attached screenshots, but do not copy any text, logo or exact artwork.
+
+STYLE: menu interface art for a high-fantasy tactics RPG, in the spirit of the menus of Vanillaware's
+Unicorn Overlord. Refined, heraldic and calm, like an illuminated manuscript bound in midnight-blue cloth.
+Surfaces: deep midnight navy and ink blue (#0d1530 to #1b2a55) with a very subtle woven-cloth / vellum grain,
+never glossy. Ornament: antique matte gold leaf (#c9a45c, shadows #7a5f2e), drawn as thin double hairlines
+(2-3 px) with restrained filigree; fleur-de-lis, acanthus scroll tips and small diamond studs only at corners
+and centers of edges. Secondary accents: ivory (#efe6cf) and deep crimson (#7a1f24), used sparingly.
+Hand-painted 2D look with crisp clean edges. Flat front view, no perspective, no 3D bevel, no plastic shine,
+no chrome, no neon glow, no lens flare, no gemstones unless asked, no sci-fi or mobile-game chunky frames.
+Elegant restraint: thin lines, generous calm empty space, nothing cluttered.
+SHEET: one image, 1536x1024, fully transparent background. Divide it into an invisible grid of 5 columns and
+2 rows; each cell is about 300x500 px. Draw exactly one element per cell, centered in its cell, with at least
+30 px of empty transparent space around it; elements never touch or overlap. Cells are numbered left to right,
+top to bottom: 1-5 on the top row, 6-10 on the bottom row. Draw only what is listed, no labels, no numbers,
+no text, no letters, no icons unless the cell asks for one, no drop shadow outside the element.
+For every FRAME element: decoration only in the four corners (and optionally a small motif at the middle of
+each edge); the straight parts of the edges between them are plain and uniform; the inner area is a flat even
+fill with no texture, gradient or vignette - these parts will be stretched to any size.
+Cell 1: round active skill icon, 200x200, "Vengeful Axe": Attacks a single enemy. Damage increases the less HP the user has. (Maximum increase: +100.). A single bold symbol on a dark round field, no ring, no text.
+Cell 2: round active skill icon, 200x200, "Venom Axe": Attack a single enemy. Inflicts Poison. A single bold symbol on a dark round field, no ring, no text.
+Cell 3: round active skill icon, 200x200, "Venom Thrust": Attack a column of enemies with a piercing strike. Inflicts Poison and debuffs target HP recovery by -50%. +50 potency v. poisoned targets. A single bold symbol on a dark round field, no ring, no text.
+Cell 4: round active skill icon, 200x200, "Vertical Edge": Attack a single enemy. Becomes a truestrike, ignores 50% defense, and +50 potency v. flying targets. A single bold symbol on a dark round field, no ring, no text.
+Cell 5: round active skill icon, 200x200, "Volcano": Attack a column of enemies with piercing magick. Inflicts Burn. A single bold symbol on a dark round field, no ring, no text.
+Cell 6: round active skill icon, 200x200, "Wall": Grants the user a buff that negates one physickal attack. A single bold symbol on a dark round field, no ring, no text.
+Cell 7: round active skill icon, 200x200, "Warding Slash": Attacks a single enemy. Grants the user +20% Phys. Defense. A single bold symbol on a dark round field, no ring, no text.
+Cell 8: round active skill icon, 200x200, "Wide Breaker": Attack a row of enemies. Inflicts Phys. Defense -30% . +50 potency v. debuffed targets. A single bold symbol on a dark round field, no ring, no text.
+Cell 9: round active skill icon, 200x200, "Wide Smash": Attack a row of enemies. +50 potency if the user is at 100% HP. A single bold symbol on a dark round field, no ring, no text.
+Cell 10: round active skill icon, 200x200, "Wild Fang": Attack a row of enemies. Potency increases the less HP a target has. (Maximum increase: +50.). A single bold symbol on a dark round field, no ring, no text.

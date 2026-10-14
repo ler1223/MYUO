@@ -41,6 +41,27 @@ class PromptTests(unittest.TestCase):
             gen.background_prompt(TEXT, "bg/nowhere")
 
 
+class BuiltRequestTests(unittest.TestCase):
+    def test_every_uo_request_is_complete_without_placeholders(self):
+        from tools import build_requests as br
+        ui_text = br.UI_PROMPTS.read_text(encoding="utf-8")
+        uo_text = br.UO_PROMPTS.read_text(encoding="utf-8")
+        found = br.batches(uo_text)
+        self.assertTrue(found)
+        for number, _sheet, _title in found:
+            text = br.batch_request(uo_text, ui_text, number)
+            self.assertTrue(text.startswith(br.REF_LINE))
+            self.assertIn("STYLE:", text)
+            self.assertIn("SHEET:", text)
+            self.assertNotIn("<STYLE>", text)
+            self.assertIn("Cell 1:", text)
+        sheets = br.lineups(uo_text)
+        self.assertEqual(sum(len(people.splitlines()) for *_x, people in sheets), 60)   # все классы UO
+        template = br.lineup_template(br.ART_PROMPTS.read_text(encoding="utf-8"), ui_text)
+        self.assertIn("<персонажи>", template)
+        self.assertNotIn("<STYLE>", template)
+
+
 class RequestTests(unittest.TestCase):
     def fake(self, captured):
         png = b"\x89PNG fake"

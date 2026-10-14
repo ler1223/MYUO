@@ -1,0 +1,29 @@
+Using the attached lineup as the scale and style reference, draw a new horizontal lineup sheet of
+full-body unit sprites standing in one row on the same flat ground line, evenly spaced, nothing
+overlapping or cropped. Far left: the paladin from the reference at exactly the same size.
+
+SCALE RULES: everything at exactly the same scale as the reference, as if photographed together.
+A normal human is as tall as the paladin. All feet touch the same ground line near the bottom edge.
+No character is enlarged or shrunk to fill its slot.
+
+POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm
+combat-ready stance, weapons held close to the body.
+
+FROM LEFT TO RIGHT:
+1. The paladin from the reference (unchanged).
+2. Lord: young noble prince in blue and silver armor with short cape, longsword and heater shield with a unicorn crest.
+3. Paladin (cavalry): white and gold plate on a white barded horse, sword and shield; about 180% human height.
+4. Priestess: white and gold temple dress, long veil, ornate staff with a crystal.
+5. Prince: regal young prince in a red and gold coat, rapier-like sword, no armor.
+
+STYLE: menu interface art for a high-fantasy tactics RPG, in the spirit of the menus of Vanillaware's
+Unicorn Overlord. Refined, heraldic and calm, like an illuminated manuscript bound in midnight-blue cloth.
+Surfaces: deep midnight navy and ink blue (#0d1530 to #1b2a55) with a very subtle woven-cloth / vellum grain,
+never glossy. Ornament: antique matte gold leaf (#c9a45c, shadows #7a5f2e), drawn as thin double hairlines
+(2-3 px) with restrained filigree; fleur-de-lis, acanthus scroll tips and small diamond studs only at corners
+and centers of edges. Secondary accents: ivory (#efe6cf) and deep crimson (#7a1f24), used sparingly.
+Hand-painted 2D look with crisp clean edges. Flat front view, no perspective, no 3D bevel, no plastic shine,
+no chrome, no neon glow, no lens flare, no gemstones unless asked, no sci-fi or mobile-game chunky frames.
+Elegant restraint: thin lines, generous calm empty space, nothing cluttered.
+
+OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels.
