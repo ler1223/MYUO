@@ -168,12 +168,168 @@ def markdown(classes: list[dict], skills: dict) -> str:
     return "\n".join(out) + "\n"
 
 
+# --- снаряжение ------------------------------------------------------------------------
+
+ITEM_PAGES = {"Swords": "sword", "Axes": "axe", "Spears": "spear", "Bows": "bow", "Staves": "staff",
+              "GreatShields": "greatshield", "Accessories": "accessory"}
+CARGO = ("https://unilord.miraheze.org/w/api.php?action=cargoquery&tables=Items&format=json&limit=500"
+         "&fields=Id,Sort,Name,PhysickalAttack,MagickalAttack,PhysickalDefense,MagickalDefense,GuardRate,Skill,"
+         "Slot1,Slot2,Slot3,Cost&where=Sort%3D%27Shield%27")
+
+
+def fetch_items(folder: Path) -> None:
+    """Страницы списков снаряжения, щиты из таблицы Cargo, страницы навыков предметов."""
+    folder.mkdir(parents=True, exist_ok=True)
+    for page in ITEM_PAGES:
+        (folder / f"{page}.wiki").write_text(get(page), encoding="utf-8")
+        time.sleep(0.3)
+    request = urllib.request.Request(CARGO, headers={"User-Agent": "MYUO-research/1.0"})
+    rows = [r["title"] for r in json.loads(urllib.request.urlopen(request, timeout=60).read())["cargoquery"]]
+    (folder / "shields.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
+    known = set(json.loads((OUT / "classes.json").read_text(encoding="utf-8"))["skills"]) if (OUT / "classes.json").exists() else set()
+    skills = sorted({s for item in parse_items(folder) for s in item["skills"] if s not in known})
+    (folder / "skills").mkdir(exist_ok=True)
+    for skill in skills:
+        try:
+            (folder / "skills" / f"{skill}.wiki").write_text(get(skill), encoding="utf-8")
+        except (KeyError, OSError) as error:
+            print(f"skill page {skill!r}: {error}")
+        time.sleep(0.3)
+    print(f"{len(ITEM_PAGES)} pages, {len(rows)} shields, {len(skills)} item skills -> {folder}")
+
+
+def cells(row: str) -> list[str]:
+    """Ячейки строки таблицы вики: разделители «||» и «|» в начале строки, кроме внутри [[...]] и {{...}}."""
+    out, current, depth, i = [], "", 0, 0
+    text = row.strip()
+    if text.startswith("|"):
+        text = text[1:]
+    while i < len(text):
+        two = text[i:i + 2]
+        if two in ("[[", "{{"):
+            depth += 1
+            current += two
+            i += 2
+            continue
+        if two in ("]]", "}}"):
+            depth = max(0, depth - 1)
+            current += two
+            i += 2
+            continue
+        if depth == 0 and (two == "||" or (text[i] == "\n" and text[i + 1:i + 2] == "|")):
+            out.append(current)
+            current = ""
+            i += 2
+            continue
+        current += text[i]
+        i += 1
+    out.append(current)
+    result = []
+    for cell in out:
+        if cell.strip().startswith(("style=", "class=")):   # атрибуты ячейки до первого «|» вне [[...]]
+            depth, cut = 0, None
+            for k in range(len(cell)):
+                if cell[k:k + 2] == "[[":
+                    depth += 1
+                elif cell[k:k + 2] == "]]":
+                    depth -= 1
+                elif cell[k] == "|" and depth == 0:
+                    cut = k
+                    break
+            cell = cell[cut + 1:] if cut is not None else ""
+        result.append(cell.strip())
+    return result
+
+
+def item_skills(text: str) -> list[str]:
+    return [m for m in re.findall(r"\[\[([^\]|:]+)(?:\|[^\]]*)?\]\]", text) if not m.startswith("File")]
+
+
+def stat_lines(*parts: str) -> list[str]:
+    lines = []
+    for part in parts:
+        lines += [line for line in clean(part).split("\n") if line and line != "-"]
+    return lines
+
+
+def parse_items(folder: Path) -> list[dict]:
+    items: list[dict] = []
+    for page, kind in ITEM_PAGES.items():
+        path = folder / f"{page}.wiki"
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        table = text[text.index("{|"):] if "{|" in text else ""
+        head = table.split("\n|-", 2)[1] if table.count("\n|-") > 1 else ""
+        columns = []                       # шапка бывает в одну строку (!a!!b) и в несколько (!a\n!b)
+        for line in head.split("\n"):
+            if line.startswith("!"):
+                columns += [c.strip().split("|")[-1].strip() for c in line.lstrip("!").split("!!")]
+        for row in table.split("\n|-")[1:]:
+            values = cells(row.split("\n|}")[0])
+            if len(values) < 3:
+                continue
+            data = dict(zip(columns, values))
+            name = clean(data.get("Name", ""))
+            if not name:
+                continue
+            number = lambda key: int(re.search(r"-?\d+", data.get(key, "")).group()) if re.search(r"-?\d+", data.get(key, "")) else 0
+            items.append({
+                "name": name, "kind": kind, "phys_atk": number("P.Atk"), "mag_atk": number("M.Atk"),
+                "phys_def": number("P.Def"), "mag_def": number("M.Def"), "guard_rate": number("Guard Rate"),
+                "skills": item_skills(data.get("Skill", "")),
+                "skill_cost": "PP" if "PP_Gem" in data.get("Skill", "") else ("AP" if "AP_Gem" in data.get("Skill", "") else ""),
+                "stats": stat_lines(data.get("Substats", ""), data.get("Stat 1", ""), data.get("Stat 2", ""),
+                                    data.get("Stat 3", "")),
+                "price": number("Price"), "classes": clean(data.get("Classes", "")),
+            })
+    shields = folder / "shields.json"
+    if shields.exists():
+        for row in json.loads(shields.read_text(encoding="utf-8")):
+            num = lambda v: int(v) if str(v).lstrip("-").isdigit() else 0
+            items.append({"name": row["Name"], "kind": "shield", "phys_atk": 0, "mag_atk": 0,
+                          "phys_def": num(row["PhysickalDefense"]), "mag_def": num(row["MagickalDefense"]),
+                          "guard_rate": num(row["GuardRate"]), "skills": item_skills(f"[[{row['Skill']}]]") if row["Skill"] else [],
+                          "skill_cost": "", "stats": [s for s in (row["Slot1"], row["Slot2"], row["Slot3"]) if s],
+                          "price": num(row.get("Cost", "")), "classes": ""})
+    return items
+
+
+def infobox(text: str) -> dict:
+    """Шаблон {{Skill InfoBox |Category=... |Description=...}} страницы навыка."""
+    fields = dict(re.findall(r"\|\s*(\w+)\s*=\s*([^\n|]*)", text))
+    num = lambda key: int(re.search(r"\d+", fields.get(key, "")).group()) if re.search(r"\d+", fields.get(key, "")) else None
+    description = clean(fields.get("Description", ""))
+    activation = clean(fields.get("Activation", ""))
+    return {"category": "passive" if "Passive" in fields.get("Category", "") else "active",
+            "ap": num("Cost") if "Active" in fields.get("Category", "") else 0,
+            "pp": num("Cost") if "Passive" in fields.get("Category", "") else 0,
+            "phys": num("PhysickalPotency") or None, "mag": num("MagickalPotency") or None,
+            "hits": num("HitCount") or None, "accuracy": num("HitRate") or None,
+            "traits": ["Ranged"] if fields.get("Ranged", "").strip() == "yes" else [],
+            "text": "\n".join(x for x in (activation, description) if x)}
+
+
+def parse_item_data(folder: Path) -> None:
+    items = parse_items(folder)
+    skills = {}
+    for path in sorted((folder / "skills").glob("*.wiki")) if (folder / "skills").exists() else []:
+        entry = infobox(path.read_text(encoding="utf-8"))
+        if entry["text"]:
+            skills[path.stem] = {"name": path.stem, "level": 1, "type": "", **entry}
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "items.json").write_text(json.dumps({"items": items, "skills": skills}, indent=1, ensure_ascii=False),
+                                    encoding="utf-8")
+    print(f"{len(items)} items, {len(skills)} item skills -> {OUT / 'items.json'}")
+
+
 def main() -> None:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     mode = sys.argv[1] if len(sys.argv) > 1 else "parse"
     folder = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "docs" / "uo" / "wiki"
-    {"fetch": fetch, "parse": parse}[mode](folder)
+    {"fetch": fetch, "parse": parse, "items": lambda f: (fetch_items(f), parse_item_data(f)),
+     "parse-items": parse_item_data}[mode](folder)
 
 
 if __name__ == "__main__":

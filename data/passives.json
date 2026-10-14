@@ -3162,5 +3162,420 @@
       "to_area": null,
       "cover_many": false
     }
+  },
+  "uo_item_heal_10": {
+    "name": "UO heal 10",
+    "pp_cost": 0,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "heal",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 10,
+      "percent": true,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "uo_item_heal_20": {
+    "name": "UO heal 20",
+    "pp_cost": 0,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "heal",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 20,
+      "percent": true,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "uo_item_heal_15": {
+    "name": "UO heal 15",
+    "pp_cost": 0,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "heal",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 15,
+      "percent": true,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "radiant_cover": {
+    "name": "Radiant Cover",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "cover",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "enduring_guard": {
+    "name": "Enduring Guard",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "uo_guard_heavy",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "cavalry_guard": {
+    "name": "Cavalry Guard",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "aerial_guard": {
+    "name": "Aerial Guard",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "bestral_guard": {
+    "name": "Bestral Guard",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "nocturnal_guard": {
+    "name": "Nocturnal Guard",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "apply_effect",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "quick_cover": {
+    "name": "Quick Cover",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "cover",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "lifeshare": {
+    "name": "Lifeshare",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "attacked",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "landed",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "royal_guard": {
+    "name": "Royal Guard",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "cover",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_cover": {
+    "name": "Hastened Cover",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "cover",
+      "skill_id": null,
+      "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
   }
 }

@@ -43,6 +43,8 @@ class ItemDefinition:
     damage_tags: tuple[str, ...] = ()       # тип урона оружия (для частей навыков с weapon_tags)
     tier: int = 5                           # тир 0..30 (game/tiers.py): 0..9 — новичок, 10..19 — наёмник, 20..30 — герой
     price: int = 0                          # цена в магазине; продаётся дешевле
+    ap_bonus: int = 0                       # прибавка к запасу AP носителя (кулоны UO)
+    pp_bonus: int = 0                       # прибавка к запасу PP
 
     @classmethod
     def from_dict(cls, item_id: str, data: Mapping[str, Any]) -> "ItemDefinition":
@@ -57,6 +59,8 @@ class ItemDefinition:
             damage_tags=tuple(data.get("damage_tags", ())),
             tier=check_tier(int(data.get("tier", 5)), f"item {item_id}"),
             price=int(data.get("price", 0)),
+            ap_bonus=int(data.get("ap_bonus", 0)),
+            pp_bonus=int(data.get("pp_bonus", 0)),
         )
         if item.price < 0:
             raise ValueError(f"item {item_id}: price must not be negative")
@@ -73,6 +77,8 @@ class ItemDefinition:
             "slot": self.slot,
             "tier": self.tier,
             "price": self.price,
+            **({"ap_bonus": self.ap_bonus} if self.ap_bonus else {}),
+            **({"pp_bonus": self.pp_bonus} if self.pp_bonus else {}),
             "modifiers": [m.to_dict() for m in self.modifiers],
             "skills": list(self.skills),
             "passives": list(self.passives),

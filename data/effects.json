@@ -96,7 +96,8 @@
     "flags": [],
     "tags": [
       "ailment",
-      "debuff"
+      "debuff",
+      "poison"
     ],
     "grants_tags": [],
     "attack_mods": [],
@@ -180,7 +181,8 @@
     ],
     "tags": [
       "ailment",
-      "debuff"
+      "debuff",
+      "guard_seal"
     ],
     "grants_tags": [],
     "attack_mods": [],
@@ -263,6 +265,7 @@
     "flags": [],
     "tags": [
       "ailment",
+      "burn",
       "debuff"
     ],
     "grants_tags": [],
@@ -347,7 +350,8 @@
     ],
     "tags": [
       "ailment",
-      "debuff"
+      "debuff",
+      "stun"
     ],
     "grants_tags": [],
     "attack_mods": [],
@@ -462,6 +466,7 @@
     ],
     "tags": [
       "ailment",
+      "crit_seal",
       "debuff"
     ],
     "grants_tags": [],
@@ -527,7 +532,8 @@
     ],
     "tags": [
       "ailment",
-      "debuff"
+      "debuff",
+      "freeze"
     ],
     "grants_tags": [],
     "attack_mods": [],
@@ -1092,6 +1098,7 @@
     ],
     "tags": [
       "ailment",
+      "blind",
       "debuff"
     ],
     "grants_tags": [],
@@ -1136,7 +1143,8 @@
     ],
     "tags": [
       "ailment",
-      "debuff"
+      "debuff",
+      "passive_seal"
     ],
     "grants_tags": [],
     "attack_mods": [],

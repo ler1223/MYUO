@@ -6,15 +6,12 @@
   },
   "slot_types": [
     "light_sword",
-    "light_shield",
-    "bow",
-    "staff",
-    "dagger",
     "heavy_weapon",
     "lance",
-    "light_armor",
-    "medium_armor",
-    "robe",
+    "bow",
+    "staff",
+    "light_shield",
+    "greatshield",
     "artifact"
   ],
   "tag_rules": [

@@ -517,7 +517,6 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "shield",
       "infantry"
     ],
     "slots": [
@@ -610,7 +609,6 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -703,7 +701,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -809,13 +806,12 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "greatshield",
       "infantry",
       "armored"
     ],
     "slots": [
       "light_sword",
-      "light_shield",
+      "greatshield",
       "artifact",
       "artifact"
     ],
@@ -1454,7 +1450,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "flying",
       "angel"
     ],
@@ -1563,7 +1558,6 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "shield",
       "infantry",
       "armored"
     ],
@@ -1735,7 +1729,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -2027,7 +2020,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -2243,13 +2235,12 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "greatshield",
       "infantry",
       "armored"
     ],
     "slots": [
       "lance",
-      "light_shield",
+      "greatshield",
       "artifact"
     ],
     "skills": [
@@ -2510,7 +2501,6 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -2709,13 +2699,12 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "greatshield",
       "infantry",
       "armored"
     ],
     "slots": [
       "lance",
-      "light_shield",
+      "greatshield",
       "artifact",
       "artifact"
     ],
@@ -2818,7 +2807,6 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "shield",
       "infantry"
     ],
     "slots": [
@@ -2912,7 +2900,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -3218,7 +3205,6 @@
     "ap_max": 2,
     "pp_max": 2,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -3428,7 +3414,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "cavalry"
     ],
     "slots": [
@@ -3822,13 +3807,12 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "greatshield",
       "infantry",
       "archer"
     ],
     "slots": [
       "bow",
-      "light_shield",
+      "greatshield",
       "artifact",
       "artifact"
     ],
@@ -4634,7 +4618,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "infantry"
     ],
     "slots": [
@@ -4746,7 +4729,6 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "shield",
       "infantry",
       "armored"
     ],
@@ -5155,14 +5137,13 @@
     "ap_max": 3,
     "pp_max": 3,
     "tags": [
-      "greatshield",
       "infantry",
       "armored",
       "bestral"
     ],
     "slots": [
       "heavy_weapon",
-      "light_shield",
+      "greatshield",
       "artifact",
       "artifact"
     ],

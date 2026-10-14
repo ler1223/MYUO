@@ -122,6 +122,9 @@ def item_tip(t: Callable[..., str], db: Database, item_id: str, price: Optional[
     lines: TipLines = [(t(item.name), tier_color(item.rank), "main"),
                        (f"{t(item.slot)} · {t(TIER_NAMES.get(item.rank, "tier"))} ({item.tier})", DIM, "small")]
     lines += [(modifier_text(t, m), TEXT, "small") for m in item.modifiers]
+    for name, bonus in (("AP", item.ap_bonus), ("PP", item.pp_bonus)):
+        if bonus:
+            lines.append((f"{name} {bonus:+d}", (110, 170, 250) if name == "AP" else (190, 120, 235), "small"))
     if item.damage_tags:
         lines.append((t("Damage type: {list}", list=", ".join(t(d) for d in item.damage_tags)), TEXT, "small"))
     if item.tags:

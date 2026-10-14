@@ -206,7 +206,7 @@ class Unit:
         self._items = items  # справочник предметов для разрешения state.equipment
         state.equipment = place_equipment(definition.slots, items, state.equipment, strict)
         self.ap = self._full_ap()
-        self.pp = Resource(definition.pp_max, definition.pp_max)
+        self.pp = Resource(self.pp_max, self.pp_max)
         self.effects: list[ActiveEffect] = []
         self.tactics: TacticsSet = definition.tactics  # может быть заменён редактором
 
@@ -252,7 +252,7 @@ class Unit:
         if not custom:
             self.tactics = definition.tactics
         self.ap = self._full_ap()
-        self.pp = Resource(definition.pp_max, definition.pp_max)
+        self.pp = Resource(self.pp_max, self.pp_max)
 
     def unequip(self, slot_index: int) -> Optional[str]:
         item_id = self.state.equipment[slot_index]
@@ -339,13 +339,22 @@ class Unit:
 
     # --- ресурсы ---
 
+    @property
+    def ap_max(self) -> int:
+        """Запас AP: класса плюс прибавки надетых предметов (кулоны UO)."""
+        return max(0, self.definition.ap_max + sum(i.ap_bonus for i in self.equipped))
+
+    @property
+    def pp_max(self) -> int:
+        return max(0, self.definition.pp_max + sum(i.pp_bonus for i in self.equipped))
+
     def _full_ap(self) -> Resource:
-        ap_max = self.definition.ap_max
+        ap_max = self.ap_max
         return Resource(ap_max, ap_max if AP_START is None else AP_START)
 
     def start_battle(self) -> None:
         self.ap = self._full_ap()
-        self.pp = Resource(self.definition.pp_max, self.definition.pp_max)
+        self.pp = Resource(self.pp_max, self.pp_max)
 
     # --- эффекты ---
 

@@ -118,5 +118,50 @@
     "name": "Angel",
     "kind": "unit",
     "unblockable": false
+  },
+  "immune_poison": {
+    "name": "Immune to poison",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_burn": {
+    "name": "Immune to burn",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_freeze": {
+    "name": "Immune to freeze",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_stun": {
+    "name": "Immune to stun",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_blind": {
+    "name": "Immune to blind",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_passive_seal": {
+    "name": "Immune to passive_seal",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_guard_seal": {
+    "name": "Immune to guard_seal",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_ailment": {
+    "name": "Immune to ailment",
+    "kind": "unit",
+    "unblockable": false
+  },
+  "immune_debuff": {
+    "name": "Immune to debuff",
+    "kind": "unit",
+    "unblockable": false
   }
 }

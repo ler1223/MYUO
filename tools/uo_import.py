@@ -29,6 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from game.database import Database  # noqa: E402
+from tools import uo_items  # noqa: E402
 from tools.uo_names import CLASSES as CLASS_RU, SKILLS as SKILL_RU, TAGS as TAG_RU  # noqa: E402
 
 REFERENCE = ROOT / "docs" / "uo" / "classes.json"
@@ -41,10 +42,21 @@ SKIP = {"Featherbow", "Feathershield", "Featherstaff"}
 UNIQUE_BASE = {"Lord", "Priestess", "Crusader"}
 PROMOTE_LEVEL = 10
 WEAPONS = {"Sword": "light_sword", "Axe": "heavy_weapon", "Spear": "lance", "Bow": "bow", "Staff": "staff"}
-SHIELD_SLOT, ACCESSORY = "light_shield", "artifact"
+SHIELD_SLOT, GREATSHIELD_SLOT, ACCESSORY = "light_shield", "greatshield", "artifact"
+SLOT_TYPES = ["light_sword", "heavy_weapon", "lance", "bow", "staff", "light_shield", "greatshield", "artifact"]
+SLOT_RU = {"light_sword": "меч", "heavy_weapon": "топор", "lance": "копьё", "bow": "лук", "staff": "посох",
+           "light_shield": "щит", "greatshield": "большой щит", "artifact": "аксессуар"}
+# Щиты дают теги shield / greatshield сами предметы (уровень блока — от надетого щита)
 TYPE_TAGS = {"Infantry": "infantry", "Cavalry": "cavalry", "Flying": "flying", "Armor": "armored",
-             "Archer": "archer", "Caster": "caster", "Shield": "shield", "Greatshield": "greatshield",
-             "Scout": "scout", "Elf": "elf", "Bestral": "bestral", "Angel": "angel"}
+             "Archer": "archer", "Caster": "caster", "Scout": "scout", "Elf": "elf", "Bestral": "bestral",
+             "Angel": "angel"}
+IMMUNE_RU = {"poison": "яду", "burn": "ожогу", "freeze": "заморозке", "stun": "оглушению", "blind": "слепоте",
+             "passive_seal": "печати пассивок", "guard_seal": "печати блока", "ailment": "состояниям",
+             "debuff": "дебаффам"}
+ITEMS_REFERENCE = ROOT / "docs" / "uo" / "items.json"
+WORLD_JSON = ROOT / "data" / "world" / "test.json"
+TOWER_JSON = ROOT / "data" / "tower.json"
+LOOT_MAP = {"short_bow": "recruits_shortbow", "war_axe": "iron_axe", "fire_charm": "salamander_ring"}
 FEMALE_SPRITES = {"cleric", "mage", "cryomancer", "stormcaller", "witch", "rider"}
 STATS = ["hp", "phys_atk", "phys_def", "mag_atk", "mag_def", "accuracy", "evasion", "crit_rate", "guard_rate",
          "initiative"]
@@ -121,7 +133,7 @@ class Importer:
     def ailment(self, name: str) -> str:
         effect_id, flags, duration, triggers, ru = AILMENTS[name]
         effect_id = "uo_" + effect_id
-        self.effects[effect_id] = {"name": f"UO {name}", "flags": flags, "tags": ["debuff", "ailment"],
+        self.effects[effect_id] = {"name": f"UO {name}", "flags": flags, "tags": ["debuff", "ailment", effect_id[3:]],
                                    "duration": duration, "triggers": triggers,
                                    "stack_rule": "STACK" if name == "Burn" else "REFRESH",
                                    "max_stacks": 3 if name == "Burn" else 1}
@@ -619,9 +631,10 @@ class Importer:
             class_id = slug(entry["name"])
             words = entry["type"].replace("ScoutBestral", "Scout Bestral").split()
             weapon = next((WEAPONS[w] for w in words if w in WEAPONS), "light_sword")
-            shields = sum(1 for w in words if w in ("Shield", "Greatshield"))
+            shields = sum(1 for w in words if w == "Shield")
+            greatshields = sum(1 for w in words if w == "Greatshield")
             promoted = entry["group"].startswith("Promoted")
-            accessories = (1 if shields else 2) + (1 if promoted else 0)
+            accessories = (1 if shields or greatshields else 2) + (1 if promoted else 0)
             tags = list(dict.fromkeys(TYPE_TAGS[w] for w in words if w in TYPE_TAGS))
             base, growth = self.stats(entry["grades"])
             kind = "promoted" if promoted else "base"
@@ -637,7 +650,7 @@ class Importer:
             out[class_id] = {
                 "name": entry["name"], "stats": base, "growth": growth,
                 "ap_max": self.grades["ap"][kind], "pp_max": self.grades["pp"][kind],
-                "tags": tags, "slots": [weapon] + [SHIELD_SLOT] * shields + [ACCESSORY] * accessories,
+                "tags": tags, "slots": [weapon] + [SHIELD_SLOT] * shields + [GREATSHIELD_SLOT] * greatshields + [ACCESSORY] * accessories,
                 "skills": skills, "passives": passives, "tactics": [], "tier": tier,
                 "promotions": [{"class": slug(entry["promotes_to"]), "level": PROMOTE_LEVEL}]
                 if entry.get("promotes_to") else [],
@@ -733,6 +746,18 @@ def apply(importer: Importer, classes: dict) -> Database:
     for tag, ru in TAG_RU.items():
         data["tags"].setdefault(tag, {"name": tag.capitalize(), "kind": "unit"})
         importer.ru.setdefault(tag.capitalize(), ru)
+    for label, ru in IMMUNE_RU.items():
+        data["tags"][f"immune_{label}"] = {"name": f"Immune to {label}", "kind": "unit"}
+        importer.ru[f"Immune to {label}"] = f"Иммунитет к {ru}"
+    items, item_passives, item_skills, item_ru = uo_items.build(
+        json.loads(ITEMS_REFERENCE.read_text(encoding="utf-8")), importer, importer.skills, importer.passives)
+    importer.skills.update(item_skills)
+    importer.passives.update(item_passives)
+    importer.ru.update(item_ru)
+    importer.ru.update(SLOT_RU)
+    config["slot_types"] = SLOT_TYPES
+    data["items"] = {k: v for k, v in data["items"].items() if v["slot"] not in config_slots(data)}
+    data["items"].update(items)
     data["effects"].update(importer.effects)
     data["skills"].update(importer.skills)
     data["passives"].update(importer.passives)
@@ -745,6 +770,31 @@ def apply(importer: Importer, classes: dict) -> Database:
                 continue
             db.delete(section, key)
     return db
+
+
+def config_slots(data: dict) -> set[str]:
+    """Слоты снаряжения (старые и новые): предметы с ними заменяются снаряжением UO."""
+    return set(SLOT_TYPES) | {"dagger", "light_armor", "medium_armor", "robe"} | set(data["config"].get("slot_types", ()))
+
+
+def retarget_items(db: Database) -> None:
+    """Лут карты и стартовое снаряжение башни — на предметы UO."""
+    world = WORLD_JSON.read_text(encoding="utf-8")
+    for old, new in LOOT_MAP.items():
+        if old not in db.items and new in db.items:
+            world = world.replace(f'"{old}"', f'"{new}"')
+    WORLD_JSON.write_text(world, encoding="utf-8")
+    tower = json.loads(TOWER_JSON.read_text(encoding="utf-8"))
+    starter = {}
+    for slot in SLOT_TYPES:
+        if slot == ACCESSORY:
+            continue
+        fitting = sorted((not i.id.startswith("bronze_"), i.tier, i.price, i.id)       # бронзовое — как в UO
+                         for i in db.items.values() if i.slot == slot)
+        if fitting:
+            starter[slot] = fitting[0][3]
+    tower["starter_gear"] = starter
+    TOWER_JSON.write_text(json.dumps(tower, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def referenced(db: Database, section: str, key: str) -> bool:
@@ -774,13 +824,15 @@ def main() -> None:
     classes = importer.classes()
     importer.skills_and_passives()
     importer.tactics(classes)
-    write_report(importer, classes)
     if "--dry-run" in sys.argv:
+        write_report(importer, classes)
         print(f"report -> {REPORT}")
         return
     db = apply(importer, classes)
+    write_report(importer, classes)
     db.save()
     remap_visuals(db)
+    retarget_items(db)
     lang = json.loads(LANG.read_text(encoding="utf-8"))
     lang.update(importer.ru)
     LANG.write_text(json.dumps(lang, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

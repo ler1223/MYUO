@@ -233,8 +233,9 @@ class RealDataTests(unittest.TestCase):
             self.assertEqual(db.items[item].slot, slot)
         self.assertEqual({item.rank for item in db.items.values()}, {1, 2, 3})       # тир 0..30, ступени I-III
         self.assertTrue(all(0 <= item.tier <= 30 for item in db.items.values()))
-        for stat_items in ("feather", "brooch"):
-            self.assertEqual([db.items[f"{t}_{stat_items}"].rank for t in ("novice", "mercenary", "hero")], [1, 2, 3])
+        self.assertEqual(db.items["carnelian_pendant"].ap_bonus, 1)                 # кулоны UO дают AP
+        self.assertLess(db.items["bronze_sword"].tier, db.items["steel_sword"].tier)  # тир — по силе в виде
+        self.assertIn("shield", db.items["bronze_shield"].tags)                     # щит — средний блок
 
     def test_a_few_real_floors(self):
         db = Database.load()

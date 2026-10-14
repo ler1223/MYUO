@@ -80,7 +80,7 @@ def offence(unit: Unit, db: Database, w: Mapping[str, Any]) -> float:
     """Натиск за бой: запас AP и PP тратится на навыки с лучшей ценностью за очко."""
     skills = [db.skills[i] for i in unit.skill_ids if i in db.skills]
     total = 0.0
-    for pool, cost in ((unit.definition.ap_max, "ap_cost"), (unit.definition.pp_max, "pp_cost")):
+    for pool, cost in ((unit.ap_max, "ap_cost"), (unit.pp_max, "pp_cost")):
         usable = [(skill_value(unit, sk, db, w), getattr(sk, cost)) for sk in skills if getattr(sk, cost) > 0]
         left = pool
         for value, price in sorted(usable, key=lambda v: -v[0] / v[1]):

@@ -382,8 +382,8 @@ class ArtAndTipTests(unittest.TestCase):
         from pygame_tips import item_tip, skill_tip
         db = Database.load()
         t = lambda text, **kw: text.format(**kw) if kw else text
-        lines = [text for text, *_ in item_tip(t, db, "hero_feather", price=380)]
-        self.assertIn("initiative +5", lines)
+        lines = [text for text, *_ in item_tip(t, db, "dove_plume", price=380)]
+        self.assertIn("initiative +10", lines)
         self.assertIn("Price: 380", lines)
         bash = [text for text, *_ in skill_tip(t, db, "shield_bash", unlock=15, level=3)]
         self.assertIn("Unlocks at level 15", bash)

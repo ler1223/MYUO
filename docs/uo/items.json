@@ -1,0 +1,8612 @@
+{
+ "items": [
+  {
+   "name": "Bronze Sword",
+   "kind": "sword",
+   "phys_atk": 8,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Recruit's Shortsword",
+   "kind": "sword",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 1500,
+   "classes": ""
+  },
+  {
+   "name": "Baroque Sword",
+   "kind": "sword",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Iron Sword",
+   "kind": "sword",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Templar's Sword",
+   "kind": "sword",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defence +1",
+    "Guard Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black-Iron Sword",
+   "kind": "sword",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +5%"
+   ],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Sword",
+   "kind": "sword",
+   "phys_atk": 8,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Carnat Sword",
+   "kind": "sword",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +2"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Steel Sword",
+   "kind": "sword",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Spellsteel Sword",
+   "kind": "sword",
+   "phys_atk": 9,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Vorpal Sword",
+   "kind": "sword",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Sanguine Blade",
+   "kind": "sword",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Dragonbone Blade",
+   "kind": "sword",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Initiative -10"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Thorn Blade",
+   "kind": "sword",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP -15"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Icefall Blade",
+   "kind": "sword",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Wingcrest Blade",
+   "kind": "sword",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 14000,
+   "classes": ""
+  },
+  {
+   "name": "Carnelian Blade",
+   "kind": "sword",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phantom Knight's Sword",
+   "kind": "sword",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Phantom Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Sword",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Physickal Defense +2",
+    "Magickal Defense +2"
+   ],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Knight's Sword",
+   "kind": "sword",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magickal Defense +4"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Barbarian's Might",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Provoking Slash"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Max HP +5"
+   ],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Heavenswing Sword",
+   "kind": "sword",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hunter's Claymore",
+   "kind": "sword",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Follow-up Skills Deal +20 Damage",
+    "Critical Rate +10%"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Hallowed Blade",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Heal 10% HP when using Active Skill",
+    "Max HP +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Meteorite Sword",
+   "kind": "sword",
+   "phys_atk": 24,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Viperfang",
+   "kind": "sword",
+   "phys_atk": 12,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Poison Slash"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Searing Rapier",
+   "kind": "sword",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Fire Slash"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Flamberge",
+   "kind": "sword",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Grisly Fire"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Burn Immunity"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Scorpion's Sting",
+   "kind": "sword",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Grisly Poison"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Poison Immunity"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Dancer's Delight",
+   "kind": "sword",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Leaping Slash"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Critical Rate +10%"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Sylph's Bane",
+   "kind": "sword",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sonic Blast"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Evasion +10"
+   ],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Galecutter",
+   "kind": "sword",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Double Blast"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +20"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Hailstorm Edge",
+   "kind": "sword",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Icicle Dart"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +20",
+    "Freeze Immunity"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Pursuant's Blade",
+   "kind": "sword",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Pursuit"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Cutthroat's Boon",
+   "kind": "sword",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Assassin's Nail"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +10",
+    "Blindness Immunity"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Wyvern Razor",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +10%",
+    "Critical Damage +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Stingray",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Artenie Strike"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Critical Rate +15%",
+    "Poison Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Rose Knight Sword",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +3",
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bandit Longsword",
+   "kind": "sword",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +3",
+    "Evasion +10",
+    "User's Unit Earns +100% Gold"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Royal Saber",
+   "kind": "sword",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Runic Sword",
+   "kind": "sword",
+   "phys_atk": 8,
+   "mag_atk": 14,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Crimson Épée",
+   "kind": "sword",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Active Shatter"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Initiative +3"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Moonlight Rapier",
+   "kind": "sword",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Nocturnal Strike"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Greatsword",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Rosularis Sword",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sacral Sword",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Kingsblade Cornix",
+   "kind": "sword",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Notos's Sword",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Holy Unicorn Blade",
+   "kind": "sword",
+   "phys_atk": 28,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Base PP +1",
+    "Debuff Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Axe",
+   "kind": "axe",
+   "phys_atk": 8,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Recruit's ShortAxe",
+   "kind": "axe",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 1500,
+   "classes": ""
+  },
+  {
+   "name": "Baroque Axe",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Iron Axe",
+   "kind": "axe",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Templar's Axe",
+   "kind": "axe",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defence +1",
+    "Guard Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black-Iron Axe",
+   "kind": "axe",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +5%"
+   ],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Axe",
+   "kind": "axe",
+   "phys_atk": 8,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Carnat Axe",
+   "kind": "axe",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +2"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Steel Axe",
+   "kind": "axe",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Spellsteel Axe",
+   "kind": "axe",
+   "phys_atk": 9,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Vorpal Axe",
+   "kind": "axe",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Sanguine Axe",
+   "kind": "axe",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Icefall Axe",
+   "kind": "axe",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Dragonbone Axe",
+   "kind": "axe",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Initiative -10"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Thorn Axe",
+   "kind": "axe",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP -15"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Wingcrest Axe",
+   "kind": "axe",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 14000,
+   "classes": ""
+  },
+  {
+   "name": "Carnelian Axe",
+   "kind": "axe",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phantom Knight's Axe",
+   "kind": "axe",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Phantom Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Axe",
+   "kind": "axe",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Physickal Defense +2",
+    "Magickal Defense +2"
+   ],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Knight Axe",
+   "kind": "axe",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magickal Defense +4"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Bandit's Handaxe",
+   "kind": "axe",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "User's Unit Earns +100% Gold",
+    "Evasion +10"
+   ],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Golden Ram Axe",
+   "kind": "axe",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +20",
+    "Physickal Defense +4"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hunter's Halberd",
+   "kind": "axe",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Follow-up Skills Deal +20 Damage",
+    "Critical Rate +10%"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Knot of Ruin",
+   "kind": "axe",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "HP -30",
+    "Initiative -10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Meteorite Axe",
+   "kind": "axe",
+   "phys_atk": 24,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Crushing Axe",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Crush"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Hoarfrost Axe",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Icy Blow"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Frozen Battleaxe",
+   "kind": "axe",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Icy Crush"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Barbarian's Axe",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Provoking Slash"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mason's Hammer",
+   "kind": "axe",
+   "phys_atk": 10,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Powerful Impact"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Spiked Hammer",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Spiked Blow"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Headsman's Axe",
+   "kind": "axe",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Execution"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Eliminator",
+   "kind": "axe",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Execution"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Morningstar",
+   "kind": "axe",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Painful Smash"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Silvermoon Axe",
+   "kind": "axe",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Beast Slayer"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Giant's Greataxe",
+   "kind": "axe",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Heavy Smash"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Initiative -10"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Banishing Hammer",
+   "kind": "axe",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Banishing Smite"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Dark Knight Cleaver",
+   "kind": "axe",
+   "phys_atk": 9,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Desperation"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Rose Knight Axe",
+   "kind": "axe",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +3",
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Rose Knight Hammer",
+   "kind": "axe",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +3",
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Labrys",
+   "kind": "axe",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5",
+    "Guard Rate +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Warhammer",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Juggernaut",
+   "kind": "axe",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Ground Strike"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Critical Damage +30%",
+    "Stun Immunity"
+   ],
+   "price": 30000,
+   "classes": ""
+  },
+  {
+   "name": "Helleborus Axe",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sacral Axe",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Kingsaxe Drakenash",
+   "kind": "axe",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Boreas's Axe",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Spear",
+   "kind": "spear",
+   "phys_atk": 8,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Recruit's ShortSpear",
+   "kind": "spear",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 1500,
+   "classes": ""
+  },
+  {
+   "name": "Baroque Spear",
+   "kind": "spear",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Iron Spear",
+   "kind": "spear",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Templar's Spear",
+   "kind": "spear",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defence +1",
+    "Guard Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black-Iron Spear",
+   "kind": "spear",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +5%"
+   ],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Spear",
+   "kind": "spear",
+   "phys_atk": 8,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Carnat Spear",
+   "kind": "spear",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +2"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Steel Spear",
+   "kind": "spear",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Spellsteel Spear",
+   "kind": "spear",
+   "phys_atk": 9,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Vorpal Spear",
+   "kind": "spear",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Bloody Spear",
+   "kind": "spear",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Icefall Spear",
+   "kind": "spear",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Dragonbone Spear",
+   "kind": "spear",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Initiative -10"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Thorn Spear",
+   "kind": "spear",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP -15"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Wingcrest Spear",
+   "kind": "spear",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 14000,
+   "classes": ""
+  },
+  {
+   "name": "Watchman's Longspear",
+   "kind": "spear",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Eagle Eye"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Blind Immunity",
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Nameless Guard's Spear",
+   "kind": "spear",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Eagle Eye"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Blind Immunity",
+    "Accuracy +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Carnelian Spear",
+   "kind": "spear",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phantom Knight's Spear",
+   "kind": "spear",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Phantom Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Spear",
+   "kind": "spear",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Physickal Defense +2",
+    "Magickal Defense +2"
+   ],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Knight Spear",
+   "kind": "spear",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magickal Defense +4"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Glaive",
+   "kind": "spear",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Follow-up Skills Deal +20 Damage",
+    "Critical Rate +10%"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Adept's Shortspear",
+   "kind": "spear",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Critical Rate +15%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Meteorite Lance",
+   "kind": "spear",
+   "phys_atk": 24,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Unwavering Spear",
+   "kind": "spear",
+   "phys_atk": 12,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "True Thrust"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Accuracy +10"
+   ],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Storm of Hail",
+   "kind": "spear",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Icicle Dart"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +20",
+    "Freeze Immunity"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Corroded Spear",
+   "kind": "spear",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Shadow Thrust"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Valkyrie's Partisan",
+   "kind": "spear",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Passive Shatter (Spear)"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Surging Shortspear",
+   "kind": "spear",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Rampage"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Elfeater",
+   "kind": "spear",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Elfslayer"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "General's Pike",
+   "kind": "spear",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Phalanx Shift"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Base PP +1"
+   ],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Canyon Lance",
+   "kind": "spear",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Shattering Pursuit"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Helix Spear",
+   "kind": "spear",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Penetrate"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Rate +10%"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Dragoon's Warspear",
+   "kind": "spear",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Dragoon Dive"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Initiative +5"
+   ],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Runic Spear",
+   "kind": "spear",
+   "phys_atk": 8,
+   "mag_atk": 14,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Twinned Bough",
+   "kind": "spear",
+   "phys_atk": 8,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Thunderous Thrust"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +5",
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Twinned Bough",
+   "kind": "spear",
+   "phys_atk": 8,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Freezing Thrust"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +5",
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Silver Trident",
+   "kind": "spear",
+   "phys_atk": 16,
+   "mag_atk": 8,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Lightning Shaker"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Crimson Sarissa",
+   "kind": "spear",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Max HP +15",
+    "Guard Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Flame Javelin",
+   "kind": "spear",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Flame Javelin"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Burn Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Testarossa",
+   "kind": "spear",
+   "phys_atk": 24,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Damage +30%",
+    "Stun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Orchis Spear",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sacral Spear",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Kingspear Elhal",
+   "kind": "spear",
+   "phys_atk": 9,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zephyros's Spear",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Bow",
+   "kind": "bow",
+   "phys_atk": 8,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Recruit's ShortBow",
+   "kind": "bow",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 1500,
+   "classes": ""
+  },
+  {
+   "name": "Baroque Bow",
+   "kind": "bow",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Iron Bow",
+   "kind": "bow",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 2000,
+   "classes": ""
+  },
+  {
+   "name": "Templar's Bow",
+   "kind": "bow",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defence +1",
+    "Guard Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black-Iron Bow",
+   "kind": "bow",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +5%"
+   ],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Bow",
+   "kind": "bow",
+   "phys_atk": 8,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Carnat Bow",
+   "kind": "bow",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +2"
+   ],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Steel Bow",
+   "kind": "bow",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 4000,
+   "classes": ""
+  },
+  {
+   "name": "Spellsteel Bow",
+   "kind": "bow",
+   "phys_atk": 9,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Vorpal Bow",
+   "kind": "bow",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 6000,
+   "classes": ""
+  },
+  {
+   "name": "Sanguine Bow",
+   "kind": "bow",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Icefall Bow",
+   "kind": "bow",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Dragonbone Bow",
+   "kind": "bow",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Initiative -10"
+   ],
+   "price": 8000,
+   "classes": ""
+  },
+  {
+   "name": "Thorn Bow",
+   "kind": "bow",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP -15"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Wingcrest Bow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 14000,
+   "classes": ""
+  },
+  {
+   "name": "Watchman's LongBow",
+   "kind": "bow",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Eagle Eye"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Blind Immunity",
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Nameless Guard's Bow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Eagle Eye"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Blind Immunity",
+    "Accuracy +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Carnelian Bow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phantom Knight's Bow",
+   "kind": "bow",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Phantom Attack"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Bow",
+   "kind": "bow",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Physickal Defense +2",
+    "Magickal Defense +2"
+   ],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Knight Bow",
+   "kind": "bow",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magickal Defense +4"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Meteorite Bow",
+   "kind": "bow",
+   "phys_atk": 24,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Infamous Bow",
+   "kind": "bow",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +50",
+    "Critical Rate -30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Viper Bow",
+   "kind": "bow",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Poison Arrow"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Flame Bow",
+   "kind": "bow",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Flame Arrow"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Salamander Greatbow",
+   "kind": "bow",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Poison Arrow"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Burn Immunity"
+   ],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Starless Bow",
+   "kind": "bow",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Shadow Arrow"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Thundering Bow",
+   "kind": "bow",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Strength Shatter"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Thundering Strongbow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Strength Shatter II"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5",
+    "Critical Rate +20%"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Piercing Bow",
+   "kind": "bow",
+   "phys_atk": 14,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Armor Shatter"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 3000,
+   "classes": ""
+  },
+  {
+   "name": "Piercing Strongbow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Armor Shatter II"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5",
+    "Critical Rate +20%"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "Spellseal Bow",
+   "kind": "bow",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Shatter"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Pheasant Bow",
+   "kind": "bow",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Passive Shatter"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 5000,
+   "classes": ""
+  },
+  {
+   "name": "Interrogator's Bow",
+   "kind": "bow",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Healing Hunter"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Base PP +1",
+    "Magick Defense +3"
+   ],
+   "price": 12000,
+   "classes": ""
+  },
+  {
+   "name": "The Inquisitor",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Healing Hunter"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Base PP +1",
+    "Magick Defense +5"
+   ],
+   "price": 20000,
+   "classes": ""
+  },
+  {
+   "name": "Bow of Swiftness",
+   "kind": "bow",
+   "phys_atk": 16,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Rapid Shot"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "Silvermoon Bow",
+   "kind": "bow",
+   "phys_atk": 19,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Beastslayer"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 10000,
+   "classes": ""
+  },
+  {
+   "name": "General's Longbow",
+   "kind": "bow",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Aerial Shift"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Crane Bow",
+   "kind": "bow",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Triple Shatter"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 20000,
+   "classes": ""
+  },
+  {
+   "name": "Trapper's Warbow",
+   "kind": "bow",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Arrow Rain"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Initiative +5"
+   ],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Gallian Crossbow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Harpoon Bolt"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +10",
+    "Critical Damage +30%"
+   ],
+   "price": 15000,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Spiritbow",
+   "kind": "bow",
+   "phys_atk": 10,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Desert Bow",
+   "kind": "bow",
+   "phys_atk": 15,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +10%",
+    "Accuracy +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Frostbloom Bow",
+   "kind": "bow",
+   "phys_atk": 21,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +15%",
+    "Evasion +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Woodpecker",
+   "kind": "bow",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Spiked Bolt"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Critical Damage +30%",
+    "Stun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Alminster",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Checkmate"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +30"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Quince Bow",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sacral Bow",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Kingsbow Bastorik",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Apeliotes's Bow",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 8,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Recruit's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 11,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 1500,
+   "classes": "All"
+  },
+  {
+   "name": "Baroque Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 2000,
+   "classes": "All"
+  },
+  {
+   "name": "Iron Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 15,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 2000,
+   "classes": "All"
+  },
+  {
+   "name": "Templar's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defense +1",
+    "Guard Rate +5%"
+   ],
+   "price": 4000,
+   "classes": "All"
+  },
+  {
+   "name": "Black-Iron Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 17,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +5%"
+   ],
+   "price": 3000,
+   "classes": "All"
+  },
+  {
+   "name": "Greatwood Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 4000,
+   "classes": "All"
+  },
+  {
+   "name": "Carnat Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 19,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +2"
+   ],
+   "price": 4000,
+   "classes": "All"
+  },
+  {
+   "name": "Steel Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 22,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 4000,
+   "classes": "All"
+  },
+  {
+   "name": "Spellsteel Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 6000,
+   "classes": "All"
+  },
+  {
+   "name": "Vorpal Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 23,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 6000,
+   "classes": "All"
+  },
+  {
+   "name": "Dragonbone Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 15,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Initiative -10"
+   ],
+   "price": 8000,
+   "classes": "All"
+  },
+  {
+   "name": "Thorn Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 17,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP -15"
+   ],
+   "price": 10000,
+   "classes": "All"
+  },
+  {
+   "name": "Icefall Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 19,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 12000,
+   "classes": "All"
+  },
+  {
+   "name": "Wingcrest Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 21,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 14000,
+   "classes": "All"
+  },
+  {
+   "name": "Phantom Knight's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Phantom Veil"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Warding Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defense +15",
+    "Magickal Defense +15",
+    "Guard Rate -25%"
+   ],
+   "price": 8000,
+   "classes": "All"
+  },
+  {
+   "name": "Carnelian Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 21,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Zenoiran Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 14,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Physickal Defense +2",
+    "Magickal Defense +2"
+   ],
+   "price": 5000,
+   "classes": "All"
+  },
+  {
+   "name": "Zenoiran Knight's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magickal Defense +4"
+   ],
+   "price": 10000,
+   "classes": "All"
+  },
+  {
+   "name": "Meteorite Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 24,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Thawing Scepter",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Guard Hunter"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 10000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Pestilent Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 15,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Poison Burst"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 8000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Bloodmoon Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Darts"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 8000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Wind Scepter",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Skyward Thrust"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +20"
+   ],
+   "price": 20000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Telluric Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 19,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Earthquake"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 14000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Grand Magus Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Burst"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 20000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Icestorm Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 22,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Blizzard"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Quartz Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 15,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Gravity"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 20000,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Defender's Mace",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Quick Barrier"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 10000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Cleric's Cane",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Protection"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Base PP +1"
+   ],
+   "price": 15000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Lyrical Wand",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Active Heal"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 15000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Hallowed Mace",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Reheal"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Heal 10% HP when using Active Skill",
+    "Max HP +5"
+   ],
+   "price": 5000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Staff of Succor",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Double Heal"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 8000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Ringed Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Circle Heal"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 10000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Phosphorescent Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Radiant Heal"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 20000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Precious Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Limited Heal"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Lifeblood Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Resurrection"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Purifier",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sacred Cure"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 20000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Liberator's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 14,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Dispel All"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 20000,
+   "classes": "All"
+  },
+  {
+   "name": "Speed-Hex Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Hastened Curse"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 5000,
+   "classes": "Shaman, Druid"
+  },
+  {
+   "name": "Poison-Hex Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Poison Curse"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 8000,
+   "classes": "Shaman, Druid"
+  },
+  {
+   "name": "Flame-Hex Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Fire Curse"
+   ],
+   "skill_cost": "AP",
+   "stats": [],
+   "price": 8000,
+   "classes": "Shaman, Druid"
+  },
+  {
+   "name": "Dustbound Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 16,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sandstorm"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 12000,
+   "classes": "Shaman, Druid"
+  },
+  {
+   "name": "Shaman's Bonestaff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Cursed Strike"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 20000,
+   "classes": "Shaman, Druid"
+  },
+  {
+   "name": "Gleaming Mace",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 18,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Holy Smite"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 12000,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Chiropteran Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 12,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +5",
+    "Initiative +3"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Mother Laelia's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 15,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Parting Resurrection"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Red-Bark Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 21,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity"
+   ],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Chlorotic",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Fire Burst"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 0,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Ein Seeker",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 21,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Shell"
+   ],
+   "skill_cost": "PP",
+   "stats": [],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Millenium Scepter",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 24,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Trinity Rain"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "Wizard, Warlock, Witch, Sorceress, Dark Marquess (Staff)"
+  },
+  {
+   "name": "Libera",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Reincarnation"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Cardinal's Mace",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Holy Cradle"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Lupinus Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Sacral Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Kingstaff Albiore",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Euros's Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "All"
+  },
+  {
+   "name": "Papal Crosier",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": "Cleric, Bishop, Wereowl, Featherstaff, Priestess, High Priestess"
+  },
+  {
+   "name": "Bronze Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Recruit's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 27,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +3",
+    "User Earns +10% EXP"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Baroque Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 8,
+   "mag_def": 0,
+   "guard_rate": 28,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Accuracy +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Conveyable Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 10,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Iron Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black-Iron Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 11,
+   "mag_def": 0,
+   "guard_rate": 32,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Critical Rate +4%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Carnat Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 12,
+   "mag_def": 0,
+   "guard_rate": 33,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Initiative +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 11,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Magick Defense +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Steel Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 14,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Spellsteel Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Vorpal Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 15,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dragonbone Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 11,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Base PP +1",
+    "Initiative -10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Thorn Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 12,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Base PP +1",
+    "HP -15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Icefall Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 14,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Base PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wingcrest Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 15,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Base PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Templar's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "HP Recovery +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phantom Knight's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Magick Defense +30"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 8,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Knight's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Azure Crest Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mirage Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Evasion +50"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Viper Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Poison Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Searing Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Brun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hoarfrost Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Freeze Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Luminous Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Poison Immunity",
+    "Blindness Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Citadel Guard's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 14,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Moonlight Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Unyielding Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 14,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Horsekiller Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wingclipper Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Beastslayer Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Squire's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Panoplied Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Ironclad Towershield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 10,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bulwark Towershield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "White Knight's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 9,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Blacksilver Pavise",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 14,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Stun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Heaven's Mirror Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 10,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Drakestone Iceshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Freeze Immunity",
+    "Stun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Greatshield Of The Abyss",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 13,
+   "mag_def": 0,
+   "guard_rate": 35,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +20",
+    "Takes 20% Less Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Greatshield Of The Abyss",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Max HP +20",
+    "Takes 20% Less Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Skiron's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hero's Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Champion's Towershield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gran Baris",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Debuff Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Carnelian Pendant",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Ruby Pendant",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lapis Pendant",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sapphire Pendant",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Amethyst Pendant",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Onyx Pendant",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +2",
+    "Base PP +2",
+    "All Stats -15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Bangle",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 2,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Silver Bangle",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 4,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gold Bangle",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 6,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Circlet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 4,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Silver Circlet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 6,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gold Circlet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 8,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Brown Beret",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +8%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Green Beret",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Elite Beret",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +12%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Leather Hood",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +8%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Silk Hood",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 2,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sage's Hood",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +12%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Vitality Talisman",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lifeblood Talisman",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Ervélda's Talisman",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +30",
+    "Max HP +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dove Plume",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Raven Plume",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Angel Plume",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Tailwind"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Initiative +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Iron Shackles",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative -10",
+    "Take 5% Less Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Prisoner's Shackles",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative -15",
+    "Take 10% Less Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Daemon's Shackles",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative -20",
+    "Take 15% Less Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Blue Spectacles",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mirrored Spectacles",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +30"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Silken Scarf",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Royal Scarf",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +30"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mercenary's Eyepatch",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Veteran's Eyepatch",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lucky Coin",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +20%",
+    "Evasion +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Rate +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Cloth Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Rate +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Leaf Broach",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Heal 10% HP when using Active skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Rose Broach",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Heal 15% HP when using Active skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Holy Broach",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 2,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Heal 20% HP when using Active skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sacral Broach",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Heal 20% HP when using Active skill",
+    "Affliction Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "White Ribbon",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Verdant Ribbon",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Scarlett's Ribbon",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [
+    "Quick Heal"
+   ],
+   "skill_cost": "PP",
+   "stats": [
+    "Max HP +3",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bloodstained Ribbon",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 5,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +3",
+    "Drain Skill Efficiency +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Warrior's Medallion",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +2",
+    "Physickal Attack +10%",
+    "Critical Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sorcerer's Medallion",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +2",
+    "Magick Attack +10%",
+    "Critical Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Knight's Medallion",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Defense +2",
+    "Physickal Defense +10%",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Cleric's Medallion",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +2",
+    "Magick Defense +10%",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hero's Medallion",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Base PP +1",
+    "Physickal Attack +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Charm Of Land & Sea",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 2,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Physickal Attack +4"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Charm Of Sun & Moon",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 2,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10",
+    "Magick Attack +4"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lionheart",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +10%",
+    "Critical Rate +10%",
+    "Physickal Attack +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mistletoe Charm",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Seal Immunity",
+    "Passive Seal Immunity",
+    "Evasion +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lamplight Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [
+    "Glowing Light"
+   ],
+   "skill_cost": "AP",
+   "stats": [
+    "Blindness Immunity",
+    "Heal 10% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Watchman's Lantern",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Blindness Immunity",
+    "Burn Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Watchman's Horn",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [
+    "Dawn Horn"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Blindness Immunity",
+    "Burn Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gravekeeper Lantern",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Poison Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gravekeeper Boots",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Poison Immunity",
+    "Poison Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Undead Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Poison Immunity",
+    "Deathblow Immunity",
+    "Base PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Necromancer's Lantern",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Poison Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bloodmoon Earrings",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Drain Skill Efficiency +30%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Retaliation Earrings",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Counterattack Skills Deal +40 Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Earrings Of Pursuit",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Follow-up Skills Deal +40 Damage"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Tailwind Cape",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lips's Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gust Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Squall Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Crude Tasset",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Defender's Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Acrobat's Shoes",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Battleline Standard",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wingline Standard",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Elite Standard",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wolfpack Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Badger Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "First Aid Kit",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Medical Kit",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Large Aid Kit",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Shawl Of Repose",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Defensive Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Aurora Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Charm Of Warding",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wind Faerie's Bell",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Thief's Bell",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Flamebrand Tome",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Frostbrand Tome",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Thunderbrand Tome",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bloodbrand Tome",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Glory Sash",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dancer's Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gambler's Coin",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dirty Gambler's Coin",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Familiar's Choker",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Truestrike Star",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sage Owl's Shawl",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sniper's Lens",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sniper's Amber Lens",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wyvern Reins",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +3"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Heavenwyvern Reins",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +6",
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Armored Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +3"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Pursuant's Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Liberator's Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Outlaw's Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wolf Fang Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Cleric's Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Counter Belt",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wyvern Claw",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mage's Gloves",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Liberator's Belt",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Monk's Mitre",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Archbishop's Mitre",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Spirit's Necklace",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Self-Aid Kit",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +3"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Lapis Bell",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dancer's Anklet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dawn Robes",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dusk Robes",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Power Belt",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Defensive Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Thief's Mantle",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Twilight Cloak",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Illusory Cloak",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Courser's Reins",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +3"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Heavensteed Reins",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +6",
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Old Witch's Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Master's Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Guardian Gloves",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Vengeful Caligae",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Citadel Guard's Sabatons",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Druid's Robes",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Sorcerer's Gauntlets",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Soothing Plume",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phoenix's Plume",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Detoxifying Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Poison Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Quenching Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Burn Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Defrosting Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Freeze Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Awakening Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Stun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Clearsight Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Blindness"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Parrying Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Seal Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Skillful Amulet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Holy Unicorn Signet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Debuff Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Salamander Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 8,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Burn Immunity",
+    "Max HP +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Glacial Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 8,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Freeze Immunity",
+    "Max HP +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Thunderclap Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 8,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Stun Immunity",
+    "Max HP +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Cooling Bandana",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Barbed Ribbon",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wooly Mittens",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Fluffy Cape",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Chloe's Charm",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Rookie Egg",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Golden Egg",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Miser's Bracelet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 1,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Silver Goblet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gold Goblet",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Gauntlets Of The Abyss",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Crown Of The Abyss",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Talisman Of The Abyss",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Celestial Talisman",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Magia Soul",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Magia Heart",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "White Cat-Ear Hood",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 5,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black Cat-Ear Hood",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 5,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dream Crown",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Ancient Crown",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Ring Of The Unicorn",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Bronze Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 15,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Recruit's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 16,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Max HP +3",
+    "User Earns +10% EXP"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Baroque Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 0,
+   "guard_rate": 18,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Accuracy +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Battler's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 5,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Physickal Attack +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Iron Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Black-Iron Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 22,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Critical Rate +4%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Carnat Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 24,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Initiative +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Greatwood Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 0,
+   "guard_rate": 15,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Magick Defense +2"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Steel Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Spellsteel Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Magick Defense +5"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Vorpal Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Dragonbone Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 15,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:PP_Gem.png|link=|23px]]PP +1",
+    "Initiative -10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Thorn Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:PP_Gem.png|link=|23px]]PP +1",
+    "HP -15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Icefall Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:PP_Gem.png|link=|23px]]PP +1",
+    "Guard Rate -20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Wingcrest Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:PP_Gem.png|link=|23px]]PP +1",
+    "Critical Rate -20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Watchman's Bockler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Blindness Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Nameless Guard's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [
+    "Radiant Cover"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Blindness Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Templar's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "HP Recovery +20%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Phantom Knight's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Magick Defense +20"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 0,
+   "guard_rate": 15,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Zenoiran Knight's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [
+    "Enduring Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Max HP +15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Golden Ram Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Max HP +10",
+    "Stun Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Heavenswing Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Accuracy +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Obsidian Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Azure Crest Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:PP_Gem.png|link=|23px]]PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Scarlet Crest Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:AP_Gem.png|link=|23px]]PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hunter's Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Follow-up Skills Have +20 Potency",
+    "Critical Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Blessed Roundshield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Heal 10% HP when using Active Skill",
+    "Max HP +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Viper Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Poison Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Searing Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Burn Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Hoarfrost Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Freeze Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Luminous Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Poison Immunity",
+    "Blindness Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Twin Dragon Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Burn Immunity",
+    "Freeze Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Unfettered Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Guard Seal Immunity",
+    "Passive Seal Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Chivalric Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Stun Immunity",
+    "Guard Seal Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Guard's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Quick Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Mercenay's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 18,
+   "skills": [
+    "Vengeful Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Critical Rate +5%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Holy Knight's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [
+    "Holy Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Heal 10% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Cavalry Hunter's Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Cavalry Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Angel Hunter's Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Aerial Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Beast Hunter's Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Bestral Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Moonlight Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [
+    "Nocturnal Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Unyielding Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [
+    "Enduring Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Squire's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Quick Cover"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Arrowshield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Arrow Cover"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Ironclad Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Wall"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Manalith Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 5,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Magick Wall"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Parrying Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 2,
+   "mag_def": 0,
+   "guard_rate": 10,
+   "skills": [
+    "Parry"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Counterattack Skills have +50 Potency"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "White Knight's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 0,
+   "guard_rate": 15,
+   "skills": [
+    "Lifeshare"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Max HP +15"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Blue Rose Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [
+    "Royal Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Base [[File:PP_Gem.png|link=|23px]]PP +1"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "White Rider's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 7,
+   "mag_def": 0,
+   "guard_rate": 25,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Stun Immunity",
+    "Guard Seal Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Kaikai's Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 8,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [
+    "Hastened Cover"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Initiative +10"
+   ],
+   "price": 0,
+   "classes": ""
+  },
+  {
+   "name": "Holy Unicorn Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 8,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Debuff Immunity"
+   ],
+   "price": 0,
+   "classes": ""
+  }
+ ],
+ "skills": {
+  "Aerial Guard": {
+   "name": "Aerial Guard",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard. Becomes a heavy guard and grants the user +1 PP if the enemy is flying."
+  },
+  "Bestral Guard": {
+   "name": "Bestral Guard",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard. Becomes a heavy guard and grants the user +1 PP if the enemy is a bestral."
+  },
+  "Cavalry Guard": {
+   "name": "Cavalry Guard",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard. Becomes a heavy guard and grants the user +1 PP if the enemy is cavalry."
+  },
+  "Enduring Guard": {
+   "name": "Enduring Guard",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a heavy guard. Grants the user a buff to endure one lethal blow."
+  },
+  "Hastened Cover": {
+   "name": "Hastened Cover",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before an ally is attacked.\nCover an ally with a medium guard. Grants that ally max Initiative for their next action."
+  },
+  "Lifeshare": {
+   "name": "Lifeshare",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates after an ally is hit by an attack.\nShare HP with an ally. (50% of the user's HP)."
+  },
+  "Magick Wall": {
+   "name": "Magick Wall",
+   "level": 1,
+   "type": "",
+   "category": "active",
+   "ap": 1,
+   "pp": 0,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Grants the user a buff that negates one magick attack or one affliction."
+  },
+  "Nocturnal Guard": {
+   "name": "Nocturnal Guard",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard. Grants the user +1 PP at night."
+  },
+  "Quick Cover": {
+   "name": "Quick Cover",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before an ally is attacked.\nCover an ally with a medium guard."
+  },
+  "Radiant Cover": {
+   "name": "Radiant Cover",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before an ally is attacked.\nCover an ally with a medium guard. Makes that ally's next attack a truestrike."
+  },
+  "Royal Guard": {
+   "name": "Royal Guard",
+   "level": 1,
+   "type": "",
+   "category": "passive",
+   "ap": 0,
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard. User recovers 25% HP."
+  },
+  "Wall": {
+   "name": "Wall",
+   "level": 1,
+   "type": "",
+   "category": "active",
+   "ap": 1,
+   "pp": 0,
+   "phys": null,
+   "mag": null,
+   "hits": null,
+   "accuracy": null,
+   "traits": [],
+   "text": "Grants the user a buff that negates one physickal attack."
+  }
+ }
+}

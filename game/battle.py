@@ -647,7 +647,10 @@ class BattleSimulation:
 
     def _give_effect(self, recipient: Unit, effect_id: str, source: Optional[int]) -> Optional[ActiveEffect]:
         """Накладывает эффект и сообщает об этом. Иммунитет (immune:<метка>) отбивает одно наложение."""
-        for label in self.db.effects[effect_id].tags:
+        labels = self.db.effects[effect_id].tags
+        if any(f"immune_{label}" in recipient.tags for label in labels):     # постоянный иммунитет (предмет)
+            return None
+        for label in labels:
             flag = self._flagged(recipient, IMMUNE, {label})
             if flag is not None and flag != IMMUNE:
                 self._consume(recipient, flag)
