@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence, Union
 
@@ -20,6 +21,41 @@ from .promotion import merged_definition
 from .unit import Unit, UnitDefinition, UnitState
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+
+@dataclass(frozen=True)
+class GuardRules:
+    """Блок, как в UO: уровень блока — какую долю физического урона он снимает.
+
+    base — уровень блока без щита; tags — тег носителя (от щита) -> уровень; принудительный блок
+    (эффект с флагом guard_small / guard_medium / guard_heavy) берёт уровень из флага.
+    Без раздела "guard" в config.json — прежнее правило: любой блок снимает половину."""
+
+    levels: Mapping[str, float] = field(default_factory=lambda: {"small": 0.25, "medium": 0.5, "heavy": 0.75})
+    base: str = "medium"
+    tags: Mapping[str, str] = field(default_factory=dict)
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "GuardRules":
+        rules = cls(**{k: v for k, v in data.items() if k in ("levels", "base", "tags")})
+        for level in (rules.base, *rules.tags.values()):
+            if level not in rules.levels:
+                raise ValueError(f"unknown guard level {level!r}")
+        return rules
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"levels": dict(self.levels), "base": self.base, "tags": dict(self.tags)}
+
+    def reduction(self, level: str) -> float:
+        return float(self.levels.get(level, 0.5))
+
+    def level_of(self, tags: Any) -> str:
+        """Лучший уровень блока по тегам носителя (щит, большой щит)."""
+        best = self.base
+        for tag, level in self.tags.items():
+            if tag in tags and self.reduction(level) > self.reduction(best):
+                best = level
+        return best
 CONFIG = "config"
 
 # Раздел -> класс определения. Порядок = порядок разбора (сначала то, на что ссылаются).
@@ -72,7 +108,7 @@ class Database:
             for section in SECTIONS
         }
         data[CONFIG] = {"formation": self.formation.to_dict(), "slot_types": list(self.slot_types),
-                        "tag_rules": [r.to_dict() for r in self.rules]}
+                        "tag_rules": [r.to_dict() for r in self.rules], "guard": self.guard.to_dict()}
         return data
 
     def save(self, directory: Union[str, Path, None] = None) -> None:
@@ -100,6 +136,7 @@ class Database:
         slot_types = tuple(config.get("slot_types", ()))
         rules = [TagRule.from_dict(r) for r in config.get("tag_rules", ())]
         formation = FormationSize.from_dict(config.get("formation", {}))
+        guard = GuardRules.from_dict(config.get("guard", {}))
         self._validate(parsed, slot_types, rules)
         for section, values in parsed.items():
             target = getattr(self, section)
@@ -108,6 +145,7 @@ class Database:
         self.slot_types = slot_types
         self.rules = rules
         self.formation = formation
+        self.guard = guard
         self._merged: dict[tuple[str, ...], UnitDefinition] = {}
 
     @staticmethod

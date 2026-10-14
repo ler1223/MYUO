@@ -62,6 +62,8 @@ def param_options(kind: str, db: Database) -> list[Any]:
         return list(db.effects)
     if kind == "tag":
         return [tag.id for tag in db.tags.values() if tag.kind == TAG_UNIT]
+    if kind == "label":
+        return sorted({label for effect in db.effects.values() for label in effect.tags})
     raise ValueError(f"unknown condition parameter kind {kind!r}")
 
 

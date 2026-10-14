@@ -50,6 +50,7 @@ from .reactions import (
     DO_APPLY_EFFECT,
     DO_COVER,
     DO_DAMAGE,
+    DO_DISPEL,
     DO_HEAL,
     DO_REMOVE_EFFECT,
     DO_RESTORE_AP,
@@ -61,6 +62,7 @@ from .reactions import (
     LIMIT_ROUND,
     ON_ATTACKED,
     ON_BATTLE_START,
+    ON_BEFORE_SKILL,
     ON_DIED,
     ON_EFFECT_APPLIED,
     ON_EFFECT_EXPIRED,
@@ -92,9 +94,27 @@ from .unit import AP_PER_TURN, Unit
 
 DEFAULT_MAX_ROUNDS = 30
 FALLBACK_SKILL_ID = "attack"
-STUNNED_FLAG = "stunned"
 MAX_TRIGGER_DEPTH = 6     # предел цепочки «реакция вызвала событие, на которое снова реагируют...»
-GUARD_REDUCTION = 0.5  # какая доля физического урона остаётся после блока
+GUARD_REDUCTION = 0.5      # доля физ. урона после блока без настроек (config.json -> guard; средний блок)
+
+# Флаги эффектов (состояния и защитные заряды в духе UO). Флаг с параметром пишется через двоеточие:
+# "evade:ranged" — уклониться от одного дальнего удара; без параметра — от любого.
+STUNNED_FLAG = "stunned"      # пропуск хода; без блока и пассивок
+FROZEN = "frozen"             # пропуск хода; без уклонения, блока и пассивок; спадает от удара
+BLIND = "blind"               # атаки промахиваются (даже верные)
+GUARD_SEAL = "guard_seal"     # без блока
+PASSIVE_SEAL = "passive_seal" # без пассивок
+CRIT_SEAL = "crit_seal"       # без критов
+TAUNT = "taunt"               # враги бьют в него, если могут
+UNGUARDABLE = "unguardable"   # атаки носителя нельзя заблокировать
+GUARD = "guard"               # guard:<уровень> — следующий физический удар принудительно блокируется (заряд)
+EVADE = "evade"               # evade[:тег атаки] — уклониться от одного удара (заряд)
+NEGATE = "negate"             # negate[:тег атаки] — обнулить урон одного удара (заряд)
+ENDURE = "endure"             # пережить смертельный удар с 1 HP (заряд)
+IMMUNE = "immune"             # immune:<метка> — отбить одно наложение эффекта с этой меткой (заряд)
+NO_ACTION = (STUNNED_FLAG, FROZEN)
+NO_PASSIVES = (STUNNED_FLAG, FROZEN, PASSIVE_SEAL)
+NO_GUARD = (STUNNED_FLAG, FROZEN, GUARD_SEAL)
 
 Origin = Union[PassiveDefinition, ActiveEffect]  # чья реакция: пассивки (стоит PP) или эффекта (бесплатно)
 
@@ -164,6 +184,7 @@ class BattleSimulation:
         self._depth = 0                # глубина момента, реакции на который сейчас выполняются
         self._reaction_skills = 0      # навыки, применённые реакцией, не вызывают реакций на атаку
         self._used: dict[tuple, int] = {}  # ключ реакции -> раунд, в котором она сработала последней
+        self._skill_damage = 0         # урон текущего навыка (для вампиризма)
 
     # --- публичный интерфейс ---
 
@@ -226,8 +247,8 @@ class BattleSimulation:
         self._raise(Moment(ON_TURN_START, unit, unit))
         if self.finished or not unit.is_alive:
             return
-        if unit.has_flag(STUNNED_FLAG):
-            self._round_active = True  # оглушение пройдёт, бой ещё не выдохся
+        if any(unit.has_flag(flag) for flag in NO_ACTION):
+            self._round_active = True  # оглушение и заморозка пройдут, бой ещё не выдохся
             self._emit(TurnSkipped(unit.uid, SKIP_STUNNED))
         else:
             unit.ap.gain(AP_PER_TURN)
@@ -261,12 +282,22 @@ class BattleSimulation:
             choice = (FALLBACK_SKILL_ID, enemies[0])
         skill_id, target = choice
         skill = skills[skill_id]
+        if skill.targets == "enemy":                  # провокация: враг бьёт в провокатора
+            taunting = [u for u in enemies if u.has_flag(TAUNT)]
+            if taunting and target not in taunting:
+                target = taunting[0]
         unit.ap.spend(skill.ap_cost)
         unit.pp.spend(skill.pp_cost)
+        if skill.extras.hp_cost > 0:                  # плата HP: не ниже 1
+            self._deal(unit, min(unit.hp - 1, round(unit.max_hp * skill.extras.hp_cost)), unit.uid, skill.id)
+        tags = self._attack_tags(unit, skill, [mod for _, mod in self._attack_mods(unit, skill)])
+        self._raise(Moment(ON_BEFORE_SKILL, unit, unit, skill, tags, target=target))
+        if self.finished or not unit.is_alive or not target.is_alive:
+            return True
         self._emit(SkillUsed(unit.uid, skill.id, target.uid))
         self._resolve_skill(unit, skill, target)
         if not self.finished:
-            self._raise(Moment(ON_SKILL_USED, unit, unit, skill, target=target))
+            self._raise(Moment(ON_SKILL_USED, unit, unit, skill, tags, target=target))
         return True
 
     def _affected(self, skill: SkillDefinition, target: Unit) -> list[Unit]:
@@ -292,6 +323,7 @@ class BattleSimulation:
         affected, protector = self._before_attack(user, skill, target, affected, attack_tags)
         reacts = not self._reaction_skills and any(part.kind == PART_DAMAGE for part in skill.parts)
         landed: list[Unit] = []  # по кому попал хотя бы один удар
+        self._skill_damage = 0
         for _ in range(skill.hits):
             for unit in affected:
                 if not unit.is_alive:
@@ -302,11 +334,18 @@ class BattleSimulation:
                 if reacts:
                     outcomes = outcome or frozenset({OUTCOME_MISSED})
                     self._raise(Moment(ON_ATTACKED, unit, user, skill, attack_tags, outcomes, target=target))
+        extras = skill.extras
         for unit in landed:
             if not unit.is_alive:
                 continue
             self._restore(user.uid, unit, "AP", unit.ap, skill.ap_restore, skill.id)
             self._restore(user.uid, unit, "PP", unit.pp, skill.pp_restore, skill.id)
+            for name, drain in (("AP", extras.ap_drain), ("PP", extras.pp_drain)):
+                taken = self._drain(user.uid, unit, name, drain, skill.id)
+                if extras.steal and taken and user.is_alive:
+                    self._restore(user.uid, user, name, getattr(user, name.lower()), taken, skill.id)
+            for label in extras.dispel:
+                self._dispel(unit, label)
             for apply in skill.applies:
                 if apply.to == APPLY_TARGET and apply.condition.check(user, unit):
                     self._give_effect(unit, apply.effect_id, user.uid)
@@ -314,7 +353,18 @@ class BattleSimulation:
             for apply in skill.applies:
                 if apply.to == APPLY_SELF and user.is_alive and apply.condition.check(user, target):
                     self._give_effect(user, apply.effect_id, user.uid)
+            if user.is_alive and extras.heal_on_hit > 0:
+                self._heal(user, round(user.max_hp * extras.heal_on_hit), user.uid, skill.id)
+            if user.is_alive and extras.lifesteal > 0 and self._skill_damage:
+                self._heal(user, round(self._skill_damage * extras.lifesteal), user.uid, skill.id)
         self._spend_charges(user, [effect for effect, _ in used])
+        if user.is_alive and not target.is_alive and target in affected:   # добил основную цель
+            self._restore(user.uid, user, "AP", user.ap, extras.kill_ap, skill.id)
+            self._restore(user.uid, user, "PP", user.pp, extras.kill_pp, skill.id)
+            if extras.kill_heal > 0:
+                self._heal(user, round(user.max_hp * extras.kill_heal), user.uid, skill.id)
+            if extras.kill_effect and extras.kill_effect in self.db.effects:
+                self._give_effect(user, extras.kill_effect, user.uid)
         dead = [unit for unit in affected if not unit.is_alive]
         for unit in dead:
             self._die(unit, user)
@@ -413,21 +463,32 @@ class BattleSimulation:
         part_tags = [common | self._part_tags(user, part) for part in skill.parts]
         target_tags = unit.tags
         all_tags = set(common).union(*part_tags)
+        extras = skill.extras
 
-        # Попадание: шанс навыка * точность, правила тегов, минус уклонение врага.
-        chance = skill.accuracy * user.stat(Stat.ACCURACY) / 100
-        chance *= rule_multipliers(self.db.rules, all_tags, target_tags)[1]
-        chance += sum(mod.accuracy_add for mod in mods)
-        if hostile and not unevadable:
-            chance -= unit.stat(Stat.EVASION)
-        if self.rng.random() * 100 >= chance:
+        # Попадание: слепой промахивается всегда; заряд уклонения цели; верный удар не промахивается;
+        # иначе шанс навыка * точность, правила тегов, минус уклонение врага (замороженный не уклоняется).
+        if hostile and skill.parts and user.has_flag(BLIND):
             self._emit(AttackMissed(user.uid, unit.uid, skill.id))
             return None
+        if hostile and skill.parts and not unevadable and self._consume_flag(unit, EVADE, all_tags):
+            self._emit(AttackMissed(user.uid, unit.uid, skill.id))
+            return None
+        if not extras.truestrike:
+            chance = skill.accuracy * user.stat(Stat.ACCURACY) / 100
+            chance *= rule_multipliers(self.db.rules, all_tags, target_tags)[1]
+            chance += sum(mod.accuracy_add for mod in mods)
+            if hostile and not unevadable and not unit.has_flag(FROZEN):
+                chance -= unit.stat(Stat.EVASION)
+            if self.rng.random() * 100 >= chance:
+                self._emit(AttackMissed(user.uid, unit.uid, skill.id))
+                return None
 
-        crit_chance = user.stat(Stat.CRIT_RATE) + sum(mod.crit_add for mod in mods)
-        crit = bool(skill.parts) and self.rng.random() * 100 < crit_chance
+        crit_chance = user.stat(Stat.CRIT_RATE) + sum(mod.crit_add for mod in mods) + extras.crit_add
+        can_crit = bool(skill.parts) and not extras.no_crit and not user.has_flag(CRIT_SEAL)
+        crit = can_crit and self.rng.random() * 100 < crit_chance
         crit_mult = user.stat(Stat.CRIT_DAMAGE) / 100 if crit else 1.0
-        guarded = hostile and self._roll_guard(skill, unit, part_tags)
+        guard = self._guard(user, skill, unit, part_tags) if hostile else None
+        negated = hostile and bool(skill.parts) and self._consume_flag(unit, NEGATE, all_tags)
         power_mult = 1.0
         for mod in mods:
             power_mult *= mod.power_mult
@@ -436,37 +497,132 @@ class BattleSimulation:
         for tag, mult in skill.bonus_vs:
             if tag in target_tags:
                 bonus *= mult
+        potency = self._potency_bonus(user, skill, unit)
+        ignore = extras.ignore_def if not extras.ignore_def_vs or set(extras.ignore_def_vs) & set(target_tags) else 0.0
 
         for part, tags in zip(skill.parts, part_tags):
             if not unit.is_alive:
                 break
             value = sum(user.stat(scale.stat) * scale.coef for scale in (*part.scaling, *extra))
+            power = part.power + potency
             if part.kind == PART_HEAL:
-                self._heal(unit, round(value * part.power * power_mult * crit_mult), user.uid, skill.id, crit)
+                self._heal(unit, round(value * power * power_mult * crit_mult), user.uid, skill.id, crit)
+                continue
+            if negated:
+                self._deal(unit, 0, user.uid, skill.id)
                 continue
             defense = {PHYSICAL: Stat.PHYS_DEF, MAGICAL: Stat.MAG_DEF}.get(part.category)
-            damage = (value - (unit.stat(defense) if defense else 0)) * part.power * power_mult
+            armour = unit.stat(defense) * (1 - ignore) if defense else 0
+            damage = (value - armour) * power * power_mult
             damage *= rule_multipliers(self.db.rules, tags, target_tags)[0] * bonus * crit_mult
-            blocked = guarded and part.category == PHYSICAL
+            blocked = guard is not None and part.category == PHYSICAL
             if blocked:
-                damage *= GUARD_REDUCTION
-            self._deal(unit, max(1, round(damage)), user.uid, skill.id, crit, blocked)
+                damage *= 1 - self.db.guard.reduction(guard)
+            dealt = self._deal(unit, max(1, round(damage)), user.uid, skill.id, crit, blocked)
+            self._skill_damage += dealt
+        if hostile and skill.parts and unit.is_alive:
+            self._thaw(unit)                      # заморозка спадает от удара
         outcome = {OUTCOME_LANDED}
         if crit:
             outcome.add(OUTCOME_CRIT)
-        if guarded:
+        if guard is not None:
             outcome.add(OUTCOME_GUARDED)
         return frozenset(outcome)
 
-    def _roll_guard(self, skill: SkillDefinition, unit: Unit, part_tags: list[set[str]]) -> bool:
-        """Блок возможен, если в навыке есть физический урон и нет неблокируемого типа."""
+    def _guard(self, user: Unit, skill: SkillDefinition, unit: Unit, part_tags: list[set[str]]) -> Optional[str]:
+        """Уровень блока удара или None. Блок возможен, если в навыке есть физический урон, нет
+        неблокируемого типа, атака не неблокируемая и цель может блокировать (не оглушена, не
+        заморожена, без печати блока). Принудительный блок (флаг guard:<уровень>) не бросается."""
         physical = [tags for part, tags in zip(skill.parts, part_tags)
                     if part.kind != PART_HEAL and part.category == PHYSICAL]
         if not physical:
-            return False
+            return None
         if any(tag in self.db.tags and self.db.tags[tag].unblockable for tags in physical for tag in tags):
+            return None
+        extras = skill.extras
+        if extras.unguardable or user.has_flag(UNGUARDABLE) or set(extras.unguardable_vs) & set(unit.tags):
+            return None
+        if any(unit.has_flag(flag) for flag in NO_GUARD):
+            return None
+        forced = self._flagged(unit, GUARD)
+        if forced is not None:
+            self._consume(unit, forced)
+            return forced.partition(":")[2] or self.db.guard.level_of(unit.tags)
+        if self.rng.random() * 100 < unit.stat(Stat.GUARD_RATE):
+            return self.db.guard.level_of(unit.tags)
+        return None
+
+    def _potency_bonus(self, user: Unit, skill: SkillDefinition, unit: Unit) -> float:
+        """Сумма условных прибавок силы навыка против этой цели."""
+        total = 0.0
+        for bonus in skill.potency:
+            if not (bonus.self_condition.check(user, user) and bonus.target_condition.check(user, unit)):
+                continue
+            share = 1.0
+            if bonus.scale == "self_hp_missing":
+                share = 1 - user.hp / max(1, user.max_hp)
+            elif bonus.scale == "self_hp":
+                share = user.hp / max(1, user.max_hp)
+            elif bonus.scale == "target_hp_missing":
+                share = 1 - unit.hp / max(1, unit.max_hp)
+            elif bonus.scale == "target_hp":
+                share = unit.hp / max(1, unit.max_hp)
+            elif bonus.scale == "enemies_fallen":
+                foes = [u for u in self.units.values() if self._side[u.uid] != self._side[user.uid]]
+                share = sum(1 for u in foes if not u.is_alive) / max(1, len(foes) - 1)
+            elif bonus.scale == "front_row":
+                share = 1.0 if self._pos[user.uid][0] == 0 else 0.0
+            total += bonus.add * max(0.0, min(1.0, share))
+        return total
+
+    # --- флаги-заряды ---
+
+    def _flagged(self, unit: Unit, name: str, tags: Optional[set[str]] = None) -> Optional[str]:
+        """Флаг вида name или name:<параметр> (параметр — тег атаки из tags), если есть на юните."""
+        for effect in unit.effects:
+            for flag in effect.definition.flags:
+                base, _, arg = flag.partition(":")
+                if base == name and (not arg or tags is None or arg in tags):
+                    return flag
+        return None
+
+    def _consume(self, unit: Unit, flag: str) -> None:
+        """Тратит один заряд эффекта с флагом; без зарядов или на последнем — эффект снимается."""
+        for effect in unit.effects:
+            if flag in effect.definition.flags:
+                if effect.charges is not None and effect.charges > 1:
+                    effect.charges -= 1
+                else:
+                    unit.effects = [e for e in unit.effects if e is not effect]
+                    self._expire(unit, effect)
+                return
+
+    def _consume_flag(self, unit: Unit, name: str, tags: set[str]) -> bool:
+        flag = self._flagged(unit, name, tags)
+        if flag is None:
             return False
-        return self.rng.random() * 100 < unit.stat(Stat.GUARD_RATE)
+        self._consume(unit, flag)
+        return True
+
+    def _thaw(self, unit: Unit) -> None:
+        for effect in [e for e in unit.effects if FROZEN in e.definition.flags]:
+            unit.effects = [e for e in unit.effects if e is not effect]
+            self._expire(unit, effect)
+
+    def _dispel(self, unit: Unit, label: str) -> None:
+        """Снимает все эффекты с меткой (buff, debuff, ailment)."""
+        for effect in [e for e in unit.effects if label in e.definition.tags]:
+            unit.effects = [e for e in unit.effects if e is not effect]
+            self._expire(unit, effect)
+
+    def _drain(self, source: Optional[int], unit: Unit, name: str, amount: int, cause: str) -> int:
+        """Снимает AP или PP. Возвращает, сколько снято."""
+        resource = getattr(unit, name.lower())
+        taken = min(max(0, amount), resource.current)
+        if taken:
+            resource.spend(taken)
+            self._emit(ResourceGained(source, unit.uid, name, -taken, resource.current, cause))
+        return taken
 
     def _restore(self, source: Optional[int], unit: Unit, name: str, resource: Resource, amount: int,
                  cause: str) -> None:
@@ -483,7 +639,12 @@ class BattleSimulation:
         return not (definition.stack_rule is StackRule.IGNORE and recipient.has_effect(effect_id))
 
     def _give_effect(self, recipient: Unit, effect_id: str, source: Optional[int]) -> Optional[ActiveEffect]:
-        """Накладывает эффект и сообщает об этом."""
+        """Накладывает эффект и сообщает об этом. Иммунитет (immune:<метка>) отбивает одно наложение."""
+        for label in self.db.effects[effect_id].tags:
+            flag = self._flagged(recipient, IMMUNE, {label})
+            if flag is not None and flag != IMMUNE:
+                self._consume(recipient, flag)
+                return None
         effect = recipient.add_effect(self.db.effects[effect_id], source)
         if effect is None:
             return None
@@ -497,6 +658,9 @@ class BattleSimulation:
               crit: bool = False, guarded: bool = False) -> int:
         """Снимает HP и сообщает об этом. Гибель обрабатывает вызывающий."""
         before = unit.hp
+        if amount >= unit.hp > 1 and self._flagged(unit, ENDURE) is not None:   # пережить смертельный удар
+            self._consume(unit, self._flagged(unit, ENDURE))
+            amount = unit.hp - 1
         dealt = unit.take_damage(amount)
         self._emit(DamageDealt(source, unit.uid, dealt, unit.hp, cause, crit, guarded))
         if dealt:
@@ -650,6 +814,9 @@ class BattleSimulation:
                     return False
             elif moment.effect.definition.id != reaction.effect_filter:
                 return False
+        if moment.event in EFFECT_EVENTS and reaction.effect_label:
+            if reaction.effect_label not in moment.effect.definition.tags:
+                return False
         if moment.event == ON_HP_BELOW:
             line = subject.max_hp * reaction.threshold
             if not (subject.is_alive and moment.hp_before >= line > subject.hp):
@@ -672,8 +839,8 @@ class BattleSimulation:
         if reaction.limit == LIMIT_BATTLE and key in self._used:
             return False
         if isinstance(origin, PassiveDefinition):
-            # Пассивки стоят PP; оглушённый пассивками не пользуется.
-            return not owner.has_flag(STUNNED_FLAG) and owner.pp.can_spend(origin.pp_cost)
+            # Пассивки стоят PP; оглушённый, замороженный и с печатью пассивок ими не пользуется.
+            return not any(owner.has_flag(flag) for flag in NO_PASSIVES) and owner.pp.can_spend(origin.pp_cost)
         return True
 
     def _pay(self, owner: Unit, origin: Origin, key: tuple) -> None:
@@ -719,6 +886,8 @@ class BattleSimulation:
             targets = [t for t in targets if self._would_apply(t, reaction.effect_id)]
         elif reaction.action == DO_REMOVE_EFFECT:
             targets = [t for t in targets if t.has_effect(reaction.effect_id)]
+        elif reaction.action == DO_DISPEL:
+            targets = [t for t in targets if any(reaction.label in e.definition.tags for e in t.effects)]
         if not targets or not self._can_pay(owner, origin, reaction, key):
             return False
         self._pay(owner, origin, key)
@@ -746,13 +915,18 @@ class BattleSimulation:
                 for active in [e for e in target.effects if e.definition.id == reaction.effect_id]:
                     target.effects = [e for e in target.effects if e is not active]
                     self._expire(target, active)
+            elif reaction.action == DO_DISPEL:
+                self._dispel(target, reaction.label)
             elif reaction.action == DO_DAMAGE:
+                if reaction.percent:
+                    amount = max(1, round(target.max_hp * reaction.amount / 100))
                 self._deal(target, amount, source, cause)
                 if not target.is_alive:
                     self._die(target, self.units.get(source))
                     self._check_end()
             elif reaction.action == DO_HEAL:
-                self._heal(target, amount, source, cause)
+                self._heal(target, round(target.max_hp * reaction.amount / 100) if reaction.percent else amount,
+                           source, cause)
             elif reaction.action == DO_RESTORE_AP:
                 self._restore(source, target, "AP", target.ap, reaction.amount, cause)
             elif reaction.action == DO_RESTORE_PP:

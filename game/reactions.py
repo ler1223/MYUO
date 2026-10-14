@@ -34,10 +34,11 @@ ON_DIED = "died"
 ON_EFFECT_APPLIED = "effect_applied"
 ON_EFFECT_EXPIRED = "effect_expired"  # кончилась длительность или заряды, или эффект сняли
 ON_SKILL_USED = "skill_used"
+ON_BEFORE_SKILL = "before_skill"    # фаза «до»: юнит вот-вот применит активный навык (subject = он сам)
 EVENTS = (ON_BATTLE_START, ON_ROUND_START, ON_ROUND_END, ON_TURN_START, ON_TURN_END, ON_TARGETED, ON_ATTACKED,
-          ON_HP_BELOW, ON_HEALED, ON_DIED, ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED, ON_SKILL_USED)
+          ON_HP_BELOW, ON_HEALED, ON_DIED, ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED, ON_SKILL_USED, ON_BEFORE_SKILL)
 EVENTS_WITHOUT_SUBJECT = (ON_BATTLE_START, ON_ROUND_START, ON_ROUND_END)
-ATTACK_EVENTS = (ON_TARGETED, ON_ATTACKED)        # для них есть фильтры по тегам атаки и области навыка
+ATTACK_EVENTS = (ON_TARGETED, ON_ATTACKED, ON_BEFORE_SKILL, ON_SKILL_USED)   # фильтры по тегам атаки и области
 EFFECT_EVENTS = (ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED)
 
 # Чьё событие: относительно владельца реакции.
@@ -63,8 +64,9 @@ DO_HEAL = "heal"
 DO_RESTORE_AP = "restore_ap"
 DO_RESTORE_PP = "restore_pp"
 DO_COVER = "cover"      # только для targeted: удар по союзникам переходит на владельца
+DO_DISPEL = "dispel"    # снять все эффекты с меткой label (buff, debuff, ailment)
 ACTIONS = (DO_USE_SKILL, DO_APPLY_EFFECT, DO_REMOVE_EFFECT, DO_DAMAGE, DO_HEAL, DO_RESTORE_AP, DO_RESTORE_PP,
-           DO_COVER)
+           DO_COVER, DO_DISPEL)
 AMOUNT_ACTIONS = (DO_DAMAGE, DO_HEAL, DO_RESTORE_AP, DO_RESTORE_PP)
 EFFECT_ACTIONS = (DO_APPLY_EFFECT, DO_REMOVE_EFFECT)
 
@@ -125,12 +127,15 @@ class Reaction:
     skill_areas: tuple[str, ...] = ()           # навык с одной из этих областей; пусто = любой
     outcome: str = OUTCOME_ANY                  # для attacked
     effect_filter: Optional[str] = None         # для событий эффектов: какой эффект; None = любой
+    effect_label: Optional[str] = None          # для событий эффектов: эффект с этой меткой (buff, debuff)
     threshold: float = 0.5                      # для hp_below: доля от максимального HP
     limit: str = LIMIT_NONE
     # действие
     skill_id: Optional[str] = None
     effect_id: Optional[str] = None             # у прикрытия необязателен: накладывается на владельца
     amount: int = 0
+    percent: bool = False                       # урон и лечение: amount — процент от макс. HP получателя
+    label: Optional[str] = None                 # для dispel: какая метка снимается
     to: str = TO_SUBJECT
     to_area: Optional[str] = None               # для групп: область вокруг владельца; None = вся сторона
     cover_many: bool = False                    # прикрытие: всех подходящих союзников, а не одного
@@ -148,11 +153,14 @@ class Reaction:
             skill_areas=tuple(data.get("skill_areas", ())),
             outcome=_check(data.get("outcome", OUTCOME_ANY), OUTCOMES, "outcome"),
             effect_filter=data.get("effect_filter") or None,
+            effect_label=data.get("effect_label") or None,
             threshold=data.get("threshold", 0.5),
             limit=_check(data.get("limit", LIMIT_NONE), LIMITS, "limit"),
             skill_id=data.get("skill_id") or None,
             effect_id=data.get("effect_id") or None,
             amount=data.get("amount", 0),
+            percent=data.get("percent", False),
+            label=data.get("label") or None,
             to=_check(data.get("to", TO_SUBJECT), TARGETS, "target"),
             to_area=data.get("to_area") or None,
             cover_many=data.get("cover_many", False),
@@ -164,6 +172,8 @@ class Reaction:
                 raise ValueError("a skill is used on one unit: owner, subject, actor, target or source")
         if reaction.action in EFFECT_ACTIONS and reaction.effect_id is None:
             raise ValueError(f"action {reaction.action!r} needs an effect")
+        if reaction.action == DO_DISPEL and reaction.label is None:
+            raise ValueError("action dispel needs a label")
         if reaction.action == DO_COVER and reaction.event != ON_TARGETED:
             raise ValueError("cover works only on the 'targeted' event")
         return reaction
@@ -193,12 +203,15 @@ class Reaction:
             "skill_areas": list(self.skill_areas),
             "outcome": self.outcome,
             "effect_filter": self.effect_filter,
+            "effect_label": self.effect_label,
             "threshold": self.threshold,
             "limit": self.limit,
             "action": self.action,
             "skill_id": self.skill_id,
             "effect_id": self.effect_id,
             "amount": self.amount,
+            "percent": self.percent,
+            "label": self.label,
             "to": self.to,
             "to_area": self.to_area,
             "cover_many": self.cover_many,

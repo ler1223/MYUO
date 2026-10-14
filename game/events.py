@@ -189,6 +189,10 @@ def format_event(ev: Event, name_fn: Callable[[int], str], tr: Optional[Callable
             notes = f", {t('crit')}" if ev.crit else ""
             return t("  {target} is healed for {amount} by {cause} (HP {hp})",
                      target=name_fn(ev.target), amount=ev.amount, cause=t(ev.cause) + notes, hp=ev.hp_left)
+        case ResourceGained() if ev.amount < 0:
+            return t("  {target} loses {amount} {resource} from {cause} ({resource} {current})",
+                     target=name_fn(ev.target), amount=-ev.amount, resource=ev.resource,
+                     cause=t(ev.cause), current=ev.current)
         case ResourceGained():
             return t("  {target} gains {amount} {resource} from {cause} ({resource} {current})",
                      target=name_fn(ev.target), amount=ev.amount, resource=ev.resource,

@@ -55,6 +55,25 @@ class HpBelow:
 
 
 @dataclass(frozen=True)
+class HpAbove:
+    PARAMS: ClassVar[dict[str, str]] = {"value": "fraction"}
+    value: float  # доля от max_hp, 0..1
+
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return candidate.hp >= candidate.max_hp * self.value
+
+
+@dataclass(frozen=True)
+class HasLabel:
+    """Есть эффект с меткой (buff, debuff, ailment)."""
+    PARAMS: ClassVar[dict[str, str]] = {"label": "label"}
+    label: str
+
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return any(self.label in e.definition.tags for e in candidate.effects)
+
+
+@dataclass(frozen=True)
 class HasFlag:
     PARAMS: ClassVar[dict[str, str]] = {"flag": "flag"}
     flag: str
@@ -134,6 +153,8 @@ class Random:
 CONDITIONS: dict[str, Callable[..., ICondition]] = {
     "always": Always,
     "hp_below": HpBelow,
+    "hp_above": HpAbove,
+    "has_label": HasLabel,
     "has_flag": HasFlag,
     "lacks_effect": LacksEffect,
     "has_effect": HasEffect,

@@ -142,6 +142,87 @@ class SkillApply:
         return {"effect_id": self.effect_id, "to": self.to, "condition": condition_to_dict(self.condition)}
 
 
+# Растущая прибавка силы (PotencyBonus.scale): доля 0..1, на которую умножается add.
+SCALES = ("self_hp_missing",      # чем меньше HP у применяющего
+          "self_hp",              # чем больше HP у применяющего
+          "target_hp_missing",    # чем меньше HP у цели
+          "target_hp",            # чем больше HP у цели
+          "enemies_fallen",       # чем меньше врагов осталось (доля павших)
+          "front_row")            # 1, если применяющий в переднем ряду
+
+
+@dataclass(frozen=True)
+class PotencyBonus:
+    """Прибавка к силе навыка (как в UO: +50 к силе 100 -> add 0.5 к power каждой части урона).
+
+    Срабатывает, если оба условия выполнены (self — на применяющего, target — на цель удара);
+    scale — растущая прибавка: add умножается на долю (см. SCALES)."""
+
+    add: float
+    self_condition: ICondition = Always()
+    target_condition: ICondition = Always()
+    scale: str = ""
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "PotencyBonus":
+        scale = data.get("scale", "")
+        if scale and scale not in SCALES:
+            raise ValueError(f"unknown potency scale {scale!r}")
+        return cls(float(data["add"]), condition_from_dict(data.get("self_condition")),
+                   condition_from_dict(data.get("target_condition")), scale)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"add": self.add, "self_condition": condition_to_dict(self.self_condition),
+                "target_condition": condition_to_dict(self.target_condition), "scale": self.scale}
+
+
+@dataclass(frozen=True)
+class SkillExtras:
+    """Особенности навыка в духе UO; всё по умолчанию выключено.
+
+    unguardable / unguardable_vs — блок невозможен (всегда или против целей с одним из тегов);
+    ignore_def / ignore_def_vs — доля защиты цели, которая не учитывается (всегда или против тегов);
+    truestrike — не промахивается (кроме слепоты); crit_add — прибавка к шансу крита; no_crit;
+    hp_cost — доля макс. HP, которую применяющий платит перед навыком (не опускается ниже 1);
+    heal_on_hit — доля макс. HP применяющего за попадание; lifesteal — доля нанесённого урона;
+    ap_drain / pp_drain — сколько AP/PP теряет каждый задетый; steal — забрать их себе;
+    dispel — метки эффектов (buff, debuff), снимаемых с задетых;
+    kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла."""
+
+    unguardable: bool = False
+    unguardable_vs: tuple[str, ...] = ()
+    ignore_def: float = 0.0
+    ignore_def_vs: tuple[str, ...] = ()
+    truestrike: bool = False
+    crit_add: int = 0
+    no_crit: bool = False
+    hp_cost: float = 0.0
+    heal_on_hit: float = 0.0
+    lifesteal: float = 0.0
+    ap_drain: int = 0
+    pp_drain: int = 0
+    steal: bool = False
+    dispel: tuple[str, ...] = ()
+    kill_ap: int = 0
+    kill_pp: int = 0
+    kill_heal: float = 0.0
+    kill_effect: str = ""
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "SkillExtras":
+        known = cls.__dataclass_fields__
+        unknown = set(data) - set(known)
+        if unknown:
+            raise ValueError(f"unknown skill extras {sorted(unknown)}")
+        values = {k: (tuple(v) if isinstance(v, list) else v) for k, v in data.items()}
+        return cls(**values)
+
+    def to_dict(self) -> dict[str, Any]:
+        default = SkillExtras()
+        return {k: (list(v) if isinstance(v, tuple) else v) for k, v in self.__dict__.items()
+                if v != getattr(default, k)}
+
+
 @dataclass(frozen=True)
 class SkillDefinition:
     id: str
@@ -161,6 +242,8 @@ class SkillDefinition:
     # Требования для применения (задел): проверяются до тактик, в интерфейсе пока не редактируются.
     requires_self: ICondition = Always()
     requires_target: ICondition = Always()
+    potency: tuple[PotencyBonus, ...] = ()  # условные прибавки к силе (против дебаффнутых, при низком HP...)
+    extras: SkillExtras = SkillExtras()     # неблокируемость, игнор защиты, кража AP, бонусы за добивание...
 
     @classmethod
     def from_dict(cls, skill_id: str, data: Mapping[str, Any]) -> "SkillDefinition":
@@ -192,6 +275,8 @@ class SkillDefinition:
             applies=tuple(SkillApply.from_dict(a) for a in data.get("applies", ())),
             requires_self=condition_from_dict(data.get("requires_self")),
             requires_target=condition_from_dict(data.get("requires_target")),
+            potency=tuple(PotencyBonus.from_dict(b) for b in data.get("potency", ())),
+            extras=SkillExtras.from_dict(data.get("extras", {})),
         )
 
     def affordable(self, unit: Any) -> bool:
@@ -215,6 +300,8 @@ class SkillDefinition:
             "applies": [a.to_dict() for a in self.applies],
             "requires_self": condition_to_dict(self.requires_self),
             "requires_target": condition_to_dict(self.requires_target),
+            "potency": [b.to_dict() for b in self.potency],
+            "extras": self.extras.to_dict(),
         }
 
 

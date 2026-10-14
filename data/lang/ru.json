@@ -893,5 +893,6 @@
   "Promotions": "Повышения",
   "to {cls} at lv {n}": "в {cls} с ур. {n}",
   "+ promotion": "+ повышение",
-  "Promoted from: {list}": "Повышается из: {list}"
+  "Promoted from: {list}": "Повышается из: {list}",
+  "  {target} loses {amount} {resource} from {cause} ({resource} {current})": "  {target} теряет {amount} {resource}, причина: {cause} ({resource} {current})"
 }
