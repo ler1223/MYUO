@@ -1,27 +1,40 @@
-Using the attached lineup sheet as the scale and style reference, draw a new horizontal lineup sheet of
-full-body unit sprites of the same cast, standing in one row on the same flat ground line, evenly spaced with
-clear empty space between them, nothing overlapping or cropped. Far left: the Fighter from the reference
-(the first character there), unchanged and at exactly the same size.
+Two images are attached. Draw a new horizontal lineup sheet of full-body unit sprites of the same cast,
+standing in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
+overlapping or cropped.
+
+SCALE AND STYLE REFERENCE: the attached lineup sheet uo_01.png (unnumbered, transparent background). Far left
+of the new sheet: its first character, the Fighter, unchanged and at exactly the same size. Match its
+rendering style exactly.
+
+REFERENCE: the attached numbered sheet (uo_06_ref.png, with numbers) is the design reference - official class art of Unicorn
+Overlord. Each numbered panel is one class: a large close-up illustration on the left and the same character as
+a small full-body map sprite on the right. Line N of the list below = panel N of that sheet.
+Reproduce every character faithfully from its panel: gender, face and hair, body build, armor and clothing
+shapes, colors and patterns, helmet, cape, weapon, shield, mount or wings. Take the details from the close-up
+and the full-body silhouette (legs, boots, mount) from the small sprite. Do not invent new outfits, do not swap
+weapons, do not mix designs between panels. If a panel shows two people, draw only the one named in the line.
+The line text is only a reminder of names and heights - where it seems to disagree, the panel wins. Ignore the
+panel backgrounds and numbers.
 
 SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
-is as tall as that Fighter. Heights of the others are given in their lines relative to a human (no note = human height; a
-weapon, hat or ears may rise above the head). All feet touch the same ground line near the bottom edge;
-flying units hover just above it. No character is enlarged or shrunk to fill its slot.
+is as tall as that Fighter. Taller units have their height in the line relative to a human (no note = human height; a weapon,
+hat or ears may rise above the head). All feet touch the same ground line near the bottom edge; flying units
+hover just above it. No character is enlarged or shrunk to fill its slot.
 
-POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm combat-ready
-stance, weapons held close to the body. Mounts and wings fully visible, not cut by the image edge.
+POSE: all face right, full body from head to feet, side view with a slight three-quarter turn toward the
+viewer, calm combat-ready stance, weapons held close to the body. Mounts and wings fully visible, not cut by
+the image edge.
 
 FROM LEFT TO RIGHT:
-1. The Fighter from the reference (unchanged).
-2. Gryphon Knight (flying), female: light armored rider on a brown gryphon with spread wings, axe; about 200% human height.
-3. Gryphon Master (flying), female: rider in ornate armor on a white gryphon, big axe; about 220% human height.
+1. The Fighter from uo_01.png (unchanged).
+2. Gryphon Knight (flying): as in panel 2; about 200% of a human's height.
+3. Gryphon Master (flying): as in panel 3; about 220% of a human's height.
 
-STYLE: hand-painted 2D fantasy character art in the spirit of the battle sprites of Vanillaware's
-Unicorn Overlord (do not copy any existing character): rich painterly shading with soft light from the upper
-left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds and metal highlights,
-heroic realistic proportions about 7 heads tall, faces and silhouettes readable at small size. Every character
-in one consistent style, palette and lighting, like one cast of the same game.
+STYLE: the same hand-painted 2D art as the close-ups of the reference: painterly shading with soft
+light from the upper left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds
+and metal highlights. Proportions of the close-ups (realistic, about 7 heads tall), NOT the chunky chibi
+proportions of the small map sprites. Every character in one consistent style, palette and lighting.
 
-OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels.
+OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no numbers, no labels.
 
 FILE NAME: give the finished PNG for download exactly this file name: uo_06.png (this is only the file name - never draw it or any other text in the image).

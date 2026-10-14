@@ -58,11 +58,13 @@ WORLD_JSON = ROOT / "data" / "world" / "test.json"
 TOWER_JSON = ROOT / "data" / "tower.json"
 LOOT_MAP = {"short_bow": "recruits_shortbow", "war_axe": "iron_axe", "fire_charm": "salamander_ring"}
 OLD_SHEETS = {"lineup_2.png", "lineup_a.png", "lineup_b.png", "lineup_c.png"}   # спрайты прежних 15 классов (old_*)
-# Женские классы: имена в data/names.json и пол на спрайтах (tools/make_art_prompts.py)
-FEMALE = {"bishop", "cleric", "dark_knight", "doom_knight", "druid", "elven_augur", "elven_sibyl", "great_knight",
-          "gryphon_knight", "gryphon_master", "high_lord", "high_priestess", "knight", "paladin", "priestess",
-          "radiant_knight", "sainted_knight", "shaman", "sorceress", "valkyria", "werefox", "wereowl", "witch",
-          "wizard", "wyvern_knight", "wyvern_master"}
+# Женские классы — по иллюстрациям справки UO (assets/ref/classes): имена в data/names.json. Где в справке
+# двое (tools/make_art_prompts.py, PAIRS), этот пол выбирает, кого рисовать.
+FEMALE = {"arbalist", "bishop", "cleric", "crusader", "dreadnought", "druid", "elven_archer", "elven_augur",
+          "elven_fencer", "elven_sibyl", "feathersword", "gryphon_knight", "gryphon_master", "high_priestess",
+          "hoplite", "legionnaire", "priestess", "radiant_knight", "sainted_knight", "shaman", "shieldshooter",
+          "snow_ranger", "sorceress", "sword_master", "swordfighter", "valkyria", "werefox", "wereowl", "witch",
+          "wyvern_knight"}
 STATS = ["hp", "phys_atk", "phys_def", "mag_atk", "mag_def", "accuracy", "evasion", "crit_rate", "guard_rate",
          "initiative"]
 # Временный спрайт для класса UO, пока не нарисован свой: id прежнего спрайта без приставки old_

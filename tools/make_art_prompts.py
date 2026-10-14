@@ -26,23 +26,33 @@ ANCHOR = "fighter"          # первый персонаж первого ли�
 SHEET_WIDTH = 4.0           # сколько «пехотинцев» помещается на лист после эталона
 WIDTH = {"cavalry": 1.8, "flying": 2.0}   # ширина всадника и летуна в пехотинцах
 
-CHARACTER_STYLE = """STYLE: hand-painted 2D fantasy character art in the spirit of the battle sprites of Vanillaware's
-Unicorn Overlord (do not copy any existing character): rich painterly shading with soft light from the upper
-left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds and metal highlights,
-heroic realistic proportions about 7 heads tall, faces and silhouettes readable at small size. Every character
-in one consistent style, palette and lighting, like one cast of the same game."""
+REFERENCE_RULES = """REFERENCE: the attached numbered sheet <SHEET> is the design reference - official class art of Unicorn
+Overlord. Each numbered panel is one class: a large close-up illustration on the left and the same character as
+a small full-body map sprite on the right. Line N of the list below = panel N of that sheet.
+Reproduce every character faithfully from its panel: gender, face and hair, body build, armor and clothing
+shapes, colors and patterns, helmet, cape, weapon, shield, mount or wings. Take the details from the close-up
+and the full-body silhouette (legs, boots, mount) from the small sprite. Do not invent new outfits, do not swap
+weapons, do not mix designs between panels. If a panel shows two people, draw only the one named in the line.
+The line text is only a reminder of names and heights - where it seems to disagree, the panel wins. Ignore the
+panel backgrounds and numbers."""
+CHARACTER_STYLE = """STYLE: the same hand-painted 2D art as the close-ups of the reference: painterly shading with soft
+light from the upper left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds
+and metal highlights. Proportions of the close-ups (realistic, about 7 heads tall), NOT the chunky chibi
+proportions of the small map sprites. Every character in one consistent style, palette and lighting."""
 LINEUP_RULES = """SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
-is <HUMAN>. Heights of the others are given in their lines relative to a human (no note = human height; a
-weapon, hat or ears may rise above the head). All feet touch the same ground line near the bottom edge;
-flying units hover just above it. No character is enlarged or shrunk to fill its slot.
+is <HUMAN>. Taller units have their height in the line relative to a human (no note = human height; a weapon,
+hat or ears may rise above the head). All feet touch the same ground line near the bottom edge; flying units
+hover just above it. No character is enlarged or shrunk to fill its slot.
 
-POSE: all face right, side view with a slight three-quarter turn toward the viewer, calm combat-ready
-stance, weapons held close to the body. Mounts and wings fully visible, not cut by the image edge."""
-LINEUP_OUTPUT = "OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels."
+POSE: all face right, full body from head to feet, side view with a slight three-quarter turn toward the
+viewer, calm combat-ready stance, weapons held close to the body. Mounts and wings fully visible, not cut by
+the image edge."""
+LINEUP_OUTPUT = "OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no numbers, no labels."
 FIRST_LINEUP = f"""Draw a horizontal lineup sheet of full-body unit sprites for a high-fantasy tactics RPG, standing
 in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
 overlapping or cropped. This sheet sets the scale and style for all later sheets of the same cast.
-If screenshots are attached, use them only as a style reference and do not copy any character.
+
+{REFERENCE_RULES.replace("<SHEET>", "(uo_01_ref.png)")}
 
 {LINEUP_RULES.replace("<HUMAN>", "as tall as the first character, about 40% of the image height")}
 
@@ -52,84 +62,36 @@ FROM LEFT TO RIGHT:
 {CHARACTER_STYLE}
 
 {LINEUP_OUTPUT}"""
-NEXT_LINEUP = f"""Using the attached lineup sheet as the scale and style reference, draw a new horizontal lineup sheet of
-full-body unit sprites of the same cast, standing in one row on the same flat ground line, evenly spaced with
-clear empty space between them, nothing overlapping or cropped. Far left: the Fighter from the reference
-(the first character there), unchanged and at exactly the same size.
+NEXT_LINEUP = f"""Two images are attached. Draw a new horizontal lineup sheet of full-body unit sprites of the same cast,
+standing in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
+overlapping or cropped.
+
+SCALE AND STYLE REFERENCE: the attached lineup sheet uo_01.png (unnumbered, transparent background). Far left
+of the new sheet: its first character, the Fighter, unchanged and at exactly the same size. Match its
+rendering style exactly.
+
+{REFERENCE_RULES.replace("<SHEET>", "(uo_NN_ref.png, with numbers)")}
 
 {LINEUP_RULES.replace("<HUMAN>", "as tall as that Fighter")}
 
 FROM LEFT TO RIGHT:
-1. The Fighter from the reference (unchanged).
+1. The Fighter from uo_01.png (unchanged).
 <персонажи>
 
 {CHARACTER_STYLE}
 
 {LINEUP_OUTPUT}"""
 
-# Внешность классов (английский — для генератора): одна строка, рост относительно человека
-LOOK = {
-    "fighter": "Fighter: steel plate armor over blue tabard, sallet helmet, arming sword and kite shield, sturdy defensive stance",
-    "vanguard": "Vanguard: heavier ornate plate with gold trim and a short blue cape, great kite shield, longsword, veteran bulwark",
-    "soldier": "Soldier: padded gambeson and kettle hat, simple spear held upright, light infantry",
-    "sergeant": "Sergeant: brigandine with rank sash, plumed kettle hat, long spear, commanding pose",
-    "housecarl": "Housecarl: Nordic mail and fur mantle, bearded axe, round helmet with nasal, broad build",
-    "viking": "Viking: heavier mail with fur and braided beard, round shield on the back, large bearded axe",
-    "swordfighter": "Swordfighter: light coat over a tunic, katana-like curved sword held low, nimble duelist",
-    "sword_master": "Sword Master: long flowing coat, two-handed curved sword, calm master's stance",
-    "sellsword": "Sellsword: mismatched mercenary armor, huge zweihander on the shoulder",
-    "landsknecht": "Landsknecht: slashed puffed doublet and plumed beret, massive zweihander, half-plate",
-    "hoplite": "Hoplite: full plate, crested great helm, huge tower greatshield and short spear, immovable wall",
-    "legionnaire": "Legionnaire: gilded heavy plate, crimson crest, tower greatshield with emblem, spear",
-    "gladiator": "Gladiator: bare muscular torso with leather straps, single shoulder guard, big axe",
-    "berserker": "Berserker: wild hair, war paint, fur loincloth and chains, enormous double-bit axe, about 110% human height",
-    "warrior": "Warrior: heavy armor with spiked pauldrons, great maul-axe, armor breaker",
-    "breaker": "Breaker: huge spiked plate armor, giant war hammer-axe resting on the shoulder, about 110% human height",
-    "hunter": "Hunter: green hooded cloak, leather armor, recurve bow and arrow nocked, quiver",
-    "sniper": "Sniper: dark green long coat, feathered hat, long elegant bow, cold focused gaze",
-    "arbalist": "Arbalist: brigandine and padded cap, heavy crossbow (arbalest) held at the hip",
-    "shieldshooter": "Shieldshooter: heavy plate, crossbow mounted on a large greatshield, armored marksman",
-    "thief": "Thief: dark hood and scarf, short cape, light short sword, crouched sneaky stance",
-    "rogue": "Rogue: black leather with red sash, two short swords, smirking agile stance",
-    "knight": "Knight (cavalry): knight in blue and silver plate on an armored warhorse, lance and shield; rider and horse together about 180% of human height",
-    "great_knight": "Great Knight (cavalry): heavy gilded plate on a barded warhorse with caparison, long lance and shield; about 190% human height",
-    "radiant_knight": "Radiant Knight (cavalry): white and gold armor on a white horse, sword and holy shield, healer knight; about 180% human height",
-    "sainted_knight": "Sainted Knight (cavalry): radiant white plate with halo-like crest on a white barded horse, lance; about 190% human height",
-    "dark_knight": "Dark Knight (cavalry): black spiked armor on a black horse with red eyes, great axe and dark shield; about 180% human height",
-    "doom_knight": "Doom Knight (cavalry): massive black and crimson armor on an armored nightmare horse, huge axe; about 190% human height",
-    "cleric": "Cleric: white and blue priest robes, hood, simple staff with a holy symbol",
-    "bishop": "Bishop: ornate white and gold vestments with tall mitre, crosier staff",
-    "wizard": "Wizard: deep blue robe, pointed wide hat, staff with a fire-red orb",
-    "warlock": "Warlock: black and violet robes with high collar, staff with a dark crystal, sinister",
-    "witch": "Witch: dark purple dress and tattered hooded cloak, crooked staff with a green glowing charm",
-    "sorceress": "Sorceress: elegant black and gold gown, tall collar, staff topped with a crescent moon",
-    "shaman": "Shaman: tribal layered robes with feathers and bones, gnarled wooden staff with charms",
-    "druid": "Druid: green and brown robes with leaves and antler circlet, living-wood staff",
-    "wyvern_knight": "Wyvern Knight (flying): armored rider on a small green wyvern with spread wings, spear; about 200% human height, hovering slightly above ground",
-    "wyvern_master": "Wyvern Master (flying): heavy armored rider on a large red wyvern, long spear; about 220% human height",
-    "gryphon_knight": "Gryphon Knight (flying): light armored rider on a brown gryphon with spread wings, axe; about 200% human height",
-    "gryphon_master": "Gryphon Master (flying): rider in ornate armor on a white gryphon, big axe; about 220% human height",
-    "lord": "Lord: young noble prince in blue and silver armor with short cape, longsword and heater shield with a unicorn crest",
-    "high_lord": "High Lord (cavalry): noble in gleaming royal armor on a white warhorse, sword and unicorn shield; about 180% human height",
-    "priestess": "Priestess: white and gold temple dress, long veil, ornate staff with a crystal",
-    "high_priestess": "High Priestess: majestic white gown with gold halo crown, tall ornate staff",
-    "crusader": "Crusader: white tabard with red cross over plate, sword and two shields (one on the arm, one on the back)",
-    "valkyria": "Valkyria: winged helmet, silver plate with feather motifs, sword and round shield, female warrior",
-    "paladin": "Paladin (cavalry): white and gold plate on a white barded horse, sword and shield; about 180% human height",
-    "prince": "Prince: regal young prince in a red and gold coat, rapier-like sword, no armor",
-    "dreadnought": "Dreadnought: colossal plate armor, enormous tower greatshield and broad sword; about 115% human height",
-    "snow_ranger": "Snow Ranger: white fur cloak and hood, white longbow, snowy ranger",
-    "elven_fencer": "Elven Fencer: elf with long ears, green and white elegant tunic, slender rapier, spellblade",
-    "elven_archer": "Elven Archer: elf in leaf-green leathers, ornate elven longbow",
-    "elven_augur": "Elven Augur: elf mystic in white and teal robes, ornate spear used as a staff",
-    "elven_sibyl": "Elven Sibyl: elf seer in flowing white robes with gold leaves, crystal-tipped spear-staff",
-    "werewolf": "Werewolf: wolf-headed beastman warrior in light armor, curved sword, digitigrade legs",
-    "werefox": "Werefox: fox-headed beastwoman in light leather, spear, nimble",
-    "werebear": "Werebear: huge bear-headed beastman in heavy armor, greatshield and axe; about 125% human height",
-    "wereowl": "Wereowl (flying): owl-winged beastwoman mage with feathered cloak, staff; wings spread",
-    "werelion": "Werelion: lion-headed beastman with a mane, bare chest and gold armor pieces, huge axe; about 115% human height",
-    "feathersword": "Feathersword (flying): angelic knight with white feathered wings, sword and shield",
+# Рост выше человека, % (всадники и летуны — с конём или зверем); остальные — рост человека
+HEIGHT = {
+    "gladiator": 110, "berserker": 115, "werebear": 125, "werelion": 115,
+    "knight": 180, "great_knight": 190, "radiant_knight": 180, "sainted_knight": 190, "dark_knight": 180,
+    "doom_knight": 190, "paladin": 180, "high_lord": 180,
+    "wyvern_knight": 200, "wyvern_master": 220, "gryphon_knight": 200, "gryphon_master": 220,
 }
+# В справке UO у этих классов двое — мужчина и женщина: рисуется тот, чей пол у класса в data/names.json
+PAIRS = {"elven_archer", "elven_fencer", "sellsword", "landsknecht", "soldier", "sergeant", "swordfighter",
+         "sword_master", "warrior", "breaker"}
 # Значки типов навыков (game.skill_kinds): символ типа; активные и пассивные различаются цветом
 SKILL_SYMBOLS = {
     "attack": "two crossed swords",
@@ -159,10 +121,13 @@ def gender(db: Database) -> dict[str, str]:
     return {c: "female" if c in female else "male" for c in db.units}
 
 
-def look_line(class_id: str, sex: str) -> str:
-    """«Knight (cavalry), female: ...»: пол после названия — тот же, что у имён бойцов этого класса."""
-    head, rest = LOOK[class_id].split(":", 1)
-    return f"{head}, {sex}:{rest}."
+def look_line(db: Database, class_id: str, panel: int, sex: str) -> str:
+    """«Knight (cavalry): as in panel 2; about 180% of a human's height.» — внешность берётся с панели коллажа."""
+    unit = db.units[class_id]
+    kind = next((f" ({tag})" for tag in ("cavalry", "flying") if tag in unit.tags), "")
+    who = f", the {sex} one of the two" if class_id in PAIRS else ""
+    height = f"; about {HEIGHT[class_id]}% of a human's height" if class_id in HEIGHT else ""
+    return f"{unit.name}{kind}: as in panel {panel}{who}{height}."
 
 
 def families(db: Database) -> list[list[str]]:
@@ -171,7 +136,7 @@ def families(db: Database) -> list[list[str]]:
     result = []
 
     def walk(class_id: str, family: list[str]) -> None:
-        if class_id in seen or class_id not in LOOK:
+        if class_id in seen:
             return
         seen.add(class_id)
         family.append(class_id)
@@ -241,10 +206,12 @@ def main() -> None:
            "screenshots, but do not copy any text, logo or exact artwork.` и 1-2 скриншота UO.",
            "2. Готовый лист — в `assets/ui/sheets/` под именем батча и нарезка: "
            "`python tools/cut_ui_sheet.py <номер> --force` (батчи 11+ ищутся в этом файле).",
-           "3. Спрайты классов — листы-линейки (раздел 1): общий промпт листа ниже плюс строки персонажей; лист — в "
-           "`assets/sprites_src/lineup/` и `python tools/cut_lineup.py ...` (команда у каждого листа). Первый лист "
-           "задаёт рост и стиль: его Fighter — эталон, готовый `uo_01.png` прикладывается ко всем следующим листам. "
-           "Свой спрайт сразу заменяет временный похожий (прежние спрайты — `assets/units/old_*`).",
+           "3. Спрайты классов — листы-линейки (раздел 1): общий промпт листа ниже плюс строки персонажей. Внешность "
+           "берётся с коллажа-референса `assets/ref/lineups/uo_NN_ref.png` (картинки классов с вики UO, собирает "
+           "`python tools/uo_class_refs.py`): строка N = панель N. Первый лист задаёт рост и стиль: его Fighter — "
+           "эталон, готовый `uo_01.png` прикладывается ко всем следующим листам вместе с их коллажем. Лист — в "
+           "`assets/sprites_src/lineup/` и `python tools/cut_lineup.py ...` (команда у каждого листа). Свой спрайт "
+           "сразу заменяет временный похожий (прежние спрайты — `assets/units/old_*`).",
            "4. Как в UO, у навыка и предмета нет своей картинки: значок — на тип навыка (атака, поддержка, лечение, "
            "помеха; активный или пассивный), иконка — на вид предмета. Тип навыка выводится из самого навыка "
            "(`game/skill_kinds.py`). Если всё же нужен свой значок, достаточно положить `skill/<тип>/<id>.png` "
@@ -259,11 +226,13 @@ def main() -> None:
     count = sum(len(s) for s in sheets)
     out += ["## 1. Спрайты классов — листы-линейки", "",
             f"Все {count} классов заново, семьями (базовый класс и его повышения рядом): {len(sheets)} листов. "
-            "Конница и летуны шире — их на листе меньше; рост выше человека указан в строке. Пол — тот же, что "
-            "у имён бойцов класса (`female_classes` в `data/names.json`).", "",
-            "## Линейка: первый лист", "", "Приложить по желанию 1-2 скриншота боя UO — только как образец стиля.",
+            "Конница и летуны шире — их на листе меньше; рост выше человека указан в строке. Внешность — с панели "
+            "коллажа `assets/ref/lineups/uo_NN_ref.png` с тем же номером, что у строки. Где в справке UO двое "
+            "(мужчина и женщина), рисуется тот, чей пол у класса в `female_classes` (`data/names.json`).", "",
+            "## Линейка: первый лист", "", "Приложить `assets/ref/lineups/uo_01_ref.png`.",
             "", "```", FIRST_LINEUP, "```", "",
-            "## Линейка: остальные листы", "", "Приложить готовый `assets/sprites_src/lineup/uo_01.png`.",
+            "## Линейка: остальные листы", "", "Приложить готовый `assets/sprites_src/lineup/uo_01.png` и коллаж "
+            "листа `assets/ref/lineups/uo_NN_ref.png`.",
             "", "```", NEXT_LINEUP, "```", "",
             "## Листы линеек", ""]
     for n, group in enumerate(sheets, start=1):
@@ -274,7 +243,7 @@ def main() -> None:
         out += [f"**Лист {n}** (`assets/sprites_src/lineup/{name}`): "
                 f"`python tools/cut_lineup.py assets/sprites_src/lineup/{name} {who} --reference {reference}`",
                 "", "```"]
-        out += [f"{k}. {look_line(c, sexes[c])}" for k, c in enumerate(group, start=first)]
+        out += [f"{k}. {look_line(db, c, k, sexes[c])}" for k, c in enumerate(group, start=first)]
         out += ["```", ""]
     totals["спрайты классов"] = len(sheets)
 
@@ -337,9 +306,8 @@ def main() -> None:
     out.insert(4, f"Всего запросов: {sum(totals.values())} ({summary}).")
     out.insert(5, "")
     OUT.write_text("\n".join(out) + "\n", encoding="utf-8")
-    missing = [c for c in db.units if c not in LOOK]
     slots = [s for s in db.slot_types if s not in ITEM_LOOKS]
-    print(f"{OUT}: {sum(totals.values())} requests; classes without a look: {missing}; slots without an icon: {slots}")
+    print(f"{OUT}: {sum(totals.values())} requests; slots without an icon: {slots}")
 
 
 if __name__ == "__main__":

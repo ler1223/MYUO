@@ -52,12 +52,13 @@ def batch_request(source: str, ui_text: str, number: int) -> str:
 
 def lineup_template(text: str, number: int) -> str:
     """Общий промпт линейки из docs/uo_art_prompts.md: у первого листа свой (он задаёт эталон роста)."""
-    return block_after(text, "Линейка: первый лист" if number == 1 else "Линейка: остальные листы")[1]
+    template = block_after(text, "Линейка: первый лист" if number == 1 else "Линейка: остальные листы")[1]
+    return template.replace("uo_NN_ref", f"uo_{number:02d}_ref")
 
 
 def lineup_attach(number: int) -> str:
-    return ("по желанию 1-2 скриншота боя UO (только стиль)" if number == 1
-            else "готовый assets/sprites_src/lineup/uo_01.png — эталон роста и стиля")
+    ref = f"assets/ref/lineups/uo_{number:02d}_ref.png"
+    return ref if number == 1 else f"{ref} и готовый assets/sprites_src/lineup/uo_01.png (эталон роста)"
 
 
 def lineups(text: str) -> list[tuple[int, str, str, str]]:

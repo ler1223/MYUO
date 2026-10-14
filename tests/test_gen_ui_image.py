@@ -60,17 +60,21 @@ class BuiltRequestTests(unittest.TestCase):
         for number in (1, 2):
             template = br.lineup_template(uo_text, number)
             self.assertIn("<персонажи>", template)
-            self.assertIn("Unicorn Overlord", template)                    # свой стиль персонажей
+            self.assertIn(f"uo_{number:02d}_ref.png", template)            # внешность — с коллажа справки
+            self.assertIn("panel wins", template)
             self.assertNotIn("<STYLE>", template)
             self.assertNotIn("menu interface", template)                  # не стиль меню
         self.assertNotIn("attached lineup", br.lineup_template(uo_text, 1))  # первый лист ни на что не опирается
         self.assertIn("attached lineup", br.lineup_template(uo_text, 2))
         number, _path, command, people = sheets[0]
-        self.assertTrue(people.startswith("1. Fighter, male:"))           # эталон роста — первым
+        self.assertTrue(people.startswith("1. Fighter: as in panel 1."))  # эталон роста — первым
         self.assertIn("--reference fighter", command)
         self.assertTrue(all("_ref" in c for _n, _p, c, _x in sheets[1:]))
-        self.assertTrue(all(", male:" in line or ", female:" in line
-                            for *_x, p in sheets for line in p.splitlines()))
+        for *_x, p in sheets:                                              # строка N = панель N коллажа
+            for line in p.splitlines():
+                self.assertIn(f"as in panel {line.split('.')[0]}", line)
+        self.assertIn("uo_05_ref.png", br.lineup_template(uo_text, 5))     # свой коллаж у каждого листа
+        self.assertIn("the male one of the two", uo_text)                  # из пары в справке — нужный пол
         found = dict((n, s) for n, s, _t in br.batches(uo_text))
         self.assertEqual(set(found), {11, 12, 13})                        # иконки — по типам, а не поштучно
 
