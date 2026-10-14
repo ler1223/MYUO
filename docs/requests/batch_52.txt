@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, bow "Icefall Bow": frosty pale-blue steel with 
 Cell 8: inventory icon, 200x200, bow "Nameless Guard's Bow". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, bow "Piercing Strongbow". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, bow "Thundering Strongbow": crackling with lightning. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b52_items.png (this is only the file name - never draw it or any other text in the image).

@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "Cavalry Guard": Activates before bei
 Cell 8: round passive skill icon, 200x200, "Charged Impetus": Activates after using an active skill. Grants the user +1APAP and +50% Critical damage. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Circle Barrier": Activates before an ally is attacked. Reduce damage taken by all allies by 25% for one attack. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Concentrate": Activates after using an active skill. Grants the user +1 AP and +40 Accuracy. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b23_skills.png (this is only the file name - never draw it or any other text in the image).

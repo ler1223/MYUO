@@ -26,6 +26,12 @@ UO_PROMPTS = ROOT / "docs" / "uo_art_prompts.md"
 ART_PROMPTS = ROOT / "docs" / "art_prompts.md"
 OUT = ROOT / "docs" / "requests"
 REFS = "1-2 скриншота меню UO из assets/ref/"
+NAME_LINE = ("FILE NAME: give the finished PNG for download exactly this file name: {name} "
+             "(this is only the file name - never draw it or any other text in the image).")
+
+
+def name_line(path: str) -> str:
+    return NAME_LINE.format(name=Path(path).name)
 
 
 def batches(text: str) -> list[tuple[int, str, str]]:
@@ -41,7 +47,8 @@ def batches(text: str) -> list[tuple[int, str, str]]:
 def batch_request(source: str, ui_text: str, number: int) -> str:
     """Полный запрос батча: STYLE и SHEET берутся из docs/ui_prompts.md."""
     _, block = block_after(source, f"Батч {number} ")
-    return f"{REF_LINE}\n\n{assemble(ui_text, block)}\n"
+    sheet = next(s for n, s, _t in batches(source) if n == number)
+    return f"{REF_LINE}\n\n{assemble(ui_text, block)}\n\n{name_line(sheet)}\n"
 
 
 def lineup_template(art_text: str, ui_text: str) -> str:
@@ -74,9 +81,11 @@ def main() -> None:
     template = lineup_template(art_text, ui_text)
     for number, path, command, people in lineups(uo_text):
         name = f"lineup_{number:02d}.txt"
-        (OUT / name).write_text(template.replace("<персонажи>", people).strip() + "\n", encoding="utf-8")
+        text = template.replace("<персонажи>", people).strip()
+        (OUT / name).write_text(f"{text}\n\n{name_line(path)}\n", encoding="utf-8")
         rows.append((name, f"Спрайты классов, лист {number}", "старая линейка с паладином "
-                     "(assets/sprites_src/lineup/lineup_a.png) — образец масштаба", path, command))
+                     "(assets/sprites_src/lineup/lineup_a.png) — образец масштаба", path,
+                     f"python tools/take_image.py lineup {number} --cut"))
 
     sources = [(uo_text, batches(uo_text))]
     if "--old" in sys.argv:
@@ -87,15 +96,17 @@ def main() -> None:
             (OUT / name).write_text(batch_request(source, ui_text, number), encoding="utf-8")
             what = re.sub(r"\s*\(`[^`]+`\)$", "", title.split("—", 1)[-1]).strip()
             rows.append((name, f"Батч {number}: {what}", REFS, f"assets/ui/sheets/{sheet}",
-                         f"python tools/cut_ui_sheet.py {number}"))
+                         f"python tools/take_image.py {number} --cut"))
 
     index = ["# Готовые запросы для генерации картинок", "",
              "Собрано `python tools/build_requests.py` из `docs/uo_art_prompts.md`, `docs/ui_prompts.md` и "
              "`docs/art_prompts.md` — перегенерируйте после их изменения. Файл — полный текст одного запроса: "
              "откройте, скопируйте целиком в ChatGPT, приложите образец, сохраните картинку (PNG с прозрачным "
-             "фоном, 1536x1024) по пути из таблицы и нарежьте командой.", "",
+             "фоном, 1536x1024) и выполните команду из последней колонки: она заберёт самую свежую картинку из "
+             "«Загрузок» (или файл с нужным именем — его просит последняя строка запроса), положит по пути из "
+             "таблицы и нарежет. Без `--cut` — только переложит и покажет команду нарезки.", "",
              f"Всего запросов: {len(rows)}. Начать лучше с `batch_11.txt` (экран бойца) и первых линеек.", "",
-             "| Файл | Что | Приложить | Сохранить как | Нарезать |", "| --- | --- | --- | --- | --- |"]
+             "| Файл | Что | Приложить | Куда ляжет | Забрать и нарезать |", "| --- | --- | --- | --- | --- |"]
     index += [f"| `{n}` | {w} | {a} | `{s}` | `{c}` |" for n, w, a, s, c in rows]
     (OUT / "README.md").write_text("\n".join(index) + "\n", encoding="utf-8")
     print(f"{len(rows)} requests -> {OUT}")

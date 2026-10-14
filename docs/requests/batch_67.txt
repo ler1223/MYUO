@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, large tower greatshield "Horsekiller Greatshiel
 Cell 8: inventory icon, 200x200, large tower greatshield "Iron Greatshield": plain grey iron. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, large tower greatshield "Ironclad Towershield". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, large tower greatshield "Searing Greatshield": red-hot glowing. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b67_items.png (this is only the file name - never draw it or any other text in the image).

@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, spear "Nameless Guard's Spear". Single object, 
 Cell 8: inventory icon, 200x200, spear "Testarossa". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, spear "Icefall Spear": frosty pale-blue steel with icicles. Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, spear "Meteorite Lance": dark meteoric iron with starry flecks. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b47_items.png (this is only the file name - never draw it or any other text in the image).

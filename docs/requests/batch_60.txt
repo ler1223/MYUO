@@ -26,3 +26,5 @@ Cell 6: inventory icon, 200x200, mage staff "Zenoiran Knight's Staff": imperial 
 Cell 7: inventory icon, 200x200, mage staff "Euros's Staff". Single object, slight three-quarter view, no frame.
 Cell 8: inventory icon, 200x200, mage staff "Kingstaff Albiore". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, mage staff "Warding Staff". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b60_items.png (this is only the file name - never draw it or any other text in the image).

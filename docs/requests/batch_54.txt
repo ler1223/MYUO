@@ -18,3 +18,5 @@ For every FRAME element: decoration only in the four corners (and optionally a s
 each edge); the straight parts of the edges between them are plain and uniform; the inner area is a flat even
 fill with no texture, gradient or vignette - these parts will be stretched to any size.
 Cell 1: inventory icon, 200x200, bow "Kingsbow Bastorik". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b54_items.png (this is only the file name - never draw it or any other text in the image).

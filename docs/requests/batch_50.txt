@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, bow "Spellseal Bow". Single object, slight thre
 Cell 8: inventory icon, 200x200, bow "Steel Bow": polished steel. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, bow "Silvermoon Bow". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, bow "Watchman's LongBow". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b50_items.png (this is only the file name - never draw it or any other text in the image).

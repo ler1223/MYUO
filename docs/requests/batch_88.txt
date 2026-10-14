@@ -22,3 +22,5 @@ Cell 2: inventory icon, 200x200, accessory "Veteran's Eyepatch". Single object, 
 Cell 3: inventory icon, 200x200, accessory "Bloodstained Ribbon". Single object, slight three-quarter view, no frame.
 Cell 4: inventory icon, 200x200, accessory "Lionheart". Single object, slight three-quarter view, no frame.
 Cell 5: inventory icon, 200x200, accessory "Onyx Pendant". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b88_items.png (this is only the file name - never draw it or any other text in the image).

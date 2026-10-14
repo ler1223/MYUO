@@ -20,3 +20,5 @@ fill with no texture, gradient or vignette - these parts will be stretched to an
 Cell 1: inventory icon, 200x200, shield "Icefall Shield": frosty pale-blue steel with icicles. Single object, slight three-quarter view, no frame.
 Cell 2: inventory icon, 200x200, shield "Kaikai's Shield". Single object, slight three-quarter view, no frame.
 Cell 3: inventory icon, 200x200, shield "Wingcrest Shield": white steel with a feather crest. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b66_items.png (this is only the file name - never draw it or any other text in the image).

@@ -27,3 +27,5 @@ Cell 7: round active skill icon, 200x200, "Shadowbite": Attack a row of enemies.
 Cell 8: round active skill icon, 200x200, "Shield Bash": Attacks a single enemy. Inflicts Stun. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round active skill icon, 200x200, "Shield Smite": Attack a single enemy. Inflicts Defense -20%. Grants the user +20% Defense. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round active skill icon, 200x200, "Single Shot": Attack a single enemy. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b19_skills.png (this is only the file name - never draw it or any other text in the image).

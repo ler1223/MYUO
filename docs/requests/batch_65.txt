@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, shield "Blue Rose Shield": blue, rose and thorn
 Cell 8: inventory icon, 200x200, shield "Dragonbone Shield": ivory dragon bone with scales. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, shield "Phantom Knight's Shield": ghostly translucent violet metal. Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, shield "Zenoiran Knight's Shield": imperial black and gold ornamented. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b65_items.png (this is only the file name - never draw it or any other text in the image).

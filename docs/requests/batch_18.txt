@@ -27,3 +27,5 @@ Cell 7: round active skill icon, 200x200, "Piercing Lance": Attack a single enem
 Cell 8: round active skill icon, 200x200, "Pile Thrust": Attacks a single target with multiple hits. Grants the user +1AP if the target is defeated. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round active skill icon, 200x200, "Power Bolt": Attack a single enemy. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round active skill icon, 200x200, "Primus Edge": Attack a single enemy. If the user is at 100% HP, grants the user +1 PP and +1 summoned faeries. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b18_skills.png (this is only the file name - never draw it or any other text in the image).

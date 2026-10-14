@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, shield "Zenoiran Shield": imperial black and go
 Cell 8: inventory icon, 200x200, shield "Chivalric Shield". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, shield "Luminous Shield": softly glowing pale gold. Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, shield "Twin Dragon Shield". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b62_items.png (this is only the file name - never draw it or any other text in the image).

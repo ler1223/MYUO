@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, accessory "Large Aid Kit". Single object, sligh
 Cell 8: inventory icon, 200x200, accessory "Liberator's Bracelet". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, accessory "Lips's Ring". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, accessory "Magia Heart". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b73_items.png (this is only the file name - never draw it or any other text in the image).

@@ -27,3 +27,5 @@ Cell 7: small square button icon, 90x90: gold upward triangle on a dark navy squ
 Cell 8: the same button icon with a downward triangle.
 Cell 9: the same button icon with a thin gold X (remove).
 Cell 10: unit pedestal, 300x120: low round stone dais seen from the front at a slight top-down angle, carved edge with gold inlay, like the formation board of Unicorn Overlord.
+
+FILE NAME: give the finished PNG for download exactly this file name: b11_unit.png (this is only the file name - never draw it or any other text in the image).

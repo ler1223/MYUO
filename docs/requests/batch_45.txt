@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, spear "Sacral Spear": sacred white and gold wit
 Cell 8: inventory icon, 200x200, spear "Thorn Spear": dark thorny wood and iron. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, spear "Zenoiran Spear": imperial black and gold ornamented. Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, spear "Glaive". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b45_items.png (this is only the file name - never draw it or any other text in the image).

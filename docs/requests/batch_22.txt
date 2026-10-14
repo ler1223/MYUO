@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "Aid Cover": Activates before an ally
 Cell 8: round passive skill icon, 200x200, "Arrow Cover": Activates before an ally is hit by a ranged phys. attack. Cover an ally and nullify all damage. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Berserk": Activates before attacking with an active skill. Consume all PP to grant the user +1 AP. The user will survive one lethal blow. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Bestral Guard": Activates before being hit by a physickal attack. Block an enemy attack with a medium guard. Becomes a heavy guard and grants the user +1 PP if the en. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b22_skills.png (this is only the file name - never draw it or any other text in the image).

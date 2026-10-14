@@ -24,3 +24,5 @@ Cell 4: inventory icon, 200x200, axe or hammer "Wingcrest Axe": white steel with
 Cell 5: inventory icon, 200x200, axe or hammer "Boreas's Axe". Single object, slight three-quarter view, no frame.
 Cell 6: inventory icon, 200x200, axe or hammer "Zenoiran Knight Axe": imperial black and gold ornamented. Single object, slight three-quarter view, no frame.
 Cell 7: inventory icon, 200x200, axe or hammer "Kingsaxe Drakenash". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b43_items.png (this is only the file name - never draw it or any other text in the image).

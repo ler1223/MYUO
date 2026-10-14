@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "Provoke": Activates at the start of 
 Cell 8: round passive skill icon, 200x200, "Pure Field": Activates at the start of a battle. Grants all allies a buff that negates a single debuff. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Pursuit": Activates after an ally attacks (Active). Follow-up attack a single enemy. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Quick Cast": Activates at the start of a battle. Grants the user max Initiative for their next action and -50 Critical Rate. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b29_skills.png (this is only the file name - never draw it or any other text in the image).

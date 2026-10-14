@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, sword "Greatwood Sword": pale carved wood with 
 Cell 8: inventory icon, 200x200, sword "Runic Sword": carved runes. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, sword "Carnelian Blade": inlaid with red carnelian stones. Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, sword "Rosularis Sword". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b37_items.png (this is only the file name - never draw it or any other text in the image).

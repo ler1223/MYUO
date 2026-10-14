@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "First Aid": Activates at the end of 
 Cell 8: round passive skill icon, 200x200, "Focus Sight": Activates before an ally attacks (Active). Make an ally's next attack a truestrike. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Following Slash": Activates after an ally is hit by an attack. Counterattack a single enemy. Grants the user +1PP PP if the attack hits. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Frenzied Strike": Activates after an ally is hit by an attack. Counterattack a single enemy. Inflicts Phys. Defense -15%. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b25_skills.png (this is only the file name - never draw it or any other text in the image).

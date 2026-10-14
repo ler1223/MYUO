@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "Knight's Pursuit": Activates after a
 Cell 8: round passive skill icon, 200x200, "Life Blow": Activates at the end of a battle. Attack a single enemy. Deals damage equal to 80% of the user's HP. (This attack cannot be a critical). A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Lifesaver": Activates before being attacked. Heal self for minor HP recovery. Grants user a buff to endure one lethal blow. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Lifeshare": Activates after an ally is hit by an attack. Share HP with an ally. (50% of the user's HP). A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b27_skills.png (this is only the file name - never draw it or any other text in the image).

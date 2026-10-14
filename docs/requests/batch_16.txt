@@ -27,3 +27,5 @@ Cell 7: round active skill icon, 200x200, "Keen Edge": Attack a single enemy wit
 Cell 8: round active skill icon, 200x200, "Killing Chain": Attack a single enemy. Grants the user +1AP if the target is defeated. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round active skill icon, 200x200, "Lean Edge": Attack a single enemy. Recover 25% HP if the attack hits. Recover 25% HP if the target is defeated. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round active skill icon, 200x200, "Lightning Blade": Attack a single enemy. Inflicts Stun. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b16_skills.png (this is only the file name - never draw it or any other text in the image).

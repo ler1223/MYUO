@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, accessory "Gold Circlet": gold. Single object, 
 Cell 8: inventory icon, 200x200, accessory "Knight's Medallion". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, accessory "Scarlett's Ribbon". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, accessory "Silver Bangle": silver. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b85_items.png (this is only the file name - never draw it or any other text in the image).

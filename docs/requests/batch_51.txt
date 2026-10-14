@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, bow "Crane Bow". Single object, slight three-qu
 Cell 8: inventory icon, 200x200, bow "Dragonbone Bow": ivory dragon bone with scales. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, bow "General's Longbow". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, bow "Greatwood Bow": pale carved wood with leaf motifs and a green gem. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b51_items.png (this is only the file name - never draw it or any other text in the image).

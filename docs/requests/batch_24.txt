@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "Divine Blessing": Activates at the s
 Cell 8: round passive skill icon, 200x200, "Dragon's Roar": Activates at the start of a battle. Inflicts Initiative -20 on all enemies. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Eagle Eye": Activates before attacking with an active skill. Makes the user's next attack a truestrike. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Eagle's Eye": Activates before attacking with an active skill. Makes the user's next attack a truestrike. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b24_skills.png (this is only the file name - never draw it or any other text in the image).

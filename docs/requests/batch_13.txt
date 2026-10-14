@@ -27,3 +27,5 @@ Cell 7: round active skill icon, 200x200, "Defensive Curse": Inflicts Phys. Atta
 Cell 8: round active skill icon, 200x200, "Defensive Order": Grants all allies +20% Defense. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round active skill icon, 200x200, "Divine Cross": Attacks a single enemy and remove all buffs. Grants the user +1 PP if the target is defeated. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round active skill icon, 200x200, "Diving Thrust": Attack a single enemy. Cavalry targets cannot guard against this attack. +50 potency v. cavalry targets. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b13_skills.png (this is only the file name - never draw it or any other text in the image).

@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, accessory "Citadel Guard's Sabatons". Single ob
 Cell 8: inventory icon, 200x200, accessory "Phoenix's Plume". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, accessory "Soothing Plume". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, accessory "Cooling Bandana". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b78_items.png (this is only the file name - never draw it or any other text in the image).

@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, accessory "Watchman's Horn". Single object, sli
 Cell 8: inventory icon, 200x200, accessory "Black Cat-Ear Hood". Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, accessory "Green Beret". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, accessory "Old Witch's Ring". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b82_items.png (this is only the file name - never draw it or any other text in the image).

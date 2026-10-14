@@ -21,3 +21,5 @@ Cell 1: inventory icon, 200x200, large tower greatshield "Phantom Knight's Great
 Cell 2: inventory icon, 200x200, large tower greatshield "Hero's Greatshield". Single object, slight three-quarter view, no frame.
 Cell 3: inventory icon, 200x200, large tower greatshield "Icefall Greatshield": frosty pale-blue steel with icicles. Single object, slight three-quarter view, no frame.
 Cell 4: inventory icon, 200x200, large tower greatshield "Wingcrest Greatshield": white steel with a feather crest. Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b71_items.png (this is only the file name - never draw it or any other text in the image).

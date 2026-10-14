@@ -27,3 +27,5 @@ Cell 7: round passive skill icon, 200x200, "Saint's Barrier": Activates before a
 Cell 8: round passive skill icon, 200x200, "Sanguine Arts": Activates before attacking with an active skill. User will reover HP equal to +50% of damage dealt on next attack. A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round passive skill icon, 200x200, "Selfless Heal": Activates after being healed. Restore minor HP to all allies. Remove all debuffs. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round passive skill icon, 200x200, "Shadow Pursuit": Activates after an ally attacks (Active). Follow-up attack a single enemy. Inflicts Blindness. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b31_skills.png (this is only the file name - never draw it or any other text in the image).

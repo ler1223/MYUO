@@ -27,3 +27,5 @@ no chrome, no neon glow, no lens flare, no gemstones unless asked, no sci-fi or 
 Elegant restraint: thin lines, generous calm empty space, nothing cluttered.
 
 OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no labels.
+
+FILE NAME: give the finished PNG for download exactly this file name: uo_01.png (this is only the file name - never draw it or any other text in the image).

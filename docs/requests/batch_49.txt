@@ -27,3 +27,5 @@ Cell 7: inventory icon, 200x200, bow "Baroque Bow": ornate baroque gilded. Singl
 Cell 8: inventory icon, 200x200, bow "Viper Bow": green serpent motifs. Single object, slight three-quarter view, no frame.
 Cell 9: inventory icon, 200x200, bow "Pheasant Bow". Single object, slight three-quarter view, no frame.
 Cell 10: inventory icon, 200x200, bow "Piercing Bow". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b49_items.png (this is only the file name - never draw it or any other text in the image).

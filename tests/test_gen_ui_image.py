@@ -62,6 +62,33 @@ class BuiltRequestTests(unittest.TestCase):
         self.assertNotIn("<STYLE>", template)
 
 
+class TakeImageTests(unittest.TestCase):
+    def test_downloaded_picture_goes_under_the_right_name(self):
+        import os
+        import tempfile
+        import time
+        from PIL import Image
+        from tools import take_image as ti
+        path, command = ti.target("batch", 11)
+        self.assertEqual((path.name, command[-1]), ("b11_unit.png", "11"))
+        path, command = ti.target("lineup", 2)
+        self.assertEqual(path.name, "uo_02.png")
+        self.assertIn("cut_lineup.py", " ".join(command))
+        with tempfile.TemporaryDirectory() as folder:
+            folder = Path(folder)
+            Image.new("RGBA", (8, 8), (0, 0, 0, 0)).save(folder / "ChatGPT Image 1.webp")
+            time.sleep(0.01)
+            Image.new("RGBA", (8, 8)).save(folder / "newest.png")
+            os.utime(folder / "newest.png", None)
+            self.assertEqual(ti.find(folder, "b11_unit.png").name, "newest.png")       # иначе самая свежая
+            Image.new("RGBA", (8, 8)).save(folder / "b11_unit.png")
+            os.utime(folder / "ChatGPT Image 1.webp", None)
+            self.assertEqual(ti.find(folder, "b11_unit.png").name, "b11_unit.png")     # точное имя важнее
+            ti.save_png(folder / "ChatGPT Image 1.webp", folder / "out" / "sheet.png")
+            with Image.open(folder / "out" / "sheet.png") as image:
+                self.assertEqual((image.format, image.mode), ("PNG", "RGBA"))
+
+
 class RequestTests(unittest.TestCase):
     def fake(self, captured):
         png = b"\x89PNG fake"

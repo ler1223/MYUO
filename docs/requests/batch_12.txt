@@ -27,3 +27,5 @@ Cell 7: round active skill icon, 200x200, "Banishing Stab": Attack a single enem
 Cell 8: round active skill icon, 200x200, "Bastard's Cross": Attack a single enemy. Potency increases based on the target's HP. (Maximum increases: +60.). A single bold symbol on a dark round field, no ring, no text.
 Cell 9: round active skill icon, 200x200, "Bear Crush": Attack a single enemy. Inflicts Stun. A single bold symbol on a dark round field, no ring, no text.
 Cell 10: round active skill icon, 200x200, "Brandish": Attack a single enemy. Ignores 50% of the target's Defense. Grants the user +1 PP if the attack hits. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b12_skills.png (this is only the file name - never draw it or any other text in the image).

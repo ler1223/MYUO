@@ -20,3 +20,5 @@ fill with no texture, gradient or vignette - these parts will be stretched to an
 Cell 1: round passive skill icon, 200x200, "Wide Counter": Activates after an enemy attacks with an active skill. Counterattack a row of enemies. A single bold symbol on a dark round field, no ring, no text.
 Cell 2: round passive skill icon, 200x200, "Wild Kick": Activates after an enemy guards against an ally's attack. Attack a single enemy. Inflicts Stun and Guard Seal. A single bold symbol on a dark round field, no ring, no text.
 Cell 3: round passive skill icon, 200x200, "Wing Rest": Activates at the end of a battle. Recover 25% HP. Recovered HP doubles if afflicted. A single bold symbol on a dark round field, no ring, no text.
+
+FILE NAME: give the finished PNG for download exactly this file name: b33_skills.png (this is only the file name - never draw it or any other text in the image).

@@ -22,3 +22,5 @@ Cell 2: inventory icon, 200x200, spear "Wingcrest Spear": white steel with a fea
 Cell 3: inventory icon, 200x200, spear "Zenoiran Knight Spear": imperial black and gold ornamented. Single object, slight three-quarter view, no frame.
 Cell 4: inventory icon, 200x200, spear "Zephyros's Spear". Single object, slight three-quarter view, no frame.
 Cell 5: inventory icon, 200x200, spear "Kingspear Elhal". Single object, slight three-quarter view, no frame.
+
+FILE NAME: give the finished PNG for download exactly this file name: b48_items.png (this is only the file name - never draw it or any other text in the image).
