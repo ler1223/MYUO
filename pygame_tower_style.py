@@ -256,8 +256,9 @@ def grade_badge(ui: Gui, rect: pygame.Rect, letter: str) -> None:
     color = GRADE_COLORS.get(letter, DIM)
     side = min(rect.height - 6, rect.width - 2, 32)
     box = place(rect, (side, side), "center")
-    pygame.draw.rect(ui.screen, (8, 12, 24), box, border_radius=5)
-    pygame.draw.rect(ui.screen, color, box, 2, border_radius=5)
+    if not ui.skin.draw(ui.screen, "grade", box):          # рамка оценки картинкой, если нарисована
+        pygame.draw.rect(ui.screen, (8, 12, 24), box, border_radius=5)
+        pygame.draw.rect(ui.screen, color, box, 2, border_radius=5)
     ui.label(letter, box, ui.ts("number", size=max(12, box.height - 8), color=color, outline=(4, 4, 10)), align="center")
 
 

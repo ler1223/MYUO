@@ -1,7 +1,8 @@
 """Нарезка листов интерфейса (assets/ui/sheets/bN_*.png, сетка 5x2) на отдельные картинки assets/ui/<ключ>.png.
 
-Запуск: python tools/cut_ui_sheet.py [номер батча ...] [--force]
-Куда класть каждую ячейку, берётся из таблицы батча в docs/ui_prompts.md (колонки «Ячейка» и «Файл»).
+Запуск: python tools/cut_ui_sheet.py [номер батча ...] [--force] [--doc docs/uo_art_prompts.md]
+Куда класть каждую ячейку, берётся из таблицы батча в docs/ui_prompts.md (колонки «Ячейка» и «Файл»);
+батчи 11 и дальше (иконки предметов и навыков, тактика) — в docs/uo_art_prompts.md: без --doc ищутся в обоих.
 Элемент — непрозрачные куски листа; кусок относится к ячейке по своему центру, куски одной ячейки
 (ободок и символ значка, стрелки метки) собираются вместе. Полупрозрачный ореол вокруг (alpha
 меньше HALO) убирается, картинка обрезается по содержимому и сохраняется в своём разрешении:
@@ -85,7 +86,11 @@ def main(argv: list[str]) -> int:
     wanted = {int(a) for a in argv if a.isdigit()}
     pygame.display.init()
     pygame.display.set_mode((1, 1))
-    batches = batch_files(PROMPTS.read_text(encoding="utf-8"))
+    docs = [Path(argv[argv.index("--doc") + 1])] if "--doc" in argv else [PROMPTS, PROMPTS.with_name("uo_art_prompts.md")]
+    batches = {}
+    for doc in docs:
+        if doc.is_file():
+            batches.update(batch_files(doc.read_text(encoding="utf-8")))
     for number, (sheet_name, cells) in sorted(batches.items()):
         if wanted and number not in wanted:
             continue

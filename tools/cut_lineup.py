@@ -166,6 +166,7 @@ def main(argv: list[str]) -> int:
         # Рост на листе: от низа (линия земли) до верха; масштаб общий для всего листа.
         # Остальные ключи спрайта (опорные точки anchors) сохраняются.
         sprites.setdefault(unit_id, {}).update({"sheet": sheet_path.name, "height": box.height, "ground": box.bottom})
+        config.get("fallback", {}).get("classes", {}).pop(unit_id, None)   # свой спрайт вместо временного похожего
         print(f"{unit_id}: {box.width}x{box.height} at {box.topleft}")
     sheets = config.setdefault("sheets", {})
     if human:

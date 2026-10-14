@@ -137,8 +137,13 @@ def draw_unit_art(ui: Gui, app: Any, unit: Unit) -> None:
     ui.label(place_text(app, unit), where_r, "small", align="center", color=GOLD if
              run.squad.formation.position_of(unit.uid) else DIM)
     pedestal = place(figure_r, (figure_r.width * 2 // 3, 46), "bottom", (0, -10))
-    pygame.draw.ellipse(ui.screen, (10, 14, 28), pedestal)
-    pygame.draw.ellipse(ui.screen, (150, 124, 72), pedestal, 2)
+    art = ui.skin.images.get("field/pedestal")
+    if art is not None:                           # постамент картинкой (ширина как у овала, высота по картинке)
+        scaled = pygame.transform.smoothscale(art, (pedestal.width, round(art.get_height() * pedestal.width / art.get_width())))
+        ui.screen.blit(scaled, scaled.get_rect(midtop=(pedestal.centerx, pedestal.y)))
+    else:
+        pygame.draw.ellipse(ui.screen, (10, 14, 28), pedestal)
+        pygame.draw.ellipse(ui.screen, (150, 124, 72), pedestal, 2)
     image = app.portraits.full(unit.definition.id, (figure_r.width - 40, figure_r.height - 40))
     ui.screen.blit(image, image.get_rect(midbottom=(pedestal.centerx, pedestal.centery + 6)))
 
@@ -345,8 +350,16 @@ def option_label(ui: Gui, db: Any, group: str, value: Any) -> str:
     return f"{prefix} {describe_condition(value, t)}"
 
 
-def tinted_pill(ui: Gui, rect: pygame.Rect, tint, hover: bool) -> pygame.Rect:
-    """Плашка строки с цветной заливкой тела (навык: красный — AP, синий — PP)."""
+def tinted_pill(ui: Gui, rect: pygame.Rect, tint, hover: bool, kind: str = "condition") -> pygame.Rect:
+    """Плашка строки тактики: картинка frame/tactic_<kind> (ap, pp, condition), если нарисована,
+    иначе рамка строки с цветной заливкой тела (навык: красный — AP, синий — PP)."""
+    if ui.skin.has(f"tactic_{kind}"):
+        body = w.frame(ui, f"tactic_{kind}", rect)
+        if hover:
+            glow = pygame.Surface(body.size, pygame.SRCALPHA)
+            glow.fill((255, 240, 200, 30))
+            ui.screen.blit(glow, body.topleft)
+        return body
     body = w.family_frame(ui, "row", rect, "hover" if hover else "normal")
     if tint is not None:
         fill = pygame.Surface(body.size, pygame.SRCALPHA)
@@ -363,7 +376,14 @@ def icon_button(ui: Gui, rect: pygame.Rect, kind: str, enabled: bool = True) -> 
     color = GOLD if hover else ((200, 170, 110) if enabled else (80, 80, 96))
     pygame.draw.rect(ui.screen, color, box, 2, border_radius=6)
     c, r = box.center, box.width // 4
-    if kind == "up":
+    image = ui.skin.images.get(f"icon/{kind}")
+    if image is not None:                         # нарисованный значок вместо линий
+        side = box.width - 10
+        icon = pygame.transform.smoothscale(image, (side, side))
+        if not enabled:
+            icon.set_alpha(90)
+        ui.screen.blit(icon, icon.get_rect(center=c))
+    elif kind == "up":
         pygame.draw.polygon(ui.screen, color, [(c[0] - r, c[1] + r // 2), (c[0] + r, c[1] + r // 2), (c[0], c[1] - r)])
     elif kind == "down":
         pygame.draw.polygon(ui.screen, color, [(c[0] - r, c[1] - r // 2), (c[0] + r, c[1] - r // 2), (c[0], c[1] + r)])
@@ -396,13 +416,14 @@ def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
             continue
         rule = rules_[i]
         badge = place(number_r, (64, 56), "center")
-        pygame.draw.polygon(ui.screen, (90, 40, 30), [(badge.x + 10, badge.y), (badge.right, badge.y),
-                                                      (badge.right - 10, badge.bottom), (badge.x, badge.bottom)])
+        if not ui.skin.draw(ui.screen, "priority", badge):
+            pygame.draw.polygon(ui.screen, (90, 40, 30), [(badge.x + 10, badge.y), (badge.right, badge.y),
+                                                          (badge.right - 10, badge.bottom), (badge.x, badge.bottom)])
         ui.label(str(i + 1), badge, ui.ts("level", size=34), align="center")
         skill = db.skills.get(rule["skill"])
         tint = PP_TINT if skill is not None and skill.pp_cost and not skill.ap_cost else AP_TINT
-        body = tinted_pill(ui, skill_r, tint, ui.hovered(skill_r) or pick == (i, "skill"))
         kind = "pp" if tint == PP_TINT else "ap"
+        body = tinted_pill(ui, skill_r, tint, ui.hovered(skill_r) or pick == (i, "skill"), kind)
         cost = (skill.pp_cost if kind == "pp" else skill.ap_cost) if skill is not None else 0
         right = diamonds(ui, app, body.x + 8, body.centery, cost, kind, size=18)
         ui.label(t(skill.name) if skill else rule["skill"], pygame.Rect(right + 8, body.y, body.right - right - 12,
@@ -488,7 +509,7 @@ def draw_picker(ui: Gui, app: Any, unit: Unit, rules_: list, pick: tuple) -> Opt
     colors = {TARGET: (240, 180, 160), SELF: (160, 220, 170), PRIORITY: (170, 200, 250)}
 
     def draw() -> None:
-        w.frame(ui, "inset", box.inflate(16, 16))
+        w.frame(ui, "picker" if ui.skin.has("picker") else "inset", box.inflate(16, 16))
         for row, group, value in shown:
             if row.collidepoint(ui.mouse):
                 fill = pygame.Surface(row.size, pygame.SRCALPHA)

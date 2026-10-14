@@ -57,6 +57,7 @@ ITEMS_REFERENCE = ROOT / "docs" / "uo" / "items.json"
 WORLD_JSON = ROOT / "data" / "world" / "test.json"
 TOWER_JSON = ROOT / "data" / "tower.json"
 LOOT_MAP = {"short_bow": "recruits_shortbow", "war_axe": "iron_axe", "fire_charm": "salamander_ring"}
+OLD_SHEETS = {"lineup_2.png", "lineup_a.png", "lineup_b.png", "lineup_c.png"}   # спрайты прежних 15 классов
 FEMALE_SPRITES = {"cleric", "mage", "cryomancer", "stormcaller", "witch", "rider"}
 STATS = ["hp", "phys_atk", "phys_def", "mag_atk", "mag_def", "accuracy", "evasion", "crit_rate", "guard_rate",
          "initiative"]
@@ -837,7 +838,8 @@ def main() -> None:
     lang.update(importer.ru)
     LANG.write_text(json.dumps(lang, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     sprites = json.loads(SPRITES_JSON.read_text(encoding="utf-8"))
-    sprites["fallback"]["classes"] = {c: SPRITE.get(c, "knight") for c in classes}
+    own = {c for c, info in sprites.get("sprites", {}).items() if info.get("sheet") not in OLD_SHEETS}
+    sprites["fallback"]["classes"] = {c: SPRITE.get(c, "knight") for c in classes if c not in own}
     SPRITES_JSON.write_text(json.dumps(sprites, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     names = json.loads(NAMES_JSON.read_text(encoding="utf-8"))
     names["female_classes"] = sorted(c for c in classes if SPRITE.get(c) in FEMALE_SPRITES)

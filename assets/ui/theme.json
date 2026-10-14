@@ -537,6 +537,30 @@
         9,
         10
       ]
+    },
+    "tactic_ap": {
+      "border": 30,
+      "scale": 0.5
+    },
+    "tactic_pp": {
+      "border": 30,
+      "scale": 0.5
+    },
+    "tactic_condition": {
+      "border": 30,
+      "scale": 0.5
+    },
+    "priority": {
+      "border": 20,
+      "scale": 0.4
+    },
+    "grade": {
+      "border": 16,
+      "scale": 0.3
+    },
+    "picker": {
+      "border": 24,
+      "scale": 0.7
     }
   },
   "bars": {
