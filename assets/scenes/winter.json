@@ -21,10 +21,10 @@
   "ground_depth": 700.0,
   "ground_darken": 0.0,
   "backdrop": "winter.png",
-  "backdrop_line": 80,
+  "backdrop_line": 58,
   "backdrop_width": 100.0,
-  "backdrop_darken": 0.0,
-  "haze": 20,
+  "backdrop_darken": 0,
+  "haze": 20.0,
   "sky": [
     22,
     24,

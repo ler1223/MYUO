@@ -18,10 +18,10 @@
       "effect_filter": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "apply_effect",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "attack",
       "effect_id": "iron_will",
-      "amount": 0,
+      "amount": 1,
       "to": "owner",
       "to_area": null,
       "cover_many": false

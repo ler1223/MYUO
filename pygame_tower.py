@@ -4,10 +4,9 @@
 Перед каждым боем и по F5 справочник, правила башни (data/tower.json) и визуал навыков
 перечитываются с диска, поэтому правки, сделанные в открытом рядом окне демо, сразу в игре.
 
-Интерфейс рисуется в логическом размере 1920x1280 и масштабируется под окно. Экран зависит
-от фазы забега: набор бойцов, подготовка (расстановка, снаряжение, тактики), бой этажа на сцене
-(2.5D) с панелями отрядов, награда, магазин, конец забега. Картинки — pygame_art (заглушки
-с цепочкой замены), подсказки при наведении — pygame_tips.
+Интерфейс рисуется в логическом размере 1920x1280 и масштабируется под окно; строится на движке
+uikit (тема assets/ui/theme.json). Экран зависит от фазы забега: набор бойцов, подготовка
+(pygame_tower_prepare), бой этажа на сцене (2.5D) с панелями отрядов, награда, магазин, конец забега.
 """
 from __future__ import annotations
 
@@ -30,62 +29,76 @@ from pygame_art import ArtBank, Portraits
 from pygame_battle import FIELD_RECT, SKIP_BACKLOG_MS, BattleView
 from pygame_stage import TOWER_MODE, StageScreen, load_visuals
 from pygame_tips import STAT_COLORS, class_tip, modifier_text, tier_color, unit_tip
-import pygame_tower_style
 from pygame_tower_inventory import InventoryFilter
 from pygame_tower_prepare import INVENTORY, MAIN, STATUS, UNIT, draw_prepare, go_back
-from pygame_tower_style import (ACCENTS, AP_COLOR, BACK, CELL, CELL_EMPTY, DIM, ENEMY, EXP, GOLD, GREEN, H, M,
-                                GOLD_LINE, PANEL_DARK, PP_COLOR, SIZE, SIZES, TEXT, TOP_H, W, background, bar, button,
-                                Skin, class_entries, framed, item_icon, make_ui, panel, portrait, skill_chip, stat_grid)
-from pygame_ui import RED, UI, YELLOW, Window, fit, lighter
+from pygame_tower_style import (BACK, DIM, ENEMY, FULL_BODY, GAP, GOLD, GREEN, H, M, SIZE, SIZES, TEXT, TOP_H, W,
+                                background, bar, button, class_entries, class_line, diamonds, item_icon, level_badge,
+                                make_ui, panel, portrait, shade, skill_chip, stat_rows, unit_name)
+from pygame_ui import Window
+from uikit import Gui
+from uikit import widgets as w
+from uikit.layout import cols, cut_left, cut_top, grid, inset, place, row_of, rows
 
 FPS = 60
 AUTO_STEP_MS = 600
 SPEEDS = (1, 2, 4)                       # клавиши 1, 2, 3
 NONE_ITEM = "__none__"                   # в списке снаряжения: снять предмет
+RESULT = 4                               # слой итога боя: над полем и панелями, забирает мышь
 
 # --- раскладка: прямоугольники, общие для отрисовки и тестов -------------------------
 
+TOP = pygame.Rect(0, 0, W, TOP_H)
+TOP_ROW = inset(TOP, M, 12, M, 14)
+DRAFT_TITLE, DRAFT_AREA = cut_top(FULL_BODY, 64, 16)
+DRAFT_CARDS = cols(DRAFT_AREA, [1.0, 1.0, 1.0], GAP)
+PANEL_PAD = (38, 92, 38, 36)
+
+
 def draft_card(i: int) -> pygame.Rect:
-    return pygame.Rect(M + i * 636, TOP_H + 96, 600, H - TOP_H - 96 - 40)
+    return DRAFT_CARDS[i]
 
 
 def take_button(card: pygame.Rect) -> pygame.Rect:
-    return pygame.Rect(card.x + 20, card.bottom - 74, card.width - 40, 56)
+    return place(inset(card, 40, 0, 40, 38), (card.width - 80, 76), "bottom")
 
 
-REWARD_LEFT = pygame.Rect(M, TOP_H + 16, 860, H - TOP_H - 16 - M)
-REWARD_RIGHT = pygame.Rect(REWARD_LEFT.right + M, TOP_H + 16, W - REWARD_LEFT.right - 2 * M, REWARD_LEFT.height)
-TAKE = pygame.Rect(REWARD_RIGHT.x + 24, REWARD_RIGHT.bottom - 84, 760, 64)
-RECRUITS = pygame.Rect(M, TOP_H + 16, 600, H - TOP_H - 16 - M)
-GOODS = pygame.Rect(RECRUITS.right + M, TOP_H + 16, 700, RECRUITS.height)
-SELL = pygame.Rect(GOODS.right + M, TOP_H + 16, W - GOODS.right - 2 * M, RECRUITS.height)
-LEAVE = pygame.Rect(SELL.x + 24, SELL.bottom - 84, SELL.width - 48, 64)
-REROLL = pygame.Rect(GOODS.x + 24, GOODS.bottom - 84, 340, 64)
-OVER_PANEL = pygame.Rect(W // 2 - 600, TOP_H + 120, 1200, 860)
-NEW_RUN = pygame.Rect(OVER_PANEL.centerx - 180, OVER_PANEL.bottom - 110, 360, 72)
+REWARD_LEFT, REWARD_RIGHT = cols(FULL_BODY, [860, 1.0], GAP)
+REWARD_AREA = inset(REWARD_RIGHT, *PANEL_PAD)
+TAKE = place(REWARD_AREA, (REWARD_AREA.width, 78), "bottom")
+RECRUITS, GOODS, SELL = cols(FULL_BODY, [600, 720, 1.0], GAP)
+RECRUIT_AREA, GOODS_AREA, SELL_AREA = (inset(r, *PANEL_PAD) for r in (RECRUITS, GOODS, SELL))
+LEAVE = place(SELL_AREA, (SELL_AREA.width, 78), "bottom")
+REROLL = place(GOODS_AREA, (GOODS_AREA.width, 70), "bottom")
+OVER_PANEL = place(FULL_BODY, (1200, 860), "center")
+NEW_RUN = place(inset(OVER_PANEL, 0, 0, 0, 50), (420, 84), "bottom")
 # Бой: поле во всю ширину, снизу отряды и журнал
 FIELD = pygame.Rect(0, TOP_H, W, round(FIELD_RECT.height * W / FIELD_RECT.width))
-HUD_Y = FIELD.bottom + 10
-PLAYER_HUD = pygame.Rect(12, HUD_Y, 700, H - HUD_Y - 12)
-ENEMY_HUD = pygame.Rect(W - 712, HUD_Y, 700, H - HUD_Y - 12)
-LOG = pygame.Rect(PLAYER_HUD.right + 12, HUD_Y, ENEMY_HUD.x - PLAYER_HUD.right - 24, H - HUD_Y - 12)
-CONTINUE = pygame.Rect(W // 2 - 200, FIELD.centery + 50, 400, 70)
+HUD = pygame.Rect(0, FIELD.bottom, W, H - FIELD.bottom)
+PLAYER_HUD, LOG, ENEMY_HUD = cols(inset(HUD, 12, 6, 12, 10), [760, 1.0, 760], 12)
+BANNER = place(FIELD, (900, 300), "center")
+CONTINUE = place(inset(BANNER, 0, 0, 0, 44), (440, 84), "bottom")
+SPEED_BUTTONS = row_of(pygame.Rect(560, TOP_ROW.y, 0, TOP_ROW.height), [96, 96, 96], 10, "left")
+PAUSE = pygame.Rect(SPEED_BUTTONS[-1].right + 22, TOP_ROW.y, 200, TOP_ROW.height)
+SKIP = pygame.Rect(PAUSE.right + 12, TOP_ROW.y, 200, TOP_ROW.height)
 
 
 def reward_card(i: int) -> pygame.Rect:
-    return pygame.Rect(REWARD_RIGHT.x + 24, REWARD_RIGHT.y + 80 + i * 186, REWARD_RIGHT.width - 48, 172)
+    return pygame.Rect(REWARD_AREA.x, REWARD_AREA.y + i * 190, REWARD_AREA.width, 176)
 
 
-def recruit_card(i: int) -> pygame.Rect:
-    return pygame.Rect(RECRUITS.x + 20, RECRUITS.y + 70 + i * 356, RECRUITS.width - 40, 340)
+def recruit_card(i: int, count: int = 3) -> pygame.Rect:
+    """i-я карточка найма из count: делят высоту панели поровну."""
+    return rows(RECRUIT_AREA, [1.0] * max(count, i + 1), 14)[i]
 
 
 def hire_button(card: pygame.Rect) -> pygame.Rect:
-    return pygame.Rect(card.x + 230, card.bottom - 70, card.width - 250, 54)
+    return pygame.Rect(card.x + 236, card.bottom - 84, card.width - 256, 66)
 
 
-def goods_card(i: int) -> pygame.Rect:
-    return pygame.Rect(GOODS.x + 20, GOODS.y + 70 + i * 190, GOODS.width - 40, 176)
+def goods_card(i: int, count: int = 5) -> pygame.Rect:
+    """i-я карточка товара из count: делят место над кнопкой нового товара поровну."""
+    area = pygame.Rect(GOODS_AREA.x, GOODS_AREA.y, GOODS_AREA.width, REROLL.y - GOODS_AREA.y - 14)
+    return rows(area, [1.0] * max(count, i + 1), 10)[i]
 
 
 def field_scale() -> float:
@@ -125,7 +138,6 @@ class TowerApp:
         self.message = ""
         self.run = self._load(lang)
         self.art = ArtBank()
-        pygame_tower_style.SKIN = Skin(self.art)   # нарисованные рамки, если они есть в assets/ui/frame
         self.store = SceneStore(scenes_dir or SCENES_DIR)
         self.stage = StageScreen(None, props_dir)
         self.portraits = Portraits(self.art, self.stage.bank)
@@ -316,144 +328,152 @@ class TowerApp:
         item = self.db.items.get(item_id)
         slots = [i for i, slot in enumerate(unit.definition.slots) if item is not None and slot == item.slot]
         if not slots:
-            self.message = self.t("{unit} cannot wear this", unit=self.t(unit.name))
+            self.message = self.t("{unit} cannot wear this", unit=self.t(unit.nickname))
             return
         empty = [i for i in slots if unit.state.equipment[i] is None]
         self.change_equipment(unit, (empty or slots)[0], item_id)
 
 
-def draw_top(ui: UI, app: TowerApp, accent) -> None:
+# --- верхняя полоса ------------------------------------------------------------------
+
+def top_strip(ui: Gui) -> None:
+    shade(ui, TOP, 200)
+    w.divider(ui, 0, W, TOP.bottom - 2)
+
+
+def draw_top(ui: Gui, app: TowerApp) -> None:
     t, run = ui.t, app.run
-    pygame.draw.rect(ui.screen, PANEL_DARK, (0, 0, W, TOP_H))
-    pygame.draw.rect(ui.screen, accent, (0, TOP_H - 6, W, 4))
-    pygame.draw.line(ui.screen, GOLD_LINE, (0, TOP_H - 2), (W, TOP_H - 2), 2)
+    top_strip(ui)
     boss = app.rules.is_boss(run.floor)
-    ui.screen.blit(app.art.image("icon/boss" if boss else "icon/floor", (48, 48)), (M, 12))
-    ui.text(t("Floor {n}", n=run.floor), M + 60, 14, ENEMY if boss else GOLD, "big")
-    if boss:
-        ui.text(t("(boss)"), M + 240, 22, ENEMY, "main")
-    ui.screen.blit(app.art.image("icon/gold", (44, 44)), (420, 14))
-    ui.text(str(run.inventory.gold), 474, 16, GOLD, "big")
-    ui.tip(pygame.Rect(420, 10, 200, 56), lambda: [(t("Gold"), GOLD, "main"),
-                                                   (t("Earned by winning floors, spent in the shop."), TEXT, "small")])
-    ui.text(t("best floor {n}", n=run.best), 660, 24, DIM, "main")
-    buttons = pygame.Rect(W - 760, 12, 280, 52), pygame.Rect(W - 466, 12, 300, 52), pygame.Rect(W - 152, 12, 128, 52)
-    if button(ui, t("Reload data (F5)"), buttons[0], enabled=not app.in_battle, font="small", icon="icon/settings"):
+    floor_icon, floor_r, gold_icon, gold_r, best_r = row_of(TOP_ROW, [52, 300, 48, 160, 320], 12, "left")
+    ui.screen.blit(app.art.image("icon/boss" if boss else "icon/floor", (52, 52)), floor_icon.topleft)
+    ui.label(t("Floor {n}", n=run.floor) + ("  " + t("(boss)") if boss else ""), floor_r, "title",
+             color=ENEMY if boss else GOLD)
+    ui.screen.blit(app.art.image("icon/gold", (48, 48)), gold_icon.move(0, 4).topleft)
+    ui.label(str(run.inventory.gold), gold_r, "title")
+    ui.tip(gold_icon.union(gold_r), lambda: [(t("Gold"), GOLD, "main"),
+                                             (t("Earned by winning floors, spent in the shop."), TEXT, "small")])
+    ui.label(t("best floor {n}", n=run.best), best_r, "body", color=DIM)
+    reload_r, new_r, lang_r = row_of(TOP_ROW, [320, 300, 110], 12, "right")
+    if button(ui, t("Reload data (F5)"), reload_r, enabled=not app.in_battle, style="small",
+              icon_key="icon/settings", app=app):
         if app.reload():
             app.message = t("data reloaded")
     label = t("Sure? Click again") if app.confirm_new else t("New run")
-    if button(ui, label, buttons[1], enabled=not app.in_battle, selected=app.confirm_new, font="small"):
+    if button(ui, label, new_r, enabled=not app.in_battle, selected=app.confirm_new, style="small"):
         if app.confirm_new or run.phase == OVER:
             app.new_run()
         else:
             app.confirm_new = True
-    if button(ui, app.t.lang.upper(), buttons[2]):
+    if button(ui, app.t.lang.upper(), lang_r, style="small"):
         app.next_language()
 
 
 # --- набор -------------------------------------------------------------------------
 
-def draw_draft(ui: UI, app: TowerApp) -> None:
+def draw_draft(ui: Gui, app: TowerApp) -> None:
     t, run = ui.t, app.run
-    accent = ACCENTS[DRAFT]
     total = app.rules.data["draft"]["picks"]
-    ui.text(t("Choose a fighter {n}/{total}", n=len(run.army.units) + 1, total=total), M, TOP_H + 20, TEXT, "title")
-    taken = [u.definition.id for u in run.army.units.values()]
-    for i, class_id in enumerate(taken):                      # уже взятые — портреты справа от заголовка
-        portrait(ui, app, class_id, pygame.Rect(W - M - (len(taken) - i) * 84, TOP_H + 12, 76, 76), accent)
+    ui.label(t("Choose a fighter {n}/{total}", n=len(run.army.units) + 1, total=total), DRAFT_TITLE, "title")
+    taken = list(run.army.units.values())
+    faces = row_of(DRAFT_TITLE, [64] * len(taken), 10, "right")
+    for rect, unit in zip(faces, taken):                     # уже взятые — портреты справа от заголовка
+        portrait(ui, app, unit.definition.id, place(rect, (64, 64), "center"))
+        ui.tip(rect, lambda u=unit: unit_tip(t, app.db, u))
     for i, class_id in enumerate(list(run.offers)):
-        if draw_class_card(ui, app, class_id, draft_card(i), accent):
+        if draw_class_card(ui, app, class_id, draft_card(i)):
             app.act(run.pick, app.db, class_id)
 
 
-def draw_class_card(ui: UI, app: TowerApp, class_id: str, rect: pygame.Rect, accent) -> bool:
+def draw_class_card(ui: Gui, app: TowerApp, class_id: str, rect: pygame.Rect) -> bool:
     """Карточка класса при наборе: фигура, статы, снаряжение, навыки. True — взяли."""
     t, db, run = ui.t, app.db, app.run
     level = app.rules.data["draft"]["level"]
     unit = db.create_unit(class_id, 0, level, run.starter_gear(db, class_id))
-    body = panel(ui, rect, accent, t(unit.name), t("lv {n}", n=level))
-    x, y = rect.x + 20, body.y + 14
-    art = pygame.Rect(x, y, rect.width - 40, 400)
-    pygame.draw.rect(ui.screen, PANEL_DARK, art, border_radius=8)
-    figure = app.portraits.full(class_id, (art.width - 20, art.height - 16))
-    ui.screen.blit(figure, figure.get_rect(midbottom=(art.centerx, art.bottom - 8)))
+    body = panel(ui, rect, t(unit.name), t("lv {n}", n=level))
+    body.height = take_button(rect).y - body.y - 14
+    art_r, rest = cut_top(body, 340, 12)
+    shade(ui, art_r, 120)
+    image = app.portraits.full(class_id, (art_r.width - 20, art_r.height - 16))
+    ui.screen.blit(image, image.get_rect(midbottom=(art_r.centerx, art_r.bottom - 8)))
     tags = ", ".join(t(db.tags[tag].name) for tag in unit.definition.tags if tag in db.tags)
-    ui.text(tags, x + 12, art.y + 10, DIM, "small", art.width - 24)
-    y = stat_grid(ui, app, unit, x, art.bottom + 12, 2, (rect.width - 40) // 2, 28) + 10
-    ui.text(t("Equipment"), x, y, DIM, "small")
+    ui.label(tags, inset(pygame.Rect(art_r.x, art_r.y, art_r.width, 40), 12, 0), "small", color=DIM)
+    stats_r, rest = cut_top(rest, 6 * 34, 10)
+    stat_rows(ui, app, unit, stats_r, 2, style="small")
+    gear_title, rest = cut_top(rest, 32, 4)
+    ui.label(t("Equipment"), gear_title, "label")
+    gear_r, rest = cut_top(rest, 76, 10)
     for i, item_id in enumerate(i for i in unit.state.equipment if i is not None):
-        item_icon(ui, app, item_id, pygame.Rect(x + i * 78, y + 26, 70, 70))
-    y += 108
-    ui.text(t("Skills and passives"), x, y, DIM, "small")
+        item_icon(ui, app, item_id, pygame.Rect(gear_r.x + i * 84, gear_r.y, 76, 76))
+    skills_title, rest = cut_top(rest, 32, 4)
+    ui.label(t("Skills and passives"), skills_title, "label")
     entries = class_entries(unit)
-    for i, (kind, entry_id, unlock) in enumerate(entries[:10]):
-        chip = pygame.Rect(x + (i % 2) * ((rect.width - 40) // 2), y + 26 + (i // 2) * 42, (rect.width - 40) // 2 - 8, 38)
-        if chip.bottom > rect.bottom - 84:
+    for chip, (kind, entry_id, unlock) in zip(grid(rest, len(entries), 2, 44, 12, 8), entries):
+        if chip.bottom > rest.bottom:
             break
         skill_chip(ui, app, kind, entry_id, chip, unlock, level)
-    return bool(button(ui, t("Take"), take_button(rect), primary=True, font="big"))
+    return bool(button(ui, t("Take"), take_button(rect), primary=True, style="tab"))
 
 
 # --- награда ------------------------------------------------------------------------
 
-def item_card(ui: UI, app: TowerApp, item_id: str, rect: pygame.Rect, selected: bool = False,
-              price: Optional[int] = None) -> int:
-    """Крупная карточка предмета: иконка, название цвета тира, статы, кому подходит."""
+def item_card(ui: Gui, app: TowerApp, item_id: str, rect: pygame.Rect, selected: bool = False,
+              price: Optional[int] = None, action: Optional[pygame.Rect] = None) -> int:
+    """Крупная карточка предмета: иконка, название цвета тира, слот и тир, бонусы.
+    action — место под кнопку на карточке (текст его не занимает). Возвращает клик по карточке."""
     t, db = ui.t, app.db
     item = db.items.get(item_id)
-    pygame.draw.rect(ui.screen, lighter(CELL, 20) if selected else CELL, rect, border_radius=10)
-    border = YELLOW if selected else (tier_color(item.tier) if item else RED)
-    pygame.draw.rect(ui.screen, border, rect, 4 if selected else 2, border_radius=10)
-    side = rect.height - 24
-    item_icon(ui, app, item_id, pygame.Rect(rect.x + 12, rect.y + 12, side, side), price=price)
+    body, clicked = w.selectable(ui, rect, "card", selected=selected)
+    icon_r, text_r = cut_left(inset(body, 10, 8), body.height - 16, 18)
+    on_icon = item_icon(ui, app, item_id, icon_r, price=price)
     if item is None:
-        return ui.clicked(rect)
-    x, width = rect.x + side + 30, rect.width - side - 44
-    ui.text(t(item.name), x, rect.y + 12, tier_color(item.tier), "big", width)
-    ui.text(f"{t(item.slot)} · {t(('novice', 'mercenary', 'hero')[min(item.tier, 3) - 1])}", x, rect.y + 54, DIM,
-            "small", width)
-    lines = [m for m in item.modifiers]
-    for i, mod in enumerate(lines[:3]):
-        color = STAT_COLORS.get(mod.stat, TEXT)
-        ui.text(modifier_text(t, mod), x + (i % 2) * (width // 2), rect.y + 84 + (i // 2) * 28, color, "main",
-                width // 2)
+        return clicked
+    if action is not None:
+        text_r.width = action.x - text_r.x - 12
+    name_r, kind_r, mods_r = rows(text_r, [40, 30, 1.0], 2)
+    ui.label(t(item.name), name_r, "heading", color=tier_color(item.tier))
+    tier_name = t(("novice", "mercenary", "hero")[min(max(item.tier, 1), 3) - 1])
+    ui.label(f"{t(item.slot)} · {tier_name}", kind_r, "small", color=DIM)
+    for cell, mod in zip(grid(mods_r, len(item.modifiers), 1 if action else 2, 30, 12, 2), item.modifiers):
+        ui.label(modifier_text(t, mod), cell, "small", color=STAT_COLORS.get(mod.stat, TEXT))
     if selected:                                  # галочка: в шрифте её может не быть, рисуется линиями
-        a, b, c = (rect.right - 50, rect.y + 30), (rect.right - 38, rect.y + 44), (rect.right - 16, rect.y + 14)
-        pygame.draw.lines(ui.screen, YELLOW, False, (a, b, c), 6)
-    return ui.clicked(rect)
+        a, b, c = (body.right - 46, body.y + 26), (body.right - 34, body.y + 40), (body.right - 12, body.y + 10)
+        pygame.draw.lines(ui.screen, GOLD, False, (a, b, c), 6)
+    return 0 if on_icon else clicked
 
 
-def draw_reward(ui: UI, app: TowerApp) -> None:
+def draw_reward(ui: Gui, app: TowerApp) -> None:
     t, run, db = ui.t, app.run, app.db
     report = run.report
     floor = report.floor if report else run.floor
-    accent = ACCENTS[REWARD]
-    body = panel(ui, REWARD_LEFT, accent, t("Floor {n} cleared!", n=floor))
-    x, y = REWARD_LEFT.x + 24, body.y + 18
+    body = panel(ui, REWARD_LEFT, t("Floor {n} cleared!", n=floor))
     if report:
-        ui.screen.blit(app.art.image("icon/gold", (44, 44)), (x, y))
-        ui.text(t("+{n} gold", n=report.gold), x + 56, y + 4, GOLD, "big")
-        y += 70
+        gold_r, rest = cut_top(body, 56, 12)
+        icon_r, text_r = cut_left(gold_r, 52, 12)
+        ui.screen.blit(app.art.image("icon/gold", (52, 52)), icon_r.topleft)
+        ui.label(t("+{n} gold", n=report.gold), text_r, "title")
         for up in report.level_ups:
             unit = run.army.units.get(up.uid)
-            if unit is None or y > REWARD_LEFT.bottom - 120:
+            height = 150 + (54 if up.skills or up.passives else 0)
+            if unit is None or rest.height < height:
                 continue
-            row = pygame.Rect(x, y, REWARD_LEFT.width - 48, 112 + (44 if up.skills or up.passives else 0))
-            pygame.draw.rect(ui.screen, CELL, row, border_radius=10)
-            portrait(ui, app, unit.definition.id, pygame.Rect(row.x + 8, row.y + 8, 96, 96), GOLD if up.levels else DIM)
-            ux = row.x + 120
-            ui.text(t(unit.name), ux, row.y + 10, TEXT, "main")
-            ui.text(f"+{up.exp} {t('exp')}", ux + 300, row.y + 12, EXP, "small")
-            bar(ui, pygame.Rect(ux, row.y + 50, row.right - ux - 20, 14), unit.state.exp, app.rules.exp.per_level,
-                EXP, (30, 40, 60), kind="exp")
+            row, rest = cut_top(rest, height, 12)
+            row_body = w.frame(ui, "card", row)
+            face, info = cut_left(inset(row_body, 10, 8), 100, 16)
+            portrait(ui, app, unit.definition.id, place(face, (100, 100), "top"))
+            name_r, exp_r, level_r, news_r = rows(info, [40, 26, 40, 1.0], 4)
+            ui.label(unit_name(t, unit), name_r, "body")
+            ui.label(f"+{up.exp} {t('exp')}", name_r, "small", align="right", color=(120, 200, 255))
+            bar(ui, exp_r, unit.state.exp, app.rules.exp.per_level, "exp")
             if up.levels:
-                ui.text(t("Level up! {a} -> {b}", a=up.old_level, b=up.new_level), ux, row.y + 74, GOLD, "main")
+                ui.label(t("Level up! {a} -> {b}", a=up.old_level, b=up.new_level), level_r, "heading")
+            else:
+                level_badge(ui, level_r, unit.state.level)
             news = [("skill", s) for s in up.skills] + [("passive", p) for p in up.passives]
-            for i, (kind, entry_id) in enumerate(news[:3]):
-                skill_chip(ui, app, kind, entry_id, pygame.Rect(ux + i * 230, row.y + 108, 222, 40))
-            y = row.bottom + 12
+            for chip, (kind, entry_id) in zip(cols(news_r, [1.0] * 3, 10), news[:3]):
+                skill_chip(ui, app, kind, entry_id, chip)
     take = app.rules.data["reward"]["take"]
-    body = panel(ui, REWARD_RIGHT, accent, t("Choose up to {n} items", n=take), f"{len(app.picks)}/{take}")
+    panel(ui, REWARD_RIGHT, t("Choose up to {n} items", n=take), f"{len(app.picks)}/{take}")
     for i, item_id in enumerate(run.reward):
         if item_card(ui, app, item_id, reward_card(i), i in app.picks):
             if i in app.picks:
@@ -461,192 +481,236 @@ def draw_reward(ui: UI, app: TowerApp) -> None:
             elif len(app.picks) < take:
                 app.picks.append(i)
     label = t("Take ({n}/{take}) and go on", n=len(app.picks), take=take)
-    if button(ui, label, TAKE, primary=True, font="big"):
+    if button(ui, label, TAKE, primary=True, style="tab"):
         app.act(run.take, db, list(app.picks))
         app.picks = []
 
 
 # --- магазин ------------------------------------------------------------------------
 
-def draw_shop(ui: UI, app: TowerApp) -> None:
+def draw_shop(ui: Gui, app: TowerApp) -> None:
     t, run, db, rules = ui.t, app.run, app.db, app.rules
-    accent = ACCENTS[SHOP]
-    panel(ui, RECRUITS, accent, t("Recruits"))
+    panel(ui, RECRUITS, t("Recruits"))
     for i, offer in enumerate(run.recruits):
-        card = recruit_card(i)
-        pygame.draw.rect(ui.screen, CELL, card, border_radius=10)
+        card = recruit_card(i, len(run.recruits))
+        body = w.frame(ui, "card", card)
         if offer is None or offer[0] not in db.units:
-            ui.text(t("hired"), card.x + 20, card.y + 20, DIM, "big")
+            ui.label(t("hired"), inset(body, 20), "heading", color=DIM, align="center")
             continue
         class_id, level = offer
         definition = db.units[class_id]
-        art = pygame.Rect(card.x + 10, card.y + 10, 200, card.height - 20)
-        pygame.draw.rect(ui.screen, PANEL_DARK, art, border_radius=8)
-        figure = app.portraits.full(class_id, (art.width - 12, art.height - 12))
-        ui.screen.blit(figure, figure.get_rect(midbottom=(art.centerx, art.bottom - 6)))
-        ui.tip(art, lambda c=class_id, lv=level: class_tip(t, db, c, lv))
-        x = card.x + 230
-        ui.text(t(definition.name), x, card.y + 14, TEXT, "big", card.right - x - 12)
-        ui.text(t("lv {n}", n=level), x, card.y + 58, GOLD, "main")
+        art_r, info = cut_left(inset(body, 10, 10), 210, 16)
+        shade(ui, art_r, 120)
+        image = app.portraits.full(class_id, (art_r.width - 12, art_r.height - 12))
+        ui.screen.blit(image, image.get_rect(midbottom=(art_r.centerx, art_r.bottom - 6)))
+        ui.tip(art_r, lambda c=class_id, lv=level: class_tip(t, db, c, lv))
+        name_r, level_r, skills_r = rows(pygame.Rect(info.x, info.y, info.width, hire_button(card).y - info.y - 10),
+                                         [44, 36, 1.0], 4)
+        ui.label(t(definition.name), name_r, "heading", color=TEXT)
+        level_badge(ui, level_r, level)
         entries = [e for e in class_entries(definition) if e[2] <= level]
-        for j, (kind, entry_id, unlock) in enumerate(entries[:4]):
-            skill_chip(ui, app, kind, entry_id, pygame.Rect(x, card.y + 96 + j * 42, card.right - x - 16, 38),
-                       unlock, level)
+        chips = max(0, min(3, (skills_r.height + 6) // 50))
+        for chip, (kind, entry_id, unlock) in zip(rows(skills_r, [44] * chips, 6), entries[:chips]):
+            skill_chip(ui, app, kind, entry_id, chip, unlock, level)
         price = rules.recruit_price(level)
         if button(ui, t("Hire for {n}", n=price), hire_button(card), enabled=run.inventory.gold >= price):
             app.act(run.hire, db, i)
 
-    panel(ui, GOODS, accent, t("Goods"))
+    panel(ui, GOODS, t("Goods"))
     for i, item_id in enumerate(run.shop_items):
-        card = goods_card(i)
+        card = goods_card(i, len(run.shop_items))
         if item_id is None:
-            pygame.draw.rect(ui.screen, CELL_EMPTY, card, border_radius=10)
-            ui.text(t("sold"), card.x + 20, card.y + 20, DIM, "big")
+            body = w.frame(ui, "card", card)
+            ui.label(t("sold"), body, "heading", color=DIM, align="center")
             continue
         price = db.items[item_id].price if item_id in db.items else 0
-        item_card(ui, app, item_id, card, price=price)
-        buy = pygame.Rect(card.right - 190, card.bottom - 62, 170, 48)
+        buy = place(inset(card, 0, 0, 18, 20), (200, 64), "bottomright")
+        item_card(ui, app, item_id, card, price=price, action=buy)
         if button(ui, t("Buy {n}", n=price), buy, primary=True, enabled=run.inventory.gold >= price):
             app.act(run.buy, db, i)
     reroll = rules.reroll_price(run.rerolls)
     if button(ui, t("New goods for {n}", n=reroll), REROLL, enabled=run.inventory.gold >= reroll):
         app.act(run.reroll, db)
 
-    body = panel(ui, SELL, lighter(accent, -30), t("Sell"))
+    panel(ui, SELL, t("Sell"))
     items = [(i, n) for i, n in sorted(run.inventory.items.items()) if n > 0 and i in db.items]
-    area = pygame.Rect(SELL.x + 20, body.y + 14, SELL.width - 40, LEAVE.y - body.y - 30)
-    rows = area.height // 86
-    offset = ui.scroll("tower-sell", area, len(items), rows)
-    for row, (item_id, count) in enumerate(items[offset:offset + rows]):
-        ry = area.y + row * 86
-        item_icon(ui, app, item_id, pygame.Rect(area.x, ry, 76, 76), count)
-        ui.text(t(db.items[item_id].name), area.x + 90, ry + 8, tier_color(db.items[item_id].tier), "small",
-                area.width - 230)
-        if button(ui, f"+{rules.sell_price(db, item_id)}", pygame.Rect(area.right - 130, ry + 16, 130, 44)):
+    area = pygame.Rect(SELL_AREA.x, SELL_AREA.y, SELL_AREA.width, LEAVE.y - SELL_AREA.y - 16)
+    lines = max(1, area.height // 92)
+    offset = ui.scroll("tower-sell", area, len(items), lines)
+    if not items:
+        ui.label(t("nothing to sell"), pygame.Rect(area.x, area.y, area.width, 40), "body", color=DIM)
+    for row, (item_id, count) in enumerate(items[offset:offset + lines]):
+        line = pygame.Rect(area.x, area.y + row * 92, area.width, 84)
+        icon_r, name_r, sell_r = cols(line, [84, 1.0, 120], 12)
+        item_icon(ui, app, item_id, icon_r, count)
+        ui.label(t(db.items[item_id].name), name_r, "small", color=tier_color(db.items[item_id].tier))
+        if button(ui, f"+{rules.sell_price(db, item_id)}", place(sell_r, (120, 60), "center"), style="small"):
             app.act(run.sell, db, item_id)
-    if button(ui, t("Leave the shop"), LEAVE, primary=True, font="big"):
+    if button(ui, t("Leave the shop"), LEAVE, primary=True, style="tab"):
         app.act(run.leave_shop)
 
 
 # --- конец забега -------------------------------------------------------------------
 
-def draw_over(ui: UI, app: TowerApp) -> None:
+def draw_over(ui: Gui, app: TowerApp) -> None:
     t, run = ui.t, app.run
-    body = panel(ui, OVER_PANEL, ACCENTS[OVER], t("Defeat on floor {n}", n=run.floor))
-    x, y = OVER_PANEL.x + 40, body.y + 30
-    ui.text(t("Floors cleared: {n}   best: {best}", n=run.floor - 1, best=run.best), x, y, TEXT, "big")
-    for i, unit in enumerate(list(run.army.units.values())[:12]):
-        rect = pygame.Rect(x + (i % 6) * 186, y + 80 + (i // 6) * 230, 170, 170)
-        portrait(ui, app, unit.definition.id, rect, DIM)
-        ui.text(f"{t(unit.name)} {unit.state.level}", rect.x, rect.bottom + 8, DIM, "small", rect.width)
-    if button(ui, t("New run"), NEW_RUN, primary=True, font="big"):
+    body = panel(ui, OVER_PANEL, t("Defeat on floor {n}", n=run.floor))
+    head, rest = cut_top(body, 60, 24)
+    ui.label(t("Floors cleared: {n}   best: {best}", n=run.floor - 1, best=run.best), head, "title", color=TEXT)
+    units = list(run.army.units.values())[:12]
+    for cell, unit in zip(grid(rest, len(units), 6, 230, 16, 16), units):
+        face, name_r = rows(cell, [1.0, 36], 4)
+        portrait(ui, app, unit.definition.id, place(face, (face.width, face.width), "top"), dim=True)
+        ui.label(f"{unit_name(t, unit)} {unit.state.level}", name_r, "small", align="center", color=DIM)
+    if button(ui, t("New run"), NEW_RUN, primary=True, style="tab"):
         app.new_run()
 
 
 # --- бой ----------------------------------------------------------------------------
 
-def draw_battle(ui: UI, app: TowerApp) -> None:
-    """Верхняя полоса, панели отрядов с портретами и журнал; поле рисует draw_field."""
+def draw_battle(ui: Gui, app: TowerApp) -> None:
+    """Верхняя полоса с раундом и скоростью, снизу панели отрядов и журнал; поле рисует сцена."""
     t, stage, view = ui.t, app.stage, app.stage.battle_view
     stage.update(ui, view, app.clock)
     sim = view.sim
-    accent = ACCENTS["battle"]
-    hud = pygame.Rect(0, FIELD.bottom, W, H - FIELD.bottom)          # полотно под полем: фон bg/battle_hud
-    ui.screen.blit(app.art.image("bg/battle_hud", hud.size, cover=True), hud.topleft)
-    pygame.draw.rect(ui.screen, PANEL_DARK, (0, 0, W, TOP_H))
-    pygame.draw.rect(ui.screen, accent, (0, TOP_H - 5, W, 5))
+    ui.screen.blit(app.art.image("bg/battle_hud", HUD.size, cover=True), HUD.topleft)
+    top_strip(ui)
     boss = app.rules.is_boss(app.run.floor)
-    ui.text(t("Floor {n}", n=app.run.floor) + ("  " + t("(boss)") if boss else ""), M, 16, ENEMY if boss else TEXT,
-            "big")
-    ui.text(t("Round {n}", n=view.round), 400, 22, GOLD, "main")
-    for i, speed in enumerate(SPEEDS):
-        if button(ui, f"x{speed}", pygame.Rect(620 + i * 92, 12, 84, 52), selected=app.speed == speed):
+    title_r, round_r = row_of(TOP_ROW, [280, 220], 16, "left")
+    ui.label(t("Floor {n}", n=app.run.floor) + ("  " + t("(boss)") if boss else ""), title_r, "title",
+             color=ENEMY if boss else GOLD)
+    ui.label(t("Round {n}", n=view.round), round_r, "heading", color=TEXT)
+    for rect, speed in zip(SPEED_BUTTONS, SPEEDS):
+        if button(ui, f"×{speed}", rect, selected=app.speed == speed, style="small"):
             app.speed = speed
-    if button(ui, t("Continue") if app.paused else t("Pause"), pygame.Rect(916, 12, 200, 52), selected=app.paused):
+    if button(ui, t("Continue") if app.paused else t("Pause"), PAUSE, selected=app.paused, style="small"):
         app.paused = not app.paused
-    if button(ui, t("Skip"), pygame.Rect(1128, 12, 160, 52), enabled=not sim.finished):
+    if button(ui, t("Skip"), SKIP, enabled=not sim.finished, style="small"):
         app.skip()
-    ui.text(t("SPACE pause   1/2/3 speed   S skip   wheel zoom"), 1310, 26, DIM, "small")
-
-    squad_hud(ui, app, sim.attacker, PLAYER_HUD, (60, 110, 190), t("Your squad"), False)
-    squad_hud(ui, app, sim.defender, ENEMY_HUD, (170, 60, 60), t("Enemies"), True)
-    body = panel(ui, LOG, (70, 74, 100), t("Battle log"))
-    name = lambda uid: f"{t(sim.units[uid].name)}({uid})"
-    lines = [format_event(ev, name, t).strip() for ev in view.log[-9:]]
+    ui.label(t("SPACE pause   1/2/3 speed   S skip   wheel zoom"),
+             pygame.Rect(SKIP.right + 24, TOP_ROW.y, W - M - SKIP.right - 24, TOP_ROW.height), "tiny", align="right",
+             color=DIM)
+    squad_hud(ui, app, sim.attacker, PLAYER_HUD, t("Your squad"), False)
+    squad_hud(ui, app, sim.defender, ENEMY_HUD, t("Enemies"), True)
+    body = hud_panel(ui, LOG, t("Battle log"))
+    name = lambda uid: f"{unit_name(t, sim.units[uid])}"
+    lines = [format_event(ev, name, t).strip() for ev in view.log[-8:]]
+    step = 27
+    lines = lines[-max(1, body.height // step):]
     for i, line in enumerate(lines):
-        ui.text(fit(ui.fonts["tiny"], line, LOG.width - 32), LOG.x + 16, body.y + 10 + i * 24,
-                TEXT if i == len(lines) - 1 else DIM, "tiny")
+        ui.label(line, pygame.Rect(body.x, body.y + i * step, body.width, step), "tiny",
+                 color=TEXT if i == len(lines) - 1 else DIM)
 
 
-def squad_hud(ui: UI, app: TowerApp, squad, rect: pygame.Rect, accent, title: str, enemy: bool) -> None:
-    """Отряд в бою: портрет, HP (как уже показано на сцене), AP и PP каждого."""
+def hud_panel(ui: Gui, rect: pygame.Rect, title: str) -> pygame.Rect:
+    """Панель под полем: рамка, короткий заголовок с линией. Возвращает область под ним."""
+    body = inset(w.frame(ui, "panel", rect), 14, 4, 14, 8)
+    head, rest = cut_top(body, 38, 6)
+    ui.label(title, head, "heading")
+    w.divider(ui, head.x, head.right, head.bottom)
+    return rest
+
+
+def squad_hud(ui: Gui, app: TowerApp, squad, rect: pygame.Rect, title: str, enemy: bool) -> None:
+    """Отряд в бою: карточки с портретом, именем, HP (как уже показано на сцене), AP и PP."""
     t, stage, view = ui.t, app.stage, app.stage.battle_view
-    body = panel(ui, rect, accent, title)
+    body = hud_panel(ui, rect, title)
     units = squad.formation.units
-    cols = 3
-    w, h = (rect.width - 32) // cols, min(110, (body.height - 20) // max(1, (len(units) + cols - 1) // cols))
-    for i, unit in enumerate(units):
-        card = pygame.Rect(rect.x + 12 + (i % cols) * (w + 4), body.y + 8 + (i // cols) * (h + 4), w, h)
+    columns = 3
+    lines = max(1, (len(units) + columns - 1) // columns)
+    cell_h = min(96, (body.height - 6 * (lines - 1)) // lines)
+    for card, unit in zip(grid(body, len(units), columns, cell_h, 8, 6), units):
         hp = stage.hp.get(unit.uid, unit.hp)
         dead = unit.uid in stage.dead or hp <= 0
-        current = view.current_uid == unit.uid
-        pygame.draw.rect(ui.screen, (40, 30, 34) if dead else CELL, card, border_radius=8)
-        pygame.draw.rect(ui.screen, YELLOW if current else lighter(accent, 20), card, 3 if current else 1,
-                         border_radius=8)
-        side = h - 12
-        image = app.portraits.portrait(unit.definition.id, side - 4, enemy)
+        inner = w.family_frame(ui, "row", card, "selected" if view.current_uid == unit.uid else "normal")
+        face, info = cut_left(inset(inner, 2, 2), inner.height - 4, 10)
+        portrait_image = app.portraits.portrait(unit.definition.id, face.height, enemy)
         if dead:
-            image = image.copy()
-            image.fill((90, 80, 80, 255), special_flags=pygame.BLEND_RGBA_MULT)
-        framed(ui, image, pygame.Rect(card.x + 6, card.y + 6, side, side), accent, width=2,
-               kind="portrait_enemy" if enemy else "portrait")
-        x = card.x + side + 14
-        width = card.right - x - 8
-        ui.text(t(unit.name), x, card.y + 6, DIM if dead else TEXT, "small", width)
-        bar(ui, pygame.Rect(x, card.y + 34, width, 16), hp, unit.max_hp, GREEN if hp * 3 > unit.max_hp else RED,
-            kind="enemy" if enemy else "hp",
-            label=f"{max(0, hp)}/{unit.max_hp}")
-        pips(ui, x, card.y + 58, unit.ap.current, unit.ap.max, AP_COLOR)
-        pips(ui, x, card.y + 76, unit.pp.current, unit.pp.max, PP_COLOR)
+            portrait_image = portrait_image.copy()
+            portrait_image.fill((90, 80, 80, 255), special_flags=pygame.BLEND_RGBA_MULT)
+        ui.screen.blit(portrait_image, face)
+        name_r, bar_r, pips_r = rows(info, [1.0, 20, 18], 2)
+        ui.label(unit_name(t, unit) if not enemy else t(unit.name), name_r, "small", color=DIM if dead else TEXT)
+        bar(ui, bar_r, max(0, hp), unit.max_hp, "enemy" if enemy else "hp", f"{max(0, hp)}/{unit.max_hp}")
+        x = diamonds(ui, app, pips_r.x, pips_r.centery, unit.ap.current, "ap", unit.ap.max, 16)
+        diamonds(ui, app, x + 10, pips_r.centery, unit.pp.current, "pp", unit.pp.max, 16)
         ui.tip(card, lambda u=unit: unit_tip(t, app.db, u))
 
 
-def pips(ui: UI, x: int, y: int, current: int, maximum: int, color) -> None:
-    for i in range(min(maximum, 10)):
-        rect = pygame.Rect(x + i * 15, y, 12, 12)
-        if i < current:
-            pygame.draw.rect(ui.screen, color, rect, border_radius=3)
-        pygame.draw.rect(ui.screen, color, rect, 1, border_radius=3)
+def battle_plate(ui: Gui, app: TowerApp, target: pygame.Surface, unit: Unit, hp: int, feet: tuple[int, int],
+                 k: float) -> None:
+    """Плашка под ногами бойца на сцене: уровень, полоса HP из кусков с числом, ромбики AP и PP, эффекты."""
+    view = app.stage.battle_view
+    enemy = view is not None and view.sim.defender.formation.position_of(unit.uid) is not None
+    x, y = feet
+    bar_rect = pygame.Rect(0, 0, round(104 * k), max(8, round(15 * k)))
+    bar_rect.midtop = (x + round(10 * k), y + round(8 * k))
+    share = max(0, hp) / max(1, unit.max_hp)
+    kind = "enemy" if enemy else "hp"
+    if not ui.skin.draw_bar(target, kind, bar_rect, share):
+        pygame.draw.rect(target, (30, 20, 26), bar_rect)
+        pygame.draw.rect(target, ENEMY if enemy else GREEN, bar_rect.inflate(-2, -2).clip(
+            pygame.Rect(bar_rect.x, bar_rect.y, round(bar_rect.width * share), bar_rect.height)))
+    inner = ui.skin.bar_inner(kind, bar_rect)
+    texts = ui.texts
+    texts.draw(target, str(max(0, hp)), ui.ts("bar").but(size=max(9, round(13 * k))), inner.inflate(0, 8), "center")
+    level_box = pygame.Rect(bar_rect.x - round(26 * k), bar_rect.y - round(4 * k), round(24 * k), bar_rect.height + round(8 * k))
+    texts.draw(target, str(unit.state.level), ui.ts("level").but(size=max(9, round(16 * k))), level_box, "right")
+    size = max(6, round(10 * k))
+    cy = bar_rect.bottom + round(3 * k) + size // 2
+    images = {key: app.art.image(f"icon/{key}", (size, size)) if app.art.has_own(f"icon/{key}") else None
+              for key in ("ap", "pp")}
+    total = unit.ap.max + unit.pp.max
+    sx = bar_rect.centerx - (total * (size + 1) + size // 2) // 2
+    for i in range(total):
+        key, full = ("ap", i < unit.ap.current) if i < unit.ap.max else ("pp", i - unit.ap.max < unit.pp.current)
+        px = sx + i * (size + 1) + (size // 2 if key == "pp" else 0)
+        image = images[key]
+        rect = pygame.Rect(px, cy - size // 2, size, size)
+        if image is not None:
+            if not full:
+                image = image.copy()
+                image.set_alpha(70)
+            target.blit(image, rect)
+        else:
+            color = (90, 160, 240) if key == "ap" else (190, 120, 235)
+            points = [rect.midtop, rect.midright, rect.midbottom, rect.midleft]
+            if full:
+                pygame.draw.polygon(target, color, points)
+            pygame.draw.polygon(target, color, points, 1)
+    if unit.effects:
+        names = ", ".join(app.t(e.definition.name) for e in unit.effects)
+        line = pygame.Rect(x - round(90 * k), cy + size // 2 + 2, round(180 * k), round(14 * k))
+        texts.draw(target, names, ui.ts("bar").but(size=max(8, round(11 * k)), color=(220, 190, 255)), line, "center")
 
 
-def draw_result(ui: UI, app: TowerApp) -> None:
-    """Итог боя поверх поля: победа или поражение и кнопка «Дальше»."""
+def draw_result(ui: Gui, app: TowerApp) -> None:
+    """Итог боя поверх поля: победа или поражение и кнопка «Дальше» (слой RESULT забирает мышь)."""
     view = app.stage.battle_view
     if not view.sim.finished or view.ended is None:
         return
     t = ui.t
     won = view.sim.winner_id == view.sim.attacker.id
-    banner = pygame.Rect(W // 2 - 420, FIELD.centery - 120, 840, 280)
-    shade = pygame.Surface(banner.size, pygame.SRCALPHA)
-    shade.fill((10, 12, 20, 210))
-    ui.screen.blit(shade, banner.topleft)
-    color = GOLD if won else ENEMY
-    pygame.draw.rect(ui.screen, color, banner, 4, border_radius=12)
-    img = ui.fonts["title"].render(t("Victory!") if won else t("Defeat"), True, color)
-    ui.screen.blit(img, img.get_rect(center=(banner.centerx, banner.y + 70)))
-    if button(ui, t("Continue (ENTER)"), CONTINUE, primary=True, font="big"):
-        app.finish_battle()
+    ui.block(BANNER, RESULT)
+
+    def draw() -> None:
+        body = w.frame(ui, "dialog", BANNER)
+        head, _ = cut_top(inset(body, 20, 10), 110)
+        ui.label(t("Victory!") if won else t("Defeat"), head, "huge", align="center", color=GOLD if won else ENEMY)
+    ui.later(RESULT, draw)
+    ui.later(RESULT, lambda: button(ui, t("Continue (ENTER)"), CONTINUE, primary=True, style="tab", layer=RESULT)
+             and app.finish_battle())
 
 
-SCREENS: dict[str, Callable[[UI, TowerApp], None]] = {
+SCREENS: dict[str, Callable[[Gui, TowerApp], None]] = {
     DRAFT: draw_draft, PREPARE: draw_prepare, REWARD: draw_reward, SHOP: draw_shop, OVER: draw_over,
 }
 
 
-def draw_frame(ui: UI, app: TowerApp, window: Optional[Window] = None) -> None:
+def draw_frame(ui: Gui, app: TowerApp, window: Optional[Window] = None) -> None:
     """Кадр в ui.screen (1920x1280); с окном поле боя рисуется прямо в окно в полном разрешении."""
     ui.t = app.t
-    ui.frames = pygame_tower_style.SKIN.draw if pygame_tower_style.SKIN is not None else None
+    app.stage.plate_drawer = lambda target, unit, hp, feet, k: battle_plate(ui, app, target, unit, hp, feet, k)
     ui.screen.fill(BACK)
     if app.in_battle:
         draw_battle(ui, app)
@@ -657,13 +721,14 @@ def draw_frame(ui: UI, app: TowerApp, window: Optional[Window] = None) -> None:
         phase = UNIT if app.view == UNIT and app.run.phase == PREPARE else app.run.phase
         scene = INVENTORY if app.view == INVENTORY and app.run.phase == PREPARE else phase
         background(ui, app, scene)
-        draw_top(ui, app, ACCENTS[phase])
+        draw_top(ui, app)
         SCREENS[app.run.phase](ui, app)
     if app.message:
-        img = ui.fonts["main"].render(fit(ui.fonts["main"], app.message, W - 80), True, YELLOW)
-        back = pygame.Rect(W // 2 - img.get_width() // 2 - 16, H - 52, img.get_width() + 32, 40)
-        pygame.draw.rect(ui.screen, PANEL_DARK, back, border_radius=8)
-        ui.screen.blit(img, (back.x + 16, back.y + 6))
+        style = ui.ts("body", color="gold")
+        width = min(W - 80, ui.width(app.message, style) + 60)
+        box = place(pygame.Rect(0, H - 70, W, 60), (width, 56), "center")
+        ui.later(3, lambda: (w.frame(ui, "tooltip", box), ui.label(app.message, inset(box, 30, 0), style,
+                                                                   align="center")))
     ui.end()
     if window is not None:
         window.present()
@@ -679,7 +744,7 @@ def banner_area(app: TowerApp) -> Optional[pygame.Rect]:
     view = app.stage.battle_view
     if view is None or not view.sim.finished:
         return None
-    return pygame.Rect(W // 2 - 420, FIELD.centery - 120, 840, 280)
+    return BANNER
 
 
 def main(max_frames: Optional[int] = None, save_path: Union[str, Path, None] = DEFAULT_SAVE_PATH,

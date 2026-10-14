@@ -312,6 +312,8 @@ class StageScreen(BattleScreen):
         self.mode = MODES[0]                # какой бой показывает вкладка (клавиша T)
         self.encounter: Optional[Callable[[], Any]] = None   # чужой бой (EXTERNAL_MODES): мир, башня
         self.on_return: Callable[[], None] = lambda: None     # Enter после чужого боя
+        # своя плашка под ногами (окно башни): (экран, юнит, HP на сцене, точка ног x y, масштаб) -> None
+        self.plate_drawer: Optional[Callable[[pygame.Surface, Unit, int, tuple[int, int], float], None]] = None
         self.stage: dict[int, Place] = {}
         self.motions: dict[int, list[Motion]] = {}
         self.tints: dict[int, list[Tint]] = {}
@@ -888,6 +890,11 @@ class StageScreen(BattleScreen):
         uid, place = unit.uid, self.stage[unit.uid]
         x, y, k = view.p((place.x, 0.0, place.z))
         hp, max_hp = self.hp.get(uid, unit.hp), max(1, unit.max_hp)
+        if self.plate_drawer is not None:
+            self.plate_drawer(target, unit, hp, (x, y), k)
+            if self.view is not None and uid == self.view.current_uid:
+                add_glow(target, view.xy(place.anchor("head")), (60, 50, 15), 30 * k, 1.0)
+            return
         w = max(4, round(place.human * 0.3 * k))
         bar = pygame.Rect(x - w // 2, y + round(8 * k), w, max(2, round(5 * k)))
         pygame.draw.rect(target, (30, 20, 22), bar.inflate(2, 2))

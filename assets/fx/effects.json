@@ -32,7 +32,7 @@
     ],
     "frames": 16,
     "fps": 24,
-    "size": 160,
+    "size": 190,
     "blend": "add",
     "layer": "front",
     "anchor": "body",
@@ -87,7 +87,7 @@
     ],
     "frames": 16,
     "fps": 24,
-    "size": 160,
+    "size": 180,
     "blend": "alpha",
     "layer": "front",
     "anchor": "body",
@@ -113,7 +113,7 @@
     ],
     "frames": 16,
     "fps": 24,
-    "size": 235,
+    "size": 260,
     "blend": "add",
     "layer": "front",
     "anchor": "body",
@@ -153,13 +153,11 @@
     ],
     "frames": 16,
     "fps": 24,
-    "size": 160,
+    "size": 200,
     "blend": "add",
-    "layer": "wrap",
+    "layer": "front",
     "anchor": "body",
-    "loop": false,
-    "back": "heal_back.png",
-    "front": "heal_front.png"
+    "loop": false
   },
   "buff": {
     "grid": [

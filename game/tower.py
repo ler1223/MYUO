@@ -26,6 +26,17 @@ from .unit import UnitDefinition
 from .world import Army, WorldMap
 
 TOWER_RULES_PATH = DEFAULT_DATA_DIR / "tower.json"
+NAMES_PATH = DEFAULT_DATA_DIR / "names.json"
+
+
+def load_names(class_id: str, path: Path = NAMES_PATH) -> list[str]:
+    """Личные имена для бойца класса (английские; перевод — в data/lang/<язык>.json, как у остального
+    текста). Классам с женской фигурой (female_classes) — женские имена, остальным — мужские."""
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        return list(data["female" if class_id in data.get("female_classes", ()) else "male"])
+    except (OSError, ValueError, KeyError):
+        return []
 DEFAULT_SAVE_PATH = Path(__file__).resolve().parent.parent / "saves" / "tower.json"
 SAVE_VERSION = 1
 PLAYER_SQUAD = "tower"
@@ -235,6 +246,7 @@ class TowerRun:
 
     def _add_unit(self, db: Database, class_id: str, level: int) -> int:
         unit = db.create_unit(class_id, self.next_uid, level, self.starter_gear(db, class_id))
+        unit.state.nickname = self._new_name(class_id)
         self.next_uid += 1
         self.army.recruit(unit)
         formation = self.squad.formation
@@ -243,6 +255,15 @@ class TowerRun:
         if cell is not None:
             self.army.assign(unit.uid, PLAYER_SQUAD, *cell)
         return unit.uid
+
+    def _new_name(self, class_id: str) -> str:
+        """Личное имя нового бойца: из data/names.json, сначала те, что ещё не заняты в армии."""
+        names = load_names(class_id)
+        if not names:
+            return ""
+        taken = {u.state.nickname for u in self.army.units.values()}
+        free = [n for n in names if n not in taken] or names
+        return self._rng(f"name{self.next_uid}").choice(free)
 
     # --- набор отряда ---
 

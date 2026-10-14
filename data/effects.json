@@ -36,6 +36,30 @@
         "to": "owner",
         "to_area": null,
         "cover_many": false
+      },
+      {
+        "event": "turn_start",
+        "whose": "self",
+        "self_condition": {
+          "type": "always"
+        },
+        "subject_condition": {
+          "type": "always"
+        },
+        "area": null,
+        "attack_tags": [],
+        "skill_areas": [],
+        "outcome": "any",
+        "effect_filter": null,
+        "threshold": 0.5,
+        "limit": "none",
+        "action": "damage",
+        "skill_id": null,
+        "effect_id": null,
+        "amount": 1,
+        "to": "owner",
+        "to_area": null,
+        "cover_many": false
       }
     ]
   },

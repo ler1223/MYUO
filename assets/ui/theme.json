@@ -1,0 +1,565 @@
+{
+  "fonts": {
+    "regular": "fonts/FiraSansCondensed-Regular.ttf",
+    "medium": "fonts/FiraSansCondensed-Medium.ttf",
+    "semibold": "fonts/FiraSansCondensed-SemiBold.ttf",
+    "italic": "fonts/FiraSansCondensed-SemiBoldItalic.ttf"
+  },
+  "colors": {
+    "text": [
+      238,
+      232,
+      216
+    ],
+    "dim": [
+      160,
+      164,
+      182
+    ],
+    "gold": [
+      244,
+      208,
+      112
+    ],
+    "gold_dim": [
+      150,
+      124,
+      72
+    ],
+    "dark": [
+      44,
+      28,
+      10
+    ],
+    "shadow": [
+      6,
+      6,
+      12
+    ],
+    "green": [
+      120,
+      214,
+      128
+    ],
+    "red": [
+      232,
+      98,
+      86
+    ],
+    "blue": [
+      120,
+      200,
+      255
+    ]
+  },
+  "text": {
+    "tiny": {
+      "face": "medium",
+      "size": 20
+    },
+    "small": {
+      "face": "medium",
+      "size": 23
+    },
+    "body": {
+      "face": "medium",
+      "size": 27
+    },
+    "label": {
+      "face": "medium",
+      "size": 25,
+      "color": "dim"
+    },
+    "number": {
+      "face": "semibold",
+      "size": 29
+    },
+    "heading": {
+      "face": "semibold",
+      "size": 31,
+      "color": "gold"
+    },
+    "title": {
+      "face": "semibold",
+      "size": 44,
+      "color": "gold"
+    },
+    "huge": {
+      "face": "semibold",
+      "size": 64,
+      "color": "gold",
+      "outline": "shadow"
+    },
+    "button": {
+      "face": "semibold",
+      "size": 28
+    },
+    "tab": {
+      "face": "semibold",
+      "size": 31
+    },
+    "name": {
+      "face": "semibold",
+      "size": 25
+    },
+    "level": {
+      "face": "italic",
+      "size": 27,
+      "color": "gold",
+      "outline": "shadow"
+    },
+    "bar": {
+      "face": "semibold",
+      "size": 19,
+      "outline": "shadow"
+    },
+    "paragraph": {
+      "face": "regular",
+      "size": 23
+    }
+  },
+  "legacy": {
+    "tiny": "tiny",
+    "small": "small",
+    "main": "body",
+    "big": "heading",
+    "title": "title"
+  },
+  "widgets": {
+    "button": {
+      "normal": "button",
+      "hover": "button_hover",
+      "selected": "button_selected",
+      "disabled": "button_disabled",
+      "text": "button",
+      "colors": {
+        "normal": "text",
+        "hover": "text",
+        "selected": "gold",
+        "disabled": "dim"
+      }
+    },
+    "primary": {
+      "normal": "button_primary",
+      "hover": "button_primary_hover",
+      "disabled": "button_disabled",
+      "text": "button",
+      "colors": {
+        "normal": "dark",
+        "hover": "dark",
+        "disabled": "dim"
+      },
+      "shadow": false
+    },
+    "tab": {
+      "normal": "tab",
+      "hover": "tab",
+      "selected": "tab_active",
+      "text": "tab",
+      "colors": {
+        "normal": "dim",
+        "hover": "text",
+        "selected": "gold"
+      }
+    },
+    "row": {
+      "normal": "row",
+      "hover": "row_hover",
+      "selected": "card_selected"
+    },
+    "card": {
+      "normal": "card",
+      "hover": "card",
+      "selected": "card_selected"
+    },
+    "slot": {
+      "normal": "slot",
+      "hover": "slot_hover",
+      "selected": "slot_hover",
+      "empty": "slot_empty"
+    },
+    "portrait": {
+      "normal": "portrait",
+      "leader": "portrait_leader",
+      "enemy": "portrait_enemy"
+    },
+    "nameplate": {
+      "normal": "nameplate",
+      "enemy": "nameplate_enemy"
+    }
+  },
+  "frames": {
+    "banner": {
+      "border": 50,
+      "scale": 0.6,
+      "fill": [
+        47,
+        16,
+        50,
+        24
+      ]
+    },
+    "button": {
+      "border": 34,
+      "scale": 0.55,
+      "middle": [
+        0,
+        36
+      ],
+      "fill": [
+        29,
+        13,
+        29,
+        15
+      ]
+    },
+    "button_disabled": {
+      "border": 34,
+      "scale": 0.55,
+      "fill": [
+        12,
+        9,
+        11,
+        13
+      ]
+    },
+    "button_hover": {
+      "border": 34,
+      "scale": 0.55,
+      "middle": [
+        0,
+        36
+      ],
+      "fill": [
+        30,
+        15,
+        29,
+        12
+      ]
+    },
+    "button_primary": {
+      "border": 34,
+      "scale": 0.55,
+      "fill": [
+        20,
+        15,
+        20,
+        15
+      ],
+      "manual": true
+    },
+    "button_primary_hover": {
+      "border": 34,
+      "scale": 0.55,
+      "fill": [
+        22,
+        17,
+        22,
+        17
+      ],
+      "manual": true
+    },
+    "button_selected": {
+      "border": 34,
+      "scale": 0.55,
+      "middle": [
+        0,
+        36
+      ],
+      "fill": [
+        32,
+        15,
+        32,
+        15
+      ]
+    },
+    "card": {
+      "border": 30,
+      "scale": 0.5,
+      "fill": [
+        10,
+        10,
+        10,
+        11
+      ]
+    },
+    "card_selected": {
+      "border": 30,
+      "scale": 0.5,
+      "fill": [
+        13,
+        14,
+        14,
+        14
+      ]
+    },
+    "dialog": {
+      "border": 70,
+      "scale": 0.8,
+      "middle": [
+        44,
+        30
+      ],
+      "fill": [
+        30,
+        65,
+        31,
+        34
+      ]
+    },
+    "gauge": {
+      "border": 50,
+      "scale": 0.35,
+      "fill": [
+        47,
+        13,
+        47,
+        13
+      ]
+    },
+    "header": {
+      "border": 52,
+      "scale": 0.5,
+      "middle": [
+        36,
+        0
+      ],
+      "fill": [
+        43,
+        27,
+        42,
+        19
+      ]
+    },
+    "inset": {
+      "border": 24,
+      "scale": 0.8,
+      "fill": [
+        9,
+        10,
+        8,
+        9
+      ]
+    },
+    "nameplate": {
+      "border": [
+        54,
+        34
+      ],
+      "scale": 0.8,
+      "middle": [
+        30,
+        0
+      ],
+      "fill": [
+        46,
+        32,
+        47,
+        29
+      ]
+    },
+    "nameplate_enemy": {
+      "border": [
+        54,
+        35
+      ],
+      "scale": 0.8,
+      "middle": [
+        30,
+        0
+      ],
+      "fill": [
+        44,
+        33,
+        44,
+        28
+      ]
+    },
+    "panel": {
+      "border": 64,
+      "scale": 0.75,
+      "middle": [
+        30,
+        30
+      ],
+      "fill": [
+        25,
+        27,
+        25,
+        27
+      ]
+    },
+    "portrait": {
+      "border": 86,
+      "scale": 0.35,
+      "middle": [
+        56,
+        44
+      ],
+      "fill": [
+        33,
+        80,
+        33,
+        41
+      ]
+    },
+    "portrait_enemy": {
+      "border": 88,
+      "scale": 0.35,
+      "middle": [
+        56,
+        44
+      ],
+      "fill": [
+        33,
+        83,
+        32,
+        41
+      ]
+    },
+    "portrait_leader": {
+      "border": 88,
+      "scale": 0.35,
+      "middle": [
+        60,
+        44
+      ],
+      "fill": [
+        33,
+        82,
+        32,
+        41
+      ]
+    },
+    "row": {
+      "border": 26,
+      "scale": 0.6,
+      "fill": [
+        23,
+        6,
+        23,
+        7
+      ]
+    },
+    "row_hover": {
+      "border": 28,
+      "scale": 0.6,
+      "fill": [
+        25,
+        9,
+        24,
+        8
+      ]
+    },
+    "skill": {
+      "border": 54,
+      "scale": 0.3,
+      "fill": [
+        47,
+        51,
+        47,
+        49
+      ]
+    },
+    "slot": {
+      "border": 50,
+      "scale": 0.35,
+      "middle": [
+        44,
+        44
+      ],
+      "fill": [
+        33,
+        36,
+        33,
+        36
+      ]
+    },
+    "slot_empty": {
+      "border": 50,
+      "scale": 0.35,
+      "middle": [
+        44,
+        44
+      ],
+      "fill": [
+        34,
+        37,
+        34,
+        37
+      ],
+      "manual": true
+    },
+    "slot_hover": {
+      "border": 50,
+      "scale": 0.35,
+      "middle": [
+        44,
+        44
+      ],
+      "fill": [
+        35,
+        36,
+        35,
+        38
+      ]
+    },
+    "tab": {
+      "border": 44,
+      "scale": 0.55,
+      "fill": [
+        18,
+        11,
+        16,
+        25
+      ]
+    },
+    "tab_active": {
+      "border": 62,
+      "scale": 0.55,
+      "middle": [
+        60,
+        0
+      ],
+      "fill": [
+        29,
+        57,
+        30,
+        25
+      ]
+    },
+    "tooltip": {
+      "border": 24,
+      "scale": 0.8,
+      "fill": [
+        8,
+        9,
+        9,
+        10
+      ]
+    }
+  },
+  "bars": {
+    "hp": {
+      "inner": [
+        32,
+        21,
+        52
+      ]
+    },
+    "exp": {
+      "inner": [
+        33,
+        21,
+        50
+      ]
+    },
+    "enemy": {
+      "inner": [
+        31,
+        21,
+        52
+      ]
+    }
+  }
+}

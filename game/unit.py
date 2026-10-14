@@ -157,6 +157,7 @@ class UnitState:
     current_hp: int
     equipment: list[Optional[str]] = field(default_factory=list)
     exp: int = 0          # опыт к следующему уровню
+    nickname: str = ""    # личное имя бойца (башня); пусто — зовётся по классу
 
 
 class Unit:
@@ -182,6 +183,11 @@ class Unit:
     @property
     def name(self) -> str:
         return self.definition.name
+
+    @property
+    def nickname(self) -> str:
+        """Личное имя, если есть, иначе название класса (для интерфейса; в журнале боя — name)."""
+        return self.state.nickname or self.definition.name
 
     @property
     def label(self) -> str:

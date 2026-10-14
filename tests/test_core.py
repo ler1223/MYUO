@@ -221,7 +221,7 @@ class EffectTests(unittest.TestCase):
         unit.take_damage(10)
         unit.add_effect(DB.effects["war_cry"])
         self.assertEqual({f.name for f in dataclasses.fields(UnitState)},
-                         {"uid", "definition_id", "level", "current_hp", "equipment", "exp"})
+                         {"uid", "definition_id", "level", "current_hp", "equipment", "exp", "nickname"})
         payload = json.dumps({"state": dataclasses.asdict(unit.state), "effects": unit.save_effects()})
 
         data = json.loads(payload)

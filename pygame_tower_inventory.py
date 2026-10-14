@@ -14,9 +14,10 @@ import pygame
 
 from game.stats import ModOp, Stat
 from pygame_tips import item_tip, modifier_text, tier_color
-from pygame_tower_style import (ACCENTS, BOTTOM_Y, CELL, CONTENT_Y, DIM, GOLD, GOLD_DIM, GREEN, ENEMY, M, TEXT, W,
-                                button, item_icon, panel, plate, portrait, preview_stats)
-from pygame_ui import UI, lighter
+from pygame_tower_style import BODY, DIM, ENEMY, GAP, GOLD, GREEN, TEXT, button, item_icon, panel, portrait, preview_stats
+from uikit import Gui
+from uikit import widgets as w
+from uikit.layout import cols, cut_left, cut_top, inset, place, rows
 
 SHOW = ("all", "free", "equipped")
 GROUPS = {"all": (), "weapons": ("light_sword", "bow", "staff", "dagger", "heavy_weapon", "lance"),
@@ -24,11 +25,61 @@ GROUPS = {"all": (), "weapons": ("light_sword", "bow", "staff", "dagger", "heavy
 SORTS = ("tier", "name", "slot", "price")       # плюс любой стат: "stat:<имя>"
 ANY = "__any__"
 
-FILTERS = pygame.Rect(M, CONTENT_Y, 400, BOTTOM_Y - CONTENT_Y - 12)
-DETAIL = pygame.Rect(W - M - 460, CONTENT_Y, 460, FILTERS.height)
-TABLE = pygame.Rect(FILTERS.right + 20, CONTENT_Y, DETAIL.x - FILTERS.right - 40, FILTERS.height)
-ROW = 100
-TABLE_AREA = pygame.Rect(TABLE.x + 14, TABLE.y + 104, TABLE.width - 28, TABLE.height - 118)
+# --- раскладка (общая для отрисовки и тестов) -----------------------------------------
+
+FILTERS, TABLE, DETAIL = cols(BODY, [470, 1.0, 440], GAP)
+PAD = (38, 92, 38, 36)                          # содержимое панели с заголовком (uikit.widgets.panel)
+FILTER_AREA = inset(FILTERS, *PAD)
+TABLE_HEAD = pygame.Rect(TABLE.x + PAD[0], TABLE.y + PAD[1], TABLE.width - 2 * PAD[0], 34)
+TABLE_AREA = pygame.Rect(TABLE_HEAD.x, TABLE_HEAD.bottom + 8, TABLE_HEAD.width,
+                         TABLE.bottom - PAD[3] - TABLE_HEAD.bottom - 8)
+DETAIL_AREA = inset(DETAIL, *PAD)
+ROW = 104
+CONTROL_H = 56
+BLOCK_LINES = (1, 2, 1, 1, 1)                   # строк кнопок в блоках: показ, тип, тир, кому, сортировка
+
+
+def filter_block(i: int) -> tuple[pygame.Rect, pygame.Rect]:
+    """i-й блок фильтров: (подпись, кнопки под ней)."""
+    y = FILTER_AREA.y
+    for k in range(i):
+        y += 40 + BLOCK_LINES[k] * (CONTROL_H + 8) + 14
+    title = pygame.Rect(FILTER_AREA.x, y, FILTER_AREA.width, 34)
+    return title, pygame.Rect(FILTER_AREA.x, title.bottom + 6, FILTER_AREA.width,
+                              BLOCK_LINES[i] * (CONTROL_H + 8) - 8)
+
+
+def show_button(i: int) -> pygame.Rect:
+    return cols(filter_block(0)[1], [1.0] * 3, 8)[i]
+
+
+def group_button(i: int) -> pygame.Rect:
+    top, bottom = rows(filter_block(1)[1], [CONTROL_H, CONTROL_H], 8)
+    return cols(top if i < 2 else bottom, [1.0, 1.0], 8)[i % 2]
+
+
+def tier_button(i: int) -> pygame.Rect:
+    return cols(filter_block(2)[1], [1.0] * 4, 8)[i]
+
+
+FITS_DROPDOWN = filter_block(3)[1]
+SORT_DROPDOWN, ORDER_BUTTON = cols(filter_block(4)[1], [1.0, 72], 8)
+RESET_BUTTON = place(FILTER_AREA, (FILTER_AREA.width, 64), "bottom")
+WEAR_TOP = DETAIL_AREA.y + 500
+
+
+def table_columns(row: pygame.Rect) -> list[pygame.Rect]:
+    """Колонки таблицы: иконка, предмет, бонусы, где."""
+    return cols(row, [84, 1.0, 220, 210], 14)
+
+
+def table_row(i: int) -> pygame.Rect:
+    return pygame.Rect(TABLE_AREA.x, TABLE_AREA.y + i * ROW, TABLE_AREA.width, ROW - 8)
+
+
+def wear_row(i: int) -> pygame.Rect:
+    """i-й боец в списке «надеть на» справа."""
+    return pygame.Rect(DETAIL_AREA.x, WEAR_TOP + 56 + i * 96, DETAIL_AREA.width, 88)
 
 
 @dataclass
@@ -99,38 +150,9 @@ def inventory_entries(app: Any, flt: InventoryFilter) -> list[Entry]:
     return entries
 
 
-# --- раскладка кнопок (общая для отрисовки и тестов) ---------------------------------
-
-def show_button(i: int) -> pygame.Rect:
-    return pygame.Rect(FILTERS.x + 20 + i * 124, FILTERS.y + 112, 116, 50)
-
-
-def group_button(i: int) -> pygame.Rect:
-    return pygame.Rect(FILTERS.x + 20 + (i % 2) * 182, FILTERS.y + 214 + (i // 2) * 58, 174, 50)
-
-
-def tier_button(i: int) -> pygame.Rect:
-    return pygame.Rect(FILTERS.x + 20 + i * 92, FILTERS.y + 382, 84, 50)
-
-
-FITS_DROPDOWN = pygame.Rect(FILTERS.x + 20, FILTERS.y + 484, FILTERS.width - 40, 50)
-SORT_DROPDOWN = pygame.Rect(FILTERS.x + 20, FILTERS.y + 586, FILTERS.width - 120, 50)
-ORDER_BUTTON = pygame.Rect(SORT_DROPDOWN.right + 10, SORT_DROPDOWN.y, 70, 50)
-RESET_BUTTON = pygame.Rect(FILTERS.x + 20, FILTERS.bottom - 74, FILTERS.width - 40, 54)
-
-
-def table_row(i: int) -> pygame.Rect:
-    return pygame.Rect(TABLE_AREA.x, TABLE_AREA.y + i * ROW, TABLE_AREA.width, ROW - 8)
-
-
-def wear_row(i: int) -> pygame.Rect:
-    """i-й боец в списке «надеть на» справа."""
-    return pygame.Rect(DETAIL.x + 16, DETAIL.y + 560 + i * 92, DETAIL.width - 32, 84)
-
-
 # --- отрисовка ----------------------------------------------------------------------
 
-def draw_inventory(ui: UI, app: Any, open_unit: Callable[..., None]) -> None:
+def draw_inventory(ui: Gui, app: Any, open_unit: Callable[..., None]) -> None:
     flt = app.inv
     draw_filters(ui, app, flt)
     entries = inventory_entries(app, flt)
@@ -138,131 +160,126 @@ def draw_inventory(ui: UI, app: Any, open_unit: Callable[..., None]) -> None:
     draw_detail(ui, app, flt)
 
 
-def label(ui: UI, text: str, y: int) -> None:
-    ui.text(text, FILTERS.x + 22, y, GOLD, "main")
-
-
-def draw_filters(ui: UI, app: Any, flt: InventoryFilter) -> None:
+def draw_filters(ui: Gui, app: Any, flt: InventoryFilter) -> None:
     t = ui.t
-    panel(ui, FILTERS, ACCENTS["prepare"], t("Filters"))
-    label(ui, t("Show"), FILTERS.y + 76)
+    panel(ui, FILTERS, t("Filters"))
+    for i, title in enumerate((t("Show"), t("Type"), t("Tier"), t("Fits a fighter"), t("Sort by"))):
+        ui.label(title, filter_block(i)[0], "label")
     for i, show in enumerate(SHOW):
         if button(ui, t({"all": "all", "free": "free", "equipped": "worn"}[show]), show_button(i),
-                  selected=flt.show == show, font="small"):
+                  selected=flt.show == show, style="small"):
             flt.show = show
-    label(ui, t("Type"), FILTERS.y + 178)
     for i, group in enumerate(GROUPS):
         if button(ui, t({"all": "any type", "weapons": "weapons", "armor": "armor and shields",
-                         "artifacts": "artifacts"}[group]), group_button(i), selected=flt.group == group, font="small"):
+                         "artifacts": "artifacts"}[group]), group_button(i), selected=flt.group == group,
+                  style="small"):
             flt.group = group
-    label(ui, t("Tier"), FILTERS.y + 346)
     for i, tier in enumerate((0, 1, 2, 3)):
         text = t("any") if tier == 0 else ("I", "II", "III")[tier - 1]
-        if button(ui, text, tier_button(i), selected=flt.tier == tier, font="small"):
+        if button(ui, text, tier_button(i), selected=flt.tier == tier, style="small"):
             flt.tier = tier
-    label(ui, t("Fits a fighter"), FILTERS.y + 448)
     units = sorted(app.run.army.units.values(), key=lambda u: u.uid)
-    options = [(ANY, t("anyone"))] + [(u.uid, f"{t(u.name)} {t('lv {n}', n=u.state.level)}") for u in units]
+    options = [(ANY, t("anyone"))] + [(u.uid, f"{t(u.nickname)} {t('lv {n}', n=u.state.level)}") for u in units]
     picked = ui.dropdown("inventory-fits", FITS_DROPDOWN, options, flt.fits if flt.fits is not None else ANY)
     if picked is not None:
         flt.fits = None if picked == ANY else picked
-    label(ui, t("Sort by"), FILTERS.y + 550)
     sorts = [(s, t({"tier": "tier", "name": "name", "slot": "slot", "price": "price"}[s])) for s in SORTS]
     sorts += [(f"stat:{s.value}", t(s.value)) for s in Stat]
     picked = ui.dropdown("inventory-sort", SORT_DROPDOWN, sorts, flt.sort)
     if picked is not None:
         flt.sort = picked
-    if button(ui, "v" if flt.descending else "^", ORDER_BUTTON):
+    if button(ui, "↓" if flt.descending else "↑", ORDER_BUTTON, style="small"):
         flt.descending = not flt.descending
     ui.tip(ORDER_BUTTON, lambda: [(t("descending") if flt.descending else t("ascending"), TEXT, "small")])
-    if button(ui, t("Reset filters"), RESET_BUTTON, font="small"):
+    if button(ui, t("Reset filters"), RESET_BUTTON, style="small"):
         app.inv = InventoryFilter(picked=flt.picked)
 
 
-def draw_table(ui: UI, app: Any, flt: InventoryFilter, entries: list[Entry], open_unit: Callable[..., None]) -> None:
+def draw_table(ui: Gui, app: Any, flt: InventoryFilter, entries: list[Entry], open_unit: Callable[..., None]) -> None:
     t, db, run = ui.t, app.db, app.run
     free = sum(e.count for e in entries if e.owner is None)
     worn = sum(1 for e in entries if e.owner is not None)
-    panel(ui, TABLE, ACCENTS["prepare"], t("Inventory"), t("free {a}, worn {b}", a=free, b=worn))
-    for x, text in ((0, t("Item")), (TABLE_AREA.width - 520, t("Bonuses")), (TABLE_AREA.width - 230, t("Where"))):
-        ui.text(text, TABLE_AREA.x + 14 + x, TABLE.y + 70, GOLD, "small")
-    rows = max(1, TABLE_AREA.height // ROW)
-    offset = ui.scroll("inventory-table", TABLE_AREA, len(entries), rows)
+    panel(ui, TABLE, t("Inventory"), t("free {a}, worn {b}", a=free, b=worn))
+    for rect, text in zip(table_columns(inset(TABLE_HEAD, 14, 0))[1:], (t("Item"), t("Bonuses"), t("Where"))):
+        ui.label(text, rect, "label")
+    lines = max(1, TABLE_AREA.height // ROW)
+    offset = ui.scroll("inventory-table", TABLE_AREA, len(entries), lines)
     sort_stat = Stat(flt.sort[5:]) if flt.sort.startswith("stat:") else None
-    for i, entry in enumerate(entries[offset:offset + rows]):
+    for i, entry in enumerate(entries[offset:offset + lines]):
         rect = table_row(i)
         item = db.items[entry.item_id]
         chosen = entry.owner is None and flt.picked == entry.item_id
-        plate(ui, rect, (60, 52, 30) if chosen else (lighter(CELL, 14) if ui.hovered(rect) else CELL),
-              GOLD if chosen else GOLD_DIM, cut=10,
-              kind="card_selected" if chosen else ("row_hover" if ui.hovered(rect) else "row"))
-        on_icon = bool(item_icon(ui, app, entry.item_id, pygame.Rect(rect.x + 8, rect.y + 6, 80, 80), entry.count))
-        x = rect.x + 104
-        ui.text(t(item.name), x, rect.y + 10, tier_color(item.tier), "main", rect.width - 660)
-        ui.text(f"{t(item.slot)} · {item.price}", x, rect.y + 52, DIM, "small", rect.width - 660)
-        mods = []
-        for mod in item.modifiers:                       # стат сортировки — первым и золотым
-            mods.append((modifier_text(t, mod), GOLD if mod.stat is sort_stat else TEXT))
-        mods.sort(key=lambda m: m[1] != GOLD)
-        mx = rect.right - 520
-        for j, (text, color) in enumerate(mods[:3]):
-            ui.text(text, mx, rect.y + 8 + j * 28, color, "small", 280)
-        wx = rect.right - 230
+        body, clicked = w.selectable(ui, rect, "row", selected=chosen)
+        icon_r, name_c, mods_c, where_c = table_columns(inset(body, 6, 2))
+        on_icon = bool(item_icon(ui, app, entry.item_id, place(icon_r, (84, 84), "center"), entry.count))
+        name_r, slot_r = rows(name_c, [1.0, 1.0])
+        ui.label(t(item.name), name_r, "body", color=tier_color(item.tier))
+        ui.label(f"{t(item.slot)} · {item.price}", slot_r, "small", color=DIM)
+        mods = [(modifier_text(t, mod), GOLD if mod.stat is sort_stat else TEXT) for mod in item.modifiers]
+        mods.sort(key=lambda m: m[1] != GOLD)                 # стат сортировки — первым и золотым
+        for line, (text, color) in zip(rows(mods_c, [1.0] * 3), mods[:3]):
+            ui.label(text, line, "small", color=color)
         if entry.owner is not None and entry.owner in run.army.units:
             owner = run.army.units[entry.owner]
-            portrait(ui, app, owner.definition.id, pygame.Rect(wx, rect.y + 8, 76, 76), GREEN)
-            ui.text(t(owner.name), wx + 84, rect.y + 16, GREEN, "small", 140)
-            ui.text(t("worn"), wx + 84, rect.y + 48, DIM, "tiny")
+            face, info = cut_left(where_c, 76, 10)
+            portrait(ui, app, owner.definition.id, place(face, (76, 76), "center"))
+            who, state = rows(info, [1.0, 1.0])
+            ui.label(t(owner.nickname), who, "small", color=GREEN)
+            ui.label(t("worn"), state, "tiny", color=DIM)
         else:
-            ui.text(t("free") + (f" x{entry.count}" if entry.count > 1 else ""), wx, rect.y + 30, TEXT, "main")
-        if ui.clicked(rect) and not on_icon:
+            ui.label(t("free") + (f" ×{entry.count}" if entry.count > 1 else ""), where_c, "body")
+        if clicked and not on_icon:
             if entry.owner is not None:
                 open_unit(app, entry.owner, "inventory", tab="equipment", slot=entry.slot)
             else:
                 flt.picked = entry.item_id
     if not entries:
-        ui.text(t("nothing matches the filters"), TABLE_AREA.x + 14, TABLE_AREA.y + 20, DIM, "main")
+        ui.label(t("nothing matches the filters"), pygame.Rect(TABLE_AREA.x, TABLE_AREA.y, TABLE_AREA.width, 44),
+                 "body", color=DIM)
 
 
-def draw_detail(ui: UI, app: Any, flt: InventoryFilter) -> None:
+def draw_detail(ui: Gui, app: Any, flt: InventoryFilter) -> None:
     """Справа: выбранный свободный предмет и бойцы, на которых его можно надеть."""
     t, db, run = ui.t, app.db, app.run
-    body = panel(ui, DETAIL, ACCENTS["prepare"], t("Item"))
+    panel(ui, DETAIL, t("Item"))
     item_id = flt.picked if flt.picked and run.inventory.has(flt.picked) else None
     if item_id is None:
         flt.picked = None
-        ui.text(t("Click a free item to put it on someone."), DETAIL.x + 20, body.y + 20, DIM, "small",
-                DETAIL.width - 40)
+        ui.paragraph(t("Click a free item to put it on someone."), DETAIL_AREA, color=DIM)
         return
     item = db.items[item_id]
-    item_icon(ui, app, item_id, pygame.Rect(DETAIL.x + 20, body.y + 16, 120, 120))
-    ui.text(t(item.name), DETAIL.x + 156, body.y + 20, tier_color(item.tier), "big", DETAIL.width - 176)
-    y = body.y + 150
-    for text, color, font in item_tip(t, db, item_id)[1:12]:
-        if text:
-            ui.text(text, DETAIL.x + 20, y, color, "small", DETAIL.width - 40)
-        y += 26
+    head, rest = cut_top(DETAIL_AREA, 120, 16)
+    icon_r, name_r = cut_left(head, 120, 16)
+    item_icon(ui, app, item_id, icon_r)
+    ui.paragraph(t(item.name), name_r, ui.ts("heading", color=tier_color(item.tier)), max_lines=2)
+    y = rest.y
+    for text, color, _font in item_tip(t, db, item_id)[1:12]:
+        if text and y < WEAR_TOP - 30:
+            ui.label(text, pygame.Rect(rest.x, y, rest.width, 30), "small", color=color)
+        y += 30 if text else 10
     wearers = [u for u in sorted(run.army.units.values(), key=lambda u: u.uid) if item.slot in u.definition.slots]
-    ui.text(t("Put on:"), DETAIL.x + 20, wear_row(0).y - 40, GOLD, "main")
-    for i, unit in enumerate(wearers[:5]):
+    w.section(ui, pygame.Rect(DETAIL_AREA.x, WEAR_TOP, DETAIL_AREA.width, 44), t("Put on:"))
+    for i, unit in enumerate(wearers):
         rect = wear_row(i)
-        plate(ui, rect, lighter(CELL, 14) if ui.hovered(rect) else CELL, GOLD_DIM, cut=8,
-              kind="row_hover" if ui.hovered(rect) else "row")
-        portrait(ui, app, unit.definition.id, pygame.Rect(rect.x + 6, rect.y + 6, 72, 72))
-        ui.text(f"{t(unit.name)} {t('lv {n}', n=unit.state.level)}", rect.x + 88, rect.y + 8, TEXT, "small",
-                rect.width - 96)
+        if rect.bottom > DETAIL_AREA.bottom:
+            break
+        body, clicked = w.selectable(ui, rect, "row")
+        face, info = cut_left(inset(body, 4, 2), 76, 12)
+        portrait(ui, app, unit.definition.id, place(face, (76, 76), "center"))
+        text_c, delta_c = cols(info, [1.0, 140], 8)
+        who, now_r = rows(text_c, [1.0, 1.0])
+        ui.label(f"{t(unit.nickname)} {t('lv {n}', n=unit.state.level)}", who, "small")
         slots = [k for k, s in enumerate(unit.definition.slots) if s == item.slot]
         slot = ([k for k in slots if unit.state.equipment[k] is None] or slots)[0]   # куда наденется
         current = unit.state.equipment[slot]
         now = t(db.items[current].name) if current in db.items else t("empty")
-        ui.text(t("now: {item}", item=now), rect.x + 88, rect.y + 44, DIM, "tiny", rect.width - 230)
+        ui.label(t("now: {item}", item=now), now_r, "tiny", color=DIM)
         after = preview_stats(app, unit, slot, item_id)
         changes = sorted(((after[s] - unit.stat(s), s) for s in Stat if after[s] != unit.stat(s)),
                          key=lambda c: -abs(c[0]))
-        for j, (delta, stat) in enumerate(changes[:2]):                  # два самых заметных изменения
-            ui.text(f"{t(stat.value)} {delta:+d}", rect.right - 190, rect.y + 10 + j * 32,
-                    GREEN if delta > 0 else ENEMY, "small", 180)
-        if ui.clicked(rect):
+        for line, (delta, stat) in zip(rows(delta_c, [1.0, 1.0]), changes[:2]):   # два самых заметных
+            ui.label(f"{t(stat.value)} {delta:+d}", line, "tiny", align="right", color=GREEN if delta > 0 else ENEMY)
+        if clicked:
             app.equip_anywhere(unit, item_id)
             if not run.inventory.has(item_id):
                 flt.picked = None
