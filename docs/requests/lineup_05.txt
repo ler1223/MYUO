@@ -1,41 +1,20 @@
-Two images are attached. Draw a new horizontal lineup sheet of full-body unit sprites of the same cast,
-standing in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
-overlapping or cropped.
+Two pictures are attached: uo_01.png - the first finished lineup, and uo_05_ref.png - numbered
+characters from Unicorn Overlord. Draw a new lineup the same way as uo_01.png: far left the Fighter from
+uo_01.png, unchanged and at the same size, then the characters of uo_05_ref.png in the order of the numbers.
 
-SCALE AND STYLE REFERENCE: the attached lineup sheet uo_01.png (unnumbered, transparent background). Far left
-of the new sheet: its first character, the Fighter, unchanged and at exactly the same size. Match its
-rendering style exactly.
+Follow the reference completely and repeat each picture: the same character with the same face, hair,
+body, armor, clothes, colors, weapon, shield, mount or wings, in the same art style. Keep the pose of the
+picture, only mirrored if needed so that everyone faces right. Do not change, add or invent anything.
 
-REFERENCE: the attached numbered sheet (uo_05_ref.png, with numbers) is the design reference - official class art of Unicorn
-Overlord. Each numbered panel is one class: a large close-up illustration on the left and the same character as
-a small full-body map sprite on the right. Line N of the list below = panel N of that sheet.
-Reproduce every character faithfully from its panel: gender, face and hair, body build, armor and clothing
-shapes, colors and patterns, helmet, cape, weapon, shield, mount or wings. Take the details from the close-up
-and the full-body silhouette (legs, boots, mount) from the small sprite. Do not invent new outfits, do not swap
-weapons, do not mix designs between panels. If a panel shows two people, draw only the one named in the line.
-The line text is only a reminder of names and heights - where it seems to disagree, the panel wins. Ignore the
-panel backgrounds and numbers.
+Rules:
+- one row on the same ground line, evenly spaced, nothing overlapping or cut off, full body from head to feet;
+- one scale for everyone: a human is as tall as that Fighter; riders, flyers and big beasts are taller - their height is in the line;
+- transparent background, no ground, no shadow, no scenery, no text, no numbers.
 
-SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
-is as tall as that Fighter. Taller units have their height in the line relative to a human (no note = human height; a weapon,
-hat or ears may rise above the head). All feet touch the same ground line near the bottom edge; flying units
-hover just above it. No character is enlarged or shrunk to fill its slot.
-
-POSE: all face right, full body from head to feet, side view with a slight three-quarter turn toward the
-viewer, calm combat-ready stance, weapons held close to the body. Mounts and wings fully visible, not cut by
-the image edge.
-
-FROM LEFT TO RIGHT:
-1. The Fighter from uo_01.png (unchanged).
-2. Feathersword (flying): as in panel 2.
-3. Gladiator: as in panel 3; about 110% of a human's height.
-4. Berserker: as in panel 4; about 115% of a human's height.
-
-STYLE: the same hand-painted 2D art as the close-ups of the reference: painterly shading with soft
-light from the upper left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds
-and metal highlights. Proportions of the close-ups (realistic, about 7 heads tall), NOT the chunky chibi
-proportions of the small map sprites. Every character in one consistent style, palette and lighting.
-
-OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no numbers, no labels.
+Characters:
+1. The Fighter from uo_01.png.
+2. Feathersword - picture 2, flying.
+3. Gladiator - picture 3, about 110% of a human's height.
+4. Berserker - picture 4, about 115% of a human's height.
 
 FILE NAME: give the finished PNG for download exactly this file name: uo_05.png (this is only the file name - never draw it or any other text in the image).

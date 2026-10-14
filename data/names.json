@@ -55,23 +55,23 @@
   "female_classes": [
     "arbalist",
     "bishop",
+    "breaker",
     "cleric",
     "crusader",
     "dreadnought",
     "druid",
     "elven_archer",
     "elven_augur",
-    "elven_fencer",
     "elven_sibyl",
     "feathersword",
     "gryphon_knight",
     "gryphon_master",
     "high_priestess",
-    "hoplite",
-    "legionnaire",
+    "landsknecht",
     "priestess",
     "radiant_knight",
     "sainted_knight",
+    "sellsword",
     "shaman",
     "shieldshooter",
     "snow_ranger",
@@ -82,6 +82,7 @@
     "werefox",
     "wereowl",
     "witch",
-    "wyvern_knight"
+    "wyvern_knight",
+    "wyvern_master"
   ]
 }

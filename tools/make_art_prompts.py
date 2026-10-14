@@ -10,7 +10,6 @@
 """
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
@@ -20,67 +19,38 @@ sys.path.insert(0, str(ROOT))
 from game.database import Database  # noqa: E402
 
 OUT = ROOT / "docs" / "uo_art_prompts.md"
-NAMES_JSON = ROOT / "data" / "names.json"
 FIRST_BATCH = 11
 ANCHOR = "fighter"          # первый персонаж первого листа — эталон роста для всех остальных листов
 SHEET_WIDTH = 4.0           # сколько «пехотинцев» помещается на лист после эталона
 WIDTH = {"cavalry": 1.8, "flying": 2.0}   # ширина всадника и летуна в пехотинцах
 
-REFERENCE_RULES = """REFERENCE: the attached numbered sheet <SHEET> is the design reference - official class art of Unicorn
-Overlord. Each numbered panel is one class: a large close-up illustration on the left and the same character as
-a small full-body map sprite on the right. Line N of the list below = panel N of that sheet.
-Reproduce every character faithfully from its panel: gender, face and hair, body build, armor and clothing
-shapes, colors and patterns, helmet, cape, weapon, shield, mount or wings. Take the details from the close-up
-and the full-body silhouette (legs, boots, mount) from the small sprite. Do not invent new outfits, do not swap
-weapons, do not mix designs between panels. If a panel shows two people, draw only the one named in the line.
-The line text is only a reminder of names and heights - where it seems to disagree, the panel wins. Ignore the
-panel backgrounds and numbers."""
-CHARACTER_STYLE = """STYLE: the same hand-painted 2D art as the close-ups of the reference: painterly shading with soft
-light from the upper left, clean dark contour lines, deep saturated but never neon colors, detailed cloth folds
-and metal highlights. Proportions of the close-ups (realistic, about 7 heads tall), NOT the chunky chibi
-proportions of the small map sprites. Every character in one consistent style, palette and lighting."""
-LINEUP_RULES = """SCALE RULES: everything at exactly the same scale, as if photographed together. A normal adult human
-is <HUMAN>. Taller units have their height in the line relative to a human (no note = human height; a weapon,
-hat or ears may rise above the head). All feet touch the same ground line near the bottom edge; flying units
-hover just above it. No character is enlarged or shrunk to fill its slot.
+FOLLOW = """Follow the reference completely and repeat each picture: the same character with the same face, hair,
+body, armor, clothes, colors, weapon, shield, mount or wings, in the same art style. Keep the pose of the
+picture, only mirrored if needed so that everyone faces right. Do not change, add or invent anything."""
+RULES = """Rules:
+- one row on the same ground line, evenly spaced, nothing overlapping or cut off, full body from head to feet;
+- one scale for everyone: <HUMAN>; riders, flyers and big beasts are taller - their height is in the line;
+- transparent background, no ground, no shadow, no scenery, no text, no numbers."""
+FIRST_LINEUP = f"""The attached picture uo_01_ref.png shows numbered characters from Unicorn Overlord.
+Draw them as one horizontal lineup of full-body game sprites, in the order of the numbers from left to right.
 
-POSE: all face right, full body from head to feet, side view with a slight three-quarter turn toward the
-viewer, calm combat-ready stance, weapons held close to the body. Mounts and wings fully visible, not cut by
-the image edge."""
-LINEUP_OUTPUT = "OUTPUT: transparent background PNG, no ground, no shadow, no scenery, no text, no numbers, no labels."
-FIRST_LINEUP = f"""Draw a horizontal lineup sheet of full-body unit sprites for a high-fantasy tactics RPG, standing
-in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
-overlapping or cropped. This sheet sets the scale and style for all later sheets of the same cast.
+{FOLLOW}
 
-{REFERENCE_RULES.replace("<SHEET>", "(uo_01_ref.png)")}
+{RULES.replace("<HUMAN>", "a human is about 40% of the image height")}
 
-{LINEUP_RULES.replace("<HUMAN>", "as tall as the first character, about 40% of the image height")}
+Characters:
+<персонажи>"""
+NEXT_LINEUP = f"""Two pictures are attached: uo_01.png - the first finished lineup, and uo_NN_ref.png - numbered
+characters from Unicorn Overlord. Draw a new lineup the same way as uo_01.png: far left the Fighter from
+uo_01.png, unchanged and at the same size, then the characters of uo_NN_ref.png in the order of the numbers.
 
-FROM LEFT TO RIGHT:
-<персонажи>
+{FOLLOW}
 
-{CHARACTER_STYLE}
+{RULES.replace("<HUMAN>", "a human is as tall as that Fighter")}
 
-{LINEUP_OUTPUT}"""
-NEXT_LINEUP = f"""Two images are attached. Draw a new horizontal lineup sheet of full-body unit sprites of the same cast,
-standing in one row on the same flat ground line, evenly spaced with clear empty space between them, nothing
-overlapping or cropped.
-
-SCALE AND STYLE REFERENCE: the attached lineup sheet uo_01.png (unnumbered, transparent background). Far left
-of the new sheet: its first character, the Fighter, unchanged and at exactly the same size. Match its
-rendering style exactly.
-
-{REFERENCE_RULES.replace("<SHEET>", "(uo_NN_ref.png, with numbers)")}
-
-{LINEUP_RULES.replace("<HUMAN>", "as tall as that Fighter")}
-
-FROM LEFT TO RIGHT:
-1. The Fighter from uo_01.png (unchanged).
-<персонажи>
-
-{CHARACTER_STYLE}
-
-{LINEUP_OUTPUT}"""
+Characters:
+1. The Fighter from uo_01.png.
+<персонажи>"""
 
 # Рост выше человека, % (всадники и летуны — с конём или зверем); остальные — рост человека
 HEIGHT = {
@@ -89,9 +59,6 @@ HEIGHT = {
     "doom_knight": 190, "paladin": 180, "high_lord": 180,
     "wyvern_knight": 200, "wyvern_master": 220, "gryphon_knight": 200, "gryphon_master": 220,
 }
-# В справке UO у этих классов двое — мужчина и женщина: рисуется тот, чей пол у класса в data/names.json
-PAIRS = {"elven_archer", "elven_fencer", "sellsword", "landsknecht", "soldier", "sergeant", "swordfighter",
-         "sword_master", "warrior", "breaker"}
 # Значки типов навыков (game.skill_kinds): символ типа; активные и пассивные различаются цветом
 SKILL_SYMBOLS = {
     "attack": "two crossed swords",
@@ -116,18 +83,13 @@ ITEM_LOOKS = {
 }
 
 
-def gender(db: Database) -> dict[str, str]:
-    female = set(json.loads(NAMES_JSON.read_text(encoding="utf-8")).get("female_classes", ()))
-    return {c: "female" if c in female else "male" for c in db.units}
-
-
-def look_line(db: Database, class_id: str, panel: int, sex: str) -> str:
-    """«Knight (cavalry): as in panel 2; about 180% of a human's height.» — внешность берётся с панели коллажа."""
+def look_line(db: Database, class_id: str, number: int) -> str:
+    """«Knight - picture 2, rider on a horse, about 180% of a human's height.» — внешность с картинки коллажа."""
     unit = db.units[class_id]
-    kind = next((f" ({tag})" for tag in ("cavalry", "flying") if tag in unit.tags), "")
-    who = f", the {sex} one of the two" if class_id in PAIRS else ""
-    height = f"; about {HEIGHT[class_id]}% of a human's height" if class_id in HEIGHT else ""
-    return f"{unit.name}{kind}: as in panel {panel}{who}{height}."
+    kind = {"cavalry": ", rider on a horse", "flying": ", flying"}
+    kind = next((text for tag, text in kind.items() if tag in unit.tags), "")
+    height = f", about {HEIGHT[class_id]}% of a human's height" if class_id in HEIGHT else ""
+    return f"{unit.name} - picture {number}{kind}{height}."
 
 
 def families(db: Database) -> list[list[str]]:
@@ -207,8 +169,8 @@ def main() -> None:
            "2. Готовый лист — в `assets/ui/sheets/` под именем батча и нарезка: "
            "`python tools/cut_ui_sheet.py <номер> --force` (батчи 11+ ищутся в этом файле).",
            "3. Спрайты классов — листы-линейки (раздел 1): общий промпт листа ниже плюс строки персонажей. Внешность "
-           "берётся с коллажа-референса `assets/ref/lineups/uo_NN_ref.png` (картинки классов с вики UO, собирает "
-           "`python tools/uo_class_refs.py`): строка N = панель N. Первый лист задаёт рост и стиль: его Fighter — "
+           "берётся с коллажа-референса `assets/ref/lineups/uo_NN_ref.png` (арт классов UO в полный рост, собирает "
+           "`python tools/uo_class_refs.py`): строка N = персонаж с номером N. Первый лист задаёт рост и стиль: его Fighter — "
            "эталон, готовый `uo_01.png` прикладывается ко всем следующим листам вместе с их коллажем. Лист — в "
            "`assets/sprites_src/lineup/` и `python tools/cut_lineup.py ...` (команда у каждого листа). Свой спрайт "
            "сразу заменяет временный похожий (прежние спрайты — `assets/units/old_*`).",
@@ -221,14 +183,13 @@ def main() -> None:
     totals = {}
 
     # 1. Спрайты классов
-    sexes = gender(db)
     sheets = lineup_sheets(db)
     count = sum(len(s) for s in sheets)
     out += ["## 1. Спрайты классов — листы-линейки", "",
             f"Все {count} классов заново, семьями (базовый класс и его повышения рядом): {len(sheets)} листов. "
-            "Конница и летуны шире — их на листе меньше; рост выше человека указан в строке. Внешность — с панели "
-            "коллажа `assets/ref/lineups/uo_NN_ref.png` с тем же номером, что у строки. Где в справке UO двое "
-            "(мужчина и женщина), рисуется тот, чей пол у класса в `female_classes` (`data/names.json`).", "",
+            "Конница и летуны шире — их на листе меньше; рост выше человека указан в строке. Внешность — с "
+            "коллажа `assets/ref/lineups/uo_NN_ref.png`: персонаж с тем же номером, что у строки, повторяется "
+            "полностью.", "",
             "## Линейка: первый лист", "", "Приложить `assets/ref/lineups/uo_01_ref.png`.",
             "", "```", FIRST_LINEUP, "```", "",
             "## Линейка: остальные листы", "", "Приложить готовый `assets/sprites_src/lineup/uo_01.png` и коллаж "
@@ -243,7 +204,7 @@ def main() -> None:
         out += [f"**Лист {n}** (`assets/sprites_src/lineup/{name}`): "
                 f"`python tools/cut_lineup.py assets/sprites_src/lineup/{name} {who} --reference {reference}`",
                 "", "```"]
-        out += [f"{k}. {look_line(db, c, k, sexes[c])}" for k, c in enumerate(group, start=first)]
+        out += [f"{k}. {look_line(db, c, k)}" for k, c in enumerate(group, start=first)]
         out += ["```", ""]
     totals["спрайты классов"] = len(sheets)
 
