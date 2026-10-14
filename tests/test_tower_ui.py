@@ -246,6 +246,41 @@ class TowerWindowTests(unittest.TestCase):
         self.assertTrue(pp.go_back(app))                                        # Esc — обратно в список
         self.assertEqual(app.view, pp.UNITS)
 
+    def test_tactics_table_in_the_style_of_uo(self):
+        import pygame_tower_unit as pu
+        rule = {"skill": "x", "condition": {"type": "always"}, "self_condition": {"type": "always"},
+                "selector": "frontmost"}
+        both = pu.set_column(pu.set_column(rule, 0, pu.TARGET, {"type": "hp_below", "value": 0.5}), 1,
+                             pu.PRIORITY, "weakest")
+        self.assertEqual(pu.rule_items(both), [(pu.TARGET, {"type": "hp_below", "value": 0.5}),
+                                               (pu.PRIORITY, "weakest")])
+        swapped = pu.set_column(both, 0, pu.SELF, {"type": "has_label", "label": "buff"})   # замена в колонке 1
+        self.assertEqual(swapped["condition"], {"type": "always"})
+        self.assertEqual(pu.rule_items(pu.set_column(both, 1, None, None)), [(pu.TARGET, both["condition"])])
+        self.draft()
+        app = self.app
+        unit = app.run.fielded[0]
+        pp.open_unit(app, unit.uid, pp.MAIN, pp.TACTICS)
+        self.frame()
+        rules_before = len(unit.tactics.to_list())
+        cell = pu.tactic_columns(pu.tactic_row(0))[2]
+        self.click(*cell.center)                                   # «Условие 1» первого правила
+        self.assertEqual(app.tactic_pick, (0, 0))
+        options = [(None, None)] + [(g, v) for g, v, *_ in pu.condition_options(app.db)]
+        index = next(i for i, (g, v) in enumerate(options) if v == {"type": "hp_below", "value": 0.5} and g == pu.TARGET)
+        box_y = cell.bottom + 6 if cell.bottom + 6 + min(len(options) * 50 + 24, pu.CONTENT_BODY.height - 40) \
+            <= pu.CONTENT_BODY.bottom else None
+        if box_y is not None and index < 15:
+            self.click(cell.x - 60 + 40, box_y + 12 + index * 50 + 20)
+            self.assertEqual(unit.tactics.to_list()[0]["condition"], {"type": "hp_below", "value": 0.5})
+            self.assertIsNone(app.tactic_pick)
+        self.click(*cell.center)
+        self.assertTrue(pp.go_back(app))                            # Esc закрывает список, а не редактор
+        self.assertEqual((app.tactic_pick, app.view), (None, pp.UNIT))
+        self.frame()                                                # кадр без списка (как после Esc в игре)
+        self.click(*pu.tactic_columns(pu.tactic_row(rules_before))[1].center)   # «+ Добавить тактику»
+        self.assertEqual(len(unit.tactics.to_list()), rules_before + 1)
+
     def test_promotion_by_clicks(self):
         path = self.data_dir / "units.json"
         units = json.loads(path.read_text(encoding="utf-8"))

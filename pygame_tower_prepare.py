@@ -18,26 +18,25 @@ from typing import Any, Optional
 
 import pygame
 
-from game.editing import describe_reaction, describe_skill, set_tactics
-from game.stats import Stat
 from dataclasses import replace
 
 from game import promotion
+from game.stats import Stat  # noqa: F401  (pp.Stat в тестах)
 from game.rating import rate_formation, rate_squad, rate_unit
 from game.unit import Unit
-from pygame_editors import ROW_H, rule_table
-from pygame_tips import modifier_text, tier_color, unit_tip
+from pygame_tips import unit_tip
 from pygame_tower_inventory import draw_inventory
-from pygame_tower_style import (BODY, BOTTOM_H, BOTTOM_Y, DIM, ENEMY, GAP, GOLD, GREEN, M, TEXT, W, bar, button,
-                                class_entries, class_line, crown, figure, item_icon, level_badge, nameplate, panel,
-                                portrait, preview_stats, shade, skill_chip, stat_rows, unit_name)
+from pygame_tower_unit import (ART, CONTENT, EDITOR, EQUIPMENT, FIELD_TOGGLE, NONE_ITEM, PROMOTE_AREA,  # noqa: F401
+                               PROMOTE_BUTTON, STATUS, TABS, TACTICS, draw_editor, draw_unit_art, leader_kind,
+                               place_text, power_tip)
+from pygame_tower_style import (BODY, BOTTOM_H, BOTTOM_Y, DIM, ENEMY, GAP, GOLD, GREEN, M, TEXT, W, bar, button,  # noqa
+                                class_line, figure, item_icon, level_badge, nameplate, panel, portrait, preview_stats,
+                                shade, skill_chip, unit_name)
 from uikit import Gui
 from uikit import widgets as w
 from uikit.layout import cols, cut_left, cut_top, grid, inset, place, row_of, rows
 
 MAIN, SQUAD, UNITS, UNIT, INVENTORY, PROMOTE = "main", "squad", "units", "unit", "inventory", "promote"
-STATUS, EQUIPMENT, TACTICS = "status", "equipment", "tactics"
-NONE_ITEM = "__none__"
 SNAP = 1.6                          # прилипание: до скольких «радиусов клетки» от курсора
 DRAG_MIN = 12                       # дальше стольких пикселей от нажатия — уже перетаскивание
 PLATES, DRAG = 1, 5                 # слои: плашки над фигурами, перетаскиваемый боец над всем
@@ -52,17 +51,6 @@ SQUAD_BUTTON, UNITS_BUTTON, INVENTORY_BUTTON = row_of(BOTTOM_ROW, [300, 300, 300
 FIGHT = place(BOTTOM_ROW, (420, BOTTOM_ROW.height), "right")
 BACK, PREV, NEXT = row_of(BOTTOM_ROW, [260, 250, 250], 16, "left")
 COUNTER = pygame.Rect(NEXT.right + 24, BOTTOM_ROW.y, 200, BOTTOM_ROW.height)
-# редактор бойца: слева фигура, справа вкладки (над ними место под лилию активной вкладки) и содержимое
-ART, EDITOR = cut_left(BODY, 620, GAP)
-TAB_ROW = pygame.Rect(EDITOR.x + 30, EDITOR.y + 30, EDITOR.width - 60, 72)
-TABS = dict(zip((STATUS, EQUIPMENT, TACTICS), row_of(TAB_ROW, [310, 310, 310], 10, "left")))
-CONTENT = pygame.Rect(EDITOR.x, TAB_ROW.bottom, EDITOR.width, EDITOR.bottom - TAB_ROW.bottom)
-CONTENT_BODY = inset(CONTENT, 44, 36, 44, 36)
-FIELD_TOGGLE, PROMOTE_BUTTON = cols(place(inset(ART, 40, 0, 40, 34), (ART.width - 80, 76), "bottom"), [1.0, 1.0], 12)
-NAME_BLOCK = pygame.Rect(ART.x + 40, FIELD_TOGGLE.y - 210, ART.width - 80, 196)
-PROMOTE_AREA = inset(EDITOR, 38, 92, 38, 36)            # пути повышения — карточки рядом
-
-
 def promote_card(i: int, count: int) -> pygame.Rect:
     """i-я карточка пути повышения из count."""
     return cols(PROMOTE_AREA, [1.0] * max(1, count), 20)[i]
@@ -78,7 +66,6 @@ LIST_HEAD = pygame.Rect(LIST.x + PANEL_PAD[0], LIST.y + PANEL_PAD[1], LIST.width
 LIST_AREA = pygame.Rect(LIST_HEAD.x, LIST_HEAD.bottom + 10, LIST_HEAD.width,
                         LIST.bottom - PANEL_PAD[3] - LIST_HEAD.bottom - 10)
 LIST_ROW = 116
-TABLE_W = 780                       # ширина таблицы тактики при базовом масштабе (RULE_MOVE + кнопки)
 
 
 def list_columns(row: pygame.Rect) -> list[pygame.Rect]:
@@ -391,22 +378,6 @@ def ordered_units(app: Any) -> list[Unit]:
                                         formation.position_of(u.uid) or (0, 0), u.uid))
 
 
-def place_text(app: Any, unit: Unit) -> str:
-    t = app.t
-    formation = app.run.squad.formation
-    position = formation.position_of(unit.uid)
-    if position is None:
-        return t("reserve")
-    row, col = position
-    names = {0: t("front row"), formation.rows - 1: t("back row")}
-    return f"{names.get(row, t('middle row'))}, {t('place {n}', n=col + 1)}"
-
-
-def leader_kind(app: Any, unit: Unit) -> str:
-    """Рамка портрета: у лидера отряда — с короной."""
-    return "leader" if app.run.squad.leader_uid == unit.uid else "normal"
-
-
 # --- список юнитов ---------------------------------------------------------------------
 
 def draw_units(ui: Gui, app: Any) -> None:
@@ -449,15 +420,8 @@ def draw_units(ui: Gui, app: Any) -> None:
 # --- редактор бойца -----------------------------------------------------------------
 
 def draw_unit(ui: Gui, app: Any, unit: Unit) -> None:
-    t, run = ui.t, app.run
-    draw_unit_art(ui, app, unit)
-    for tab, rect in TABS.items():
-        label = t({STATUS: "Status", EQUIPMENT: "Equipment", TACTICS: "Tactics"}[tab])
-        key = {STATUS: "icon/units", EQUIPMENT: "icon/inventory", TACTICS: "icon/tactics"}[tab]
-        if button(ui, label, rect, tab=True, selected=app.tab == tab, icon_key=key, app=app):
-            app.tab = tab
-    w.frame(ui, "panel", CONTENT)
-    {STATUS: draw_status, EQUIPMENT: draw_equipment, TACTICS: draw_tactics}[app.tab](ui, app, unit)
+    t = ui.t
+    draw_editor(ui, app, unit)
 
     bottom_strip(ui)
     if button(ui, t("Back"), BACK):
@@ -469,193 +433,6 @@ def draw_unit(ui: Gui, app: Any, unit: Unit) -> None:
     if button(ui, t("Next") + " ›", NEXT, enabled=len(order) > 1):
         open_unit(app, order[(index + 1) % len(order)], app.back_view)
     ui.label(f"{index + 1} / {len(order)}", COUNTER, "heading", color=DIM)
-
-
-def draw_unit_art(ui: Gui, app: Any, unit: Unit) -> None:
-    """Слева: фигура во весь рост, под ней имя, класс, уровень, опыт и место; кнопка отряд/резерв."""
-    t, run = ui.t, app.run
-    w.frame(ui, "panel", ART)
-    glow = pygame.Surface((ART.width - 60, ART.height - 60), pygame.SRCALPHA)
-    for r in range(260, 0, -20):
-        pygame.draw.circle(glow, (60, 80, 140, 10), (glow.get_width() // 2, glow.get_height() // 2 - 80), r * 1.4)
-    ui.screen.blit(glow, (ART.x + 30, ART.y + 30))
-    stage = pygame.Rect(ART.x + 34, ART.y + 34, ART.width - 68, NAME_BLOCK.y - ART.y - 44)
-    image = app.portraits.full(unit.definition.id, stage.size)        # вписана в панель целиком (и всадник)
-    ui.screen.blit(image, image.get_rect(midbottom=stage.midbottom))
-    body = w.frame(ui, "card", NAME_BLOCK)
-    name_r, class_r, exp_r, where_r = rows(inset(body, 22, 10), [56, 40, 36, 1.0], 4)
-    ui.label(unit_name(t, unit), name_r, "title")
-    right = level_badge(ui, class_r, unit.state.level)
-    ui.label(class_line(t, unit), pygame.Rect(right + 18, class_r.y, class_r.right - right - 18, class_r.height),
-             "body", color=DIM)
-    need = app.rules.exp.per_level
-    text_w = 170
-    ui.label(t("exp {n}/{need}", n=unit.state.exp, need=need), pygame.Rect(exp_r.right - text_w, exp_r.y, text_w,
-                                                                           exp_r.height), "small", align="right",
-             color=(120, 200, 255))
-    bar(ui, place(pygame.Rect(exp_r.x, exp_r.y, exp_r.width - text_w - 10, exp_r.height),
-                  (exp_r.width - text_w - 10, 22), "center"), unit.state.exp, need, "exp")
-    ui.label(place_text(app, unit), where_r, "small", color=DIM)
-    rating = rate_unit(unit, app.db)
-    power_r = ui.label(t("Power {n}", n=rating.power), where_r, "small", align="right", color=GOLD)
-    power_tip(ui, power_r.inflate(12, 16), rating)
-    if run.squad.leader_uid == unit.uid:
-        crown(ui, app, (NAME_BLOCK.right - 36, NAME_BLOCK.y + 6), 44)
-    fielded = run.squad.formation.position_of(unit.uid) is not None
-    if button(ui, t("To reserve") if fielded else t("To the squad"), FIELD_TOGGLE):
-        app.act(run.bench if fielded else run.field, unit.uid)
-    paths = [p for p in unit.definition.promotions if p.class_id in app.db.units]
-    if not paths:
-        ui.label(t("final class"), PROMOTE_BUTTON, "small", align="center", color=DIM)
-    elif app.view != PROMOTE:
-        ready = bool(promotion.available(unit, app.db))
-        label = t("Promotion!") if ready else t("Promotion at lv {n}", n=min(p.level for p in paths))
-        if button(ui, label, PROMOTE_BUTTON, primary=ready, style=None if ready else "small"):
-            app.view = PROMOTE
-
-
-def skill_lines(unit: Unit) -> tuple[list, list]:
-    """(активные, пассивные): (вид, id, уровень открытия) класса и снаряжения."""
-    entries = class_entries(unit)
-    items = [("skill", s, 1) for item in unit.equipped for s in item.skills] + \
-            [("passive", p, 1) for item in unit.equipped for p in item.passives]
-    skills = [e for e in entries if e[0] == "skill"] + [e for e in items if e[0] == "skill"]
-    passives = [e for e in entries if e[0] == "passive"] + [e for e in items if e[0] == "passive"]
-    return skills, passives
-
-
-def draw_status(ui: Gui, app: Any, unit: Unit) -> None:
-    t, db = ui.t, app.db
-    left, right = cols(CONTENT_BODY, [560, 1.0], 56)
-    area = w.section(ui, left, t("Parameters"))
-    hp_r, area = cut_top(area, 34, 14)
-    bar(ui, hp_r, unit.hp, unit.max_hp, "hp", f"HP {unit.hp}/{unit.max_hp}")
-    stats_r, area = cut_top(area, 11 * 42, 18)
-    stat_rows(ui, app, unit, stats_r)
-    traits = w.section(ui, area, t("Traits"))
-    tags = [tag for tag in unit.definition.tags if tag in db.tags]
-    for chip, tag in zip(grid(traits, len(tags), 3, 48, 10, 8), tags):
-        body = w.frame(ui, "row", chip)
-        ui.label(t(db.tags[tag].name), body, "small", align="center")
-
-    skills, passives = skill_lines(unit)
-    area = w.section(ui, right, t("Active skills"))
-    area = skill_list(ui, app, unit, skills, area)
-    area = w.section(ui, pygame.Rect(area.x, area.y + 10, area.width, area.height - 10), t("Passive skills"))
-    skill_list(ui, app, unit, passives, area)
-
-
-def skill_list(ui: Gui, app: Any, unit: Unit, entries: list, area: pygame.Rect) -> pygame.Rect:
-    """Навыки строками с описанием под каждой. Возвращает остаток области."""
-    db, t = app.db, ui.t
-    for kind, entry_id, unlock in entries:
-        if area.height < 84:
-            break
-        row, area = cut_top(area, 84, 10)
-        chip, note = rows(row, [48, 1.0], 2)
-        skill_chip(ui, app, kind, entry_id, chip, unlock, unit.state.level, costs=True)
-        if kind == "skill" and entry_id in db.skills:
-            parts = describe_skill(db.skills[entry_id], db, t).split(" | ")
-            line = ", ".join(parts[1:]) or parts[0]
-        elif entry_id in db.passives:
-            line = describe_reaction(db.passives[entry_id].reaction, db, t)
-        else:
-            line = ""
-        ui.label(line, inset(note, 56, 0, 8, 0), "tiny", color=DIM)
-    return area
-
-
-def draw_equipment(ui: Gui, app: Any, unit: Unit) -> None:
-    t, db, inventory = ui.t, app.db, app.run.inventory
-    left, right = cols(CONTENT_BODY, [620, 1.0], 56)
-    area = w.section(ui, left, t("Equipment"))
-    slots = unit.definition.slots
-    app.slot = min(app.slot, max(0, len(slots) - 1))
-    for index, slot in enumerate(slots):
-        rect = pygame.Rect(area.x, area.y + index * 124, area.width, 114)
-        if rect.bottom > area.bottom:
-            break
-        body, clicked = w.selectable(ui, rect, "card", selected=index == app.slot)
-        icon_r, text_r = cut_left(inset(body, 8, 6), 96, 16)
-        slot_r, name_r, mods_r = rows(text_r, [26, 1.0, 26], 2)
-        ui.label(t(slot), slot_r, "tiny", color=GOLD if index == app.slot else DIM)
-        current = unit.state.equipment[index]
-        if current is not None:
-            item_icon(ui, app, current, place(icon_r, (96, 96), "center"))
-            ui.label(t(db.items[current].name), name_r, "body", color=tier_color(db.items[current].rank))
-            ui.label(", ".join(modifier_text(t, m) for m in db.items[current].modifiers), mods_r, "tiny")
-        else:
-            w.family_frame(ui, "slot", place(icon_r, (96, 96), "center"), "empty")
-            ui.label(t("empty"), name_r, "body", color=DIM)
-        if clicked:
-            app.slot = index
-
-    # Справа: статы с разницей и подходящие предметы из инвентаря
-    stats_area = w.section(ui, right, t("Parameters"))
-    stats_r, rest = cut_top(stats_area, 11 * 34, 22)
-    preview = None
-    hovered: Optional[str] = None
-    if slots:
-        slot = slots[app.slot]
-        fits = [i for i, n in sorted(inventory.items.items()) if n > 0 and i in db.items and db.items[i].slot == slot]
-        area = w.section(ui, rest, t("Inventory: {slot}", slot=t(slot)))
-        current = unit.state.equipment[app.slot]
-        options = ([NONE_ITEM] if current is not None else []) + fits
-        lines = max(1, area.height // 94)
-        offset = ui.scroll(("tower-fits", unit.uid, app.slot), area, len(options), lines)
-        for i, item_id in enumerate(options[offset:offset + lines]):
-            rect = pygame.Rect(area.x, area.y + i * 94, area.width, 86)
-            hover = ui.hovered(rect)
-            body, clicked = w.selectable(ui, rect, "row")
-            if item_id == NONE_ITEM:
-                ui.label(t("Take off"), inset(body, 20, 0), "body", color=DIM)
-            else:
-                icon_r, text_r = cut_left(inset(body, 4, 2), 76, 14)
-                item_icon(ui, app, item_id, place(icon_r, (76, 76), "center"), inventory.count(item_id))
-                name_r, mods_r = rows(text_r, [1.0, 1.0])
-                ui.label(t(db.items[item_id].name), name_r, "body", color=tier_color(db.items[item_id].rank))
-                ui.label(", ".join(modifier_text(t, m) for m in db.items[item_id].modifiers), mods_r, "tiny")
-            if hover:
-                hovered = item_id
-            if clicked:
-                app.change_equipment(unit, app.slot, item_id)
-        if not options:
-            ui.label(t("no fitting items in the inventory"), pygame.Rect(area.x, area.y, area.width, 40), "small",
-                     color=DIM)
-        if hovered is not None:
-            preview = preview_stats(app, unit, app.slot, None if hovered == NONE_ITEM else hovered)
-    stat_rows(ui, app, unit, stats_r, 2, preview, style="small")
-
-
-def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
-    t, db = ui.t, app.db
-    note, rest = cut_top(CONTENT_BODY, 64, 16)
-    ui.paragraph(t("Rules are checked top to bottom: the first one whose conditions hold,") + " " +
-                 t("with a valid target and enough AP, is used. Otherwise: Attack, if AP allows."), note,
-                 color=DIM, max_lines=2)
-    rules_ = unit.tactics.to_list()
-    # Таблица рассчитана на базовые 1000 px: масштаб такой, чтобы она поместилась во вкладку
-    scale, ui.scale = ui.scale, min(ui.scale, rest.width / TABLE_W)
-    try:
-        new_rules = rule_table(ui, db, ("tower-tactics", unit.uid), rules_, unit.skill_ids, rest.x, rest.y)
-        table_bottom = rest.y + round(20 * ui.scale) + (len(rules_) + 1) * round(ROW_H * ui.scale) + 20
-    finally:
-        ui.scale = scale
-    reset = pygame.Rect(rest.x, table_bottom, 380, 64)
-    if button(ui, t("Reset to default"), reset, enabled=unit.has_custom_tactics):
-        unit.reset_tactics()
-        app.save()
-    elif new_rules is not None:
-        try:
-            set_tactics(db, unit, new_rules)
-            app.save()
-        except (ValueError, KeyError) as error:
-            app.message = str(error)
-    area = w.section(ui, pygame.Rect(rest.x, reset.bottom + 24, rest.width, rest.bottom - reset.bottom - 24),
-                     t("Available skills"))
-    skill_ids = unit.skill_ids[:9]
-    for chip, skill_id in zip(grid(area, len(skill_ids), 3, 50, 16, 10), skill_ids):
-        skill_chip(ui, app, "skill", skill_id, chip, costs=True)
 
 
 # --- повышение -----------------------------------------------------------------------
@@ -737,20 +514,11 @@ def enemy_rating(app: Any):
     return rate_squad(units, db)
 
 
-def power_tip(ui: Gui, rect: pygame.Rect, rating: Any) -> None:
-    """Подсказка: из чего сложилась сила."""
-    t = ui.t
-    ui.tip(rect, lambda: [(t("Power {n}", n=rating.power), GOLD, "main"),
-                          (t("toughness {n}", n=round(rating.defence)), TEXT, "small"),
-                          (t("damage per battle {n}", n=round(rating.offence)), TEXT, "small"),
-                          (t("speed x{n}", n=f"{rating.speed:.2f}"), TEXT, "small"),
-                          (t("passives {n}", n=rating.passives), TEXT, "small"), ("", TEXT, "small"),
-                          (t("Formula estimate (data/rating.json); a fighter in the front row adds more toughness."),
-                           DIM, "small")])
-
-
 def go_back(app: Any) -> bool:
-    """Esc на подготовке: из редактора — туда, откуда пришли, из списков — на главный экран."""
+    """Esc на подготовке: закрыть список тактики; из редактора — туда, откуда пришли, из списков — на главный."""
+    if getattr(app, "tactic_pick", None) is not None:
+        app.tactic_pick = None
+        return True
     if app.view == PROMOTE:
         app.view = UNIT
         return True

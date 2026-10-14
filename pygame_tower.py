@@ -30,9 +30,9 @@ from pygame_battle import FIELD_RECT, SKIP_BACKLOG_MS, BattleView
 from pygame_stage import TOWER_MODE, StageScreen, load_visuals
 from pygame_tips import STAT_COLORS, class_tip, modifier_text, tier_color, unit_tip
 from pygame_tower_inventory import InventoryFilter
-from pygame_tower_prepare import INVENTORY, MAIN, PROMOTE, STATUS, UNIT, draw_prepare, go_back
+from pygame_tower_prepare import EQUIPMENT, INVENTORY, MAIN, PROMOTE, UNIT, draw_prepare, go_back
 from pygame_tower_style import (BACK, DIM, ENEMY, FULL_BODY, GAP, GOLD, GREEN, H, M, SIZE, SIZES, TEXT, TOP_H, W,
-                                background, bar, button, class_entries, class_line, diamonds, item_icon, level_badge,
+                                background, bar, button, class_entries, diamonds, item_icon, level_badge,
                                 make_ui, panel, portrait, shade, skill_chip, stat_rows, unit_name)
 from pygame_ui import Window
 from uikit import Gui
@@ -153,7 +153,8 @@ class TowerApp:
         self.view = MAIN
         self.back_view = MAIN                  # куда вернуться из редактора бойца
         self.selected: Optional[int] = None
-        self.tab = STATUS
+        self.tab = EQUIPMENT
+        self.tactic_pick = None                # открытый список в таблице тактики: (правило, колонка)
         self.slot = 0
         self.drag: Optional[tuple[int, tuple[int, int]]] = None   # (uid, где нажали) — бойца тащат
         self.preview = None
@@ -399,7 +400,7 @@ def draw_class_card(ui: Gui, app: TowerApp, class_id: str, rect: pygame.Rect) ->
     tags = ", ".join(t(db.tags[tag].name) for tag in unit.definition.tags if tag in db.tags)
     ui.label(tags, inset(pygame.Rect(art_r.x, art_r.y, art_r.width, 40), 12, 0), "small", color=DIM)
     stats_r, rest = cut_top(rest, 6 * 34, 10)
-    stat_rows(ui, app, unit, stats_r, 2, style="small")
+    stat_rows(ui, app, unit, stats_r, 2, style="small", grades=True)
     gear_title, rest = cut_top(rest, 32, 4)
     ui.label(t("Equipment"), gear_title, "label")
     gear_r, rest = cut_top(rest, 76, 10)

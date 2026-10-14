@@ -247,10 +247,25 @@ def class_entries(unit_or_definition) -> list[tuple[str, str, int]]:
            [("passive", p, definition.passive_levels.get(p, 1)) for p in definition.passives]
 
 
+GRADE_COLORS = {"S": (250, 214, 96), "A": (240, 128, 92), "B": (120, 210, 120), "C": (110, 180, 240),
+                "D": (170, 170, 200), "E": (140, 140, 150), "F": (110, 100, 100)}
+
+
+def grade_badge(ui: Gui, rect: pygame.Rect, letter: str) -> None:
+    """Буква оценки стата (S..F, как в UO): насколько хорошо стат растёт у класса."""
+    color = GRADE_COLORS.get(letter, DIM)
+    side = min(rect.height - 6, rect.width - 2, 32)
+    box = place(rect, (side, side), "center")
+    pygame.draw.rect(ui.screen, (8, 12, 24), box, border_radius=5)
+    pygame.draw.rect(ui.screen, color, box, 2, border_radius=5)
+    ui.label(letter, box, ui.ts("number", size=max(12, box.height - 8), color=color, outline=(4, 4, 10)), align="center")
+
+
 def stat_rows(ui: Gui, app: Any, unit: Unit, rect: pygame.Rect, columns: int = 1, preview: Optional[dict] = None,
-              stats: Optional[list[Stat]] = None, style: str = "body") -> int:
+              stats: Optional[list[Stat]] = None, style: str = "body", grades: bool = False) -> int:
     """Статы строками в духе UO: значок своего цвета, название, значение справа, тонкая линия под
-    строкой; preview — статы «если надеть»: новое значение и разница. Возвращает низ."""
+    строкой; preview — статы «если надеть»: новое значение и разница; grades — буква оценки стата класса
+    (S..F) у правого края. Возвращает низ."""
     stats = list(Stat) if stats is None else stats
     lines = (len(stats) + columns - 1) // columns
     row_h = rect.height // max(1, lines)
@@ -260,6 +275,12 @@ def stat_rows(ui: Gui, app: Any, unit: Unit, rect: pygame.Rect, columns: int = 1
         ui.screen.blit(app.tinted(stat_key(stat), side, color), (cell.x, cell.centery - side // 2))
         value = unit.stat(stat)
         shown, right = value, cell.right - 4
+        letter = unit.definition.grades.get(stat.value) if grades else None
+        if grades:
+            if letter:
+                grade_badge(ui, pygame.Rect(cell.right - 34, cell.y, 34, cell.height), letter)
+            right -= 42
+            cell = pygame.Rect(cell.x, cell.y, cell.width - 42, cell.height)
         if preview is not None and preview.get(stat, value) != value:
             shown = preview[stat]
             delta = shown - value
@@ -277,7 +298,9 @@ def stat_rows(ui: Gui, app: Any, unit: Unit, rect: pygame.Rect, columns: int = 1
         ui.label(ui.t(stat.value), pygame.Rect(cell.x + side + 10, cell.y, number.x - cell.x - side - 20, cell.height),
                  style)
         w.divider(ui, cell.x + side + 6, cell.right, cell.bottom - 3)
-        ui.tip(cell, lambda s=stat, v=value: stat_tip(ui.t, s, v))
+        ui.tip(cell.inflate(42 if grades else 0, 0).move(21 if grades else 0, 0),
+               lambda s=stat, v=value, g=letter: stat_tip(ui.t, s, v) + ([(ui.t("Growth grade {g}", g=g),
+                                                                            GRADE_COLORS.get(g, DIM), "small")] if g else []))
     return rect.y + lines * row_h
 
 

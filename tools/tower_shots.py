@@ -70,6 +70,9 @@ class Shooter:
         for tab in (pp.STATUS, pp.EQUIPMENT, pp.TACTICS):
             pp.open_unit(app, uid, pp.MAIN, tab)
             self.shot(f"05_unit_{tab}")
+        app.tactic_pick = (0, 0)                       # открытый список условий тактики
+        self.shot("05_unit_tactics_pick")
+        app.tactic_pick = None
         unit = next((u for u in app.run.army.units.values() if u.definition.promotions), None)
         if unit is not None:                           # пути повышения (уровень — чтобы первый был открыт)
             level = unit.state.level
