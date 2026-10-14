@@ -44,6 +44,12 @@
       {"floor": 8, "tier": 2},
       {"floor": 18, "tier": 3}
     ],
+    "promotion": [
+      {"floor": 1, "chance": 0},
+      {"floor": 8, "chance": 0.25},
+      {"floor": 15, "chance": 0.5},
+      {"floor": 25, "chance": 0.8}
+    ],
     "artifacts_from": 4,
     "artifact_chance_per_floor": 0.06
   },

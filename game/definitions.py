@@ -8,6 +8,7 @@ from .areas import AREA_SINGLE
 from .stats import Modifier, Scale, Stat
 from .reactions import DO_APPLY_EFFECT, DO_COVER, LEGACY_EVENTS, ON_TARGETED, Reaction
 from .tactics import SIDES, Always, ICondition, condition_from_dict, condition_to_dict
+from .tiers import check_tier, rank_of
 
 PART_DAMAGE = "damage"
 PART_HEAL = "heal"
@@ -39,7 +40,7 @@ class ItemDefinition:
     passives: tuple[str, ...] = ()          # пассивки носителя
     tags: tuple[str, ...] = ()              # теги, которые получает носитель
     damage_tags: tuple[str, ...] = ()       # тип урона оружия (для частей навыков с weapon_tags)
-    tier: int = 1                           # ступень предмета: 1 — новичок, 2 — наёмник, 3 — герой
+    tier: int = 5                           # тир 0..30 (game/tiers.py): 0..9 — новичок, 10..19 — наёмник, 20..30 — герой
     price: int = 0                          # цена в магазине; продаётся дешевле
 
     @classmethod
@@ -53,12 +54,17 @@ class ItemDefinition:
             passives=tuple(data.get("passives", ())),
             tags=tuple(data.get("tags", ())),
             damage_tags=tuple(data.get("damage_tags", ())),
-            tier=int(data.get("tier", 1)),
+            tier=check_tier(int(data.get("tier", 5)), f"item {item_id}"),
             price=int(data.get("price", 0)),
         )
-        if item.tier < 1 or item.price < 0:
-            raise ValueError(f"item {item_id}: tier must be at least 1 and price not negative")
+        if item.price < 0:
+            raise ValueError(f"item {item_id}: price must not be negative")
         return item
+
+    @property
+    def rank(self) -> int:
+        """Ступень на экране: 1 — новичок, 2 — наёмник, 3 — герой."""
+        return rank_of(self.tier)
 
     def to_dict(self) -> dict[str, Any]:
         return {

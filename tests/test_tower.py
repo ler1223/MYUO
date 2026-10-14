@@ -231,10 +231,10 @@ class RealDataTests(unittest.TestCase):
         tower = TowerRules.load()
         for slot, item in tower.data["starter_gear"].items():
             self.assertEqual(db.items[item].slot, slot)
-        tiers = {item.tier for item in db.items.values()}
-        self.assertEqual(tiers, {1, 2, 3})
+        self.assertEqual({item.rank for item in db.items.values()}, {1, 2, 3})       # тир 0..30, ступени I-III
+        self.assertTrue(all(0 <= item.tier <= 30 for item in db.items.values()))
         for stat_items in ("feather", "brooch"):
-            self.assertEqual({db.items[f"{t}_{stat_items}"].tier for t in ("novice", "mercenary", "hero")}, {1, 2, 3})
+            self.assertEqual([db.items[f"{t}_{stat_items}"].rank for t in ("novice", "mercenary", "hero")], [1, 2, 3])
 
     def test_a_few_real_floors(self):
         db = Database.load()

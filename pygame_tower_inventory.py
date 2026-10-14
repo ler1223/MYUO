@@ -126,7 +126,7 @@ def inventory_entries(app: Any, flt: InventoryFilter) -> list[Entry]:
 
     def keep(entry: Entry) -> bool:
         item = db.items[entry.item_id]
-        return (not group or item.slot in group) and (not flt.tier or item.tier == flt.tier) \
+        return (not group or item.slot in group) and (not flt.tier or item.rank == flt.tier) \
             and (wearer is None or item.slot in wearer.definition.slots)
 
     entries = [e for e in entries if keep(e)]
@@ -213,7 +213,7 @@ def draw_table(ui: Gui, app: Any, flt: InventoryFilter, entries: list[Entry], op
         icon_r, name_c, mods_c, where_c = table_columns(inset(body, 6, 2))
         on_icon = bool(item_icon(ui, app, entry.item_id, place(icon_r, (84, 84), "center"), entry.count))
         name_r, slot_r = rows(name_c, [1.0, 1.0])
-        ui.label(t(item.name), name_r, "body", color=tier_color(item.tier))
+        ui.label(t(item.name), name_r, "body", color=tier_color(item.rank))
         ui.label(f"{t(item.slot)} · {item.price}", slot_r, "small", color=DIM)
         mods = [(modifier_text(t, mod), GOLD if mod.stat is sort_stat else TEXT) for mod in item.modifiers]
         mods.sort(key=lambda m: m[1] != GOLD)                 # стат сортировки — первым и золотым
@@ -251,7 +251,7 @@ def draw_detail(ui: Gui, app: Any, flt: InventoryFilter) -> None:
     head, rest = cut_top(DETAIL_AREA, 120, 16)
     icon_r, name_r = cut_left(head, 120, 16)
     item_icon(ui, app, item_id, icon_r)
-    ui.paragraph(t(item.name), name_r, ui.ts("heading", color=tier_color(item.tier)), max_lines=2)
+    ui.paragraph(t(item.name), name_r, ui.ts("heading", color=tier_color(item.rank)), max_lines=2)
     y = rest.y
     for text, color, _font in item_tip(t, db, item_id)[1:12]:
         if text and y < WEAR_TOP - 30:

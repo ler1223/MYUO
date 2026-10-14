@@ -4,7 +4,7 @@
 
 Забег новый, во временном сохранении (настоящее saves/tower.json не трогается); справочник — data/.
 Снимки: набор, подготовка (главный, отряд, юниты, редактор бойца по вкладкам, инвентарь),
-бой в середине, награда, магазин, конец забега. Мышь можно навести: --mouse x,y (на все снимки).
+бой в середине, награда, магазин, конец забега. Мышь можно навести: --mouse x,y (на все снимки); --data папка — другой справочник.
 """
 from __future__ import annotations
 
@@ -28,13 +28,13 @@ SEED = 7
 
 
 class Shooter:
-    def __init__(self, folder: Path, lang: str, mouse: tuple[int, int] | None):
+    def __init__(self, folder: Path, lang: str, mouse: tuple[int, int] | None, data: str | None = None):
         pygame.init()
         pygame.display.set_mode((64, 64))
         self.folder = folder
         folder.mkdir(parents=True, exist_ok=True)
         self.tmp = Path(tempfile.mkdtemp())
-        self.app = tw.TowerApp(self.tmp / "tower.json", lang=lang, seed=SEED)
+        self.app = tw.TowerApp(self.tmp / "tower.json", data, lang=lang, seed=SEED)
         self.ui = tw.make_ui(pygame.Surface(tw.SIZE))
         self.mouse = mouse
 
@@ -58,7 +58,8 @@ class Shooter:
         app = self.app
         self.shot("01_draft")
         while app.run.phase == DRAFT:
-            app.act(app.run.pick, app.db, app.run.offers[0])
+            offers = app.run.offers                    # с путями повышения — чтобы снять и их экран
+            app.act(app.run.pick, app.db, next((c for c in offers if app.db.units[c].promotions), offers[0]))
         app.view = pp.MAIN
         self.shot("02_prepare")
         app.view = pp.SQUAD
@@ -69,6 +70,14 @@ class Shooter:
         for tab in (pp.STATUS, pp.EQUIPMENT, pp.TACTICS):
             pp.open_unit(app, uid, pp.MAIN, tab)
             self.shot(f"05_unit_{tab}")
+        unit = next((u for u in app.run.army.units.values() if u.definition.promotions), None)
+        if unit is not None:                           # пути повышения (уровень — чтобы первый был открыт)
+            level = unit.state.level
+            unit.state.level = max(level, min(p.level for p in unit.definition.promotions))
+            pp.open_unit(app, unit.uid, pp.MAIN)
+            app.view = pp.PROMOTE
+            self.shot("05_unit_promote")
+            unit.state.level = level
         app.view = pp.INVENTORY
         self.shot("06_inventory")
         app.view = pp.MAIN
@@ -94,9 +103,10 @@ def main() -> None:
     parser.add_argument("folder", nargs="?", default="shots")
     parser.add_argument("--lang", default="ru")
     parser.add_argument("--mouse", default=None, help="x,y — курсор на всех снимках")
+    parser.add_argument("--data", default=None, help="папка справочника вместо data/")
     args = parser.parse_args()
     mouse = tuple(int(v) for v in args.mouse.split(",")) if args.mouse else None
-    Shooter(Path(args.folder), args.lang, mouse).run()
+    Shooter(Path(args.folder), args.lang, mouse, args.data).run()
 
 
 if __name__ == "__main__":

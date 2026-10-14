@@ -13,13 +13,15 @@ import pygame
 from game.editing import new_unit_data, stat_default
 from game.stats import Stat
 from game.tags import TAG_UNIT
+from game.tiers import TIER_MAX
 from game.unit import learned_to_list
 from pygame_editors import EMPTY, FORM_X, TOP, EditorHost, apply, entity_list, named, plain, rule_table, tag_options
 from pygame_ui import DIM, HEIGHT, RED, TEXT, UI
 
 CLASS_RULES = 6     # сколько правил тактики по умолчанию помещается в редакторе класса
 MAX_SLOTS = 6
-UNLOCK_CELLS = 9    # сколько уровней открытия помещается под слотами (три ряда по три)
+UNLOCK_CELLS = 6    # сколько уровней открытия помещается под слотами (два ряда по три)
+MAX_PROMOTIONS = 3  # путей повышения в редакторе класса
 
 
 def list_buttons(ui: UI, can_delete: bool) -> tuple[bool, bool]:
@@ -30,7 +32,7 @@ def list_buttons(ui: UI, can_delete: bool) -> tuple[bool, bool]:
 
 
 class ClassEditor:
-    """Класс юнита: статы и рост, AP/PP, теги, слоты, навыки, пассивки, тактики по умолчанию."""
+    """Класс юнита: статы и рост, AP/PP, теги, слоты, навыки, пассивки, тир, повышения, тактики по умолчанию."""
 
     def __init__(self) -> None:
         self.unit_id: Optional[str] = None
@@ -137,6 +139,34 @@ class ClassEditor:
                                     levels[field][entry_id], 1, 99)
             if value is not None:
                 new[field] = learned(list(levels[field]), dict(levels[field], **{entry_id: value}))
+
+        # Тир класса и повышения: в какой класс и с какого уровня (путей может быть несколько)
+        py = uy + 18 + (UNLOCK_CELLS // 3) * 26 + 2
+        ui.text(t("Tier"), rx, py + 3, font="small")
+        value = ui.number_input((key, "tier"), pygame.Rect(rx + 34, py, 36, 22), data["tier"], 0, TIER_MAX)
+        if value is not None:
+            new["tier"] = value
+        others = [(c.id, t(c.name)) for c in db.units.values() if c.id != unit_id]
+        promotions = data["promotions"]
+        for i, path in enumerate(promotions[:MAX_PROMOTIONS]):
+            px = rx + 80 + i * 138
+            picked = ui.dropdown((key, "promotion", i), pygame.Rect(px, py, 96, 22),
+                                 [(EMPTY, t("(remove)")), *others], path["class"])
+            if picked is not None and picked != path["class"]:
+                new["promotions"] = promotions[:i] + ([dict(path, **{"class": picked})] if picked else []) + \
+                    promotions[i + 1:]
+            level = ui.number_input((key, "promotion-level", i), pygame.Rect(px + 98, py, 32, 22), path["level"], 1, 99)
+            if level is not None:
+                new["promotions"] = [dict(p, level=level) if k == i else p for k, p in enumerate(promotions)]
+        if len(promotions) < MAX_PROMOTIONS:
+            picked = ui.dropdown((key, "add-promotion"), pygame.Rect(rx + 80 + len(promotions) * 138, py, 130, 22),
+                                 [(EMPTY, t("+ promotion")), *others], EMPTY)
+            if picked:
+                new["promotions"] = promotions + [{"class": picked, "level": 10}]
+        parents = db.parents(unit_id)
+        if parents:
+            ui.tip(pygame.Rect(rx, py, 76, 22), lambda: [(t("Promoted from: {list}", list=", ".join(
+                t(db.units[p].name) for p in parents)), TEXT, "small")])
 
         # Тактики по умолчанию: их получают новые юниты класса
         ty = y + 18 + len(Stat) * 24 + 8

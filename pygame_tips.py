@@ -119,8 +119,8 @@ def item_tip(t: Callable[..., str], db: Database, item_id: str, price: Optional[
     item = db.items.get(item_id)
     if item is None:
         return [(item_id, RED, "main")]
-    lines: TipLines = [(t(item.name), tier_color(item.tier), "main"),
-                       (f"{t(item.slot)} · {t(TIER_NAMES.get(item.tier, 'tier'))} ({item.tier})", DIM, "small")]
+    lines: TipLines = [(t(item.name), tier_color(item.rank), "main"),
+                       (f"{t(item.slot)} · {t(TIER_NAMES.get(item.rank, "tier"))} ({item.tier})", DIM, "small")]
     lines += [(modifier_text(t, m), TEXT, "small") for m in item.modifiers]
     if item.damage_tags:
         lines.append((t("Damage type: {list}", list=", ".join(t(d) for d in item.damage_tags)), TEXT, "small"))

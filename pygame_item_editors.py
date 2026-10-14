@@ -10,6 +10,7 @@ from game.definitions import CATEGORIES
 from game.editing import new_item_data, new_rule_data, new_tag_data
 from game.stats import ModOp, Stat
 from game.tags import TAG_DAMAGE, TAG_KINDS, TAG_UNIT
+from game.tiers import TIER_MAX
 from pygame_data_editors import list_buttons
 from pygame_editors import FORM_X, ROW_H, TOP, EditorHost, apply, entity_list, named, plain, tag_options
 from pygame_ui import DIM, PANEL, RED, UI, WIDTH
@@ -55,10 +56,10 @@ class ItemEditor:
         if name:
             new["name"] = name
         ui.text(f"id: {item_id}", x + 344, TOP + 5, DIM, "small", 130)
-        for field, label, fx, high in (("tier", "Tier", 486, 9), ("price", "Price", 600, 99999)):
+        for field, label, fx, high in (("tier", "Tier", 486, TIER_MAX), ("price", "Price", 600, 99999)):
             ui.text(t(label), x + fx, TOP + 4, font="small")
             value = ui.number_input((key, field), pygame.Rect(x + fx + 50, TOP, 60, 24), data[field],
-                                    1 if field == "tier" else 0, high)
+                                    0, high)
             if value is not None:
                 new[field] = value
 

@@ -246,6 +246,34 @@ class TowerWindowTests(unittest.TestCase):
         self.assertTrue(pp.go_back(app))                                        # Esc — обратно в список
         self.assertEqual(app.view, pp.UNITS)
 
+    def test_promotion_by_clicks(self):
+        path = self.data_dir / "units.json"
+        units = json.loads(path.read_text(encoding="utf-8"))
+        for class_id, data in units.items():
+            if class_id != "orc":
+                data["promotions"] = [{"class": "orc", "level": 2}]
+        path.write_text(json.dumps(units), encoding="utf-8")
+        self.app = self.open_app()
+        self.draft()
+        app = self.app
+        unit = app.run.fielded[0]
+        skills = set(unit.definition.skills)
+        pp.open_unit(app, unit.uid, pp.MAIN)
+        self.frame()
+        self.click(*pp.PROMOTE_BUTTON.center)                 # уровень мал: экран путей открывается,
+        self.assertEqual(app.view, pp.PROMOTE)
+        self.click(*pp.promote_button(pp.promote_card(0, 1)).center)
+        self.assertEqual(unit.definition.id, unit.state.definition_id)   # но повысить нельзя
+        self.assertNotEqual(unit.definition.id, "orc")
+        unit.state.level = 2
+        self.frame()
+        self.click(*pp.promote_button(pp.promote_card(0, 1)).center)
+        promoted = app.run.army.units[unit.uid]
+        self.assertEqual((promoted.definition.id, app.view), ("orc", pp.UNIT))
+        self.assertTrue(skills <= set(promoted.definition.skills))
+        saved = json.loads(self.save_path.read_text(encoding="utf-8"))
+        self.assertIn(["orc"], [[u["state"]["definition_id"]] for u in saved["units"]])
+
     def test_shop_by_clicks(self):
         rules = json.loads(TOWER_RULES_PATH.read_text(encoding="utf-8"))
         rules["shop"]["every"] = 1                             # магазин после каждого этажа

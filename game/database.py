@@ -16,6 +16,7 @@ from .definitions import CATEGORIES, ItemDefinition, PassiveDefinition, SkillDef
 from .effects import EffectDefinition
 from .squad import FormationSize
 from .tags import TagDefinition, TagRule
+from .promotion import merged_definition
 from .unit import Unit, UnitDefinition, UnitState
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
@@ -107,6 +108,7 @@ class Database:
         self.slot_types = slot_types
         self.rules = rules
         self.formation = formation
+        self._merged: dict[tuple[str, ...], UnitDefinition] = {}
 
     @staticmethod
     def _validate(parsed: Mapping[str, Mapping[str, Any]], slot_types: Sequence[str], rules: Sequence[TagRule]) -> None:
@@ -154,6 +156,18 @@ class Database:
             require(skills, [rule.skill_id for rule in unit.tactics.rules], f"{where} tactics")
         for rule in rules:
             require({*tags, *CATEGORIES}, rule.tags(), "tag rule")
+        units = parsed["units"]
+        for unit in units.values():
+            require(units, [p.class_id for p in unit.promotions], f"unit {unit.id} promotions")
+
+        def climb(class_id: str, path: tuple[str, ...]) -> None:      # повышения не ходят по кругу
+            if class_id in path:
+                raise ValueError(f"promotion cycle: {' -> '.join(path + (class_id,))}")
+            for promotion in units[class_id].promotions:
+                climb(promotion.class_id, path + (class_id,))
+
+        for class_id in units:
+            climb(class_id, ())
 
     # --- правка (редакторы) ---
 
@@ -191,6 +205,9 @@ class Database:
                 unit["tactics"] = [r for r in unit["tactics"] if r["skill"] != key]
             for item in data["items"].values():
                 drop(item, "skills")
+        elif section == "units":
+            for unit in data["units"].values():
+                unit["promotions"] = [p for p in unit.get("promotions", ()) if p["class"] != key]
         elif section == "passives":
             for owner in (*data["units"].values(), *data["items"].values()):
                 drop(owner, "passives")
@@ -234,10 +251,44 @@ class Database:
 
     # --- юниты ---
 
-    def create_unit(self, definition_id: str, uid: int, level: int = 1, equipment: Sequence[Optional[str]] = ()) -> Unit:
-        """Новый юнит с полным HP. Предметы раскладываются по подходящим слотам класса."""
-        state = UnitState(uid=uid, definition_id=definition_id, level=level, current_hp=0, equipment=list(equipment))
-        unit = Unit(self.units[definition_id], state, self.items)
+    # --- классы и повышения ---
+
+    def definition_for(self, definition_id: str, history: Sequence[str] = ()) -> UnitDefinition:
+        """Класс бойца с учётом истории повышений (game/promotion.py); исчезнувшие классы истории пропускаются."""
+        chain = tuple(c for c in history if c in self.units and c != definition_id) + (definition_id,)
+        if chain not in self._merged:
+            self._merged[chain] = merged_definition([self.units[c] for c in chain])
+        return self._merged[chain]
+
+    def parents(self, class_id: str) -> list[str]:
+        """Классы, которые повышаются в class_id."""
+        return [u.id for u in self.units.values() if any(p.class_id == class_id for p in u.promotions)]
+
+    def lineage(self, class_id: str) -> list[str]:
+        """Путь к классу от базового (первый найденный): история для бойца, созданного сразу этим классом."""
+        path, current = [], class_id
+        while True:
+            parents = [p for p in self.parents(current) if p not in path and p != class_id]
+            if not parents:
+                return list(reversed(path))
+            current = parents[0]
+            path.append(current)
+
+    def promotion_level(self, class_id: str) -> int:
+        """Наименьший уровень, на котором до класса можно дойти повышениями от базового."""
+        level, chain = 1, self.lineage(class_id) + [class_id]
+        for before, after in zip(chain, chain[1:]):
+            level = max(level, next(p.level for p in self.units[before].promotions if p.class_id == after))
+        return level
+
+    def create_unit(self, definition_id: str, uid: int, level: int = 1, equipment: Sequence[Optional[str]] = (),
+                    history: Optional[Sequence[str]] = None) -> Unit:
+        """Новый юнит с полным HP. Предметы раскладываются по подходящим слотам класса.
+        history — классы до повышений; None — путь от базового класса (lineage)."""
+        history = self.lineage(definition_id) if history is None else list(history)
+        state = UnitState(uid=uid, definition_id=definition_id, level=level, current_hp=0, equipment=list(equipment),
+                          history=history)
+        unit = Unit(self.definition_for(definition_id, history), state, self.items)
         state.current_hp = unit.max_hp
         return unit
 
@@ -246,7 +297,8 @@ class Database:
 
         Снаряжение, которого больше нет или которое не подходит к слотам класса, снимается.
         """
-        unit = Unit(self.units[state.definition_id], state, self.items, strict=False)
+        state.history = [c for c in state.history if c in self.units]
+        unit = Unit(self.definition_for(state.definition_id, state.history), state, self.items, strict=False)
         unit.load_effects(saved_effects, self.effects)
         return unit
 

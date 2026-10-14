@@ -10,6 +10,7 @@ from .effects import ActiveEffect, EffectDefinition, apply_effect, tick_effects
 from .resource import Resource
 from .stats import STAT_DEFAULTS, Modifier, Stat, compute_stat
 from .tactics import TacticsSet
+from .tiers import check_tier
 
 # Правила ресурсов. Максимумы AP/PP задаются в данных класса (ap_max, pp_max).
 # AP и PP не восстанавливаются сами: только навыками (ap_restore / pp_restore).
@@ -96,6 +97,10 @@ class UnitDefinition:
     # Уровень класса, с которого открывается навык или пассивка; кого здесь нет — с первого.
     skill_levels: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
     passive_levels: Mapping[str, int] = field(default_factory=lambda: MappingProxyType({}))
+    tier: int = 10                      # тир класса 0..30 (game/tiers.py): базовые 10, повышенные 20, 30
+    promotions: tuple["Promotion", ...] = ()   # в кого класс повышается и с какого уровня
+    # Классы, которыми боец был до этого (game/promotion.py): их статы на уровне бойца — нижняя граница.
+    ancestors: tuple["UnitDefinition", ...] = ()
 
     @classmethod
     def from_dict(cls, unit_id: str, data: Mapping[str, Any]) -> "UnitDefinition":
@@ -115,6 +120,8 @@ class UnitDefinition:
             pp_max=data.get("pp_max", DEFAULT_PP_MAX),
             skill_levels=skill_levels,
             passive_levels=passive_levels,
+            tier=check_tier(int(data.get("tier", 10)), f"unit {unit_id}"),
+            promotions=tuple(Promotion.from_dict(p) for p in data.get("promotions", ())),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -129,7 +136,14 @@ class UnitDefinition:
             "skills": learned_to_list(self.skills, self.skill_levels),
             "passives": learned_to_list(self.passives, self.passive_levels),
             "tactics": self.tactics.to_list(),
+            "tier": self.tier,
+            "promotions": [p.to_dict() for p in self.promotions],
         }
+
+    def base_stat(self, stat: Stat, level: int) -> float:
+        """Стат класса на уровне без снаряжения; у повышенного бойца — не ниже, чем у прежних классов."""
+        own = self.base_stats.get(stat, STAT_DEFAULTS.get(stat, 0)) + self.growth.get(stat, 0) * (level - 1)
+        return max([own] + [a.base_stat(stat, level) for a in self.ancestors])
 
     def skills_at(self, level: int) -> tuple[str, ...]:
         """Навыки класса, открытые к этому уровню."""
@@ -142,6 +156,24 @@ class UnitDefinition:
     def top_unlock(self) -> int:
         """Уровень, к которому открыто всё, что есть у класса."""
         return max((*self.skill_levels.values(), *self.passive_levels.values()), default=1)
+
+
+@dataclass(frozen=True)
+class Promotion:
+    """Путь повышения: в класс class_id, когда боец достиг уровня level."""
+
+    class_id: str
+    level: int
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "Promotion":
+        promotion = cls(data["class"], int(data.get("level", 1)))
+        if promotion.level < 1:
+            raise ValueError(f"promotion level to {promotion.class_id!r} must be at least 1")
+        return promotion
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"class": self.class_id, "level": self.level}
 
 
 @dataclass
@@ -158,6 +190,7 @@ class UnitState:
     equipment: list[Optional[str]] = field(default_factory=list)
     exp: int = 0          # опыт к следующему уровню
     nickname: str = ""    # личное имя бойца (башня); пусто — зовётся по классу
+    history: list[str] = field(default_factory=list)   # классы до повышений, по порядку (game/promotion.py)
 
 
 class Unit:
@@ -207,6 +240,17 @@ class Unit:
             raise ValueError(f"item {item_id!r} does not fit slot {slot!r}")
         self.state.equipment[slot_index] = item_id
 
+    def reclass(self, definition: UnitDefinition) -> None:
+        """Новый класс (повышение, game/promotion.py): снаряжение перекладывается по новым слотам,
+        своя тактика остаётся, тактика по умолчанию — нового класса; AP и PP полные."""
+        custom = self.has_custom_tactics
+        self.definition = definition
+        self.state.equipment = place_equipment(definition.slots, self._items, self.state.equipment, strict=False)
+        if not custom:
+            self.tactics = definition.tactics
+        self.ap = self._full_ap()
+        self.pp = Resource(definition.pp_max, definition.pp_max)
+
     def unequip(self, slot_index: int) -> Optional[str]:
         item_id = self.state.equipment[slot_index]
         self.state.equipment[slot_index] = None
@@ -249,8 +293,7 @@ class Unit:
 
     def stat(self, stat: Stat) -> int:
         """Считает стат заново из всех источников; результат нигде не хранится."""
-        base = self.definition.base_stats.get(stat, STAT_DEFAULTS.get(stat, 0))
-        base += self.definition.growth.get(stat, 0) * (self.state.level - 1)
+        base = self.definition.base_stat(stat, self.state.level)
         return compute_stat(base, (m for m in self._modifiers() if m.stat is stat))
 
     @property

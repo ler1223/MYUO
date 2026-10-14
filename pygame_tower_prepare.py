@@ -20,6 +20,10 @@ import pygame
 
 from game.editing import describe_reaction, describe_skill, set_tactics
 from game.stats import Stat
+from dataclasses import replace
+
+from game import promotion
+from game.rating import rate_formation, rate_squad, rate_unit
 from game.unit import Unit
 from pygame_editors import ROW_H, rule_table
 from pygame_tips import modifier_text, tier_color, unit_tip
@@ -31,7 +35,7 @@ from uikit import Gui
 from uikit import widgets as w
 from uikit.layout import cols, cut_left, cut_top, grid, inset, place, row_of, rows
 
-MAIN, SQUAD, UNITS, UNIT, INVENTORY = "main", "squad", "units", "unit", "inventory"
+MAIN, SQUAD, UNITS, UNIT, INVENTORY, PROMOTE = "main", "squad", "units", "unit", "inventory", "promote"
 STATUS, EQUIPMENT, TACTICS = "status", "equipment", "tactics"
 NONE_ITEM = "__none__"
 SNAP = 1.6                          # прилипание: до скольких «радиусов клетки» от курсора
@@ -54,8 +58,18 @@ TAB_ROW = pygame.Rect(EDITOR.x + 30, EDITOR.y + 30, EDITOR.width - 60, 72)
 TABS = dict(zip((STATUS, EQUIPMENT, TACTICS), row_of(TAB_ROW, [310, 310, 310], 10, "left")))
 CONTENT = pygame.Rect(EDITOR.x, TAB_ROW.bottom, EDITOR.width, EDITOR.bottom - TAB_ROW.bottom)
 CONTENT_BODY = inset(CONTENT, 44, 36, 44, 36)
-FIELD_TOGGLE = place(inset(ART, 40, 0, 40, 34), (ART.width - 80, 76), "bottom")
+FIELD_TOGGLE, PROMOTE_BUTTON = cols(place(inset(ART, 40, 0, 40, 34), (ART.width - 80, 76), "bottom"), [1.0, 1.0], 12)
 NAME_BLOCK = pygame.Rect(ART.x + 40, FIELD_TOGGLE.y - 210, ART.width - 80, 196)
+PROMOTE_AREA = inset(EDITOR, 38, 92, 38, 36)            # пути повышения — карточки рядом
+
+
+def promote_card(i: int, count: int) -> pygame.Rect:
+    """i-я карточка пути повышения из count."""
+    return cols(PROMOTE_AREA, [1.0] * max(1, count), 20)[i]
+
+
+def promote_button(card: pygame.Rect) -> pygame.Rect:
+    return place(inset(card, 24, 0, 24, 22), (card.width - 48, 72), "bottom")
 # списки
 ROSTER_AREA = inset(HALF_R, *PANEL_PAD)
 ROSTER_COLS, ROSTER_CARD_H = 2, 128
@@ -205,6 +219,9 @@ def draw_prepare(ui: Gui, app: Any) -> None:
     if app.view == UNIT and app.selected is not None:
         draw_unit(ui, app, units[app.selected])
         return
+    if app.view == PROMOTE and app.selected is not None:
+        draw_promotion(ui, app, units[app.selected])
+        return
     if app.view == UNITS:
         draw_units(ui, app)
     elif app.view == INVENTORY:
@@ -241,7 +258,9 @@ def draw_formation(ui: Gui, app: Any) -> None:
     formation = run.squad.formation
     shop_in = next((k for k in range(1, 1000) if app.rules.shop_after(run.floor + k - 1)), None) \
         if app.rules.data["shop"]["every"] > 0 else None
-    panel(ui, HALF_L, t("Your squad"), f"{len(formation)}/{formation.max_units}")
+    ours = rate_formation(formation, app.db)
+    panel(ui, HALF_L, t("Your squad"), f"{t('Power {n}', n=ours.power)}   {len(formation)}/{formation.max_units}")
+    power_tip(ui, pygame.Rect(HALF_L.right - 380, HALF_L.y + 20, 360, 70), ours)
     targets = draw_field(ui, app, HALF_L, squad_entries(app), formation.rows, formation.cols, False,
                          hot=snap_cell(app, ui.mouse) if dragging(ui, app) else None)
     if shop_in:
@@ -253,7 +272,9 @@ def draw_formation(ui: Gui, app: Any) -> None:
     else:
         boss = app.rules.is_boss(run.floor)
         title = t("Enemies of floor {n}", n=run.floor) + ("  " + t("(boss)") if boss else "")
-        panel(ui, HALF_R, title, t("{n} units", n=len(app.enemies())))
+        theirs = enemy_rating(app)
+        panel(ui, HALF_R, title, f"{t('Power {n}', n=theirs.power)}   {t('{n} units', n=len(app.enemies()))}")
+        power_tip(ui, pygame.Rect(HALF_R.right - 380, HALF_R.y + 20, 360, 70), theirs)
         grid_size = app.rules.squad_size(run.floor)
         draw_field(ui, app, HALF_R, enemy_entries(app), grid_size.rows, grid_size.cols, True)
     handle_drag(ui, app, targets, roster_targets)
@@ -283,6 +304,9 @@ def draw_roster(ui: Gui, app: Any) -> list[tuple[pygame.Rect, Optional[int]]]:
         bar(ui, exp_r.inflate(0, -2), unit.state.exp, app.rules.exp.per_level, "exp")
         if fielded:
             ui.label(t("in squad"), name_r, "tiny", align="right", color=GOLD)
+        if promotion.available(unit, app.db):
+            ui.label("↑", class_r, "heading", align="right", color=GOLD)
+            ui.tip(class_r, lambda: [(t("Promotion!"), GOLD, "main")])
         ui.tip(card, lambda u=unit: unit_tip(t, app.db, u))
         targets.append((card, unit.uid))
     return targets
@@ -402,6 +426,8 @@ def draw_units(ui: Gui, app: Any) -> None:
         portrait(ui, app, unit.definition.id, place(face, (face.width, face.width), "center"), leader_kind(app, unit))
         name_r, class_r = rows(info, [1.0, 1.0])
         ui.label(unit_name(t, unit), name_r, "body")
+        if promotion.available(unit, db):
+            ui.label("↑ " + t("Promotion!"), name_r, "small", align="right", color=GOLD)
         tags = ", ".join(t(db.tags[tag].name) for tag in unit.definition.tags if tag in db.tags)
         ui.label(f"{class_line(t, unit)} · {tags}" if tags else class_line(t, unit), class_r, "small", color=DIM)
         badge, exp_r = rows(level, [1.0, 20], 4)
@@ -470,11 +496,22 @@ def draw_unit_art(ui: Gui, app: Any, unit: Unit) -> None:
     bar(ui, place(pygame.Rect(exp_r.x, exp_r.y, exp_r.width - text_w - 10, exp_r.height),
                   (exp_r.width - text_w - 10, 22), "center"), unit.state.exp, need, "exp")
     ui.label(place_text(app, unit), where_r, "small", color=DIM)
+    rating = rate_unit(unit, app.db)
+    power_r = ui.label(t("Power {n}", n=rating.power), where_r, "small", align="right", color=GOLD)
+    power_tip(ui, power_r.inflate(12, 16), rating)
     if run.squad.leader_uid == unit.uid:
         crown(ui, app, (NAME_BLOCK.right - 36, NAME_BLOCK.y + 6), 44)
     fielded = run.squad.formation.position_of(unit.uid) is not None
     if button(ui, t("To reserve") if fielded else t("To the squad"), FIELD_TOGGLE):
         app.act(run.bench if fielded else run.field, unit.uid)
+    paths = [p for p in unit.definition.promotions if p.class_id in app.db.units]
+    if not paths:
+        ui.label(t("final class"), PROMOTE_BUTTON, "small", align="center", color=DIM)
+    elif app.view != PROMOTE:
+        ready = bool(promotion.available(unit, app.db))
+        label = t("Promotion!") if ready else t("Promotion at lv {n}", n=min(p.level for p in paths))
+        if button(ui, label, PROMOTE_BUTTON, primary=ready, style=None if ready else "small"):
+            app.view = PROMOTE
 
 
 def skill_lines(unit: Unit) -> tuple[list, list]:
@@ -545,7 +582,7 @@ def draw_equipment(ui: Gui, app: Any, unit: Unit) -> None:
         current = unit.state.equipment[index]
         if current is not None:
             item_icon(ui, app, current, place(icon_r, (96, 96), "center"))
-            ui.label(t(db.items[current].name), name_r, "body", color=tier_color(db.items[current].tier))
+            ui.label(t(db.items[current].name), name_r, "body", color=tier_color(db.items[current].rank))
             ui.label(", ".join(modifier_text(t, m) for m in db.items[current].modifiers), mods_r, "tiny")
         else:
             w.family_frame(ui, "slot", place(icon_r, (96, 96), "center"), "empty")
@@ -576,7 +613,7 @@ def draw_equipment(ui: Gui, app: Any, unit: Unit) -> None:
                 icon_r, text_r = cut_left(inset(body, 4, 2), 76, 14)
                 item_icon(ui, app, item_id, place(icon_r, (76, 76), "center"), inventory.count(item_id))
                 name_r, mods_r = rows(text_r, [1.0, 1.0])
-                ui.label(t(db.items[item_id].name), name_r, "body", color=tier_color(db.items[item_id].tier))
+                ui.label(t(db.items[item_id].name), name_r, "body", color=tier_color(db.items[item_id].rank))
                 ui.label(", ".join(modifier_text(t, m) for m in db.items[item_id].modifiers), mods_r, "tiny")
             if hover:
                 hovered = item_id
@@ -621,8 +658,102 @@ def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
         skill_chip(ui, app, "skill", skill_id, chip, costs=True)
 
 
+# --- повышение -----------------------------------------------------------------------
+
+def draw_promotion(ui: Gui, app: Any, unit: Unit) -> None:
+    """Пути повышения бойца карточками: класс, с какого уровня, что добавится, как изменятся статы и сила."""
+    t, db = ui.t, app.db
+    draw_unit_art(ui, app, unit)
+    paths = [p for p in unit.definition.promotions if p.class_id in db.units]
+    panel(ui, EDITOR, t("Promotion: {name}", name=unit_name(t, unit)), t("everything learned stays"))
+    if not paths:
+        ui.label(t("final class"), PROMOTE_AREA, "heading", align="center", color=DIM)
+    for i, path in enumerate(paths):
+        promotion_card(ui, app, unit, path, promote_card(i, len(paths)))
+    bottom_strip(ui)
+    if button(ui, t("Back"), BACK):
+        app.view = UNIT
+
+
+def promoted_ghost(app: Any, unit: Unit, class_id: str) -> Unit:
+    """Копия бойца, будто он уже повышен (сам боец не меняется)."""
+    target = app.db.definition_for(class_id, [*unit.state.history, unit.definition.id])
+    state = replace(unit.state, equipment=list(unit.state.equipment), history=list(unit.state.history))
+    return Unit(target, state, app.db.items, strict=False)
+
+
+def promotion_card(ui: Gui, app: Any, unit: Unit, path: Any, card: pygame.Rect) -> None:
+    t, db = ui.t, app.db
+    ghost = promoted_ghost(app, unit, path.class_id)
+    target = ghost.definition
+    body = inset(w.frame(ui, "card", card), 16, 12)
+    head, rest = cut_top(body, 44, 6)
+    ui.label(t(target.name), head, "heading", color=TEXT)
+    ui.label(t("tier {n}", n=target.tier), head, "small", align="right", color=DIM)
+    art_r, rest = cut_top(rest, min(250, rest.height // 3), 8)
+    shade(ui, art_r, 110)
+    image = app.portraits.full(path.class_id, (art_r.width - 16, art_r.height - 12))
+    ui.screen.blit(image, image.get_rect(midbottom=(art_r.centerx, art_r.bottom - 6)))
+    power_r, rest = cut_top(rest, 34, 6)
+    ui.label(t("Power {a} → {b}", a=rate_unit(unit, db).power, b=rate_unit(ghost, db).power), power_r, "body",
+             color=GOLD)
+    new = [("skill", s, target.skill_levels.get(s, 1)) for s in target.skills if s not in unit.definition.skills]
+    new += [("passive", p, target.passive_levels.get(p, 1)) for p in target.passives
+            if p not in unit.definition.passives]
+    title_r, rest = cut_top(rest, 30, 4)
+    ui.label(t("New:"), title_r, "label")
+    for kind, entry_id, unlock in new:
+        if rest.height < 44 + 110:
+            break
+        chip, rest = cut_top(rest, 42, 6)
+        skill_chip(ui, app, kind, entry_id, chip, unlock, unit.state.level)
+    added = list(target.slots)
+    for slot in unit.definition.slots:
+        if slot in added:
+            added.remove(slot)
+    extras = [t(x) for x in added] + [t(db.tags[x].name) for x in target.tags
+                                      if x not in unit.definition.tags and x in db.tags]
+    if extras or not new:
+        line, rest = cut_top(rest, 30, 4)
+        ui.label(", ".join(extras) if extras else t("nothing new, only stats"), line, "small",
+                 color=TEXT if extras else DIM)
+    gains = [(ghost.stat(s) - unit.stat(s), s) for s in Stat if ghost.stat(s) != unit.stat(s)]
+    stats_r = pygame.Rect(rest.x, rest.y + 6, rest.width, promote_button(card).y - rest.y - 16)
+    for cell, (delta, stat) in zip(grid(stats_r, len(gains), 2, 30, 14, 2), gains):
+        if cell.bottom > stats_r.bottom:
+            break
+        ui.label(f"{t(stat.value)} {delta:+d}", cell, "small", color=GREEN if delta > 0 else ENEMY)
+    ready = unit.state.level >= path.level
+    if button(ui, t("Promote") if ready else t("from lv {n}", n=path.level), promote_button(card), primary=ready,
+              enabled=ready, style="tab"):
+        app.act(app.run.promote, db, unit.uid, path.class_id)
+        app.view = UNIT
+
+
+def enemy_rating(app: Any):
+    """Сила врагов этажа (как на поле подготовки)."""
+    db = app.db
+    units = [(db.create_unit(c, 0, level, gear), row) for c, level, gear, row, _col in app.enemies() if c in db.units]
+    return rate_squad(units, db)
+
+
+def power_tip(ui: Gui, rect: pygame.Rect, rating: Any) -> None:
+    """Подсказка: из чего сложилась сила."""
+    t = ui.t
+    ui.tip(rect, lambda: [(t("Power {n}", n=rating.power), GOLD, "main"),
+                          (t("toughness {n}", n=round(rating.defence)), TEXT, "small"),
+                          (t("damage per battle {n}", n=round(rating.offence)), TEXT, "small"),
+                          (t("speed x{n}", n=f"{rating.speed:.2f}"), TEXT, "small"),
+                          (t("passives {n}", n=rating.passives), TEXT, "small"), ("", TEXT, "small"),
+                          (t("Formula estimate (data/rating.json); a fighter in the front row adds more toughness."),
+                           DIM, "small")])
+
+
 def go_back(app: Any) -> bool:
     """Esc на подготовке: из редактора — туда, откуда пришли, из списков — на главный экран."""
+    if app.view == PROMOTE:
+        app.view = UNIT
+        return True
     if app.view == UNIT:
         app.view = app.back_view
         return True

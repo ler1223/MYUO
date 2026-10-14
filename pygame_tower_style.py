@@ -179,8 +179,8 @@ def item_icon(ui: Gui, app: Any, item_id: str, rect: pygame.Rect, count: int = 0
     image = app.art.image(item_key(item) if item else "item", body.size)
     hover = ui.hovered(rect, layer)
     body = w.picture(ui, image, rect, "slot", "hover" if hover else "normal",
-                     line=tier_color(item.tier) if item else (200, 60, 60), layer=layer)
-    mark = own_icon(app, f"icon/tier{item.tier}", max(12, body.width // 3)) if item else None
+                     line=tier_color(item.rank) if item else (200, 60, 60), layer=layer)
+    mark = own_icon(app, f"icon/tier{item.rank}", max(12, body.width // 3)) if item else None
     if mark is not None:
         ui.screen.blit(mark, (body.x - 2, body.y - 2))
     if count > 1:

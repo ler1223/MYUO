@@ -15,7 +15,7 @@
     "damage_tags": [
       "slashing"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "shield": {
@@ -42,7 +42,7 @@
     "passives": [],
     "tags": [],
     "damage_tags": [],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "short_bow": {
@@ -61,7 +61,7 @@
     "damage_tags": [
       "piercing"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "oak_staff": {
@@ -80,7 +80,7 @@
     "damage_tags": [
       "blunt"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "rusty_dagger": {
@@ -99,7 +99,7 @@
     "damage_tags": [
       "piercing"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "war_axe": {
@@ -118,7 +118,7 @@
     "damage_tags": [
       "slashing"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "lance": {
@@ -137,7 +137,7 @@
     "damage_tags": [
       "piercing"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "fire_charm": {
@@ -156,7 +156,7 @@
       "fire_resistant"
     ],
     "damage_tags": [],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "spear": {
@@ -175,13 +175,13 @@
     "damage_tags": [
       "piercing"
     ],
-    "tier": 1,
+    "tier": 5,
     "price": 50
   },
   "novice_sword": {
     "name": "Novice Sword",
     "slot": "light_sword",
-    "tier": 1,
+    "tier": 5,
     "price": 60,
     "modifiers": [
       {
@@ -200,7 +200,7 @@
   "mercenary_sword": {
     "name": "Mercenary Sword",
     "slot": "light_sword",
-    "tier": 2,
+    "tier": 15,
     "price": 180,
     "modifiers": [
       {
@@ -219,7 +219,7 @@
   "hero_sword": {
     "name": "Hero Sword",
     "slot": "light_sword",
-    "tier": 3,
+    "tier": 25,
     "price": 450,
     "modifiers": [
       {
@@ -238,7 +238,7 @@
   "novice_shield": {
     "name": "Novice Shield",
     "slot": "light_shield",
-    "tier": 1,
+    "tier": 5,
     "price": 50,
     "modifiers": [
       {
@@ -260,7 +260,7 @@
   "mercenary_shield": {
     "name": "Mercenary Shield",
     "slot": "light_shield",
-    "tier": 2,
+    "tier": 15,
     "price": 150,
     "modifiers": [
       {
@@ -282,7 +282,7 @@
   "hero_shield": {
     "name": "Hero Shield",
     "slot": "light_shield",
-    "tier": 3,
+    "tier": 25,
     "price": 400,
     "modifiers": [
       {
@@ -304,7 +304,7 @@
   "novice_bow": {
     "name": "Novice Bow",
     "slot": "bow",
-    "tier": 1,
+    "tier": 5,
     "price": 60,
     "modifiers": [
       {
@@ -328,7 +328,7 @@
   "mercenary_bow": {
     "name": "Mercenary Bow",
     "slot": "bow",
-    "tier": 2,
+    "tier": 15,
     "price": 180,
     "modifiers": [
       {
@@ -352,7 +352,7 @@
   "hero_bow": {
     "name": "Hero Bow",
     "slot": "bow",
-    "tier": 3,
+    "tier": 25,
     "price": 450,
     "modifiers": [
       {
@@ -376,7 +376,7 @@
   "novice_staff": {
     "name": "Novice Staff",
     "slot": "staff",
-    "tier": 1,
+    "tier": 5,
     "price": 60,
     "modifiers": [
       {
@@ -395,7 +395,7 @@
   "mercenary_staff": {
     "name": "Mercenary Staff",
     "slot": "staff",
-    "tier": 2,
+    "tier": 15,
     "price": 180,
     "modifiers": [
       {
@@ -414,7 +414,7 @@
   "hero_staff": {
     "name": "Hero Staff",
     "slot": "staff",
-    "tier": 3,
+    "tier": 25,
     "price": 450,
     "modifiers": [
       {
@@ -433,7 +433,7 @@
   "novice_dagger": {
     "name": "Novice Dagger",
     "slot": "dagger",
-    "tier": 1,
+    "tier": 5,
     "price": 60,
     "modifiers": [
       {
@@ -457,7 +457,7 @@
   "mercenary_dagger": {
     "name": "Mercenary Dagger",
     "slot": "dagger",
-    "tier": 2,
+    "tier": 15,
     "price": 180,
     "modifiers": [
       {
@@ -481,7 +481,7 @@
   "hero_dagger": {
     "name": "Hero Dagger",
     "slot": "dagger",
-    "tier": 3,
+    "tier": 25,
     "price": 450,
     "modifiers": [
       {
@@ -505,7 +505,7 @@
   "novice_axe": {
     "name": "Novice Axe",
     "slot": "heavy_weapon",
-    "tier": 1,
+    "tier": 5,
     "price": 60,
     "modifiers": [
       {
@@ -524,7 +524,7 @@
   "mercenary_axe": {
     "name": "Mercenary Axe",
     "slot": "heavy_weapon",
-    "tier": 2,
+    "tier": 15,
     "price": 180,
     "modifiers": [
       {
@@ -543,7 +543,7 @@
   "hero_axe": {
     "name": "Hero Axe",
     "slot": "heavy_weapon",
-    "tier": 3,
+    "tier": 25,
     "price": 450,
     "modifiers": [
       {
@@ -562,7 +562,7 @@
   "novice_lance": {
     "name": "Novice Lance",
     "slot": "lance",
-    "tier": 1,
+    "tier": 5,
     "price": 60,
     "modifiers": [
       {
@@ -581,7 +581,7 @@
   "mercenary_lance": {
     "name": "Mercenary Lance",
     "slot": "lance",
-    "tier": 2,
+    "tier": 15,
     "price": 180,
     "modifiers": [
       {
@@ -600,7 +600,7 @@
   "hero_lance": {
     "name": "Hero Lance",
     "slot": "lance",
-    "tier": 3,
+    "tier": 25,
     "price": 450,
     "modifiers": [
       {
@@ -619,7 +619,7 @@
   "novice_jerkin": {
     "name": "Novice Jerkin",
     "slot": "light_armor",
-    "tier": 1,
+    "tier": 5,
     "price": 50,
     "modifiers": [
       {
@@ -641,7 +641,7 @@
   "mercenary_jerkin": {
     "name": "Mercenary Jerkin",
     "slot": "light_armor",
-    "tier": 2,
+    "tier": 15,
     "price": 150,
     "modifiers": [
       {
@@ -663,7 +663,7 @@
   "hero_jerkin": {
     "name": "Hero Jerkin",
     "slot": "light_armor",
-    "tier": 3,
+    "tier": 25,
     "price": 400,
     "modifiers": [
       {
@@ -685,7 +685,7 @@
   "novice_mail": {
     "name": "Novice Mail",
     "slot": "medium_armor",
-    "tier": 1,
+    "tier": 5,
     "price": 50,
     "modifiers": [
       {
@@ -707,7 +707,7 @@
   "mercenary_mail": {
     "name": "Mercenary Mail",
     "slot": "medium_armor",
-    "tier": 2,
+    "tier": 15,
     "price": 150,
     "modifiers": [
       {
@@ -729,7 +729,7 @@
   "hero_mail": {
     "name": "Hero Mail",
     "slot": "medium_armor",
-    "tier": 3,
+    "tier": 25,
     "price": 400,
     "modifiers": [
       {
@@ -751,7 +751,7 @@
   "novice_robe": {
     "name": "Novice Robe",
     "slot": "robe",
-    "tier": 1,
+    "tier": 5,
     "price": 50,
     "modifiers": [
       {
@@ -773,7 +773,7 @@
   "mercenary_robe": {
     "name": "Mercenary Robe",
     "slot": "robe",
-    "tier": 2,
+    "tier": 15,
     "price": 150,
     "modifiers": [
       {
@@ -795,7 +795,7 @@
   "hero_robe": {
     "name": "Hero Robe",
     "slot": "robe",
-    "tier": 3,
+    "tier": 25,
     "price": 400,
     "modifiers": [
       {
@@ -817,7 +817,7 @@
   "novice_pendant": {
     "name": "Novice Pendant",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -834,7 +834,7 @@
   "mercenary_pendant": {
     "name": "Mercenary Pendant",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -851,7 +851,7 @@
   "hero_pendant": {
     "name": "Hero Pendant",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -868,7 +868,7 @@
   "novice_brooch": {
     "name": "Novice Brooch",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -885,7 +885,7 @@
   "mercenary_brooch": {
     "name": "Mercenary Brooch",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -902,7 +902,7 @@
   "hero_brooch": {
     "name": "Hero Brooch",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -919,7 +919,7 @@
   "novice_ring": {
     "name": "Novice Ring",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -936,7 +936,7 @@
   "mercenary_ring": {
     "name": "Mercenary Ring",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -953,7 +953,7 @@
   "hero_ring": {
     "name": "Hero Ring",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -970,7 +970,7 @@
   "novice_rune": {
     "name": "Novice Rune",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -987,7 +987,7 @@
   "mercenary_rune": {
     "name": "Mercenary Rune",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1004,7 +1004,7 @@
   "hero_rune": {
     "name": "Hero Rune",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1021,7 +1021,7 @@
   "novice_amulet": {
     "name": "Novice Amulet",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1038,7 +1038,7 @@
   "mercenary_amulet": {
     "name": "Mercenary Amulet",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1055,7 +1055,7 @@
   "hero_amulet": {
     "name": "Hero Amulet",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1072,7 +1072,7 @@
   "novice_feather": {
     "name": "Novice Feather",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1089,7 +1089,7 @@
   "mercenary_feather": {
     "name": "Mercenary Feather",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1106,7 +1106,7 @@
   "hero_feather": {
     "name": "Hero Feather",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1123,7 +1123,7 @@
   "novice_lens": {
     "name": "Novice Lens",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1140,7 +1140,7 @@
   "mercenary_lens": {
     "name": "Mercenary Lens",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1157,7 +1157,7 @@
   "hero_lens": {
     "name": "Hero Lens",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1174,7 +1174,7 @@
   "novice_ribbon": {
     "name": "Novice Ribbon",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1191,7 +1191,7 @@
   "mercenary_ribbon": {
     "name": "Mercenary Ribbon",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1208,7 +1208,7 @@
   "hero_ribbon": {
     "name": "Hero Ribbon",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1225,7 +1225,7 @@
   "novice_fang": {
     "name": "Novice Fang",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1242,7 +1242,7 @@
   "mercenary_fang": {
     "name": "Mercenary Fang",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1259,7 +1259,7 @@
   "hero_fang": {
     "name": "Hero Fang",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1276,7 +1276,7 @@
   "novice_claw": {
     "name": "Novice Claw",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1293,7 +1293,7 @@
   "mercenary_claw": {
     "name": "Mercenary Claw",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1310,7 +1310,7 @@
   "hero_claw": {
     "name": "Hero Claw",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {
@@ -1327,7 +1327,7 @@
   "novice_emblem": {
     "name": "Novice Emblem",
     "slot": "artifact",
-    "tier": 1,
+    "tier": 5,
     "price": 40,
     "modifiers": [
       {
@@ -1344,7 +1344,7 @@
   "mercenary_emblem": {
     "name": "Mercenary Emblem",
     "slot": "artifact",
-    "tier": 2,
+    "tier": 15,
     "price": 140,
     "modifiers": [
       {
@@ -1361,7 +1361,7 @@
   "hero_emblem": {
     "name": "Hero Emblem",
     "slot": "artifact",
-    "tier": 3,
+    "tier": 25,
     "price": 380,
     "modifiers": [
       {

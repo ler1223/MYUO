@@ -30,7 +30,7 @@ from pygame_battle import FIELD_RECT, SKIP_BACKLOG_MS, BattleView
 from pygame_stage import TOWER_MODE, StageScreen, load_visuals
 from pygame_tips import STAT_COLORS, class_tip, modifier_text, tier_color, unit_tip
 from pygame_tower_inventory import InventoryFilter
-from pygame_tower_prepare import INVENTORY, MAIN, STATUS, UNIT, draw_prepare, go_back
+from pygame_tower_prepare import INVENTORY, MAIN, PROMOTE, STATUS, UNIT, draw_prepare, go_back
 from pygame_tower_style import (BACK, DIM, ENEMY, FULL_BODY, GAP, GOLD, GREEN, H, M, SIZE, SIZES, TEXT, TOP_H, W,
                                 background, bar, button, class_entries, class_line, diamonds, item_icon, level_badge,
                                 make_ui, panel, portrait, shade, skill_chip, stat_rows, unit_name)
@@ -431,8 +431,8 @@ def item_card(ui: Gui, app: TowerApp, item_id: str, rect: pygame.Rect, selected:
     if action is not None:
         text_r.width = action.x - text_r.x - 12
     name_r, kind_r, mods_r = rows(text_r, [40, 30, 1.0], 2)
-    ui.label(t(item.name), name_r, "heading", color=tier_color(item.tier))
-    tier_name = t(("novice", "mercenary", "hero")[min(max(item.tier, 1), 3) - 1])
+    ui.label(t(item.name), name_r, "heading", color=tier_color(item.rank))
+    tier_name = t(("novice", "mercenary", "hero")[item.rank - 1])
     ui.label(f"{t(item.slot)} · {tier_name}", kind_r, "small", color=DIM)
     for cell, mod in zip(grid(mods_r, len(item.modifiers), 1 if action else 2, 30, 12, 2), item.modifiers):
         ui.label(modifier_text(t, mod), cell, "small", color=STAT_COLORS.get(mod.stat, TEXT))
@@ -543,7 +543,7 @@ def draw_shop(ui: Gui, app: TowerApp) -> None:
         line = pygame.Rect(area.x, area.y + row * 92, area.width, 84)
         icon_r, name_r, sell_r = cols(line, [84, 1.0, 120], 12)
         item_icon(ui, app, item_id, icon_r, count)
-        ui.label(t(db.items[item_id].name), name_r, "small", color=tier_color(db.items[item_id].tier))
+        ui.label(t(db.items[item_id].name), name_r, "small", color=tier_color(db.items[item_id].rank))
         if button(ui, f"+{rules.sell_price(db, item_id)}", place(sell_r, (120, 60), "center"), style="small"):
             app.act(run.sell, db, item_id)
     if button(ui, t("Leave the shop"), LEAVE, primary=True, style="tab"):
@@ -718,7 +718,7 @@ def draw_frame(ui: Gui, app: TowerApp, window: Optional[Window] = None) -> None:
             app.stage.draw_field(ui.screen, app.clock, field_camera(app.stage, None))
         draw_result(ui, app)
     else:
-        phase = UNIT if app.view == UNIT and app.run.phase == PREPARE else app.run.phase
+        phase = UNIT if app.view in (UNIT, PROMOTE) and app.run.phase == PREPARE else app.run.phase
         scene = INVENTORY if app.view == INVENTORY and app.run.phase == PREPARE else phase
         background(ui, app, scene)
         draw_top(ui, app)

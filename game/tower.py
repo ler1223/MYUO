@@ -19,6 +19,7 @@ from typing import Any, Collection, Mapping, Optional, Sequence, Union
 from .database import DEFAULT_DATA_DIR, Database
 from .inventory import Inventory
 from .progression import ExpRules, LevelUp, grant_exp
+from .promotion import promote
 from .save import unit_from_save, unit_to_save
 from .scenario import MAP_SIZE, Scenario
 from .squad import Formation, FormationSize
@@ -46,6 +47,11 @@ ARTIFACT = "artifact"
 RANGED_SLOTS = ("bow", "staff")     # классы с таким слотом встают во второй ряд
 
 DRAFT, PREPARE, REWARD, SHOP, OVER = "draft", "prepare", "reward", "shop", "over"
+
+
+def base_classes(db: Database) -> list[str]:
+    """Классы, в которые никто не повышается: из них набор, найм и враги (повышенные — повышением)."""
+    return sorted(c for c in db.units if not db.parents(c)) or sorted(db.units)
 
 
 def by_floor(table: Sequence[Mapping[str, Any]], floor: int) -> Mapping[str, Any]:
@@ -116,9 +122,15 @@ class TowerRules:
         return min(1.0, max(0.0, steps * enemies["artifact_chance_per_floor"]))
 
     def enemy_classes(self, db: Database) -> dict[str, float]:
-        """Пул классов врагов с весами; пусто в данных — все классы поровну."""
+        """Пул классов врагов с весами; пусто в данных — все базовые классы поровну (повышенные
+        получаются повышением на этаже, enemy_promotion)."""
         listed = {k: v for k, v in self.data["enemies"].get("classes", {}).items() if k in db.units and v > 0}
-        return listed or {class_id: 1.0 for class_id in db.units}
+        return listed or {class_id: 1.0 for class_id in base_classes(db)}
+
+    def enemy_promotion(self, floor: int) -> float:
+        """Шанс, что враг, доросший до повышения, повышен (на каждой ступени отдельно)."""
+        table = self.data["enemies"].get("promotion")
+        return float(by_floor(table, floor)["chance"]) if table else 0.0
 
     # --- награды и магазин ---
 
@@ -238,7 +250,7 @@ class TowerRun:
                 continue
             item = named.get(slot)
             if item not in db.items or db.items[item].slot != slot:
-                fitting = [i for i in db.items.values() if i.slot == slot and i.tier == tier]
+                fitting = [i for i in db.items.values() if i.slot == slot and i.rank == tier]
                 item = min(fitting, key=lambda i: i.price).id if fitting else None
             if item is not None:
                 gear.append(item)
@@ -269,7 +281,7 @@ class TowerRun:
 
     def _draft_offers(self, db: Database) -> list[str]:
         rng = self._rng(f"draft{len(self.army.units)}")
-        pool = sorted(db.units)
+        pool = base_classes(db)
         return rng.sample(pool, min(self.rules.data["draft"]["choices"], len(pool)))
 
     def pick(self, db: Database, class_id: str) -> int:
@@ -340,14 +352,21 @@ class TowerRun:
         roster, taken = [], []
         for index in range(rules.enemy_count(floor)):
             class_id = rng.choices(list(pool), weights=list(pool.values()))[0]
-            definition = db.units[class_id]
+            unit_level = level + (rules.data["boss"]["leader_level_bonus"] if rules.is_boss(floor) and index == 0 else 0)
+            unit_level = min(unit_level, rules.exp.max_level)
+            chance = rules.enemy_promotion(floor)
+            while True:                                   # повышение по случайному открытому пути
+                paths = [p for p in db.units[class_id].promotions if p.level <= unit_level and p.class_id in db.units]
+                if not paths or rng.random() >= chance:
+                    break
+                class_id = rng.choice(paths).class_id
+            definition = db.definition_for(class_id, db.lineage(class_id))
             cell = free_cell(taken, definition, size)
             if cell is None:
                 break
             taken.append(cell)
-            unit_level = level + (rules.data["boss"]["leader_level_bonus"] if rules.is_boss(floor) and index == 0 else 0)
             gear = self._enemy_gear(db, definition, tier, rng)
-            roster.append((class_id, min(unit_level, rules.exp.max_level), gear, *cell))
+            roster.append((class_id, unit_level, gear, *cell))
         return roster
 
     def _enemy_gear(self, db: Database, definition: UnitDefinition, tier: int, rng: random.Random) -> tuple[str, ...]:
@@ -360,7 +379,7 @@ class TowerRun:
                 continue
             # Лучший доступный тир, не выше нужного
             for wanted in range(tier, 0, -1):
-                fitting = sorted(i.id for i in db.items.values() if i.slot == slot and i.tier == wanted)
+                fitting = sorted(i.id for i in db.items.values() if i.slot == slot and i.rank == wanted)
                 if fitting:
                     gear.append(rng.choice(fitting))
                     break
@@ -424,7 +443,7 @@ class TowerRun:
         """Предметы на выбор: тир по весам этажа, внутри тира — случайный, без повторов, пока хватает."""
         by_tier: dict[int, list[str]] = {}
         for item in db.items.values():
-            by_tier.setdefault(item.tier, []).append(item.id)
+            by_tier.setdefault(item.rank, []).append(item.id)
         if not by_tier:
             return []
         weights = self.rules.tier_weights(self.floor)
@@ -463,7 +482,7 @@ class TowerRun:
         rng = self._rng("shop")
         shop = self.rules.data["shop"]
         level = max(1, sum(u.state.level for u in self.army.units.values()) // max(1, len(self.army.units)))
-        pool = sorted(db.units)
+        pool = base_classes(db)
         self.recruits = [(rng.choice(pool), level) for _ in range(shop["recruits"])] if pool else []
         self.shop_items = list(self._offer_items(db, rng, shop["items"]))
 
@@ -497,6 +516,14 @@ class TowerRun:
             raise ValueError("not enough gold")
         self.rerolls += 1
         self._stock_shop(db)
+
+    # --- повышение ---
+
+    def promote(self, db: Database, uid: int, class_id: str) -> None:
+        """Повысить бойца армии (на подготовке): game/promotion.py."""
+        if self.phase != PREPARE or uid not in self.army.units:
+            raise ValueError("promotion is only possible while preparing")
+        promote(db, self.army.units[uid], class_id)
 
     def leave_shop(self) -> None:
         if self.phase == SHOP:
