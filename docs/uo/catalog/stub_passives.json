@@ -62,7 +62,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates at the start of a battle.",
-   "effect": "Grants an ally +1 Guard Rate.\nGrants the ability to nullify piercing strikes.",
+   "effect": "Grants an ally 100% Guard Rate.\nGrants the ability to nullify piercing strikes.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -358,7 +358,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates at the start of a battle.",
-   "effect": "Inflicts Initiative +30 on a single enemy.",
+   "effect": "Inflicts Initiative -30 on a single enemy.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -381,7 +381,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates at the start of a battle.",
-   "effect": "Inflicts Attack 20% and Initiative +10 on all enemies.",
+   "effect": "Inflicts Attack -20% and Initiative -10 on all enemies.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -641,7 +641,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates at the start of a battle.",
-   "effect": "Attack a single enemy with a first strike.\nInflicts Phys. Defense 50%.",
+   "effect": "Attack a single enemy with a first strike.\nInflicts Phys. Defense -50%.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -687,7 +687,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates at the start of a battle.",
-   "effect": "Attack all enemies with a first strike.\nInflicts AP +1 and PP +1.",
+   "effect": "Attack all enemies with a first strike.\nInflicts AP -1 and PP -1.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -758,7 +758,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates at the end of a battle.",
-   "effect": "Attack all enemies.\nIgnores 50% of the target's Defense.\nRecover HP equal to +1 of damage dealt.",
+   "effect": "Attack all enemies.\nIgnores 50% of the target's Defense.\nRecover HP equal to 100% of damage dealt.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -806,7 +806,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after using an active skill.",
-   "effect": "Sacrifice 25% HP to grant the user +1 AP.",
+   "effect": "Sacrifice 25% HP to grant user +1 AP AP.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -937,8 +937,8 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after using an active skill.",
-   "effect": "Grants a row of allies %s Initiative. (Effect stacks.)\nEffect is doubled for flying targets.",
-   "numbers_filled": false,
+   "effect": "Grants a row of allies +10 Initiative. (Effect stacks.)\nEffect is doubled for flying targets.",
+   "numbers_filled": true,
    "effect_blocks": [
     [
      114,
@@ -1011,7 +1011,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates before attacking with an active skill.",
-   "effect": "Makes the user's next attack a truestrike.\nGrants the user 20% Attack if the user is at 100%% HP.",
+   "effect": "Makes the user's next attack a truestrike.\nGrants the user 20% Attack if the user is at 100% HP.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -1183,7 +1183,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after an enemy attacks with an active skill.",
-   "effect": "Counterattack a row of enemies.\nInflicts AP +2 to debuffed targets.",
+   "effect": "Counterattack a row of enemies.\nInflicts AP -2 to debuffed targets.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -1204,7 +1204,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after an enemy attacks with an active skill.",
-   "effect": "Counterattack all enemies with magick.\nInflicts Initiative +10.",
+   "effect": "Counterattack all enemies with magick.\nInflicts Initiative -10.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -1252,7 +1252,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after an ally is hit by an attack.",
-   "effect": "Inflicts Poison and 20% Attack on a single enemy.",
+   "effect": "Inflicts Poison and -20% Attack on a single enemy.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -1277,7 +1277,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after an enemy attacks with an active skill.",
-   "effect": "Inflicts Poison and 25% Attack on a row of enemies.",
+   "effect": "Inflicts Poison and -25% Attack on a row of enemies.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -1748,7 +1748,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates after an ally attacks (Active).",
-   "effect": "Follow-up attack a column of enemies with\na piercing strike. Inflicts Phys. Defense 25%.",
+   "effect": "Follow-up attack a column of enemies with\na piercing strike. Inflicts Phys. Defense -25%.",
    "numbers_filled": true,
    "effect_blocks": [
     [
@@ -1837,7 +1837,7 @@
    "hits": 1,
    "accuracy": 100,
    "trigger": "Activates before an enemy uses an attack skill.",
-   "effect": "Inflicts Attack 50% to a single enemy.\nInflicts Critical Seal.",
+   "effect": "Inflicts Attack -50% to a single enemy.\nInflicts Critical Seal.",
    "numbers_filled": true,
    "effect_blocks": [
     [

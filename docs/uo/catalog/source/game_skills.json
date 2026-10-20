@@ -30,7 +30,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts AP +1, PP +1, and Guard Seal\nif the target is cavalry.",
+  "game_text": "Attack a single enemy.\nInflicts AP -1, PP -1, and Guard Seal\nif the target is cavalry.",
   "numbers_filled": true
  },
  {
@@ -219,7 +219,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a row of enemies.\nInflicts Blindness.\nInflicts Initiative +20 and Evasion +20.",
+  "game_text": "Attack a row of enemies.\nInflicts Blindness.\nInflicts Initiative -20 and Evasion -20.",
   "numbers_filled": true
  },
  {
@@ -391,7 +391,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts Evasion +20.\nGrants the user +20 Evasion.",
+  "game_text": "Attack a single enemy.\nInflicts Evasion -20.\nGrants the user +20 Evasion.",
   "numbers_filled": true
  },
  {
@@ -410,7 +410,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts Defense 20%.\nGrants the user 20% Defense.",
+  "game_text": "Attack a single enemy.\nInflicts Defense -20%.\nGrants the user 20% Defense.",
   "numbers_filled": true
  },
  {
@@ -448,7 +448,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts Mag. Defense 50% to ground-based targets.",
+  "game_text": "Attack a single enemy.\nInflicts Mag. Defense -50% to ground-based targets.",
   "numbers_filled": true
  },
  {
@@ -484,7 +484,7 @@
   "hits": 2,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\n+25 potency if the user is at 100%% HP.\nGrants the user +1 PP if the attack hits.",
+  "game_text": "Attack a single enemy.\n+25 potency if the user is at 100% HP.\nGrants the user +1 PP if the attack hits.",
   "numbers_filled": true
  },
  {
@@ -745,7 +745,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\n+50 potency if the user is below 50%% HP.",
+  "game_text": "Attack a single enemy.\n+50 potency if the user is below 50% HP.",
   "numbers_filled": true
  },
  {
@@ -976,7 +976,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a row of enemies.\nCavalry targets cannot guard against this attack.\nGrants the user +1 AP if a target is at 100%% HP.",
+  "game_text": "Attack a row of enemies.\nCavalry targets cannot guard against this attack.\nGrants the user +1 AP if a target is at 100% HP.",
   "numbers_filled": true
  },
  {
@@ -995,7 +995,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a column of enemies with a piercing strike.\nDeals damage equal to 50%%% of the user's HP.\n(This attack cannot be a critical.)",
+  "game_text": "Attack a column of enemies with a piercing strike.\nDeals damage equal to 50%% of the user's HP.\n(This attack cannot be a critical.)",
   "numbers_filled": true
  },
  {
@@ -1014,7 +1014,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts AP +1.",
+  "game_text": "Attack a single enemy.\nInflicts AP -1.",
   "numbers_filled": true
  },
  {
@@ -1118,7 +1118,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts Phys. Defense 20%.",
+  "game_text": "Attack a single enemy.\nInflicts Phys. Defense -20%.",
   "numbers_filled": true
  },
  {
@@ -1135,7 +1135,7 @@
   "hits": 3,
   "accuracy": 75,
   "traits": [],
-  "game_text": "Attack a row of enemies with multiple hits.\nInflicts Phys. Defense 15%.",
+  "game_text": "Attack a row of enemies with multiple hits.\nInflicts Phys. Defense -15%.",
   "numbers_filled": true
  },
  {
@@ -1152,7 +1152,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a row of enemies.\nInflicts Phys. Defense 30%.\n+50 potency v. debuffed targets.",
+  "game_text": "Attack a row of enemies.\nInflicts Phys. Defense -30%.\n+50 potency v. debuffed targets.",
   "numbers_filled": true
  },
  {
@@ -1237,7 +1237,7 @@
   "hits": 1,
   "accuracy": 80,
   "traits": [],
-  "game_text": "Attack a row of enemies.\n+50 potency if the user is at 100%% HP.",
+  "game_text": "Attack a row of enemies.\n+50 potency if the user is at 100% HP.",
   "numbers_filled": true
  },
  {
@@ -1254,7 +1254,7 @@
   "hits": 1,
   "accuracy": 80,
   "traits": [],
-  "game_text": "Attack all enemies.\n+50 potency if the user is at 100%% HP.",
+  "game_text": "Attack all enemies.\n+50 potency if the user is at 100% HP.",
   "numbers_filled": true
  },
  {
@@ -1415,7 +1415,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nIf the user is at 100%% HP,\ngrants the user +1 PP and +1 summoned faeries.",
+  "game_text": "Attack a single enemy.\nIf the user is at 100% HP,\ngrants the user +1 PP and +1 summoned faeries.",
   "numbers_filled": true
  },
  {
@@ -1829,7 +1829,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a column of enemies with a piercing strike.\nInflicts Phys. Defense 30%.",
+  "game_text": "Attack a column of enemies with a piercing strike.\nInflicts Phys. Defense -30%.",
   "numbers_filled": true
  },
  {
@@ -1863,7 +1863,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts AP +1 to the target and\ngrants the user 50% Defense if the attack hits.",
+  "game_text": "Attack a single enemy.\nInflicts AP -1 to the target and\ngrants the user 50% Defense if the attack hits.",
   "numbers_filled": true
  },
  {
@@ -1914,7 +1914,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nUser takes 50%%% of damage dealt.",
+  "game_text": "Attack a single enemy.\nUser takes 50%% of damage dealt.",
   "numbers_filled": true
  },
  {
@@ -1931,7 +1931,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nDeals 25%%% of target's HP\nin additional damage.",
+  "game_text": "Attack a single enemy.\nDeals 25%% of target's HP\nin additional damage.",
   "numbers_filled": true
  },
  {
@@ -1999,7 +1999,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts PP +1.",
+  "game_text": "Attack a single enemy.\nInflicts PP -1.",
   "numbers_filled": true
  },
  {
@@ -2016,7 +2016,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a column of enemies with a piercing strike.\nInflicts AP +1, PP +1,\nand Defense 50% to elven targets.",
+  "game_text": "Attack a column of enemies with a piercing strike.\nInflicts AP -1, PP -1,\nand Defense -50% to elven targets.",
   "numbers_filled": true
  },
  {
@@ -2033,7 +2033,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a row of enemies.\nInflicts AP +1, PP +1,\nand Defense 50% to bestral targets.",
+  "game_text": "Attack a row of enemies.\nInflicts AP -1, PP -1,\nand Defense -50% to bestral targets.",
   "numbers_filled": true
  },
  {
@@ -2050,7 +2050,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts Phys. Attack 40%.",
+  "game_text": "Attack a single enemy.\nInflicts Phys. Attack -40%.",
   "numbers_filled": true
  },
  {
@@ -2067,7 +2067,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts Phys. Attack 75%.",
+  "game_text": "Attack a single enemy.\nInflicts Phys. Attack -75%.",
   "numbers_filled": true
  },
  {
@@ -2084,7 +2084,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts Phys. Defense 30%.",
+  "game_text": "Attack a single enemy.\nInflicts Phys. Defense -30%.",
   "numbers_filled": true
  },
  {
@@ -2101,7 +2101,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts Phys. Defense 50%.",
+  "game_text": "Attack a single enemy.\nInflicts Phys. Defense -50%.",
   "numbers_filled": true
  },
  {
@@ -2118,7 +2118,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a row of enemies.\nInflicts Mag. Attack 50%.",
+  "game_text": "Attack a row of enemies.\nInflicts Mag. Attack -50%.",
   "numbers_filled": true
  },
  {
@@ -2135,7 +2135,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts AP +1.",
+  "game_text": "Attack a single enemy.\nInflicts AP -1.",
   "numbers_filled": true
  },
  {
@@ -2152,7 +2152,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a single enemy.\nInflicts PP +1.",
+  "game_text": "Attack a single enemy.\nInflicts PP -1.",
   "numbers_filled": true
  },
  {
@@ -2169,7 +2169,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a column of enemies with a piercing strike.\nInflicts PP +1.",
+  "game_text": "Attack a column of enemies with a piercing strike.\nInflicts PP -1.",
   "numbers_filled": true
  },
  {
@@ -2243,7 +2243,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack three enemies.\nInflicts Phys. Attack 50% and Mag. Attack 50%.",
+  "game_text": "Attack three enemies.\nInflicts Phys. Attack -50% and Mag. Attack -50%.",
   "numbers_filled": true
  },
  {
@@ -2338,7 +2338,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts Passive Seal.\n+100 potency if the target's HP is 50%% or less.",
+  "game_text": "Attack a single enemy.\nInflicts Passive Seal.\n+100 potency if the target's HP is 50% or less.",
   "numbers_filled": true
  },
  {
@@ -2414,7 +2414,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts Evasion +50.",
+  "game_text": "Attack a single enemy.\nInflicts Evasion -50.",
   "numbers_filled": true
  },
  {
@@ -2452,7 +2452,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts Initiative +20.",
+  "game_text": "Attack a single enemy.\nInflicts Initiative -20.",
   "numbers_filled": true
  },
  {
@@ -2471,7 +2471,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack a single enemy.\nInflicts PP +1.\nAdditional PP +1 to ground-based targets.",
+  "game_text": "Attack a single enemy.\nInflicts PP -1.\nAdditional PP +1 to ground-based targets.",
   "numbers_filled": true
  },
  {
@@ -2490,7 +2490,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack two enemies.\nInflicts Phys. Defense 50%.\nInflicts Passive Seal during the day.",
+  "game_text": "Attack two enemies.\nInflicts Phys. Defense -50%.\nInflicts Passive Seal during the day.",
   "numbers_filled": true
  },
  {
@@ -2870,7 +2870,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Attack all enemies.\nDeals damage equal to 50%%% of each target's HP.\n(User cannot evade or use passive skills while charging.)",
+  "game_text": "Attack all enemies.\nDeals damage equal to 50%% of each target's HP.\n(User cannot evade or use passive skills while charging.)",
   "numbers_filled": true
  },
  {
@@ -3345,7 +3345,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Revive a fallen ally, restoring them to 100%% HP.\nGrants the target +1 AP.\n(User's HP will drop to 0 when the battle ends.)",
+  "game_text": "Revive a fallen ally, restoring them to 100% HP.\nGrants the target +1 AP.\n(User's HP will drop to 0 when the battle ends.)",
   "numbers_filled": true
  },
  {
@@ -3440,7 +3440,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Inflicts PP +1 and Initiative +10\non a row of enemies.",
+  "game_text": "Inflicts PP -1 and Initiative -10\non a row of enemies.",
   "numbers_filled": true
  },
  {
@@ -3497,7 +3497,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Inflicts Phys. Attack 50% and Mag. Attack 50%\non a row of enemies",
+  "game_text": "Inflicts Phys. Attack -50% and Mag. Attack -50%\non a row of enemies",
   "numbers_filled": true
  },
  {
@@ -3516,7 +3516,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Inflicts Phys. Attack 50%, Mag. Attack 50%,\nand Guard Seal on a row of enemies.",
+  "game_text": "Inflicts Phys. Attack -50%, Mag. Attack -50%,\nand Guard Seal on a row of enemies.",
   "numbers_filled": true
  },
  {
@@ -3798,7 +3798,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Attack a column of enemies with piercing magick.\nInflicts PP +1 to cavalry targets.",
+  "game_text": "Attack a column of enemies with piercing magick.\nInflicts PP -1 to cavalry targets.",
   "numbers_filled": true
  },
  {
@@ -3923,7 +3923,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants an ally 100% Guard Rate.\nGrants the ability to nullify piercing strikes.",
   "numbers_filled": true
  },
  {
@@ -3942,7 +3942,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants the user +30 Initiative, 40% Phys. Defense,\nand 40% Guard Rate.",
   "numbers_filled": true
  },
  {
@@ -3961,7 +3961,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants the user +1 AP and 50% Attack.",
   "numbers_filled": true
  },
  {
@@ -3978,7 +3978,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants the user 20% Phys. Attack.",
   "numbers_filled": true
  },
  {
@@ -3995,7 +3995,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nCompletely negate attacks up to three hits.",
   "numbers_filled": true
  },
  {
@@ -4012,7 +4012,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nCompletely negate attacks up to two hits.",
   "numbers_filled": true
  },
  {
@@ -4029,7 +4029,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nCompletely negate attacks up to six hits.",
   "numbers_filled": true
  },
  {
@@ -4046,7 +4046,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nImmediately activate one charge attack.",
   "numbers_filled": true
  },
  {
@@ -4063,7 +4063,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants an ally +15 Initiative for their next action.",
   "numbers_filled": true
  },
  {
@@ -4082,7 +4082,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants an ally max Initiative for their next action.",
   "numbers_filled": true
  },
  {
@@ -4101,8 +4101,8 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
-  "numbers_filled": true
+  "game_text": "Activates at the start of a battle.\nGrants the user max Initiative for their next action\nand %s Critical Rate.",
+  "numbers_filled": false
  },
  {
   "key": "hastened_cast",
@@ -4118,7 +4118,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants an ally max Initiative for their next action.",
   "numbers_filled": true
  },
  {
@@ -4135,7 +4135,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants all allies +20 Initiative.",
   "numbers_filled": true
  },
  {
@@ -4154,7 +4154,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants all allies immunity to Stun\nand 20% Guard Rate.",
   "numbers_filled": true
  },
  {
@@ -4173,7 +4173,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nMake all allies attack skills unguardable.",
   "numbers_filled": true
  },
  {
@@ -4192,7 +4192,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nForce a row of enemies to focus attacks on the user.\nGrants the user 50% Guard Rate.",
   "numbers_filled": true
  },
  {
@@ -4211,7 +4211,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nForce a row of enemies to focus attacks on the user.\nUser will negate one physickal attack.",
   "numbers_filled": true
  },
  {
@@ -4230,7 +4230,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nForce all enemies to focus attacks on the user.\nUser will evade attacks up to two hits.",
   "numbers_filled": true
  },
  {
@@ -4249,7 +4249,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nInflicts Initiative -20 on all enemies.",
   "numbers_filled": true
  },
  {
@@ -4268,7 +4268,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nInflicts Initiative -30 on a single enemy.",
   "numbers_filled": true
  },
  {
@@ -4287,7 +4287,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nInflicts Initiative -10 and Evasion -30 on all enemies.\nInflicts PP -1 to cavalry targets.",
   "numbers_filled": true
  },
  {
@@ -4306,7 +4306,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nInflicts Attack -20% and Initiative -10 on all enemies.",
   "numbers_filled": true
  },
  {
@@ -4325,7 +4325,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants all allies a buff that negates one attack.",
   "numbers_filled": true
  },
  {
@@ -4344,7 +4344,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nRevive a row of allies, restoring them to 70%% HP.\n(User's HP will drop to 0 when the battle ends.)",
   "numbers_filled": true
  },
  {
@@ -4363,7 +4363,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants a row of allies buffs based on the number\nof armored targets. (1: Grants 20% Guard Rate.\n2: Grants Stun immunity. 3: Grants 20% Defense.)",
   "numbers_filled": true
  },
  {
@@ -4382,7 +4382,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants a row of allies buffs based on the number\nof flying targets. (1: Grants 20% Critical Rate.\n2: Grants +20 Accuracy. 3: Grants 20% Attack.)",
   "numbers_filled": true
  },
  {
@@ -4401,7 +4401,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants all allies buffs based on the number of enemies\nminus the number of allies. (1: Grants +30 Initiative.\n2: Grants 50% Defense. 3: Negates attacks up to five hits.)",
   "numbers_filled": true
  },
  {
@@ -4420,7 +4420,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants 20% Phys. Attack to all allies.\nGrants 50% Critical Rate to bestral targets.",
   "numbers_filled": true
  },
  {
@@ -4439,7 +4439,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants 20% Phys. Defense to all allies.\nGrants 50% Guard Rate to bestral targets.",
   "numbers_filled": true
  },
  {
@@ -4458,7 +4458,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants 50% Guard Rate and 30% Phys. Defense\nto a row of allies.",
   "numbers_filled": true
  },
  {
@@ -4477,7 +4477,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants all allies a buff that\nnegates a single debuff.",
   "numbers_filled": true
  },
  {
@@ -4496,7 +4496,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nGrants a row of allies HP regeneration.",
   "numbers_filled": true
  },
  {
@@ -4515,8 +4515,8 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
-  "numbers_filled": true
+  "game_text": "Activates at the start of a battle.\nGrants all allies HP regeneration\nand %s Defense.",
+  "numbers_filled": false
  },
  {
   "key": "hastened_heal",
@@ -4534,7 +4534,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nRestore minor HP to all allies.\nGrants HP regeneration during the day.",
   "numbers_filled": true
  },
  {
@@ -4553,7 +4553,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nRestore moderate HP to a row of allies.\nGrants a buff that negates a single debuff.\nGrants the user +1 summoned faeries.",
   "numbers_filled": true
  },
  {
@@ -4572,7 +4572,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.",
   "numbers_filled": true
  },
  {
@@ -4589,7 +4589,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.\nGrants the user +2 PP if the target is defeated.",
   "numbers_filled": true
  },
  {
@@ -4606,7 +4606,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.\nGrants the user +1 PP at night.",
   "numbers_filled": true
  },
  {
@@ -4623,7 +4623,7 @@
   "hits": 2,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.\nInflicts Guard Seal and Passive Seal.",
   "numbers_filled": true
  },
  {
@@ -4642,7 +4642,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.\nInflicts Stun.",
   "numbers_filled": true
  },
  {
@@ -4661,7 +4661,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.\nInflicts Phys. Defense -50%.",
   "numbers_filled": true
  },
  {
@@ -4678,7 +4678,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a single enemy with a first strike.\nForce target to focus attacks on the user.",
   "numbers_filled": true
  },
  {
@@ -4695,7 +4695,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack a row of enemies with a magick first strike.\nInflicts Stun, grants the user +1 summoned faeries.",
   "numbers_filled": true
  },
  {
@@ -4714,7 +4714,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the start of a battle.",
+  "game_text": "Activates at the start of a battle.\nAttack all enemies with a first strike.\nInflicts AP -1 and PP -1.",
   "numbers_filled": true
  },
  {
@@ -4733,7 +4733,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nAttack a single enemy.",
   "numbers_filled": true
  },
  {
@@ -4750,7 +4750,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nAttack a single enemy with magick.\nHits all enemies if target is burning.",
   "numbers_filled": true
  },
  {
@@ -4769,7 +4769,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nAttack a single enemy with magick.\nHits all enemies if target is poisoned.",
   "numbers_filled": true
  },
  {
@@ -4788,7 +4788,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nAttack a single enemy.\nDeals damage equal to 80% of the user's HP.\n(This attack cannot be a critical)",
   "numbers_filled": true
  },
  {
@@ -4807,7 +4807,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nAttack all enemies.\nIgnores 50% of the target's Defense.\nRecover HP equal to 100% of damage dealt.",
   "numbers_filled": true
  },
  {
@@ -4826,7 +4826,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nRestore 25% HP to an ally.",
   "numbers_filled": true
  },
  {
@@ -4845,7 +4845,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nRestore 15% HP to a row of allies.\nHealing doubles if target's HP is 50% or less.",
   "numbers_filled": true
  },
  {
@@ -4864,7 +4864,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nRestore 25% HP to all allies.",
   "numbers_filled": true
  },
  {
@@ -4883,7 +4883,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nRecover 25% HP.\nRecovered HP doubles if afflicted.",
   "numbers_filled": true
  },
  {
@@ -4900,7 +4900,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates at the end of a battle.",
+  "game_text": "Activates at the end of a battle.\nRevive one ally, restoring them to 1 HP.",
   "numbers_filled": true
  },
  {
@@ -4919,7 +4919,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user +1 AP and 50% Critical damage.",
   "numbers_filled": true
  },
  {
@@ -4936,7 +4936,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user +1 AP, 20% Phys. Attack,\nand +20 Initiative.",
   "numbers_filled": true
  },
  {
@@ -4953,7 +4953,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nSacrifice 25% HP to grant the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -4970,7 +4970,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user +1 AP and +1 summoned faeries.",
   "numbers_filled": true
  },
  {
@@ -4987,7 +4987,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user 20% Mag. Attack.\nGrants the user +1 AP during the day.",
   "numbers_filled": true
  },
  {
@@ -5004,7 +5004,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user 20% Mag. Attack.\nGrants the user +1 AP at night.",
   "numbers_filled": true
  },
  {
@@ -5021,7 +5021,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally is defeated by an attack.",
+  "game_text": "Activates after an ally is defeated by an attack.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -5038,7 +5038,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user 20% Critical Rate and 20% Critical damage.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -5055,7 +5055,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants a row of allies +10 Initiative. (Effect stacks.)\nEffect is doubled for flying targets.",
   "numbers_filled": true
  },
  {
@@ -5074,7 +5074,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after attacking.",
+  "game_text": "Activates after attacking.\nFollow-up attack a single enemy.",
   "numbers_filled": true
  },
  {
@@ -5093,7 +5093,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after attacking.",
+  "game_text": "Activates after attacking.\nRecover 30% HP.\nRecovered HP doubles at night.",
   "numbers_filled": true
  },
  {
@@ -5110,7 +5110,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using an active skill.",
+  "game_text": "Activates after using an active skill.\nGrants the user +1 AP and +40 Accuracy.",
   "numbers_filled": true
  },
  {
@@ -5127,7 +5127,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after using a magickal attack.",
+  "game_text": "Activates after using a magickal attack.\nCast the same magick again.",
   "numbers_filled": true
  },
  {
@@ -5144,7 +5144,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nGrants allies in the user's row 15% Phys. Attack.",
   "numbers_filled": true
  },
  {
@@ -5161,7 +5161,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nGrants cavalry allies in the user's row 20% Attack.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -5178,7 +5178,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nGrants allies in the user's row +15 Initiative.",
   "numbers_filled": true
  },
  {
@@ -5195,8 +5195,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
-  "numbers_filled": true
+  "game_text": "Activates before attacking with an active skill.\nAttack potency increases as HP decreases. (Maximum: %s)\nGrants the ability to survive one lethal blow.",
+  "numbers_filled": false
  },
  {
   "key": "eagle_eye",
@@ -5212,7 +5212,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nMakes the user's next attack a truestrike.",
   "numbers_filled": true
  },
  {
@@ -5229,7 +5229,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nMakes the user's next attack a truestrike\nand guaranteed critical.",
   "numbers_filled": true
  },
  {
@@ -5246,7 +5246,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nRemove all of the user's debuffs.\nMakes the user's next attack a truestrike\nand guaranteed critical.",
   "numbers_filled": true
  },
  {
@@ -5263,7 +5263,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nMakes the user's next attack a truestrike.\nGrants the user 20% Attack if the user is at 100% HP.",
   "numbers_filled": true
  },
  {
@@ -5280,7 +5280,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nConsume all of the user's buffs and\nincrease attack power for one attack.\n(Number of consumed buffs x 15%).",
   "numbers_filled": true
  },
  {
@@ -5297,7 +5297,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nUser's next attack will inflict Guard Seal.",
   "numbers_filled": true
  },
  {
@@ -5314,7 +5314,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
+  "game_text": "Activates before attacking with an active skill.\nUser will recover HP equal to 50% of\ndamage dealt on next attack.",
   "numbers_filled": true
  },
  {
@@ -5331,7 +5331,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally uses a passive skill.",
+  "game_text": "Activates after an ally uses a passive skill.\nGrants an ally +1 PP.",
   "numbers_filled": true
  },
  {
@@ -5350,7 +5350,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally uses a passive skill.",
+  "game_text": "Activates after an ally uses a passive skill.\nGrants an ally +1 PP.",
   "numbers_filled": true
  },
  {
@@ -5369,7 +5369,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally uses an active skill.",
+  "game_text": "Activates after an ally uses an active skill.\nGrants an ally +1 AP.",
   "numbers_filled": true
  },
  {
@@ -5388,7 +5388,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally uses an active skill.",
+  "game_text": "Activates after an ally uses an active skill.\nAllow an ally to act again.\nGrants the target +1 AP.",
   "numbers_filled": true
  },
  {
@@ -5407,7 +5407,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after being hit by an attack.",
+  "game_text": "Activates after being hit by an attack.\nRecover 40% HP.",
   "numbers_filled": true
  },
  {
@@ -5424,8 +5424,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before attacking with an active skill.",
-  "numbers_filled": true
+  "game_text": "Activates before attacking with an active skill.\nConsume all PP to grant the user %s AP.\nThe user will survive one lethal blow.",
+  "numbers_filled": false
  },
  {
   "key": "accelerate",
@@ -5443,7 +5443,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nGrants the user +20 Initiative and +30 Accuracy.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -5460,7 +5460,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy.",
   "numbers_filled": true
  },
  {
@@ -5477,7 +5477,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy.\n+100 potency v. cavalry targets.",
   "numbers_filled": true
  },
  {
@@ -5494,7 +5494,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy.\nIgnores 100% Defense v. armored targets.",
   "numbers_filled": true
  },
  {
@@ -5511,7 +5511,7 @@
   "hits": 1,
   "accuracy": 90,
   "traits": [],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nCounterattack a single enemy.\nGrants the user +1 PP if the attack hits.",
   "numbers_filled": true
  },
  {
@@ -5528,7 +5528,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nCounterattack a single enemy.\n+100 potency v. flying targets.",
   "numbers_filled": true
  },
  {
@@ -5545,7 +5545,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nCounterattack a single enemy.\nInflicts Phys. Defense -15%.",
   "numbers_filled": true
  },
  {
@@ -5562,7 +5562,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nCounterattack a single enemy.\nInflicts Blindness and Poison.",
   "numbers_filled": true
  },
  {
@@ -5581,7 +5581,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nGrants the user 20% Attack and +20 Accuracy.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -5598,7 +5598,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy.\nPotency increases the less HP the user has.\n(Maximum increase: +100)",
   "numbers_filled": true
  },
  {
@@ -5615,7 +5615,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy with magick.",
   "numbers_filled": true
  },
  {
@@ -5634,7 +5634,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy.\nRemoves all of target's buffs.",
   "numbers_filled": true
  },
  {
@@ -5651,7 +5651,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a single enemy.\nInflicts Burn and removes all of target's buffs.",
   "numbers_filled": true
  },
  {
@@ -5668,7 +5668,7 @@
   "hits": 1,
   "accuracy": 75,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a row of enemies.",
   "numbers_filled": true
  },
  {
@@ -5685,7 +5685,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack three enemies.",
   "numbers_filled": true
  },
  {
@@ -5704,7 +5704,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack a row of enemies.\nInflicts AP -2 to debuffed targets.",
   "numbers_filled": true
  },
  {
@@ -5721,7 +5721,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nCounterattack all enemies with magick.\nInflicts Initiative -10.",
   "numbers_filled": true
  },
  {
@@ -5740,7 +5740,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nAttack a row of enemies.\nInflicts Stun and Passive Seal.",
   "numbers_filled": true
  },
  {
@@ -5757,7 +5757,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nInflicts Poison and -20% Attack on a single enemy.",
   "numbers_filled": true
  },
  {
@@ -5776,7 +5776,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy attacks with an active skill.",
+  "game_text": "Activates after an enemy attacks with an active skill.\nInflicts Poison and -25% Attack on a row of enemies.",
   "numbers_filled": true
  },
  {
@@ -5795,7 +5795,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is attacked with an active skill.",
+  "game_text": "Activates after an ally is attacked with an active skill.\nBuff a row of allies.\nGrants 20% Attack and 40% Critical Rate to cavalry allies.",
   "numbers_filled": true
  },
  {
@@ -5814,7 +5814,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is attacked with an active skill.",
+  "game_text": "Activates after an ally is attacked with an active skill.\nBuff a row of allies.\nGrants 20% Attack and 40% Critical Rate to flying allies.",
   "numbers_filled": true
  },
  {
@@ -5833,7 +5833,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after the user is debuffed.",
+  "game_text": "Activates after the user is debuffed.\nRemove all debuffs from the user.",
   "numbers_filled": true
  },
  {
@@ -5852,7 +5852,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nRestore minor HP to an ally.",
   "numbers_filled": true
  },
  {
@@ -5871,7 +5871,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nRestore minor HP to an ally.\nRemove all of their debuffs.",
   "numbers_filled": true
  },
  {
@@ -5890,7 +5890,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nRestore moderate HP to an ally.\nGrants HP regeneration.",
   "numbers_filled": true
  },
  {
@@ -5909,7 +5909,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after being healed.",
+  "game_text": "Activates after being healed.\nRestore minor HP to all allies.\nRemoves all debuffs.",
   "numbers_filled": true
  },
  {
@@ -5928,7 +5928,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after receiving an ally's passive skill.",
+  "game_text": "Activates after receiving an ally's passive skill.\nRestore minor HP and grant +1 PP to an ally.",
   "numbers_filled": true
  },
  {
@@ -5947,7 +5947,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is hit by an attack.",
+  "game_text": "Activates after an ally is hit by an attack.\nShare HP with an ally.\n(50% of the user's HP).",
   "numbers_filled": true
  },
  {
@@ -5966,7 +5966,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Poison from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -5985,7 +5985,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Burn from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -6004,7 +6004,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Freeze from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -6023,7 +6023,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Stun from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -6042,7 +6042,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Blindness from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -6061,7 +6061,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Guard Seal from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -6080,7 +6080,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove Passive Seal from an ally.\nRestores 10% of target's HP.",
   "numbers_filled": true
  },
  {
@@ -6099,7 +6099,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove all debuffs from a row of allies.",
   "numbers_filled": true
  },
  {
@@ -6118,7 +6118,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove all debuffs from an ally.\nGrants the target immunity to one debuff.",
   "numbers_filled": true
  },
  {
@@ -6137,7 +6137,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally is debuffed.",
+  "game_text": "Activates after an ally is debuffed.\nRemove all debuffs from a row of allies.\nGrants targets immunity to one debuff.",
   "numbers_filled": true
  },
  {
@@ -6156,7 +6156,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy is buffed.",
+  "game_text": "Activates after an enemy is buffed.\nRemove all buffs from a single enemy.",
   "numbers_filled": true
  },
  {
@@ -6175,7 +6175,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after the user is debuffed.",
+  "game_text": "Activates after the user is debuffed.\nRemove the user's debuffs.\nUser will completely negate one attack.",
   "numbers_filled": true
  },
  {
@@ -6194,7 +6194,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after the user is debuffed.",
+  "game_text": "Activates after the user is debuffed.\nRemove the user's debuffs.\nGrants user a buff to evade one attack.",
   "numbers_filled": true
  },
  {
@@ -6213,7 +6213,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after the user is debuffed.",
+  "game_text": "Activates after the user is debuffed.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -6230,7 +6230,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after the user is debuffed.",
+  "game_text": "Activates after the user is debuffed.\nRemove the user's debuffs.\nInflicts all removed debuffs on a target.",
   "numbers_filled": true
  },
  {
@@ -6249,7 +6249,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a single enemy.",
   "numbers_filled": true
  },
  {
@@ -6266,7 +6266,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after ally uses a magick attack (Active).",
+  "game_text": "Activates after ally uses a magick attack (Active).\nFollow-up attack a single enemy with magick.",
   "numbers_filled": true
  },
  {
@@ -6285,7 +6285,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after a cavalry-based ally attacks (Active).",
+  "game_text": "Activates after a cavalry-based ally attacks (Active).\nFollow-up attack a column of enemies with\na piercing strike.",
   "numbers_filled": true
  },
  {
@@ -6302,7 +6302,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after a flying ally attacks (Active).",
+  "game_text": "Activates after a flying ally attacks (Active).\nFollow-up attack a single enemy.",
   "numbers_filled": true
  },
  {
@@ -6321,7 +6321,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a single enemy.\nRemoves all of target's buffs.",
   "numbers_filled": true
  },
  {
@@ -6338,7 +6338,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a row of enemies.",
   "numbers_filled": true
  },
  {
@@ -6355,7 +6355,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a column of enemies with\na piercing strike. Inflicts Phys. Defense -25%.",
   "numbers_filled": true
  },
  {
@@ -6372,7 +6372,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a single enemy.\nInflicts Freeze.\n+100 potency v. frozen targets.",
   "numbers_filled": true
  },
  {
@@ -6391,7 +6391,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a single enemy.\nUser recovers HP equal to 50% of damage dealt.\nGrants the user +1 PP v. afflicted targets.",
   "numbers_filled": true
  },
  {
@@ -6408,7 +6408,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a single enemy.\nGrants the user +1 AP if the target is defeated.",
   "numbers_filled": true
  },
  {
@@ -6425,7 +6425,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally attacks (Active).",
+  "game_text": "Activates after an ally attacks (Active).\nFollow-up attack a single enemy.\nInflicts Blindness.",
   "numbers_filled": true
  },
  {
@@ -6442,7 +6442,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an ally is healed.",
+  "game_text": "Activates after an ally is healed.\nRestore minor HP to one ally above their limits.\n(Can heal up to 150% above maximum HP.)",
   "numbers_filled": true
  },
  {
@@ -6461,7 +6461,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy uses healing magick.",
+  "game_text": "Activates after an enemy uses healing magick.\nAttack a single enemy.\nIgnores 30% of the target's Defense.",
   "numbers_filled": true
  },
  {
@@ -6478,7 +6478,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy guards an attack.",
+  "game_text": "Activates after an enemy guards an attack.\nAttack a single enemy with magick.\nIgnores 30% of the target's Defense.",
   "numbers_filled": true
  },
  {
@@ -6497,7 +6497,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after an enemy guards against an ally's attack.",
+  "game_text": "Activates after an enemy guards against an ally's attack.\nAttack a single enemy.\nInflicts Stun and Guard Seal.",
   "numbers_filled": true
  },
  {
@@ -6514,7 +6514,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after an enemy is debuffed.",
+  "game_text": "Activates after an enemy is debuffed.\nAttack a single enemy.\nIgnores 30% of the target's Defense.",
   "numbers_filled": true
  },
  {
@@ -6531,7 +6531,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before enemy uses a magick attack (Active).",
+  "game_text": "Activates before enemy uses a magick attack (Active).\nReflect a magick attack.\n(Enemy's passive skills set to activate before\nor after an attack will not activate.)",
   "numbers_filled": true
  },
  {
@@ -6550,7 +6550,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an enemy uses an attack skill.",
+  "game_text": "Activates before an enemy uses an attack skill.\nInflicts Attack -20% for a single enemy's next attack.\nInflicts Critical Seal.",
   "numbers_filled": true
  },
  {
@@ -6569,7 +6569,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an enemy uses an attack skill.",
+  "game_text": "Activates before an enemy uses an attack skill.\nInflicts Attack -50% to a single enemy.\nInflicts Critical Seal.",
   "numbers_filled": true
  },
  {
@@ -6588,7 +6588,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an enemy uses an attack skill.",
+  "game_text": "Activates before an enemy uses an attack skill.\nInflicts Blindness on a row of enemies.",
   "numbers_filled": true
  },
  {
@@ -6607,7 +6607,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nRestore moderate HP to an ally.",
   "numbers_filled": true
  },
  {
@@ -6626,7 +6626,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nRestore minor HP to an ally.\nIf target is afflicted, remove the affliction\nand grant the user +1 PP.",
   "numbers_filled": true
  },
  {
@@ -6645,7 +6645,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before ally uses a magick attack (Active).",
+  "game_text": "Activates before ally uses a magick attack (Active).\nGrants an ally 50% Mag. Attack.\nGrants the user 50% Mag. Attack.",
   "numbers_filled": true
  },
  {
@@ -6664,7 +6664,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nMake an ally’s next attack a truestrike.",
   "numbers_filled": true
  },
  {
@@ -6683,7 +6683,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nMake a row of allies' next attack a truestrike.",
   "numbers_filled": true
  },
  {
@@ -6702,7 +6702,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nGrants +1 Critical Rate for an ally's next attack.",
   "numbers_filled": true
  },
  {
@@ -6721,7 +6721,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nGrants 30% Phys. Attack for an ally's next attack.",
   "numbers_filled": true
  },
  {
@@ -6740,7 +6740,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nBuff an ally for their next attack.\nGrants 30% Attack, 50% Critical Damage,\nand +50 Accuracy.",
   "numbers_filled": true
  },
  {
@@ -6759,7 +6759,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nBuff a row of allies for their next attack.\nGrants 30% Attack, 50% Critical Damage,\nand +50 Accuracy.",
   "numbers_filled": true
  },
  {
@@ -6778,7 +6778,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally attacks (Active).",
+  "game_text": "Activates before an ally attacks (Active).\nAllow an ally to act once without consuming AP.",
   "numbers_filled": true
  },
  {
@@ -6797,7 +6797,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is hit by a ranged phys. attack.",
+  "game_text": "Activates before an ally is hit by a ranged phys. attack.\nAllow an ally to evade one attack.",
   "numbers_filled": true
  },
  {
@@ -6816,7 +6816,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nAllow an ally to evade one hit.",
   "numbers_filled": true
  },
  {
@@ -6835,7 +6835,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nReduce damage taken by an ally\nby 50% for one attack.",
   "numbers_filled": true
  },
  {
@@ -6854,7 +6854,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nReduce damage taken by a row of allies\nby 50% for one attack.",
   "numbers_filled": true
  },
  {
@@ -6873,7 +6873,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nReduce damage taken by all allies\nby 25% for one attack.",
   "numbers_filled": true
  },
  {
@@ -6892,7 +6892,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nReduce damage taken by an ally\nby 50% for one attack.\nAlso prevents them from being afflicted.",
   "numbers_filled": true
  },
  {
@@ -6911,7 +6911,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nReduce damage taken by an ally\nby 50% for one attack.\nAlso prevents them from being debuffed.",
   "numbers_filled": true
  },
  {
@@ -6930,7 +6930,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is hit by a magick attack.",
+  "game_text": "Activates before an ally is hit by a magick attack.\nNegate the next magick damage dealt to an ally.\nAlso negates afflictions.",
   "numbers_filled": true
  },
  {
@@ -6949,7 +6949,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is hit by a magick attack.",
+  "game_text": "Activates before an ally is hit by a magick attack.\nNegate the next magick damage dealt to a row of allies.\nAlso negates afflictions.",
   "numbers_filled": true
  },
  {
@@ -6968,7 +6968,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nNegate the next damage dealt to an ally.",
   "numbers_filled": true
  },
  {
@@ -6987,7 +6987,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked with ???.",
+  "game_text": "Activates before an ally is attacked with ???.\nUnleash its true power amidst a sea of miasma.",
   "numbers_filled": true
  },
  {
@@ -7006,7 +7006,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.",
   "numbers_filled": true
  },
  {
@@ -7025,7 +7025,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a heavy guard.",
   "numbers_filled": true
  },
  {
@@ -7044,7 +7044,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a heavy guard.\nGrants the user a buff to endure one lethal blow.",
   "numbers_filled": true
  },
  {
@@ -7063,7 +7063,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.\nGrants that ally max Initiative for their next action.",
   "numbers_filled": true
  },
  {
@@ -7082,7 +7082,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover a row of allies with a medium guard.",
   "numbers_filled": true
  },
  {
@@ -7101,7 +7101,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is hit by a ranged phys. attack.",
+  "game_text": "Activates before an ally is hit by a ranged phys. attack.\nCover an ally and nullify all damage.",
   "numbers_filled": true
  },
  {
@@ -7120,7 +7120,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.\nMakes that ally's next attack a truestrike.",
   "numbers_filled": true
  },
  {
@@ -7139,7 +7139,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.\nGrants that ally 20% Defense.",
   "numbers_filled": true
  },
  {
@@ -7158,7 +7158,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.\nRestores 25% HP to that ally.",
   "numbers_filled": true
  },
  {
@@ -7177,7 +7177,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -7196,7 +7196,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nCover an ally with a medium guard.\nSteals +1 PP from that ally.",
   "numbers_filled": true
  },
  {
@@ -7215,7 +7215,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nRisk one's life to cover an ally.\nGrants the user +2 PP.",
   "numbers_filled": true
  },
  {
@@ -7234,7 +7234,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally is attacked.",
+  "game_text": "Activates before an ally is attacked.\nGrants a row of allies 100% Guard Rate for one attack.",
   "numbers_filled": true
  },
  {
@@ -7253,7 +7253,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally's physickal attack (Active).",
+  "game_text": "Activates before an ally's physickal attack (Active).\nAdd magick damage to an ally's next attack.\n(+50 potency.)",
   "numbers_filled": true
  },
  {
@@ -7272,7 +7272,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally's physickal attack (Active).",
+  "game_text": "Activates before an ally's physickal attack (Active).\nAdd magick damage and Burn to\nan ally's next attack. (+50 potency.)",
   "numbers_filled": true
  },
  {
@@ -7291,7 +7291,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally's physickal attack (Active).",
+  "game_text": "Activates before an ally's physickal attack (Active).\nAdd magick damage and Freeze to\nan ally's next attack. (+50 potency.)",
   "numbers_filled": true
  },
  {
@@ -7310,7 +7310,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally's physickal attack (Active).",
+  "game_text": "Activates before an ally's physickal attack (Active).\nAdd magick damage and Stun to\nan ally's next attack. (+50 potency.)",
   "numbers_filled": true
  },
  {
@@ -7329,7 +7329,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally's physickal attack (Active).",
+  "game_text": "Activates before an ally's physickal attack (Active).\nAdd magick damage to an ally's next attack.\n(+50 potency.) User recovers HP equal to\n50% of damage dealt.",
   "numbers_filled": true
  },
  {
@@ -7348,7 +7348,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before an ally's physickal attack (Active).",
+  "game_text": "Activates before an ally's physickal attack (Active).\nAdd magick damage and Blindness to\nan ally's next attack. (+50 potency.)",
   "numbers_filled": true
  },
  {
@@ -7367,7 +7367,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nGrants the user a buff to endure one lethal blow.",
   "numbers_filled": true
  },
  {
@@ -7386,7 +7386,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nHeal self for minor HP recovery.\nGrants user a buff to endure one lethal blow.",
   "numbers_filled": true
  },
  {
@@ -7405,7 +7405,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nGrants the user +1 AP, 20% Attack,\nand +10 Initiative. (Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -7424,7 +7424,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after being attacked.",
+  "game_text": "Activates after being attacked.\nGrants the user 20% Attack and 20% Defense. (Effect stacks.)\nGrants the user +1 PP if the user is at 50% HP or less.",
   "numbers_filled": true
  },
  {
@@ -7441,7 +7441,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after evading an attack.",
+  "game_text": "Activates after evading an attack.\nGrants the user 20% Phys. Attack and 30% Critical damage.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -7458,7 +7458,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after guarding an attack.",
+  "game_text": "Activates after guarding an attack.\nGrants the user 20% Phys. Attack and 30% Critical damage.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -7475,7 +7475,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after being hit by a physickal attack.",
+  "game_text": "Activates after being hit by a physickal attack.\nGrants the user 20% Phys. Attack and 20% Guard Rate.\n(Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -7494,7 +7494,7 @@
   "traits": [
    "Ranged"
   ],
-  "game_text": "Activates after being attacked.",
+  "game_text": "Activates after being attacked.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -7511,7 +7511,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after guarding an attack.",
+  "game_text": "Activates after guarding an attack.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -7528,7 +7528,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates after evading an attack.",
+  "game_text": "Activates after evading an attack.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -7545,7 +7545,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.",
   "numbers_filled": true
  },
  {
@@ -7562,7 +7562,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a heavy guard.",
   "numbers_filled": true
  },
  {
@@ -7579,7 +7579,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a heavy guard.\nGrants the user a buff to endure one lethal blow.",
   "numbers_filled": true
  },
  {
@@ -7596,8 +7596,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nBecomes a heavy guard and grants the user\n%s PP if the enemy is cavalry.",
+  "numbers_filled": false
  },
  {
   "key": "aerial_guard",
@@ -7613,8 +7613,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nBecomes a heavy guard and grants the user\n%s PP if the enemy is flying.",
+  "numbers_filled": false
  },
  {
   "key": "bestral_guard",
@@ -7630,8 +7630,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nBecomes a heavy guard and grants the user\n%s PP if the enemy is a bestral.",
+  "numbers_filled": false
  },
  {
   "key": "noble_guard",
@@ -7647,8 +7647,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nGrants the user %s Defense.\nGrants the user %s PP if the user has 50%% HP or less.",
+  "numbers_filled": false
  },
  {
   "key": "royal_guard",
@@ -7664,8 +7664,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nUser recovers %s HP.",
+  "numbers_filled": false
  },
  {
   "key": "vengeful_guard",
@@ -7681,8 +7681,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nGrants the user %s Phys. Attack. (Effect stacks.)",
+  "numbers_filled": false
  },
  {
   "key": "holy_guard",
@@ -7698,7 +7698,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nPrevents debuffs.",
   "numbers_filled": true
  },
  {
@@ -7715,8 +7715,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nGrants the user %s PP during the day.",
+  "numbers_filled": false
  },
  {
   "key": "nocturnal_guard",
@@ -7732,8 +7732,8 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
-  "numbers_filled": true
+  "game_text": "Activates before being hit by a physickal attack.\nBlock an enemy attack with a medium guard.\nGrants the user %s PP at night.",
+  "numbers_filled": false
  },
  {
   "key": "undead_wall",
@@ -7749,7 +7749,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a physickal attack.",
+  "game_text": "Activates before being hit by a physickal attack.\nNegate physical damage once.\nGrants the user +20 Initiative.",
   "numbers_filled": true
  },
  {
@@ -7766,7 +7766,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nCompletely negate the next attack received.",
   "numbers_filled": true
  },
  {
@@ -7783,7 +7783,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nEvade a single hit.",
   "numbers_filled": true
  },
  {
@@ -7800,7 +7800,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nEvade the next attack received.",
   "numbers_filled": true
  },
  {
@@ -7817,7 +7817,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nEvade a single hit.\nGrants the user 20% Phys. Attack.",
   "numbers_filled": true
  },
  {
@@ -7834,7 +7834,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nEvade a single hit.\nGrants the user +1 PP at night.",
   "numbers_filled": true
  },
  {
@@ -7851,7 +7851,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being attacked.",
+  "game_text": "Activates before being attacked.\nEvade a single hit.\nGrants the user +25 Evasion.",
   "numbers_filled": true
  },
  {
@@ -7868,7 +7868,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a ranged attack.",
+  "game_text": "Activates before being hit by a ranged attack.\nEvade a single hit of a ranged attack.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -7885,7 +7885,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a melee attack.",
+  "game_text": "Activates before being hit by a melee attack.\nNegate melee damage for a single hit.\nGrants the user +20 Evasion. (Effect stacks.)",
   "numbers_filled": true
  },
  {
@@ -7902,7 +7902,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a melee attack.",
+  "game_text": "Activates before being hit by a melee attack.\nNegate melee damage for a single hit.\nGrants the user +1 AP.",
   "numbers_filled": true
  },
  {
@@ -7919,7 +7919,7 @@
   "hits": 1,
   "accuracy": 100,
   "traits": [],
-  "game_text": "Activates before being hit by a magick attack.",
+  "game_text": "Activates before being hit by a magick attack.\nNegate a single magick attack targeting the user.\nGrants the user +2 PP.",
   "numbers_filled": true
  }
 ]

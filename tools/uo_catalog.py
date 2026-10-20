@@ -60,7 +60,7 @@ SLOT["material"] = "material"
 
 SKILL_STRIDE = 76
 SKILL_SIGNATURE = [0, 1025, 0, 171, 21, 65536, 0, 1, 0, 1123024896]
-PCT_TYPES = {43, 224, 136, 229, 137, 130, 129}
+PCT_TYPES = {43, 224, 136, 229, 137, 130, 129, 110, 49, 225}
 RAW_TYPES = {120, 84, 83, 114, 166, 123, 206, 220, 214, 105}
 
 KIND_ORDER = ["sword", "axe", "spear", "bow", "staff", "shield", "greatshield",
@@ -417,20 +417,44 @@ def clean_skill_text(text: str) -> str:
     return re.sub(r"[ \t]+", " ", text).strip()
 
 
+NEGATIVE_VERB = re.compile(r"Inflicts", re.I)
+SIGNED_VERBS = re.compile(r"Inflicts|Grants|Restores?|Recover|Sacrifice|Ignores|Reduce|Remove", re.I)
+
+
+SENTENCE_END = re.compile(r"(?<!Phys)(?<!Mag)\.\s|\)\n")
+
+
 def fill_skill_text(text: str, record) -> tuple[str, bool]:
+    """Подставляет числа записи навыка вместо «%s».
+
+    Игра хранит величины без знака: «Inflicts Initiative %s» — это штраф (−30), «Grants … %s» — прибавка.
+    Поэтому у значений после глагола «Inflicts» ставится минус. Одинаковые блоки (вид и значение), которые
+    игра повторяет для усиленного варианта («вдвое для летающих»), считаются одним числом.
+    """
     slots = text.count("%s")
     if not slots:
         return text, True
-    values = []
+    blocks = []
     for offset in (17, 26, 35):
         kind, value = int(record[offset]), f32(record[offset + 1])
         if kind and value and abs(value) < 100000:
-            percent = kind in PCT_TYPES or (kind not in RAW_TYPES and 0 < abs(value) <= 1.5 and value != int(value))
-            values.append(f"{round(value * 100)}%" if percent else f"{value:+g}".replace("+-", "-"))
-    if len(values) != slots:
+            blocks.append((kind, value))
+    if len(blocks) != slots and len(set(blocks)) == slots:
+        blocks = list(dict.fromkeys(blocks))
+    if len(blocks) != slots:
         return text, False
-    iterator = iter(values)
-    return re.sub(r"%s", lambda _m: next(iterator), text), True
+    iterator = iter(blocks)
+
+    def put(match) -> str:
+        kind, value = next(iterator)
+        sentence = SENTENCE_END.split(text[:match.start()])[-1]       # глагол той же фразы
+        verbs = SIGNED_VERBS.findall(sentence)
+        if verbs and NEGATIVE_VERB.fullmatch(verbs[-1]):
+            value = -abs(value)
+        percent = kind in PCT_TYPES or (kind not in RAW_TYPES and 0 < abs(value) <= 1.5 and value != int(value))
+        return f"{round(value * 100)}%" if percent else f"{value:+g}".replace("+-", "-")
+
+    return re.sub(r"%s", put, text).replace("%%", "%"), True
 
 
 def extract_game_skills(main: Path, text: Path) -> list[dict]:
@@ -502,9 +526,8 @@ def extract_game_skills(main: Path, text: Path) -> list[dict]:
         if active:
             game_text = clean_skill_text(sheet[off_active + sid])
         else:
-            parts = [sheet[off_passive + sid]]
-            if off_effect is not None:
-                parts.append(sheet[off_effect + sid])
+            # условие срабатывания — 1428 + номер, действие — 957 + номер (как у описаний активных навыков)
+            parts = [sheet[off_passive + sid], sheet[off_active + sid]]
             game_text = clean_skill_text("\n".join(part for part in parts if part))
         if re.fullmatch(r"[?\s]*", game_text):
             continue

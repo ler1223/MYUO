@@ -2533,7 +2533,7 @@
      {
       "stat": "phys_atk",
       "op": "FLAT",
-      "value": 22
+      "value": 21
      }
     ],
     "skills": [
@@ -4556,7 +4556,7 @@
      {
       "stat": "phys_atk",
       "op": "FLAT",
-      "value": 15
+      "value": 25
      },
      {
       "stat": "hp",
@@ -5985,6 +5985,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 11
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 3
      }
     ],
     "skills": [],
@@ -12719,6 +12724,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 23
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [
@@ -12876,7 +12886,9 @@
      "icy_crush"
     ],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_freeze"
+    ]
    }
   },
   {
@@ -13531,6 +13543,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 16
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [
@@ -14431,7 +14448,7 @@
      {
       "stat": "phys_atk",
       "op": "FLAT",
-      "value": 23
+      "value": 24
      },
      {
       "stat": "crit_damage",
@@ -14635,7 +14652,7 @@
      {
       "stat": "phys_atk",
       "op": "FLAT",
-      "value": 20
+      "value": 25
      },
      {
       "stat": "hp",
@@ -16979,7 +16996,9 @@
       "value": 20
      }
     ],
-    "skills": [],
+    "skills": [
+     "beastslayer"
+    ],
     "passives": [],
     "tags": []
    }
@@ -24196,6 +24215,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 11
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 3
      }
     ],
     "skills": [],
@@ -26208,8 +26232,7 @@
      }
     ],
     "skills": [
-     "thunderous_thrust",
-     "freezing_thrust"
+     "thunderous_thrust"
     ],
     "passives": [],
     "tags": []
@@ -26364,10 +26387,39 @@
     "tier": 27
    },
    "implementation": {
-    "present": false,
+    "present": true,
     "base_present": true,
-    "id": "twinned_bough",
-    "note": "в MYUO есть только базовый вариант; эта запись не перенесена"
+    "id": "twinned_bough_ii",
+    "slot": "lance",
+    "tier": 27,
+    "price": 344,
+    "modifiers": [
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 8
+     },
+     {
+      "stat": "mag_atk",
+      "op": "FLAT",
+      "value": 16
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 5
+     }
+    ],
+    "skills": [
+     "freezing_thrust"
+    ],
+    "passives": [],
+    "tags": []
    }
   },
   {
@@ -33260,6 +33312,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 11
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 3
      }
     ],
     "skills": [],
@@ -33872,11 +33929,11 @@
      {
       "stat": "phys_atk",
       "op": "FLAT",
-      "value": 11
+      "value": 21
      }
     ],
     "skills": [
-     "poison_arrow"
+     "flame_arrow"
     ],
     "passives": [],
     "tags": [
@@ -40254,6 +40311,11 @@
     "price": 100,
     "modifiers": [
      {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 8
+     },
+     {
       "stat": "mag_atk",
       "op": "FLAT",
       "value": 16
@@ -40898,13 +40960,20 @@
       "stat": "mag_atk",
       "op": "FLAT",
       "value": 22
+     },
+     {
+      "stat": "evasion",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [
      "blizzard"
     ],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_freeze"
+    ]
    }
   },
   {
@@ -41698,6 +41767,11 @@
       "stat": "mag_atk",
       "op": "FLAT",
       "value": 13
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [
@@ -44072,6 +44146,11 @@
       "stat": "mag_atk",
       "op": "FLAT",
       "value": 11
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 3
      }
     ],
     "skills": [],
@@ -44804,7 +44883,13 @@
     "slot": "staff",
     "tier": 0,
     "price": 500,
-    "modifiers": [],
+    "modifiers": [
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 18
+     }
+    ],
     "skills": [
      "cursed_strike"
     ],
@@ -45071,6 +45156,11 @@
     "tier": 6,
     "price": 150,
     "modifiers": [
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 9
+     },
      {
       "stat": "mag_atk",
       "op": "FLAT",
@@ -45637,7 +45727,7 @@
      {
       "stat": "mag_atk",
       "op": "FLAT",
-      "value": 16
+      "value": 15
      },
      {
       "stat": "phys_def",
@@ -50460,8 +50550,8 @@
      },
      {
       "stat": "hp",
-      "op": "PERCENT_ADD",
-      "value": 0.05
+      "op": "FLAT",
+      "value": 5
      }
     ],
     "skills": [],
@@ -59752,7 +59842,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "bestral_guard"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -60399,7 +60491,9 @@
       "value": 35
      }
     ],
-    "skills": [],
+    "skills": [
+     "bulwark"
+    ],
     "passives": [],
     "tags": [
      "greatshield"
@@ -60902,7 +60996,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "heavy_guard"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -61068,7 +61164,7 @@
      {
       "stat": "initiative",
       "op": "FLAT",
-      "value": 5
+      "value": 3
      }
     ],
     "skills": [],
@@ -62025,10 +62121,34 @@
     "tier": 28
    },
    "implementation": {
-    "present": false,
+    "present": true,
     "base_present": true,
-    "id": "greatshield_of_the_abyss",
-    "note": "в MYUO есть только базовый вариант; эта запись не перенесена"
+    "id": "greatshield_of_the_abyss_ii",
+    "slot": "greatshield",
+    "tier": 28,
+    "price": 356,
+    "modifiers": [
+     {
+      "stat": "phys_def",
+      "op": "FLAT",
+      "value": 16
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 40
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 20
+     }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+     "greatshield"
+    ]
    }
   },
   {
@@ -62968,7 +63088,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "cavalry_guard"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -63455,7 +63577,9 @@
       "value": 30
      }
     ],
-    "skills": [],
+    "skills": [
+     "wall"
+    ],
     "passives": [],
     "tags": [
      "greatshield"
@@ -63954,7 +64078,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "nocturnal_guard"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -64225,7 +64351,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "heavy_cover"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -65219,7 +65347,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "quick_cover"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -65861,7 +65991,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "enduring_guard"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -66541,7 +66673,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "aerial_guard"
+    ],
     "tags": [
      "greatshield"
     ]
@@ -69320,7 +69454,58 @@
     "slot": "artifact",
     "tier": 0,
     "price": 20,
-    "modifiers": [],
+    "modifiers": [
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "accuracy",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "evasion",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "crit_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 5
+     }
+    ],
     "skills": [],
     "passives": [],
     "tags": []
@@ -69753,7 +69938,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "binding_guard"
+    ],
     "tags": []
    }
   },
@@ -70282,7 +70469,9 @@
     ],
     "skills": [],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_stun"
+    ]
    }
   },
   {
@@ -70535,6 +70724,11 @@
       "stat": "mag_def",
       "op": "FLAT",
       "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [],
@@ -72260,7 +72454,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "magick_barrier"
+    ],
     "tags": []
    }
   },
@@ -72640,7 +72836,9 @@
     ],
     "skills": [],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_blind"
+    ]
    }
   },
   {
@@ -72752,7 +72950,9 @@
     "price": 32,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "healing_pursuit"
+    ],
     "tags": []
    }
   },
@@ -73194,7 +73394,9 @@
     ],
     "skills": [],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_burn"
+    ]
    }
   },
   {
@@ -73724,6 +73926,56 @@
       "stat": "mag_def",
       "op": "FLAT",
       "value": 3
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "accuracy",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "evasion",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "crit_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 5
      }
     ],
     "skills": [],
@@ -74630,7 +74882,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "quick_guard"
+    ],
     "tags": []
    }
   },
@@ -75465,7 +75719,58 @@
     "slot": "artifact",
     "tier": 1,
     "price": 32,
-    "modifiers": [],
+    "modifiers": [
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "accuracy",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "evasion",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "crit_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 5
+     }
+    ],
     "skills": [],
     "passives": [],
     "tags": []
@@ -76480,7 +76785,9 @@
     "price": 44,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "first_aid"
+    ],
     "tags": []
    }
   },
@@ -76762,7 +77069,10 @@
     ],
     "skills": [],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_poison",
+     "immune_blind"
+    ]
    }
   },
   {
@@ -77295,6 +77605,11 @@
       "stat": "mag_def",
       "op": "FLAT",
       "value": 3
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 20
      }
     ],
     "skills": [],
@@ -78665,6 +78980,11 @@
       "stat": "phys_def",
       "op": "FLAT",
       "value": 2
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [],
@@ -78781,7 +79101,9 @@
     "price": 56,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "hastened_strike"
+    ],
     "tags": []
    }
   },
@@ -81454,7 +81776,7 @@
       "value": 10
      },
      {
-      "stat": "phys_atk",
+      "stat": "accuracy",
       "op": "FLAT",
       "value": 20
      }
@@ -81740,7 +82062,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "magick_counter"
+    ],
     "tags": []
    }
   },
@@ -82288,7 +82612,9 @@
     "price": 68,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "medical_aid"
+    ],
     "tags": []
    }
   },
@@ -83014,7 +83340,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "quick_heal"
+    ],
     "tags": []
    }
   },
@@ -83915,7 +84243,9 @@
       "value": 5
      }
     ],
-    "skills": [],
+    "skills": [
+     "reincarnation"
+    ],
     "passives": [],
     "tags": []
    }
@@ -84309,7 +84639,9 @@
     "price": 68,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "pursuit"
+    ],
     "tags": []
    }
   },
@@ -85396,7 +85728,18 @@
     "slot": "artifact",
     "tier": 4,
     "price": 68,
-    "modifiers": [],
+    "modifiers": [
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 10
+     }
+    ],
     "skills": [],
     "passives": [],
     "tags": []
@@ -85564,10 +85907,67 @@
     "tier": 29
    },
    "implementation": {
-    "present": false,
+    "present": true,
     "base_present": true,
-    "id": "ring_of_the_unicorn",
-    "note": "в MYUO есть только базовый вариант; эта запись не перенесена"
+    "id": "ring_of_the_unicorn_ii",
+    "slot": "artifact",
+    "tier": 29,
+    "price": 368,
+    "modifiers": [
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "accuracy",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "evasion",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "crit_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 5
+     }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": []
    }
   },
   {
@@ -85736,10 +86136,69 @@
     "tier": 30
    },
    "implementation": {
-    "present": false,
+    "present": true,
     "base_present": true,
-    "id": "ring_of_the_unicorn",
-    "note": "в MYUO есть только базовый вариант; эта запись не перенесена"
+    "id": "ring_of_the_unicorn_iii",
+    "slot": "artifact",
+    "tier": 30,
+    "price": 380,
+    "modifiers": [
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "phys_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_atk",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "mag_def",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "accuracy",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "evasion",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "crit_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "guard_rate",
+      "op": "FLAT",
+      "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 5
+     }
+    ],
+    "skills": [
+     "astral_blade"
+    ],
+    "passives": [],
+    "tags": []
    }
   },
   {
@@ -86499,7 +86958,9 @@
     "price": 80,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "quick_dispel"
+    ],
     "tags": []
    }
   },
@@ -87489,7 +87950,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "wing_rest"
+    ],
     "tags": []
    }
   },
@@ -88418,7 +88881,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "hawk_eye"
+    ],
     "tags": []
    }
   },
@@ -88561,7 +89026,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "eagle_eye"
+    ],
     "tags": []
    }
   },
@@ -88693,7 +89160,9 @@
       "value": 5
      }
     ],
-    "skills": [],
+    "skills": [
+     "healing_wind"
+    ],
     "passives": [],
     "tags": []
    }
@@ -88818,7 +89287,9 @@
       "value": 3
      }
     ],
-    "skills": [],
+    "skills": [
+     "sorcerous_blow"
+    ],
     "passives": [],
     "tags": []
    }
@@ -89105,7 +89576,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "quick_cure"
+    ],
     "tags": []
    }
   },
@@ -89466,7 +89939,10 @@
     "modifiers": [],
     "skills": [],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_blind",
+     "immune_passive_seal"
+    ]
    }
   },
   {
@@ -89713,7 +90189,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "evade"
+    ],
     "tags": []
    }
   },
@@ -90108,7 +90586,9 @@
     "price": 92,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "focus_sight"
+    ],
     "tags": []
    }
   },
@@ -90243,7 +90723,9 @@
      }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "nocturnal_evade"
+    ],
     "tags": []
    }
   },
@@ -91500,6 +91982,11 @@
       "stat": "mag_def",
       "op": "FLAT",
       "value": 5
+     },
+     {
+      "stat": "initiative",
+      "op": "FLAT",
+      "value": 10
      }
     ],
     "skills": [],
@@ -91951,7 +92438,9 @@
     "price": 104,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "killing_pursuit"
+    ],
     "tags": []
    }
   },
@@ -92218,7 +92707,9 @@
     ],
     "skills": [],
     "passives": [],
-    "tags": []
+    "tags": [
+     "immune_freeze"
+    ]
    }
   },
   {
@@ -92340,7 +92831,9 @@
     "price": 104,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "ground_counter"
+    ],
     "tags": []
    }
   },
