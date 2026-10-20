@@ -204,10 +204,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "gold_gain": 100
+    },
     "price": 164,
-    "notes": [
-     "«User's Unit Earns +100% Gold» не переносится"
-    ],
+    "notes": [],
     "tier": 12
    },
    "implementation": {
@@ -377,6 +378,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 8
@@ -541,6 +543,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 4
@@ -703,6 +706,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 6
@@ -874,6 +878,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 332,
     "notes": [],
     "tier": 26
@@ -1025,6 +1030,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 12,
     "notes": [],
     "tier": 2
@@ -1182,6 +1188,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 7
@@ -1339,6 +1346,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 308,
     "notes": [],
     "tier": 24
@@ -1500,6 +1508,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 7
@@ -1666,15 +1675,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 152,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 11
    },
    "implementation": {
@@ -1835,15 +1844,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 164,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 12
    },
    "implementation": {
@@ -2013,9 +2022,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
-    "tier": 23
+    "tier": 22
    },
    "implementation": {
     "present": true,
@@ -2183,6 +2193,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 13
@@ -2353,9 +2364,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
-    "tier": 22
+    "tier": 21
    },
    "implementation": {
     "present": true,
@@ -2518,6 +2530,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 13
@@ -2683,6 +2696,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 25
@@ -2834,6 +2848,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -2993,15 +3008,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 14
    },
    "implementation": {
@@ -3164,6 +3179,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 22
@@ -3343,6 +3359,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 25
@@ -3520,6 +3537,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 5
@@ -3695,6 +3713,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 236,
     "notes": [],
     "tier": 18
@@ -3853,6 +3872,7 @@
     "ap_bonus": 1,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -4018,11 +4038,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "followup_potency": 20
+    },
     "price": 200,
-    "notes": [
-     "«Follow-up Skills Deal +20 Damage» не переносится"
-    ],
-    "tier": 19
+    "notes": [],
+    "tier": 18
    },
    "implementation": {
     "present": true,
@@ -4188,6 +4209,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 26
@@ -4337,6 +4359,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 3
@@ -4541,6 +4564,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -4759,6 +4783,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 344,
     "notes": [],
     "tier": 27
@@ -4924,6 +4949,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 44,
     "notes": [],
     "tier": 2
@@ -5054,6 +5080,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 15
@@ -5193,6 +5220,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -5353,6 +5381,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -5500,6 +5529,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -5647,6 +5677,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 272,
     "notes": [],
     "tier": 21
@@ -5802,6 +5833,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 11
@@ -5967,10 +5999,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 20
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +20% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 3
    },
    "implementation": {
@@ -6140,6 +6173,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -6315,6 +6349,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 128,
     "notes": [],
     "tier": 9
@@ -6483,10 +6518,11 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {
+     "heal_received": 30
+    },
     "price": 308,
-    "notes": [
-     "«HP Recovery +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 24
    },
    "implementation": {
@@ -6642,6 +6678,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 128,
     "notes": [],
     "tier": 9
@@ -6813,6 +6850,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 23
@@ -6990,6 +7028,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 15
@@ -7142,6 +7181,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 8
@@ -7302,6 +7342,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 16
@@ -7454,6 +7495,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 5
@@ -7605,6 +7647,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 19
@@ -7754,6 +7797,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 10
@@ -7903,9 +7947,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
-    "price": 236,
+    "traits": {},
+    "price": 224,
     "notes": [],
-    "tier": 18
+    "tier": 17
    },
    "implementation": {
     "present": true,
@@ -8073,6 +8118,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 16
@@ -8248,6 +8294,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 92,
     "notes": [],
     "tier": 6
@@ -8407,6 +8454,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -8416,11 +8468,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 17
+    "notes": [],
+    "tier": 23
    },
    "implementation": {
     "present": true,
@@ -8555,6 +8606,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -8689,6 +8741,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 4
@@ -8859,9 +8912,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 20
+    "tier": 19
    },
    "implementation": {
     "present": true,
@@ -9032,6 +9086,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 350,
     "notes": [],
     "tier": 27
@@ -9205,9 +9260,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
-    "price": 272,
+    "traits": {},
+    "price": 260,
     "notes": [],
-    "tier": 21
+    "tier": 20
    },
    "implementation": {
     "present": true,
@@ -9394,6 +9450,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 28
@@ -9588,6 +9645,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 17
@@ -9740,6 +9798,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -9863,6 +9922,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -9992,6 +10052,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -10132,10 +10193,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "gold_gain": 100
+    },
     "price": 125,
-    "notes": [
-     "«User's Unit Earns +100% Gold» не переносится"
-    ],
+    "notes": [],
     "tier": 11
    },
    "implementation": {
@@ -10268,6 +10330,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 14
@@ -10409,6 +10472,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 5
@@ -10559,6 +10623,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 4
@@ -10702,6 +10767,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 56,
     "notes": [],
     "tier": 3
@@ -10856,6 +10922,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 80,
     "notes": [],
     "tier": 5
@@ -11020,6 +11087,7 @@
     "ap_bonus": 2,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -11173,6 +11241,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 8
@@ -11343,9 +11412,10 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
-    "price": 368,
+    "traits": {},
+    "price": 356,
     "notes": [],
-    "tier": 29
+    "tier": 28
    },
    "implementation": {
     "present": true,
@@ -11488,6 +11558,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 12,
     "notes": [],
     "tier": 0
@@ -11636,6 +11707,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 9
@@ -11784,6 +11856,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 284,
     "notes": [],
     "tier": 22
@@ -11923,6 +11996,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 6
@@ -12075,15 +12149,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 128,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 9
    },
    "implementation": {
@@ -12235,15 +12309,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 15
    },
    "implementation": {
@@ -12390,9 +12464,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 1250,
     "notes": [],
-    "tier": 22
+    "tier": 21
    },
    "implementation": {
     "present": true,
@@ -12551,9 +12626,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
-    "tier": 20
+    "tier": 19
    },
    "implementation": {
     "present": true,
@@ -12708,6 +12784,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 28
@@ -12864,6 +12941,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 15
@@ -13031,6 +13109,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 25
@@ -13202,6 +13281,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 296,
     "notes": [],
     "tier": 23
@@ -13365,6 +13445,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 20
@@ -13527,6 +13608,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 24
@@ -13683,10 +13765,11 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {
+     "heal_received": 30
+    },
     "price": 296,
-    "notes": [
-     "«HP Recovery +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 23
    },
    "implementation": {
@@ -13824,6 +13907,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 7
@@ -13980,10 +14064,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "followup_potency": 20
+    },
     "price": 200,
-    "notes": [
-     "«Follow-up Skills Deal +20 Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 17
    },
    "implementation": {
@@ -14141,6 +14226,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 25
@@ -14281,6 +14367,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 4
@@ -14433,9 +14520,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 750,
     "notes": [],
-    "tier": 28
+    "tier": 27
    },
    "implementation": {
     "present": true,
@@ -14637,6 +14725,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -14835,6 +14924,11 @@
       "value": 22
      },
      {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -30
+     },
+     {
       "stat": "initiative",
       "op": "FLAT",
       "value": -10
@@ -14847,11 +14941,10 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
-    "notes": [
-     "«HP -30» не переносится"
-    ],
-    "tier": 26
+    "notes": [],
+    "tier": 29
    },
    "implementation": {
     "present": true,
@@ -15013,9 +15106,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
-    "price": 272,
+    "traits": {},
+    "price": 260,
     "notes": [],
-    "tier": 21
+    "tier": 20
    },
    "implementation": {
     "present": true,
@@ -15152,6 +15246,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 56,
     "notes": [],
     "tier": 3
@@ -15313,6 +15408,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 332,
     "notes": [],
     "tier": 26
@@ -15452,6 +15548,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 13
@@ -15588,6 +15685,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -15722,6 +15820,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -15874,6 +15973,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 248,
     "notes": [],
     "tier": 19
@@ -16035,10 +16135,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 20
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +20% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -16201,6 +16302,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 140,
     "notes": [],
     "tier": 10
@@ -16360,6 +16462,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 164,
     "notes": [],
     "tier": 12
@@ -16526,6 +16629,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 21
@@ -16694,6 +16798,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 212,
     "notes": [],
     "tier": 16
@@ -16837,6 +16942,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 10
@@ -16978,6 +17084,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 14
@@ -17120,9 +17227,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 18
+    "tier": 17
    },
    "implementation": {
     "present": true,
@@ -17254,6 +17362,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 7
@@ -17391,6 +17500,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 13
@@ -17550,6 +17660,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 116,
     "notes": [],
     "tier": 8
@@ -17700,6 +17811,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -17709,11 +17825,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 16
+    "notes": [],
+    "tier": 22
    },
    "implementation": {
     "present": true,
@@ -17845,6 +17960,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 44,
     "notes": [],
     "tier": 2
@@ -18004,9 +18120,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 19
+    "tier": 18
    },
    "implementation": {
     "present": true,
@@ -18163,6 +18280,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 152,
     "notes": [],
     "tier": 11
@@ -18327,9 +18445,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 350,
     "notes": [],
-    "tier": 27
+    "tier": 26
    },
    "implementation": {
     "present": true,
@@ -18502,9 +18621,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
-    "tier": 17
+    "tier": 16
    },
    "implementation": {
     "present": true,
@@ -18687,6 +18807,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 27
@@ -18830,6 +18951,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -18944,6 +19066,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -19064,6 +19187,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -19190,6 +19314,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -19331,6 +19456,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 248,
     "notes": [],
     "tier": 19
@@ -19465,6 +19591,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -19598,6 +19725,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 4
@@ -19750,6 +19878,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 6
@@ -19893,6 +20022,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 6
@@ -20029,6 +20159,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 12,
     "notes": [],
     "tier": 2
@@ -20167,6 +20298,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 12
@@ -20316,6 +20448,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 7
@@ -20463,6 +20596,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 284,
     "notes": [],
     "tier": 22
@@ -20601,6 +20735,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 8
@@ -20765,6 +20900,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 212,
     "notes": [],
     "tier": 16
@@ -20926,15 +21062,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 128,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 9
    },
    "implementation": {
@@ -21085,15 +21221,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 176,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 13
    },
    "implementation": {
@@ -21242,6 +21378,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 12
@@ -21397,9 +21534,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
-    "tier": 19
+    "tier": 18
    },
    "implementation": {
     "present": true,
@@ -21554,6 +21692,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 24
@@ -21717,6 +21856,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 21
@@ -21862,6 +22002,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 140,
     "notes": [],
     "tier": 10
@@ -22012,6 +22153,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 20
@@ -22167,11 +22309,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "followup_potency": 20
+    },
     "price": 200,
-    "notes": [
-     "«Follow-up Skills Deal +20 Damage» не переносится"
-    ],
-    "tier": 16
+    "notes": [],
+    "tier": 15
    },
    "implementation": {
     "present": true,
@@ -22326,9 +22469,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
-    "tier": 20
+    "tier": 19
    },
    "implementation": {
     "present": true,
@@ -22487,9 +22631,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
-    "tier": 22
+    "tier": 21
    },
    "implementation": {
     "present": true,
@@ -22647,6 +22792,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 26
@@ -22786,6 +22932,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 3
@@ -22986,6 +23133,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -23174,6 +23322,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 176,
     "notes": [],
     "tier": 13
@@ -23332,6 +23481,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -23469,6 +23619,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -23614,6 +23765,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 320,
     "notes": [],
     "tier": 25
@@ -23750,6 +23902,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -23884,10 +24037,11 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {
+     "heal_received": 30
+    },
     "price": 296,
-    "notes": [
-     "«HP Recovery +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 23
    },
    "implementation": {
@@ -24037,6 +24191,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 236,
     "notes": [],
     "tier": 18
@@ -24197,10 +24352,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 20
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +20% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 3
    },
    "implementation": {
@@ -24360,9 +24516,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
-    "tier": 21
+    "tier": 20
    },
    "implementation": {
     "present": true,
@@ -24505,6 +24662,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 152,
     "notes": [],
     "tier": 11
@@ -24660,6 +24818,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -24797,6 +24956,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 68,
     "notes": [],
     "tier": 4
@@ -24953,6 +25113,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 308,
     "notes": [],
     "tier": 24
@@ -25104,9 +25265,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 17
+    "tier": 16
    },
    "implementation": {
     "present": true,
@@ -25243,6 +25405,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 10
@@ -25402,6 +25565,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 25
@@ -25549,6 +25713,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 5
@@ -25709,6 +25874,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 80,
     "notes": [],
     "tier": 5
@@ -25874,6 +26040,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 332,
     "notes": [],
     "tier": 26
@@ -26020,6 +26187,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -26029,11 +26201,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 14
+    "notes": [],
+    "tier": 22
    },
    "implementation": {
     "present": true,
@@ -26198,6 +26369,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 344,
     "notes": [],
     "tier": 27
@@ -26382,6 +26554,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 344,
     "notes": [],
     "tier": 27
@@ -26550,6 +26723,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 9
@@ -26707,6 +26881,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 224,
     "notes": [],
     "tier": 17
@@ -26865,6 +27040,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 8
@@ -26999,6 +27175,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 44,
     "notes": [],
     "tier": 2
@@ -27143,9 +27320,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 18
+    "tier": 17
    },
    "implementation": {
     "present": true,
@@ -27312,6 +27490,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 152,
     "notes": [],
     "tier": 11
@@ -27474,6 +27653,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 350,
     "notes": [],
     "tier": 28
@@ -27648,6 +27828,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 29
@@ -27832,9 +28013,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
-    "tier": 15
+    "tier": 14
    },
    "implementation": {
     "present": true,
@@ -28011,6 +28193,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -28148,6 +28331,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -28261,6 +28445,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -28380,6 +28565,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -28512,6 +28698,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -28678,6 +28865,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -28830,6 +29018,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 5
@@ -28977,6 +29166,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 8
@@ -29115,6 +29305,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 9
@@ -29246,6 +29437,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 12,
     "notes": [],
     "tier": 2
@@ -29388,6 +29580,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 9
@@ -29530,6 +29723,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 260,
     "notes": [],
     "tier": 20
@@ -29676,9 +29870,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
-    "tier": 17
+    "tier": 16
    },
    "implementation": {
     "present": true,
@@ -29836,6 +30031,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 236,
     "notes": [],
     "tier": 18
@@ -29994,6 +30190,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 16
@@ -30132,6 +30329,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 3
@@ -30287,6 +30485,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 320,
     "notes": [],
     "tier": 25
@@ -30449,6 +30648,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 28
@@ -30602,9 +30802,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
-    "tier": 18
+    "tier": 17
    },
    "implementation": {
     "present": true,
@@ -30751,6 +30952,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 17
@@ -30908,6 +31110,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 272,
     "notes": [],
     "tier": 21
@@ -31066,6 +31269,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 22
@@ -31224,6 +31428,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 29
@@ -31386,6 +31591,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 19
@@ -31522,6 +31728,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 4
@@ -31709,6 +31916,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -31881,6 +32089,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -32020,6 +32229,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 320,
     "notes": [],
     "tier": 25
@@ -32152,6 +32362,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -32292,6 +32503,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 284,
     "notes": [],
     "tier": 22
@@ -32423,6 +32635,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -32555,9 +32768,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
-    "price": 212,
+    "traits": {},
+    "price": 200,
     "notes": [],
-    "tier": 16
+    "tier": 15
    },
    "implementation": {
     "present": true,
@@ -32695,6 +32909,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 6
@@ -32830,6 +33045,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 6
@@ -32989,6 +33205,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 24
@@ -33144,10 +33361,11 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {
+     "heal_received": 30
+    },
     "price": 260,
-    "notes": [
-     "«HP Recovery +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 20
    },
    "implementation": {
@@ -33294,10 +33512,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 20
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +20% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 3
    },
    "implementation": {
@@ -33447,6 +33666,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 296,
     "notes": [],
     "tier": 23
@@ -33602,9 +33822,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
-    "tier": 19
+    "tier": 18
    },
    "implementation": {
     "present": true,
@@ -33764,6 +33985,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 164,
     "notes": [],
     "tier": 12
@@ -33914,6 +34136,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 13
@@ -34051,6 +34274,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 10
@@ -34186,6 +34410,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 11
@@ -34321,6 +34546,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 10
@@ -34457,6 +34683,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 14
@@ -34595,6 +34822,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 4
@@ -34726,6 +34954,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 11
@@ -34879,6 +35108,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 116,
     "notes": [],
     "tier": 8
@@ -35041,6 +35271,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 27
@@ -35182,6 +35413,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -35191,11 +35427,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 13
+    "notes": [],
+    "tier": 19
    },
    "implementation": {
     "present": true,
@@ -35326,6 +35561,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 7
@@ -35485,6 +35721,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 24
@@ -35654,6 +35891,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 21
@@ -35788,6 +36026,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 44,
     "notes": [],
     "tier": 2
@@ -35907,6 +36146,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 5
@@ -36062,9 +36302,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 15
+    "tier": 14
    },
    "implementation": {
     "present": true,
@@ -36226,6 +36467,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 164,
     "notes": [],
     "tier": 12
@@ -36383,6 +36625,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 350,
     "notes": [],
     "tier": 26
@@ -36537,6 +36780,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 332,
     "notes": [],
     "tier": 26
@@ -36710,9 +36954,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
-    "tier": 14
+    "tier": 13
    },
    "implementation": {
     "present": true,
@@ -36889,6 +37134,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 27
@@ -37026,6 +37272,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -37134,6 +37381,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -37248,6 +37496,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -37382,6 +37631,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 3
@@ -37535,6 +37785,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 6
@@ -37671,6 +37922,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 11
@@ -37808,6 +38060,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 12,
     "notes": [],
     "tier": 1
@@ -37940,6 +38193,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -38090,6 +38344,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 7
@@ -38238,6 +38493,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 308,
     "notes": [],
     "tier": 24
@@ -38397,6 +38653,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 56,
     "notes": [],
     "tier": 3
@@ -38538,6 +38795,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 68,
     "notes": [],
     "tier": 4
@@ -38680,6 +38938,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 23
@@ -38832,15 +39091,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 116,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 8
    },
    "implementation": {
@@ -38992,15 +39251,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 212,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 16
    },
    "implementation": {
@@ -39141,6 +39400,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 17
@@ -39297,9 +39557,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
-    "tier": 22
+    "tier": 21
    },
    "implementation": {
     "present": true,
@@ -39430,6 +39691,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 8
@@ -39571,6 +39833,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 224,
     "notes": [],
     "tier": 17
@@ -39738,6 +40001,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -39876,6 +40140,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 8
@@ -40010,6 +40275,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 11
@@ -40143,6 +40409,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 15
@@ -40298,6 +40565,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 22
@@ -40464,6 +40732,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 7
@@ -40623,6 +40892,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 332,
     "notes": [],
     "tier": 26
@@ -40787,6 +41057,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 26
@@ -40944,9 +41215,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
-    "price": 308,
+    "traits": {},
+    "price": 296,
     "notes": [],
-    "tier": 24
+    "tier": 23
    },
    "implementation": {
     "present": true,
@@ -41088,6 +41360,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 2
@@ -41281,6 +41554,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -41463,6 +41737,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 15
@@ -41604,6 +41879,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 4
@@ -41751,6 +42027,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 12
@@ -41907,10 +42184,11 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {
+     "heal_received": 30
+    },
     "price": 320,
-    "notes": [
-     "«HP Recovery +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 25
    },
    "implementation": {
@@ -42049,9 +42327,10 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
-    "tier": 23
+    "tier": 22
    },
    "implementation": {
     "present": true,
@@ -42210,6 +42489,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 332,
     "notes": [],
     "tier": 26
@@ -42351,6 +42631,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 284,
     "notes": [],
     "tier": 22
@@ -42493,9 +42774,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
-    "price": 260,
+    "traits": {},
+    "price": 248,
     "notes": [],
-    "tier": 20
+    "tier": 19
    },
    "implementation": {
     "present": true,
@@ -42623,6 +42905,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -42737,6 +43020,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -42865,6 +43149,7 @@
     "ap_bonus": 1,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -42996,6 +43281,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 5
@@ -43150,6 +43436,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 272,
     "notes": [],
     "tier": 21
@@ -43302,6 +43589,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 19
@@ -43437,6 +43725,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 9
@@ -43571,6 +43860,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 15
@@ -43705,6 +43995,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 16
@@ -43838,6 +44129,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 5
@@ -43974,6 +44266,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 128,
     "notes": [],
     "tier": 9
@@ -44128,10 +44421,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 20
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +20% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -44273,6 +44567,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 152,
     "notes": [],
     "tier": 11
@@ -44420,6 +44715,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 19
@@ -44583,6 +44879,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 236,
     "notes": [],
     "tier": 18
@@ -44737,6 +45034,7 @@
     "ap_bonus": 2,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -44872,6 +45170,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 12
@@ -45002,6 +45301,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 10
@@ -45144,6 +45444,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 20
@@ -45281,6 +45582,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 10
@@ -45418,6 +45720,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 13
@@ -45549,6 +45852,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 350,
     "notes": [],
     "tier": 13
@@ -45712,6 +46016,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 6
@@ -45853,6 +46158,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 4
@@ -45995,6 +46301,11 @@
       "stat": "mag_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -46004,11 +46315,10 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 18
+    "notes": [],
+    "tier": 24
    },
    "implementation": {
     "present": true,
@@ -46140,6 +46450,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -46290,6 +46601,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -46428,6 +46740,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -46573,9 +46886,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
-    "tier": 21
+    "tier": 20
    },
    "implementation": {
     "present": true,
@@ -46748,6 +47062,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 200,
     "notes": [],
     "tier": 29
@@ -46907,6 +47224,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 25
@@ -47068,6 +47386,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 350,
     "notes": [],
     "tier": 27
@@ -47243,6 +47562,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 27
@@ -47428,9 +47748,10 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
-    "tier": 19
+    "tier": 18
    },
    "implementation": {
     "present": true,
@@ -47571,6 +47892,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -47685,6 +48007,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -47805,6 +48128,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -47919,6 +48243,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48033,6 +48358,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48147,6 +48473,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48261,6 +48588,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48375,6 +48703,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48489,6 +48818,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48603,6 +48933,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48717,6 +49048,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48831,6 +49163,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -48945,6 +49278,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -49059,6 +49393,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -49173,6 +49508,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -49316,6 +49652,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 200,
     "notes": [],
     "tier": 13
@@ -49482,6 +49821,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
     "tier": 4
@@ -49650,6 +49992,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 200,
     "notes": [],
     "tier": 21
@@ -49821,6 +50166,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 50,
     "notes": [],
     "tier": 8
@@ -49997,6 +50345,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 50,
     "notes": [],
     "tier": 1
@@ -50166,6 +50517,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 200,
     "notes": [],
     "tier": 18
@@ -50339,6 +50693,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 75,
     "notes": [],
     "tier": 16
@@ -50526,6 +50883,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 3
@@ -50703,9 +51063,12 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 25,
-    "price": 344,
+    "traits": {
+     "guard_efficiency": 25
+    },
+    "price": 332,
     "notes": [],
-    "tier": 27
+    "tier": 26
    },
    "implementation": {
     "present": true,
@@ -50865,6 +51228,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 12,
     "notes": [],
     "tier": 1
@@ -51040,6 +51406,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 368,
     "notes": [],
     "tier": 29
@@ -51218,6 +51587,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 100,
     "notes": [],
     "tier": 12
@@ -51387,6 +51759,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 200,
     "notes": [],
     "tier": 13
@@ -51565,6 +51940,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 10
@@ -51744,9 +52122,12 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 200,
     "notes": [],
-    "tier": 26
+    "tier": 25
    },
    "implementation": {
     "present": true,
@@ -51927,6 +52308,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 224,
     "notes": [],
     "tier": 17
@@ -52104,6 +52488,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 100,
     "notes": [],
     "tier": 5
@@ -52273,6 +52660,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 9
@@ -52457,9 +52847,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
-    "price": 320,
+    "traits": {
+     "guard_efficiency": 25
+    },
+    "price": 308,
     "notes": [],
-    "tier": 25
+    "tier": 24
    },
    "implementation": {
     "present": true,
@@ -52634,6 +53027,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 75,
     "notes": [],
     "tier": 5
@@ -52810,6 +53206,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 500,
     "notes": [],
     "tier": 25
@@ -52980,6 +53379,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 272,
     "notes": [],
     "tier": 21
@@ -53158,10 +53560,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25,
+     "followup_potency": 20
+    },
     "price": 125,
-    "notes": [
-     "«Follow-up Skills Deal +20 Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 18
    },
    "implementation": {
@@ -53342,6 +53746,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 300,
     "notes": [],
     "tier": 29
@@ -53507,6 +53914,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 38,
     "notes": [],
     "tier": 6
@@ -53671,6 +54081,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 14
@@ -53847,6 +54260,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 10
@@ -54013,6 +54429,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
     "tier": 14
@@ -54190,6 +54609,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
     "tier": 20
@@ -54361,6 +54783,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
     "tier": 19
@@ -54534,6 +54959,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 260,
     "notes": [],
     "tier": 20
@@ -54686,6 +55114,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -54845,10 +55276,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25,
+     "counter_potency": 50
+    },
     "price": 300,
-    "notes": [
-     "«Counterattack Skills have +50 Potency» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -55010,6 +55443,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 356,
     "notes": [],
     "tier": 28
@@ -55182,10 +55618,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25,
+     "exp_gain": 10
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +10% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -55355,9 +55793,12 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 375,
     "notes": [],
-    "tier": 28
+    "tier": 27
    },
    "implementation": {
     "present": true,
@@ -55522,6 +55963,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 75,
     "notes": [],
     "tier": 6
@@ -55694,6 +56138,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 150,
     "notes": [],
     "tier": 24
@@ -55863,6 +56310,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
     "tier": 15
@@ -56025,6 +56475,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 75,
     "notes": [],
     "tier": 16
@@ -56191,10 +56644,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25,
+     "heal_received": 20
+    },
     "price": 104,
-    "notes": [
-     "«HP Recovery +20%» не переносится"
-    ],
+    "notes": [],
     "tier": 7
    },
    "implementation": {
@@ -56354,6 +56809,11 @@
       "stat": "guard_rate",
       "op": "FLAT",
       "value": 20
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -56365,11 +56825,12 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 22
+    "notes": [],
+    "tier": 28
    },
    "implementation": {
     "present": true,
@@ -56541,6 +57002,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 11
@@ -56717,6 +57181,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 12
@@ -56883,9 +57350,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
-    "tier": 23
+    "tier": 22
    },
    "implementation": {
     "present": true,
@@ -57052,6 +57522,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 75,
     "notes": [],
     "tier": 8
@@ -57235,9 +57708,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 150,
     "notes": [],
-    "tier": 24
+    "tier": 23
    },
    "implementation": {
     "present": true,
@@ -57412,6 +57888,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 56,
     "notes": [],
     "tier": 3
@@ -57588,6 +58067,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 22
@@ -57769,6 +58251,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 224,
     "notes": [],
     "tier": 17
@@ -57948,6 +58433,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 350,
     "notes": [],
     "tier": 30
@@ -58128,6 +58616,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 250,
     "notes": [],
     "tier": 27
@@ -58306,6 +58797,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 125,
     "notes": [],
     "tier": 9
@@ -58459,6 +58953,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -58597,6 +59094,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -58724,6 +59224,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -58851,6 +59354,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -58978,6 +59484,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -59097,6 +59606,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -59224,6 +59734,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -59351,6 +59864,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 25,
+    "traits": {
+     "guard_efficiency": 25
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -59490,6 +60006,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 500,
     "notes": [],
     "tier": 15
@@ -59655,6 +60174,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 50,
     "notes": [],
     "tier": 4
@@ -59818,6 +60340,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 200,
     "notes": [],
     "tier": 16
@@ -59985,6 +60510,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 75,
     "notes": [],
     "tier": 11
@@ -60155,6 +60683,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 250,
     "notes": [],
     "tier": 17
@@ -60310,6 +60841,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 12,
     "notes": [],
     "tier": 3
@@ -60468,6 +61002,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 500,
     "notes": [],
     "tier": 17
@@ -60635,6 +61172,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 100,
     "notes": [],
     "tier": 12
@@ -60798,9 +61338,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
-    "price": 332,
+    "traits": {
+     "guard_efficiency": 50
+    },
+    "price": 320,
     "notes": [],
-    "tier": 26
+    "tier": 25
    },
    "implementation": {
     "present": true,
@@ -60967,6 +61510,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 375,
     "notes": [],
     "tier": 24
@@ -61139,6 +61685,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 50,
     "notes": [],
     "tier": 2
@@ -61315,6 +61864,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 200,
     "notes": [],
     "tier": 22
@@ -61488,9 +62040,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
-    "price": 272,
+    "traits": {
+     "guard_efficiency": 50
+    },
+    "price": 260,
     "notes": [],
-    "tier": 21
+    "tier": 20
    },
    "implementation": {
     "present": true,
@@ -61624,6 +62179,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -61764,9 +62320,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
-    "price": 284,
+    "traits": {
+     "guard_efficiency": 50
+    },
+    "price": 272,
     "notes": [],
-    "tier": 22
+    "tier": 21
    },
    "implementation": {
     "present": true,
@@ -61936,11 +62495,13 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
-    "price": 320,
-    "notes": [
-     "«Take 20% Less Damage» не переносится"
-    ],
-    "tier": 25
+    "traits": {
+     "guard_efficiency": 50,
+     "damage_reduction": 20
+    },
+    "price": 308,
+    "notes": [],
+    "tier": 24
    },
    "implementation": {
     "present": true,
@@ -62114,10 +62675,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50,
+     "damage_reduction": 20
+    },
     "price": 356,
-    "notes": [
-     "«Take 20% Less Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 28
    },
    "implementation": {
@@ -62286,6 +62849,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 100,
     "notes": [],
     "tier": 13
@@ -62449,6 +63015,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 56,
     "notes": [],
     "tier": 3
@@ -62591,6 +63160,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 32,
     "notes": [],
     "tier": 1
@@ -62744,6 +63316,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 368,
     "notes": [],
     "tier": 29
@@ -62905,6 +63480,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 75,
     "notes": [],
     "tier": 5
@@ -63064,6 +63642,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 200,
     "notes": [],
     "tier": 9
@@ -63237,6 +63818,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 300,
     "notes": [],
     "tier": 29
@@ -63396,6 +63980,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 38,
     "notes": [],
     "tier": 6
@@ -63554,6 +64141,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 125,
     "notes": [],
     "tier": 10
@@ -63724,6 +64314,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 200,
     "notes": [],
     "tier": 13
@@ -63891,9 +64484,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 250,
     "notes": [],
-    "tier": 20
+    "tier": 19
    },
    "implementation": {
     "present": true,
@@ -64054,6 +64650,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 375,
     "notes": [],
     "tier": 18
@@ -64190,6 +64789,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -64327,6 +64927,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 375,
     "notes": [],
     "tier": 19
@@ -64484,6 +65087,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 344,
     "notes": [],
     "tier": 27
@@ -64650,10 +65256,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50,
+     "exp_gain": 10
+    },
     "price": 38,
-    "notes": [
-     "«User Earns +10% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 4
    },
    "implementation": {
@@ -64818,6 +65426,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 75,
     "notes": [],
     "tier": 6
@@ -64988,6 +65599,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 344,
     "notes": [],
     "tier": 27
@@ -65160,6 +65774,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 150,
     "notes": [],
     "tier": 20
@@ -65323,6 +65940,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 250,
     "notes": [],
     "tier": 10
@@ -65479,6 +66099,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 75,
     "notes": [],
     "tier": 14
@@ -65639,10 +66262,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50,
+     "heal_received": 20
+    },
     "price": 62,
-    "notes": [
-     "«HP Recovery +20%» не переносится"
-    ],
+    "notes": [],
     "tier": 7
    },
    "implementation": {
@@ -65796,6 +66421,11 @@
       "stat": "guard_rate",
       "op": "FLAT",
       "value": 30
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -65807,11 +66437,12 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 250,
-    "notes": [
-     "«HP -15» не переносится"
-    ],
-    "tier": 19
+    "notes": [],
+    "tier": 26
    },
    "implementation": {
     "present": true,
@@ -65967,9 +66598,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 250,
     "notes": [],
-    "tier": 24
+    "tier": 23
    },
    "implementation": {
     "present": true,
@@ -66130,6 +66764,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 75,
     "notes": [],
     "tier": 8
@@ -66307,9 +66944,12 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 150,
     "notes": [],
-    "tier": 23
+    "tier": 22
    },
    "implementation": {
     "present": true,
@@ -66486,6 +67126,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 125,
     "notes": [],
     "tier": 15
@@ -66649,6 +67292,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 200,
     "notes": [],
     "tier": 11
@@ -66822,6 +67468,9 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 350,
     "notes": [],
     "tier": 30
@@ -66992,6 +67641,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 125,
     "notes": [],
     "tier": 8
@@ -67166,6 +67818,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 250,
     "notes": [],
     "tier": 26
@@ -67305,6 +67960,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -67429,6 +68085,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -67542,6 +68199,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -67655,6 +68313,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -67776,6 +68435,9 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": 50,
+    "traits": {
+     "guard_efficiency": 50
+    },
     "price": 20,
     "notes": [],
     "tier": 0
@@ -67889,6 +68551,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68003,6 +68666,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68117,6 +68781,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68231,6 +68896,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68345,6 +69011,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68459,6 +69126,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68573,6 +69241,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68687,6 +69356,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68801,6 +69471,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -68915,6 +69586,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -69029,6 +69701,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -69140,6 +69813,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 10
@@ -69269,6 +69943,7 @@
     "ap_bonus": 1,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 2000,
     "notes": [],
     "tier": 27
@@ -69443,6 +70118,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -69621,6 +70297,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 308,
     "notes": [],
     "tier": 24
@@ -69766,6 +70443,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 24
@@ -69914,6 +70592,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 24
@@ -70046,6 +70725,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 1000,
     "notes": [],
     "tier": 10
@@ -70181,6 +70861,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 10
@@ -70308,6 +70989,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -70444,6 +71126,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 2
@@ -70570,6 +71253,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 4
@@ -70708,6 +71392,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -70846,6 +71531,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 14
@@ -70975,10 +71661,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "drain_efficiency": 30
+    },
     "price": 125,
-    "notes": [
-     "«Drain Skill Efficiency +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -71162,10 +71849,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "drain_efficiency": 30
+    },
     "price": 368,
-    "notes": [
-     "«Drain Skill Efficiency +30%» не переносится"
-    ],
+    "notes": [],
     "tier": 29
    },
    "implementation": {
@@ -71348,6 +72036,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 38,
     "notes": [],
     "tier": 21
@@ -71479,6 +72168,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 13
@@ -71605,6 +72295,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 13
@@ -71739,6 +72430,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 38,
     "notes": [],
     "tier": 9
@@ -71867,6 +72559,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 22
@@ -71986,6 +72679,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 68,
     "notes": [],
     "tier": 4
@@ -72130,6 +72824,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 26
@@ -72295,6 +72990,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 26
@@ -72435,6 +73131,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 18
@@ -72560,10 +73257,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 30
+    },
     "price": 20,
-    "notes": [
-     "«User Earns +30% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 0
    },
    "implementation": {
@@ -72681,6 +73379,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 15
@@ -72816,6 +73515,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 10
@@ -72937,6 +73637,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 68,
     "notes": [],
     "tier": 4
@@ -73084,6 +73785,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 22
@@ -73228,6 +73930,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 26
@@ -73369,6 +74072,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 3
@@ -73552,6 +74256,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 10
@@ -73705,6 +74410,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 19
@@ -73905,6 +74611,7 @@
     "ap_bonus": 0,
     "pp_bonus": 2,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -74085,6 +74792,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 15
@@ -74220,10 +74928,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "damage_reduction": 15
+    },
     "price": 250,
-    "notes": [
-     "«Take 15% Less Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 20
    },
    "implementation": {
@@ -74355,6 +75064,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 14
@@ -74474,6 +75184,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 4
@@ -74598,6 +75309,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 15
@@ -74733,6 +75445,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 15
@@ -74863,6 +75576,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 19
@@ -74990,6 +75704,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 10
@@ -75125,6 +75840,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 11
@@ -75262,6 +75978,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 11
@@ -75394,6 +76111,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 15
@@ -75528,6 +76246,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 9
@@ -75708,6 +76427,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -75883,6 +76603,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 16
@@ -76018,6 +76739,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 16
@@ -76152,10 +76874,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "followup_potency": 40
+    },
     "price": 125,
-    "notes": [
-     "«Follow-up Skills Deal +40 Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -76288,6 +77011,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 20
@@ -76412,6 +77136,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 68,
     "notes": [],
     "tier": 4
@@ -76540,6 +77265,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 320,
     "notes": [],
     "tier": 25
@@ -76659,6 +77385,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 5
@@ -76772,6 +77499,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 5
@@ -76901,6 +77629,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 16
@@ -77044,6 +77773,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 3
@@ -77185,6 +77915,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 16
@@ -77304,6 +78035,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 50,
     "notes": [],
     "tier": 5
@@ -77432,6 +78164,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 38,
     "notes": [],
     "tier": 22
@@ -77582,10 +78315,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "damage_reduction": 10
+    },
     "price": 344,
-    "notes": [
-     "«Take 10% Less Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 27
    },
    "implementation": {
@@ -77736,6 +78470,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 25
@@ -77862,6 +78597,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 80,
     "notes": [],
     "tier": 5
@@ -77982,6 +78718,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 26
@@ -78108,6 +78845,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 23
@@ -78231,10 +78969,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "gold_gain": 200
+    },
     "price": 20,
-    "notes": [
-     "«User's Unit Earns +200% Gold» не переносится"
-    ],
+    "notes": [],
     "tier": 0
    },
    "implementation": {
@@ -78350,10 +79089,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "gold_gain": 100
+    },
     "price": 750,
-    "notes": [
-     "«User's Unit Earns +100% Gold» не переносится"
-    ],
+    "notes": [],
     "tier": 0
    },
    "implementation": {
@@ -78482,15 +79222,15 @@
     ],
     "item_passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 11
    },
    "implementation": {
@@ -78624,15 +79364,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 44,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -78767,6 +79507,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 16
@@ -78964,6 +79705,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 23
@@ -79088,6 +79830,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 5
@@ -79248,6 +79991,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 344,
     "notes": [],
     "tier": 27
@@ -79422,6 +80166,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -79588,6 +80333,7 @@
     "ap_bonus": 1,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -79737,6 +80483,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -79880,6 +80627,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 248,
     "notes": [],
     "tier": 19
@@ -80017,6 +80765,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 212,
     "notes": [],
     "tier": 16
@@ -80157,10 +80906,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "damage_reduction": 5
+    },
     "price": 75,
-    "notes": [
-     "«Take 5% Less Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 9
    },
    "implementation": {
@@ -80310,6 +81060,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 23
@@ -80466,6 +81217,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 152,
     "notes": [],
     "tier": 11
@@ -80591,6 +81343,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 5
@@ -80708,6 +81461,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 18
@@ -80821,6 +81575,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 6
@@ -80954,6 +81709,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 3
@@ -81095,6 +81851,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 38,
     "notes": [],
     "tier": 9
@@ -81225,6 +81982,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 11
@@ -81344,6 +82102,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 6
@@ -81457,6 +82216,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 92,
     "notes": [],
     "tier": 6
@@ -81582,6 +82342,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 21
@@ -81743,6 +82504,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -81903,6 +82665,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 344,
     "notes": [],
     "tier": 27
@@ -82043,6 +82806,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 11
@@ -82170,6 +82934,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 92,
     "notes": [],
     "tier": 6
@@ -82289,6 +83054,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 92,
     "notes": [],
     "tier": 6
@@ -82475,6 +83241,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 21
@@ -82599,6 +83366,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 7
@@ -82729,6 +83497,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 38,
     "notes": [],
     "tier": 22
@@ -82868,6 +83637,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 26
@@ -83012,10 +83782,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "gold_gain": 200
+    },
     "price": 56,
-    "notes": [
-     "«User's Unit Earns +200% Gold» не переносится"
-    ],
+    "notes": [],
     "tier": 3
    },
    "implementation": {
@@ -83173,6 +83944,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 308,
     "notes": [],
     "tier": 24
@@ -83316,6 +84088,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 17
@@ -83459,15 +84232,15 @@
     ],
     "item_passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 164,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 12
    },
    "implementation": {
@@ -83606,6 +84379,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 284,
     "notes": [],
     "tier": 22
@@ -83797,6 +84571,7 @@
     "ap_bonus": 2,
     "pp_bonus": 2,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -83961,6 +84736,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 7
@@ -84090,6 +84866,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 12
@@ -84225,6 +85002,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 188,
     "notes": [],
     "tier": 14
@@ -84365,6 +85143,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 21
@@ -84505,10 +85284,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "damage_reduction": 10
+    },
     "price": 150,
-    "notes": [
-     "«Take 10% Less Damage» не переносится"
-    ],
+    "notes": [],
     "tier": 18
    },
    "implementation": {
@@ -84626,6 +85406,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 7
@@ -84757,6 +85538,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 12
@@ -84888,6 +85670,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 18
@@ -85017,10 +85800,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "counter_potency": 40
+    },
     "price": 125,
-    "notes": [
-     "«Counterattack Skills have +40 Potency» не переносится"
-    ],
+    "notes": [],
     "tier": 2
    },
    "implementation": {
@@ -85133,6 +85917,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -85358,6 +86143,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -85589,6 +86375,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -85717,6 +86504,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 236,
     "notes": [],
     "tier": 18
@@ -85902,6 +86690,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 368,
     "notes": [],
     "tier": 29
@@ -86131,6 +86920,7 @@
     "ap_bonus": 1,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 380,
     "notes": [],
     "tier": 30
@@ -86303,6 +87093,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 164,
     "notes": [],
     "tier": 12
@@ -86428,10 +87219,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 100
+    },
     "price": 250,
-    "notes": [
-     "«User Earns +100% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 1
    },
    "implementation": {
@@ -86563,6 +87355,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 3
@@ -86704,6 +87497,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 26
@@ -86832,6 +87626,7 @@
     "ap_bonus": 2,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 1000,
     "notes": [],
     "tier": 28
@@ -86945,6 +87740,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 7
@@ -87075,6 +87871,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 150,
     "notes": [],
     "tier": 20
@@ -87227,6 +88024,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 260,
     "notes": [],
     "tier": 20
@@ -87378,6 +88176,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 25
@@ -87508,6 +88307,7 @@
     "ap_bonus": 0,
     "pp_bonus": 2,
     "guard_efficiency": null,
+    "traits": {},
     "price": 1000,
     "notes": [],
     "tier": 25
@@ -87651,6 +88451,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 296,
     "notes": [],
     "tier": 23
@@ -87796,6 +88597,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 12
@@ -87931,6 +88733,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 13
@@ -88067,6 +88870,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 17
@@ -88206,6 +89010,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 38,
     "notes": [],
     "tier": 22
@@ -88337,6 +89142,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 23
@@ -88463,6 +89269,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 62,
     "notes": [],
     "tier": 20
@@ -88586,10 +89393,11 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {
+     "exp_gain": 200
+    },
     "price": 32,
-    "notes": [
-     "«User Earns +200% EXP» не переносится"
-    ],
+    "notes": [],
     "tier": 1
    },
    "implementation": {
@@ -88717,6 +89525,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 25,
     "notes": [],
     "tier": 13
@@ -88857,6 +89666,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 25
@@ -89002,6 +89812,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 21
@@ -89142,6 +89953,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 14
@@ -89269,6 +90081,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 19
@@ -89422,6 +90235,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 23
@@ -89557,6 +90371,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 13
@@ -89678,6 +90493,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 7
@@ -89791,6 +90607,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 7
@@ -89918,15 +90735,15 @@
     "item_passives": [],
     "tags": [
      "immune_blind",
+     "immune_deathblow",
      "immune_passive_seal"
     ],
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 1
    },
    "implementation": {
@@ -90041,6 +90858,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 8
@@ -90165,6 +90983,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 500,
     "notes": [],
     "tier": 17
@@ -90305,6 +91124,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 17
@@ -90447,6 +91267,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 25
@@ -90573,6 +91394,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 375,
     "notes": [],
     "tier": 8
@@ -90699,6 +91521,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 750,
     "notes": [],
     "tier": 17
@@ -90844,15 +91667,15 @@
     "passives": [],
     "item_passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ],
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 260,
-    "notes": [
-     "«Deathblow Immunity» не переносится"
-    ],
+    "notes": [],
     "tier": 20
    },
    "implementation": {
@@ -90991,6 +91814,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 19
@@ -91111,6 +91935,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -91239,6 +92064,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 100,
     "notes": [],
     "tier": 27
@@ -91373,6 +92199,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 125,
     "notes": [],
     "tier": 9
@@ -91524,6 +92351,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 24
@@ -91676,6 +92504,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 176,
     "notes": [],
     "tier": 13
@@ -91819,6 +92648,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 44,
     "notes": [],
     "tier": 2
@@ -91966,6 +92796,7 @@
     "ap_bonus": 0,
     "pp_bonus": 1,
     "guard_efficiency": null,
+    "traits": {},
     "price": 356,
     "notes": [],
     "tier": 28
@@ -92086,6 +92917,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 32,
     "notes": [],
     "tier": 1
@@ -92199,6 +93031,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 116,
     "notes": [],
     "tier": 8
@@ -92312,6 +93145,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 300,
     "notes": [],
     "tier": 8
@@ -92425,6 +93259,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 250,
     "notes": [],
     "tier": 8
@@ -92546,6 +93381,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 224,
     "notes": [],
     "tier": 17
@@ -92682,6 +93518,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 4
@@ -92818,6 +93655,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 75,
     "notes": [],
     "tier": 8
@@ -92962,6 +93800,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 200,
     "notes": [],
     "tier": 19
@@ -93086,6 +93925,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93200,6 +94040,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93315,6 +94156,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93416,6 +94258,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93517,6 +94360,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93618,6 +94462,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93719,6 +94564,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93820,6 +94666,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -93921,6 +94768,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94022,6 +94870,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94123,6 +94972,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94224,6 +95074,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94338,6 +95189,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94466,6 +95318,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94594,6 +95447,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94722,6 +95576,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0
@@ -94850,6 +95705,7 @@
     "ap_bonus": 0,
     "pp_bonus": 0,
     "guard_efficiency": null,
+    "traits": {},
     "price": 20,
     "notes": [],
     "tier": 0

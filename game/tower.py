@@ -471,8 +471,11 @@ class TowerRun:
                 if unit is None:
                     continue
                 exp = self.rules.exp.battle_exp(unit.state.level, enemy_levels)
+                exp = round(exp * max(0.0, 1 + unit.trait("exp_gain") / 100))       # предметы: «+N% опыта»
                 report.level_ups.append(grant_exp(unit, exp, self.rules.exp))
-            report.gold = self.rules.gold(self.floor)
+            gold_gain = sum(self.army.units[f.uid].trait("gold_gain") for f in scenario.player_squad.formation.units
+                            if f.uid in self.army.units)
+            report.gold = round(self.rules.gold(self.floor) * max(0.0, 1 + gold_gain / 100))
             self.inventory.add_gold(report.gold)
             self.best = max(self.best, self.floor)
             self.reward = self._offer_items(db, self._rng("reward"), self.rules.data["reward"]["offer"])

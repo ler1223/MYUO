@@ -7496,7 +7496,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "deathblow_hp": 0.1
+    }
   },
   "chaos_unending": {
     "name": "Chaos Unending",
@@ -8296,7 +8298,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "deathblow_effect": "uo_poison"
+    }
   },
   "rampage": {
     "name": "Rampage",
@@ -8382,7 +8386,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "deathblow_hp": 0.25
+    }
   },
   "powerful_impact": {
     "name": "Powerful Impact",

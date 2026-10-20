@@ -18,6 +18,17 @@ STATS = [("Physickal Attack", "phys_atk"), ("Magick Attack", "mag_atk"), ("Physi
          ("Physickal Defence", "phys_def"), ("Magick Defense", "mag_def"), ("Magickal Defense", "mag_def"),
          ("Critical Damage", "crit_damage"), ("Critical Rate", "crit_rate"), ("Guard Rate", "guard_rate"),
          ("Initiative", "initiative"), ("Accuracy", "accuracy"), ("Evasion", "evasion"), ("Max HP", "hp")]
+# Строки субстатов, которые идут в особые свойства предмета (game/definitions.py ITEM_TRAITS).
+TRAIT_LINES = [
+    (re.compile(r"Guard Efficiency\s*([+-]?\d+)\s*%", re.I), "guard_efficiency"),
+    (re.compile(r"^HP Recovery\s*([+-]?\d+)\s*%", re.I), "heal_received"),
+    (re.compile(r"Takes?\s*(\d+)\s*%\s*Less Damage", re.I), "damage_reduction"),
+    (re.compile(r"User Earns\s*([+-]?\d+)\s*%\s*EXP", re.I), "exp_gain"),
+    (re.compile(r"Unit Earns\s*([+-]?\d+)\s*%\s*Gold", re.I), "gold_gain"),
+    (re.compile(r"Follow-up Skills (?:Deal|Have)\s*([+-]?\d+)", re.I), "followup_potency"),
+    (re.compile(r"Counterattack Skills (?:Deal|have)\s*([+-]?\d+)", re.I), "counter_potency"),
+    (re.compile(r"Drain Skill Efficiency\s*([+-]?\d+)\s*%", re.I), "drain_efficiency"),
+]
 ALL_STATS = ["hp", "phys_atk", "phys_def", "mag_atk", "mag_def", "accuracy", "evasion", "crit_rate", "guard_rate",
              "initiative"]
 IMMUNITIES = {"Poison": "poison", "Burn": "burn", "Brun": "burn", "Freeze": "freeze", "Stun": "stun",
@@ -234,7 +245,13 @@ def substats(entry: dict, notes: list[str]) -> tuple[list[dict], dict, list[str]
         text = line.replace("PP", " PP").replace("AP", " AP")
         number = re.search(r"([+-]?\d+)\s*(%?)", text)
         value, percent = (int(number.group(1)), bool(number.group(2))) if number else (0, False)
-        if "Guard Efficiency" in line:
+        trait = next(((name, int(m.group(1))) for rx, name in TRAIT_LINES if (m := rx.search(line))), None)
+        if trait:
+            traits = bonus.setdefault("traits", {})
+            traits[trait[0]] = traits.get(trait[0], 0) + trait[1]
+            continue
+        if "Deathblow Immunity" in line:
+            tags.append("immune_deathblow")
             continue
         if "Base" in line and " AP" in text and "PP" not in line.replace("AP_Gem", ""):
             bonus["ap_bonus"] = bonus.get("ap_bonus", 0) + value
@@ -254,6 +271,8 @@ def substats(entry: dict, notes: list[str]) -> tuple[list[dict], dict, list[str]
             heals.append(heal.group(1))
             continue
         stat = next((s for word, s in STATS if line.startswith(word)), None)
+        if stat is None and re.match(r"HP\s*[+-]\d", line):             # «HP -15»: плоский штраф к максимуму HP
+            stat = "hp"
         if stat is None:
             notes.append(f"«{line}» не переносится")
             continue

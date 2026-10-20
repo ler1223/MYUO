@@ -29,6 +29,15 @@ SCOPES = ("self", "ally", "enemy", "any")
 
 
 
+# Особые свойства предмета UO, которых нет среди статов (items.json -> "traits": {имя: число}):
+#   damage_reduction — «получает N% меньше урона»; heal_received — «лечение +N%»;
+#   exp_gain / gold_gain — опыт и золото за бой башни, %; guard_efficiency — сила блока, % (см. combat/engine);
+#   drain_efficiency — «выкачивание» (lifesteal) +N%; followup_potency / counter_potency — +N к силе
+#   навыков-преследований и контратак (100 = сила навыка 1.0).
+ITEM_TRAITS = ("damage_reduction", "heal_received", "exp_gain", "gold_gain", "guard_efficiency",
+               "drain_efficiency", "followup_potency", "counter_potency")
+
+
 @dataclass(frozen=True)
 class ItemDefinition:
     """Предмет снаряжения. Пока надет, даёт модификаторы, навыки, пассивки и теги."""
@@ -46,6 +55,10 @@ class ItemDefinition:
     ap_bonus: int = 0                       # прибавка к запасу AP носителя (кулоны UO)
     pp_bonus: int = 0                       # прибавка к запасу PP
     classes: tuple[str, ...] = ()           # классы, которым предмет разрешён; пусто — всем (как в UO)
+    traits: tuple[tuple[str, float], ...] = ()   # особые свойства (ITEM_TRAITS): пары (имя, число)
+
+    def trait(self, name: str) -> float:
+        return sum(value for key, value in self.traits if key == name)
 
     @classmethod
     def from_dict(cls, item_id: str, data: Mapping[str, Any]) -> "ItemDefinition":
@@ -63,7 +76,11 @@ class ItemDefinition:
             ap_bonus=int(data.get("ap_bonus", 0)),
             pp_bonus=int(data.get("pp_bonus", 0)),
             classes=tuple(data.get("classes", ())),
+            traits=tuple((str(k), float(v)) for k, v in (data.get("traits") or {}).items()),
         )
+        unknown = [k for k, _ in item.traits if k not in ITEM_TRAITS]
+        if unknown:
+            raise ValueError(f"item {item_id}: unknown traits {sorted(unknown)}")
         if item.price < 0:
             raise ValueError(f"item {item_id}: price must not be negative")
         return item
@@ -82,6 +99,7 @@ class ItemDefinition:
             **({"ap_bonus": self.ap_bonus} if self.ap_bonus else {}),
             **({"pp_bonus": self.pp_bonus} if self.pp_bonus else {}),
             **({"classes": list(self.classes)} if self.classes else {}),
+            **({"traits": {k: (int(v) if v == int(v) else v) for k, v in self.traits}} if self.traits else {}),
             "modifiers": [m.to_dict() for m in self.modifiers],
             "skills": list(self.skills),
             "passives": list(self.passives),
@@ -198,7 +216,8 @@ class SkillExtras:
     ap_drain / pp_drain — сколько AP/PP теряет каждый задетый; steal — забрать их себе;
     dispel — метки эффектов (buff, debuff), снимаемых с задетых; hit_ap / hit_pp — применяющему за попадание;
     kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла;
-    revive / revive_pct — навык воскрешает павшего союзника (доля макс. HP; 0 — одно HP)."""
+    revive / revive_pct — навык воскрешает павшего союзника (доля макс. HP; 0 — одно HP);
+    deathblow_hp / deathblow_effect — смертельный удар по цели с малым HP или с эффектом."""
 
     unguardable: bool = False
     unguardable_vs: tuple[str, ...] = ()
@@ -224,6 +243,10 @@ class SkillExtras:
     # revive_pct — доля максимума HP в процентах; 0 — одно HP.
     revive: bool = False
     revive_pct: int = 0
+    # Смертельный удар (UO «deathblow»): цель погибает, если её HP после удара не выше доли deathblow_hp
+    # или на ней висит эффект deathblow_effect. Носителей тега immune_deathblow он не берёт.
+    deathblow_hp: float = 0.0
+    deathblow_effect: str = ""
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "SkillExtras":

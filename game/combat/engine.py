@@ -189,6 +189,7 @@ class Battle:
         self._action = _Action(one_each=False)   # действие, к которому относятся ответы сейчас
         self._depth = 0
         self._dead: set[int] = set()
+        self._reaction_kind: Optional[str] = None     # counter / followup, пока идёт навык-ответ
         self._round_ended = True
         self._unblockable = frozenset(t for t, d in db.tags.items() if d.unblockable)
 
@@ -482,6 +483,8 @@ class Battle:
             elif bonus.scale == "front_row":
                 share = 1.0 if self.side_of(user).pos(user)[0] == 0 else 0.0
             add += bonus.add * share
+        if self._reaction_kind and skill.targets == "enemy":      # предметы: сила контратак и преследований
+            add += user.trait(f"{self._reaction_kind}_potency") / 100
         return add
 
     def _strike(self, attack: rules.Attack, unit: Unit, strike: Strike, act: Act, blind: bool) -> None:
@@ -509,6 +512,9 @@ class Battle:
                 (forced or rules.roll(self.rng, unit.stat(Stat.GUARD_RATE))):
             strike.guard = rules.guard_level(unit, self.db.guard, forced)
             guard_cut = self.db.guard.reduction(strike.guard)
+            if not forced and unit.trait("guard_efficiency"):       # сила блока предмета: база + эффективность
+                guard_cut = max(guard_cut, self.db.guard.reduction(self.db.guard.base)
+                                + unit.trait("guard_efficiency") / 100)
             if forced:
                 self._remove_flagged(unit, f"guard:{forced}", act)
         negate = self._tag_flag(unit, "negate", attack.tags)
@@ -519,7 +525,10 @@ class Battle:
         if amount >= unit.hp and unit.has_flag("endure"):
             amount = max(0, unit.hp - 1)
             self._remove_flagged(unit, "endure", act)
+        doomed = self._deathblow_pending(skill, unit)
         strike.damage = unit.take_damage(amount)
+        if unit.is_alive and (doomed or self._deathblow_by_hp(skill, unit)):
+            strike.damage += unit.take_damage(unit.hp)          # смертельный удар
         if unit.has_flag("frozen"):
             strike.thawed = True
             self._remove_flagged(unit, "frozen", act)
@@ -529,12 +538,24 @@ class Battle:
         if extras.heal_on_hit and user.is_alive:
             self._heal(user, round(user.max_hp * extras.heal_on_hit), user, skill.id, act)
         if extras.lifesteal and strike.damage and user.is_alive:
-            self._heal(user, round(strike.damage * extras.lifesteal), user, skill.id, act)
+            drain = 1 + user.trait("drain_efficiency") / 100
+            self._heal(user, round(strike.damage * extras.lifesteal * drain), user, skill.id, act)
         if extras.hit_ap:
             self._resource(user, "AP", extras.hit_ap, user, skill.id, act)
         if extras.hit_pp:
             self._resource(user, "PP", extras.hit_pp, user, skill.id, act)
         self._hp_below(unit, strike.damage, act)
+
+    @staticmethod
+    def _deathblow_pending(skill: SkillDefinition, unit: Unit) -> bool:
+        """Смертельный удар по эффекту на цели (проверяется до удара): яд и т. п."""
+        effect = skill.extras.deathblow_effect
+        return bool(effect) and "immune_deathblow" not in unit.tags and unit.has_effect(effect)
+
+    @staticmethod
+    def _deathblow_by_hp(skill: SkillDefinition, unit: Unit) -> bool:
+        share = skill.extras.deathblow_hp
+        return bool(share) and "immune_deathblow" not in unit.tags and unit.hp <= unit.max_hp * share
 
     @staticmethod
     def _tag_flag(unit: Unit, base: str, tags: frozenset[str]) -> Optional[str]:
@@ -857,7 +878,11 @@ class Battle:
                 continue
             if action == DO_USE_SKILL:
                 sub.skill_used, sub.target, sub.hits = skill.id, target.uid, skill.hits
-                self._resolve(owner, skill, target, sub, root=False)
+                self._reaction_kind = self._kind_of_response(owner, moment)
+                try:
+                    self._resolve(owner, skill, target, sub, root=False)
+                finally:
+                    self._reaction_kind = None
             elif action == DO_APPLY_EFFECT:
                 self._give(target, reaction.effect_id, source, sub)
             elif action == DO_REMOVE_EFFECT:
@@ -881,6 +906,13 @@ class Battle:
                 self._resource(target, "AP" if action == DO_RESTORE_AP else "PP", reaction.amount, source,
                                cause, sub)
         return sub
+
+    def _kind_of_response(self, owner: Unit, moment: Moment) -> Optional[str]:
+        """Ответ пассивки: контратака (вызвал враг) или преследование (атаковал союзник)."""
+        actor = moment.actor
+        if actor is None or actor is owner or moment.event not in (ON_SKILL_USED, ON_ATTACKED):
+            return None
+        return "followup" if self.side_of(actor) is self.side_of(owner) else "counter"
 
     def _skill_target(self, owner: Unit, skill: SkillDefinition, reaction: Reaction, moment: Moment,
                       targets: list[Unit]) -> Optional[Unit]:
@@ -961,6 +993,8 @@ class Battle:
 
     def _heal(self, unit: Unit, amount: int, source: Optional[Unit], cause: str, act: Act, crit: bool = False,
               change: bool = True) -> int:
+        if amount > 0 and unit.trait("heal_received"):
+            amount = round(amount * max(0.0, 1 + unit.trait("heal_received") / 100))
         healed = unit.heal(max(0, amount))
         if change:
             act.changes.append(Change(unit.uid, "heal", healed, current=unit.hp))

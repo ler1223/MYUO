@@ -112,6 +112,7 @@ def damage(attack: Attack, target: Unit, rules: Iterable[TagRule], crit: bool,
             total *= mult
     if crit:
         total *= user.stat(Stat.CRIT_DAMAGE) / 100
+    total *= max(0.0, 1 - target.trait("damage_reduction") / 100)       # «получает N% меньше урона»
     return max(MIN_DAMAGE, round(total)) if any(p.kind == PART_DAMAGE for p in skill.parts) else 0
 
 

@@ -1357,6 +1357,7 @@ def enrich_catalog_items(items: list[dict], skills: list[dict]) -> None:
             "ap_bonus": bonus.get("ap_bonus", 0),
             "pp_bonus": bonus.get("pp_bonus", 0),
             "guard_efficiency": guard_efficiency,
+            "traits": bonus.get("traits", {}),
             "price": price,
             "notes": notes,
         }

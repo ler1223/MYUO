@@ -84,7 +84,10 @@
       "valkyria",
       "vanguard",
       "werewolf"
-    ]
+    ],
+    "traits": {
+      "exp_gain": 20
+    }
   },
   "baroque_sword": {
     "name": "Baroque Sword",
@@ -606,6 +609,11 @@
         "stat": "phys_atk",
         "op": "FLAT",
         "value": 17
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -1076,7 +1084,10 @@
       "valkyria",
       "vanguard",
       "werewolf"
-    ]
+    ],
+    "traits": {
+      "followup_potency": 20
+    }
   },
   "hallowed_blade": {
     "name": "Hallowed Blade",
@@ -1821,7 +1832,10 @@
       "valkyria",
       "vanguard",
       "werewolf"
-    ]
+    ],
+    "traits": {
+      "gold_gain": 100
+    }
   },
   "royal_saber": {
     "name": "Royal Saber",
@@ -2812,6 +2826,11 @@
         "stat": "phys_atk",
         "op": "FLAT",
         "value": 17
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -3073,7 +3092,10 @@
       "warrior",
       "werebear",
       "werelion"
-    ]
+    ],
+    "traits": {
+      "gold_gain": 100
+    }
   },
   "golden_ram_axe": {
     "name": "Golden Ram Axe",
@@ -3152,7 +3174,10 @@
       "warrior",
       "werebear",
       "werelion"
-    ]
+    ],
+    "traits": {
+      "followup_potency": 20
+    }
   },
   "knot_of_ruin": {
     "name": "Knot of Ruin",
@@ -3165,6 +3190,11 @@
         "stat": "phys_atk",
         "op": "FLAT",
         "value": 22
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -30
       },
       {
         "stat": "initiative",
@@ -4101,7 +4131,10 @@
       "werefox",
       "wyvern_knight",
       "wyvern_master"
-    ]
+    ],
+    "traits": {
+      "exp_gain": 20
+    }
   },
   "baroque_spear": {
     "name": "Baroque Spear",
@@ -4550,6 +4583,11 @@
         "stat": "phys_atk",
         "op": "FLAT",
         "value": 17
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -4884,7 +4922,10 @@
       "werefox",
       "wyvern_knight",
       "wyvern_master"
-    ]
+    ],
+    "traits": {
+      "followup_potency": 20
+    }
   },
   "adepts_shortspear": {
     "name": "Adept's Shortspear",
@@ -5813,7 +5854,10 @@
       "shieldshooter",
       "sniper",
       "snow_ranger"
-    ]
+    ],
+    "traits": {
+      "exp_gain": 20
+    }
   },
   "baroque_bow": {
     "name": "Baroque Bow",
@@ -6202,6 +6246,11 @@
         "stat": "phys_atk",
         "op": "FLAT",
         "value": 17
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -7501,7 +7550,10 @@
       "high_priestess",
       "shaman",
       "druid"
-    ]
+    ],
+    "traits": {
+      "exp_gain": 20
+    }
   },
   "baroque_staff": {
     "name": "Baroque Staff",
@@ -7890,6 +7942,11 @@
         "stat": "mag_atk",
         "op": "FLAT",
         "value": 17
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -8072,7 +8129,10 @@
       "high_priestess",
       "shaman",
       "druid"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "carnelian_staff": {
     "name": "Carnelian Staff",
@@ -9421,7 +9481,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "recruits_greatshield": {
     "name": "Recruit's Greatshield",
@@ -9462,7 +9525,11 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50,
+      "exp_gain": 10
+    }
   },
   "baroque_greatshield": {
     "name": "Baroque Greatshield",
@@ -9503,7 +9570,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "conveyable_greatshield": {
     "name": "Conveyable Greatshield",
@@ -9544,7 +9614,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "iron_greatshield": {
     "name": "Iron Greatshield",
@@ -9580,7 +9653,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "black_iron_greatshield": {
     "name": "Black-Iron Greatshield",
@@ -9621,7 +9697,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "carnat_greatshield": {
     "name": "Carnat Greatshield",
@@ -9662,7 +9741,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "greatwood_greatshield": {
     "name": "Greatwood Greatshield",
@@ -9703,7 +9785,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "steel_greatshield": {
     "name": "Steel Greatshield",
@@ -9739,7 +9824,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "spellsteel_greatshield": {
     "name": "Spellsteel Greatshield",
@@ -9780,7 +9868,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "vorpal_greatshield": {
     "name": "Vorpal Greatshield",
@@ -9826,7 +9917,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "dragonbone_greatshield": {
     "name": "Dragonbone Greatshield",
@@ -9868,7 +9962,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "thorn_greatshield": {
     "name": "Thorn Greatshield",
@@ -9886,6 +9983,11 @@
         "stat": "guard_rate",
         "op": "FLAT",
         "value": 30
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -9905,7 +10007,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "icefall_greatshield": {
     "name": "Icefall Greatshield",
@@ -9947,7 +10052,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "wingcrest_greatshield": {
     "name": "Wingcrest Greatshield",
@@ -9989,7 +10097,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "templars_greatshield": {
     "name": "Templar's Greatshield",
@@ -10025,7 +10136,11 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50,
+      "heal_received": 20
+    }
   },
   "phantom_knights_greatshield": {
     "name": "Phantom Knight's Greatshield",
@@ -10056,7 +10171,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "zenoiran_greatshield": {
     "name": "Zenoiran Greatshield",
@@ -10097,7 +10215,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "zenoiran_knights_greatshield": {
     "name": "Zenoiran Knight's Greatshield",
@@ -10138,7 +10259,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "azure_crest_greatshield": {
     "name": "Azure Crest Greatshield",
@@ -10175,7 +10299,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "mirage_greatshield": {
     "name": "Mirage Greatshield",
@@ -10216,7 +10343,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "viper_greatshield": {
     "name": "Viper Greatshield",
@@ -10253,7 +10383,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "searing_greatshield": {
     "name": "Searing Greatshield",
@@ -10290,7 +10423,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "hoarfrost_greatshield": {
     "name": "Hoarfrost Greatshield",
@@ -10327,7 +10463,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "luminous_greatshield": {
     "name": "Luminous Greatshield",
@@ -10365,7 +10504,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "citadel_guards_greatshield": {
     "name": "Citadel Guard's Greatshield",
@@ -10408,7 +10550,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "moonlight_greatshield": {
     "name": "Moonlight Greatshield",
@@ -10446,7 +10591,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "unyielding_greatshield": {
     "name": "Unyielding Greatshield",
@@ -10484,7 +10632,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "horsekiller_greatshield": {
     "name": "Horsekiller Greatshield",
@@ -10522,7 +10673,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "wingclipper_greatshield": {
     "name": "Wingclipper Greatshield",
@@ -10560,7 +10714,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "beastslayer_greatshield": {
     "name": "Beastslayer Greatshield",
@@ -10598,7 +10755,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "squires_greatshield": {
     "name": "Squire's Greatshield",
@@ -10636,7 +10796,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "panoplied_greatshield": {
     "name": "Panoplied Greatshield",
@@ -10674,7 +10837,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "ironclad_towershield": {
     "name": "Ironclad Towershield",
@@ -10712,7 +10878,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "bulwark_towershield": {
     "name": "Bulwark Towershield",
@@ -10750,7 +10919,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "white_knights_greatshield": {
     "name": "White Knight's Greatshield",
@@ -10791,7 +10963,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "blacksilver_pavise": {
     "name": "Blacksilver Pavise",
@@ -10828,7 +11003,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "heavens_mirror_greatshield": {
     "name": "Heaven's Mirror Greatshield",
@@ -10864,7 +11042,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "drakestone_iceshield": {
     "name": "Drakestone Iceshield",
@@ -10902,7 +11083,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "greatshield_of_the_abyss": {
     "name": "Greatshield Of The Abyss",
@@ -10943,7 +11127,11 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50,
+      "damage_reduction": 20
+    }
   },
   "skirons_greatshield": {
     "name": "Skiron's Greatshield",
@@ -11021,7 +11209,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "champions_towershield": {
     "name": "Champion's Towershield",
@@ -11057,7 +11248,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "gran_baris": {
     "name": "Gran Baris",
@@ -11094,7 +11288,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "carnelian_pendant": {
     "name": "Carnelian Pendant",
@@ -11594,7 +11791,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "damage_reduction": 5
+    }
   },
   "prisoners_shackles": {
     "name": "Prisoner's Shackles",
@@ -11611,7 +11811,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "damage_reduction": 10
+    }
   },
   "daemons_shackles": {
     "name": "Daemon's Shackles",
@@ -11628,7 +11831,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "damage_reduction": 15
+    }
   },
   "blue_spectacles": {
     "name": "Blue Spectacles",
@@ -12042,7 +12248,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "drain_efficiency": 30
+    }
   },
   "warriors_medallion": {
     "name": "Warrior's Medallion",
@@ -12392,7 +12601,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_poison"
+      "immune_poison",
+      "immune_deathblow"
     ],
     "damage_tags": []
   },
@@ -12412,7 +12622,7 @@
     "passives": [],
     "tags": [
       "immune_poison",
-      "immune_poison"
+      "immune_deathblow"
     ],
     "damage_tags": []
   },
@@ -12432,7 +12642,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_poison"
+      "immune_poison",
+      "immune_deathblow"
     ],
     "damage_tags": []
   },
@@ -12451,7 +12662,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_poison"
+      "immune_poison",
+      "immune_deathblow"
     ],
     "damage_tags": []
   },
@@ -12470,7 +12682,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "drain_efficiency": 30
+    }
   },
   "retaliation_earrings": {
     "name": "Retaliation Earrings",
@@ -12487,7 +12702,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "counter_potency": 40
+    }
   },
   "earrings_of_pursuit": {
     "name": "Earrings Of Pursuit",
@@ -12504,7 +12722,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "followup_potency": 40
+    }
   },
   "tailwind_cape": {
     "name": "Tailwind Cape",
@@ -14301,7 +14522,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "exp_gain": 30
+    }
   },
   "rookie_egg": {
     "name": "Rookie Egg",
@@ -14312,7 +14536,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "exp_gain": 100
+    }
   },
   "golden_egg": {
     "name": "Golden Egg",
@@ -14323,7 +14550,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "gold_gain": 100
+    }
   },
   "misers_bracelet": {
     "name": "Miser's Bracelet",
@@ -14345,7 +14575,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "gold_gain": 200
+    }
   },
   "silver_goblet": {
     "name": "Silver Goblet",
@@ -14356,7 +14589,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "exp_gain": 200
+    }
   },
   "gold_goblet": {
     "name": "Gold Goblet",
@@ -14367,7 +14603,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "gold_gain": 200
+    }
   },
   "gauntlets_of_the_abyss": {
     "name": "Gauntlets Of The Abyss",
@@ -14394,7 +14633,10 @@
     "skills": [],
     "passives": [],
     "tags": [],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "damage_reduction": 10
+    }
   },
   "crown_of_the_abyss": {
     "name": "Crown Of The Abyss",
@@ -14479,6 +14721,7 @@
     "passives": [],
     "tags": [
       "immune_blind",
+      "immune_deathblow",
       "immune_passive_seal"
     ],
     "damage_tags": []
@@ -14750,7 +14993,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "recruits_shield": {
     "name": "Recruit's Shield",
@@ -14797,7 +15043,11 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25,
+      "exp_gain": 10
+    }
   },
   "baroque_shield": {
     "name": "Baroque Shield",
@@ -14844,7 +15094,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "battlers_shield": {
     "name": "Battler's Shield",
@@ -14891,7 +15144,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "iron_shield": {
     "name": "Iron Shield",
@@ -14933,7 +15189,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "black_iron_shield": {
     "name": "Black-Iron Shield",
@@ -14980,7 +15239,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "carnat_shield": {
     "name": "Carnat Shield",
@@ -15027,7 +15289,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "greatwood_shield": {
     "name": "Greatwood Shield",
@@ -15074,7 +15339,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "steel_shield": {
     "name": "Steel Shield",
@@ -15116,7 +15384,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "spellsteel_shield": {
     "name": "Spellsteel Shield",
@@ -15163,7 +15434,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "vorpal_shield": {
     "name": "Vorpal Shield",
@@ -15215,7 +15489,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "dragonbone_shield": {
     "name": "Dragonbone Shield",
@@ -15263,7 +15540,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "thorn_shield": {
     "name": "Thorn Shield",
@@ -15281,6 +15561,11 @@
         "stat": "guard_rate",
         "op": "FLAT",
         "value": 20
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": -15
       }
     ],
     "skills": [],
@@ -15306,7 +15591,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "icefall_shield": {
     "name": "Icefall Shield",
@@ -15354,7 +15642,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "wingcrest_shield": {
     "name": "Wingcrest Shield",
@@ -15402,7 +15693,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "watchmans_bockler": {
     "name": "Watchman's Bockler",
@@ -15490,7 +15784,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "templars_shield": {
     "name": "Templar's Shield",
@@ -15532,7 +15829,11 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25,
+      "heal_received": 20
+    }
   },
   "phantom_knights_shield": {
     "name": "Phantom Knight's Shield",
@@ -15569,7 +15870,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "zenoiran_shield": {
     "name": "Zenoiran Shield",
@@ -15616,7 +15920,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "zenoiran_knights_shield": {
     "name": "Zenoiran Knight's Shield",
@@ -15665,7 +15972,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "golden_ram_shield": {
     "name": "Golden Ram Shield",
@@ -15713,7 +16023,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "heavenswing_shield": {
     "name": "Heavenswing Shield",
@@ -15765,7 +16078,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "obsidian_shield": {
     "name": "Obsidian Shield",
@@ -15796,7 +16112,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "azure_crest_shield": {
     "name": "Azure Crest Shield",
@@ -15839,7 +16158,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "scarlet_crest_shield": {
     "name": "Scarlet Crest Shield",
@@ -15883,7 +16205,10 @@
       "crusader",
       "valkyria"
     ],
-    "ap_bonus": 1
+    "ap_bonus": 1,
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "hunters_buckler": {
     "name": "Hunter's Buckler",
@@ -15930,7 +16255,11 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25,
+      "followup_potency": 20
+    }
   },
   "blessed_roundshield": {
     "name": "Blessed Roundshield",
@@ -15979,7 +16308,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "viper_shield": {
     "name": "Viper Shield",
@@ -16022,7 +16354,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "searing_shield": {
     "name": "Searing Shield",
@@ -16065,7 +16400,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "hoarfrost_shield": {
     "name": "Hoarfrost Shield",
@@ -16108,7 +16446,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "luminous_shield": {
     "name": "Luminous Shield",
@@ -16152,7 +16493,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "twin_dragon_shield": {
     "name": "Twin Dragon Shield",
@@ -16196,7 +16540,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "unfettered_shield": {
     "name": "Unfettered Shield",
@@ -16240,7 +16587,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "chivalric_shield": {
     "name": "Chivalric Shield",
@@ -16284,7 +16634,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "guards_shield": {
     "name": "Guard's Shield",
@@ -16328,7 +16681,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "mercenays_shield": {
     "name": "Mercenay's Shield",
@@ -16404,7 +16760,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "cavalry_hunters_buckler": {
     "name": "Cavalry Hunter's Buckler",
@@ -16448,7 +16807,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "angel_hunters_buckler": {
     "name": "Angel Hunter's Buckler",
@@ -16492,7 +16854,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "beast_hunters_buckler": {
     "name": "Beast Hunter's Buckler",
@@ -16536,7 +16901,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "moonlight_shield": {
     "name": "Moonlight Shield",
@@ -16580,7 +16948,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "unyielding_shield": {
     "name": "Unyielding Shield",
@@ -16624,7 +16995,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "squires_shield": {
     "name": "Squire's Shield",
@@ -16668,7 +17042,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "arrowshield": {
     "name": "Arrowshield",
@@ -16712,7 +17089,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "ironclad_buckler": {
     "name": "Ironclad Buckler",
@@ -16756,7 +17136,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "manalith_buckler": {
     "name": "Manalith Buckler",
@@ -16800,7 +17183,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "parrying_shield": {
     "name": "Parrying Shield",
@@ -16844,7 +17230,11 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25,
+      "counter_potency": 50
+    }
   },
   "white_knights_shield": {
     "name": "White Knight's Shield",
@@ -16893,7 +17283,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "blue_rose_shield": {
     "name": "Blue Rose Shield",
@@ -16938,7 +17331,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "white_riders_shield": {
     "name": "White Rider's Shield",
@@ -16982,7 +17378,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "kaikais_shield": {
     "name": "Kaikai's Shield",
@@ -17074,7 +17473,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "mist_scimitar": {
     "name": "Mist Scimitar",
@@ -17134,7 +17536,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -17177,7 +17580,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -17220,7 +17624,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -17438,7 +17843,10 @@
       "valkyria",
       "vanguard",
       "werewolf"
-    ]
+    ],
+    "traits": {
+      "heal_received": 30
+    }
   },
   "sainted_sword": {
     "name": "Sainted Sword",
@@ -17679,7 +18087,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -17712,7 +18121,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -17888,7 +18298,10 @@
       "werefox",
       "wyvern_knight",
       "wyvern_master"
-    ]
+    ],
+    "traits": {
+      "heal_received": 30
+    }
   },
   "sainted_spear": {
     "name": "Sainted Spear",
@@ -17991,7 +18404,10 @@
       "warrior",
       "werebear",
       "werelion"
-    ]
+    ],
+    "traits": {
+      "exp_gain": 20
+    }
   },
   "obsidian_axe": {
     "name": "Obsidian Axe",
@@ -18257,7 +18673,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -18291,7 +18708,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -18384,7 +18802,10 @@
       "warrior",
       "werebear",
       "werelion"
-    ]
+    ],
+    "traits": {
+      "heal_received": 30
+    }
   },
   "sainted_axe": {
     "name": "Sainted Axe",
@@ -18594,7 +19015,10 @@
       "shieldshooter",
       "sniper",
       "snow_ranger"
-    ]
+    ],
+    "traits": {
+      "heal_received": 30
+    }
   },
   "sainted_bow": {
     "name": "Sainted Bow",
@@ -18965,7 +19389,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -18999,7 +19424,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-      "immune_passive_seal"
+      "immune_passive_seal",
+      "immune_deathblow"
     ],
     "damage_tags": [],
     "classes": [
@@ -19092,7 +19518,10 @@
       "high_priestess",
       "shaman",
       "druid"
-    ]
+    ],
+    "traits": {
+      "heal_received": 30
+    }
   },
   "sainted_rod": {
     "name": "Sainted Rod",
@@ -19171,7 +19600,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "mercenary_s_shield": {
     "name": "Mercenary’s Shield",
@@ -19220,7 +19652,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "caecius": {
     "name": "Caecius",
@@ -19269,7 +19704,10 @@
       "feathersword",
       "crusader",
       "valkyria"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 25
+    }
   },
   "heavenswing_greatshield": {
     "name": "Heavenswing Greatshield",
@@ -19294,7 +19732,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "skiron_greatshield": {
     "name": "Skiron Greatshield",
@@ -19337,7 +19778,10 @@
       "legionnaire",
       "shieldshooter",
       "werebear"
-    ]
+    ],
+    "traits": {
+      "guard_efficiency": 50
+    }
   },
   "ervelda_talisman": {
     "name": "Ervélda Talisman",
@@ -19731,7 +20175,11 @@
     "tags": [
       "greatshield"
     ],
-    "damage_tags": []
+    "damage_tags": [],
+    "traits": {
+      "guard_efficiency": 50,
+      "damage_reduction": 20
+    }
   },
   "ring_of_the_unicorn_ii": {
     "name": "Ring Of The Unicorn II",

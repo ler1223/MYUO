@@ -163,5 +163,10 @@
     "name": "Immune to debuff",
     "kind": "unit",
     "unblockable": false
+  },
+  "immune_deathblow": {
+    "name": "Immune to deathblow",
+    "kind": "unit",
+    "unblockable": false
   }
 }

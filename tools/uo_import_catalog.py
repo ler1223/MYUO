@@ -84,7 +84,7 @@ def main(write: bool) -> int:
             cat_to_data.setdefault(c["id"], data_id)
 
     report = {"classes": 0, "skills": [], "passives": [], "skipped_passives": [], "modifiers": [],
-              "tags": [], "bonuses": [], "new_items": [], "duplicates": len(dup_of)}
+              "tags": [], "traits": [], "bonuses": [], "new_items": [], "duplicates": len(dup_of)}
     applied = 0
 
     for cid, did in cat_to_data.items():
@@ -135,6 +135,16 @@ def main(write: bool) -> int:
             changed = True
             report["tags"].append((did, want_tags))
 
+        # особые свойства (traits): блок, лечение, опыт и т. д.
+        want_traits = dict(sug.get("traits") or {})
+        if want_traits != (entry.get("traits") or {}):
+            if want_traits:
+                entry["traits"] = want_traits
+            else:
+                entry.pop("traits", None)
+            changed = True
+            report["traits"].append((did, want_traits))
+
         # бонусы AP/PP
         for field, key in (("ap_bonus", "ap_bonus"), ("pp_bonus", "pp_bonus")):
             if did in SKIP_BONUSES:
@@ -175,6 +185,7 @@ def main(write: bool) -> int:
             **({"classes": list(allowed)} if allowed else {}),
             **({"ap_bonus": sug["ap_bonus"]} if sug.get("ap_bonus") else {}),
             **({"pp_bonus": sug["pp_bonus"]} if sug.get("pp_bonus") else {}),
+            **({"traits": dict(sug["traits"])} if sug.get("traits") else {}),
             "modifiers": sug.get("modifiers") or [],
             "skills": list(sug.get("skills") or []),
             "passives": [p for p in (sug.get("passives") or []) + [x["id"] for x in (sug.get("item_passives") or [])]
@@ -201,6 +212,9 @@ def main(write: bool) -> int:
     print("     ", report["modifiers"])
     print("  теги:", len(report["tags"]))
     for did, t in report["tags"]:
+        print("      %-28s %s" % (did, t))
+    print("  особые свойства:", len(report["traits"]))
+    for did, t in report["traits"]:
         print("      %-28s %s" % (did, t))
     print("  бонусы AP/PP:", len(report["bonuses"]))
     for did, f, v in report["bonuses"]:

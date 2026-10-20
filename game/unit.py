@@ -373,6 +373,10 @@ class Unit:
         for effect in self.effects:
             yield from effect.modifiers()
 
+    def trait(self, name: str) -> float:
+        """Сумма особого свойства предметов (ITEM_TRAITS в game/definitions.py)."""
+        return sum(item.trait(name) for item in self.equipped)
+
     def stat(self, stat: Stat) -> int:
         """Считает стат заново из всех источников; результат нигде не хранится."""
         base = self.definition.base_stat(stat, self.state.level)
