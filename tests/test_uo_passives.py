@@ -372,7 +372,7 @@ class CatalogTests(unittest.TestCase):
     def test_only_known_stubs_remain(self):
         stubs = sorted(k for k, v in REAL.passives.items()
                        if v.reaction.action == "restore_pp" and not v.reaction.amount)
-        self.assertEqual(stubs, ["celestial_light", "hastened_charge"])
+        self.assertEqual(stubs, ["celestial_light"])
 
     def test_every_passive_response_skill_exists_and_is_named_like_the_passive(self):
         for pid, passive in REAL.passives.items():

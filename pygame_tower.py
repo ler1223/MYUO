@@ -270,7 +270,7 @@ class TowerApp:
         seed = self.run.seed + self.run.floor * 7919
         self.clock = 0
         self.show = BattleShow(self.db, self.scenario.player_squad, self.scenario.enemy_squad, seed=seed,
-                               scene=self.rules.scene(self.run.floor))
+                               scene=self.rules.scene(self.run.floor), time_of_day=self.scenario.time_of_day)
         self.in_battle, self.paused, self.message = True, False, ""
 
     def tick(self, dt: int) -> None:

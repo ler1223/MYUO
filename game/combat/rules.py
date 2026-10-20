@@ -49,11 +49,22 @@ def attack_value(user: Unit, part: SkillPart, mods: Iterable[AttackMod]) -> floa
     return value
 
 
+def truestrike(attack: Attack) -> bool:
+    """Верный удар: у навыка всегда, пока на применяющем есть бафф (Honed Slash) или при малом HP (Tempest Drive)."""
+    extras, user = attack.skill.extras, attack.user
+    if extras.truestrike:
+        return True
+    if extras.truestrike_buffed and any("buff" in e.definition.tags for e in user.effects):
+        return True
+    return bool(extras.desperate) and user.hp < user.max_hp * extras.desperate
+
+
 def hit_chance(attack: Attack, target: Unit, rules: Iterable[TagRule], ignore_evasion: bool = False) -> float:
     """Шанс попадания 0..100 (может быть больше 100 — тогда попадает всегда)."""
-    if attack.skill.extras.truestrike:
+    if truestrike(attack):
         return 1000.0
-    evasion = 0 if ignore_evasion or target.has_flag("frozen") else target.stat(Stat.EVASION)
+    evasion = 0 if ignore_evasion or target.has_flag("frozen") or target.has_flag("charging") \
+        else target.stat(Stat.EVASION)
     chance = (attack.user.stat(Stat.ACCURACY) - evasion) * attack.skill.accuracy / 100
     chance *= rule_multipliers(rules, attack.tags, target.tags)[1]
     return chance + sum(m.accuracy_add for m in attack.mods)
@@ -62,6 +73,8 @@ def hit_chance(attack: Attack, target: Unit, rules: Iterable[TagRule], ignore_ev
 def crit_chance(attack: Attack) -> float:
     if attack.skill.extras.no_crit or attack.user.has_flag("crit_seal"):
         return 0.0
+    if attack.skill.extras.desperate and attack.user.hp < attack.user.max_hp * attack.skill.extras.desperate:
+        return 100.0
     return (attack.user.stat(Stat.CRIT_RATE) + attack.skill.extras.crit_add
             + sum(m.crit_add for m in attack.mods))
 
@@ -88,6 +101,9 @@ def damage(attack: Attack, target: Unit, rules: Iterable[TagRule], crit: bool,
     ignore = skill.extras.ignore_def
     if any(tag in target.tags for tag in skill.extras.ignore_def_vs):
         ignore = 1.0
+    label = skill.extras.ignore_def_label
+    if label and any(label in e.definition.tags for e in target.effects):
+        ignore = max(ignore, skill.extras.ignore_def_label_share)
     physical = magical = 0.0
     for part in skill.parts:
         if part.kind != PART_DAMAGE:
@@ -123,7 +139,7 @@ def healing(attack: Attack, target: Unit, crit: bool) -> int:
         if part.kind == PART_HEAL:
             total += attack_value(attack.user, part, attack.mods) * (part.power + attack.potency)
         elif part.kind == PART_HEAL_PCT:
-            total += target.max_hp * part.power
+            total += target.max_hp * (part.power + attack.potency)
     total *= attack.power_mult
     if crit:
         total *= attack.user.stat(Stat.CRIT_DAMAGE) / 100

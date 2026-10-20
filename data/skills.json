@@ -647,7 +647,6 @@
     },
     "potency": [],
     "extras": {
-      "ignore_def": 1.0,
       "ignore_def_vs": [
         "armored"
       ]
@@ -709,7 +708,7 @@
       {
         "kind": "damage",
         "category": "physical",
-        "power": 1.0,
+        "power": 1.2,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -732,7 +731,6 @@
     },
     "potency": [],
     "extras": {
-      "ignore_def": 1.0,
       "ignore_def_vs": [
         "armored"
       ]
@@ -1370,21 +1368,7 @@
     "tags": [
       "ranged"
     ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
+    "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
@@ -1419,21 +1403,7 @@
     "tags": [
       "ranged"
     ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
+    "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
@@ -1466,21 +1436,7 @@
     "tags": [
       "ranged"
     ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
+    "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
@@ -1520,25 +1476,19 @@
     "tags": [
       "ranged"
     ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
+    "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_debuff_amp",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -1668,7 +1618,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_targets": 2
+    }
   },
   "selfless_heal_heal": {
     "name": "Selfless Heal",
@@ -1764,7 +1716,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "full_hp_pp": 1,
+      "full_hp_effect": "uo_faerie"
+    }
   },
   "sylphic_wind": {
     "name": "Sylphic Wind",
@@ -1795,7 +1750,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_faerie",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -1867,8 +1830,21 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
-    "extras": {}
+    "potency": [
+      {
+        "add": 0.3,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "always"
+        },
+        "scale": "faeries"
+      }
+    ],
+    "extras": {
+      "dismiss_effect": "uo_faerie"
+    }
   },
   "curing_heal_heal": {
     "name": "Curing Heal",
@@ -1942,6 +1918,13 @@
       {
         "effect_id": "uo_stun",
         "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_faerie",
+        "to": "self",
         "condition": {
           "type": "always"
         }
@@ -2054,7 +2037,12 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "pp_drain": 1,
+      "drain_vs": [
+        "cavalry"
+      ]
+    }
   },
   "mirage_stab": {
     "name": "Mirage Stab",
@@ -2153,6 +2141,13 @@
         "condition": {
           "type": "always"
         }
+      },
+      {
+        "effect_id": "uo_faerie",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
       }
     ],
     "requires_self": {
@@ -2197,6 +2192,13 @@
       {
         "effect_id": "uo_immune_debuff",
         "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_faerie",
+        "to": "self",
         "condition": {
           "type": "always"
         }
@@ -2356,7 +2358,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "truestrike_buffed": true
+    }
   },
   "warding_slash": {
     "name": "Warding Slash",
@@ -2549,7 +2553,7 @@
       {
         "kind": "damage",
         "category": "physical",
-        "power": 0.5,
+        "power": 0.75,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -2684,7 +2688,7 @@
       {
         "kind": "damage",
         "category": "physical",
-        "power": 1.0,
+        "power": 1.5,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -2709,7 +2713,9 @@
     "extras": {
       "unguardable_vs": [
         "cavalry"
-      ]
+      ],
+      "hit_ap": 1,
+      "hit_full_hp": true
     }
   },
   "lean_edge": {
@@ -2935,7 +2941,7 @@
   },
   "innocent_ray": {
     "name": "Innocent Ray",
-    "ap_cost": 1,
+    "ap_cost": 2,
     "pp_cost": 0,
     "targets": "enemy",
     "area": "row",
@@ -3004,7 +3010,7 @@
     ],
     "bonus_vs": {},
     "ap_restore": 0,
-    "pp_restore": 0,
+    "pp_restore": 1,
     "applies": [],
     "requires_self": {
       "type": "always"
@@ -3322,7 +3328,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_targets": 2
+    }
   },
   "pursuit_strike": {
     "name": "Pursuit",
@@ -3331,7 +3339,7 @@
     "targets": "enemy",
     "area": "single",
     "hits": 1,
-    "accuracy": 7034,
+    "accuracy": 100,
     "tags": [
       "melee"
     ],
@@ -3339,7 +3347,7 @@
       {
         "kind": "damage",
         "category": "physical",
-        "power": 1.0,
+        "power": 0.75,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -3469,7 +3477,7 @@
       {
         "kind": "damage",
         "category": "physical",
-        "power": 0.75,
+        "power": 1.0,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -4566,7 +4574,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "charge": true
+    }
   },
   "triple_counter_strike": {
     "name": "Triple Counter",
@@ -4605,7 +4615,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_targets": 3
+    }
   },
   "snow_white_strike_strike": {
     "name": "Snow-white Strike",
@@ -4750,7 +4762,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_targets": 2
+    }
   },
   "ice_coffin": {
     "name": "Ice Coffin",
@@ -5649,7 +5663,7 @@
       {
         "kind": "damage",
         "category": "physical",
-        "power": 1.0,
+        "power": 1.5,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -5742,7 +5756,7 @@
         "effect_id": "uo_next_sure",
         "to": "target",
         "condition": {
-          "type": "always"
+          "type": "is_night"
         }
       }
     ],
@@ -6222,7 +6236,8 @@
     "extras": {
       "unguardable_vs": [
         "cavalry"
-      ]
+      ],
+      "desperate": 0.5
     }
   },
   "wall": {
@@ -6302,7 +6317,7 @@
     "name": "Sanguine Attack",
     "ap_cost": 1,
     "pp_cost": 0,
-    "targets": "ally",
+    "targets": "enemy",
     "area": "single",
     "hits": 1,
     "accuracy": 100,
@@ -6311,12 +6326,12 @@
     ],
     "parts": [
       {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
         "scaling": [
           {
-            "stat": "mag_atk",
+            "stat": "phys_atk",
             "coef": 1.0
           }
         ],
@@ -6446,7 +6461,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_poison",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -6485,7 +6508,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_burn",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -6524,14 +6555,34 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_burn",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.5,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_effect",
+          "effect_id": "uo_burn"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "grisly_poison": {
@@ -6563,14 +6614,34 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_poison",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.5,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_effect",
+          "effect_id": "uo_poison"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "sonic_blast": {
@@ -6609,7 +6680,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.8,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_tag",
+          "tag": "flying"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "double_blast": {
@@ -6648,8 +6731,22 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
-    "extras": {}
+    "potency": [
+      {
+        "add": 0.8,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_tag",
+          "tag": "flying"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {
+      "random_targets": 2
+    }
   },
   "icicle_dart": {
     "name": "Icicle Dart",
@@ -6694,7 +6791,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_freeze",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -6733,14 +6838,33 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_blind",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.5,
+        "self_condition": {
+          "type": "is_night"
+        },
+        "target_condition": {
+          "type": "always"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "artenie_strike": {
@@ -6984,7 +7108,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "hit_pp": 1,
+      "hit_label": "burn"
+    }
   },
   "inferno": {
     "name": "Inferno",
@@ -7015,7 +7142,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_burn",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -7024,7 +7159,8 @@
     },
     "potency": [],
     "extras": {
-      "ignore_def": 0.5
+      "ignore_def": 0.5,
+      "hit_pp": 1
     }
   },
   "flame_javelin": {
@@ -7122,8 +7258,22 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
-    "extras": {}
+    "potency": [
+      {
+        "add": 0.5,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "lacks_tag",
+          "tag": "flying"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {
+      "charge": true
+    }
   },
   "ground_strike": {
     "name": "Ground Strike",
@@ -7241,8 +7391,23 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
-    "extras": {}
+    "potency": [
+      {
+        "add": 0.75,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_label",
+          "label": "ailment"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {
+      "hit_pp": 1,
+      "hit_label": "ailment"
+    }
   },
   "death_spin": {
     "name": "Death Spin",
@@ -7288,7 +7453,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.75,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_label",
+          "label": "ailment"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "desperation": {
@@ -7368,7 +7545,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.8,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_label",
+          "label": "ailment"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "brutal_drive": {
@@ -7415,7 +7604,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 1.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_label",
+          "label": "ailment"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "fallen_one": {
@@ -7542,21 +7743,7 @@
     "tags": [
       "ranged"
     ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
+    "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
@@ -7568,7 +7755,18 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_effects": [
+        "uo_poison",
+        "uo_burn",
+        "uo_freeze",
+        "uo_stun",
+        "uo_blind",
+        "uo_guard_seal",
+        "uo_passive_seal",
+        "uo_crit_seal"
+      ]
+    }
   },
   "flame_thrust": {
     "name": "Flame Thrust",
@@ -7729,7 +7927,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.25,
+        "self_condition": {
+          "type": "has_effect",
+          "effect_id": "uo_faerie"
+        },
+        "target_condition": {
+          "type": "always"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "freezing_thrust": {
@@ -7790,7 +8000,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.25,
+        "self_condition": {
+          "type": "has_effect",
+          "effect_id": "uo_faerie"
+        },
+        "target_condition": {
+          "type": "always"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "leaping_slash": {
@@ -7822,7 +8044,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_crit_rate_p30_stack",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -7830,7 +8060,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "crit_ap": 1
+    }
   },
   "firestorm": {
     "name": "Firestorm",
@@ -7935,7 +8167,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 0.5,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_effect",
+          "effect_id": "uo_burn"
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "crush": {
@@ -8536,7 +8780,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "target_hp_damage": 0.25
+    }
   },
   "banishing_smite": {
     "name": "Banishing Smite",
@@ -9047,7 +9293,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_targets": 3
+    }
   },
   "arrow_rain": {
     "name": "Arrow Rain",
@@ -9086,7 +9334,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "charge": true
+    }
   },
   "checkmate": {
     "name": "Checkmate",
@@ -9132,7 +9382,19 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 1.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "hp_below",
+          "value": 0.5001
+        },
+        "scale": ""
+      }
+    ],
     "extras": {}
   },
   "poison_arrow": {
@@ -9385,10 +9647,17 @@
     "pp_restore": 0,
     "applies": [
       {
-        "effect_id": "uo_passive_seal",
+        "effect_id": "uo_phys_def_m50pct",
         "to": "target",
         "condition": {
           "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_passive_seal",
+        "to": "target",
+        "condition": {
+          "type": "is_day"
         }
       }
     ],
@@ -9399,7 +9668,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "random_targets": 2
+    }
   },
   "harpoon_bolt": {
     "name": "Harpoon Bolt",
@@ -9667,7 +9938,9 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {
+      "random_targets": 3
+    }
   },
   "earthquake": {
     "name": "Earthquake",
@@ -9761,7 +10034,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "charge": true
+    }
   },
   "gravity": {
     "name": "Gravity",
@@ -9777,8 +10052,8 @@
     "parts": [
       {
         "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
+        "category": "pure",
+        "power": 0.0,
         "scaling": [
           {
             "stat": "phys_atk",
@@ -9800,7 +10075,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "charge": true,
+      "target_hp_damage": 0.5
+    }
   },
   "trinity_rain": {
     "name": "Trinity Rain",
@@ -9839,7 +10117,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "charge": true
+    }
   },
   "sanguine_rain": {
     "name": "Sanguine Rain",
@@ -10067,7 +10347,8 @@
     "extras": {
       "dispel": [
         "debuff"
-      ]
+      ],
+      "charge": true
     }
   },
   "radiant_heal": {
@@ -10115,7 +10396,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "charge": true
+    }
   },
   "active_heal": {
     "name": "Active Heal",
@@ -10231,7 +10514,18 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
+    "potency": [
+      {
+        "add": 2.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "always"
+        },
+        "scale": "few_allies"
+      }
+    ],
     "extras": {}
   },
   "phantom_veil": {
@@ -10436,38 +10730,34 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "revive": true
+    }
   },
   "animated_dead": {
     "name": "Animated Dead",
     "ap_cost": 1,
     "pp_cost": 0,
-    "targets": "enemy",
+    "targets": "ally",
     "area": "single",
     "hits": 1,
     "accuracy": 100,
     "tags": [
       "magic"
     ],
-    "parts": [
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 1,
+    "pp_restore": 0,
+    "applies": [
       {
-        "kind": "damage",
-        "category": "magical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
+        "effect_id": "uo_doomed",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
       }
     ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
     "requires_self": {
       "type": "always"
     },
@@ -10475,7 +10765,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "revive": true,
+      "revive_pct": 100
+    }
   },
   "glowing_light": {
     "name": "Glowing Light",
@@ -10494,7 +10787,7 @@
     "pp_restore": 0,
     "applies": [
       {
-        "effect_id": "uo_accuracy_p30",
+        "effect_id": "uo_glowing_light",
         "to": "target",
         "condition": {
           "type": "always"
@@ -10508,11 +10801,7 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {
-      "dispel": [
-        "buff"
-      ]
-    }
+    "extras": {}
   },
   "poison_curse": {
     "name": "Poison Curse",
@@ -10795,8 +11084,23 @@
     "requires_target": {
       "type": "always"
     },
-    "potency": [],
-    "extras": {}
+    "potency": [
+      {
+        "add": 0.5,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_label",
+          "label": "debuff"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {
+      "ignore_def_label": "debuff",
+      "ignore_def_label_share": 1.0
+    }
   },
   "holy_smite": {
     "name": "Holy Smite",
@@ -10905,7 +11209,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "day_area": "all"
+    }
   },
   "mystic_shield": {
     "name": "Mystic Shield",
@@ -10954,7 +11260,7 @@
     "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
-    "pp_restore": 0,
+    "pp_restore": 2,
     "applies": [
       {
         "effect_id": "uo_evasion_p50",
@@ -10990,7 +11296,7 @@
     "pp_restore": 0,
     "applies": [
       {
-        "effect_id": "uo_next_magic",
+        "effect_id": "uo_conferral_magic",
         "to": "target",
         "condition": {
           "type": "always"
@@ -11135,7 +11441,10 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {
+      "hit_pp": 2,
+      "hit_label": "stun"
+    }
   },
   "dawn_horn_buff": {
     "name": "Dawn Horn",
@@ -12839,6 +13148,193 @@
     "potency": [],
     "extras": {
       "give_hp": 0.5
+    }
+  },
+  "first_aid_heal": {
+    "name": "First Aid",
+    "ap_cost": 1,
+    "pp_cost": 0,
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal_pct",
+        "category": "magical",
+        "power": 0.25,
+        "scaling": [],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {}
+  },
+  "medical_aid_heal": {
+    "name": "Medical Aid",
+    "ap_cost": 1,
+    "pp_cost": 0,
+    "targets": "ally",
+    "area": "row",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal_pct",
+        "category": "magical",
+        "power": 0.15,
+        "scaling": [],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [
+      {
+        "add": 0.15,
+        "self_condition": {
+          "type": "always"
+        },
+        "scale": "",
+        "target_condition": {
+          "type": "hp_below",
+          "value": 0.5001
+        }
+      }
+    ],
+    "extras": {}
+  },
+  "parting_resurrection_revive": {
+    "name": "Parting Resurrection",
+    "ap_cost": 1,
+    "pp_cost": 0,
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "revive": true
+    }
+  },
+  "lifesaver_heal": {
+    "name": "Lifesaver",
+    "ap_cost": 1,
+    "pp_cost": 0,
+    "targets": "self",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {}
+  },
+  "healing_hunter_strike": {
+    "name": "Healing Hunter",
+    "ap_cost": 1,
+    "pp_cost": 0,
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "ignore_def": 0.3
     }
   }
 }

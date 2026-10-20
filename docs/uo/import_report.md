@@ -1,180 +1,36 @@
-# Перенос классов UO: отчёт
+# Перенос навыков UO: что осталось приближением
 
-Классов: 60, навыков: 137, пассивок: 113, эффектов: 64. Ниже — где пришлось приблизить (`python tools/uo_import.py`).
+Обновлено после переноса каталога (шаги 1–5 из `SONNET_PORTING_GUIDE.md`). Старый список приближений
+`tools/uo_import.py` закрыт: навыки и пассивки теперь собирают `tools/uo_fill_passives.py` (пассивки, навыки-ответы,
+эффекты), `tools/uo_fix_skills.py` (исправления активных навыков), числа сверяет `tools/uo_audit_skills.py`
+(`tests/test_uo_audit.py` держит расхождения на нуле). Перезапуск `tools/uo_import.py` затёр бы эти правки —
+не запускайте его на готовых данных.
 
-- **binding_guard**: «следующая атака накладывает печать блока» — печать сразу атаковавшему
-- **boon_of_the_faeries**: феи заменены приближением: «Grants the user +1 summoned faeries.»; лечение группы — одним навыком по первому союзнику
-- **circle_barrier**: «урезать урон одной атаки» — принудительный блок (только физический урон)
-- **compounding_curse**: сила не указана в вики — взята 100
-- **defensive_curse**: сила не указана в вики — взята 100
-- **deflect**: из нескольких эффектов взят первый
-- **demonic_pact**: плата HP за AP не переносится: просто +1 AP
-- **discharge**: мощь от поглощённых баффов — фиксированные +50%
-- **dual_shot**: две-три случайные цели заменены одиночной целью с теми же ударами
-- **elemental_roar**: феи заменены приближением: «Potency increases with faerie count (+30 per faerie).»; феи заменены приближением: «This dismisses all summoned faeries.»
-- **faerie_heal**: феи заменены приближением: «Grants the user +1 summoned faeries.»
-- **first_aid**: конца боя нет: срабатывает в конце раунда, раз за бой
-- **glacial_rain**: заряд (действие в конце раунда) не переносится: обычный удар
-- **holy_barrier**: «урезать урон одной атаки» — принудительный блок (только физический урон)
-- **icicle_arrow**: две-три случайные цели заменены одиночной целью с теми же ударами
-- **life_blow**: конца боя нет: срабатывает в конце раунда, раз за бой
-- **lifeshare**: действие не распознано: «Share HP with an ally. (50% of the user's HP).» — пассивка без эффекта (+1 PP себе)
-- **magick_missile**: две-три случайные цели заменены одиночной целью с теми же ударами
-- **medical_aid**: конца боя нет: срабатывает в конце раунда, раз за бой
-- **night_vision**: ночь/день не переносятся: «At night, makes the targets' next attack a truestrike.»
-- **nocturnal_strike**: ночь/день не переносятся: «Grants the user +1 PP PP at night.»
-- **offensive_curse**: сила не указана в вики — взята 100
-- **parting_blow**: конца боя нет: срабатывает в конце раунда, раз за бой
-- **parting_resurrection**: конца боя нет: срабатывает в конце раунда, раз за бой; воскрешения нет: союзники получают «пережить смертельный удар»
-- **passive_curse**: сила не указана в вики — взята 100
-- **passive_miracle**: события «пассивка союзника» нет: реагирует на навык союзника
-- **primus_edge**: феи заменены приближением: «If the user is at 100% HP, grants the user +1 PP PP and +1 summoned faeries.»
-- **pursuit**: сила не указана в вики — взята 100
-- **quick_cast**: «макс. инициатива на ход» — +100 инициативы на весь бой
-- **quick_curse**: наложено только первое из нескольких состояний
-- **rage_of_the_faeries**: феи заменены приближением: «Inflicts Stun, grants the user +1 summoned faeries.»
-- **restore**: события «пассивка союзника» нет: реагирует на навык союзника
-- **saints_barrier**: «урезать урон одной атаки» — принудительный блок (только физический урон)
-- **sanguine_arts**: вампиризм следующей атаки — сразу лечение 25% HP
-- **selfless_heal**: лечение группы — одним навыком по первому союзнику
-- **sylphic_wind**: феи заменены приближением: «Grants the user +1 summoned faeries.»
-- **triple_counter**: две-три случайные цели заменены одиночной целью с теми же ударами
-- **wing_rest**: конца боя нет: срабатывает в конце раунда, раз за бой
-- **предмет alminster**: навык «Checkmate» без описания в вики — не перенесён
-- **предмет angel_plume**: навык «Tailwind» без описания в вики — не перенесён
-- **предмет bandit_longsword**: «User's Unit Earns +100% Gold» не переносится
-- **предмет bandits_handaxe**: «User's Unit Earns +100% Gold» не переносится
-- **предмет banishing_hammer**: навык «Banishing Smite» без описания в вики — не перенесён
-- **предмет barbarians_axe**: навык «Provoking Slash» без описания в вики — не перенесён
-- **предмет barbarians_might**: навык «Provoking Slash» без описания в вики — не перенесён
-- **предмет bloodmoon_earrings**: «Drain Skill Efficiency +30%» не переносится
-- **предмет bloodmoon_rod**: навык «Sanguine Darts» без описания в вики — не перенесён
-- **предмет bloodstained_ribbon**: «Drain Skill Efficiency +30%» не переносится
-- **предмет bloody_spear**: навык «Sanguine Attack» без описания в вики — не перенесён
-- **предмет bow_of_swiftness**: навык «Rapid Shot» без описания в вики — не перенесён
-- **предмет canyon_lance**: навык «Shattering Pursuit» без описания в вики — не перенесён
-- **предмет cardinals_mace**: навык «Holy Cradle» без описания в вики — не перенесён
-- **предмет chlorotic**: навык «Fire Burst» без описания в вики — не перенесён
-- **предмет clearsight_amulet**: «Blindness» не переносится
-- **предмет clerics_cane**: навык «Protection» без описания в вики — не перенесён
-- **предмет corroded_spear**: навык «Shadow Thrust» без описания в вики — не перенесён
-- **предмет crane_bow**: навык «Triple Shatter» без описания в вики — не перенесён
-- **предмет crimson_epee**: навык «Active Shatter» без описания в вики — не перенесён
-- **предмет crimson_sarissa**: навык «Sanguine Attack» без описания в вики — не перенесён
-- **предмет crushing_axe**: навык «Crush» без описания в вики — не перенесён
-- **предмет cutthroats_boon**: навык «Assassin's Nail» без описания в вики — не перенесён
-- **предмет daemons_shackles**: «Take 15% Less Damage» не переносится
-- **предмет dancers_delight**: навык «Leaping Slash» без описания в вики — не перенесён
-- **предмет dark_knight_cleaver**: навык «Desperation» без описания в вики — не перенесён
-- **предмет defenders_mace**: навык «Quick Barrier» без описания в вики — не перенесён
-- **предмет dragoons_warspear**: навык «Dragoon Dive» без описания в вики — не перенесён
-- **предмет dustbound_staff**: навык «Sandstorm» без описания в вики — не перенесён
-- **предмет earrings_of_pursuit**: «Follow-up Skills Deal +40 Damage» не переносится
-- **предмет ein_seeker**: навык «Magick Shell» без описания в вики — не перенесён
-- **предмет elfeater**: навык «Elfslayer» без описания в вики — не перенесён
-- **предмет eliminator**: навык «Execution» без описания в вики — не перенесён
-- **предмет flamberge**: навык «Grisly Fire» без описания в вики — не перенесён
-- **предмет flame_bow**: навык «Flame Arrow» без описания в вики — не перенесён
-- **предмет flame_hex_staff**: навык «Fire Curse» без описания в вики — не перенесён
-- **предмет flame_javelin**: навык «Flame Javelin» без описания в вики — не перенесён
-- **предмет frozen_battleaxe**: навык «Icy Crush» без описания в вики — не перенесён
-- **предмет galecutter**: навык «Double Blast» без описания в вики — не перенесён
-- **предмет gallian_crossbow**: навык «Harpoon Bolt» без описания в вики — не перенесён
-- **предмет generals_longbow**: навык «Aerial Shift» без описания в вики — не перенесён
-- **предмет generals_pike**: навык «Phalanx Shift» без описания в вики — не перенесён
-- **предмет glaive**: «Follow-up Skills Deal +20 Damage» не переносится
-- **предмет gleaming_mace**: навык «Holy Smite» без описания в вики — не перенесён
-- **предмет grand_magus_staff**: навык «Magick Burst» без описания в вики — не перенесён
-- **предмет gravekeeper_lantern**: «Deathblow Immunity» не переносится
-- **предмет greatshield_of_the_abyss**: «Takes 20% Less Damage» не переносится
-- **предмет hailstorm_edge**: навык «Icicle Dart» без описания в вики — не перенесён
-- **предмет hallowed_mace**: навык «Reheal» без описания в вики — не перенесён
-- **предмет headsmans_axe**: навык «Execution» без описания в вики — не перенесён
-- **предмет helleborus_axe**: «HP Recovery +30%» не переносится
-- **предмет hoarfrost_axe**: навык «Icy Blow» без описания в вики — не перенесён
-- **предмет hunters_buckler**: «Follow-up Skills Have +20 Potency» не переносится
-- **предмет hunters_claymore**: «Follow-up Skills Deal +20 Damage» не переносится
-- **предмет hunters_halberd**: «Follow-up Skills Deal +20 Damage» не переносится
-- **предмет icestorm_staff**: навык «Blizzard» без описания в вики — не перенесён
-- **предмет interrogators_bow**: навык «Healing Hunter» без описания в вики — не перенесён
-- **предмет iron_shackles**: «Take 5% Less Damage» не переносится
-- **предмет juggernaut**: навык «Ground Strike» без описания в вики — не перенесён
-- **предмет knot_of_ruin**: «HP -30» не переносится
-- **предмет lamplight_ring**: навык «Glowing Light» без описания в вики — не перенесён
-- **предмет libera**: навык «Reincarnation» без описания в вики — не перенесён
-- **предмет liberators_staff**: навык «Dispel All» без описания в вики — не перенесён
-- **предмет lifeblood_staff**: навык «Resurrection» без описания в вики — не перенесён
-- **предмет lupinus_staff**: «HP Recovery +30%» не переносится
-- **предмет lyrical_wand**: навык «Active Heal» без описания в вики — не перенесён
-- **предмет masons_hammer**: навык «Powerful Impact» без описания в вики — не перенесён
-- **предмет millenium_scepter**: навык «Trinity Rain» без описания в вики — не перенесён
-- **предмет morningstar**: навык «Painful Smash» без описания в вики — не перенесён
-- **предмет necromancers_lantern**: «Deathblow Immunity» не переносится
-- **предмет orchis_spear**: «HP Recovery +30%» не переносится
-- **предмет parrying_shield**: «Counterattack Skills have +50 Potency» не переносится
-- **предмет pestilent_staff**: навык «Poison Burst» без описания в вики — не перенесён
-- **предмет phantom_knights_axe**: навык «Phantom Attack» без описания в вики — не перенесён
-- **предмет phantom_knights_bow**: навык «Phantom Attack» без описания в вики — не перенесён
-- **предмет phantom_knights_spear**: навык «Phantom Attack» без описания в вики — не перенесён
-- **предмет phantom_knights_staff**: навык «Phantom Veil» без описания в вики — не перенесён
-- **предмет phantom_knights_sword**: навык «Phantom Attack» без описания в вики — не перенесён
-- **предмет pheasant_bow**: навык «Passive Shatter» без описания в вики — не перенесён
-- **предмет phosphorescent_staff**: навык «Radiant Heal» без описания в вики — не перенесён
-- **предмет piercing_bow**: навык «Armor Shatter» без описания в вики — не перенесён
-- **предмет piercing_strongbow**: навык «Armor Shatter II» без описания в вики — не перенесён
-- **предмет poison_hex_staff**: навык «Poison Curse» без описания в вики — не перенесён
-- **предмет precious_rod**: навык «Limited Heal» без описания в вики — не перенесён
-- **предмет prisoners_shackles**: «Take 10% Less Damage» не переносится
-- **предмет purifier**: навык «Sacred Cure» без описания в вики — не перенесён
-- **предмет quartz_rod**: навык «Gravity» без описания в вики — не перенесён
-- **предмет quince_bow**: «HP Recovery +30%» не переносится
-- **предмет recruits_greatshield**: «User Earns +10% EXP» не переносится
-- **предмет recruits_shield**: «User Earns +10% EXP» не переносится
-- **предмет retaliation_earrings**: «Counterattack Skills Deal +40 Damage» не переносится
-- **предмет ringed_staff**: навык «Circle Heal» без описания в вики — не перенесён
-- **предмет rosularis_sword**: «HP Recovery +30%» не переносится
-- **предмет runic_spear**: навык «Magick Attack» без описания в вики — не перенесён
-- **предмет runic_sword**: навык «Magick Attack» без описания в вики — не перенесён
-- **предмет salamander_greatbow**: навык «Poison Arrow» без описания в вики — не перенесён
-- **предмет sanguine_axe**: навык «Sanguine Attack» без описания в вики — не перенесён
-- **предмет sanguine_blade**: навык «Sanguine Attack» без описания в вики — не перенесён
-- **предмет sanguine_bow**: навык «Sanguine Attack» без описания в вики — не перенесён
-- **предмет scorpions_sting**: навык «Grisly Poison» без описания в вики — не перенесён
-- **предмет searing_rapier**: навык «Fire Slash» без описания в вики — не перенесён
-- **предмет shamans_bonestaff**: навык «Cursed Strike» без описания в вики — не перенесён
-- **предмет silver_trident**: навык «Lightning Shaker» без описания в вики — не перенесён
-- **предмет silvermoon_axe**: навык «Beast Slayer» без описания в вики — не перенесён
-- **предмет silvermoon_bow**: навык «Beastslayer» без описания в вики — не перенесён
-- **предмет speed_hex_staff**: навык «Hastened Curse» без описания в вики — не перенесён
-- **предмет spellseal_bow**: навык «Magick Shatter» без описания в вики — не перенесён
-- **предмет spiked_hammer**: навык «Spiked Blow» без описания в вики — не перенесён
-- **предмет staff_of_succor**: навык «Double Heal» без описания в вики — не перенесён
-- **предмет starless_bow**: навык «Shadow Arrow» без описания в вики — не перенесён
-- **предмет stingray**: навык «Artenie Strike» без описания в вики — не перенесён
-- **предмет storm_of_hail**: навык «Icicle Dart» без описания в вики — не перенесён
-- **предмет surging_shortspear**: навык «Rampage» без описания в вики — не перенесён
-- **предмет sylphs_bane**: навык «Sonic Blast» без описания в вики — не перенесён
-- **предмет telluric_staff**: навык «Earthquake» без описания в вики — не перенесён
-- **предмет templars_greatshield**: «HP Recovery +20%» не переносится
-- **предмет templars_shield**: «HP Recovery +20%» не переносится
-- **предмет thawing_scepter**: навык «Guard Hunter» без описания в вики — не перенесён
-- **предмет the_inquisitor**: навык «Healing Hunter» без описания в вики — не перенесён
-- **предмет thorn_axe**: «HP -15» не переносится
-- **предмет thorn_blade**: «HP -15» не переносится
-- **предмет thorn_bow**: «HP -15» не переносится
-- **предмет thorn_greatshield**: «HP -15» не переносится
-- **предмет thorn_shield**: «HP -15» не переносится
-- **предмет thorn_spear**: «HP -15» не переносится
-- **предмет thorn_staff**: «HP -15» не переносится
-- **предмет thundering_bow**: навык «Strength Shatter» без описания в вики — не перенесён
-- **предмет thundering_strongbow**: навык «Strength Shatter II» без описания в вики — не перенесён
-- **предмет trappers_warbow**: навык «Arrow Rain» без описания в вики — не перенесён
-- **предмет twinned_bough**: навык «Thunderous Thrust» без описания в вики — не перенесён
-- **предмет undead_ring**: «Deathblow Immunity» не переносится
-- **предмет unwavering_spear**: навык «True Thrust» без описания в вики — не перенесён
-- **предмет valkyries_partisan**: навык «Passive Shatter (Spear)» без описания в вики — не перенесён
-- **предмет viper_bow**: навык «Poison Arrow» без описания в вики — не перенесён
-- **предмет viperfang**: навык «Poison Slash» без описания в вики — не перенесён
-- **предмет watchmans_horn**: навык «Dawn Horn» без описания в вики — не перенесён
-- **предмет wind_scepter**: навык «Skyward Thrust» без описания в вики — не перенесён
-- **предмет woodpecker**: навык «Spiked Bolt» без описания в вики — не перенесён
+## Не сделано
+
+- **Celestial Light** — пассивка остаётся заглушкой: текст игры («Unleash its true power amidst a sea of miasma»)
+  служебный, настоящего действия в записи нет.
+- **Лечение выше максимума HP** — Limited Heal («до N% выше максимума», число в тексте игры не подставилось) и
+  Healing Pursuit («до 150%») лечат до максимума.
+
+## Приближения
+
+| Навык / пассивка | Как в игре | Как сделано |
+|---|---|---|
+| Quick Impetus | союзник действует ещё раз | союзнику +2 AP |
+| Vanquish | −2 AP только ослабленным целям | −2 AP всем задетым |
+| Royal Guard, Nocturnal Guard, Aerial / Bestral / Cavalry Guard | число «%s» в тексте игры не подставилось | лечение 10% HP (Royal Guard), +1 PP (остальные) |
+| Hastened Action / Cast, Quick Cast | «максимум инициативы на следующее действие» | +1000 инициативы до конца хода |
+| Heavy / Aerial Alignment, United Front | баффы по числу целей | ступени: считаются живые бронированные / летающие союзники отряда или перевес врагов; ряд владельца |
+| Flame / Ice / Thunderous / Dark Conferral | магический урон и состояние в атаке союзника | магическая добавка (+50% mag. atk к силе) и состояние на задетых при попадании (`on_hit`) |
+| Sanguine Conferral | вампиризм атаки союзника | лечится владелец пассивки на 50% нанесённого урона |
+| Honed Shield | союзнику 100% шанс блока и пронзающие удары не бьют | эффект даёт +100 к шансу блока и тег `nullify_pierce` |
+| Quick / Holy / Saints Barrier, Protection, Circle Barrier | урон −25 / 50% на одну атаку | флаг эффекта `reduce:N` на один удар любого типа |
+| Phalanx / Aerial Shift | бафф ряда | ряд атакованного союзника, бафф только кавалерии / летающим |
+| Assassin's Nail, Grisly Fire / Poison | «+N силы и крит» в условии | сила растёт, критический удар не гарантируется |
+| Sylphic Wind и другие «феи» | призванные существа | стаки эффекта `uo_faerie` (не больше 5, число в игре неизвестно); сбрасывает только Elemental Roar |
+| Mirror Weakness | вернуть все снятые дебаффы цели | дебаффы переносятся на того, кто наложил последний |
+| Chaos Unending | случайное состояние каждому врагу | одно из восьми состояний (яд, ожог, заморозка, оглушение, слепота, три печати) |
+| «Атакует двух / трёх врагов» (Dual Shot, Magick Missile…) | неизвестно, случайные ли цели | выбранный враг + случайные другие |
+
+Остальные расхождения с вики и игрой сверяются автоматически (`python tools/uo_audit_skills.py`).

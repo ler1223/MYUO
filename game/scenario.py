@@ -22,6 +22,7 @@ class Scenario:
     world: WorldMap
     player_squad: Squad
     enemy_squad: Squad
+    time_of_day: str = "day"       # время суток боя: day / night (пассивки и навыки UO «днём» / «ночью»)
 
 
 def full_level(db: Database, class_id: str, level: int) -> int:

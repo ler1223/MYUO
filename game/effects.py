@@ -26,6 +26,10 @@ class AttackMod:
     accuracy_add: int = 0                 # прибавка к шансу попадания, %
     crit_add: int = 0                     # прибавка к шансу крита, %
     skill_tag: Optional[str] = None       # действует только на навыки с этим тегом; None = на все
+    on_hit: tuple[str, ...] = ()          # эффекты, которые атака накладывает на задетых
+    lifesteal: float = 0.0                # доля нанесённого урона, возвращаемая источнику эффекта (иначе носителю)
+    power_per_stack: float = 0.0          # + к множителю силы за каждый стак эффекта
+    power_by_missing_hp: float = 0.0      # + к множителю силы за каждую долю потерянного HP носителя
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "AttackMod":
@@ -36,6 +40,10 @@ class AttackMod:
             accuracy_add=data.get("accuracy_add", 0),
             crit_add=data.get("crit_add", 0),
             skill_tag=data.get("skill_tag"),
+            on_hit=tuple(data.get("on_hit", ())),
+            lifesteal=data.get("lifesteal", 0.0),
+            power_per_stack=data.get("power_per_stack", 0.0),
+            power_by_missing_hp=data.get("power_by_missing_hp", 0.0),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -46,6 +54,10 @@ class AttackMod:
             "accuracy_add": self.accuracy_add,
             "crit_add": self.crit_add,
             "skill_tag": self.skill_tag,
+            **({"on_hit": list(self.on_hit)} if self.on_hit else {}),
+            **({"lifesteal": self.lifesteal} if self.lifesteal else {}),
+            **({"power_per_stack": self.power_per_stack} if self.power_per_stack else {}),
+            **({"power_by_missing_hp": self.power_by_missing_hp} if self.power_by_missing_hp else {}),
         }
 
 

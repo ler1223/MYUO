@@ -2536,5 +2536,486 @@
     "stack_rule": "REFRESH",
     "max_stacks": 1,
     "triggers": []
+  },
+  "uo_next_magic_burn": {
+    "name": "UO next_magic_burn",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "add_scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 0.5
+          }
+        ],
+        "skill_tag": null,
+        "on_hit": [
+          "uo_burn"
+        ]
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_magic_freeze": {
+    "name": "UO next_magic_freeze",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "add_scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 0.5
+          }
+        ],
+        "skill_tag": null,
+        "on_hit": [
+          "uo_freeze"
+        ]
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_magic_stun": {
+    "name": "UO next_magic_stun",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "add_scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 0.5
+          }
+        ],
+        "skill_tag": null,
+        "on_hit": [
+          "uo_stun"
+        ]
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_magic_blind": {
+    "name": "UO next_magic_blind",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "add_scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 0.5
+          }
+        ],
+        "skill_tag": null,
+        "on_hit": [
+          "uo_blind"
+        ]
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_vampire": {
+    "name": "UO next_vampire",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null,
+        "lifesteal": 0.5
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_reduce_25": {
+    "name": "UO reduce_25",
+    "modifiers": [],
+    "flags": [
+      "reduce:25"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_reduce_50": {
+    "name": "UO reduce_50",
+    "modifiers": [],
+    "flags": [
+      "reduce:50"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_instant_charge": {
+    "name": "UO instant_charge",
+    "modifiers": [],
+    "flags": [
+      "instant_charge"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_guard_seal": {
+    "name": "UO next_guard_seal",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null,
+        "on_hit": [
+          "uo_guard_seal"
+        ]
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_discharge": {
+    "name": "UO discharge",
+    "modifiers": [],
+    "flags": [],
+    "tags": [],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null,
+        "power_per_stack": 0.25
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "STACK",
+    "max_stacks": 8,
+    "triggers": []
+  },
+  "uo_undying_will": {
+    "name": "UO undying_will",
+    "modifiers": [],
+    "flags": [],
+    "tags": [],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null,
+        "power_by_missing_hp": 1.0
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_initiative_p1000_crit_rate_m50_t1": {
+    "name": "UO initiative_p1000_crit_rate_m50_t1",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 1000
+      },
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": -50
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 1,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_atk_m20pct_crit_seal": {
+    "name": "UO next_atk_m20pct_crit_seal",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.2
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.2
+      }
+    ],
+    "flags": [
+      "crit_seal"
+    ],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_faerie": {
+    "name": "UO faerie",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "faerie"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 5,
+    "triggers": []
+  },
+  "uo_doomed": {
+    "name": "UO doomed",
+    "modifiers": [],
+    "flags": [],
+    "tags": [],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": [
+      {
+        "event": "battle_end",
+        "whose": "any",
+        "action": "damage",
+        "to": "owner",
+        "amount": 100,
+        "percent": true
+      }
+    ]
+  },
+  "uo_crit_rate_p30_stack": {
+    "name": "UO crit_rate_p30_stack",
+    "modifiers": [
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 30
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 5,
+    "triggers": []
+  },
+  "uo_charging": {
+    "name": "UO charging",
+    "modifiers": [],
+    "flags": [
+      "charging",
+      "passive_seal"
+    ],
+    "tags": [],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_debuff_amp": {
+    "name": "UO debuff_amp",
+    "modifiers": [],
+    "flags": [
+      "debuff_amp"
+    ],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_glowing_light": {
+    "name": "UO glowing_light",
+    "modifiers": [
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 30
+      }
+    ],
+    "flags": [],
+    "tags": [],
+    "grants_tags": [
+      "immune_blind"
+    ],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_conferral_magic": {
+    "name": "UO conferral_magic",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "add_scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 0.5
+          }
+        ],
+        "skill_tag": null
+      }
+    ],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
   }
 }

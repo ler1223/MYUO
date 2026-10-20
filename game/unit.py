@@ -9,7 +9,7 @@ from .definitions import ItemDefinition
 from .effects import ActiveEffect, EffectDefinition, apply_effect, tick_effects
 from .resource import Resource
 from .roles import normalize as normalize_roles
-from .stats import STAT_DEFAULTS, Modifier, Stat, compute_stat
+from .stats import STAT_DEFAULTS, Modifier, ModOp, Stat, compute_stat
 from .tactics import TacticsSet
 from .tiers import check_tier
 
@@ -371,8 +371,13 @@ class Unit:
     def _modifiers(self) -> Iterator[Modifier]:
         for item in self.equipped:
             yield from item.modifiers
+        amp = 1.5 if self.has_flag("debuff_amp") else 1.0        # Compounding Curse: дебаффы действуют в 1.5 раза сильнее
         for effect in self.effects:
-            yield from effect.modifiers()
+            if amp != 1.0 and "debuff" in effect.definition.tags:
+                for m in effect.modifiers():
+                    yield m if m.op is ModOp.PERCENT_MULT else Modifier(m.stat, m.op, m.value * amp)
+            else:
+                yield from effect.modifiers()
 
     def trait(self, name: str) -> float:
         """Сумма особого свойства предметов (ITEM_TRAITS в game/definitions.py)."""

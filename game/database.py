@@ -168,7 +168,7 @@ class Database:
             require(tags, effect.grants_tags, f"effect {effect.id}")
             for mod in effect.attack_mods:
                 require(tags, mod.add_tags, f"effect {effect.id}")
-        known = {"skills": skills, "effects": effects, "areas": areas, "attack_tags": {*tags, *CATEGORIES}}
+        known = {"skills": skills, "effects": effects, "areas": areas, "attack_tags": {*tags, *CATEGORIES, "healing"}}
         reactions = [(f"effect {e.id}", r) for e in effects.values() for r in e.triggers]
         reactions += [(f"passive {p.id}", p.reaction) for p in passives.values()]
         for where, reaction in reactions:

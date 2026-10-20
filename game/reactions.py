@@ -69,9 +69,10 @@ DO_COVER = "cover"      # только для targeted: удар по союзн
 DO_DISPEL = "dispel"    # снять все эффекты с меткой label (buff, debuff, ailment)
 DO_REPEAT_SKILL = "repeat_skill"          # только skill_used: применить тот же навык ещё раз
 DO_REFLECT_DEBUFFS = "reflect_debuffs"    # снять дебаффы с владельца и наложить их получателю
+DO_CONSUME_BUFFS = "consume_buffs"    # снять баффы с получателя и дать effect_id по одному стаку за каждый
 DO_TIERED = "tiered"    # ступени: label считает юнитов, then[i] выполняется, если их не меньше i + 1
 ACTIONS = (DO_USE_SKILL, DO_APPLY_EFFECT, DO_REMOVE_EFFECT, DO_DAMAGE, DO_HEAL, DO_RESTORE_AP, DO_RESTORE_PP,
-           DO_COVER, DO_DISPEL, DO_REPEAT_SKILL, DO_REFLECT_DEBUFFS, DO_TIERED)
+           DO_COVER, DO_DISPEL, DO_REPEAT_SKILL, DO_REFLECT_DEBUFFS, DO_TIERED, DO_CONSUME_BUFFS)
 AMOUNT_ACTIONS = (DO_DAMAGE, DO_HEAL, DO_RESTORE_AP, DO_RESTORE_PP)
 EFFECT_ACTIONS = (DO_APPLY_EFFECT, DO_REMOVE_EFFECT)
 
@@ -128,6 +129,7 @@ class Reaction:
     # фильтры
     self_condition: ICondition = Always()       # на владельца
     subject_condition: ICondition = Always()    # на того, с кем случилось событие
+    actor_condition: ICondition = Always()      # на того, кто событие вызвал (атаковавший и т. п.)
     area: Optional[str] = None                  # subject должен быть в этой области вокруг владельца
     attack_tags: tuple[str, ...] = ()           # атака с любым из тегов; пусто = любая
     skill_areas: tuple[str, ...] = ()           # навык с одной из этих областей; пусто = любой
@@ -156,6 +158,7 @@ class Reaction:
             whose=_check(data.get("whose", "self"), WHOSE, "whose"),
             self_condition=condition_from_dict(data.get("self_condition")),
             subject_condition=condition_from_dict(data.get("subject_condition")),
+            actor_condition=condition_from_dict(data.get("actor_condition")),
             area=data.get("area") or None,
             attack_tags=tuple(data.get("attack_tags", ())),
             skill_areas=tuple(data.get("skill_areas", ())),
@@ -182,6 +185,8 @@ class Reaction:
             raise ValueError("action repeat_skill works only on the 'skill_used' event")
         if reaction.action == DO_TIERED and (not reaction.label or not reaction.then):
             raise ValueError("action tiered needs a counting rule (label) and steps (then)")
+        if reaction.action == DO_CONSUME_BUFFS and reaction.effect_id is None:
+            raise ValueError("action consume_buffs needs an effect")
         if reaction.action in EFFECT_ACTIONS and reaction.effect_id is None:
             raise ValueError(f"action {reaction.action!r} needs an effect")
         if reaction.action == DO_DISPEL and reaction.label is None:
@@ -219,6 +224,8 @@ class Reaction:
         defaults = {"skill_id": None, "effect_id": None, "amount": 0, "percent": False, "label": None,
                     "to_area": None}
         data = {k: full[k] for k in keep if k in ("action", "to") or full[k] != defaults.get(k)}
+        if not isinstance(self.actor_condition, Always):        # условие на того, кто вызвал событие
+            data["actor_condition"] = full["actor_condition"]
         if not isinstance(self.self_condition, Always):         # условие на владельца: шаг выполняется, только если оно верно
             data["self_condition"] = full["self_condition"]
         return data
@@ -235,6 +242,8 @@ class Reaction:
             "whose": self.whose,
             "self_condition": condition_to_dict(self.self_condition),
             "subject_condition": condition_to_dict(self.subject_condition),
+            **({"actor_condition": condition_to_dict(self.actor_condition)}
+               if not isinstance(self.actor_condition, Always) else {}),
             "area": self.area,
             "attack_tags": list(self.attack_tags),
             "skill_areas": list(self.skill_areas),

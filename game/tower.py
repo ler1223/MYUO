@@ -453,7 +453,9 @@ class TowerRun:
         world = WorldMap(*MAP_SIZE)
         world.place(squad.id, 3, 2)
         world.place(enemy_squad.id, 4, 2)
-        return Scenario(player, enemy, world, squad, enemy_squad)
+        # время суток боя этажа: день или ночь, как выпадет (от зерна башни и номера этажа)
+        time_of_day = "night" if self._rng("time").random() < 0.5 else "day"
+        return Scenario(player, enemy, world, squad, enemy_squad, time_of_day)
 
     def finish(self, db: Database, scenario: Scenario, won: bool) -> BattleReport:
         """Итог боя этажа: при победе опыт всем участникам (и павшим), золото и предметы на выбор."""

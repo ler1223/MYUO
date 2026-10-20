@@ -176,7 +176,9 @@ SCALES = ("self_hp_missing",      # чем меньше HP у применяющ
           "target_hp_missing",    # чем меньше HP у цели
           "target_hp",            # чем больше HP у цели
           "enemies_fallen",       # чем меньше врагов осталось (доля павших)
-          "front_row")            # 1, если применяющий в переднем ряду
+          "front_row",            # 1, если применяющий в переднем ряду
+          "faeries",              # прибавка за каждую призванную фею применяющего (стаки эффекта uo_faerie)
+          "few_allies")           # чем меньше союзников в строю (1 — один, 0 — полный отряд)
 
 
 @dataclass(frozen=True)
@@ -218,7 +220,7 @@ class SkillExtras:
     kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла;
     revive / revive_pct — навык воскрешает павшего союзника (доля макс. HP; 0 — одно HP);
     deathblow_hp / deathblow_effect — смертельный удар по цели с малым HP или с эффектом;
-    give_hp, spread_effect, hit_label — см. поля ниже."""
+    give_hp, spread_effect, hit_label, charge, random_targets и др. — см. поля ниже."""
 
     unguardable: bool = False
     unguardable_vs: tuple[str, ...] = ()
@@ -253,6 +255,30 @@ class SkillExtras:
     give_hp: float = 0.0
     spread_effect: str = ""
     hit_label: str = ""
+    # charge — навык с подготовкой: действие тратит AP сейчас, а срабатывает в конце круга (пока готовится, нельзя
+    # уклоняться и пользоваться пассивками); random_targets — число разных врагов (выбранный + случайные);
+    # random_effects — каждый задетый получает один случайный эффект из списка; target_hp_damage — доп. урон в
+    # долях текущего HP цели; dismiss_effect — после навыка применяющий теряет все стаки этого эффекта (феи);
+    # full_hp_pp / full_hp_effect — PP и эффект применяющему, если он был с полным HP; day_area — область днём.
+    # hit_full_hp — hit_ap / hit_pp только за попадание по цели с полным HP; crit_ap — AP за критический удар;
+    # drain_vs — ap_drain / pp_drain только по целям с одним из тегов; ignore_def_label (+ _share) — защита цели с
+    # эффектом этой метки игнорируется на долю; truestrike_buffed — верный удар, пока на применяющем есть бафф;
+    # desperate — при HP применяющего ниже доли удар верный и критический.
+    hit_full_hp: bool = False
+    crit_ap: int = 0
+    drain_vs: tuple[str, ...] = ()
+    ignore_def_label: str = ""
+    ignore_def_label_share: float = 1.0
+    truestrike_buffed: bool = False
+    desperate: float = 0.0
+    charge: bool = False
+    random_targets: int = 0
+    random_effects: tuple[str, ...] = ()
+    target_hp_damage: float = 0.0
+    dismiss_effect: str = ""
+    full_hp_pp: int = 0
+    full_hp_effect: str = ""
+    day_area: str = ""
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "SkillExtras":

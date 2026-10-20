@@ -29,9 +29,9 @@ HEAD = 300.0                   # высота головы над ногами (
 
 class BattleShow:
     def __init__(self, db, attacker, defender, seed: Optional[int] = None, scene: Optional[str] = None,
-                 data: Optional[ShowData] = None, first_strike: Optional[str] = None):
+                 data: Optional[ShowData] = None, first_strike: Optional[str] = None, time_of_day: str = "day"):
         self.data = data or ShowData()
-        self.battle = Battle(attacker, defender, db, seed=seed, first_strike=first_strike)
+        self.battle = Battle(attacker, defender, db, seed=seed, first_strike=first_strike, time_of_day=time_of_day)
         self.tl = Timeline()
         self.scene_files = self.data.scene(scene) or []
         self.director = Director(self.data, self.battle, self.tl, self._bottom())

@@ -18,6 +18,7 @@
 """
 from __future__ import annotations
 
+import dataclasses
 import random
 from dataclasses import dataclass, field
 from typing import Optional
@@ -53,6 +54,7 @@ from ..events import (
 from ..reactions import (
     ATTACK_EVENTS,
     DO_APPLY_EFFECT,
+    DO_CONSUME_BUFFS,
     DO_COVER,
     DO_DAMAGE,
     DO_DISPEL,
@@ -195,6 +197,7 @@ class Battle:
         self._depth = 0
         self._dead: set[int] = set()
         self._reaction_kind: Optional[str] = None     # counter / followup, пока идёт навык-ответ
+        self._charges: list[tuple[Unit, SkillDefinition, Unit]] = []     # подготовленные навыки до конца круга
         self._round_ended = True
         self._unblockable = frozenset(t for t, d in db.tags.items() if d.unblockable)
         self.time_of_day = time_of_day if time_of_day in ("day", "night") else "day"
@@ -238,6 +241,11 @@ class Battle:
             return self._end(self._pending_end)
         while True:
             if not self._order:
+                if self._charges:                  # конец круга: срабатывают подготовленные навыки
+                    act = self._charge_act()
+                    if act is not None:
+                        self._check_wipe()
+                        return act
                 if not self._round_ended:          # конец круга: реакции на него — своим актом
                     self._round_ended = True
                     act = self._round_act(ON_ROUND_END)
@@ -327,10 +335,40 @@ class Battle:
             unit.ap.spend(skill.ap_cost)
         unit.pp.spend(min(skill.pp_cost, unit.pp.current))
         self._acted = True
+        if skill.extras.charge:
+            if unit.has_flag("instant_charge"):            # Hastened Charge: подготовка пропущена
+                self._remove_flagged(unit, "instant_charge", act)
+            else:
+                self._charges.append((unit, skill, target))
+                self._give(unit, "uo_charging", unit, act)
+                act.kind, act.reason = SKIP, "charge"
+                if unit.is_alive:
+                    self._tick(unit, act)
+                return act
         self._resolve(unit, skill, target, act, root=True)
         if unit.is_alive:
             self._tick(unit, act)
         return act
+
+    def _charge_act(self) -> Optional[Act]:
+        """Первый из подготовленных навыков срабатывает; None — больше нечему (или не вышло)."""
+        while self._charges:
+            unit, skill, target = self._charges.pop(0)
+            for effect in [e for e in unit.effects if e.definition.id == "uo_charging"]:
+                unit.effects.remove(effect)
+            if not unit.is_alive or unit.has_flag("frozen") or unit.has_flag("stunned"):
+                continue
+            if not target.is_alive and not skill.extras.revive:
+                own = self.side_of(unit)
+                pool = reachable(skill, unit, own, self.other(own))
+                if not pool:
+                    continue
+                target = pool[0]
+            act = Act(ACTIVE, unit.uid, skill.id, target=target.uid, ap_cost=0, hits=skill.hits, round=self.round)
+            self._action = _Action(passive_limit=self.passives_per_action)
+            self._resolve(unit, skill, target, act, root=True)
+            return act
+        return None
 
     def _skip(self, unit: Unit, reason: str) -> Act:
         act = Act(SKIP, unit.uid, reason=reason, round=self.round)
@@ -369,15 +407,26 @@ class Battle:
         """Применение навыка: ответы до удара, удары, эффекты, гибели, ответы после (только у хода)."""
         self._emit(act, SkillUsed(user.uid, skill.id, target.uid))
         tside = self.side_of(target)
-        area = self.db.areas.get(skill.area) or self.db.areas.get("single")
+        area_id = skill.extras.day_area if skill.extras.day_area and self.time_of_day == "day" else skill.area
+        area = self.db.areas.get(area_id) or self.db.areas.get("single")
+        full_hp = user.hp >= user.max_hp
         hit_list = [user] if skill.targets == "self" else affected(skill, area, target, tside)
+        if skill.extras.random_targets and skill.targets == "enemy":     # «атакует двух врагов»: выбранный + случайные
+            others = [u for u in tside.alive() if u is not target]
+            hit_list = [target, *self.rng.sample(others, min(skill.extras.random_targets - 1, len(others)))]
         if skill.extras.spread_effect and skill.targets == "enemy" and target.has_effect(skill.extras.spread_effect):
             hit_list = tside.alive()                  # цель в таком состоянии (горит, отравлена) — бьём по всем
         if skill.extras.revive and not target.is_alive:
             self._revive(user, target, skill, act)
             hit_list = [target]           # воскрешение — только по павшей цели
         tags, mods = self._attack(user, skill)
-        attack = rules.Attack(user, skill, tags, [m for _, m in mods])
+        derived = []
+        for effect, m in mods:       # множитель силы может зависеть от стаков эффекта и от потерянного HP
+            mult = m.power_mult * (1 + m.power_per_stack * effect.stacks) \
+                * (1 + m.power_by_missing_hp * (1 - user.hp / max(1, user.max_hp)))
+            derived.append(dataclasses.replace(m, power_mult=mult) if mult != m.power_mult else m)
+        attack = rules.Attack(user, skill, tags, derived)
+        first_strike = len(act.strikes)
         hostile = skill.targets == "enemy"
         reflected = hostile and "magical" in tags and user.has_flag("reflect:magical")
         if reflected:                                      # Reflect Magick: заклинание бьёт по самому колдуну,
@@ -449,7 +498,24 @@ class Battle:
         self._spend_charges(user, mods, act)
         # после ударов: эффекты, AP/PP, снятие, добивание
         hit_units = [u for u in hit_list if OUTCOME_LANDED in landed.get(u.uid, set())]
+        dealt = sum(st.damage for st in act.strikes[first_strike:])
+        for effect, m in mods:                 # «следующая атака»: состояния на задетых и вампиризм
+            for effect_id in m.on_hit:
+                for unit in hit_units:
+                    if unit.is_alive:
+                        self._give(unit, effect_id, user, act)
+            if m.lifesteal and dealt:
+                healer = self.units.get(effect.source) if effect.source else user
+                if healer is not None and healer.is_alive:
+                    self._heal(healer, round(dealt * m.lifesteal), user, skill.id, act)
         self._after_hit(user, skill, target, hit_units, killed, act)
+        if skill.extras.full_hp_pp and full_hp and user.is_alive:
+            self._resource(user, "PP", skill.extras.full_hp_pp, user, skill.id, act)
+        if skill.extras.full_hp_effect and full_hp and user.is_alive:
+            self._give(user, skill.extras.full_hp_effect, user, act)
+        if skill.extras.dismiss_effect:
+            for effect in [e for e in user.effects if e.definition.id == skill.extras.dismiss_effect]:
+                self._expire(user, effect, act, "expire")
         for unit in killed:
             self._die(unit, act)
         if not root or covers_off:
@@ -478,6 +544,8 @@ class Battle:
                 tags.update(user.weapon_damage_tags)     # тип урона — от оружия, а не запасной из навыка
             else:
                 tags.update(part.tags)
+        if any(p.kind in (PART_HEAL, PART_HEAL_PCT) for p in skill.parts):
+            tags.add("healing")                  # служебный тег атаки: реакции вроде Healing Hunter
         for _, mod in mods:
             tags.update(mod.add_tags)
         return frozenset(tags), mods
@@ -502,6 +570,11 @@ class Battle:
                 share = sum(not u.is_alive for u in enemies) / max(1, len(enemies))
             elif bonus.scale == "front_row":
                 share = 1.0 if self.side_of(user).pos(user)[0] == 0 else 0.0
+            elif bonus.scale == "faeries":
+                share = sum(e.stacks for e in user.effects if e.definition.id == "uo_faerie")
+            elif bonus.scale == "few_allies":
+                side = self.side_of(user)
+                share = 1 - (len(side.alive()) - 1) / max(1, len(side.units) - 1)
             add += bonus.add * share
         if self._reaction_kind and skill.targets == "enemy":      # предметы: сила контратак и преследований
             add += user.trait(f"{self._reaction_kind}_potency") / 100
@@ -510,9 +583,11 @@ class Battle:
     def _strike(self, attack: rules.Attack, unit: Unit, strike: Strike, act: Act, blind: bool) -> None:
         """Удар по врагу: промах, уклонение, попадание с критом и блоком; урон, разморозка."""
         user, skill = attack.user, attack.skill
-        truestrike = skill.extras.truestrike
+        truestrike = rules.truestrike(attack)
+        was_full = unit.hp >= unit.max_hp
         covered = strike.covered is not None       # защитник принимает удар — не уклоняется
-        evade = None if truestrike or covered else self._tag_flag(unit, "evade", attack.tags)
+        evade = None if truestrike or covered or unit.has_flag("charging") \
+            else self._tag_flag(unit, "evade", attack.tags)
         if blind:
             strike.outcome = MISS
         elif evade:
@@ -525,8 +600,8 @@ class Battle:
             self._emit(act, AttackMissed(user.uid, unit.uid, skill.id))
             return
         strike.crit = rules.roll(self.rng, rules.crit_chance(attack))
-        forced = next((f.split(":", 1)[1] for e in unit.effects for f in e.definition.flags
-                       if f.startswith("guard:")), None)
+        forced_levels = [f.split(":", 1)[1] for e in unit.effects for f in e.definition.flags if f.startswith("guard:")]
+        forced = max(forced_levels, key=self.db.guard.reduction) if forced_levels else None
         guard_cut = 0.0
         if rules.can_guard(attack, unit, self._unblockable) and \
                 (forced or rules.roll(self.rng, unit.stat(Stat.GUARD_RATE))):
@@ -535,8 +610,8 @@ class Battle:
             if not forced and unit.trait("guard_efficiency"):       # сила блока предмета: база + эффективность
                 guard_cut = max(guard_cut, self.db.guard.reduction(self.db.guard.base)
                                 + unit.trait("guard_efficiency") / 100)
-            if forced:
-                self._remove_flagged(unit, f"guard:{forced}", act)
+            for level in dict.fromkeys(forced_levels):          # принудительные блоки тратятся на этом ударе
+                self._remove_flagged(unit, f"guard:{level}", act)
         negate = self._tag_flag(unit, "negate", attack.tags)
         if negate is None and skill.area in PIERCE_AREAS and "nullify_pierce" in unit.tags:
             negate = "nullify_pierce"              # тег от эффекта/предмета: пронзающие удары не наносят урона
@@ -548,6 +623,12 @@ class Battle:
         if amount >= unit.hp and unit.has_flag("endure"):
             amount = max(0, unit.hp - 1)
             self._remove_flagged(unit, "endure", act)
+        if amount and skill.extras.target_hp_damage:
+            amount += round(unit.hp * skill.extras.target_hp_damage)       # Gravity, Painful Smash
+        reduce = next((f for e in unit.effects for f in e.definition.flags if f.startswith("reduce:")), None)
+        if reduce and amount:
+            amount = max(0, round(amount * (1 - int(reduce.split(":")[1]) / 100)))
+            self._remove_flagged(unit, reduce, act)
         doomed = self._deathblow_pending(skill, unit)
         strike.damage = unit.take_damage(amount)
         if unit.is_alive and (doomed or self._deathblow_by_hp(skill, unit)):
@@ -563,7 +644,10 @@ class Battle:
         if extras.lifesteal and strike.damage and user.is_alive:
             drain = 1 + user.trait("drain_efficiency") / 100
             self._heal(user, round(strike.damage * extras.lifesteal * drain), user, skill.id, act)
-        labelled = not extras.hit_label or any(extras.hit_label in e.definition.tags for e in unit.effects)
+        labelled = (not extras.hit_label or any(extras.hit_label in e.definition.tags for e in unit.effects)) \
+            and (not extras.hit_full_hp or was_full)
+        if extras.crit_ap and strike.crit and user.is_alive:
+            self._resource(user, "AP", extras.crit_ap, user, skill.id, act)
         if extras.hit_ap and labelled:
             self._resource(user, "AP", extras.hit_ap, user, skill.id, act)
         if extras.hit_pp and labelled:
@@ -612,6 +696,8 @@ class Battle:
                     self._resource(user, "AP", extras.hit_ap, user, skill.id, act)
                 if labelled and extras.hit_pp:
                     self._resource(user, "PP", extras.hit_pp, user, skill.id, act)
+            if extras.random_effects:
+                self._give(unit, self.rng.choice(extras.random_effects), user, act)
             if extras.give_hp and unit is not user and user.is_alive:
                 gift = max(0, min(user.hp - 1, round(user.hp * extras.give_hp)))
                 self._lose_hp(user, gift, user, skill.id, act)
@@ -619,7 +705,7 @@ class Battle:
             for label in extras.dispel:
                 self._dispel(unit, label, act)
             for name, amount in (("AP", extras.ap_drain), ("PP", extras.pp_drain)):
-                if amount:
+                if amount and (not extras.drain_vs or any(t in unit.tags for t in extras.drain_vs)):
                     taken = self._resource(unit, name, -amount, user, skill.id, act)
                     if extras.steal and taken and user.is_alive:
                         self._resource(user, name, taken, user, skill.id, act)
@@ -790,6 +876,9 @@ class Battle:
                     return False
         if not reaction.self_condition.check(owner, owner):
             return False
+        if not isinstance(reaction.actor_condition, Always) and \
+                (moment.actor is None or not reaction.actor_condition.check(owner, moment.actor)):
+            return False
         if moment.event in ATTACK_EVENTS:
             if reaction.attack_tags and not any(t in moment.attack_tags for t in reaction.attack_tags):
                 return False
@@ -928,7 +1017,10 @@ class Battle:
                    ) -> tuple[Reaction, Optional[SkillDefinition], list[Unit]]:
         """Кому достанется действие step (отфильтрованные: делать нечего — пустой список)."""
         action = step.action
-        if step is not None and not step.self_condition.check(owner, owner):
+        if not step.self_condition.check(owner, owner):
+            return step, None, []
+        if not isinstance(step.actor_condition, Always) and \
+                (moment.actor is None or not step.actor_condition.check(owner, moment.actor)):
             return step, None, []
         targets = self._recipients(owner, origin, step, moment)
         skill = None
@@ -942,6 +1034,8 @@ class Battle:
         elif action == DO_REFLECT_DEBUFFS:
             if not any("debuff" in e.definition.tags for e in owner.effects):
                 targets = []
+        elif action == DO_CONSUME_BUFFS:
+            targets = [t for t in targets if any("buff" in e.definition.tags for e in t.effects)]
         elif action == DO_USE_SKILL:
             skill = self.db.skills.get(step.skill_id or "")
             target = self._skill_target(owner, skill, step, moment, targets) if skill and owner.is_alive else None
@@ -971,6 +1065,12 @@ class Battle:
                         self._resolve(owner, skill, target, sub, root=False)
                     finally:
                         self._reaction_kind = None
+                elif action == DO_CONSUME_BUFFS:
+                    buffs = [e for e in target.effects if "buff" in e.definition.tags]
+                    for effect in buffs:
+                        self._expire(target, effect, sub, "expire")
+                    for _ in buffs:
+                        self._give(target, step.effect_id, source, sub)
                 elif action == DO_REFLECT_DEBUFFS:
                     for effect in [e for e in owner.effects if "debuff" in e.definition.tags]:
                         self._expire(owner, effect, sub, "expire")
@@ -1012,6 +1112,9 @@ class Battle:
         other = self.other(own)
         if skill.targets == "self":
             return owner
+        if skill.extras.revive:                       # воскрешение: цель среди павших союзников
+            fallen = reachable(skill, owner, own, other)
+            return fallen[0] if fallen else None
         wanted = own if skill.targets == "ally" else other
         for unit in targets:
             if unit.is_alive and wanted.has(unit):

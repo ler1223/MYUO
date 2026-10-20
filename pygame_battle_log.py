@@ -36,7 +36,8 @@ class BattleLog:
     def restart(self, seed: int) -> None:
         scenario = self.scenario_factory()
         self.seed = seed
-        self.sim = Battle(scenario.player_squad, scenario.enemy_squad, self.db, seed=seed)
+        self.sim = Battle(scenario.player_squad, scenario.enemy_squad, self.db, seed=seed,
+                          time_of_day=scenario.time_of_day)
         self.log: list[Event] = []
         self.popups: list[Popup] = []
         self.current_uid: Optional[int] = None

@@ -55,7 +55,8 @@ class ShowScreen:
         self.clock, self._last, self.error = 0.0, 0, ""
         try:
             scenario = self.scenario()
-            self.show = BattleShow(self.app.db, scenario.player_squad, scenario.enemy_squad, self.seed, self.scene)
+            self.show = BattleShow(self.app.db, scenario.player_squad, scenario.enemy_squad, self.seed, self.scene,
+                                  time_of_day=scenario.time_of_day)
         except (KeyError, ValueError) as error:          # классы сценария удалили из справочника
             self.show, self.error = None, str(error)
 

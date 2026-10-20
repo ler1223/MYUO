@@ -35,7 +35,6 @@ STAT_RU = {"phys_def": "физ. защита", "phys_atk": "физ. атака",
 
 # Пассивки, для которых в движке пока нет нужной механики (остаются заглушками, причина — в отчёте).
 DEFERRED = {
-    "hastened_charge": "нужны зарядные навыки (действие в конце раунда) — шаг 5",
     "celestial_light": "в игре это сюжетная заглушка («Unleash its true power…»), действие неизвестно",
 }
 
@@ -134,6 +133,7 @@ def rx(event: str, whose: str, action: str, to: str, **kw) -> dict:
 
 def step(action: str, to: str = "owner", **kw) -> dict:
     return {"action": action, "to": to, **kw}
+
 
 
 # Короткие записи триггеров.
@@ -379,23 +379,32 @@ def build(kit: Kit, cat: dict) -> dict[str, tuple[dict, str | None]]:
     put("inspiration", before_ally_attack("apply_effect", "subject", effect_id=insp))
     put("wide_inspiration", before_ally_attack("apply_effect", "side", effect_id=insp, to_area="row"),
         "ряд владельца")
-    for pid, status in (("flame_conferral", "uo_burn"), ("ice_conferral", "uo_freeze"),
-                        ("thunderous_conferral", "uo_stun"), ("dark_conferral", "uo_blind")):
-        put(pid, before_ally_attack("apply_effect", "subject", attack_tags=["physical"], effect_id="uo_next_magic",
-                                    then=[step("apply_effect", "target", effect_id=status)]),
-            "состояние накладывается на цель перед атакой, а не при попадании")
+    for pid, status in (("flame_conferral", "burn"), ("ice_conferral", "freeze"),
+                        ("thunderous_conferral", "stun"), ("dark_conferral", "blind")):
+        nxt = kit.effect(f"uo_next_magic_{status}", f"Магия и состояние в следующей атаке ({status})",
+                         charges=1, attack_mods=[{"add_tags": [], "power_mult": 1.0, "accuracy_add": 0, "crit_add": 0,
+                                                  "add_scaling": [{"stat": "mag_atk", "coef": 0.5}],
+                                                  "skill_tag": None, "on_hit": [f"uo_{status}"]}])
+        put(pid, before_ally_attack("apply_effect", "subject", attack_tags=["physical"], effect_id=nxt))
+    vamp = kit.effect("uo_next_vampire", "Вампиризм следующей атаки (50%)", charges=1,
+                      attack_mods=[{"add_tags": [], "power_mult": 1.0, "add_scaling": [], "accuracy_add": 0,
+                                    "crit_add": 0, "skill_tag": None, "lifesteal": 0.5}])
     put("sanguine_conferral", before_ally_attack("apply_effect", "subject", attack_tags=["physical"],
                                                  effect_id="uo_next_magic",
-                                                 then=[step("heal", "owner", amount=25, percent=True)]),
-        "вампиризм — сразу лечение 25% HP")
+                                                 then=[step("apply_effect", "subject", effect_id=vamp)]),
+        "лечится владелец пассивки — источник эффекта")
 
     # ---- до атаки по союзнику ----
     put("sylphic_barrier", ally_targeted("apply_effect", "subject", attack_tags=["ranged"], effect_id="uo_evade_one"))
     put("grant_evade", ally_targeted("apply_effect", "subject", effect_id="uo_evade_one"))
-    put("quick_barrier", ally_targeted("apply_effect", "subject", effect_id="uo_guard_medium"),
-        "«урезать урон на 50%» — принудительный средний блок (только физический урон)")
-    put("protection", ally_targeted("apply_effect", "side", effect_id="uo_guard_medium", to_area="row"),
-        "то же для ряда владельца")
+    r25 = kit.effect("uo_reduce_25", "Урон −25% от одной атаки", flags=["reduce:25"], charges=1)
+    r50 = kit.effect("uo_reduce_50", "Урон −50% от одной атаки", flags=["reduce:50"], charges=1)
+    put("quick_barrier", ally_targeted("apply_effect", "subject", effect_id=r50))
+    put("protection", ally_targeted("apply_effect", "side", effect_id=r50, to_area="row"), "ряд владельца")
+    put("circle_barrier", ally_targeted("apply_effect", "side", effect_id=r25, limit="round"))
+    for pid in ("holy_barrier", "saints_barrier"):
+        put(pid, ally_targeted("apply_effect", "subject", effect_id=r50, limit="round",
+                               then=[step("apply_effect", "subject", effect_id="uo_immune_debuff")]))
     put("mighty_shield", ally_targeted("apply_effect", "subject", effect_id="uo_negate_one"))
     put("enduring_cover", ally_targeted("cover", "owner", effect_id="uo_guard_heavy",
                                         then=[step("apply_effect", effect_id="uo_endure")]))
@@ -429,6 +438,94 @@ def build(kit: Kit, cat: dict) -> dict[str, tuple[dict, str | None]]:
                                            then=[step("restore_pp", amount=2)]))
     sid = sk("lifeshare_gift", "Lifeshare", targets="ally", tags=("magic",), extras={"give_hp": 0.5})
     put("lifeshare", ally_hit(**use(sid, "subject")))
+
+    # ---- исправленные упрощения (шаг 5); навыки pursuit_strike и triple_counter_strike правит uo_fix_skills.py ----
+    instant = kit.effect("uo_instant_charge", "Следующая подготовка пропускается", flags=["instant_charge"], charges=1)
+    put("hastened_charge", battle_start("apply_effect", "owner", effect_id=instant))
+    seal = kit.effect("uo_next_guard_seal", "Следующая атака накладывает печать блока", charges=1,
+                      attack_mods=[{"add_tags": [], "power_mult": 1.0, "add_scaling": [], "accuracy_add": 0,
+                                    "crit_add": 0, "skill_tag": None, "on_hit": ["uo_guard_seal"]}])
+    put("binding_guard", before_skill("apply_effect", "owner", effect_id=seal))
+    put("sanguine_arts", before_skill("apply_effect", "owner", effect_id=vamp))
+    put("deflect", self_targeted("apply_effect", attack_tags=["melee"], effect_id="uo_negate_melee",
+                                 then=[step("apply_effect", effect_id=fx("evasion+20", stack=True))]))
+    discharge = kit.effect("uo_discharge", "Сила следующей атаки +25% за каждый снятый бафф", charges=1,
+                           stack_rule="STACK", max_stacks=8, tags=[],
+                           attack_mods=[{"add_tags": [], "power_mult": 1.0, "add_scaling": [], "accuracy_add": 0,
+                                         "crit_add": 0, "skill_tag": None, "power_per_stack": 0.25}])
+    put("discharge", before_skill("consume_buffs", "owner", effect_id=discharge))
+    undying = kit.effect("uo_undying_will", "Сила следующей атаки растёт с потерей HP (до +100)", charges=1, tags=[],
+                         attack_mods=[{"add_tags": [], "power_mult": 1.0, "add_scaling": [], "accuracy_add": 0,
+                                       "crit_add": 0, "skill_tag": None, "power_by_missing_hp": 1.0}])
+    put("undying_will", before_skill("apply_effect", "owner", effect_id=undying,
+                                     then=[step("apply_effect", effect_id="uo_endure")]))
+    put("berserk", before_skill("restore_pp", "owner", amount=-99,
+                                then=[step("restore_ap", amount=1), step("apply_effect", effect_id="uo_endure")]))
+    put("quick_cast", battle_start("apply_effect", "owner",
+                                   effect_id=fx("initiative+1000", "crit_rate-50", duration=1)),
+        "«максимум инициативы» — +1000 до конца хода")
+    qc = kit.effect("uo_next_atk_m20pct_crit_seal", "Атака −20% и печать крита на одну атаку", flags=["crit_seal"],
+                    charges=1, tags=["debuff"],
+                    modifiers=[{"stat": "phys_atk", "op": "PERCENT_ADD", "value": -0.2},
+                               {"stat": "mag_atk", "op": "PERCENT_ADD", "value": -0.2}],
+                    attack_mods=[{"add_tags": [], "power_mult": 1.0, "add_scaling": [], "accuracy_add": 0,
+                                  "crit_add": 0, "skill_tag": None}])
+    put("quick_curse", rx("before_skill", "enemy", "apply_effect", "actor", limit="round", effect_id=qc))
+    pct = lambda power: {"kind": "heal_pct", "category": "magical", "power": power, "scaling": [],   # noqa: E731
+                         "tags": [], "weapon_tags": False}
+    sid = sk("first_aid_heal", "First Aid", targets="ally", tags=("magic",), parts=[pct(0.25)])
+    put("first_aid", battle_end(**use(sid, "owner")), "союзник выбирается порядком целей UO")
+    sid = sk("medical_aid_heal", "Medical Aid", targets="ally", area="row", tags=("magic",), parts=[pct(0.15)],
+             potency=[{"add": 0.15, "self_condition": ALWAYS, "scale": "",
+                       "target_condition": {"type": "hp_below", "value": 0.5001}}])
+    put("medical_aid", battle_end(**use(sid, "owner")), "ряд владельца; вдвое при HP цели 50% и ниже")
+    put("wing_rest", battle_end("heal", "owner", amount=25, percent=True, then=[
+        step("heal", amount=25, percent=True, self_condition={"type": "has_label", "label": "ailment"})]))
+    put("nocturnal_rest", after_skill("heal", "owner", amount=30, percent=True, then=[
+        step("heal", amount=30, percent=True, self_condition={"type": "is_night"})]))
+    put("nocturnal_evade", self_targeted("apply_effect", effect_id="uo_evade_one", then=[
+        step("restore_pp", amount=1, self_condition={"type": "is_night"})]))
+    put("diurnal_guard", self_targeted("apply_effect", attack_tags=["physical"], effect_id="uo_guard_medium", then=[
+        step("restore_pp", amount=1, self_condition={"type": "is_day"})]))
+    sid = sk("nocturnal_strike_strike", "Nocturnal Strike", parts=[dmg(num("nocturnal_strike", "phys", 1.5))])
+    put("nocturnal_strike", battle_start(**use(sid, "enemies"), then=[
+        step("restore_pp", amount=1, self_condition={"type": "is_night"})]))
+    sid = sk("parting_resurrection_revive", "Parting Resurrection", targets="ally", tags=("magic",),
+             extras={"revive": True})
+    put("parting_resurrection", battle_end(**use(sid, "owner")))
+    sid = sk("passive_miracle_heal", "Passive Miracle", targets="ally", tags=("magic",), pp_restore=1,
+             parts=[heal(num("passive_miracle", "mag", 0.5))])
+    put("passive_miracle", rx("passive_used", "ally", "use_skill", "subject", skill_id=sid))
+    put("restore", rx("passive_used", "ally", "restore_pp", "subject", amount=1))
+    put("quick_cure", ally_debuffed("dispel", "subject", label="debuff", then=[
+        step("apply_effect", "subject", effect_id="uo_immune_debuff")]))
+    kit.effect("uo_faerie", "Призванная фея", tags=["faerie"], stack_rule="STACK", max_stacks=5)
+    put("elemental_impetus", after_skill("restore_ap", "owner", amount=1, then=[
+        step("apply_effect", effect_id="uo_faerie")]))
+    # ---- классовые пассивки с неточной реализацией старого импорта ----
+    put("bulk_up", self_attacked(outcome="landed", action="heal", amount=40, percent=True))
+    sid = sk("lifesaver_heal", "Lifesaver", targets="self", tags=("magic",), parts=[heal(num("lifesaver", "mag", 0.5))])
+    put("lifesaver", self_targeted(**use(sid, "owner"), then=[step("apply_effect", effect_id="uo_endure")]))
+    put("royal_guard", self_targeted("apply_effect", attack_tags=["physical"], effect_id="uo_guard_medium", then=[
+        step("heal", amount=10, percent=True)]), "сколько HP возвращает Royal Guard, в тексте игры не указано (%s) — взято 10%")
+    sid = sk("healing_pursuit_heal", "Healing Pursuit", targets="ally", tags=("magic",),
+             parts=[heal(num("healing_pursuit", "mag", 0.5))])
+    put("healing_pursuit", rx("healed", "ally", "use_skill", "subject", skill_id=sid),
+        "лечение выше максимума HP (до 150%) не поддерживается")
+    sid = sk("healing_hunter_strike", "Healing Hunter", extras={"ignore_def": 0.3},
+             parts=[dmg(num("healing_hunter", "phys", 1.0))])
+    put("healing_hunter", rx("skill_used", "enemy", "use_skill", "actor", attack_tags=["healing"], skill_id=sid))
+    heavy = lambda tag_name, extra: put(f"{tag_name}_guard", self_targeted(   # noqa: E731
+        "apply_effect", attack_tags=["physical"], effect_id="uo_guard_medium", then=[
+            step("apply_effect", effect_id="uo_guard_heavy", actor_condition=tag(tag_name)),
+            step("restore_pp", amount=1, actor_condition=tag(tag_name))]), extra)
+    heavy("aerial", "против летающих — тяжёлый блок и +1 PP (число в игре не указано)")
+    heavy("bestral", "против зверей — тяжёлый блок и +1 PP (число в игре не указано)")
+    heavy("cavalry", "против кавалерии — тяжёлый блок и +1 PP (число в игре не указано)")
+    put("nocturnal_guard", self_targeted("apply_effect", attack_tags=["physical"], effect_id="uo_guard_medium", then=[
+        step("restore_pp", amount=1, self_condition={"type": "is_night"})]),
+        "число PP в игре не указано (%s) — взято 1")
+    N["demonic_pact"] = N["daemonic_pact"]          # то же умение под старым написанием имени
     return N
 
 
