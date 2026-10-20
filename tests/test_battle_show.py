@@ -102,13 +102,17 @@ class DbRegTests(unittest.TestCase):
         self.assertEqual(params[0].note, "ファイアーボール")
 
 
-def fake_puppet(keys, length, loop_start=-1):
-    """Кукла из одного трека: keys — (кадр, трансформация, длительность, флаги[, цель прыжка])."""
+def fake_puppet(keys, length, loop_start=-1, f3=None):
+    """Кукла из одного трека: keys — (кадр, трансформация, длительность, флаги[, цель прыжка]);
+    f3 — поле переходов каждого ключа (None — поля нет, как в старых данных)."""
     import numpy as np
     from engine.uo.puppet import Puppet
     p = Puppet.__new__(Puppet)
-    p.keys = np.array([(f, tr, d, fl, k[0] if k else 0) for f, tr, d, fl, *k in keys],
-                      dtype=[("frame", "<u4"), ("tr", "<u2"), ("dur", "<u2"), ("flags", "<u4"), ("f2", "<u4")])
+    rows = [(f, tr, d, fl, k[0] if k else 0) for f, tr, d, fl, *k in keys]
+    dtype = [("frame", "<u4"), ("tr", "<u2"), ("dur", "<u2"), ("flags", "<u4"), ("f2", "<u4")]
+    if f3 is not None:
+        rows, dtype = [(*r, v) for r, v in zip(rows, f3)], dtype + [("f3", "<u4")]
+    p.keys = np.array(rows, dtype=dtype)
     p.tracks = np.array([(0, len(keys), length, loop_start, -1, 0)],
                         dtype=[("kstart", "<u2"), ("kcount", "<u2"), ("length", "<u4"), ("i0", "<i4"),
                                ("i1", "<i4"), ("flags", "<u4")])
@@ -150,6 +154,18 @@ class TrackTimeTests(unittest.TestCase):
         self.assertEqual((item.morph_frame, item.morph), (2, 0.5))      # 0x4: вершины к кадру цели прыжка
         p = fake_puppet([(1, 0, 10, 0x20), (2, 1, 10, 0x820)], length=20, loop_start=0)
         self.assertEqual(p.track_item(0, 15).morph_frame, -1)           # 0x800 — только конец трека
+
+    def test_f3_turns_on_tweens_of_idle_keys(self):
+        """f3: младший байт — переход трансформации, второй — перетекание кадра (дыхание стоек)."""
+        keys = [(1, 0, 10, 0x20), (2, 1, 10, 0x820)]
+        morph = fake_puppet(keys, length=20, f3=[0x200, 0]).track_item(0, 5)
+        self.assertEqual((morph.morph_frame, morph.morph), (2, 0.5))
+        self.assertAlmostEqual(morph.tr["tx"], 0)
+        tween = fake_puppet(keys, length=20, f3=[0x2, 0]).track_item(0, 5)
+        self.assertAlmostEqual(tween.tr["tx"], 50)
+        self.assertEqual(tween.morph_frame, -1)
+        still = fake_puppet(keys, length=20, f3=[0, 0]).track_item(0, 5)
+        self.assertEqual((still.morph_frame, still.tr["tx"]), (-1, 0))
 
 
 class ChargeSceneTests(unittest.TestCase):

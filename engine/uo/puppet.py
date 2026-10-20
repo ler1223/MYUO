@@ -67,9 +67,14 @@ class Timeline:
 class Puppet:
     """Данные одного .mbs в удобном виде + выбор варианта внешности."""
 
-    # Гипотеза (не проверена по игре): ненулевое f3 ключа включает твининг трансформации к следующему ключу.
-    # 0x400 в Battle_Effect у 75 ключей из 39514, а f3 != 0 у ~90% пар «тот же кадр, другой transform».
-    tween_f3 = False
+    # Переходы к следующему ключу, поле f3 ключа (битовое; разобрано по всем анимациям всех классов):
+    #   младший байт (1, 2) — плавный переход трансформации: стоит у пар «тот же кадр, другой transform»;
+    #   второй байт (0x100, 0x200) — перетекание кадра в следующий (морф вершин): у пар «другой кадр с тем же
+    #   числом деталей» — так дышат и покачиваются стойки (у Sword Master кадры 2222 → 2220 → 2221 по 64 тика).
+    # Без них стойки стоят по секунде и дёргаются рывком. Флаги ключа 0x400 / 0x4 включают то же самое.
+    tween_f3 = True
+    TWEEN_TR = 0xFF
+    TWEEN_MORPH = 0xFF00
 
     def __init__(self, data: bytes, variant: int = 0):
         m = self.m = MBS(data)
@@ -267,8 +272,10 @@ class Puppet:
         if hold:
             return item
         frac = (tt - times[pos]) / max(1, int(key["dur"]))
-        lerp_tr_on = bool(flags & 0x400) or (self.tween_f3 and int(key["f3"]) != 0)
-        if not (lerp_tr_on or flags & 0x4):
+        f3 = int(key["f3"]) if self.tween_f3 and "f3" in (key.dtype.names or ()) else 0
+        lerp_tr_on = bool(flags & 0x400) or bool(f3 & self.TWEEN_TR)
+        morph_on = bool(flags & 0x4) or bool(f3 & self.TWEEN_MORPH)
+        if not (lerp_tr_on or morph_on):
             return item
         # цель перехода: следующий ключ прохода; на стыке цикла — ключ начала цикла
         if pos + 1 < len(order):
@@ -281,7 +288,7 @@ class Puppet:
         if lerp_tr_on:
             tr2 = self.transforms[int(nxt["tr"])] if int(nxt["tr"]) < len(self.transforms) else IDENTITY
             item.tr = lerp_tr(tr, tr2, frac)
-        if flags & 0x4:
+        if morph_on:
             item.morph_frame, item.morph = int(nxt["frame"]), frac
         return item
 
