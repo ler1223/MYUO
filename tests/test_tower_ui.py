@@ -247,31 +247,28 @@ class TowerWindowTests(unittest.TestCase):
 
     def test_tactics_table_in_the_style_of_uo(self):
         import pygame_tower_unit as pu
-        rule = {"skill": "x", "condition": {"type": "always"}, "self_condition": {"type": "always"},
-                "selector": "frontmost"}
-        both = pu.set_column(pu.set_column(rule, 0, pu.TARGET, {"type": "hp_below", "value": 0.5}), 1,
-                             pu.PRIORITY, "weakest")
-        self.assertEqual(pu.rule_items(both), [(pu.TARGET, {"type": "hp_below", "value": 0.5}),
-                                               (pu.PRIORITY, "weakest")])
-        swapped = pu.set_column(both, 0, pu.SELF, {"type": "has_label", "label": "buff"})   # замена в колонке 1
-        self.assertEqual(swapped["condition"], {"type": "always"})
-        self.assertEqual(pu.rule_items(pu.set_column(both, 1, None, None)), [(pu.TARGET, both["condition"])])
+        rule = {"skill": "x", "conditions": []}
+        both = pu.set_column(pu.set_column(rule, 0, "formation", "daytime"), 1, "hp", "lowest_hp")
+        self.assertEqual(pu.rule_items(both), [("formation", "daytime"), ("hp", "lowest_hp")])
+        swapped = pu.set_column(both, 0, "formation", "nighttime")            # замена в колонке 1
+        self.assertEqual(swapped["conditions"], ["nighttime", "lowest_hp"])
+        self.assertEqual(pu.rule_items(pu.set_column(both, 1, None, None)), [("formation", "daytime")])
         self.draft()
         app = self.app
         unit = app.run.fielded[0]
         pp.open_unit(app, unit.uid, pp.MAIN, pp.TACTICS)
         self.frame()
-        rules_before = len(unit.tactics.to_list())
+        rules_before = len(pu.tactic_rows(app.db, unit))
         cell = pu.tactic_columns(pu.tactic_row(0))[2]
         self.click(*cell.center)                                   # «Условие 1» первого правила
         self.assertEqual(app.tactic_pick, (0, 0))
         options = [(None, None)] + [(g, v) for g, v, *_ in pu.condition_options(app.db)]
-        index = next(i for i, (g, v) in enumerate(options) if v == {"type": "hp_below", "value": 0.5} and g == pu.TARGET)
+        index = next(i for i, (g, v) in enumerate(options) if v == "daytime")
         box_y = cell.bottom + 6 if cell.bottom + 6 + min(len(options) * 50 + 24, pu.CONTENT_BODY.height - 40) \
             <= pu.CONTENT_BODY.bottom else None
         if box_y is not None and index < 15:
             self.click(cell.x - 60 + 40, box_y + 12 + index * 50 + 20)
-            self.assertEqual(unit.tactics.to_list()[0]["condition"], {"type": "hp_below", "value": 0.5})
+            self.assertEqual(unit.tactics.to_list()[0]["conditions"][0], "daytime")
             self.assertIsNone(app.tactic_pick)
         self.click(*cell.center)
         self.assertTrue(pp.go_back(app))                            # Esc закрывает список, а не редактор
@@ -280,25 +277,27 @@ class TowerWindowTests(unittest.TestCase):
         self.click(*pu.tactic_columns(pu.tactic_row(rules_before))[1].center)   # «+ Добавить тактику»
         self.assertEqual(len(unit.tactics.to_list()), rules_before + 1)
 
-    def test_passive_tactics_switch_in_the_tower_table(self):
+    def test_passive_skills_stand_in_the_same_tower_table(self):
         import pygame_tower_unit as pu
+        from game.editing import tactic_rows
         self.draft()
         app = self.app
-        unit = next(u for u in pp.ordered_units(app) if u.passive_ids)
+        unit = next(u for u in pp.ordered_units(app) if any(p in app.db.skills for p in u.passive_ids))
+        pid = next(p for p in unit.passive_ids if p in app.db.skills)
         pp.open_unit(app, unit.uid, pp.MAIN, pp.TACTICS)
         self.frame()
-        pid = next(p for p in unit.passive_ids if p in app.db.passives)
-        switch = pygame.Rect(pu.CONTENT_BODY.x, pu.RESET_TACTICS.bottom + 14 + 24 + 6, pu.CONTENT_BODY.width, 48)
-        self.click(switch.x + 312 + 150, switch.centery)          # вторая плашка — первая пассивка
-        self.assertEqual(app.tactic_passive, pid)
+        rows = tactic_rows(app.db, unit)
+        index = next(i for i, r in enumerate(rows) if r["skill"] == pid)       # пассивка видна вместе с активными
+        self.assertFalse(unit.has_custom_tactics)
+        remove = pu.cols(pu.inset(pu.tactic_columns(pu.tactic_row(index))[4], 0, 10), [1.0, 1.0, 1.0], 8)[2]
+        self.click(*remove.center)                                 # крестик пассивки — выключить, а не убрать
+        row = next(r for r in unit.tactics.rules if r.skill_id == pid)
+        self.assertFalse(row.enabled)
         self.frame()
-        self.click(*pu.tactic_columns(pu.tactic_row(0))[1].center)   # «+ Добавить тактику» пассивки
-        self.assertTrue(unit.has_passive_tactics(pid))
-        self.assertEqual(unit.passive_tactics_of(pid).to_list()[0]["skill"], unit.skill_ids[0])
-        self.click(*pu.RESET_TACTICS.center)                      # сброс пассивки к данным
-        self.assertFalse(unit.has_passive_tactics(pid))
-        self.assertTrue(pp.go_back(app))                          # Esc — назад к тактикам юнита
-        self.assertIsNone(app.tactic_passive)
+        self.click(*remove.center)                                 # и включить обратно
+        self.assertTrue(next(r for r in unit.tactics.rules if r.skill_id == pid).enabled)
+        self.click(*pu.RESET_TACTICS.center)
+        self.assertFalse(unit.has_custom_tactics)
 
     def test_promotion_by_clicks(self):
         path = self.data_dir / "units.json"

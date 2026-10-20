@@ -29,6 +29,7 @@ from .reactions import (
     Reaction,
 )
 from .stats import STAT_DEFAULTS, Stat
+from .conditions import LegacyCondition, LegacySelector, check_conditions
 from .tactics import CONDITIONS, TacticsSet
 from .tags import TAG_UNIT
 from .unit import DEFAULT_AP_MAX, DEFAULT_PP_MAX, Unit
@@ -92,9 +93,7 @@ def describe_condition(data: Mapping[str, Any], t: Optional[Callable[..., str]] 
 def default_rule(skill_ids: Sequence[str]) -> dict[str, Any]:
     return {
         "skill": skill_ids[0],
-        "self_condition": {"type": "always"},
-        "condition": {"type": "always"},
-        "selector": "frontmost",
+        "conditions": [],
     }
 
 
@@ -106,17 +105,22 @@ def set_tactics(db: Database, unit: Unit, rules: Sequence[Mapping[str, Any]]) ->
     for rule in rules:
         if rule["skill"] not in db.skills:
             raise ValueError(f"unknown skill {rule['skill']!r}")
-    unit.set_tactics(TacticsSet.from_list(rules))
+    parsed = TacticsSet.from_list(rules)
+    for rule in parsed.rules:
+        if any(not isinstance(c, LegacyCondition) and not isinstance(c, LegacySelector) for c in rule.conditions):
+            check_conditions(rule.conditions)          # не больше двух, две из одной группы нельзя
+    unit.set_tactics(parsed)
 
 
-def set_passive_tactics(db: Database, unit: Unit, passive_id: str, rules: Sequence[Mapping[str, Any]]) -> None:
-    """Заменяет правила пассивки: они применяются к целям, вызвавшим её срабатывание."""
-    if passive_id not in db.passives:
-        raise ValueError(f"unknown passive {passive_id!r}")
-    for rule in rules:
-        if rule["skill"] not in db.skills:
-            raise ValueError(f"unknown skill {rule['skill']!r}")
-    unit.set_passive_tactics(passive_id, TacticsSet.from_list(rules))
+def tactic_rows(db: Database, unit: Unit) -> list[dict[str, Any]]:
+    """Строки тактики для окна: записанные у бойца, затем пассивки, для которых строки ещё нет (с условиями по
+    умолчанию из игры). Любая правка записывает весь список, и такие строки становятся обычными."""
+    rows = [dict(r) for r in unit.tactics.to_list()]
+    listed = {r["skill"] for r in rows}
+    for passive_id in unit.passive_ids:
+        if passive_id in db.skills and passive_id not in listed:
+            rows.append({"skill": passive_id, "conditions": list(db.skills[passive_id].default_tactic)})
+    return rows
 
 
 def skill_users(skill_id: str, units: Iterable[Unit]) -> list[Unit]:

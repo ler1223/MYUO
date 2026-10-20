@@ -54,23 +54,11 @@
     "tactics": [
       {
         "skill": "toxic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "power_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -158,34 +146,22 @@
     "tactics": [
       {
         "skill": "mounting_charge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "grand_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "wide_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -269,25 +245,25 @@
     "tactics": [
       {
         "skill": "heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "sacred_heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       }
     ],
     "tier": 20,
@@ -370,33 +346,15 @@
     "tactics": [
       {
         "skill": "row_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "assaulting_blow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "heavy_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -470,14 +428,14 @@
     "tactics": [
       {
         "skill": "heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       }
     ],
     "tier": 10,
@@ -557,23 +515,11 @@
     "tactics": [
       {
         "skill": "iron_crusher",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "vertical_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 15,
@@ -653,23 +599,11 @@
     "tactics": [
       {
         "skill": "venom_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "vengeful_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -758,33 +692,15 @@
     "tactics": [
       {
         "skill": "dark_flame",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "venom_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "vengeful_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -868,33 +784,15 @@
     "tactics": [
       {
         "skill": "omega_shatter",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "penetrate",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "heavy_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 30,
@@ -979,43 +877,19 @@
     "tactics": [
       {
         "skill": "compounding_curse",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "defensive_curse",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "offensive_curse",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "passive_curse",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1098,23 +972,11 @@
     "tactics": [
       {
         "skill": "icicle_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "wind_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1199,33 +1061,15 @@
     "tactics": [
       {
         "skill": "elemental_roar",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "sylphic_wind",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "primus_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1309,33 +1153,15 @@
     "tactics": [
       {
         "skill": "mirage_stab",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "natures_wrath",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "lightning_blade",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1420,34 +1246,22 @@
     "tactics": [
       {
         "skill": "faerie_heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "elemental_roar",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "primus_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1530,33 +1344,15 @@
     "tactics": [
       {
         "skill": "honed_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "shield_smite",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "spiral_sword",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1633,23 +1429,11 @@
     "tactics": [
       {
         "skill": "shield_bash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "warding_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -1724,13 +1508,7 @@
     "tactics": [
       {
         "skill": "wide_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -1819,33 +1597,15 @@
     "tactics": [
       {
         "skill": "pile_thrust",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "wild_rush",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "assaulting_lance",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -1916,13 +1676,7 @@
     "tactics": [
       {
         "skill": "high_swing",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -2010,33 +1764,15 @@
     "tactics": [
       {
         "skill": "aerial_smite",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "fatal_dive",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "high_swing",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -2120,33 +1856,15 @@
     "tactics": [
       {
         "skill": "spinning_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "cavalry_slayer",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "lean_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -2230,34 +1948,22 @@
     "tactics": [
       {
         "skill": "curing_call",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "innocent_ray",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "holy_light",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -2325,13 +2031,7 @@
     "tactics": [
       {
         "skill": "sting",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -2411,23 +2111,11 @@
     "tactics": [
       {
         "skill": "rolling_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -2508,23 +2196,11 @@
     "tactics": [
       {
         "skill": "dual_shot",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "single_shot",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -2603,23 +2279,11 @@
     "tactics": [
       {
         "skill": "wild_rush",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "assaulting_lance",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -2709,33 +2373,15 @@
     "tactics": [
       {
         "skill": "bastards_cross",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "killing_chain",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "heavy_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -2819,33 +2465,15 @@
     "tactics": [
       {
         "skill": "row_protection",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "greatshield",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "sting",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -2920,23 +2548,11 @@
     "tactics": [
       {
         "skill": "cavalry_slayer",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "lean_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 15,
@@ -3023,34 +2639,22 @@
     "tactics": [
       {
         "skill": "heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "divine_cross",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "slice",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -3125,24 +2729,18 @@
     "tactics": [
       {
         "skill": "curing_call",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "holy_light",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 15,
@@ -3229,33 +2827,15 @@
     "tactics": [
       {
         "skill": "defensive_order",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "offensive_order",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "banishing_stab",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -3326,24 +2906,18 @@
     "tactics": [
       {
         "skill": "row_heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "hache",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -3434,43 +3008,19 @@
     "tactics": [
       {
         "skill": "active_steal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "shadowbite",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "toxic_throw",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "passive_steal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -3552,34 +3102,22 @@
     "tactics": [
       {
         "skill": "row_heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "saints_blade",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "hache",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -3652,23 +3190,11 @@
     "tactics": [
       {
         "skill": "killing_chain",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "heavy_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -3757,33 +3283,15 @@
     "tactics": [
       {
         "skill": "honed_spear",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "javelin",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "long_thrust",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -3855,23 +3363,11 @@
     "tactics": [
       {
         "skill": "offensive_curse",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "passive_curse",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -3962,33 +3458,15 @@
     "tactics": [
       {
         "skill": "heavy_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "toxic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "power_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -4074,33 +3552,15 @@
     "tactics": [
       {
         "skill": "row_shot",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "dual_shot",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "single_shot",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -4184,33 +3644,15 @@
     "tactics": [
       {
         "skill": "glacial_rain",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "sonic_shaft",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "mystic_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -4286,23 +3728,11 @@
     "tactics": [
       {
         "skill": "javelin",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "long_thrust",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -4391,33 +3821,15 @@
     "tactics": [
       {
         "skill": "ice_coffin",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "magick_missile",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "icebolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -4501,33 +3913,15 @@
     "tactics": [
       {
         "skill": "meteor_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "impale",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "keen_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -4602,23 +3996,11 @@
     "tactics": [
       {
         "skill": "impale",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "keen_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -4694,23 +4076,11 @@
     "tactics": [
       {
         "skill": "toxic_throw",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "passive_steal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -4803,33 +4173,15 @@
     "tactics": [
       {
         "skill": "brandish",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "iron_crusher",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "vertical_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -4912,33 +4264,15 @@
     "tactics": [
       {
         "skill": "defender",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "shield_bash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "warding_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5023,33 +4357,15 @@
     "tactics": [
       {
         "skill": "wide_breaker",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "rolling_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5132,33 +4448,15 @@
     "tactics": [
       {
         "skill": "volcano",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "thunderous_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "fireball",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5228,23 +4526,11 @@
     "tactics": [
       {
         "skill": "assaulting_blow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "heavy_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -5334,33 +4620,15 @@
     "tactics": [
       {
         "skill": "earthshaker",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "round_swing",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "bear_crush",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5445,33 +4713,15 @@
     "tactics": [
       {
         "skill": "venom_thrust",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "passive_hold",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "piercing_lance",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5555,34 +4805,22 @@
     "tactics": [
       {
         "skill": "mounting_charge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "grand_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "wide_smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5666,34 +4904,22 @@
     "tactics": [
       {
         "skill": "aurora_veil",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "night_vision",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "extra_heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.7
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.7,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       }
     ],
     "tier": 20,
@@ -5777,33 +5003,15 @@
     "tactics": [
       {
         "skill": "wild_fang",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "decimate",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "finishing_stab",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -5877,23 +5085,11 @@
     "tactics": [
       {
         "skill": "magick_missile",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "icebolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -5968,13 +5164,7 @@
     "tactics": [
       {
         "skill": "fireball",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -6050,13 +5240,7 @@
     "tactics": [
       {
         "skill": "diving_thrust",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 10,
@@ -6145,33 +5329,15 @@
     "tactics": [
       {
         "skill": "tempest_drive",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "fire_breath",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "diving_thrust",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -6246,23 +5412,11 @@
     "tactics": [
       {
         "skill": "lightning_blade",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "killing_chain",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 20,
@@ -6323,23 +5477,11 @@
     "tactics": [
       {
         "skill": "warding_slash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "thunderous_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 30,
@@ -6400,23 +5542,11 @@
     "tactics": [
       {
         "skill": "iron_crusher",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "spiral_sword",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6479,23 +5609,11 @@
     "tactics": [
       {
         "skill": "vengeful_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "omega_shatter",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6564,23 +5682,11 @@
     "tactics": [
       {
         "skill": "icebolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "ice_coffin",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6649,23 +5755,11 @@
     "tactics": [
       {
         "skill": "smash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "rolling_axe",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6734,23 +5828,11 @@
     "tactics": [
       {
         "skill": "primus_edge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "faerie_heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6817,23 +5899,11 @@
     "tactics": [
       {
         "skill": "sonic_shaft",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "toxic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6901,23 +5971,11 @@
     "tactics": [
       {
         "skill": "innocent_ray",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "magick_missile",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -6979,23 +6037,11 @@
     "tactics": [
       {
         "skill": "shield_bash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "defender",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -7061,13 +6107,7 @@
     "tactics": [
       {
         "skill": "innocent_ray",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 25,
@@ -7132,23 +6172,11 @@
     "tactics": [
       {
         "skill": "power_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "mystic_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ],
     "tier": 30,

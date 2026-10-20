@@ -1,0 +1,1226 @@
+{
+ "groups": {
+  "formation": "Formation & Situation",
+  "combatant_type": "Combatant Type",
+  "hp": "HP",
+  "ap_pp": "AP & PP",
+  "status": "Combatant Status",
+  "attack_type": "Attack Type",
+  "unit_size": "Unit Size",
+  "own_condition": "Own Condition",
+  "own_hp": "Own HP",
+  "own_ap_pp": "Own AP & PP",
+  "enemies_present": "Enemies Present",
+  "high_stats": "High Stats",
+  "low_stats": "Low Stats",
+  "custom": "Custom conditions"
+ },
+ "conditions": {
+  "prioritize_front_row": {
+   "id": 1,
+   "kind": "prioritize",
+   "group": "formation",
+   "name": "Prioritize the front row"
+  },
+  "prioritize_back_row": {
+   "id": 2,
+   "kind": "prioritize",
+   "group": "formation",
+   "name": "Prioritize the back row"
+  },
+  "front_row": {
+   "id": 3,
+   "kind": "target_only",
+   "group": "formation",
+   "name": "In the front row"
+  },
+  "back_row": {
+   "id": 4,
+   "kind": "target_only",
+   "group": "formation",
+   "name": "In the back row"
+  },
+  "full_column": {
+   "id": 5,
+   "kind": "target_only",
+   "group": "formation",
+   "name": "Lined up in front and back row"
+  },
+  "row_with_most_combatants": {
+   "id": 6,
+   "kind": "prioritize",
+   "group": "formation",
+   "name": "Row with the most combatants"
+  },
+  "row_with_least_combatants": {
+   "id": 7,
+   "kind": "prioritize",
+   "group": "formation",
+   "name": "Row with the least combatants"
+  },
+  "row_with_2_plus_combatants": {
+   "id": 8,
+   "kind": "target_only",
+   "group": "formation",
+   "name": "Rows with 2+ enemies (allies)"
+  },
+  "row_with_3_plus_combatants": {
+   "id": 9,
+   "kind": "target_only",
+   "group": "formation",
+   "name": "Rows with 3+ enemies (allies)"
+  },
+  "daytime": {
+   "id": 10,
+   "kind": "activates_only",
+   "group": "formation",
+   "name": "Daytime only"
+  },
+  "nighttime": {
+   "id": 11,
+   "kind": "activates_only",
+   "group": "formation",
+   "name": "Nighttime only"
+  },
+  "highest_hp": {
+   "id": 12,
+   "kind": "prioritize",
+   "group": "hp",
+   "name": "Most HP"
+  },
+  "lowest_hp": {
+   "id": 13,
+   "kind": "prioritize",
+   "group": "hp",
+   "name": "Least HP"
+  },
+  "highest_pct_hp": {
+   "id": 14,
+   "kind": "prioritize",
+   "group": "hp",
+   "name": "Highest % HP"
+  },
+  "lowest_pct_hp": {
+   "id": 15,
+   "kind": "prioritize",
+   "group": "hp",
+   "name": "Lowest % HP"
+  },
+  "target_hp_is_lt_25_pct": {
+   "id": 16,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 25% or less HP"
+  },
+  "target_hp_is_lt_50_pct": {
+   "id": 17,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 50% or less HP"
+  },
+  "target_hp_is_lt_75_pct": {
+   "id": 18,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 75% or less HP"
+  },
+  "target_hp_is_gt_25_pct": {
+   "id": 19,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 25% or more HP"
+  },
+  "target_hp_is_gt_50_pct": {
+   "id": 20,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 50% or more HP"
+  },
+  "target_hp_is_gt_75_pct": {
+   "id": 21,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 75% or more HP"
+  },
+  "target_hp_is_gt_100_pct": {
+   "id": 22,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With 100% or more HP"
+  },
+  "target_hp_is_lt_100_pct": {
+   "id": 23,
+   "kind": "target_only",
+   "group": "hp",
+   "name": "With less than 100% HP"
+  },
+  "average_hp_is_lt_25_pct": {
+   "id": 24,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 25% or less"
+  },
+  "average_hp_is_lt_50_pct": {
+   "id": 25,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 50% or less"
+  },
+  "average_hp_is_lt_75_pct": {
+   "id": 26,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 75% or less"
+  },
+  "average_hp_is_gt_25_pct": {
+   "id": 27,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 25% or more"
+  },
+  "average_hp_is_gt_50_pct": {
+   "id": 28,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 50% or more"
+  },
+  "average_hp_is_gt_75_pct": {
+   "id": 29,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 75% or more"
+  },
+  "average_hp_is_gt_100_pct": {
+   "id": 30,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP 100% or more"
+  },
+  "average_hp_is_lt_100_pct": {
+   "id": 31,
+   "kind": "activates_only",
+   "group": "hp",
+   "name": "Avg. enemy (ally) HP less than 100%"
+  },
+  "prioritize_buffed": {
+   "id": 32,
+   "kind": "prioritize",
+   "group": "status",
+   "name": "Prioritize Buffed"
+  },
+  "prioritize_debuffed": {
+   "id": 33,
+   "kind": "prioritize",
+   "group": "status",
+   "name": "Prioritize Debuffed"
+  },
+  "buffed": {
+   "id": 34,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Buffed"
+  },
+  "debuffed": {
+   "id": 35,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Debuffed"
+  },
+  "afflicted": {
+   "id": 36,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Afflicted"
+  },
+  "poisoned": {
+   "id": 37,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Poisoned"
+  },
+  "burning": {
+   "id": 38,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Burning"
+  },
+  "frozen": {
+   "id": 39,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Frozen"
+  },
+  "stunned": {
+   "id": 40,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Stunned"
+  },
+  "blinded": {
+   "id": 41,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Blinded"
+  },
+  "passive_sealed": {
+   "id": 42,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Passive Sealed"
+  },
+  "guard_sealed": {
+   "id": 43,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Guard Sealed"
+  },
+  "not_buffed": {
+   "id": 44,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not buffed"
+  },
+  "not_debuffed": {
+   "id": 45,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not debuffed"
+  },
+  "not_afflicted": {
+   "id": 46,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted"
+  },
+  "not_poisoned": {
+   "id": 47,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Poison"
+  },
+  "not_burning": {
+   "id": 48,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Burn"
+  },
+  "not_frozen": {
+   "id": 49,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Frozen"
+  },
+  "not_stunned": {
+   "id": 50,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Stun"
+  },
+  "not_blinded": {
+   "id": 51,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Darkness"
+  },
+  "not_passive_sealed": {
+   "id": 52,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Passive Seal"
+  },
+  "not_guard_sealed": {
+   "id": 53,
+   "kind": "target_only",
+   "group": "status",
+   "name": "Not afflicted with Guard Seal"
+  },
+  "prioritize_infantry": {
+   "id": 54,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Infantry combatants"
+  },
+  "prioritize_cavalry": {
+   "id": 55,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Cavalry combatants"
+  },
+  "prioritize_flying": {
+   "id": 56,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Flying combatants"
+  },
+  "prioritize_armored": {
+   "id": 57,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Armored combatants"
+  },
+  "prioritize_scout": {
+   "id": 58,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Scout combatants"
+  },
+  "prioritize_archer": {
+   "id": 59,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Archer combatants"
+  },
+  "prioritize_caster": {
+   "id": 60,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Caster combatants"
+  },
+  "prioritize_elven": {
+   "id": 61,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Elven combatants"
+  },
+  "prioritize_bestral": {
+   "id": 62,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Bestral combatants"
+  },
+  "prioritize_angel": {
+   "id": 63,
+   "kind": "prioritize",
+   "group": "combatant_type",
+   "name": "Prioritize Angel combatants"
+  },
+  "infantry": {
+   "id": 64,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Infantry"
+  },
+  "cavalry": {
+   "id": 65,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Cavalry"
+  },
+  "flying": {
+   "id": 66,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Flying"
+  },
+  "armored": {
+   "id": 67,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Armored"
+  },
+  "scout": {
+   "id": 68,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Scout"
+  },
+  "archer": {
+   "id": 69,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Archer"
+  },
+  "caster": {
+   "id": 70,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Caster"
+  },
+  "elven": {
+   "id": 71,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Elven"
+  },
+  "bestral": {
+   "id": 72,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Bestral"
+  },
+  "angel": {
+   "id": 73,
+   "kind": "target_only",
+   "group": "combatant_type",
+   "name": "Angel"
+  },
+  "physickally_attacked": {
+   "id": 74,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When physickally attacked"
+  },
+  "magickally_attacked": {
+   "id": 75,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When magickally attacked"
+  },
+  "row_is_attacked": {
+   "id": 76,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When the row is attacked"
+  },
+  "column_is_attacked": {
+   "id": 77,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When the column is attacked"
+  },
+  "all_allies_are_attacked": {
+   "id": 78,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When all allies are attacked"
+  },
+  "attacked_by_infantry": {
+   "id": 79,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by an Infantry combatant"
+  },
+  "attacked_by_cavalry": {
+   "id": 80,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by a Cavalry combatant"
+  },
+  "attacked_by_flying": {
+   "id": 81,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by a Flying combatant"
+  },
+  "attacked_by_armored": {
+   "id": 82,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by an Armored combatant"
+  },
+  "attacked_by_scout": {
+   "id": 83,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by a Scout combatant"
+  },
+  "attacked_by_archer": {
+   "id": 84,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by an Archer combatant"
+  },
+  "attacked_by_caster": {
+   "id": 85,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by a Caster combatant"
+  },
+  "attacked_by_elven": {
+   "id": 86,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by an Elven combatant"
+  },
+  "attacked_by_bestral": {
+   "id": 87,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by a Bestral combatant"
+  },
+  "attacked_by_angel": {
+   "id": 88,
+   "kind": "activates_only",
+   "group": "attack_type",
+   "name": "When attacked by an Angel combatant"
+  },
+  "2_or_more_enemies": {
+   "id": 89,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 2 or more enemies"
+  },
+  "3_or_more_enemies": {
+   "id": 90,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 3 or more enemies"
+  },
+  "4_or_more_enemies": {
+   "id": 91,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 4 or more enemies"
+  },
+  "5_or_more_enemies": {
+   "id": 92,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 5 or more enemies"
+  },
+  "1_or_fewer_enemies": {
+   "id": 93,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 1 or fewer enemies"
+  },
+  "2_or_fewer_enemies": {
+   "id": 94,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 2 or fewer enemies"
+  },
+  "3_or_fewer_enemies": {
+   "id": 95,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 3 or fewer enemies"
+  },
+  "4_or_fewer_enemies": {
+   "id": 96,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 4 or fewer enemies"
+  },
+  "2_or_more_allies": {
+   "id": 97,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 2 or more allies"
+  },
+  "3_or_more_allies": {
+   "id": 98,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 3 or more allies"
+  },
+  "4_or_more_allies": {
+   "id": 99,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 4 or more allies"
+  },
+  "5_or_more_allies": {
+   "id": 100,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 5 or more allies"
+  },
+  "1_or_fewer_allies": {
+   "id": 101,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 1 or fewer allies"
+  },
+  "2_or_fewer_allies": {
+   "id": 102,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 2 or fewer allies"
+  },
+  "3_or_fewer_allies": {
+   "id": 103,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 3 or fewer allies"
+  },
+  "4_or_fewer_allies": {
+   "id": 104,
+   "kind": "activates_only",
+   "group": "unit_size",
+   "name": "With 4 or fewer allies"
+  },
+  "own_hp_is_lt_25_pct": {
+   "id": 105,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 25% or less"
+  },
+  "own_hp_is_lt_50_pct": {
+   "id": 106,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 50% or less"
+  },
+  "own_hp_is_lt_75_pct": {
+   "id": 107,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 75% or less"
+  },
+  "own_hp_is_gt_25_pct": {
+   "id": 108,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 25% or more"
+  },
+  "own_hp_is_gt_50_pct": {
+   "id": 109,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 50% or more"
+  },
+  "own_hp_is_gt_75_pct": {
+   "id": 110,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 75% or more"
+  },
+  "own_hp_is_gt_100_pct": {
+   "id": 111,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is 100% or more"
+  },
+  "own_hp_is_lt_100_pct": {
+   "id": 112,
+   "kind": "activates_only",
+   "group": "own_hp",
+   "name": "Own HP is less than 100%"
+  },
+  "most_ap": {
+   "id": 113,
+   "kind": "prioritize",
+   "group": "ap_pp",
+   "name": "Most AP"
+  },
+  "least_ap": {
+   "id": 114,
+   "kind": "prioritize",
+   "group": "ap_pp",
+   "name": "Least AP"
+  },
+  "0_ap": {
+   "id": 115,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 0"
+  },
+  "1_or_less_ap": {
+   "id": 116,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 1 or less"
+  },
+  "2_or_less_ap": {
+   "id": 117,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 2 or less"
+  },
+  "3_or_less_ap": {
+   "id": 118,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 3 or less"
+  },
+  "1_or_more_ap": {
+   "id": 119,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 1 or more"
+  },
+  "2_or_more_ap": {
+   "id": 120,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 2 or more"
+  },
+  "3_or_more_ap": {
+   "id": 121,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 3 or more"
+  },
+  "4_or_more_ap": {
+   "id": 122,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "AP is 4 or more"
+  },
+  "most_pp": {
+   "id": 123,
+   "kind": "prioritize",
+   "group": "ap_pp",
+   "name": "Most PP"
+  },
+  "least_pp": {
+   "id": 124,
+   "kind": "prioritize",
+   "group": "ap_pp",
+   "name": "Least PP"
+  },
+  "0_pp": {
+   "id": 125,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 0"
+  },
+  "1_or_less_pp": {
+   "id": 126,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 1 or less"
+  },
+  "2_or_less_pp": {
+   "id": 127,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 2 or less"
+  },
+  "3_or_less_pp": {
+   "id": 128,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 3 or less"
+  },
+  "1_or_more_pp": {
+   "id": 129,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 1 or more"
+  },
+  "2_or_more_pp": {
+   "id": 130,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 2 or more"
+  },
+  "3_or_more_pp": {
+   "id": 131,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 3 or more"
+  },
+  "4_or_more_pp": {
+   "id": 132,
+   "kind": "target_only",
+   "group": "ap_pp",
+   "name": "PP is 4 or more"
+  },
+  "own_ap_is_0": {
+   "id": 133,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 0"
+  },
+  "own_ap_is_1_or_less": {
+   "id": 134,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 1 or less"
+  },
+  "own_ap_is_2_or_less": {
+   "id": 135,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 2 or less"
+  },
+  "own_ap_is_3_or_less": {
+   "id": 136,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 3 or less"
+  },
+  "own_ap_is_1_or_more": {
+   "id": 137,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 1 or more"
+  },
+  "own_ap_is_2_or_more": {
+   "id": 138,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 2 or more"
+  },
+  "own_ap_is_3_or_more": {
+   "id": 139,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 3 or more"
+  },
+  "own_ap_is_4_or_more": {
+   "id": 140,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own AP is 4 or more"
+  },
+  "own_pp_is_0": {
+   "id": 141,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 0"
+  },
+  "own_pp_is_1_or_less": {
+   "id": 142,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 1 or less"
+  },
+  "own_pp_is_2_or_less": {
+   "id": 143,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 2 or less"
+  },
+  "own_pp_is_3_or_less": {
+   "id": 144,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 3 or less"
+  },
+  "own_pp_is_1_or_more": {
+   "id": 145,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 1 or more"
+  },
+  "own_pp_is_2_or_more": {
+   "id": 146,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 2 or more"
+  },
+  "own_pp_is_3_or_more": {
+   "id": 147,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 3 or more"
+  },
+  "own_pp_is_4_or_more": {
+   "id": 148,
+   "kind": "activates_only",
+   "group": "own_ap_pp",
+   "name": "Own PP is 4 or more"
+  },
+  "user": {
+   "id": 149,
+   "kind": "target_only",
+   "group": "own_condition",
+   "name": "User"
+  },
+  "other_combatants": {
+   "id": 150,
+   "kind": "target_only",
+   "group": "own_condition",
+   "name": "Other combatants"
+  },
+  "user_is_buffed": {
+   "id": 151,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "User is buffed"
+  },
+  "user_is_debuffed": {
+   "id": 152,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "User is debuffed"
+  },
+  "first_action": {
+   "id": 153,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "1st action"
+  },
+  "second_action": {
+   "id": 154,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "2nd action"
+  },
+  "third_action": {
+   "id": 155,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "3rd action"
+  },
+  "fourth_action": {
+   "id": 156,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "4th action"
+  },
+  "fifth_action": {
+   "id": 157,
+   "kind": "activates_only",
+   "group": "own_condition",
+   "name": "5th action"
+  },
+  "infantry_enemies_present": {
+   "id": 158,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Infantry enemies present"
+  },
+  "cavalry_enemies_present": {
+   "id": 159,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Cavalry enemies present"
+  },
+  "flying_enemies_present": {
+   "id": 160,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Flying enemies present"
+  },
+  "armored_enemies_present": {
+   "id": 161,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Armored enemies present"
+  },
+  "scout_enemies_present": {
+   "id": 162,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Scout enemies present"
+  },
+  "archer_enemies_present": {
+   "id": 163,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Archer enemies present"
+  },
+  "caster_enemies_present": {
+   "id": 164,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Caster enemies present"
+  },
+  "elven_enemies_present": {
+   "id": 165,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Elven enemies present"
+  },
+  "bestral_enemies_present": {
+   "id": 166,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Bestral enemies present"
+  },
+  "angel_enemies_present": {
+   "id": 167,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "Angel enemies present"
+  },
+  "no_infantry_enemies": {
+   "id": 168,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No infantry enemies"
+  },
+  "no_cavalry_enemies": {
+   "id": 169,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No cavalry enemies"
+  },
+  "no_flying_enemies": {
+   "id": 170,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No flying enemies"
+  },
+  "no_armored_enemies": {
+   "id": 171,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No armored enemies"
+  },
+  "no_scout_enemies": {
+   "id": 172,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No scout enemies"
+  },
+  "no_archer_enemies": {
+   "id": 173,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No archer enemies"
+  },
+  "no_caster_enemies": {
+   "id": 174,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No caster enemies"
+  },
+  "no_elven_enemies": {
+   "id": 175,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No elven enemies"
+  },
+  "no_bestral_enemies": {
+   "id": 176,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No bestral enemies"
+  },
+  "no_angel_enemies": {
+   "id": 177,
+   "kind": "activates_only",
+   "group": "enemies_present",
+   "name": "No Angel enemies"
+  },
+  "highest_max_hp": {
+   "id": 178,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest Max HP"
+  },
+  "highest_max_ap": {
+   "id": 179,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest Max AP"
+  },
+  "highest_max_pp": {
+   "id": 180,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest Max PP"
+  },
+  "highest_phys_atk": {
+   "id": 181,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest PATK"
+  },
+  "highest_mag_atk": {
+   "id": 182,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest MATK"
+  },
+  "highest_phys_def": {
+   "id": 183,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest PDEF"
+  },
+  "highest_mag_def": {
+   "id": 184,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest MDEF"
+  },
+  "highest_initiative": {
+   "id": 185,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest INIT"
+  },
+  "highest_accuracy": {
+   "id": 186,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest ACC"
+  },
+  "highest_evasion": {
+   "id": 187,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest EVA"
+  },
+  "highest_critical_rate": {
+   "id": 188,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest CRIT"
+  },
+  "highest_guard_rate": {
+   "id": 189,
+   "kind": "prioritize",
+   "group": "high_stats",
+   "name": "Highest GRD"
+  },
+  "lowest_max_hp": {
+   "id": 190,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest Max HP"
+  },
+  "lowest_max_ap": {
+   "id": 191,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest Max AP"
+  },
+  "lowest_max_pp": {
+   "id": 192,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest Max PP"
+  },
+  "lowest_phys_atk": {
+   "id": 193,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest PATK"
+  },
+  "lowest_mag_atk": {
+   "id": 194,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest MATK"
+  },
+  "lowest_phys_def": {
+   "id": 195,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest PDEF"
+  },
+  "lowest_mag_def": {
+   "id": 196,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest MDEF"
+  },
+  "lowest_initiative": {
+   "id": 197,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest INIT"
+  },
+  "lowest_accuracy": {
+   "id": 198,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest ACC"
+  },
+  "lowest_evasion": {
+   "id": 199,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest EVA"
+  },
+  "lowest_critical_rate": {
+   "id": 200,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest CRIT"
+  },
+  "lowest_guard_rate": {
+   "id": 201,
+   "kind": "prioritize",
+   "group": "low_stats",
+   "name": "Lowest GRD"
+  }
+ }
+}

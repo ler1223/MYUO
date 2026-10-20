@@ -242,8 +242,6 @@ class Unit:
         self.effects: list[ActiveEffect] = []
         self.time_of_day = "day"                # время суток боя (game/combat/engine.py: Battle.time_of_day)
         self.tactics: TacticsSet = definition.tactics  # может быть заменён редактором
-        # Тактики пассивок: id пассивки -> правила. Пусто — пассивка работает как задано в данных.
-        self.passive_tactics: dict[str, TacticsSet] = {}
 
     def _filter_by_class(self, item_ids: Sequence[Optional[str]]) -> tuple[list[Optional[str]], list[str]]:
         """Делит снаряжение на подходящее классу и отброшенное (class_allowed, game/unit.py)."""
@@ -425,28 +423,6 @@ class Unit:
 
     def reset_tactics(self) -> None:
         self.tactics = self.definition.tactics
-
-    # --- тактики пассивок ---
-
-    def passive_tactics_of(self, passive_id: str) -> TacticsSet:
-        return self.passive_tactics.get(passive_id, TacticsSet())
-
-    def has_passive_tactics(self, passive_id: str) -> bool:
-        tactics = self.passive_tactics.get(passive_id)
-        return tactics is not None and bool(tactics.rules)
-
-    def set_passive_tactics(self, passive_id: str, tactics: TacticsSet) -> None:
-        if tactics.rules:
-            self.passive_tactics[passive_id] = tactics
-        else:
-            self.passive_tactics.pop(passive_id, None)
-
-    def reset_passive_tactics(self, passive_id: str) -> None:
-        self.passive_tactics.pop(passive_id, None)
-
-    @property
-    def has_custom_passive_tactics(self) -> bool:
-        return any(t.rules for t in self.passive_tactics.values())
 
     # --- ресурсы ---
 

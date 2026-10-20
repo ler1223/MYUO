@@ -146,7 +146,6 @@ class TowerApp:
         self.selected: Optional[int] = None
         self.tab = EQUIPMENT
         self.tactic_pick = None                # открытый список в таблице тактики: (правило, колонка)
-        self.tactic_passive = None             # чьи тактики в таблице: None — юнита, иначе id пассивки
         self.slot = 0
         self.drag: Optional[tuple[int, tuple[int, int]]] = None   # (uid, где нажали) — бойца тащат
         self.preview = None

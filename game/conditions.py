@@ -13,7 +13,9 @@
 """
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Mapping, Optional, Sequence
 
 from .stats import Stat
@@ -418,3 +420,41 @@ def choose_target(conditions: Sequence[Condition], ctx: Context, pool: Sequence[
     if len(ranks) == 1 and isinstance(ranks[0], LegacySelector):
         return ranks[0].select(ctx.owner, ordered, ctx.battle.rng)
     return min(ordered, key=lambda u: tuple(c.rank(ctx, u) for c in ranks))
+
+
+# --- названия и варианты для редакторов -----------------------------------------------------------------------------
+
+NAMES_FILE = Path(__file__).resolve().parent.parent / "data" / "conditions.json"
+_NAMES: Optional[dict] = None
+
+
+def names() -> dict:
+    """Английские названия условий и групп (data/conditions.json, tools/gen_condition_names.py); русские — в ru.json."""
+    global _NAMES
+    if _NAMES is None:
+        try:
+            _NAMES = json.loads(NAMES_FILE.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            _NAMES = {"groups": {}, "conditions": {}}
+    return _NAMES
+
+
+def condition_name(cond: Condition) -> str:
+    """Подпись условия для интерфейса (английская, переводится через t())."""
+    if isinstance(cond, Factor):
+        return names()["conditions"].get(cond.key, {}).get("name") or cond.name
+    if isinstance(cond, LegacySelector):
+        return {"strongest": "Prioritize strongest", "backmost": "Prioritize back row",
+                "random": "Random target"}.get(cond.name, cond.name)
+    return ("Target: " if getattr(cond, "on", "target") == "target" else "Me: ") + str(condition_to_dict(cond.inner)["type"])
+
+
+def group_name(group: str) -> str:
+    return names()["groups"].get(group, group)
+
+
+def factor_options() -> list[Factor]:
+    """Условия игры в порядке меню: по группам экрана тактики, внутри — по номеру."""
+    order = {g: i for i, g in enumerate(GROUPS)}
+    return sorted((f for k, f in FACTORS.items() if k not in ("none", "story_only")),
+                  key=lambda f: (order.get(f.group, 99), f.id))

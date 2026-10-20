@@ -175,28 +175,21 @@ class SkillTacticsSquadTests(WindowTestCase):
         self.tab("Tactics")
         ty = TOP + 96
         self.assertEqual(self.pick(X + 596, ty, "sweep"), sid)
-        self.assertEqual(self.pick(X + 74, ty, "hp_below"), "hp_below")
-        self.assertEqual(self.pick(X + 168, ty, "70"), 0.7)
-        self.assertEqual(self.pick(X + 453, ty, "weakest"), "weakest")
+        self.assertEqual(self.pick(X + 124, ty, "Daytime"), "daytime")            # условие 1
+        self.assertEqual(self.pick(X + 350, ty, "Lowest % HP"), "lowest_pct_hp")  # условие 2
         knight = self.app.setup.player.units[1]
-        self.assertEqual(knight.tactics.to_list()[0], {"skill": sid, "self_condition": {"type": "hp_below", "value": 0.7},
-                                                       "condition": {"type": "always"}, "selector": "weakest"})
-        self.click(X + 104, ty + 2 * 28 + 4)                      # + правило
-        self.assertEqual(len(knight.tactics.rules), 3)
-        self.click(X + 753, ty + 2 * 28)                          # удалить третье
-        self.assertEqual(len(knight.tactics.rules), 2)
-
-        # тактики пассивок: своя таблица правил у каждой пассивки юнита
+        self.assertEqual(knight.tactics.to_list()[0], {"skill": sid, "conditions": ["daytime", "lowest_pct_hp"]})
+        # пассивки стоят в том же списке: после первого изменения их строки записаны
+        rows = knight.tactics.to_list()
         pid = knight.passive_ids[0]
-        py_head = TOP + 84 + 2 * 28 + 4 + 34 + 22                 # заголовок первой пассивки
-        add_rule = (X + 24 + 80, py_head + 24 + 20 + 4 + 12)      # «+ правило» её таблицы
-        self.click(*add_rule)
-        self.assertTrue(knight.has_passive_tactics(pid))
-        self.assertEqual(knight.passive_tactics_of(pid).to_list()[0]["skill"], "attack")
-        self.click(X + 192 + 100, py_head - 2 + 11)               # сброс пассивки к данным
-        self.assertFalse(knight.has_passive_tactics(pid))
-        self.click(*add_rule)
-        self.assertTrue(knight.has_passive_tactics(pid))
+        count = len(rows)
+        self.assertIn(pid, [r["skill"] for r in rows])
+        self.click(X + 104, ty + count * 28 + 4)                  # + правило
+        self.assertEqual(len(knight.tactics.rules), count + 1)
+        self.click(X + 758, ty + count * 28)                      # удалить добавленное
+        self.assertEqual(len(knight.tactics.rules), count)
+        self.click(X + 758, ty + [r["skill"] for r in rows].index(pid) * 28)    # пассивку выключают
+        self.assertFalse(next(r for r in knight.tactics.rules if r.skill_id == pid).enabled)
 
         self.tab("Squads")
         self.click(16 + 220, 104 + 38)                            # рыцарь в клетке (0, 1)
@@ -215,10 +208,9 @@ class SkillTacticsSquadTests(WindowTestCase):
         reopened = self.open_app()
         self.assertEqual(reopened.db.skills[sid], db.skills[sid])
         self.assertEqual(reopened.setup.player.units[1].state.equipment, ["iron_sword", "shield", None, "fire_charm"])
-        self.assertEqual([r.skill_id for r in reopened.setup.player.units[1].tactics.rules], [sid, "attack"])
         restored = reopened.setup.player.units[1]
-        self.assertTrue(restored.has_passive_tactics(pid))        # тактики пассивок пережили сохранение
-        self.assertEqual(restored.passive_tactics_of(pid).to_list()[0]["skill"], "attack")
+        self.assertEqual([r.skill_id for r in restored.tactics.rules][:2], [sid, "attack"])
+        self.assertFalse(next(r for r in restored.tactics.rules if r.skill_id == pid).enabled)   # выключенная пассивка
 
 
 class ClassEditorTests(WindowTestCase):

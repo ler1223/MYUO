@@ -2,7 +2,7 @@
 import unittest
 
 from game.combat import Battle as BattleSimulation
-from game.editing import set_owners, set_passive_tactics, set_tactics
+from game.editing import set_owners, set_tactics
 from game.events import PassiveTriggered, SkillUsed
 from tests.helpers import only, plain_db, squads, turn_of
 from tests.test_reactions import counter, give

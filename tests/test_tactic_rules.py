@@ -3,7 +3,8 @@ import unittest
 
 from game.combat import Battle
 from game.combat.record import ACTIVE
-from game.editing import set_tactics
+from game.editing import set_tactics, tactic_rows
+from game.save import unit_from_save, unit_to_save
 from game.tactics import TacticRule, TacticsSet
 from tests.helpers import add_skill, plain_db, set_stats, squads
 
@@ -30,13 +31,15 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(rules.to_list()[0], data[0])
         self.assertEqual(TacticsSet.from_list(rules.to_list()).to_list(), rules.to_list())
 
-    def test_old_format_is_read_and_written_back_unchanged(self):
+    def test_old_format_is_read_and_written_in_the_new_form(self):
         old = {"skill": "attack", "self_condition": {"type": "hp_below", "value": 0.7},
                "condition": {"type": "has_tag", "tag": "flying"}, "selector": "strongest"}
-        self.assertEqual(TacticRule.from_dict(old).to_dict(), old)
+        written = TacticRule.from_dict(old).to_dict()
+        self.assertEqual(written["skill"], "attack")
+        self.assertIn("conditions", written)
+        self.assertEqual(TacticRule.from_dict(written).to_dict(), written)
         weakest = dict(old, selector="weakest", condition={"type": "always"})
         rule = TacticRule.from_dict(weakest)
-        self.assertEqual(rule.to_dict(), weakest)
         self.assertTrue(any(c.key == "lowest_pct_hp" for c in rule.conditions))      # слабейший — это условие игры
 
     def test_rule_with_game_conditions_is_written_in_the_new_format(self):
@@ -74,7 +77,7 @@ class BattleChoiceTests(unittest.TestCase):
         self.assertEqual((skill, target), ("heal", 3))
 
     def test_priority_picks_the_weakest_ally(self):
-        sim, healer = self.start([row("heal", "target_hp_is_lt_100_pct", "lowest_hp")])
+        sim, healer = self.start([row("heal", "lowest_hp")])
         sim.units[2].state.current_hp = 20
         sim.units[3].state.current_hp = 5
         self.assertEqual(first_skill(sim, healer.uid), ("heal", 3))
@@ -105,3 +108,25 @@ class BattleChoiceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class UnifiedListTests(unittest.TestCase):
+    def setUp(self):
+        self.db = plain_db()
+
+    def test_passives_without_a_row_follow_the_active_rows(self):
+        unit = self.db.create_unit("knight", 1)
+        passive = next(p for p in unit.passive_ids if p in self.db.skills)
+        rows = tactic_rows(self.db, unit)
+        self.assertEqual(rows[-1 - [r["skill"] for r in reversed(rows)].index(passive)]["skill"], passive)
+        self.assertEqual(len([r for r in rows if r["skill"] == passive]), 1)
+
+    def test_old_save_with_passive_tactics_becomes_a_row(self):
+        unit = self.db.create_unit("knight", 1)
+        passive = next(p for p in unit.passive_ids if p in self.db.skills)
+        data = unit_to_save(unit)
+        self.assertNotIn("passive_tactics", data)
+        data["passive_tactics"] = {passive: [{"skill": "attack", "self_condition": {"type": "always"},
+                                              "condition": {"type": "always"}, "selector": "frontmost"}]}
+        restored = unit_from_save(self.db, data)
+        self.assertIn(passive, [r.skill_id for r in restored.tactics.rules])

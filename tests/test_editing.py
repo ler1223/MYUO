@@ -64,10 +64,9 @@ class TacticsEditingTests(unittest.TestCase):
         for definition in self.db.units.values():
             data = json.loads(json.dumps(definition.tactics.to_list()))
             self.assertEqual(TacticsSet.from_list(data).to_list(), data)
-        self.assertEqual(self.db.units["cleric"].tactics.to_list()[0], {
-            "skill": "heal", "self_condition": {"type": "always"},
-            "condition": {"type": "hp_below", "value": 0.6}, "selector": "weakest",
-        })
+        first = self.db.units["cleric"].tactics.to_list()[0]
+        self.assertEqual(first["skill"], "heal")
+        self.assertTrue(first["conditions"])
 
     def test_every_registered_condition_has_editor_defaults(self):
         for name in CONDITIONS:
@@ -76,7 +75,8 @@ class TacticsEditingTests(unittest.TestCase):
                 self.assertIn(data[param], param_options(kind, self.db))
             for key in ("condition", "self_condition"):
                 item = rule("attack", **{key: data})
-                self.assertEqual(TacticsSet.from_list([item]).to_list(), [item])
+                once = TacticsSet.from_list([item]).to_list()          # старый вид читается и пишется в новом
+                self.assertEqual(TacticsSet.from_list(once).to_list(), once)
         self.assertEqual(param_options("flag", self.db), ["stunned"])
         self.assertIn("cavalry", param_options("tag", self.db))
         self.assertNotIn("slashing", param_options("tag", self.db))  # только теги юнитов
@@ -130,7 +130,7 @@ class TacticsEditingTests(unittest.TestCase):
 
     def test_default_rule_and_skill_users(self):
         knight = self.db.create_unit("knight", 1)
-        self.assertEqual(default_rule(knight.skill_ids), rule("attack"))
+        self.assertEqual(default_rule(knight.skill_ids), {"skill": "attack", "conditions": []})
         self.assertEqual(skill_users("power_strike", [knight]), [knight])
         only(self.db, knight, "attack")
         self.assertEqual(skill_users("power_strike", [knight]), [])

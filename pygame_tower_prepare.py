@@ -520,9 +520,6 @@ def go_back(app: Any) -> bool:
     if getattr(app, "tactic_pick", None) is not None:
         app.tactic_pick = None
         return True
-    if getattr(app, "tactic_passive", None) is not None:
-        app.tactic_passive = None                  # вернуться к тактикам юнита
-        return True
     if app.view == PROMOTE:
         app.view = UNIT
         return True

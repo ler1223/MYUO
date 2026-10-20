@@ -12,6 +12,7 @@ from typing import Any, Hashable, Iterable, Mapping, Optional, Protocol, Sequenc
 
 import pygame
 
+from game.conditions import FACTORS, condition_name, factor_options
 from game.database import Database
 from game.definitions import APPLY_RECIPIENTS, CATEGORIES, PART_DAMAGE, PART_KINDS
 from game.editing import (
@@ -24,8 +25,8 @@ from game.editing import (
     new_skill_data,
     param_options,
     set_owners,
-    set_passive_tactics,
     set_tactics,
+    tactic_rows,
     skill_owners,
 )
 from game.i18n import Translator
@@ -131,46 +132,51 @@ def condition_widgets(ui: UI, db: Database, key: Hashable, condition: dict[str, 
 
 
 # Смещения колонок таблицы правил от её левого края (базовый масштаб).
-RULE_SELF, RULE_TARGET, RULE_PICK, RULE_SKILL, RULE_MOVE = 24, 216, 408, 506, 680
-RULE_COND_W, RULE_PARAM_W = 100, 84
+RULE_FIRST, RULE_SECOND, RULE_SKILL, RULE_MOVE = 24, 250, 476, 680
+NO_CONDITION = ""
 
 
 def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]], skill_ids: Sequence[str],
                x: int, y: int, max_rules: int = MAX_RULES) -> Optional[list[dict[str, Any]]]:
-    """Таблица правил тактики с кнопкой добавления. Возвращает новый список правил, если его изменили.
+    """Таблица тактики: навык и до двух условий игры; пассивки идут тем же списком. Возвращает новый список, если его изменили.
 
     Размеры в базовом масштабе умножаются на ui.scale."""
     t = ui.t
     s = lambda v: round(v * ui.scale)
     h, row_h = s(24), s(ROW_H)
-    for label, offset in (("if self", RULE_SELF), ("if target", RULE_TARGET), ("pick", RULE_PICK),
-                          ("skill", RULE_SKILL)):
+    for label, offset in (("Condition 1", RULE_FIRST), ("Condition 2", RULE_SECOND), ("skill", RULE_SKILL)):
         ui.text(t(label), x + s(offset), y, DIM, "small")
     y += s(20)
     new_rules: Optional[list[dict[str, Any]]] = None
+
     def cost(skill_id: str) -> str:
         skill = db.skills[skill_id]
         return f"AP{skill.ap_cost}" + (f" PP{skill.pp_cost}" if skill.pp_cost else "")
 
     skill_choices = [(s_id, f"{t(db.skills[s_id].name)} {cost(s_id)}") for s_id in skill_ids if s_id in db.skills]
+    options = [(NO_CONDITION, "—")] + [(f.key, t(condition_name(f))) for f in factor_options()]
     for i, rule in enumerate(rules):
         ry = y + i * row_h
         ui.text(f"{i + 1}.", x, ry + s(4))
         edited = dict(rule)
-        for field, offset in (("self_condition", RULE_SELF), ("condition", RULE_TARGET)):
-            condition = condition_widgets(ui, db, (key, i, field), rule[field], x + s(offset), ry,
-                                          RULE_COND_W, RULE_PARAM_W)
-            if condition is not None:
-                edited[field] = condition
-        picked = ui.dropdown((key, i, "selector"), pygame.Rect(x + s(RULE_PICK), ry, s(94), h),
-                             plain(ui, SELECTORS), rule["selector"])
-        if picked is not None:
-            edited["selector"] = picked
+        conditions = list(rule.get("conditions", ()))
+        for column, offset in enumerate((RULE_FIRST, RULE_SECOND)):
+            current = conditions[column] if column < len(conditions) else NO_CONDITION
+            if not isinstance(current, str):                       # своё условие: показываем, но здесь не меняем
+                ui.text(t("custom"), x + s(offset) + 6, ry + s(4), DIM, "small")
+                continue
+            picked = ui.dropdown((key, i, "condition", column), pygame.Rect(x + s(offset), ry, s(216), h),
+                                 options, current)
+            if picked is not None and picked != current:
+                updated = conditions[:column] + ([picked] if picked else []) + conditions[column + 1:]
+                if picked == NO_CONDITION and column == 0:
+                    updated = conditions[1:]
+                edited["conditions"] = updated[:2]
         # Красным: навык недоступен (сняли с класса или предмета), правило в бою пропускается.
         available = rule["skill"] in skill_ids
         missing = t(db.skills[rule["skill"]].name) if rule["skill"] in db.skills else rule["skill"]
         choices = skill_choices if available else [(rule["skill"], f"! {missing}"), *skill_choices]
-        picked = ui.dropdown((key, i, "skill"), pygame.Rect(x + s(RULE_SKILL), ry, s(170), h), choices, rule["skill"],
+        picked = ui.dropdown((key, i, "skill"), pygame.Rect(x + s(RULE_SKILL), ry, s(190), h), choices, rule["skill"],
                              color=TEXT if available else RED)
         if picked is not None:
             edited["skill"] = picked
@@ -180,8 +186,16 @@ def rule_table(ui: UI, db: Database, key: Hashable, rules: list[dict[str, Any]],
             new_rules = rules[:i - 1] + [rule, rules[i - 1]] + rules[i + 1:]
         if ui.button("v", pygame.Rect(x + s(RULE_MOVE + 30), ry, s(26), h), enabled=i < len(rules) - 1):
             new_rules = rules[:i] + [rules[i + 1], rule] + rules[i + 2:]
-        if ui.button("x", pygame.Rect(x + s(RULE_MOVE + 60), ry, s(26), h), color=RED):
-            new_rules = rules[:i] + rules[i + 1:]
+        passive = rule["skill"] in db.skills and db.skills[rule["skill"]].is_passive
+        if ui.button("off" if passive and not rule.get("off") else "on" if rule.get("off") else "x",
+                     pygame.Rect(x + s(RULE_MOVE + 60), ry, s(36), h), color=RED):
+            if passive:                       # пассивку выключают, строка остаётся
+                toggled = {k: v for k, v in rule.items() if k != "off"}
+                if not rule.get("off"):
+                    toggled["off"] = True
+                new_rules = rules[:i] + [toggled] + rules[i + 1:]
+            else:
+                new_rules = rules[:i] + rules[i + 1:]
     can_add = len(rules) < max_rules and bool(skill_choices)
     if ui.button(t("+ Add rule"), pygame.Rect(x + s(24), y + len(rules) * row_h + s(4), s(160), h), enabled=can_add):
         new_rules = rules + [default_rule([s_id for s_id, _ in skill_choices])]
@@ -396,8 +410,9 @@ class TacticsEditor:
         ui.text(t("with a valid target and enough AP, is used. Otherwise: Attack, if AP allows."),
                 x, TOP + 40, DIM, "small")
 
-        rules = unit.tactics.to_list()
-        new_rules = rule_table(ui, db, ("tactics", unit.uid), rules, unit.skill_ids, x, TOP + 64)
+        rules = tactic_rows(db, unit)
+        skills = [*unit.skill_ids, *unit.passive_ids]
+        new_rules = rule_table(ui, db, ("tactics", unit.uid), rules, skills, x, TOP + 64)
         y = TOP + 84 + len(rules) * ROW_H + 4
         if ui.button(t("Reset to default"), pygame.Rect(x + 192, y, 200, 24), enabled=unit.has_custom_tactics):
             unit.reset_tactics()
@@ -411,31 +426,6 @@ class TacticsEditor:
                 app.message = str(error)
 
         y += 34
-        ui.text(t("Passive tactics: rules apply to the targets that caused the trigger."), x, y, DIM, "small")
-        y += 22
-        for passive_id in unit.passive_ids:
-            passive = db.passives.get(passive_id)
-            if passive is None or y > HEIGHT - 140:
-                continue
-            state = t("custom") if unit.has_passive_tactics(passive_id) else t("default")
-            ui.text(t("Passive {name} ({state})", name=t(passive.name), state=state), x, y)
-            if ui.button(t("Reset to default"), pygame.Rect(x + 192, y - 2, 200, 22),
-                         enabled=unit.has_passive_tactics(passive_id)):
-                unit.reset_passive_tactics(passive_id)
-                app.changed()
-                return
-            y += 24
-            rules = unit.passive_tactics_of(passive_id).to_list()
-            new_rules = rule_table(ui, db, ("passive", unit.uid, passive_id), rules, unit.skill_ids, x, y,
-                                   max_rules=4)
-            if new_rules is not None:
-                try:
-                    set_passive_tactics(db, unit, passive_id, new_rules)
-                    app.changed()
-                except (ValueError, KeyError) as error:
-                    app.message = str(error)
-            y += 24 + max(1, len(rules)) * ROW_H
-
         ui.text(t("Available skills"), x, y + 8, DIM, "small")
         y += 8
         for skill_id in unit.skill_ids:

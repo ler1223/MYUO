@@ -205,10 +205,10 @@ def condition_to_dict(condition: ICondition) -> dict[str, Any]:
     return {"type": _registry_name(CONDITIONS, condition), **params}
 
 
-# До переключения редакторов на новый вид (docs/uo/ABILITIES_DESIGN.md, шаг 6) правило пишется старым видом
+# Запись правила: новый вид {"skill", "conditions": [...]}; прежний вид читается всегда (флаг ниже — для старых тестов).
 # {"skill", "condition", "self_condition", "selector"}, если оно им точно выражается; иначе — новым
 # {"skill", "conditions": [...]}. Читаются оба.
-WRITE_LEGACY_WHEN_POSSIBLE = True
+WRITE_LEGACY_WHEN_POSSIBLE = False
 
 
 @dataclass(frozen=True)

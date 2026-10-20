@@ -43,23 +43,11 @@
     "tactics": [
       {
         "skill": "power_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       },
       {
         "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ]
   },
@@ -104,24 +92,26 @@
     "tactics": [
       {
         "skill": "poison_arrow",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "poison"
-        },
-        "selector": "strongest"
+        "conditions": [
+          {
+            "type": "lacks_effect",
+            "effect_id": "poison",
+            "on": "target"
+          },
+          {
+            "type": "selector",
+            "name": "strongest"
+          }
+        ]
       },
       {
         "skill": "shot",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "backmost"
+        "conditions": [
+          {
+            "type": "selector",
+            "name": "backmost"
+          }
+        ]
       }
     ]
   },
@@ -165,24 +155,18 @@
     "tactics": [
       {
         "skill": "heal",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.6
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.6,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "magic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ]
   },
@@ -227,23 +211,18 @@
     "tactics": [
       {
         "skill": "fireball",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "random"
+        "conditions": [
+          {
+            "type": "selector",
+            "name": "random"
+          }
+        ]
       },
       {
         "skill": "magic_bolt",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "weakest"
+        "conditions": [
+          "lowest_pct_hp"
+        ]
       }
     ]
   },
@@ -285,24 +264,23 @@
     "tactics": [
       {
         "skill": "flurry",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "hp_below",
-          "value": 0.5
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "hp_below",
+            "value": 0.5,
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "random"
+        "conditions": [
+          {
+            "type": "selector",
+            "name": "random"
+          }
+        ]
       }
     ]
   },
@@ -347,35 +325,31 @@
     "tactics": [
       {
         "skill": "stun_bash",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "lacks_effect",
-          "effect_id": "stun"
-        },
-        "selector": "strongest"
+        "conditions": [
+          {
+            "type": "lacks_effect",
+            "effect_id": "stun",
+            "on": "target"
+          },
+          {
+            "type": "selector",
+            "name": "strongest"
+          }
+        ]
       },
       {
         "skill": "power_strike",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "has_flag",
-          "flag": "stunned"
-        },
-        "selector": "frontmost"
+        "conditions": [
+          {
+            "type": "has_flag",
+            "flag": "stunned",
+            "on": "target"
+          }
+        ]
       },
       {
         "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ]
   },
@@ -418,35 +392,28 @@
     "tactics": [
       {
         "skill": "lance_charge",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "has_tag",
-          "tag": "cavalry"
-        },
-        "selector": "frontmost"
+        "conditions": [
+          {
+            "type": "has_tag",
+            "tag": "cavalry",
+            "on": "target"
+          }
+        ]
       },
       {
         "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "has_tag",
-          "tag": "infantry"
-        },
-        "selector": "weakest"
+        "conditions": [
+          {
+            "type": "has_tag",
+            "tag": "infantry",
+            "on": "target"
+          },
+          "lowest_pct_hp"
+        ]
       },
       {
         "skill": "attack",
-        "self_condition": {
-          "type": "always"
-        },
-        "condition": {
-          "type": "always"
-        },
-        "selector": "frontmost"
+        "conditions": []
       }
     ]
   }

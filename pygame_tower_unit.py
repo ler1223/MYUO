@@ -17,7 +17,8 @@ from typing import Any, Optional
 import pygame
 
 from game import promotion
-from game.editing import describe_condition, describe_reaction, describe_skill, set_passive_tactics, set_tactics
+from game.conditions import FACTORS, GROUPS, condition_from_data, condition_name, factor_options, group_name
+from game.editing import describe_condition, describe_reaction, describe_skill, set_tactics, tactic_rows
 from game.rating import rate_unit
 from game.unit import Unit
 from pygame_tips import modifier_text, tier_color
@@ -301,66 +302,45 @@ def draw_skills(ui: Gui, app: Any, unit: Unit) -> None:
 # --- тактика -----------------------------------------------------------------------------
 
 def condition_options(db: Any) -> list[tuple[str, Any, str, dict]]:
-    """Варианты условий: (группа, значение, шаблон подписи, параметры подписи)."""
-    out: list[tuple[str, Any, str, dict]] = []
-    for value in (0.25, 0.5, 0.75):
-        out.append((TARGET, {"type": "hp_below", "value": value}, "Target HP below {n}%", {"n": round(value * 100)}))
-    out.append((TARGET, {"type": "hp_above", "value": 1.0}, "Target at full HP", {}))
-    for tag in ("infantry", "cavalry", "flying", "armored", "archer", "caster", "scout", "elf", "bestral"):
-        if tag in db.tags:
-            out.append((TARGET, {"type": "has_tag", "tag": tag}, "Target: {tag}", {"tag": db.tags[tag].name}))
-    if "armored" in db.tags:
-        out.append((TARGET, {"type": "lacks_tag", "tag": "armored"}, "Target: not armored", {}))
-    out.append((TARGET, {"type": "has_label", "label": "debuff"}, "Target is debuffed", {}))
-    out.append((TARGET, {"type": "has_label", "label": "buff"}, "Target is buffed", {}))
-    for effect_id, word in (("uo_poison", "poisoned"), ("uo_burn", "burning"), ("uo_freeze", "frozen"),
-                            ("uo_stun", "stunned")):
-        if effect_id in db.effects:
-            out.append((TARGET, {"type": "has_effect", "effect_id": effect_id}, f"Target is {word}", {}))
-            out.append((TARGET, {"type": "lacks_effect", "effect_id": effect_id}, f"Target is not {word}", {}))
-    for value in (0.25, 0.5, 0.75):
-        out.append((SELF, {"type": "hp_below", "value": value}, "My HP below {n}%", {"n": round(value * 100)}))
-    out.append((SELF, {"type": "hp_above", "value": 1.0}, "My HP is full", {}))
-    out.append((SELF, {"type": "has_label", "label": "buff"}, "I am buffed", {}))
-    out.append((SELF, {"type": "has_label", "label": "debuff"}, "I am debuffed", {}))
-    for selector, label in (("weakest", "Prioritize lowest HP"), ("strongest", "Prioritize strongest"),
-                            ("backmost", "Prioritize back row"), ("random", "Random target"),
-                            ("frontmost", "Prioritize front row")):
-        out.append((PRIORITY, selector, label, {}))
-    return out
+    """Варианты условий тактики игры: (группа, ключ, подпись, параметры подписи); порядок и группы — как в меню UO."""
+    return [(f.group, f.key, condition_name(f), {}) for f in factor_options()]
 
 
-GROUP_KEYS = {TARGET: "condition", SELF: "self_condition", PRIORITY: "selector"}
-DEFAULTS = {TARGET: {"type": "always"}, SELF: {"type": "always"}, PRIORITY: "frontmost"}
+def group_of(condition: Any) -> str:
+    """Группа экрана тактики условия (ключ игры или своё условие); свои не мешают друг другу."""
+    if isinstance(condition, str):
+        return FACTORS[condition].group if condition in FACTORS else "custom"
+    return "custom"
 
 
 def rule_items(rule: dict) -> list[tuple[str, Any]]:
-    """Заполненные условия правила по порядку колонок: (группа, значение); не больше двух."""
-    items = [(group, rule.get(key, DEFAULTS[group])) for group, key in GROUP_KEYS.items()]
-    return [(group, value) for group, value in items if value != DEFAULTS[group]][:2]
+    """Условия правила по порядку колонок: (группа, значение); не больше двух."""
+    return [(group_of(c), c) for c in rule.get("conditions", ())][:2]
 
 
 def set_column(rule: dict, column: int, group: Optional[str], value: Any) -> dict:
-    """Правило, в колонке column которого теперь (group, value); group None — очистить колонку."""
+    """Правило, в колонке column которого теперь значение value; group None — очистить колонку."""
     rule = dict(rule)
-    items = rule_items(rule)
-    if column < len(items):
-        old_group = items[column][0]
-        rule[GROUP_KEYS[old_group]] = DEFAULTS[old_group]
-    if group is not None:
-        rule[GROUP_KEYS[group]] = value
+    conditions = list(rule.get("conditions", ()))
+    if group is None:
+        if column < len(conditions):
+            del conditions[column]
+    elif column < len(conditions):
+        conditions[column] = value
+    else:
+        conditions.append(value)
+    rule["conditions"] = conditions[:2]
     return rule
 
 
 def option_label(ui: Gui, db: Any, group: str, value: Any) -> str:
     t = ui.t
-    for g, v, template, params in condition_options(db):
-        if g == group and v == value:
-            return t(template, **{k: t(p) if isinstance(p, str) else p for k, p in params.items()})
-    if group == PRIORITY:
-        return t(value)
-    prefix = t("Target:") if group == TARGET else t("Me:")
-    return f"{prefix} {describe_condition(value, t)}"
+    if isinstance(value, str) and value in FACTORS:
+        return t(condition_name(FACTORS[value]))
+    try:
+        return t(condition_name(condition_from_data(value)))
+    except (ValueError, KeyError):
+        return str(value)
 
 
 def tinted_pill(ui: Gui, rect: pygame.Rect, tint, hover: bool, kind: str = "condition") -> pygame.Rect:
@@ -408,14 +388,9 @@ def icon_button(ui: Gui, rect: pygame.Rect, kind: str, enabled: bool = True) -> 
 
 def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
     t, db = ui.t, app.db
-    selected = getattr(app, "tactic_passive", None)      # None — тактики юнита, иначе id пассивки
-    if selected is not None and selected not in unit.passive_ids:
-        selected = None
-        app.tactic_passive = None
-    if selected is None:
-        rules_ = [dict(r) for r in unit.tactics.to_list()]
-    else:
-        rules_ = [dict(r) for r in unit.passive_tactics_of(selected).to_list()]
+    # одна таблица на активные и пассивные навыки (как в UO); пассивки без записанной строки показаны с условиями игры
+    rules_ = tactic_rows(db, unit)
+    choices = [*unit.skill_ids, *[p for p in unit.passive_ids if p in db.skills]]
     head = tactic_columns(TACTIC_HEAD)
     for rect, text in zip(head, (t("Priority"), t("Skill"), t("Condition 1"), t("Condition 2"))):
         ui.label(text, rect, "label", align="center")
@@ -426,28 +401,31 @@ def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
         row = tactic_row(i)
         number_r, skill_r, first_r, second_r, actions_r = tactic_columns(row)
         if i >= len(rules_):
-            if i == len(rules_) and unit.skill_ids:
+            if i == len(rules_) and choices:
                 add = inset(pygame.Rect(skill_r.x, row.y, second_r.right - skill_r.x, row.height), 0, 8)
                 hover = ui.hovered(add, 0)
                 ui.label("+ " + t("Add a tactic"), add, "body", align="left", color=TEXT if hover else DIM)
                 if ui.clicked(add):
-                    changed = rules_ + [{"skill": unit.skill_ids[0], "condition": DEFAULTS[TARGET],
-                                         "self_condition": DEFAULTS[SELF], "selector": DEFAULTS[PRIORITY]}]
+                    changed = rules_ + [{"skill": choices[0], "conditions": []}]
             continue
         rule = rules_[i]
+        off = bool(rule.get("off"))
         badge = place(number_r, (64, 56), "center")
         if not ui.skin.draw(ui.screen, "priority", badge):
             pygame.draw.polygon(ui.screen, (90, 40, 30), [(badge.x + 10, badge.y), (badge.right, badge.y),
                                                           (badge.right - 10, badge.bottom), (badge.x, badge.bottom)])
         ui.label(str(i + 1), badge, ui.ts("level", size=34), align="center")
         skill = db.skills.get(rule["skill"])
-        tint = PP_TINT if skill is not None and skill.pp_cost and not skill.ap_cost else AP_TINT
+        passive = skill is not None and skill.is_passive
+        tint = PP_TINT if skill is not None and (passive or skill.pp_cost and not skill.ap_cost) else AP_TINT
         kind = "pp" if tint == PP_TINT else "ap"
         body = tinted_pill(ui, skill_r, tint, ui.hovered(skill_r) or pick == (i, "skill"), kind)
         cost = (skill.pp_cost if kind == "pp" else skill.ap_cost) if skill is not None else 0
         right = diamonds(ui, app, body.x + 8, body.centery, cost, kind, size=18)
-        ui.label(t(skill.name) if skill else rule["skill"], pygame.Rect(right + 8, body.y, body.right - right - 12,
-                                                                         body.height), "body", align="center")
+        name = t(skill.name) if skill else rule["skill"]
+        ui.label(name + (" (" + t("off") + ")" if off else ""),
+                 pygame.Rect(right + 8, body.y, body.right - right - 12, body.height), "body", align="center",
+                 color=DIM if off else TEXT)
         if skill is not None:
             ui.tip(skill_r, lambda s=skill: [(t(s.name), GOLD, "main"),
                                              (describe_skill(s, db, t).replace(" | ", "\n"), TEXT, "small")])
@@ -470,47 +448,29 @@ def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
             changed = rules_[:]
             changed[i + 1], changed[i] = changed[i], changed[i + 1]
         if icon_button(ui, remove, "remove"):
-            changed = rules_[:i] + rules_[i + 1:]
+            if passive:                           # пассивку выключают (строка остаётся), активный навык убирают
+                changed = rules_[:]
+                changed[i] = {**rule, "off": not off}
+                if not changed[i]["off"]:
+                    changed[i].pop("off")
+            else:
+                changed = rules_[:i] + rules_[i + 1:]
     reset = RESET_TACTICS
-    custom = unit.has_custom_tactics if selected is None else unit.has_passive_tactics(selected)
-    if button(ui, t("Reset to default"), reset, enabled=custom):
-        if selected is None:
-            unit.reset_tactics()
-        else:
-            unit.reset_passive_tactics(selected)
+    if button(ui, t("Reset to default"), reset, enabled=unit.has_custom_tactics):
+        unit.reset_tactics()
         app.tactic_pick = None
         app.save()
     note = pygame.Rect(reset.right + 30, reset.y, CONTENT_BODY.right - reset.right - 30, reset.height)
-    if selected is None:
-        note_text = t("Rules are checked top to bottom: the first one whose conditions hold, with a target and "
-                      "enough AP, is used.")
-    else:
-        note_text = t("Passive rules pick a skill for the targets that caused the trigger; without rules the "
-                      "passive works as written in its data.")
-    ui.paragraph(note_text, note, color=DIM, max_lines=3)
-    # Пассивки настраиваются в той же таблице: переключатель юнит <-> пассивка.
-    hint = pygame.Rect(CONTENT_BODY.x, reset.bottom + 14, CONTENT_BODY.width, 24)
-    ui.label(t("Whose tactics to edit (passives apply to the targets that caused the trigger):"),
-             hint, "small", color=DIM)
-    switch = pygame.Rect(CONTENT_BODY.x, hint.bottom + 6, CONTENT_BODY.width, 48)
-    ids = [None] + [pid for pid in unit.passive_ids if pid in db.passives]
-    for pid, rect in zip(ids, row_of(switch, [300] * len(ids), 12, "left")):
-        name = t("Main tactics") if pid is None else t(db.passives[pid].name)
-        if pid is not None and unit.has_passive_tactics(pid):
-            name += " *"
-        if button(ui, name, rect, selected=selected == pid, style="small"):
-            app.tactic_passive = pid
-            app.tactic_pick = None
+    ui.paragraph(t("Rules are checked top to bottom: the first one whose conditions hold, with a target and "
+                   "enough AP or PP, is used. Passive skills react to their event the same way. A cross turns a "
+                   "passive skill off."), note, color=DIM, max_lines=3)
     if pick is not None and pick[0] < len(rules_):
         picked = draw_picker(ui, app, unit, rules_, pick)
         if picked is not None:
             changed = picked
     if changed is not None:
         try:
-            if selected is None:
-                set_tactics(db, unit, changed)
-            else:
-                set_passive_tactics(db, unit, selected, changed)
+            set_tactics(db, unit, changed)
             app.save()
         except (ValueError, KeyError) as error:
             app.message = str(error)
@@ -524,9 +484,9 @@ def draw_picker(ui: Gui, app: Any, unit: Unit, rules_: list, pick: tuple) -> Opt
     rule = rules_[index]
     anchor = tactic_columns(tactic_row(index))[1 if column == "skill" else 2 + column]
     if column == "skill":
-        options = [("skill", skill_id) for skill_id in unit.skill_ids if skill_id in db.skills]
+        options = [("skill", skill_id) for skill_id in [*unit.skill_ids, *unit.passive_ids] if skill_id in db.skills]
     else:
-        other = {g for k, (g, _v) in enumerate(rule_items(rule)) if k != column}
+        other = {g for k, (g, _v) in enumerate(rule_items(rule)) if k != column}      # две из одной группы нельзя
         options = [(None, None)] + [(g, v) for g, v, _tmpl, _p in condition_options(db) if g not in other]
     row_h = 50
     width = 430
@@ -551,7 +511,7 @@ def draw_picker(ui: Gui, app: Any, unit: Unit, rules_: list, pick: tuple) -> Opt
             app.tactic_pick = None
     if ui.clicks and not any(box.collidepoint(p) or anchor.collidepoint(p) for p, _ in ui.clicks)             and app.tactic_pick == pick:
         app.tactic_pick = None                               # клик мимо списка закрывает его
-    colors = {TARGET: (240, 180, 160), SELF: (160, 220, 170), PRIORITY: (170, 200, 250)}
+    kind_colors = {"prioritize": (170, 200, 250), "target_only": (240, 180, 160), "activates_only": (160, 220, 170)}
 
     def draw() -> None:
         w.frame(ui, "picker" if ui.skin.has("picker") else "inset", box.inflate(16, 16))
@@ -570,7 +530,8 @@ def draw_picker(ui: Gui, app: Any, unit: Unit, rules_: list, pick: tuple) -> Opt
             elif group is None:
                 ui.label("— " + t("No condition"), inset(row, 10, 0), "body", color=DIM)
             else:
-                ui.label(option_label(ui, db, group, value), inset(row, 10, 0), "body", color=colors[group])
+                kind = FACTORS[value].kind if isinstance(value, str) and value in FACTORS else "target_only"
+                ui.label(option_label(ui, db, group, value), inset(row, 10, 0), "body", color=kind_colors[kind])
 
     ui.later(PICK, draw)
     return result
