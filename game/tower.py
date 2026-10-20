@@ -111,8 +111,9 @@ class TowerRules:
     # --- отряд игрока ---
 
     def squad_size(self, floor: int) -> FormationSize:
-        """Поле и число бойцов, которых можно выставить на этаже; ступени наследуют rows/cols."""
-        rows, cols, units = 3, 3, 1
+        """Поле и число бойцов, которых можно выставить на этаже; ступени наследуют rows/cols.
+        Как в UO: два ряда (передний и задний) по три места, в отряде до пяти бойцов."""
+        rows, cols, units = 2, 3, 1
         for row in self.data["squad"]:
             if row["floor"] > floor:
                 break
@@ -616,11 +617,19 @@ class TowerRun:
             for item_id, count in (Counter(saved) - Counter(now)).items():
                 if item_id in db.items:
                     returned.extend([item_id] * count)
+        size = rules.squad_size(run.floor)
         for uid, row, col in data["cells"]:
             formation = run.squad.formation
-            if uid in run.army.units and formation.contains(row, col) and len(formation) < formation.max_units \
-                    and formation.unit_at(row, col) is None:
-                run.army.assign(uid, PLAYER_SQUAD, row, col)
+            if uid not in run.army.units or len(formation) >= formation.max_units:
+                continue
+            if not formation.contains(row, col) or formation.unit_at(row, col) is not None:
+                # старое поле было больше (3x3): боец встаёт на свободное место по своему классу
+                taken = [formation.position_of(u.uid) for u in formation.units]
+                cell = free_cell(taken, run.army.units[uid].definition, size)
+                if cell is None:
+                    continue
+                row, col = cell
+            run.army.assign(uid, PLAYER_SQUAD, row, col)
         run.inventory = Inventory.from_dict(data["inventory"])
         for item_id in returned:
             run.inventory.add(item_id)

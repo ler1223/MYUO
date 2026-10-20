@@ -50,7 +50,7 @@ def filter_block(i: int) -> tuple[pygame.Rect, pygame.Rect]:
 
 
 def show_button(i: int) -> pygame.Rect:
-    return cols(filter_block(0)[1], [1.0] * 3, 8)[i]
+    return cols(filter_block(0)[1], [0.85, 1.35, 1.0], 8)[i]       # «свободные» длиннее остальных
 
 
 def group_button(i: int) -> pygame.Rect:
@@ -59,7 +59,7 @@ def group_button(i: int) -> pygame.Rect:
 
 
 def tier_button(i: int) -> pygame.Rect:
-    return cols(filter_block(2)[1], [1.0] * 4, 8)[i]
+    return cols(filter_block(2)[1], [1.7, 1.0, 1.0, 1.0], 8)[i]    # «любой» и три тира
 
 
 FITS_DROPDOWN = filter_block(3)[1]

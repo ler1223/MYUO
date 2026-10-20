@@ -6,7 +6,7 @@ from typing import Any, Mapping, Optional
 
 from .unit import Unit
 
-MIN_GRID, MAX_GRID = 3, 5   # допустимый размер стороны поля
+MIN_GRID, MAX_GRID = 2, 5   # допустимый размер стороны поля
 MAX_SQUAD_UNITS = 15
 
 

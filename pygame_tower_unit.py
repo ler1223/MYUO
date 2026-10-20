@@ -463,7 +463,7 @@ def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
     note = pygame.Rect(reset.right + 30, reset.y, CONTENT_BODY.right - reset.right - 30, reset.height)
     ui.paragraph(t("Rules are checked top to bottom: the first one whose conditions hold, with a target and "
                    "enough AP or PP, is used. Passive skills react to their event the same way. A cross turns a "
-                   "passive skill off."), note, color=DIM, max_lines=3)
+                   "passive skill off."), note, color=DIM, max_lines=4)
     if pick is not None and pick[0] < len(rules_):
         picked = draw_picker(ui, app, unit, rules_, pick)
         if picked is not None:

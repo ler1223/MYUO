@@ -4,12 +4,24 @@
     "choices": 3,
     "level": 1,
     "groups": [
-      {"role": "warrior"},
-      {"role": "archer"},
-      {"role": "mage"},
-      {"role": "support"},
-      {"role": "tank"},
-      {"role": "healer"}
+      {
+        "role": "warrior"
+      },
+      {
+        "role": "archer"
+      },
+      {
+        "role": "mage"
+      },
+      {
+        "role": "support"
+      },
+      {
+        "role": "tank"
+      },
+      {
+        "role": "healer"
+      }
     ]
   },
   "starter_tier": 1,
@@ -34,7 +46,7 @@
     {
       "floor": 1,
       "units": 3,
-      "rows": 3,
+      "rows": 2,
       "cols": 3
     },
     {
@@ -42,24 +54,8 @@
       "units": 4
     },
     {
-      "floor": 6,
+      "floor": 8,
       "units": 5
-    },
-    {
-      "floor": 10,
-      "units": 6
-    },
-    {
-      "floor": 15,
-      "units": 7
-    },
-    {
-      "floor": 21,
-      "units": 8
-    },
-    {
-      "floor": 28,
-      "units": 9
     }
   ],
   "enemies": {
@@ -81,22 +77,6 @@
       {
         "floor": 7,
         "units": 5
-      },
-      {
-        "floor": 11,
-        "units": 6
-      },
-      {
-        "floor": 16,
-        "units": 7
-      },
-      {
-        "floor": 23,
-        "units": 8
-      },
-      {
-        "floor": 30,
-        "units": 9
       }
     ],
     "classes": {},

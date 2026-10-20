@@ -125,12 +125,15 @@ class Editor:
         return [s if isinstance(s, str) else s["id"] for s in (unit.skills if unit else ())]
 
     def skills_of(self, cls: str) -> list[str]:
-        """Все навыки, доступные классу: свои и всех предметов, которые влезают в его слоты."""
-        unit = self.db.units.get(cls)
-        ids = list(self.class_skill_ids(cls))
-        slots = set(unit.slots if unit else ())
+        """Навыки, доступные классу: свои (с унаследованными от прежних классов) и предметов, которые класс
+        может надеть — по слоту, виду и списку-исключению (game/unit.py: wearable)."""
+        from game.unit import wearable
+        if cls not in self.db.units:
+            return []
+        definition = self.db.definition_for(cls, self.db.lineage(cls))
+        ids = [*self.class_skill_ids(cls), *definition.skills]
         for item in self.db.items.values():
-            if item.slot in slots:
+            if item.skills and wearable(item, definition):
                 ids.extend(item.skills)
         ids = [sid for sid in dict.fromkeys(ids) if sid in self.db.skills]
         return ids

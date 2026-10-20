@@ -2162,5 +2162,8 @@
   "staff_arcane": "посох мага",
   "staff_divine": "посох лекаря",
   "staff_shaman": "посох шамана",
-  "Only for classes": "Только для классов"
+  "Only for classes": "Только для классов",
+  "Rules are checked top to bottom: the first one whose conditions hold, with a target and enough AP or PP, is used. Passive skills react to their event the same way. A cross turns a passive skill off.": "Правила проверяются сверху вниз: срабатывает первое, у которого выполнены условия, есть цель и хватает AP или PP. Пассивки так же отвечают на своё событие. Крестик у пассивки выключает её.",
+  "Front row": "Передний ряд",
+  "Back row": "Задний ряд"
 }

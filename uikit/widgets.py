@@ -60,6 +60,7 @@ def icon_label(gui: Gui, body: pygame.Rect, text: str, style, icon: Optional[pyg
     """Значок и подпись одной группой, выровненной в body; подпись обрезается, значок остаётся."""
     style = gui.ts(style) if isinstance(style, str) else style
     icon_w = icon.get_width() + gap if icon is not None else 0
+    style = gui.texts.shrink(text, style, body.width - icon_w)
     text = gui.texts.fit(text, style, body.width - icon_w)
     width = icon_w + gui.texts.width(text, style)
     x = body.x if align == "left" else (body.right - width if align == "right" else body.centerx - width // 2)

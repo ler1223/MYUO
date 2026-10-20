@@ -269,7 +269,8 @@ class TowerApp:
         seed = self.run.seed + self.run.floor * 7919
         self.clock = 0
         self.show = BattleShow(self.db, self.scenario.player_squad, self.scenario.enemy_squad, seed=seed,
-                               scene=self.rules.scene(self.run.floor), time_of_day=self.scenario.time_of_day)
+                               scene=self.rules.scene(self.run.floor), time_of_day=self.scenario.time_of_day,
+                               translate=self.t)
         self.in_battle, self.paused, self.message = True, False, ""
 
     def tick(self, dt: int) -> None:
@@ -437,8 +438,19 @@ def item_card(ui: Gui, app: TowerApp, item_id: str, rect: pygame.Rect, selected:
     ui.label(t(item.name), name_r, "heading", color=tier_color(item.rank))
     tier_name = t(("novice", "mercenary", "hero")[item.rank - 1])
     ui.label(f"{t(item.slot)} · {tier_name}", kind_r, "small", color=DIM)
-    for cell, mod in zip(grid(mods_r, len(item.modifiers), 1 if action else 2, 30, 12, 2), item.modifiers):
+    # бонусы не вылезают за карточку: в строку по одному-два (рядом кнопка) или по два-три; не влезшие — «+N»
+    lines = max(1, (mods_r.height + 2) // 32)
+    mods = list(item.modifiers)
+    per_line = min(2 if action else 3, max(1 if action else 2, -(-len(mods) // lines)))
+    room = lines * per_line
+    shown = mods if len(mods) <= room else mods[:room - 1]
+    cells = grid(mods_r, len(shown) + (len(mods) > room), per_line, 30, 12, 2)
+    for cell, mod in zip(cells, shown):
         ui.label(modifier_text(t, mod), cell, "small", color=STAT_COLORS.get(mod.stat, TEXT))
+    if len(mods) > room:
+        ui.label(f"+{len(mods) - len(shown)}", cells[-1], "small", color=DIM)
+        ui.tip(rect, lambda: [(t(item.name), tier_color(item.rank), "main"),
+                              ("\n".join(modifier_text(t, m) for m in mods), TEXT, "small")])
     if selected:                                  # галочка: в шрифте её может не быть, рисуется линиями
         a, b, c = (body.right - 46, body.y + 26), (body.right - 34, body.y + 40), (body.right - 12, body.y + 10)
         pygame.draw.lines(ui.screen, GOLD, False, (a, b, c), 6)

@@ -108,18 +108,24 @@ def spots(area: pygame.Rect, rows_: int, cols_: int, mirror: bool) -> dict[tuple
     """Клетка (ряд, колонна) -> (x, y ног, масштаб). Колонны уходят вглубь (дальняя сверху и мельче),
     передний ряд (0) ближе к середине экрана: у нас справа, у врага (mirror) слева."""
     top = area.height * 0.30
-    depth = (area.height - top - 40) / max(1, cols_ - 1)
-    dx = area.width * 0.84 / rows_
+    depth = (area.height - top - 150) / max(1, cols_ - 1)     # плотнее, как поле отряда в UO; снизу — подписи рядов
+    dx = lane_width(area, rows_)
+    centre = (area.width * 0.84 - dx * rows_) / 2        # узкое поле (2 ряда, как в UO) — посередине
     result = {}
     for col in range(cols_):
         k = col / max(1, cols_ - 1)
         scale = 0.78 + 0.22 * k
         y = area.y + top + col * depth
         for row in range(rows_):
-            lateral = (row + 0.5) * dx + (k - 0.5) * dx * 0.22
+            lateral = (row + 0.5) * dx + (k - 0.5) * dx * 0.22 + centre
             x = area.right - area.width * 0.08 - lateral if not mirror else area.x + area.width * 0.08 + lateral
             result[(row, col)] = (x, y, scale)
     return result
+
+
+def lane_width(area: pygame.Rect, rows_: int) -> float:
+    """Шаг между рядами: поле в два ряда не растягивается на всю ширину (клетки как у поля в три ряда)."""
+    return area.width * 0.84 / max(3, rows_)
 
 
 def tile_rect(spot: tuple[float, float, float], dx: float) -> pygame.Rect:
@@ -138,7 +144,7 @@ def draw_field(ui: Gui, app: Any, half: pygame.Rect, entries: list[dict], rows_:
     Возвращает цели для мыши: (прямоугольник, клетка, uid или None), ближние позже."""
     area = field_area(half)
     places = spots(area, rows_, cols_, mirror)
-    dx = area.width * 0.84 / rows_
+    dx = lane_width(area, rows_)
     height = unit_height(area, cols_)
     by_cell = {(e["row"], e["col"]): e for e in entries}
     dragging_uid = app.drag[0] if app.drag else None
@@ -156,6 +162,12 @@ def draw_field(ui: Gui, app: Any, half: pygame.Rect, entries: list[dict], rows_:
                 pygame.draw.ellipse(ui.screen, (70, 30, 36) if mirror else (24, 40, 84), tile)
                 pygame.draw.ellipse(ui.screen, GOLD if lit else (150, 124, 72), tile, 3 if lit else 2)
             targets.append((tile, (row, col), None))
+    # подписи рядов под полем, как в UO: передний ближе к середине экрана
+    if rows_ == 2:
+        for row, caption in ((0, "Front row"), (rows_ - 1, "Back row")):
+            x, _y, _scale = places[(row, cols_ - 1)]
+            ui.label(app.t(caption), pygame.Rect(round(x) - 150, area.bottom - 40, 300, 34), "label", align="center",
+                     color="dim")
     plate_k = min(1.0, dx * 0.96 / 260)
     for col in range(cols_):
         for row in range(rows_):
@@ -310,7 +322,7 @@ def snap_cell(app: Any, feet: tuple[float, float]) -> Optional[tuple[int, int]]:
     (расстояние меряется в размерах клетки, по глубине клетки ближе друг к другу), если она не дальше SNAP."""
     formation = app.run.squad.formation
     area = field_area(HALF_L)
-    dx = area.width * 0.84 / formation.rows
+    dx = lane_width(area, formation.rows)
     best, best_d = None, SNAP
     for cell, (x, y, scale) in spots(area, formation.rows, formation.cols, False).items():
         d = math.hypot((feet[0] - x) / (dx * 0.5 * scale), (feet[1] - y) / (dx * 0.3 * scale))

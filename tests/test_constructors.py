@@ -87,7 +87,7 @@ class FormationSizeTests(unittest.TestCase):
     def test_default_and_limits(self):
         self.assertEqual(self.db.formation, FormationSize(3, 3, 5))
         self.assertEqual(self.db.to_dict()["config"]["formation"], {"rows": 3, "cols": 3, "max_units": 5})
-        for rows, cols, units in ((2, 3, 5), (6, 3, 5), (3, 6, 5), (3, 3, 0), (3, 3, 10), (5, 5, 16)):
+        for rows, cols, units in ((1, 3, 5), (6, 3, 5), (3, 6, 5), (3, 3, 0), (3, 3, 10), (5, 5, 16)):
             with self.assertRaises(ValueError, msg=(rows, cols, units)):
                 self.db.set_formation(rows, cols, units)
         self.assertEqual(self.db.formation, FormationSize(3, 3, 5))

@@ -81,6 +81,7 @@ class Director:
         self.data = data
         self.battle = battle
         self.tl = timeline
+        self.translate = lambda text: text      # перевод имён навыков на плашках (окно подставляет свой)
         sides = battle.sides
         rows = max(s.squad.formation.rows for s in sides)
         cols = max(s.squad.formation.cols for s in sides)
@@ -268,9 +269,9 @@ class Director:
         db = self.battle.db
         if act.kind == PASSIVE:
             passive = db.passives.get(act.skill_id)
-            return passive.name if passive else act.skill_id
+            return self.translate(passive.name) if passive else act.skill_id
         skill = db.skills.get(act.skill_id)
-        return skill.name if skill else act.skill_id
+        return self.translate(skill.name) if skill else act.skill_id
 
     # --- сцены ---
 

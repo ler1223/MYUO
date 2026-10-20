@@ -14,6 +14,8 @@ from typing import Optional
 import pygame
 
 ELLIPSIS = "…"
+SHRINK = 0.72                  # до какой доли размера ужимается не влезающая строка
+MIN_SIZE = 12
 FALLBACK = ["segoeui", "arial", "dejavusans"]
 CACHE_SIZE = 1200
 Color = tuple[int, int, int]
@@ -105,6 +107,17 @@ class Text:
             self._cache.popitem(last=False)
         return out, pad
 
+    def shrink(self, text: str, style: TextStyle, width: int) -> TextStyle:
+        """Как в UO: длинная подпись сначала ужимается (до SHRINK размера), и только потом режется «…»."""
+        if width <= 0 or self.width(text, style) <= width:
+            return style
+        low = max(MIN_SIZE, round(style.size * SHRINK))
+        for size in range(style.size - 1, low - 1, -1):
+            smaller = style.but(size=size)
+            if self.width(text, smaller) <= width:
+                return smaller
+        return style.but(size=low) if low < style.size else style
+
     def fit(self, text: str, style: TextStyle, width: int) -> str:
         """Текст, обрезанный с «…», чтобы влез в width."""
         font = self.font(style)
@@ -142,6 +155,7 @@ class Text:
         """Строка в прямоугольнике. align: left, center, right; valign: top (заглавные от верха),
         center (заглавные посередине), bottom (базовая линия по низу). Возвращает рамку заглавных."""
         if fit:
+            style = self.shrink(text, style, rect.width)
             text = self.fit(text, style, rect.width)
         if not text:
             return pygame.Rect(rect.x, rect.y, 0, 0)

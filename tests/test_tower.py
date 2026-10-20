@@ -271,6 +271,18 @@ class TowerRunTests(unittest.TestCase):
         rebuilt = run.rebuild(db)
         self.assertLess(len(rebuilt.army.units), len(run.army.units))
 
+    def test_field_is_two_rows_of_three_and_old_3x3_saves_fit(self):
+        db = DB.copy()
+        run = drafted(db)
+        size = run.rules.squad_size(1)
+        self.assertEqual((size.rows, size.cols), (2, 3))             # как в UO: передний и задний ряд по три
+        self.assertEqual(run.rules.squad_size(50).max_units, 5)
+        data = run.to_dict()
+        data["cells"] = [[uid, 2, col] for col, (uid, _row, _col) in enumerate(data["cells"])]   # ряд 2 — из поля 3x3
+        again = TowerRun.from_dict(db, run.rules, data)
+        self.assertEqual(len(again.squad.formation.units), len(data["cells"]))
+        self.assertTrue(all(again.squad.formation.position_of(u.uid)[0] < 2 for u in again.squad.formation.units))
+
 
 class RealDataTests(unittest.TestCase):
     def test_tower_rules_and_items_fit_the_real_data(self):
