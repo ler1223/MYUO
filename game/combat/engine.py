@@ -28,6 +28,7 @@ from ..definitions import (APPLY_SELF, APPLY_TARGET, PART_DAMAGE, PART_HEAL, PAR
                            SkillDefinition)
 from ..effects import ActiveEffect, AttackMod, StackRule
 from ..events import (
+    SKIP_CHARGE,
     END_DEFEAT,
     END_EXHAUSTED,
     END_ROUND_LIMIT,
@@ -341,7 +342,8 @@ class Battle:
             else:
                 self._charges.append((unit, skill, target))
                 self._give(unit, "uo_charging", unit, act)
-                act.kind, act.reason = SKIP, "charge"
+                act.kind, act.reason = SKIP, SKIP_CHARGE
+                self._emit(act, TurnSkipped(unit.uid, SKIP_CHARGE))
                 if unit.is_alive:
                     self._tick(unit, act)
                 return act

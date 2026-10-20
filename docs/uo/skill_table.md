@@ -6,12 +6,12 @@
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| power_bolt | общая | ATTACK_1 | 600 | — |
+| power_bolt | ручная | ATTACK_1 | 600 | — |
 |  |  | ATTACK_2 | 2000 | — |
 |  |  | ATTACK_END | 983 | удар 0 |
-| toxic_bolt | общая | ATTACK_B1 | 600 | — |
-|  |  | ATTACK_B2 | 2000 | — |
-|  |  | ATTACK_B3 | 933 | удар 0 |
+| toxic_bolt | ручная | ATTACK_1 | 600 | — |
+|  |  | ATTACK_2 | 2000 | — |
+|  |  | ATTACK_END | 983 | удар 0 |
 
 ## berserker — Gladiator_HG_M
 
@@ -67,14 +67,8 @@
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| heal | слот UO | S02_BT_HEAL_A1 | 1300 | — |
-|  |  | S02_BT_HEAL_A2 | 900 | — |
+| heal | ручная | S02_BT_HEAL_A2 | 900 | — |
 |  |  | S02_BT_HEAL_A3 | 1100 | — |
-|  |  | S02_BT_HEAL_A4 | 600 | удар 0 |
-|  |  | S02_BT_HEAL_A5 | 183 | — |
-|  |  | S19_QUICK_HEAL_1 | 3283 | удар 717 |
-|  |  | S19_QUICK_HEAL_2 | 6800 | — |
-|  |  | S19_QUICK_HEAL_3 | 217 | — |
 
 ## dark_knight — BlackKnight_M
 
@@ -121,35 +115,33 @@
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| passive_curse | слот UO | S04_PASSIVE_CURSE_1 | 1200 | — |
-|  |  | S04_PASSIVE_CURSE_2 | 850 | — |
+| passive_curse | ручная | S04_PASSIVE_CURSE_1 | 1200 | — |
 |  |  | S04_PASSIVE_CURSE_3 | 1300 | удар 200 |
-|  |  | S04_PASSIVE_CURSE_4 | 1100 | удар 0 |
 |  |  | S04_PASSIVE_CURSE_5 | 583 | — |
-| offensive_curse | общая | ATTACK | 2450 | удар 950, движ. 1050 |
-| defensive_curse | общая | ATTACK | 2450 | удар 950, движ. 1050 |
-| compounding_curse | общая | ATTACK | 2450 | удар 950, движ. 1050 |
+| offensive_curse | ручная | MAGIC_C_2 | 1533 | удар 767 |
+| defensive_curse | ручная | MAGIC_B | 4217 | — |
+|  |  | MAGIC_B_2 | 850 | удар 217 |
+|  |  | MAGIC_B_END | 467 | — |
+| compounding_curse | ручная | LISTED | 1700 | — |
+|  |  | LISTED_IDLE | 7200 | — |
+|  |  | LISTED_END | 1700 | — |
 
 ## elven_archer — ElfArcher_F
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| wind_arrow | общая | MAGIC_A | 733 | — |
-|  |  | MAGIC_A_IDLE | 533 | — |
-|  |  | MAGIC_A_2 | 7717 | удар 367 |
-|  |  | MAGIC_A_IDLE2 | 7350 | удар 0 |
-|  |  | MAGIC_A_END | 550 | — |
-| icicle_arrow | общая | MAGIC_B | 2467 | — |
-|  |  | MAGIC_B_IDLE | 2617 | — |
-|  |  | MAGIC_B_2 | 1450 | удар 167 |
-|  |  | MAGIC_B_IDLE2 | 2617 | удар 0 |
-|  |  | MAGIC_B_END | 367 | — |
+| wind_arrow | ручная | ATTACK | 1483 | — |
+|  |  | ATTACK_IDLE | 700 | — |
+|  |  | ATTACK_END | 767 | удар 0 |
+| icicle_arrow | ручная | ATTACK | 1483 | — |
+|  |  | ATTACK_IDLE | 700 | — |
+|  |  | ATTACK_END | 767 | удар 0 |
 
 ## elven_fencer — ElfFencer_M
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| lightning_blade | общая | ATTACK | 1333 | удар 467, движ. 483 |
+| lightning_blade | ручная | ATTACK | 1333 | удар 467, движ. 483 |
 | natures_wrath | общая | ATTACK_B | 2067 | движ. 1217 |
 |  |  | ATTACK_B_END | 1117 | удар 0 |
 | mirage_stab | общая | ATTACK | 1333 | удар 467, движ. 483 |
@@ -191,22 +183,20 @@
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| assaulting_lance | общая | ATTACK_1 | 633 | движ. 50 |
+| assaulting_lance | ручная | ATTACK_1 | 633 | движ. 50 |
 |  |  | ATTACK_2 | 2867 | движ. 1233, удар 1450 |
-|  |  | ATTACK_3 | 783 | движ. 0 |
 |  |  | ATTACK_4 | 867 | — |
 | wild_rush | общая | ATTACK_B2_1 | 1983 | удар 1317 |
 |  |  | ATTACK_B2_2 | 1900 | удар 1233 |
-| pile_thrust | общая | ATTACK_C1 | 933 | движ. 750 |
+| pile_thrust | ручная | ATTACK_C1 | 933 | движ. 750 |
 |  |  | ATTACK_C2 | 533 | движ. 0 |
 
 ## gryphon_knight — GriffonKnight_F
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| high_swing | общая | ATTACK_A1 | 2333 | движ. 850 |
+| high_swing | ручная | ATTACK_A1 | 2333 | движ. 850 |
 |  |  | ATTACK_A2 | 3217 | удар 783 |
-|  |  | ATTACK_A3 | 1833 | движ. 167 |
 |  |  | ATTACK_A4 | 2200 | — |
 
 ## gryphon_master — GriffonKnight_HG_F
@@ -257,33 +247,34 @@
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| assaulting_lance | общая | ATTACK_1 | 633 | движ. 100 |
+| assaulting_lance | ручная | ATTACK_1 | 633 | движ. 100 |
 |  |  | ATTACK_2 | 3417 | движ. 1233, удар 1467 |
 |  |  | ATTACK_3 | 783 | движ. 0 |
 |  |  | ATTACK_4 | 517 | — |
-| wild_rush | общая | ATTACK_C1 | 900 | — |
+| wild_rush | ручная | ATTACK_C1 | 900 | — |
 |  |  | ATTACK_C2 | 533 | движ. 0 |
+|  |  | BACK_1 | 1200 | движ. 667 |
+|  |  | BACK_2 | 517 | — |
 
 ## landsknecht — Mercenary_HG_F
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| heavy_slash | слот UO | S04_MEGA_SLASH_1 | 1267 | движ. 200 |
+| heavy_slash | ручная | S04_MEGA_SLASH_1 | 1267 | движ. 200 |
 |  |  | S04_MEGA_SLASH_2 | 817 | удар 67 |
 | killing_chain | общая | ATTACK | 1283 | удар 433, движ. 433 |
-| bastards_cross | общая | ATTACK_B1 | 1267 | движ. 200 |
-|  |  | ATTACK_B2 | 817 | удар 67 |
+| bastards_cross | ручная | ATTACK_C1 | 1883 | движ. 1417 |
+|  |  | ATTACK_C2 | 2317 | удар 67, удар 467 |
 
 ## legionnaire — Hoplite_HG_M
 
 | Навык | Источник | Часть | мс | События |
 |---|---|---|---|---|
-| sting | общая | ATTACK_A1 | 917 | движ. 150 |
-|  |  | ATTACK_A2_TO_IDLE | 2583 | движ. 1483, удар 1683 |
+| sting | ручная | ATTACK_C2 | 1733 | движ. 833, удар 983 |
+|  |  | ATTACK_C2_TO_IDLE | 1733 | движ. 833, удар 983 |
 | row_protection | общая | ATTACK_B1 | 917 | движ. 150 |
 |  |  | ATTACK_B2_TO_IDLE | 2583 | движ. 1483, удар 1683 |
-| greatshield | общая | ATTACK_C1 | 917 | движ. 150 |
-|  |  | ATTACK_C2_TO_IDLE | 1733 | движ. 833, удар 983 |
+| greatshield | ручная | GUARD | 800 | получ. 67 |
 
 ## paladin — WhiteKnight_HG_M (модель временная: в игре её нет)
 
@@ -375,7 +366,11 @@
 |  |  | S04_PASSIVE_CURSE_3 | 1300 | удар 200 |
 |  |  | S04_PASSIVE_CURSE_4 | 1100 | удар 0 |
 |  |  | S04_PASSIVE_CURSE_5 | 517 | — |
-| offensive_curse | общая | ATTACK | 2350 | удар 950, движ. 1050 |
+| offensive_curse | общая | MAGIC_A | 1167 | — |
+|  |  | MAGIC_A_IDLE | 850 | — |
+|  |  | MAGIC_A_2 | 1300 | удар 200 |
+|  |  | MAGIC_A_IDLE2 | 1100 | удар 0 |
+|  |  | MAGIC_A_END | 517 | — |
 
 ## shieldshooter — Ranger_HG_F
 
@@ -429,7 +424,7 @@
 |  |  | MAGIC_B_3 | 700 | удар 167 |
 |  |  | MAGIC_B_4 | 2567 | — |
 |  |  | MAGIC_B_END | 3100 | — |
-| ice_coffin | общая | MAGIC_A_1 | 1383 | — |
+| ice_coffin | ручная | MAGIC_A_1 | 1383 | — |
 |  |  | MAGIC_A_2 | 1750 | — |
 |  |  | MAGIC_A_END | 1333 | удар 150 |
 

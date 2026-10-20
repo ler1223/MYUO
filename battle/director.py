@@ -301,6 +301,8 @@ class Director:
             t = self.passives(act.after, at)
             return self.ending(act, t)
         if act.kind == SKIP:
+            if act.reason == "charge":
+                return self.charging(act, at)
             return self.passives(act.after, at + 350)
         if act.kind == ROUND:
             return self.passives(act.after, at)
@@ -309,6 +311,17 @@ class Director:
         if act.kind == AFFLICTION:
             return self.affliction(act, at)
         return self.passives([act], at)
+
+    def charging(self, act: Act, at: float) -> float:
+        """Объявление подготовки навыка: лента, круг заклинания и поза подготовки; удар будет в конце круга."""
+        uid = act.actor
+        self.fx(GENERIC["skill_on"], at, self.where[uid])
+        start = at + BANNER_LEAD
+        self.fx(GENERIC["chant"], start, self.where[uid], front=False)
+        parts = self.phase(uid, "charge")
+        end = self.play(uid, start, parts, then="hold") if parts else start + 500
+        self.banner(uid, at, end, self.name(act), passive=False)
+        return self.passives(act.after, end + SETTLE)
 
     def affliction(self, act: Act, at: float) -> float:
         uid = act.actor

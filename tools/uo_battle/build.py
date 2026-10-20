@@ -82,7 +82,13 @@ RAIN_PARAMS = {"speed": "ARROWRAIN_SPEED", "start_x": "ARROWRAIN_START_POS_X", "
                "interval": "ARROWRAIN_INTERVAL_TIME", "rand_from": "ARROWRAIN_TIME_RAND_START",
                "rand_to": "ARROWRAIN_TIME_RAND_END"}
 EFFECT_ALIAS = {"MAGIC_A_WATER_0": "ICESHOT",     # アイスショット — Icebolt
-                "TOXIC_THROW": "KNIFE_SHOT_POISON", "BLIND_THROW": "KNIFE_SHOT_BLIND"}   # EFFECTID TOXIC_THROW, BLIND_THROW
+                "TOXIC_THROW": "KNIFE_SHOT_POISON", "BLIND_THROW": "KNIFE_SHOT_BLIND",   # EFFECTID TOXIC_THROW, BLIND_THROW
+                # внутренние имена навыков, отличающиеся от имён эффектов (проверено по списку анимаций Battle_Effect)
+                "MAGIC_BLIZZARD": "BLIZZARD", "RESURRECTION": "RESURRECT", "END_RESURRECT": "RESURRECT",
+                "GREAT_WALL": "WALL", "MAGIC_WALL": "MAGICBARRIER", "EARTH_STAMP": "EARTHSTOMP",
+                "DARK_FLAME": "DARKFLAME_FIRE", "ENDLESS_CHAOS": "CHAOS", "PHALANX_SHIFT": "PHALANX",
+                "POWER_BREAK_2": "POWER_BREAK", "MAGIC_BREAK": "POWER_MAGIC_BREAK", "PASSIVE_CURSE": "PASSIVE",
+                "PASSIVE_HOLD": "PASSIVE", "PASSIVE_BREAK_L": "PASSIVE", "PROTECTION_OF_SPIRIT": "PROTECTION"}
 # След выстрела стрелой и болтом (EFFECTID SHOT_ARROW_EFFECT 矢：エフェクト)
 ARROW_TRAIL = {"BOW_SHOT": "SHOT_EFFECT", "CROSSBOW_SHOT": "SHOT_EFFECT", "BOW_SHOT_FIRE": "SHOT_EFFECT_FIRE",
                "CROSSBOW_SHOT_FIRE": "SHOT_EFFECT_FIRE"}

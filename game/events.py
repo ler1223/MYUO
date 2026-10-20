@@ -11,6 +11,7 @@ END_EXHAUSTED = "exhausted"      # никто больше не может де�
 END_ROUND_LIMIT = "round_limit"  # лимит раундов, ничья
 SKIP_STUNNED = "stunned"
 SKIP_NO_ACTION = "no_action"
+SKIP_CHARGE = "charge"          # ход ушёл на подготовку навыка (extras.charge)
 
 REASON_TEXT = {
     END_DEFEAT: "enemy squad defeated",
@@ -19,6 +20,7 @@ REASON_TEXT = {
     END_ROUND_LIMIT: "round limit",
     SKIP_STUNNED: "stunned",
     SKIP_NO_ACTION: "no action available",
+    SKIP_CHARGE: "charging a skill",
 }
 
 

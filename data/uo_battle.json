@@ -59,6 +59,11 @@
      "ATTACK_B1",
      "ATTACK_B2",
      "ATTACK_B3"
+    ],
+    "arrow_rain": [
+     "S05_ARROW_RAIN_1",
+     "S05_ARROW_RAIN_2",
+     "S06_ARROW_RAIN_3"
     ]
    },
    "looks": [
@@ -339,6 +344,12 @@
     ],
     "row_smash": [
      "ATTACK_C"
+    ],
+    "ground_strike": [
+     "S03_GROUND_STRIKE_1",
+     "S03_GROUND_STRIKE_2",
+     "S03_GROUND_STRIKE_3",
+     "S03_GROUND_STRIKE_4"
     ]
    },
    "looks": [
@@ -836,13 +847,25 @@
      "S04_PASSIVE_CURSE_5"
     ],
     "offensive_curse": [
-     "ATTACK"
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
     ],
     "defensive_curse": [
-     "ATTACK"
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
     ],
     "compounding_curse": [
-     "ATTACK"
+     "MAGIC_C",
+     "MAGIC_C_IDLE",
+     "MAGIC_C_2",
+     "MAGIC_C_IDLE2",
+     "MAGIC_C_END"
     ]
    },
    "looks": [
@@ -923,6 +946,11 @@
      "MAGIC_B_2",
      "MAGIC_B_IDLE2",
      "MAGIC_B_END"
+    ],
+    "arrow_rain": [
+     "S03_ARROW_RAIN_1",
+     "S03_ARROW_RAIN_2",
+     "S04_ARROW_RAIN_3"
     ]
    },
    "looks": [
@@ -1012,6 +1040,11 @@
      "MAGIC_3",
      "MAGIC_4",
      "MAGIC_END"
+    ],
+    "freezing_thrust": [
+     "S03_FREEZE_THRUST_1",
+     "S03_FREEZE_THRUST_2",
+     "S03_FREEZE_THRUST_3"
     ]
    },
    "looks": [
@@ -1168,6 +1201,11 @@
      "MAGIC_3",
      "MAGIC_4",
      "MAGIC_END"
+    ],
+    "freezing_thrust": [
+     "S03_FREEZE_THRUST_1",
+     "S03_FREEZE_THRUST_2",
+     "S03_FREEZE_THRUST_3"
     ]
    },
    "looks": [
@@ -1186,6 +1224,146 @@
     {
      "file": "Eltlinde_F00",
      "variant": 3
+    }
+   ]
+  },
+  "feather_bow": {
+   "code": "FEATHER_BOW",
+   "file": "FeatherBow_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "sonic_shaft": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3"
+    ],
+    "toxic_bolt": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "arrow_rain": [
+     "S04_ARROW_RAIN_1",
+     "S04_ARROW_RAIN_2",
+     "S05_ARROW_RAIN_3"
+    ]
+   },
+   "looks": [
+    {
+     "file": "FeatherBow_F",
+     "variant": 0
+    },
+    {
+     "file": "FeatherBow_F",
+     "variant": 1
+    }
+   ]
+  },
+  "feather_shield": {
+   "code": "FEATHER_SHIELD",
+   "file": "FeatherShield_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "shield_bash": [
+     "ATTACK_A"
+    ],
+    "defender": [
+     "ATTACK_B"
+    ]
+   },
+   "looks": [
+    {
+     "file": "FeatherShield_M",
+     "variant": 0
+    },
+    {
+     "file": "FeatherShield_M",
+     "variant": 1
     }
    ]
   },
@@ -1893,6 +2071,11 @@
     "sting": [
      "ATTACK_A1",
      "ATTACK_A2_TO_IDLE"
+    ],
+    "true_thrust": [
+     "S03_TRUE_THRUST_1",
+     "S03_TRUE_THRUST_2",
+     "S03_TRUE_THRUST_3"
     ]
    },
    "looks": [
@@ -2058,6 +2241,11 @@
      "ATTACK_B_2",
      "ATTACK_B_IDLE2",
      "ATTACK_B_END2"
+    ],
+    "arrow_rain": [
+     "S01_ARROW_RAIN_1",
+     "S01_ARROW_RAIN_2",
+     "S02_ARROW_RAIN_3"
     ]
    },
    "looks": [
@@ -2340,6 +2528,11 @@
     "greatshield": [
      "ATTACK_C1",
      "ATTACK_C2_TO_IDLE"
+    ],
+    "true_thrust": [
+     "S03_TRUE_THRUST_1",
+     "S03_TRUE_THRUST_2",
+     "S03_TRUE_THRUST_3"
     ]
    },
    "looks": [
@@ -2449,6 +2642,58 @@
     {
      "file": "Lord_M",
      "variant": 3
+    }
+   ]
+  },
+  "necromancer": {
+   "code": "NECROMANCER",
+   "file": "Necromancer_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "innocent_ray": [
+     "MAGIC_A_SKELETON_1",
+     "MAGIC_A_SKELETON_2",
+     "MAGIC_A_SKELETON_3",
+     "MAGIC_A_SKELETON_4",
+     "MAGIC_A_SKELETON_5",
+     "MAGIC_A_SKELETON_6"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Necromancer_M",
+     "variant": 0
     }
    ]
   },
@@ -3245,7 +3490,11 @@
      "S04_PASSIVE_CURSE_5"
     ],
     "offensive_curse": [
-     "ATTACK"
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
     ]
    },
    "looks": [
@@ -3326,6 +3575,11 @@
      "ATTACK_1",
      "ATTACK_2",
      "ATTACK_END"
+    ],
+    "arrow_rain": [
+     "S05_ARROW_RAIN_1",
+     "S05_ARROW_RAIN_2",
+     "S06_ARROW_RAIN_3"
     ]
    },
    "looks": [
@@ -3408,6 +3662,11 @@
      "ATTACK_C",
      "ATTACK_C_IDLE",
      "ATTACK_C_END"
+    ],
+    "arrow_rain": [
+     "S01_ARROW_RAIN_1",
+     "S01_ARROW_RAIN_2",
+     "S02_ARROW_RAIN_3"
     ]
    },
    "looks": [
@@ -3490,6 +3749,11 @@
      "ATTACK_B3"
     ],
     "glacial_rain": [
+     "S05_ARROW_RAIN_1",
+     "S05_ARROW_RAIN_2",
+     "S06_ARROW_RAIN_3"
+    ],
+    "arrow_rain": [
      "S05_ARROW_RAIN_1",
      "S05_ARROW_RAIN_2",
      "S06_ARROW_RAIN_3"
@@ -4397,6 +4661,12 @@
     ],
     "assaulting_blow": [
      "ATTACK_C"
+    ],
+    "ground_strike": [
+     "S03_GROUND_STRIKE_1",
+     "S03_GROUND_STRIKE_2",
+     "S03_GROUND_STRIKE_3",
+     "S03_GROUND_STRIKE_4"
     ]
    },
    "looks": [
@@ -5118,6 +5388,22 @@
     "HIT_A"
    ]
   },
+  "aerial_pursuit_strike": {
+   "kind": "melee",
+   "internal": "CHASE_WING",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "aerial_shift_buff": {
+   "kind": "support",
+   "internal": "AERIAL_SHIFT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "aerial_smite": {
    "kind": "ranged",
    "internal": "AERIAL_SMITE",
@@ -5137,11 +5423,11 @@
    ]
   },
   "animated_dead": {
-   "kind": "magic",
+   "kind": "support",
    "internal": "ANIMATE_DEAD",
    "cast": [],
    "hit": [
-    "HIT_A_MAGIC"
+    "STATUS_UP_A"
    ],
    "out": "ANIMATE_DEAD_OUT"
   },
@@ -5254,6 +5540,22 @@
     "STATUS_UP_A"
    ]
   },
+  "banishing_counter_strike": {
+   "kind": "ranged",
+   "internal": "VANISH_COUNTER",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "banishing_pursuit_strike": {
+   "kind": "ranged",
+   "internal": "VANISH_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "banishing_smite": {
    "kind": "melee",
    "internal": "VANISH_SMITE",
@@ -5286,6 +5588,14 @@
     "HIT_A"
    ]
   },
+  "bears_den_buff": {
+   "kind": "support",
+   "internal": "BEAR_CATHSH",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "beastslayer": {
    "kind": "melee",
    "internal": "BEAST_SLAY",
@@ -5305,18 +5615,25 @@
   "blizzard": {
    "kind": "magic",
    "internal": "MAGIC_BLIZZARD",
-   "cast": [],
+   "cast": [
+    "BLIZZARD"
+   ],
    "hit": [
     "HIT_A_MAGIC"
-   ]
+   ],
+   "out": "BLIZZARD_OUT"
   },
   "boon_of_the_faeries_heal": {
    "kind": "heal",
    "internal": "PROTECTION_OF_SPIRIT",
-   "cast": [],
+   "cast": [
+    "PROTECTION_B",
+    "PROTECTION_C"
+   ],
    "hit": [
     "HEAL_HIT_01"
-   ]
+   ],
+   "out": "PROTECTION_OUT"
   },
   "brandish": {
    "kind": "melee",
@@ -5348,9 +5665,11 @@
   "bulwark": {
    "kind": "support",
    "internal": "GREAT_WALL",
-   "cast": [],
+   "cast": [
+    "WALL"
+   ],
    "hit": [
-    "STATUS_UP_A"
+    "WALL_HIT"
    ]
   },
   "burning_edge": {
@@ -5380,11 +5699,13 @@
    ]
   },
   "chaos_unending": {
-   "kind": "ranged",
+   "kind": "support",
    "internal": "ENDLESS_CHAOS",
-   "cast": [],
+   "cast": [
+    "CHAOS"
+   ],
    "hit": [
-    "HIT_C"
+    "STATUS_UP_A"
    ]
   },
   "checkmate": {
@@ -5404,13 +5725,21 @@
    ]
   },
   "compounding_curse": {
-   "kind": "ranged",
+   "kind": "support",
    "internal": "CURSE_HAZARD",
    "cast": [
     "CURSEHAZARD"
    ],
    "hit": [
-    "HIT_C"
+    "STATUS_UP_A"
+   ]
+  },
+  "counter_strike": {
+   "kind": "melee",
+   "internal": "COUNTER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "crush": {
@@ -5445,6 +5774,14 @@
     "HIT_A"
    ]
   },
+  "daemonic_pact_pact": {
+   "kind": "support",
+   "internal": "DEMON_TRADE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "dark_armor": {
    "kind": "support",
    "internal": "DARK_ARMOR",
@@ -5467,6 +5804,14 @@
   "dark_mist": {
    "kind": "support",
    "internal": "DARK_MIST",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "dawn_horn_buff": {
+   "kind": "support",
+   "internal": "DAWN_HORN",
    "cast": [],
    "hit": [
     "STATUS_UP_A"
@@ -5507,11 +5852,11 @@
    ]
   },
   "defensive_curse": {
-   "kind": "ranged",
+   "kind": "support",
    "internal": "DEFENCE_CURSE",
    "cast": [],
    "hit": [
-    "HIT_C"
+    "STATUS_UP_A"
    ]
   },
   "defensive_order": {
@@ -5615,7 +5960,9 @@
   "earthshaker": {
    "kind": "ranged",
    "internal": "EARTH_STAMP",
-   "cast": [],
+   "cast": [
+    "EARTHSTOMP"
+   ],
    "hit": [
     "HIT_C"
    ]
@@ -5674,6 +6021,14 @@
     "HEAL_HIT_01"
    ]
   },
+  "eye_of_the_warrior_princess_curse": {
+   "kind": "support",
+   "internal": "SEKIGAN_SENKI",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "faerie_heal": {
    "kind": "heal",
    "internal": "FAIRY_HEAL",
@@ -5716,6 +6071,16 @@
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "fire_burst_strike": {
+   "kind": "magic",
+   "internal": "FIRE_BURST",
+   "cast": [
+    "FIREBURST"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
    ]
   },
   "fire_curse": {
@@ -5785,6 +6150,14 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "first_aid_heal": {
+   "kind": "heal",
+   "internal": "FIRST_AID",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
    ]
   },
   "flame_arrow": {
@@ -5923,12 +6296,30 @@
     "HIT_A"
    ]
   },
+  "ground_punisher_strike": {
+   "kind": "ranged",
+   "internal": "GROUND_PUNISHER",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "ground_strike": {
    "kind": "melee",
    "internal": "GROUND_STRIKE",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "guard_hunter_strike": {
+   "kind": "magic",
+   "internal": "GUARD_HUNT",
+   "cast": [
+    "GUARDHUNT"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
    ]
   },
   "hache": {
@@ -5942,6 +6333,46 @@
   "harpoon_bolt": {
    "kind": "ranged",
    "internal": "HARPOON_BOLT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "hastened_action_buff": {
+   "kind": "support",
+   "internal": "QUICK_MOVE_III",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "hastened_cast_buff": {
+   "kind": "support",
+   "internal": "FAST_CAST",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "hastened_curse_curse": {
+   "kind": "support",
+   "internal": "FAST_CURSE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "hastened_heal_heal": {
+   "kind": "heal",
+   "internal": "FAST_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "hastened_shatter_strike": {
+   "kind": "ranged",
+   "internal": "FAST_BREAK",
    "cast": [],
    "hit": [
     "HIT_C"
@@ -5971,6 +6402,14 @@
    "cast": [],
    "hit": [
     "HEAL_HIT_01"
+   ]
+  },
+  "healing_hunter_strike": {
+   "kind": "melee",
+   "internal": "HEAL_HUNT",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "healing_pursuit_heal": {
@@ -6039,6 +6478,14 @@
     "HIT_C"
    ]
   },
+  "holy_breath_heal": {
+   "kind": "heal",
+   "internal": "HOLY_BLESS",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
   "holy_cradle": {
    "kind": "support",
    "internal": "HOLY_CRADLE",
@@ -6072,6 +6519,14 @@
    "cast": [],
    "hit": [
     "HEAL_HIT_01"
+   ]
+  },
+  "honed_shield_buff": {
+   "kind": "support",
+   "internal": "SHIELD_ENHANCE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "honed_slash": {
@@ -6231,6 +6686,14 @@
     "HIT_C"
    ]
   },
+  "judgment_strike": {
+   "kind": "ranged",
+   "internal": "JUDGMENT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "keen_edge": {
    "kind": "melee",
    "internal": "SHARP_EDGE",
@@ -6295,6 +6758,24 @@
     "HIT_A"
    ]
   },
+  "lifesaver_heal": {
+   "kind": "heal",
+   "internal": "LIFE_SAVE",
+   "cast": [
+    "LIFESAVE"
+   ],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "lifeshare_gift": {
+   "kind": "support",
+   "internal": "LIFE_DIVIDE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "lightning_blade": {
    "kind": "magic",
    "internal": "LIGHTNING_SWORD",
@@ -6345,6 +6826,16 @@
     "HIT_A_MAGIC"
    ]
   },
+  "magick_burst_strike": {
+   "kind": "magic",
+   "internal": "MAGIC_BURST",
+   "cast": [
+    "MAGICBURST"
+   ],
+   "hit": [
+    "MAGICBURST_HIT"
+   ]
+  },
   "magick_counter_strike": {
    "kind": "magic",
    "internal": "COUNTER_MAGIC",
@@ -6391,10 +6882,13 @@
   "magick_wall": {
    "kind": "support",
    "internal": "MAGIC_WALL",
-   "cast": [],
+   "cast": [
+    "MAGICBARRIER"
+   ],
    "hit": [
-    "STATUS_UP_A"
-   ]
+    "MAGICBARRIER_HIT"
+   ],
+   "out": "MAGICBARRIER_OUT"
   },
   "maidens_hammer_strike": {
    "kind": "melee",
@@ -6402,6 +6896,14 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "medical_aid_heal": {
+   "kind": "heal",
+   "internal": "MEDICAL_AID",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
    ]
   },
   "memento_mori": {
@@ -6487,11 +6989,11 @@
    ]
   },
   "offensive_curse": {
-   "kind": "ranged",
+   "kind": "support",
    "internal": "OFFENCE_CURSE",
    "cast": [],
    "hit": [
-    "HIT_C"
+    "STATUS_UP_A"
    ]
   },
   "offensive_order": {
@@ -6508,6 +7010,16 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "ominous_wall_buff": {
+   "kind": "support",
+   "internal": "OMINOUS_WALL",
+   "cast": [
+    "OMINOUS_WALL"
+   ],
+   "hit": [
+    "OMINOUS_WALL_HIT"
    ]
   },
   "overheal": {
@@ -6542,6 +7054,16 @@
     "HIT_A"
    ]
   },
+  "parting_resurrection_revive": {
+   "kind": "support",
+   "internal": "END_RESURRECT",
+   "cast": [
+    "RESURRECT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "passive_absorb": {
    "kind": "support",
    "internal": "PASSIVE_ABSORB",
@@ -6551,20 +7073,22 @@
    ]
   },
   "passive_curse": {
-   "kind": "ranged",
+   "kind": "support",
    "internal": "PASSIVE_CURSE",
    "cast": [],
    "hit": [
-    "HIT_C"
-   ]
+    "PASSIVE_HIT"
+   ],
+   "out": "PASSIVE_OUT"
   },
   "passive_hold": {
    "kind": "melee",
    "internal": "PASSIVE_HOLD",
    "cast": [],
    "hit": [
-    "HIT_A"
-   ]
+    "PASSIVE_HIT"
+   ],
+   "out": "PASSIVE_OUT"
   },
   "passive_miracle_heal": {
    "kind": "heal",
@@ -6589,8 +7113,9 @@
    "internal": "PASSIVE_BREAK_L",
    "cast": [],
    "hit": [
-    "HIT_A"
-   ]
+    "PASSIVE_HIT"
+   ],
+   "out": "PASSIVE_OUT"
   },
   "passive_steal": {
    "kind": "melee",
@@ -6610,12 +7135,38 @@
     "HIT_A"
    ]
   },
+  "phalanx_shift_buff": {
+   "kind": "support",
+   "internal": "PHALANX_SHIFT",
+   "cast": [
+    "PHALANX"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "phantom_attack": {
    "kind": "magic",
    "internal": "PHANTOM_WEAPON",
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "phantom_counter_strike": {
+   "kind": "melee",
+   "internal": "PHANTOM_EDGE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "phantom_kick_strike": {
+   "kind": "ranged",
+   "internal": "PHANTOM_KICK",
+   "cast": [],
+   "hit": [
+    "HIT_C"
    ]
   },
   "phantom_veil": {
@@ -6658,6 +7209,16 @@
     "HIT_C"
    ]
   },
+  "poison_burst_strike": {
+   "kind": "magic",
+   "internal": "POISON_BURST",
+   "cast": [
+    "POISONBURST"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
   "poison_curse": {
    "kind": "ranged",
    "internal": "POISON_CURSE",
@@ -6676,6 +7237,14 @@
     "HIT_A"
    ]
   },
+  "poison_touch_curse": {
+   "kind": "support",
+   "internal": "POISON_TOUCH",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "power_bolt": {
    "kind": "ranged",
    "internal": "POWER_BOLT",
@@ -6690,6 +7259,14 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "preemptive_heal_heal": {
+   "kind": "heal",
+   "internal": "BEFORE_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
    ]
   },
   "primus_edge": {
@@ -6708,12 +7285,28 @@
     "HIT_A"
    ]
   },
+  "provoking_strike_strike": {
+   "kind": "melee",
+   "internal": "HATE_STRIKE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "pursuit_strike": {
    "kind": "melee",
    "internal": "CHASE",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "quick_action_buff": {
+   "kind": "support",
+   "internal": "QUICK_MOVE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "quick_heal_heal": {
@@ -6756,6 +7349,14 @@
     "HIT_A"
    ]
   },
+  "rapid_shot_strike": {
+   "kind": "ranged",
+   "internal": "RAPID_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "reincarnation": {
    "kind": "support",
    "internal": "REINCARNATION",
@@ -6764,10 +7365,20 @@
     "STATUS_UP_A"
    ]
   },
+  "relic_heal_heal": {
+   "kind": "heal",
+   "internal": "RELIC_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
   "resurrection": {
    "kind": "support",
    "internal": "RESURRECTION",
-   "cast": [],
+   "cast": [
+    "RESURRECT"
+   ],
    "hit": [
     "STATUS_UP_A"
    ]
@@ -6877,11 +7488,11 @@
    ]
   },
   "sanguine_attack": {
-   "kind": "heal",
+   "kind": "melee",
    "internal": "BLOOD_WEAPON",
    "cast": [],
    "hit": [
-    "HEAL_HIT_01"
+    "HIT_A"
    ]
   },
   "sanguine_darts": {
@@ -6894,6 +7505,14 @@
    "shot": {
     "anim": "BLOODDARTS"
    }
+  },
+  "sanguine_pursuit_strike": {
+   "kind": "ranged",
+   "internal": "BLOOD_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
   },
   "sanguine_rain": {
    "kind": "magic",
@@ -6960,6 +7579,14 @@
     "HIT_C"
    ]
   },
+  "shattering_pursuit_strike": {
+   "kind": "melee",
+   "internal": "CRACK_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "shield_bash": {
    "kind": "melee",
    "internal": "SHIELD_BASH",
@@ -6974,6 +7601,16 @@
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "shining_light_curse": {
+   "kind": "support",
+   "internal": "SHINING",
+   "cast": [
+    "SHINING"
+   ],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "single_shot": {
@@ -7112,7 +7749,7 @@
    "internal": "POWER_BREAK_2",
    "cast": [],
    "hit": [
-    "HIT_A"
+    "POWER_BREAK_HIT"
    ]
   },
   "sylphic_wind": {
@@ -7121,6 +7758,16 @@
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "tailwind_buff": {
+   "kind": "support",
+   "internal": "FOLLOW_WIND",
+   "cast": [
+    "FOLLOWWIND"
+   ],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "tempest_drive": {
@@ -7224,6 +7871,24 @@
     "HIT_A"
    ]
   },
+  "vanitas_strike": {
+   "kind": "magic",
+   "internal": "VANITAS",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "vanquish_strike": {
+   "kind": "ranged",
+   "internal": "VANQUISH_DOWN",
+   "cast": [
+    "VANQUISHDOWN"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "vengeance_strike": {
    "kind": "support",
    "internal": "REVENGER",
@@ -7262,6 +7927,16 @@
     "HIT_A"
    ],
    "out": "VENOMTHRUST_OUT"
+  },
+  "venom_touch_curse": {
+   "kind": "support",
+   "internal": "VENOM_TOUCH",
+   "cast": [
+    "VENOMTOUCH"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
   },
   "vertical_edge": {
    "kind": "melee",
@@ -7341,6 +8016,14 @@
     "HIT_A"
    ]
   },
+  "wide_pursuit_strike": {
+   "kind": "melee",
+   "internal": "WIDE_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "wide_smash": {
    "kind": "melee",
    "internal": "WIDE_SMASH",
@@ -7381,6 +8064,14 @@
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "wolf_pack_buff": {
+   "kind": "support",
+   "internal": "WOLF_PACK",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "wyrmcleave": {
@@ -10247,22 +10938,6 @@
    }
   },
   "skill_animations": {
-   "active_heal": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "active_shatter": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "active_steal": {
     "animation": "rogue__active_steal",
     "tags": [],
@@ -10273,46 +10948,6 @@
    },
    "aerial_smite": {
     "animation": "gryphon_master__aerial_smite",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "armor_shatter": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "armor_shatter_ii": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "arrow_rain": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "artenie_strike": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "assassins_nail": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10343,14 +10978,6 @@
     "trajectory": null,
     "rain": null
    },
-   "banishing_smite": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "banishing_stab": {
     "animation": "prince__banishing_stab",
     "tags": [],
@@ -10375,22 +11002,6 @@
     "trajectory": null,
     "rain": null
    },
-   "beastslayer": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "blizzard": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "brandish": {
     "animation": "valkyria__brandish",
     "tags": [],
@@ -10407,22 +11018,6 @@
     "trajectory": null,
     "rain": null
    },
-   "checkmate": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "circle_heal": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "compounding_curse": {
     "animation": "druid__offensive_curse",
     "tags": [],
@@ -10431,24 +11026,8 @@
     "trajectory": null,
     "rain": null
    },
-   "crush": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "curing_call": {
     "animation": "high_priestess__curing_call",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "cursed_strike": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10495,30 +11074,6 @@
     "trajectory": null,
     "rain": null
    },
-   "demolition": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "desperation": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "dispel_all": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "divine_cross": {
     "animation": "paladin__divine_cross",
     "tags": [],
@@ -10535,40 +11090,8 @@
     "trajectory": null,
     "rain": null
    },
-   "double_blast": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "double_heal": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "dragoon_dive": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "dual_shot": {
     "animation": "hunter__dual_shot",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "earthquake": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10585,22 +11108,6 @@
    },
    "elemental_roar": {
     "animation": "elven_augur__primus_edge",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "elfslayer": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "execution": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10647,56 +11154,8 @@
     "trajectory": null,
     "rain": null
    },
-   "fire_curse": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "fire_slash": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "fireball": {
     "animation": "warlock__fireball",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "firestorm": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "flame_arrow": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "flame_javelin": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "freezing_thrust": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10711,24 +11170,8 @@
     "trajectory": null,
     "rain": null
    },
-   "glowing_light": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "grand_smash": {
     "animation": "berserker__grand_smash",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "gravity": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10743,40 +11186,8 @@
     "trajectory": null,
     "rain": null
    },
-   "grisly_fire": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "grisly_poison": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "ground_strike": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "hache": {
     "animation": "radiant_knight__hache",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "harpoon_bolt": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10823,24 +11234,8 @@
     "trajectory": null,
     "rain": null
    },
-   "holy_cradle": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "holy_light": {
     "animation": "high_priestess__holy_light",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "holy_smite": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10879,40 +11274,8 @@
     "trajectory": null,
     "rain": null
    },
-   "icestorm": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "icicle_arrow": {
     "animation": "elven_archer__icicle_arrow",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "icicle_dart": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "icy_blow": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "icy_crush": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10975,40 +11338,8 @@
     "trajectory": null,
     "rain": null
    },
-   "leaping_slash": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "lethal_venom": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "lightning_blade": {
     "animation": "elven_fencer__lightning_blade",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "lightning_shaker": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "limited_heal": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -11023,32 +11354,8 @@
     "trajectory": null,
     "rain": null
    },
-   "magick_attack": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "magick_missile": {
     "animation": "sorceress__magick_missile",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "magick_shatter": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "magick_wall": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -11127,14 +11434,6 @@
     "trajectory": null,
     "rain": null
    },
-   "painful_smash": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "passive_curse": {
     "animation": "druid__passive_curse",
     "tags": [],
@@ -11145,22 +11444,6 @@
    },
    "passive_hold": {
     "animation": "werefox__passive_hold",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "passive_shatter": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "passive_shatter_spear": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -11183,22 +11466,6 @@
     "trajectory": null,
     "rain": null
    },
-   "phantom_attack": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "phantom_veil": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "piercing_lance": {
     "animation": "werefox__piercing_lance",
     "tags": [],
@@ -11215,30 +11482,6 @@
     "trajectory": null,
     "rain": null
    },
-   "poison_arrow": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "poison_curse": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "poison_slash": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "power_bolt": {
     "animation": "attack_1",
     "tags": [],
@@ -11247,56 +11490,8 @@
     "trajectory": null,
     "rain": null
    },
-   "powerful_impact": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "primus_edge": {
     "animation": "elven_augur__primus_edge",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "provoking_slash": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "radiant_heal": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "rampage": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "reincarnation": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "resurrection": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -11367,46 +11562,6 @@
     "trajectory": null,
     "rain": null
    },
-   "sandstorm": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "sanguine_attack": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "sanguine_rain": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "shadow_arrow": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "shadow_thrust": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "shadowbite": {
     "animation": "rogue__shadowbite",
     "tags": [],
@@ -11455,32 +11610,8 @@
     "trajectory": null,
     "rain": null
    },
-   "sonic_blast": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "sonic_shaft": {
     "animation": "snow_ranger__sonic_shaft",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "spiked_blow": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "spiked_bolt": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -11511,22 +11642,6 @@
     "trajectory": null,
     "rain": null
    },
-   "strength_shatter": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "strength_shatter_ii": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "sylphic_wind": {
     "animation": "elven_augur__primus_edge",
     "tags": [],
@@ -11551,14 +11666,6 @@
     "trajectory": null,
     "rain": null
    },
-   "thunderous_thrust": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "toxic_bolt": {
     "animation": "attack_2",
     "tags": [],
@@ -11569,30 +11676,6 @@
    },
    "toxic_throw": {
     "animation": "rogue__toxic_throw",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "trinity_rain": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "triple_shatter": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "true_thrust": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -11633,14 +11716,6 @@
    },
    "volcano": {
     "animation": "warlock__volcano",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "wall": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],

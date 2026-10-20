@@ -152,5 +152,40 @@ class TrackTimeTests(unittest.TestCase):
         self.assertEqual(p.track_item(0, 15).morph_frame, -1)           # 0x800 — только конец трека
 
 
+class ChargeSceneTests(unittest.TestCase):
+    def test_charge_declaration_and_release_are_both_scheduled(self):
+        from game.combat.record import SKIP
+        db = plain_db()
+        add_skill(db, "slam", ["knight"], ap_cost=1, tags=["melee"], parts=[part(power=0.1)], extras={"charge": True})
+        tmp = Path(tempfile.mkdtemp()) / "uo_battle.json"
+        tmp.write_text(json.dumps({"skills": {"slam": {"kind": "melee", "cast": [], "hit": ["HIT_A"]}}}),
+                       encoding="utf-8")
+        sim, knight, orc = duel(db, "knight", "orc")
+        only(db, knight, "slam")
+        battle = Battle(sim.attacker, sim.defender, db, seed=1)
+        timeline = Timeline()
+        director = Director(ShowData(tmp), battle, timeline)
+        declared = released = None
+        while declared is None or released is None:
+            battle.step()
+            act = battle.last_act
+            if act.kind == SKIP and act.reason == "charge" and declared is None:
+                declared = act
+                self.assertGreater(director.act(act, 0), 0)              # подготовка не ломает расписание
+            elif act.kind == ACTIVE and act.actor == knight.uid and released is None:
+                released = act
+                self.assertGreater(director.act(act, 1000), 1000)
+            self.assertFalse(battle.finished and (declared is None or released is None))
+        self.assertLess(declared.round + 0, released.round + 1)
+
+
+class BattleDataTests(unittest.TestCase):
+    def test_every_skill_has_a_show_entry(self):
+        from game.database import Database
+        config = json.loads((Path(__file__).resolve().parent.parent / "data" / "uo_battle.json").read_text(encoding="utf-8"))
+        missing = sorted(set(Database.load().skills) - set(config["skills"]))
+        self.assertEqual(missing, [], "запустите python tools/uo_battle/build.py")
+
+
 if __name__ == "__main__":
     unittest.main()
