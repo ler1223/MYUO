@@ -217,7 +217,8 @@ class SkillExtras:
     dispel — метки эффектов (buff, debuff), снимаемых с задетых; hit_ap / hit_pp — применяющему за попадание;
     kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла;
     revive / revive_pct — навык воскрешает павшего союзника (доля макс. HP; 0 — одно HP);
-    deathblow_hp / deathblow_effect — смертельный удар по цели с малым HP или с эффектом."""
+    deathblow_hp / deathblow_effect — смертельный удар по цели с малым HP или с эффектом;
+    give_hp, spread_effect, hit_label — см. поля ниже."""
 
     unguardable: bool = False
     unguardable_vs: tuple[str, ...] = ()
@@ -247,6 +248,11 @@ class SkillExtras:
     # или на ней висит эффект deathblow_effect. Носителей тега immune_deathblow он не берёт.
     deathblow_hp: float = 0.0
     deathblow_effect: str = ""
+    # give_hp — отдать цели долю текущего HP применяющего; spread_effect — навык бьёт по всем врагам, если на
+    # цели висит этот эффект; hit_label — hit_ap / hit_pp даются только за попадание по цели с такой меткой.
+    give_hp: float = 0.0
+    spread_effect: str = ""
+    hit_label: str = ""
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "SkillExtras":

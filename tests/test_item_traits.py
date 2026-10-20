@@ -104,5 +104,19 @@ class DeathblowTests(unittest.TestCase):
         self.assertTrue(self.strike(("fire_charm",)).is_alive)
 
 
+class ImmunityTests(unittest.TestCase):
+    def test_permanent_immunity_tag_blocks_the_state(self):
+        from game.combat.record import ACTIVE, Act
+        db = plain_db()
+        db.update("effects", "poison", {"name": "poison", "tags": ["ailment", "debuff", "poison"]})
+        db.update("tags", "immune_poison", {"name": "immune poison", "kind": "unit"})
+        with_charm(db, tags=["immune_poison"])
+        sim, goblin, knight = fight(db, "goblin", "knight", equipment=((), ("fire_charm",)))
+        act = Act(ACTIVE, goblin.uid, "x")
+        self.assertIsNone(sim._give(knight, "poison", goblin, act))
+        self.assertFalse(knight.has_effect("poison"))
+        self.assertIsNotNone(sim._give(goblin, "poison", knight, act))
+
+
 if __name__ == "__main__":
     unittest.main()

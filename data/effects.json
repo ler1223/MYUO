@@ -1718,5 +1718,823 @@
     "stack_rule": "REFRESH",
     "max_stacks": 1,
     "triggers": []
+  },
+  "uo_immune_stun_guard_rate_p20": {
+    "name": "UO immune_stun_guard_rate_p20",
+    "modifiers": [
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [
+      "immune_stun"
+    ],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_guard_rate_p100_nullify_pierce": {
+    "name": "UO guard_rate_p100_nullify_pierce",
+    "modifiers": [
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 100
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [
+      "nullify_pierce"
+    ],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_initiative_p30_phys_def_p40pct_guard_rate_p40": {
+    "name": "UO initiative_p30_phys_def_p40pct_guard_rate_p40",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 30
+      },
+      {
+        "stat": "phys_def",
+        "op": "PERCENT_ADD",
+        "value": 0.4
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 40
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_atk_mag_atk_p50pct": {
+    "name": "UO phys_atk_mag_atk_p50pct",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_atk_p20pct": {
+    "name": "UO phys_atk_p20pct",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_initiative_p15_t1": {
+    "name": "UO initiative_p15_t1",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 15
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 1,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_initiative_p1000_t1": {
+    "name": "UO initiative_p1000_t1",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 1000
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": 1,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_evade_2": {
+    "name": "UO evade_2",
+    "modifiers": [],
+    "flags": [
+      "evade"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 2,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_initiative_m30": {
+    "name": "UO initiative_m30",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": -30
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_atk_mag_atk_m20pct_initiative_m10": {
+    "name": "UO phys_atk_mag_atk_m20pct_initiative_m10",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.2
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.2
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": -10
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_immune_stun": {
+    "name": "UO immune_stun",
+    "modifiers": [],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [
+      "immune_stun"
+    ],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_guard_rate_p20": {
+    "name": "UO guard_rate_p20",
+    "modifiers": [
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_crit_rate_p20": {
+    "name": "UO crit_rate_p20",
+    "modifiers": [
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_accuracy_p20": {
+    "name": "UO accuracy_p20",
+    "modifiers": [
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_def_mag_def_p50pct": {
+    "name": "UO phys_def_mag_def_p50pct",
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      },
+      {
+        "stat": "mag_def",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_crit_rate_p50": {
+    "name": "UO crit_rate_p50",
+    "modifiers": [
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 50
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_guard_rate_p50": {
+    "name": "UO guard_rate_p50",
+    "modifiers": [
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 50
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_def_m50pct": {
+    "name": "UO phys_def_m50pct",
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "PERCENT_ADD",
+        "value": -0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_mag_atk_p20pct": {
+    "name": "UO mag_atk_p20pct",
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_crit_rate_p20_crit_damage_p20_stack": {
+    "name": "UO crit_rate_p20_crit_damage_p20_stack",
+    "modifiers": [
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "crit_damage",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 5,
+    "triggers": []
+  },
+  "uo_initiative_p10_stack": {
+    "name": "UO initiative_p10_stack",
+    "modifiers": [
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 5,
+    "triggers": []
+  },
+  "uo_next_phys_atk_mag_atk_p20pct": {
+    "name": "UO next_phys_atk_mag_atk_p20pct",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_free_action": {
+    "name": "UO free_action",
+    "modifiers": [],
+    "flags": [
+      "free_action"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_atk_mag_atk_m25pct": {
+    "name": "UO phys_atk_mag_atk_m25pct",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.25
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.25
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_crit_rate_p40": {
+    "name": "UO crit_rate_p40",
+    "modifiers": [
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 40
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_def_m25pct": {
+    "name": "UO phys_def_m25pct",
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "PERCENT_ADD",
+        "value": -0.25
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_reflect_magic": {
+    "name": "UO reflect_magic",
+    "modifiers": [],
+    "flags": [
+      "reflect:magical"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_atk_mag_atk_m50pct": {
+    "name": "UO phys_atk_mag_atk_m50pct",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.5
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": -0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "debuff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_mag_atk_p50pct": {
+    "name": "UO next_mag_atk_p50pct",
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_phys_atk_p30pct": {
+    "name": "UO next_phys_atk_p30pct",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.3
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50": {
+    "name": "UO next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.3
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.3
+      },
+      {
+        "stat": "crit_damage",
+        "op": "FLAT",
+        "value": 50
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 50
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [
+      {
+        "add_tags": [],
+        "power_mult": 1.0,
+        "add_scaling": [],
+        "accuracy_add": 0,
+        "crit_add": 0,
+        "skill_tag": null
+      }
+    ],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_phys_atk_mag_atk_p20pct_initiative_p10_stack": {
+    "name": "UO phys_atk_mag_atk_p20pct_initiative_p10_stack",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      },
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 5,
+    "triggers": []
+  },
+  "uo_phys_atk_p20pct_crit_damage_p30_stack": {
+    "name": "UO phys_atk_p20pct_crit_damage_p30_stack",
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 0.2
+      },
+      {
+        "stat": "crit_damage",
+        "op": "FLAT",
+        "value": 30
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "STACK",
+    "max_stacks": 5,
+    "triggers": []
+  },
+  "uo_evasion_p25": {
+    "name": "UO evasion_p25",
+    "modifiers": [
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
   }
 }

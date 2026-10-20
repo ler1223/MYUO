@@ -36,8 +36,9 @@ ON_EFFECT_APPLIED = "effect_applied"
 ON_EFFECT_EXPIRED = "effect_expired"  # кончилась длительность или заряды, или эффект сняли
 ON_SKILL_USED = "skill_used"
 ON_BEFORE_SKILL = "before_skill"    # фаза «до»: юнит вот-вот применит активный навык (subject = он сам)
+ON_PASSIVE_USED = "passive_used"    # сработала пассивка (subject = её владелец)
 EVENTS = (ON_BATTLE_START, ON_BATTLE_END, ON_ROUND_START, ON_ROUND_END, ON_TURN_START, ON_TURN_END, ON_TARGETED, ON_ATTACKED,
-          ON_HP_BELOW, ON_HEALED, ON_DIED, ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED, ON_SKILL_USED, ON_BEFORE_SKILL)
+          ON_HP_BELOW, ON_HEALED, ON_DIED, ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED, ON_SKILL_USED, ON_BEFORE_SKILL, ON_PASSIVE_USED)
 EVENTS_WITHOUT_SUBJECT = (ON_BATTLE_START, ON_BATTLE_END, ON_ROUND_START, ON_ROUND_END)
 ATTACK_EVENTS = (ON_TARGETED, ON_ATTACKED, ON_BEFORE_SKILL, ON_SKILL_USED)   # фильтры по тегам атаки и области
 EFFECT_EVENTS = (ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED)
@@ -66,8 +67,11 @@ DO_RESTORE_AP = "restore_ap"
 DO_RESTORE_PP = "restore_pp"
 DO_COVER = "cover"      # только для targeted: удар по союзникам переходит на владельца
 DO_DISPEL = "dispel"    # снять все эффекты с меткой label (buff, debuff, ailment)
+DO_REPEAT_SKILL = "repeat_skill"          # только skill_used: применить тот же навык ещё раз
+DO_REFLECT_DEBUFFS = "reflect_debuffs"    # снять дебаффы с владельца и наложить их получателю
+DO_TIERED = "tiered"    # ступени: label считает юнитов, then[i] выполняется, если их не меньше i + 1
 ACTIONS = (DO_USE_SKILL, DO_APPLY_EFFECT, DO_REMOVE_EFFECT, DO_DAMAGE, DO_HEAL, DO_RESTORE_AP, DO_RESTORE_PP,
-           DO_COVER, DO_DISPEL)
+           DO_COVER, DO_DISPEL, DO_REPEAT_SKILL, DO_REFLECT_DEBUFFS, DO_TIERED)
 AMOUNT_ACTIONS = (DO_DAMAGE, DO_HEAL, DO_RESTORE_AP, DO_RESTORE_PP)
 EFFECT_ACTIONS = (DO_APPLY_EFFECT, DO_REMOVE_EFFECT)
 
@@ -80,8 +84,9 @@ TO_TARGET = "target"        # основная цель навыка из соб
 TO_ALLIES = "allies"        # союзники владельца, кроме него самого
 TO_ENEMIES = "enemies"
 TO_EVERYONE = "everyone"    # все, кроме владельца
+TO_SIDE = "side"            # весь свой отряд, включая владельца
 ROLES = (TO_OWNER, TO_SUBJECT, TO_ACTOR, TO_TARGET, TO_SOURCE)
-GROUPS = (TO_ALLIES, TO_ENEMIES, TO_EVERYONE)
+GROUPS = (TO_ALLIES, TO_ENEMIES, TO_EVERYONE, TO_SIDE)
 TARGETS = ROLES + GROUPS
 
 # Как часто может срабатывать (кроме цены в PP).
@@ -173,6 +178,10 @@ class Reaction:
             if reaction.skill_id is None:
                 raise ValueError("action use_skill needs a skill")
             # навык применяется к одному: роли из события или первому живому из группы (по строю)
+        if reaction.action == DO_REPEAT_SKILL and reaction.event != ON_SKILL_USED:
+            raise ValueError("action repeat_skill works only on the 'skill_used' event")
+        if reaction.action == DO_TIERED and (not reaction.label or not reaction.then):
+            raise ValueError("action tiered needs a counting rule (label) and steps (then)")
         if reaction.action in EFFECT_ACTIONS and reaction.effect_id is None:
             raise ValueError(f"action {reaction.action!r} needs an effect")
         if reaction.action == DO_DISPEL and reaction.label is None:
@@ -206,10 +215,13 @@ class Reaction:
     def step_dict(self) -> dict[str, Any]:
         """Дополнительное действие в данных: только поля действия."""
         keep = ("action", "skill_id", "effect_id", "amount", "percent", "label", "to", "to_area")
-        full = self.to_dict()
+        full = self._base_dict()
         defaults = {"skill_id": None, "effect_id": None, "amount": 0, "percent": False, "label": None,
                     "to_area": None}
-        return {k: full[k] for k in keep if k in ("action", "to") or full[k] != defaults.get(k)}
+        data = {k: full[k] for k in keep if k in ("action", "to") or full[k] != defaults.get(k)}
+        if not isinstance(self.self_condition, Always):         # условие на владельца: шаг выполняется, только если оно верно
+            data["self_condition"] = full["self_condition"]
+        return data
 
     def to_dict(self) -> dict[str, Any]:
         data = self._base_dict()

@@ -64,6 +64,20 @@ class HpAbove:
 
 
 @dataclass(frozen=True)
+class IsDay:
+    """Сейчас день (Battle.time_of_day; у юнита вне боя — день)."""
+
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return candidate.time_of_day == "day"
+
+
+@dataclass(frozen=True)
+class IsNight:
+    def check(self, actor: "Unit", candidate: "Unit") -> bool:
+        return candidate.time_of_day == "night"
+
+
+@dataclass(frozen=True)
 class HasLabel:
     """Есть эффект с меткой (buff, debuff, ailment)."""
     PARAMS: ClassVar[dict[str, str]] = {"label": "label"}
@@ -154,6 +168,8 @@ CONDITIONS: dict[str, Callable[..., ICondition]] = {
     "always": Always,
     "hp_below": HpBelow,
     "hp_above": HpAbove,
+    "is_day": IsDay,
+    "is_night": IsNight,
     "has_label": HasLabel,
     "has_flag": HasFlag,
     "lacks_effect": LacksEffect,

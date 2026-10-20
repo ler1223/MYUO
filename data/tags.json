@@ -168,5 +168,10 @@
     "name": "Immune to deathblow",
     "kind": "unit",
     "unblockable": false
+  },
+  "nullify_pierce": {
+    "name": "Nullifies piercing strikes",
+    "kind": "unit",
+    "unblockable": false
   }
 }

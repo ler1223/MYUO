@@ -35,9 +35,9 @@
   "passive": 219,
   "game": 437,
   "wiki_only": 0,
-  "implemented": 326,
+  "implemented": 435,
   "present": 437,
-  "stubs": 111,
+  "stubs": 2,
   "no_effects": 0,
   "missing": 0
  },
@@ -13722,10 +13722,10 @@
     "present": true,
     "kind": "passive",
     "id": "abyssal_miasma",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -13907,10 +13907,10 @@
     "present": true,
     "kind": "passive",
     "id": "advance_cover",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -13960,10 +13960,10 @@
     "present": true,
     "kind": "passive",
     "id": "aerial_alignment",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14061,10 +14061,10 @@
     "present": true,
     "kind": "passive",
     "id": "aerial_pursuit",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14114,10 +14114,10 @@
     "present": true,
     "kind": "passive",
     "id": "aerial_shift",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14231,10 +14231,10 @@
     "present": true,
     "kind": "passive",
     "id": "aerial_wing",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14410,10 +14410,10 @@
     "present": true,
     "kind": "passive",
     "id": "banishing_counter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14463,10 +14463,10 @@
     "present": true,
     "kind": "passive",
     "id": "banishing_pursuit",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14516,10 +14516,10 @@
     "present": true,
     "kind": "passive",
     "id": "bears_den",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14842,10 +14842,10 @@
     "present": true,
     "kind": "passive",
     "id": "blade_dance",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -14895,10 +14895,10 @@
     "present": true,
     "kind": "passive",
     "id": "blind_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15153,10 +15153,10 @@
     "present": true,
     "kind": "passive",
     "id": "bunker_stance",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15579,10 +15579,10 @@
     "present": true,
     "kind": "passive",
     "id": "counter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15699,10 +15699,10 @@
     "present": true,
     "kind": "passive",
     "id": "cursed_gaol",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15752,10 +15752,10 @@
     "present": true,
     "kind": "passive",
     "id": "cursed_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15889,10 +15889,10 @@
     "present": true,
     "kind": "passive",
     "id": "daemonic_pact",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15940,10 +15940,10 @@
     "present": true,
     "kind": "passive",
     "id": "dark_conferral",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -15989,10 +15989,10 @@
     "present": true,
     "kind": "passive",
     "id": "dark_step",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -16038,10 +16038,10 @@
     "present": true,
     "kind": "passive",
     "id": "darkness_armor",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -16091,10 +16091,10 @@
     "present": true,
     "kind": "passive",
     "id": "dawn_horn",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -16339,10 +16339,10 @@
     "present": true,
     "kind": "passive",
     "id": "diurnal_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -16527,10 +16527,10 @@
     "present": true,
     "kind": "passive",
     "id": "dynamic_glide",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -16744,10 +16744,10 @@
     "present": true,
     "kind": "passive",
     "id": "enduring_cover",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17050,10 +17050,10 @@
     "present": true,
     "kind": "passive",
     "id": "evil_cover",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17101,10 +17101,10 @@
     "present": true,
     "kind": "passive",
     "id": "eye_of_the_warrior_princess",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17219,10 +17219,10 @@
     "present": true,
     "kind": "passive",
     "id": "fire_burst",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17272,10 +17272,10 @@
     "present": true,
     "kind": "passive",
     "id": "fire_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17418,10 +17418,10 @@
     "present": true,
     "kind": "passive",
     "id": "flame_conferral",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17611,10 +17611,10 @@
     "present": true,
     "kind": "passive",
     "id": "freeze_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17731,10 +17731,10 @@
     "present": true,
     "kind": "passive",
     "id": "grant_evade",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17782,10 +17782,10 @@
     "present": true,
     "kind": "passive",
     "id": "grave_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -17902,10 +17902,10 @@
     "present": true,
     "kind": "passive",
     "id": "ground_punisher",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18020,10 +18020,10 @@
     "present": true,
     "kind": "passive",
     "id": "guard_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18071,10 +18071,10 @@
     "present": true,
     "kind": "passive",
     "id": "guard_hunter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18258,10 +18258,10 @@
     "present": true,
     "kind": "passive",
     "id": "guarding_fighter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18309,10 +18309,10 @@
     "present": true,
     "kind": "passive",
     "id": "guarding_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18362,10 +18362,10 @@
     "present": true,
     "kind": "passive",
     "id": "hastened_action",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18413,10 +18413,10 @@
     "present": true,
     "kind": "passive",
     "id": "hastened_cast",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18571,10 +18571,10 @@
     "present": true,
     "kind": "passive",
     "id": "hastened_curse",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18622,10 +18622,10 @@
     "present": true,
     "kind": "passive",
     "id": "hastened_heal",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18675,10 +18675,10 @@
     "present": true,
     "kind": "passive",
     "id": "hastened_shatter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -18886,10 +18886,10 @@
     "present": true,
     "kind": "passive",
     "id": "healing_cover",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19044,10 +19044,10 @@
     "present": true,
     "kind": "passive",
     "id": "heavy_alignment",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19393,10 +19393,10 @@
     "present": true,
     "kind": "passive",
     "id": "holy_breath",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19515,10 +19515,10 @@
     "present": true,
     "kind": "passive",
     "id": "honed_shield",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19568,10 +19568,10 @@
     "present": true,
     "kind": "passive",
     "id": "ice_conferral",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19621,10 +19621,10 @@
     "present": true,
     "kind": "passive",
     "id": "impetus_stance",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19670,10 +19670,10 @@
     "present": true,
     "kind": "passive",
     "id": "inner_balance",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19723,10 +19723,10 @@
     "present": true,
     "kind": "passive",
     "id": "inspiration",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19774,10 +19774,10 @@
     "present": true,
     "kind": "passive",
     "id": "invincible",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -19894,10 +19894,10 @@
     "present": true,
     "kind": "passive",
     "id": "judgment",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -20291,10 +20291,10 @@
     "present": true,
     "kind": "passive",
     "id": "lifeshare",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -20486,10 +20486,10 @@
     "present": true,
     "kind": "passive",
     "id": "magick_burst",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -20630,10 +20630,10 @@
     "present": true,
     "kind": "passive",
     "id": "magick_conversion",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -20821,10 +20821,10 @@
     "present": true,
     "kind": "passive",
     "id": "magick_shell",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21012,10 +21012,10 @@
     "present": true,
     "kind": "passive",
     "id": "mighty_shield",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21061,10 +21061,10 @@
     "present": true,
     "kind": "passive",
     "id": "mirror_weakness",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21112,10 +21112,10 @@
     "present": true,
     "kind": "passive",
     "id": "nimble_fighter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21349,10 +21349,10 @@
     "present": true,
     "kind": "passive",
     "id": "nocturnal_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21536,10 +21536,10 @@
     "present": true,
     "kind": "passive",
     "id": "ominous_wall",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21587,10 +21587,10 @@
     "present": true,
     "kind": "passive",
     "id": "painbringer",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21867,10 +21867,10 @@
     "present": true,
     "kind": "passive",
     "id": "party_aid",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21920,10 +21920,10 @@
     "present": true,
     "kind": "passive",
     "id": "passive_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -21971,10 +21971,10 @@
     "present": true,
     "kind": "passive",
     "id": "passive_gift",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22093,10 +22093,10 @@
     "present": true,
     "kind": "passive",
     "id": "phalanx_shift",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22142,10 +22142,10 @@
     "present": true,
     "kind": "passive",
     "id": "phantom_counter",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22193,10 +22193,10 @@
     "present": true,
     "kind": "passive",
     "id": "phantom_kick",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22244,10 +22244,10 @@
     "present": true,
     "kind": "passive",
     "id": "phantom_step",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22297,10 +22297,10 @@
     "present": true,
     "kind": "passive",
     "id": "poison_burst",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22350,10 +22350,10 @@
     "present": true,
     "kind": "passive",
     "id": "poison_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22399,10 +22399,10 @@
     "present": true,
     "kind": "passive",
     "id": "poison_touch",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22452,10 +22452,10 @@
     "present": true,
     "kind": "passive",
     "id": "powerful_call",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22503,10 +22503,10 @@
     "present": true,
     "kind": "passive",
     "id": "preemptive_heal",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22556,10 +22556,10 @@
     "present": true,
     "kind": "passive",
     "id": "protection",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22677,10 +22677,10 @@
     "present": true,
     "kind": "passive",
     "id": "provoking_strike",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22730,10 +22730,10 @@
     "present": true,
     "kind": "passive",
     "id": "provoking_wall",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22924,10 +22924,10 @@
     "present": true,
     "kind": "passive",
     "id": "quick_action",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -22978,10 +22978,10 @@
     "present": true,
     "kind": "passive",
     "id": "quick_barrier",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -23513,10 +23513,10 @@
     "present": true,
     "kind": "passive",
     "id": "quick_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -23849,10 +23849,10 @@
     "present": true,
     "kind": "passive",
     "id": "rapid_shot",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -23900,10 +23900,10 @@
     "present": true,
     "kind": "passive",
     "id": "recast",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -23951,10 +23951,10 @@
     "present": true,
     "kind": "passive",
     "id": "reflect_magick",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24073,10 +24073,10 @@
     "present": true,
     "kind": "passive",
     "id": "reheal",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24126,10 +24126,10 @@
     "present": true,
     "kind": "passive",
     "id": "reinforce",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24179,10 +24179,10 @@
     "present": true,
     "kind": "passive",
     "id": "relic_heal",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24555,10 +24555,10 @@
     "present": true,
     "kind": "passive",
     "id": "sacred_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24606,10 +24606,10 @@
     "present": true,
     "kind": "passive",
     "id": "sacrifice",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24795,10 +24795,10 @@
     "present": true,
     "kind": "passive",
     "id": "sanguine_conferral",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24846,10 +24846,10 @@
     "present": true,
     "kind": "passive",
     "id": "sanguine_pursuit",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24897,10 +24897,10 @@
     "present": true,
     "kind": "passive",
     "id": "scornful_dead",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -24950,10 +24950,10 @@
     "present": true,
     "kind": "passive",
     "id": "self_care",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25133,10 +25133,10 @@
     "present": true,
     "kind": "passive",
     "id": "shattering_pursuit",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25184,10 +25184,10 @@
     "present": true,
     "kind": "passive",
     "id": "shining_light",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25442,10 +25442,10 @@
     "present": true,
     "kind": "passive",
     "id": "sorcerous_connection",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25495,10 +25495,10 @@
     "present": true,
     "kind": "passive",
     "id": "stun_cure",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25568,10 +25568,10 @@
     "present": true,
     "kind": "passive",
     "id": "sylphic_barrier",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25619,10 +25619,10 @@
     "present": true,
     "kind": "passive",
     "id": "tailwind",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25672,10 +25672,10 @@
     "present": true,
     "kind": "passive",
     "id": "thunderous_conferral",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25725,10 +25725,10 @@
     "present": true,
     "kind": "passive",
     "id": "toughness",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25841,10 +25841,10 @@
     "present": true,
     "kind": "passive",
     "id": "undead_wall",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -25959,10 +25959,10 @@
     "present": true,
     "kind": "passive",
     "id": "united_front",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26010,10 +26010,10 @@
     "present": true,
     "kind": "passive",
     "id": "vanitas",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26061,10 +26061,10 @@
     "present": true,
     "kind": "passive",
     "id": "vanquish",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26250,10 +26250,10 @@
     "present": true,
     "kind": "passive",
     "id": "vengeful_impetus",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26301,10 +26301,10 @@
     "present": true,
     "kind": "passive",
     "id": "venom_touch",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26352,10 +26352,10 @@
     "present": true,
     "kind": "passive",
     "id": "war_cry",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26612,10 +26612,10 @@
     "present": true,
     "kind": "passive",
     "id": "wide_inspiration",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26663,10 +26663,10 @@
     "present": true,
     "kind": "passive",
     "id": "wide_pursuit",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   },
   {
@@ -26854,10 +26854,10 @@
     "present": true,
     "kind": "passive",
     "id": "wolf_pack",
-    "stub": true,
+    "stub": false,
     "parts": 0,
-    "has_effect": false,
-    "status": "stub"
+    "has_effect": true,
+    "status": "implemented"
    }
   }
  ]

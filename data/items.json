@@ -10243,7 +10243,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "enduring_cover"
+    ],
     "tags": [
       "greatshield"
     ],
@@ -10947,7 +10949,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "lifeshare"
+    ],
     "tags": [
       "greatshield"
     ],
@@ -10986,7 +10990,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "bunker_stance"
+    ],
     "tags": [
       "greatshield",
       "immune_stun"
@@ -11026,7 +11032,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "reflect_magick"
+    ],
     "tags": [
       "greatshield"
     ],
@@ -11193,7 +11201,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "invincible"
+    ],
     "tags": [
       "greatshield"
     ],
@@ -11232,7 +11242,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "provoking_wall"
+    ],
     "tags": [
       "greatshield"
     ],
@@ -12619,7 +12631,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "grave_impetus"
+    ],
     "tags": [
       "immune_poison",
       "immune_deathblow"
@@ -12660,7 +12674,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "vanitas"
+    ],
     "tags": [
       "immune_poison",
       "immune_deathblow"
@@ -12734,7 +12750,9 @@
     "price": 80,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "quick_action"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12769,7 +12787,9 @@
     "price": 80,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "hastened_shatter"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12786,7 +12806,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "war_cry"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12808,7 +12830,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "honed_shield"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12825,7 +12849,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "impetus_stance"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12836,7 +12862,9 @@
     "price": 20,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "heavy_alignment"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12847,7 +12875,9 @@
     "price": 104,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "aerial_alignment"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12858,7 +12888,9 @@
     "price": 32,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "united_front"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12875,7 +12907,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "wolf_pack"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12892,7 +12926,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "bears_den"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12929,7 +12965,9 @@
     "price": 56,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "party_aid"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12976,7 +13014,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "quick_barrier"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -12993,7 +13033,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "mighty_shield"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13023,7 +13065,9 @@
     "price": 92,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "sylphic_barrier"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13034,7 +13078,9 @@
     "price": 92,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "grant_evade"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13051,7 +13097,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "flame_conferral"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13068,7 +13116,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "ice_conferral"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13085,7 +13135,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "thunderous_conferral"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13102,7 +13154,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "sanguine_conferral"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13113,7 +13167,9 @@
     "price": 44,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "reinforce"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13124,7 +13180,9 @@
     "price": 32,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "powerful_call"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13135,7 +13193,9 @@
     "price": 44,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "inspiration"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13157,7 +13217,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "wide_inspiration"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13168,7 +13230,9 @@
     "price": 32,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "sorcerous_connection"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13269,7 +13333,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "aerial_wing"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -13307,7 +13373,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "aerial_wing"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -13361,7 +13429,9 @@
     "price": 56,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "banishing_pursuit"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13372,7 +13442,9 @@
     "price": 68,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "wide_pursuit"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13415,7 +13487,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "counter"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -13538,7 +13612,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "banishing_counter"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13589,7 +13665,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "relic_heal"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13625,7 +13703,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "self_care"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13636,7 +13716,9 @@
     "price": 56,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "passive_gift"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13653,7 +13735,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "blade_dance"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13675,7 +13759,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "diurnal_impetus"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13697,7 +13783,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "nocturnal_impetus"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13719,7 +13807,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "toughness"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13808,7 +13898,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "phantom_step"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13835,7 +13927,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "dynamic_glide"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -13878,7 +13972,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "dynamic_glide"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -13911,7 +14007,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "magick_conversion"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -13933,7 +14031,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "nimble_fighter"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -14010,7 +14110,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "guarding_fighter"
+    ],
     "tags": [],
     "damage_tags": [],
     "classes": [
@@ -14087,7 +14189,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "vengeful_impetus"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -14104,7 +14208,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "guarding_impetus"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -14126,7 +14232,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "cursed_impetus"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -14200,7 +14308,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "poison_cure"
+    ],
     "tags": [
       "immune_poison"
     ],
@@ -14219,7 +14329,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "fire_cure"
+    ],
     "tags": [
       "immune_burn"
     ],
@@ -14238,7 +14350,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "freeze_cure"
+    ],
     "tags": [
       "immune_freeze"
     ],
@@ -14257,7 +14371,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "stun_cure"
+    ],
     "tags": [
       "immune_stun"
     ],
@@ -14276,7 +14392,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "blind_cure"
+    ],
     "tags": [
       "immune_blind"
     ],
@@ -14295,7 +14413,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "guard_cure"
+    ],
     "tags": [
       "immune_guard_seal"
     ],
@@ -14314,7 +14434,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "passive_cure"
+    ],
     "tags": [
       "immune_passive_seal"
     ],
@@ -14744,7 +14866,9 @@
     "price": 68,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "recast"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -14755,7 +14879,9 @@
     "price": 56,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "hastened_cast"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -14777,7 +14903,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "quick_impetus"
+    ],
     "tags": [],
     "damage_tags": [],
     "pp_bonus": 1
@@ -14800,7 +14928,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "quick_impetus"
+    ],
     "tags": [],
     "damage_tags": [],
     "pp_bonus": 1

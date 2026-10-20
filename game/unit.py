@@ -240,6 +240,7 @@ class Unit:
         self.ap = self._full_ap()
         self.pp = Resource(self.pp_max, self.pp_max)
         self.effects: list[ActiveEffect] = []
+        self.time_of_day = "day"                # время суток боя (game/combat/engine.py: Battle.time_of_day)
         self.tactics: TacticsSet = definition.tactics  # может быть заменён редактором
         # Тактики пассивок: id пассивки -> правила. Пусто — пассивка работает как задано в данных.
         self.passive_tactics: dict[str, TacticsSet] = {}

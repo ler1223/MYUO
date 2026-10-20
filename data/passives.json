@@ -3503,13 +3503,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "lifeshare_gift",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -3597,9 +3597,9 @@
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
-      "limit": "round",
-      "action": "restore_pp",
-      "skill_id": null,
+      "limit": "none",
+      "action": "use_skill",
+      "skill_id": "dawn_horn_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -3629,13 +3629,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "honed_shield_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "allies",
       "to_area": null,
       "cover_many": false
     }
@@ -3660,9 +3660,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_initiative_p30_phys_def_p40pct_guard_rate_p40",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -3691,15 +3691,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_phys_atk_mag_atk_p50pct",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_ap",
+          "amount": 1,
+          "to": "owner"
+        }
+      ]
     }
   },
   "war_cry": {
@@ -3722,9 +3729,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_phys_atk_p20pct",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -3753,9 +3760,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_negate_3",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -3784,9 +3791,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_negate_6",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -3846,13 +3853,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "quick_action_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "allies",
       "to_area": null,
       "cover_many": false
     }
@@ -3877,13 +3884,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "hastened_action_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "allies",
       "to_area": null,
       "cover_many": false
     }
@@ -3908,13 +3915,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "hastened_cast_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "allies",
       "to_area": null,
       "cover_many": false
     }
@@ -3939,15 +3946,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_taunt",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_negate_physical",
+          "to": "owner"
+        }
+      ]
     }
   },
   "scornful_dead": {
@@ -3970,15 +3984,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_taunt",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_evade_2",
+          "to": "owner"
+        }
+      ]
     }
   },
   "hastened_curse": {
@@ -4001,13 +4022,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "hastened_curse_curse",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4032,13 +4053,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "eye_of_the_warrior_princess_curse",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4063,8 +4084,8 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "ominous_wall_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -4094,15 +4115,35 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "tiered",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
+      "label": "ally:armored",
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_guard_rate_p20",
+          "to": "side",
+          "to_area": "row"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_immune_stun",
+          "to": "side",
+          "to_area": "row"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_phys_def_mag_def_p20pct",
+          "to": "side",
+          "to_area": "row"
+        }
+      ]
     }
   },
   "aerial_alignment": {
@@ -4125,15 +4166,35 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "tiered",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
+      "label": "ally:flying",
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_crit_rate_p20",
+          "to": "side",
+          "to_area": "row"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_accuracy_p20",
+          "to": "side",
+          "to_area": "row"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_phys_atk_mag_atk_p20pct",
+          "to": "side",
+          "to_area": "row"
+        }
+      ]
     }
   },
   "united_front": {
@@ -4156,15 +4217,32 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "tiered",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
+      "label": "surplus",
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_initiative_p30",
+          "to": "side"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_phys_def_mag_def_p50pct",
+          "to": "side"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_negate_5",
+          "to": "side"
+        }
+      ]
     }
   },
   "wolf_pack": {
@@ -4187,8 +4265,8 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "wolf_pack_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -4218,8 +4296,8 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "bears_den_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -4249,14 +4327,14 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_regen",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
-      "to_area": null,
+      "to": "side",
+      "to_area": "row",
       "cover_many": false
     }
   },
@@ -4280,8 +4358,8 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "hastened_heal_heal",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -4311,13 +4389,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "rapid_shot_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4342,13 +4420,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "hastened_shatter_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4373,13 +4451,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "provoking_strike_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4404,13 +4482,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "ground_punisher_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4435,13 +4513,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "fire_burst_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4466,13 +4544,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "poison_burst_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4497,13 +4575,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "judgment_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "enemies",
       "to_area": null,
       "cover_many": false
     }
@@ -4528,13 +4606,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "heal",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
-      "percent": false,
+      "amount": 25,
+      "percent": true,
       "label": null,
-      "to": "owner",
+      "to": "side",
       "to_area": null,
       "cover_many": false
     }
@@ -4559,8 +4637,8 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "daemonic_pact_pact",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -4590,15 +4668,25 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_mag_atk_p20pct",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_ap",
+          "amount": 1,
+          "to": "owner",
+          "self_condition": {
+            "type": "is_day"
+          }
+        }
+      ]
     }
   },
   "nocturnal_impetus": {
@@ -4621,23 +4709,33 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_mag_atk_p20pct",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_ap",
+          "amount": 1,
+          "to": "owner",
+          "self_condition": {
+            "type": "is_night"
+          }
+        }
+      ]
     }
   },
   "grave_impetus": {
     "name": "Grave Impetus",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "died",
+      "whose": "ally",
       "self_condition": {
         "type": "always"
       },
@@ -4652,10 +4750,10 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "restore_ap",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
+      "amount": 1,
       "percent": false,
       "label": null,
       "to": "owner",
@@ -4683,9 +4781,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_crit_rate_p20_crit_damage_p20_stack",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -4714,8 +4812,8 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "tailwind_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
@@ -4729,7 +4827,7 @@
     "name": "Recast",
     "pp_cost": 4,
     "reaction": {
-      "event": "battle_start",
+      "event": "skill_used",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -4738,14 +4836,16 @@
         "type": "always"
       },
       "area": null,
-      "attack_tags": [],
+      "attack_tags": [
+        "magical"
+      ],
       "skill_areas": [],
       "outcome": "any",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "repeat_skill",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
@@ -4776,15 +4876,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "dispel",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
+      "label": "debuff",
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_next_sure_crit",
+          "to": "owner"
+        }
+      ]
     }
   },
   "aerial_wing": {
@@ -4807,22 +4914,33 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_sure",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_next_phys_atk_mag_atk_p20pct",
+          "to": "owner",
+          "self_condition": {
+            "type": "hp_above",
+            "value": 1.0
+          }
+        }
+      ]
     }
   },
   "passive_gift": {
     "name": "Passive Gift",
     "pp_cost": 2,
     "reaction": {
-      "event": "skill_used",
+      "event": "passive_used",
       "whose": "ally",
       "self_condition": {
         "type": "always"
@@ -4841,10 +4959,10 @@
       "action": "restore_pp",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
+      "amount": 1,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -4869,13 +4987,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "restore_ap",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
+      "amount": 2,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -4900,13 +5018,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "counter_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -4931,13 +5049,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "vanitas_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -4962,13 +5080,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "banishing_counter_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -4993,13 +5111,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "phantom_counter_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5024,13 +5142,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "vanquish_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5055,13 +5173,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "magick_burst_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5086,13 +5204,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "phantom_kick_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5117,13 +5235,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "poison_touch_curse",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5148,13 +5266,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "venom_touch_curse",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5163,8 +5281,8 @@
     "name": "Phalanx Shift",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "attacked",
+      "whose": "ally",
       "self_condition": {
         "type": "always"
       },
@@ -5179,13 +5297,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "phalanx_shift_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -5194,8 +5312,8 @@
     "name": "Aerial Shift",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "attacked",
+      "whose": "ally",
       "self_condition": {
         "type": "always"
       },
@@ -5210,13 +5328,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "aerial_shift_buff",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -5241,12 +5359,12 @@
       "effect_label": "debuff",
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "dispel",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
+      "label": "debuff",
       "to": "owner",
       "to_area": null,
       "cover_many": false
@@ -5272,13 +5390,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "relic_heal_heal",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -5299,19 +5417,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_poison",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_poison",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "fire_cure": {
@@ -5330,19 +5456,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_burn",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_burn",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "freeze_cure": {
@@ -5361,19 +5495,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_freeze",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_freeze",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "stun_cure": {
@@ -5392,19 +5534,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_stun",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_stun",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "blind_cure": {
@@ -5423,19 +5573,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_blind",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_blind",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "guard_cure": {
@@ -5454,19 +5612,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_guard_seal",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_seal",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "passive_cure": {
@@ -5485,19 +5651,27 @@
       "attack_tags": [],
       "skill_areas": [],
       "outcome": "any",
-      "effect_filter": null,
-      "effect_label": "debuff",
+      "effect_filter": "uo_passive_seal",
+      "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "remove_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_passive_seal",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 10,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "sacred_cure": {
@@ -5520,15 +5694,23 @@
       "effect_label": "debuff",
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "dispel",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
-      "to": "owner",
-      "to_area": null,
-      "cover_many": false
+      "label": "debuff",
+      "to": "side",
+      "to_area": "row",
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_immune_debuff",
+          "to": "side",
+          "to_area": "row"
+        }
+      ]
     }
   },
   "abyssal_miasma": {
@@ -5551,15 +5733,22 @@
       "effect_label": "debuff",
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "dispel",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
-      "label": null,
+      "label": "debuff",
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_negate_one",
+          "to": "owner"
+        }
+      ]
     }
   },
   "cursed_impetus": {
@@ -5582,10 +5771,10 @@
       "effect_label": "debuff",
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "restore_ap",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
+      "amount": 1,
       "percent": false,
       "label": null,
       "to": "owner",
@@ -5613,13 +5802,13 @@
       "effect_label": "debuff",
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "reflect_debuffs",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5628,13 +5817,14 @@
     "name": "Aerial Pursuit",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "skill_used",
+      "whose": "ally",
       "self_condition": {
         "type": "always"
       },
       "subject_condition": {
-        "type": "always"
+        "type": "has_tag",
+        "tag": "flying"
       },
       "area": null,
       "attack_tags": [],
@@ -5644,13 +5834,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "aerial_pursuit_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "target",
       "to_area": null,
       "cover_many": false
     }
@@ -5675,13 +5865,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "banishing_pursuit_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "target",
       "to_area": null,
       "cover_many": false
     }
@@ -5706,13 +5896,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "wide_pursuit_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "target",
       "to_area": null,
       "cover_many": false
     }
@@ -5737,13 +5927,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "shattering_pursuit_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "target",
       "to_area": null,
       "cover_many": false
     }
@@ -5768,13 +5958,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "sanguine_pursuit_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "target",
       "to_area": null,
       "cover_many": false
     }
@@ -5845,8 +6035,8 @@
     "name": "Guard Hunter",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "attacked",
+      "whose": "enemy",
       "self_condition": {
         "type": "always"
       },
@@ -5856,18 +6046,18 @@
       "area": null,
       "attack_tags": [],
       "skill_areas": [],
-      "outcome": "any",
+      "outcome": "guarded",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "guard_hunter_strike",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -5876,8 +6066,8 @@
     "name": "Reflect Magick",
     "pp_cost": 2,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "before_skill",
+      "whose": "enemy",
       "self_condition": {
         "type": "always"
       },
@@ -5885,20 +6075,22 @@
         "type": "always"
       },
       "area": null,
-      "attack_tags": [],
+      "attack_tags": [
+        "magical"
+      ],
       "skill_areas": [],
       "outcome": "any",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_reflect_magic",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5923,15 +6115,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_phys_atk_mag_atk_m50pct",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_crit_seal",
+          "to": "actor"
+        }
+      ]
     }
   },
   "shining_light": {
@@ -5954,13 +6153,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "shining_light_curse",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "actor",
       "to_area": null,
       "cover_many": false
     }
@@ -5985,13 +6184,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "preemptive_heal_heal",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6016,13 +6215,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
-      "skill_id": null,
+      "action": "use_skill",
+      "skill_id": "holy_breath_heal",
       "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6031,8 +6230,8 @@
     "name": "Sorcerous Connection",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
-      "whose": "self",
+      "event": "before_skill",
+      "whose": "ally",
       "self_condition": {
         "type": "always"
       },
@@ -6040,22 +6239,31 @@
         "type": "always"
       },
       "area": null,
-      "attack_tags": [],
+      "attack_tags": [
+        "magical"
+      ],
       "skill_areas": [],
       "outcome": "any",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_mag_atk_p50pct",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_next_mag_atk_p50pct",
+          "to": "owner"
+        }
+      ]
     }
   },
   "powerful_call": {
@@ -6078,13 +6286,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_phys_atk_p30pct",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6109,13 +6317,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6140,14 +6348,14 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
-      "to_area": null,
+      "to": "side",
+      "to_area": "row",
       "cover_many": false
     }
   },
@@ -6171,13 +6379,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_free_action",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6204,13 +6412,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_evade_one",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6235,13 +6443,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_evade_one",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6266,13 +6474,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_medium",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6297,14 +6505,14 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_medium",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
-      "to_area": null,
+      "to": "side",
+      "to_area": "row",
       "cover_many": false
     }
   },
@@ -6328,13 +6536,13 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_negate_one",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
       "cover_many": false
     }
@@ -6390,15 +6598,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "cover",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_heavy",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_endure",
+          "to": "owner"
+        }
+      ]
     }
   },
   "healing_cover": {
@@ -6421,15 +6636,23 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "cover",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_medium",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 25,
+          "percent": true,
+          "to": "subject"
+        }
+      ]
     }
   },
   "advance_cover": {
@@ -6452,15 +6675,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "cover",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_medium",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_ap",
+          "amount": 1,
+          "to": "owner"
+        }
+      ]
     }
   },
   "evil_cover": {
@@ -6483,15 +6713,27 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "cover",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_guard_medium",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_pp",
+          "amount": -1,
+          "to": "subject"
+        },
+        {
+          "action": "restore_pp",
+          "amount": 1,
+          "to": "owner"
+        }
+      ]
     }
   },
   "sacrifice": {
@@ -6514,7 +6756,7 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "cover",
       "skill_id": null,
       "effect_id": null,
       "amount": 0,
@@ -6522,7 +6764,14 @@
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_pp",
+          "amount": 2,
+          "to": "owner"
+        }
+      ]
     }
   },
   "flame_conferral": {
@@ -6547,15 +6796,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_magic",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_burn",
+          "to": "target"
+        }
+      ]
     }
   },
   "ice_conferral": {
@@ -6580,15 +6836,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_magic",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_freeze",
+          "to": "target"
+        }
+      ]
     }
   },
   "thunderous_conferral": {
@@ -6613,15 +6876,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_magic",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_stun",
+          "to": "target"
+        }
+      ]
     }
   },
   "sanguine_conferral": {
@@ -6646,15 +6916,23 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_magic",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "heal",
+          "amount": 25,
+          "percent": true,
+          "to": "owner"
+        }
+      ]
     }
   },
   "dark_conferral": {
@@ -6679,15 +6957,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_next_magic",
       "amount": 0,
       "percent": false,
       "label": null,
-      "to": "owner",
+      "to": "subject",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_blind",
+          "to": "target"
+        }
+      ]
     }
   },
   "toughness": {
@@ -6710,9 +6995,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_endure",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -6741,15 +7026,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_phys_atk_mag_atk_p20pct_initiative_p10_stack",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_ap",
+          "amount": 1,
+          "to": "owner"
+        }
+      ]
     }
   },
   "nimble_fighter": {
@@ -6772,9 +7064,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_phys_atk_p20pct_crit_damage_p30_stack",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -6787,7 +7079,7 @@
     "name": "Guarding Fighter",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
+      "event": "attacked",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -6798,14 +7090,14 @@
       "area": null,
       "attack_tags": [],
       "skill_areas": [],
-      "outcome": "any",
+      "outcome": "guarded",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_phys_atk_p20pct_crit_damage_p30_stack",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -6834,10 +7126,10 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "restore_ap",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
+      "amount": 1,
       "percent": false,
       "label": null,
       "to": "owner",
@@ -6849,7 +7141,7 @@
     "name": "Guarding Impetus",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
+      "event": "attacked",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -6860,15 +7152,15 @@
       "area": null,
       "attack_tags": [],
       "skill_areas": [],
-      "outcome": "any",
+      "outcome": "guarded",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "restore_ap",
       "skill_id": null,
       "effect_id": null,
-      "amount": 0,
+      "amount": 1,
       "percent": false,
       "label": null,
       "to": "owner",
@@ -6898,15 +7190,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_negate_physical",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_initiative_p20",
+          "to": "owner"
+        }
+      ]
     }
   },
   "invincible": {
@@ -6929,9 +7228,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_negate_one",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -6960,9 +7259,9 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_evade_one",
       "amount": 0,
       "percent": false,
       "label": null,
@@ -6991,15 +7290,22 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_evade_one",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_phys_atk_p20pct",
+          "to": "owner"
+        }
+      ]
     }
   },
   "dark_step": {
@@ -7022,22 +7328,29 @@
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_evade_one",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "apply_effect",
+          "effect_id": "uo_evasion_p25",
+          "to": "owner"
+        }
+      ]
     }
   },
   "magick_conversion": {
     "name": "Magick Conversion",
     "pp_cost": 1,
     "reaction": {
-      "event": "battle_start",
+      "event": "targeted",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -7046,22 +7359,31 @@
         "type": "always"
       },
       "area": null,
-      "attack_tags": [],
+      "attack_tags": [
+        "magical"
+      ],
       "skill_areas": [],
       "outcome": "any",
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
       "limit": "none",
-      "action": "restore_pp",
+      "action": "apply_effect",
       "skill_id": null,
-      "effect_id": null,
+      "effect_id": "uo_negate_magic",
       "amount": 0,
       "percent": false,
       "label": null,
       "to": "owner",
       "to_area": null,
-      "cover_many": false
+      "cover_many": false,
+      "then": [
+        {
+          "action": "restore_pp",
+          "amount": 2,
+          "to": "owner"
+        }
+      ]
     }
   }
 }

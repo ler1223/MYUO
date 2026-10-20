@@ -57,9 +57,12 @@ from ..reactions import (
     DO_DAMAGE,
     DO_DISPEL,
     DO_HEAL,
+    DO_REFLECT_DEBUFFS,
     DO_REMOVE_EFFECT,
+    DO_REPEAT_SKILL,
     DO_RESTORE_AP,
     DO_RESTORE_PP,
+    DO_TIERED,
     DO_USE_SKILL,
     EFFECT_EVENTS,
     EVENTS_WITHOUT_SUBJECT,
@@ -69,6 +72,7 @@ from ..reactions import (
     ON_BATTLE_END,
     ON_BATTLE_START,
     ON_BEFORE_SKILL,
+    ON_PASSIVE_USED,
     ON_DIED,
     ON_EFFECT_APPLIED,
     ON_EFFECT_EXPIRED,
@@ -91,6 +95,7 @@ from ..reactions import (
     TO_ENEMIES,
     TO_EVERYONE,
     TO_OWNER,
+    TO_SIDE,
     TO_SOURCE,
     TO_SUBJECT,
     TO_TARGET,
@@ -101,7 +106,7 @@ from ..stats import Stat
 from ..tactics import Always, Frontmost
 from ..unit import Unit
 from . import rules
-from .field import Side, affected, default_order, pick_target, reachable
+from .field import PIERCE_AREAS, Side, affected, default_order, pick_target, reachable
 from .record import (
     ACTIVE,
     AFFLICTION,
@@ -162,7 +167,7 @@ class Battle:
 
     def __init__(self, attacker: Squad, defender: Squad, db: Database, seed: Optional[int] = None,
                  first_strike: Optional[str] = None, max_rounds: int = MAX_ROUNDS,
-                 passives_per_action: Optional[int] = None):
+                 passives_per_action: Optional[int] = None, time_of_day: str = "day"):
         self.db = db
         self.rng = random.Random(seed)
         self.attacker, self.defender = attacker, defender
@@ -192,6 +197,9 @@ class Battle:
         self._reaction_kind: Optional[str] = None     # counter / followup, пока идёт навык-ответ
         self._round_ended = True
         self._unblockable = frozenset(t for t, d in db.tags.items() if d.unblockable)
+        self.time_of_day = time_of_day if time_of_day in ("day", "night") else "day"
+        for unit in self.units.values():
+            unit.time_of_day = self.time_of_day
 
     # --- снаружи ---
 
@@ -303,7 +311,8 @@ class Battle:
         if not unit.is_alive or self._pending_end:
             act.kind, act.reason = SKIP, "died"
             return act
-        self._react(Moment(ON_BEFORE_SKILL, subject=unit, actor=unit, target=target, skill=skill), act.before)
+        self._react(Moment(ON_BEFORE_SKILL, subject=unit, actor=unit, target=target, skill=skill,
+                           attack_tags=self._attack(unit, skill)[0]), act.before)
         if not unit.is_alive:
             return act
         if not target.is_alive:              # цель пала до удара (ответ пассивкой): цель заново
@@ -312,7 +321,10 @@ class Battle:
                 return act
             skill, target = choice
             act.skill_id, act.target = skill.id, target.uid
-        unit.ap.spend(skill.ap_cost)
+        if unit.has_flag("free_action"):                   # «действие без AP» (Reinforce): AP не тратится
+            self._remove_flagged(unit, "free_action", act)
+        else:
+            unit.ap.spend(skill.ap_cost)
         unit.pp.spend(min(skill.pp_cost, unit.pp.current))
         self._acted = True
         self._resolve(unit, skill, target, act, root=True)
@@ -359,17 +371,25 @@ class Battle:
         tside = self.side_of(target)
         area = self.db.areas.get(skill.area) or self.db.areas.get("single")
         hit_list = [user] if skill.targets == "self" else affected(skill, area, target, tside)
+        if skill.extras.spread_effect and skill.targets == "enemy" and target.has_effect(skill.extras.spread_effect):
+            hit_list = tside.alive()                  # цель в таком состоянии (горит, отравлена) — бьём по всем
         if skill.extras.revive and not target.is_alive:
             self._revive(user, target, skill, act)
             hit_list = [target]           # воскрешение — только по павшей цели
         tags, mods = self._attack(user, skill)
         attack = rules.Attack(user, skill, tags, [m for _, m in mods])
         hostile = skill.targets == "enemy"
+        reflected = hostile and "magical" in tags and user.has_flag("reflect:magical")
+        if reflected:                                      # Reflect Magick: заклинание бьёт по самому колдуну,
+            self._remove_flagged(user, "reflect:magical", act)    # а пассивки до и после удара не срабатывают
+            hit_list, covers_off = [user], True
+        else:
+            covers_off = False
         if skill.extras.hp_cost:
             self._lose_hp(user, max(0, min(user.hp - 1, round(user.max_hp * skill.extras.hp_cost))), user, skill.id, act)
         # до удара: прикрыть, блок, уклонение (у врагов цели и у неё самой)
         covers: dict[int, Unit] = {}
-        if hostile:
+        if hostile and not covers_off:
             for unit in list(hit_list):
                 moment = Moment(ON_TARGETED, subject=unit, actor=user, target=target, skill=skill, attack_tags=tags)
                 protector = self._cover(moment, act, hit_list)
@@ -432,7 +452,7 @@ class Battle:
         self._after_hit(user, skill, target, hit_units, killed, act)
         for unit in killed:
             self._die(unit, act)
-        if not root:
+        if not root or covers_off:
             return
         # ответы после: на удар по себе и союзникам, на применение навыка
         for unit in hit_list:
@@ -518,10 +538,13 @@ class Battle:
             if forced:
                 self._remove_flagged(unit, f"guard:{forced}", act)
         negate = self._tag_flag(unit, "negate", attack.tags)
+        if negate is None and skill.area in PIERCE_AREAS and "nullify_pierce" in unit.tags:
+            negate = "nullify_pierce"              # тег от эффекта/предмета: пронзающие удары не наносят урона
         amount = 0 if negate else rules.damage(attack, unit, self.db.rules, strike.crit, guard_cut)
         if negate:
             strike.outcome = NEGATE
-            self._remove_flagged(unit, negate, act)
+            if negate != "nullify_pierce":
+                self._remove_flagged(unit, negate, act)
         if amount >= unit.hp and unit.has_flag("endure"):
             amount = max(0, unit.hp - 1)
             self._remove_flagged(unit, "endure", act)
@@ -540,9 +563,10 @@ class Battle:
         if extras.lifesteal and strike.damage and user.is_alive:
             drain = 1 + user.trait("drain_efficiency") / 100
             self._heal(user, round(strike.damage * extras.lifesteal * drain), user, skill.id, act)
-        if extras.hit_ap:
+        labelled = not extras.hit_label or any(extras.hit_label in e.definition.tags for e in unit.effects)
+        if extras.hit_ap and labelled:
             self._resource(user, "AP", extras.hit_ap, user, skill.id, act)
-        if extras.hit_pp:
+        if extras.hit_pp and labelled:
             self._resource(user, "PP", extras.hit_pp, user, skill.id, act)
         self._hp_below(unit, strike.damage, act)
 
@@ -581,6 +605,17 @@ class Battle:
                 self._resource(unit, "AP", skill.ap_restore, user, skill.id, act)
             if skill.pp_restore:
                 self._resource(unit, "PP", skill.pp_restore, user, skill.id, act)
+            if not any(p.kind == PART_DAMAGE for p in skill.parts) and (extras.hit_ap or extras.hit_pp) \
+                    and user.is_alive:
+                labelled = not extras.hit_label or any(extras.hit_label in e.definition.tags for e in unit.effects)
+                if labelled and extras.hit_ap:
+                    self._resource(user, "AP", extras.hit_ap, user, skill.id, act)
+                if labelled and extras.hit_pp:
+                    self._resource(user, "PP", extras.hit_pp, user, skill.id, act)
+            if extras.give_hp and unit is not user and user.is_alive:
+                gift = max(0, min(user.hp - 1, round(user.hp * extras.give_hp)))
+                self._lose_hp(user, gift, user, skill.id, act)
+                self._heal(unit, gift, user, skill.id, act)
             for label in extras.dispel:
                 self._dispel(unit, label, act)
             for name, amount in (("AP", extras.ap_drain), ("PP", extras.pp_drain)):
@@ -791,6 +826,8 @@ class Battle:
             units = self.other(own).alive()
         elif to == TO_EVERYONE:
             units = [u for side in self.sides for u in side.alive() if u is not owner]
+        elif to == TO_SIDE:
+            units = own.alive()
         else:
             return []
         if area is not None:                       # область вокруг владельца (на своей стороне — по его клетке)
@@ -847,7 +884,13 @@ class Battle:
             steps.append((reaction, skill, [chosen]))
         else:
             steps.append(self._step_plan(owner, origin, reaction, moment))
-        for extra in reaction.then:
+        if reaction.action == DO_TIERED:
+            steps = []                                 # главное действие — только счёт, работают ступени
+            count = self._count_for(owner, reaction.label or "")
+            extra_steps = reaction.then[:max(0, count)]
+        else:
+            extra_steps = reaction.then
+        for extra in extra_steps:
             steps.append(self._step_plan(owner, origin, extra, moment))
         steps = [s for s in steps if s[2]]
         if not steps:
@@ -867,15 +910,39 @@ class Battle:
             cause, source, stacks = origin.definition.id, self.units.get(origin.source) if origin.source else None, origin.stacks
         sub.targets = list(dict.fromkeys(t.uid for _, _, ts in steps for t in ts))
         self._run_steps(owner, steps, moment, sub, cause, source, stacks)
+        if passive:
+            self._react(Moment(ON_PASSIVE_USED, subject=owner, actor=owner), sub.after)
         return sub
+
+    def _count_for(self, owner: Unit, rule: str) -> int:
+        """Счёт для ступеней: ally:<тег> / enemy:<тег> — живые юниты стороны с тегом (свой отряд — с владельцем);
+        surplus — на сколько врагов больше, чем союзников."""
+        own = self.side_of(owner)
+        if rule == "surplus":
+            return len(self.other(own).alive()) - len(own.alive())
+        side_name, _, tag = rule.partition(":")
+        side = own if side_name == "ally" else self.other(own)
+        return sum(1 for u in side.alive() if tag in u.tags)
 
     def _step_plan(self, owner: Unit, origin, step: Reaction, moment: Moment
                    ) -> tuple[Reaction, Optional[SkillDefinition], list[Unit]]:
         """Кому достанется действие step (отфильтрованные: делать нечего — пустой список)."""
         action = step.action
+        if step is not None and not step.self_condition.check(owner, owner):
+            return step, None, []
         targets = self._recipients(owner, origin, step, moment)
         skill = None
-        if action == DO_USE_SKILL:
+        if action == DO_REPEAT_SKILL:
+            skill = moment.skill
+            target = moment.target if moment.target is not None and moment.target.is_alive else None
+            if target is None and skill is not None:
+                pool = reachable(skill, owner, self.side_of(owner), self.other(self.side_of(owner)))
+                target = pool[0] if pool else None
+            targets = [target] if skill is not None and owner.is_alive and target is not None else []
+        elif action == DO_REFLECT_DEBUFFS:
+            if not any("debuff" in e.definition.tags for e in owner.effects):
+                targets = []
+        elif action == DO_USE_SKILL:
             skill = self.db.skills.get(step.skill_id or "")
             target = self._skill_target(owner, skill, step, moment, targets) if skill and owner.is_alive else None
             targets = [target] if target is not None and skill.requires_self.check(owner, owner) \
@@ -895,15 +962,19 @@ class Battle:
             for target in targets:
                 if self.finished:
                     return
-                if not target.is_alive and action != DO_USE_SKILL:
+                if not target.is_alive and action not in (DO_USE_SKILL, DO_REPEAT_SKILL):
                     continue
-                if action == DO_USE_SKILL:
+                if action in (DO_USE_SKILL, DO_REPEAT_SKILL):
                     sub.skill_used, sub.target, sub.hits = skill.id, target.uid, skill.hits
                     self._reaction_kind = self._kind_of_response(owner, moment)
                     try:
                         self._resolve(owner, skill, target, sub, root=False)
                     finally:
                         self._reaction_kind = None
+                elif action == DO_REFLECT_DEBUFFS:
+                    for effect in [e for e in owner.effects if "debuff" in e.definition.tags]:
+                        self._expire(owner, effect, sub, "expire")
+                        self._give(target, effect.definition.id, owner, sub)
                 elif action == DO_APPLY_EFFECT:
                     self._give(target, step.effect_id, source, sub)
                 elif action == DO_REMOVE_EFFECT:
@@ -945,10 +1016,15 @@ class Battle:
         for unit in targets:
             if unit.is_alive and wanted.has(unit):
                 return unit
-        if reaction.to in (TO_ALLIES, TO_ENEMIES, TO_EVERYONE) or not targets:
+        if reaction.to in (TO_ALLIES, TO_ENEMIES, TO_EVERYONE, TO_SIDE) or not targets:
             pool = reachable(skill, owner, own, other)
             return default_order(owner, own, wanted, pool, self.rng)[0] if pool else None
         return None
+
+    @staticmethod
+    def _immune(unit: Unit, definition) -> bool:
+        """Постоянный иммунитет (тег immune_<метка> от предмета или эффекта): эффект не накладывается."""
+        return any(f"immune_{label}" in unit.tags for label in definition.tags)
 
     @staticmethod
     def _immunity(unit: Unit, definition) -> Optional[str]:
@@ -960,7 +1036,7 @@ class Battle:
         definition = self.db.effects.get(effect_id or "")
         if definition is None or not unit.is_alive:
             return False
-        if self._immunity(unit, definition) is not None:
+        if self._immune(unit, definition) or self._immunity(unit, definition) is not None:
             return False
         existing = next((e for e in unit.effects if e.definition.id == definition.id), None)
         return not (existing is not None and definition.stack_rule == StackRule.IGNORE)
@@ -969,6 +1045,8 @@ class Battle:
 
     def _give(self, unit: Unit, effect_id: Optional[str], source: Optional[Unit], act: Act) -> Optional[ActiveEffect]:
         definition = self.db.effects.get(effect_id or "")
+        if definition is not None and unit.is_alive and self._immune(unit, definition):
+            return None                                           # постоянный иммунитет: заряд не тратится
         immunity = self._immunity(unit, definition) if definition is not None and unit.is_alive else None
         if immunity is not None:
             self._remove_flagged(unit, immunity, act)             # ослабление отражено, заряд потрачен
