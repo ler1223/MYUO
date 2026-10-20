@@ -26,7 +26,7 @@
    "id": "data",
    "name": "Текущая реализация MYUO",
    "confidence": "implementation",
-   "detail": "data/items.json, data/skills.json, data/passives.json, data/units.json"
+   "detail": "data/items.json, data/skills.json (и пассивки), data/units.json"
   }
  ],
  "counts": {
@@ -7939,10 +7939,10 @@
       "value": 15
      }
     ],
-    "skills": [
+    "skills": [],
+    "passives": [
      "artenie_strike"
     ],
-    "passives": [],
     "item_passives": [],
     "tags": [
      "immune_poison"
@@ -7974,10 +7974,10 @@
       "value": 15
      }
     ],
-    "skills": [
+    "skills": [],
+    "passives": [
      "artenie_strike"
     ],
-    "passives": [],
     "tags": [
      "immune_poison"
     ]

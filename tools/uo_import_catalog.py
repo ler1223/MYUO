@@ -58,14 +58,17 @@ SKIP_BONUSES = {"ring_of_the_maiden"}           # та же сдвинутая �
 
 def is_stub_passive(passives: dict, pid: str) -> bool:
     """Пассивка-заглушка: реакция restore_pp без числа — ничего не делает, но тратит PP."""
-    reaction = passives[pid]["reaction"]
-    return reaction["action"] == "restore_pp" and not reaction.get("amount")
+    skill = passives[pid]
+    steps = skill.get("steps") or []
+    return (not skill.get("body") and skill.get("cover") is None and len(steps) == 1
+            and steps[0]["action"] == "restore_pp" and not steps[0].get("amount"))
 
 
 def main(write: bool) -> int:
     catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))["items"]
     items = json.loads(ITEMS_PATH.read_text(encoding="utf-8"))
-    passives = json.loads((BASE / "data" / "passives.json").read_text(encoding="utf-8"))
+    all_skills = json.loads((BASE / "data" / "skills.json").read_text(encoding="utf-8"))
+    passives = {k: v for k, v in all_skills.items() if v.get("kind") == "passive"}   # пассивки — навыки kind: passive
     cat_by_id = {i["id"]: i for i in catalog}
     cat_by_name = {uc.norm_name(i["name"]): i for i in catalog}
 

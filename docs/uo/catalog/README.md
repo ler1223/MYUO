@@ -158,7 +158,7 @@
 4. Сначала сверяйтесь с `implementation`: если `present: true`, в `data/items.json` уже есть
    предмет с этим `id`; сравните `implementation.modifiers`/`tier`/`price` с `suggested`.
 5. Для навыков `implementation` показывает, есть ли уже запись в `data/skills.json` или
-   `data/passives.json`; `status: "missing"` — надо добавлять, `stub` — реализация неполная.
+   `data/skills.json` (пассивки — навыки `kind: passive`); `status: "missing"` — надо добавлять, `stub` — реализация неполная.
 6. `game_variants` сохраняет оба игровых варианта (active/passive), даже если карточка одна.
 
 ## Известные пробелы

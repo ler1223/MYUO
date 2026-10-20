@@ -10,6 +10,7 @@
 Трогаются только пассивки, которые всё ещё заглушки; ручные правки остальных не теряются.
 Навыки-ответы называются <пассивка>_strike / _heal / _buff / _curse и имеют то же имя, что пассивка:
 по имени tools/uo_battle/build.py находит внутреннее имя навыка и его эффекты в файлах игры.
+УСТАРЕЛО после переноса пассивок в навыки: таблица применена, инструмент работает только со старым passives.json.
 Пассивки, которые движок ещё не умеет, перечислены в DEFERRED и остаются заглушками.
 """
 from __future__ import annotations
@@ -530,6 +531,10 @@ def build(kit: Kit, cat: dict) -> dict[str, tuple[dict, str | None]]:
 
 
 def main(write: bool, redo: bool = False) -> int:
+    if not (DATA / "passives.json").exists():
+        print("data/passives.json больше нет: пассивки — навыки kind: passive в data/skills.json "
+              "(docs/uo/ABILITIES_DESIGN.md). Таблица TABLE осталась как описание и применена к данным.")
+        return 1
     def load(name):
         raw = (DATA / name).read_text(encoding="utf-8")
         return json.loads(raw), (2 if raw.startswith('{\n  "') else 1), raw.endswith("\n")

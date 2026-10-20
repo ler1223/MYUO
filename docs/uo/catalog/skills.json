@@ -26,7 +26,7 @@
    "id": "data",
    "name": "Текущая реализация MYUO",
    "confidence": "implementation",
-   "detail": "data/items.json, data/skills.json, data/passives.json, data/units.json"
+   "detail": "data/items.json, data/skills.json (и пассивки), data/units.json"
   }
  ],
  "counts": {
@@ -14353,14 +14353,12 @@
    ],
    "implementation": {
     "present": true,
-    "kind": "skill",
+    "kind": "passive",
     "id": "artenie_strike",
     "stub": false,
-    "parts": 1,
+    "parts": 0,
     "has_effect": true,
-    "status": "implemented",
-    "ap_cost": 1,
-    "pp_cost": 0
+    "status": "implemented"
    }
   },
   {

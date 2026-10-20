@@ -1247,10 +1247,10 @@ def build_skills(game_skills: list[dict], class_skills: dict, item_entries: list
 
     # 5. Текущая реализация
     data_skills = json.loads((DATA / "skills.json").read_text(encoding="utf-8"))
-    data_passives = json.loads((DATA / "passives.json").read_text(encoding="utf-8"))
+    data_passives = {k: v for k, v in data_skills.items() if v.get("kind") == "passive"}   # пассивки — навыки
     for entry in by_key.values():
         key = entry["id"]
-        if key in data_skills:
+        if key in data_skills and key not in data_passives:
             value = data_skills[key]
             parts = len(value.get("parts", []))
             has_effect = bool(parts or value.get("applies") or value.get("ap_restore")
@@ -1265,9 +1265,10 @@ def build_skills(game_skills: list[dict], class_skills: dict, item_entries: list
             }
         elif key in data_passives:
             value = data_passives[key]
-            reaction = value.get("reaction") or {}
+            steps = value.get("steps") or []
             # заглушка: реакция «вернуть PP» без числа ничего не делает, но тратит PP пассивки
-            stub = reaction.get("action") == "restore_pp" and not reaction.get("amount")
+            stub = (not value.get("body") and value.get("cover") is None and len(steps) == 1
+                    and steps[0]["action"] == "restore_pp" and not steps[0].get("amount"))
             entry["implementation"] = {"present": True, "kind": "passive", "id": key,
                                        "stub": stub, "parts": 0, "has_effect": not stub,
                                        "status": "stub" if stub else "implemented"}
@@ -1494,7 +1495,7 @@ def source_manifest() -> list[dict]:
          "url": "https://gamefaqs.gamespot.com/switch/426397-unicorn-overlord/faqs/81216/item-tables",
          "detail": "колонка Equip Limits; страница закрыта Cloudflare, использованы доступные фрагменты"},
         {"id": "data", "name": "Текущая реализация MYUO", "confidence": "implementation",
-         "detail": "data/items.json, data/skills.json, data/passives.json, data/units.json"},
+         "detail": "data/items.json, data/skills.json (и пассивки), data/units.json"},
     ]
 
 
@@ -1705,7 +1706,7 @@ def write_readme(items: list[dict], skills: list[dict], game_items: list[dict], 
 4. Сначала сверяйтесь с `implementation`: если `present: true`, в `data/items.json` уже есть
    предмет с этим `id`; сравните `implementation.modifiers`/`tier`/`price` с `suggested`.
 5. Для навыков `implementation` показывает, есть ли уже запись в `data/skills.json` или
-   `data/passives.json`; `status: "missing"` — надо добавлять, `stub` — реализация неполная.
+   `data/skills.json` (пассивки — навыки `kind: passive`); `status: "missing"` — надо добавлять, `stub` — реализация неполная.
 6. `game_variants` сохраняет оба игровых варианта (active/passive), даже если карточка одна.
 
 ## Известные пробелы
