@@ -5090,6 +5090,24 @@
   }
  },
  "skills": {
+  "active_heal": {
+   "kind": "heal",
+   "internal": "ACT_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "active_shatter": {
+   "kind": "melee",
+   "internal": "ACTIVE_BREAK",
+   "cast": [
+    "ACTIVE_BREAK"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "active_steal": {
    "kind": "melee",
    "internal": "ACTIVE_STEAL",
@@ -5118,6 +5136,81 @@
     "HIT_A"
    ]
   },
+  "animated_dead": {
+   "kind": "magic",
+   "internal": "ANIMATE_DEAD",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ],
+   "out": "ANIMATE_DEAD_OUT"
+  },
+  "aqua_venom": {
+   "kind": "magic",
+   "internal": "AQUA_VENOM",
+   "cast": [
+    "AQUAVENOM"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ],
+   "out": "AQUAVENOM_OUT"
+  },
+  "armor_shatter": {
+   "kind": "melee",
+   "internal": "ARMER_BREAK",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "armor_shatter_ii": {
+   "kind": "melee",
+   "internal": "ARMER_BREAK_2",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "arrow_rain": {
+   "kind": "ranged",
+   "internal": "ARROW_RAIN",
+   "cast": [],
+   "hit": [
+    "ARROWRAIN_HIT_01",
+    "ARROWRAIN_HIT_02"
+   ],
+   "out": "ARROWRAIN_OUT",
+   "rain": {
+    "out": "ARROWRAIN_OUT",
+    "hit": [
+     "ARROWRAIN_HIT_01",
+     "ARROWRAIN_HIT_02"
+    ],
+    "speed": 80.0,
+    "start_x": 500.0,
+    "interval_x": 100.0,
+    "interval": 10.0,
+    "rand_from": 0.0,
+    "rand_to": 80.0
+   }
+  },
+  "artenie_strike": {
+   "kind": "melee",
+   "internal": "ARTENIE_STRIKE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "assassins_nail": {
+   "kind": "melee",
+   "internal": "ASSASSIN_NAIL",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "assaulting_blow": {
    "kind": "melee",
    "internal": "ASSULT_BLOW",
@@ -5130,6 +5223,17 @@
    "kind": "melee",
    "internal": "ASSULT_LANCE",
    "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "astral_blade": {
+   "kind": "melee",
+   "internal": "ASTRAL_BLADE",
+   "cast": [
+    "ASTRALBLADE_1",
+    "ASTRALBLADE_2"
+   ],
    "hit": [
     "HIT_A"
    ]
@@ -5148,6 +5252,14 @@
    "cast": [],
    "hit": [
     "STATUS_UP_A"
+   ]
+  },
+  "banishing_smite": {
+   "kind": "melee",
+   "internal": "VANISH_SMITE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "banishing_stab": {
@@ -5174,6 +5286,30 @@
     "HIT_A"
    ]
   },
+  "beastslayer": {
+   "kind": "melee",
+   "internal": "BEAST_SLAY",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "blitz_rush": {
+   "kind": "melee",
+   "internal": "THRUST_BEAM",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "blizzard": {
+   "kind": "magic",
+   "internal": "MAGIC_BLIZZARD",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
   "boon_of_the_faeries_heal": {
    "kind": "heal",
    "internal": "PROTECTION_OF_SPIRIT",
@@ -5193,12 +5329,78 @@
     "HIT_A"
    ]
   },
+  "brutal_drive": {
+   "kind": "melee",
+   "internal": "BRUTAL_DRIVE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "brutal_swing": {
+   "kind": "ranged",
+   "internal": "BRUTAL_SWING",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "bulwark": {
+   "kind": "support",
+   "internal": "GREAT_WALL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "burning_edge": {
+   "kind": "melee",
+   "internal": "BURN_EDGE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "carnage": {
+   "kind": "ranged",
+   "internal": "CARNAGE",
+   "cast": [
+    "CARNAGE"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "cavalry_slayer": {
    "kind": "melee",
    "internal": "CAVALRY_SLAY",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "chaos_unending": {
+   "kind": "ranged",
+   "internal": "ENDLESS_CHAOS",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "checkmate": {
+   "kind": "ranged",
+   "internal": "CHECKMATE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "circle_heal": {
+   "kind": "heal",
+   "internal": "CIRCLE_HEAL",
+   "cast": [],
+   "hit": [
+    "CIRCLEHEAL_HIT"
    ]
   },
   "compounding_curse": {
@@ -5209,6 +5411,14 @@
    ],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "crush": {
+   "kind": "melee",
+   "internal": "CRASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "curing_call": {
@@ -5227,12 +5437,55 @@
     "HEAL_HIT_01"
    ]
   },
+  "cursed_strike": {
+   "kind": "melee",
+   "internal": "SHAMAN_KICK",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "dark_armor": {
+   "kind": "support",
+   "internal": "DARK_ARMOR",
+   "cast": [
+    "DARKARMOR",
+    "DARKARMOR_B"
+   ],
+   "hit": [
+    "DARKARMOR_HIT"
+   ]
+  },
   "dark_flame": {
    "kind": "magic",
    "internal": "DARK_FLAME",
    "cast": [],
    "hit": [
     "DARKFLAME_HIT"
+   ]
+  },
+  "dark_mist": {
+   "kind": "support",
+   "internal": "DARK_MIST",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "deadly_rush": {
+   "kind": "melee",
+   "internal": "DEADLY_RUSH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "death_spin": {
+   "kind": "melee",
+   "internal": "DEAD_SPINNING",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "decimate": {
@@ -5269,6 +5522,38 @@
     "STATUS_UP_A"
    ]
   },
+  "delaying_shot": {
+   "kind": "ranged",
+   "internal": "DELAY_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "demolition": {
+   "kind": "melee",
+   "internal": "DEMOLITION",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "desperation": {
+   "kind": "melee",
+   "internal": "SAGAKUKEN",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "dispel_all": {
+   "kind": "ranged",
+   "internal": "ALL_DISPEL",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "divine_cross": {
    "kind": "magic",
    "internal": "DIVINE_CROSS",
@@ -5287,12 +5572,44 @@
     "HIT_C"
    ]
   },
+  "double_blast": {
+   "kind": "melee",
+   "internal": "DOUBLE_SONIC",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "double_heal": {
+   "kind": "heal",
+   "internal": "DOUBLE_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "dragoon_dive": {
+   "kind": "ranged",
+   "internal": "DRAGOON_DIVE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "dual_shot": {
    "kind": "ranged",
    "internal": "DOUBLE_SHOT",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "earthquake": {
+   "kind": "magic",
+   "internal": "EARTHQUAKE",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
    ]
   },
   "earthshaker": {
@@ -5313,12 +5630,40 @@
     "ELEMENTALROAR_HIT"
    ]
   },
+  "elfslayer": {
+   "kind": "melee",
+   "internal": "ELF_SLAY",
+   "cast": [
+    "ELFSLAY"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "enrage_strike": {
    "kind": "support",
    "internal": "OUTRAGE",
    "cast": [],
    "hit": [
     "STATUS_UP_A"
+   ]
+  },
+  "execution": {
+   "kind": "melee",
+   "internal": "EXECUTION",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "extinction": {
+   "kind": "melee",
+   "internal": "EXTINCTION",
+   "cast": [
+    "EXTINCTION"
+   ],
+   "hit": [
+    "HIT_A"
    ]
   },
   "extra_heal": {
@@ -5335,6 +5680,16 @@
    "cast": [],
    "hit": [
     "HEAL_HIT_01"
+   ]
+  },
+  "fallen_one": {
+   "kind": "melee",
+   "internal": "FALLEN_ONE",
+   "cast": [
+    "FALLEN_ONE"
+   ],
+   "hit": [
+    "FALLEN_ONE_HIT"
    ]
   },
   "fatal_dive": {
@@ -5361,6 +5716,22 @@
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "fire_curse": {
+   "kind": "ranged",
+   "internal": "FIRE_CURSE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "fire_slash": {
+   "kind": "melee",
+   "internal": "FIRE_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "fireball": {
@@ -5408,12 +5779,56 @@
     ]
    }
   },
+  "firestorm": {
+   "kind": "melee",
+   "internal": "FIRE_NATE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "flame_arrow": {
+   "kind": "ranged",
+   "internal": "FLAME_ARROW",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "flame_javelin": {
+   "kind": "ranged",
+   "internal": "FLAME_JAVELIN",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "flame_thrust": {
+   "kind": "ranged",
+   "internal": "FLAME_THRUST",
+   "cast": [
+    "FLAMETHRUST"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "following_slash_strike": {
    "kind": "melee",
    "internal": "FOLLOW_SLASH",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "freezing_thrust": {
+   "kind": "magic",
+   "internal": "FREEZE_THRUST",
+   "cast": [
+    "FREEZETHRUST"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
    ]
   },
   "frenzied_strike_strike": {
@@ -5446,6 +5861,16 @@
     "rand_to": 80.0
    }
   },
+  "glowing_light": {
+   "kind": "support",
+   "internal": "GLOW_LIGHT",
+   "cast": [
+    "GLOW_LIGHT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "grand_smash": {
    "kind": "ranged",
    "internal": "GRAND_SLAM",
@@ -5456,6 +5881,16 @@
     "HIT_C"
    ]
   },
+  "gravity": {
+   "kind": "ranged",
+   "internal": "GRAVITY",
+   "cast": [
+    "GRAVITY"
+   ],
+   "hit": [
+    "GRAVITY_HIT"
+   ]
+  },
   "greatshield": {
    "kind": "support",
    "internal": "GREAT_SHIELD",
@@ -5464,9 +5899,33 @@
     "STATUS_UP_A"
    ]
   },
+  "grisly_fire": {
+   "kind": "melee",
+   "internal": "GORE_FIRE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "grisly_poison": {
+   "kind": "melee",
+   "internal": "GORE_POISON",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "ground_counter_strike": {
    "kind": "melee",
    "internal": "GROUND_COUNTER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "ground_strike": {
+   "kind": "melee",
+   "internal": "GROUND_STRIKE",
    "cast": [],
    "hit": [
     "HIT_A"
@@ -5478,6 +5937,14 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "harpoon_bolt": {
+   "kind": "ranged",
+   "internal": "HARPOON_BOLT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
    ]
   },
   "hastened_strike_strike": {
@@ -5497,6 +5964,38 @@
     "HEAL_HIT_02"
    ],
    "out": "HEAL_OUT"
+  },
+  "healing_hunter_heal": {
+   "kind": "heal",
+   "internal": "HEAL_HUNT",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "healing_pursuit_heal": {
+   "kind": "heal",
+   "internal": "CHASE_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "healing_wind": {
+   "kind": "heal",
+   "internal": "WHITE_WIND",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "heavens_asunder": {
+   "kind": "melee",
+   "internal": "ALL_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
   },
   "heavy_bolt": {
    "kind": "ranged",
@@ -5540,6 +6039,14 @@
     "HIT_C"
    ]
   },
+  "holy_cradle": {
+   "kind": "support",
+   "internal": "HOLY_CRADLE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "holy_light": {
    "kind": "magic",
    "internal": "HOLY_LIGHT",
@@ -5550,6 +6057,22 @@
     "HIT_A_MAGIC"
    ],
    "out": "HOLYLIGHT_OUT"
+  },
+  "holy_smite": {
+   "kind": "magic",
+   "internal": "HOLY_SMITE",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "honed_healing": {
+   "kind": "heal",
+   "internal": "HEAL_ENHANCE",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
   },
   "honed_slash": {
    "kind": "ranged",
@@ -5610,6 +6133,14 @@
     ]
    }
   },
+  "icestorm": {
+   "kind": "melee",
+   "internal": "ICE_NATE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "icicle_arrow": {
    "kind": "magic",
    "internal": "ICICLE_ARROW",
@@ -5618,10 +6149,54 @@
     "HIT_A_MAGIC"
    ]
   },
+  "icicle_dart": {
+   "kind": "magic",
+   "internal": "ICICLE_DART",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "icy_blow": {
+   "kind": "melee",
+   "internal": "ICE_BLOW",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "icy_crush": {
+   "kind": "melee",
+   "internal": "ICE_CLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "impale": {
    "kind": "melee",
    "internal": "INPEIL",
    "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "impulse": {
+   "kind": "ranged",
+   "internal": "IMPULSE",
+   "cast": [
+    "IMPULSE"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "inferno": {
+   "kind": "melee",
+   "internal": "INFERNO",
+   "cast": [
+    "INFERNO"
+   ],
    "hit": [
     "HIT_A"
    ]
@@ -5696,6 +6271,22 @@
     "HIT_A"
    ]
   },
+  "leaping_slash": {
+   "kind": "melee",
+   "internal": "LEAP_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "lethal_venom": {
+   "kind": "melee",
+   "internal": "LETHAL_VENOM",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "life_blow_strike": {
    "kind": "melee",
    "internal": "LIFE_BLOW",
@@ -5712,12 +6303,46 @@
     "HIT_A_MAGIC"
    ]
   },
+  "lightning_shaker": {
+   "kind": "magic",
+   "internal": "LIGHTNING_SHAKER",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "limited_heal": {
+   "kind": "heal",
+   "internal": "LIMITED_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
   "long_thrust": {
    "kind": "melee",
    "internal": "LONG_THRUST",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "maelstrom": {
+   "kind": "magic",
+   "internal": "MAELSTROM",
+   "cast": [
+    "MAELSTROM"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "magick_attack": {
+   "kind": "magic",
+   "internal": "RUNE_WEAPON",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
    ]
   },
   "magick_counter_strike": {
@@ -5755,6 +6380,14 @@
     "anim": "CHASE_MAGIC"
    }
   },
+  "magick_shatter": {
+   "kind": "melee",
+   "internal": "MAGIC_BREAK",
+   "cast": [],
+   "hit": [
+    "MAGIC_BREAK_HIT"
+   ]
+  },
   "magick_wall": {
    "kind": "support",
    "internal": "MAGIC_WALL",
@@ -5769,6 +6402,14 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "memento_mori": {
+   "kind": "magic",
+   "internal": "MEMENTO",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
    ]
   },
   "meteor_slash": {
@@ -5801,6 +6442,22 @@
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "mystic_conferral": {
+   "kind": "support",
+   "internal": "MYSTIC_SABER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "mystic_shield": {
+   "kind": "support",
+   "internal": "MYSTIC_SHIELD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "natures_wrath": {
@@ -5853,12 +6510,44 @@
     "HIT_A"
    ]
   },
+  "overheal": {
+   "kind": "heal",
+   "internal": "OVER_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "overlord": {
+   "kind": "magic",
+   "internal": "OVERLORD",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "painful_smash": {
+   "kind": "melee",
+   "internal": "PAIN_SMASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "parting_blow_strike": {
    "kind": "melee",
    "internal": "END_BLOW",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "passive_absorb": {
+   "kind": "support",
+   "internal": "PASSIVE_ABSORB",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "passive_curse": {
@@ -5885,6 +6574,24 @@
     "HEAL_HIT_01"
    ]
   },
+  "passive_shatter": {
+   "kind": "melee",
+   "internal": "PASSIVE_BREAK",
+   "cast": [
+    "PASSIVE_BREAK"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "passive_shatter_spear": {
+   "kind": "melee",
+   "internal": "PASSIVE_BREAK_L",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "passive_steal": {
    "kind": "melee",
    "internal": "PASSIVE_STEAL",
@@ -5903,6 +6610,30 @@
     "HIT_A"
    ]
   },
+  "phantom_attack": {
+   "kind": "magic",
+   "internal": "PHANTOM_WEAPON",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "phantom_veil": {
+   "kind": "support",
+   "internal": "PHANTOM_VEIL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "photon_arrow": {
+   "kind": "ranged",
+   "internal": "PHOTON_ARROW",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "piercing_lance": {
    "kind": "melee",
    "internal": "PIERCING_SHIELD",
@@ -5919,6 +6650,32 @@
     "PILETHRUST_HIT"
    ]
   },
+  "poison_arrow": {
+   "kind": "ranged",
+   "internal": "POISON_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "poison_curse": {
+   "kind": "ranged",
+   "internal": "POISON_CURSE",
+   "cast": [
+    "POISONCURSE"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "poison_slash": {
+   "kind": "melee",
+   "internal": "POISON_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "power_bolt": {
    "kind": "ranged",
    "internal": "POWER_BOLT",
@@ -5927,12 +6684,28 @@
     "HIT_C"
    ]
   },
+  "powerful_impact": {
+   "kind": "melee",
+   "internal": "MUSCLE_IMPACT",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "primus_edge": {
    "kind": "magic",
    "internal": "PRIMUS_EDGE",
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "provoking_slash": {
+   "kind": "melee",
+   "internal": "HATE_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "pursuit_strike": {
@@ -5959,12 +6732,44 @@
     "HIT_C"
    ]
   },
+  "radiant_heal": {
+   "kind": "heal",
+   "internal": "RADIANT_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
   "rage_of_the_faeries_strike": {
    "kind": "magic",
    "internal": "RAGE_OF_SPIRIT",
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "rampage": {
+   "kind": "melee",
+   "internal": "RAMPAGE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "reincarnation": {
+   "kind": "support",
+   "internal": "REINCARNATION",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "resurrection": {
+   "kind": "support",
+   "internal": "RESURRECTION",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "rolling_axe": {
@@ -6006,6 +6811,14 @@
     "STATUS_UP_A"
    ]
   },
+  "row_resistance": {
+   "kind": "support",
+   "internal": "LINE_REGIST",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "row_shot": {
    "kind": "ranged",
    "internal": "LINE_SHOT",
@@ -6042,6 +6855,68 @@
     "SAINTBLADE_HIT_02"
    ]
   },
+  "saints_shot": {
+   "kind": "ranged",
+   "internal": "SAINT_SHOT",
+   "cast": [],
+   "hit": [
+    "SAINT_SHOT_HIT"
+   ],
+   "shot": {
+    "anim": "SAINT_SHOT"
+   }
+  },
+  "sandstorm": {
+   "kind": "ranged",
+   "internal": "SAND_STORM",
+   "cast": [
+    "SANDSTORM"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "sanguine_attack": {
+   "kind": "heal",
+   "internal": "BLOOD_WEAPON",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "sanguine_darts": {
+   "kind": "magic",
+   "internal": "BLOOD_DARTS",
+   "cast": [],
+   "hit": [
+    "BLOODDARTS_HIT"
+   ],
+   "shot": {
+    "anim": "BLOODDARTS"
+   }
+  },
+  "sanguine_rain": {
+   "kind": "magic",
+   "internal": "BLOOD_RAIN",
+   "cast": [],
+   "hit": [
+    "ARROWRAIN_HIT_01",
+    "ARROWRAIN_HIT_02"
+   ],
+   "rain": {
+    "out": "ARROWRAIN_OUT",
+    "hit": [
+     "ARROWRAIN_HIT_01",
+     "ARROWRAIN_HIT_02"
+    ],
+    "speed": 80.0,
+    "start_x": 500.0,
+    "interval_x": 100.0,
+    "interval": 10.0,
+    "rand_from": 0.0,
+    "rand_to": 80.0
+   }
+  },
   "selfless_heal_heal": {
    "kind": "heal",
    "internal": "SHARE_HEAL",
@@ -6051,10 +6926,28 @@
    ],
    "out": "SHAREHEAL_OUT"
   },
+  "shadow_arrow": {
+   "kind": "ranged",
+   "internal": "BLIND_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
   "shadow_pursuit_strike": {
    "kind": "melee",
    "internal": "SHADE_CHASE",
    "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "shadow_thrust": {
+   "kind": "melee",
+   "internal": "SHADE_THRUST",
+   "cast": [
+    "SHADETHRUST"
+   ],
    "hit": [
     "HIT_A"
    ]
@@ -6091,6 +6984,19 @@
     "HIT_C"
    ]
   },
+  "skyward_thrust": {
+   "kind": "magic",
+   "internal": "AIR_THRUST",
+   "cast": [],
+   "hit": [
+    "AIRTHRUST_HIT"
+   ],
+   "out": "AIRTHRUST_OUT",
+   "shot": {
+    "anim": "AIRTHRUST_01",
+    "speed": 45.0
+   }
+  },
   "slice": {
    "kind": "melee",
    "internal": "SLICE",
@@ -6123,6 +7029,14 @@
     "HIT_C"
    ]
   },
+  "sonic_blast": {
+   "kind": "melee",
+   "internal": "SONIC_BOOM",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "sonic_shaft": {
    "kind": "ranged",
    "internal": "SONIC_SHAFT",
@@ -6134,6 +7048,30 @@
     "anim": "SONICSHAFT",
     "trail": "SONICSHAFT_EFFECT"
    }
+  },
+  "sorcerous_blow": {
+   "kind": "magic",
+   "internal": "SORCERY_BLOW",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "spiked_blow": {
+   "kind": "melee",
+   "internal": "SPIKE_BLOW",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "spiked_bolt": {
+   "kind": "ranged",
+   "internal": "SPIKE_BOLT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
   },
   "spinning_edge": {
    "kind": "melee",
@@ -6156,6 +7094,22 @@
   "sting": {
    "kind": "melee",
    "internal": "STING",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "strength_shatter": {
+   "kind": "melee",
+   "internal": "POWER_BREAK",
+   "cast": [],
+   "hit": [
+    "POWER_BREAK_HIT"
+   ]
+  },
+  "strength_shatter_ii": {
+   "kind": "melee",
+   "internal": "POWER_BREAK_2",
    "cast": [],
    "hit": [
     "HIT_A"
@@ -6195,6 +7149,16 @@
     "THUNDER_B1_BUFFER"
    ]
   },
+  "thunderous_thrust": {
+   "kind": "magic",
+   "internal": "THUNDER_THRUST",
+   "cast": [
+    "THUNDERTHRUST"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
   "toxic_bolt": {
    "kind": "ranged",
    "internal": "TOXIC_BOLT",
@@ -6214,12 +7178,50 @@
     "anim": "KNIFE_SHOT_POISON"
    }
   },
+  "trinity_rain": {
+   "kind": "magic",
+   "internal": "TRINITY_RAIN",
+   "cast": [],
+   "hit": [
+    "ARROWRAIN_HIT_01",
+    "ARROWRAIN_HIT_02"
+   ],
+   "rain": {
+    "out": "ARROWRAIN_OUT",
+    "hit": [
+     "ARROWRAIN_HIT_01",
+     "ARROWRAIN_HIT_02"
+    ],
+    "speed": 80.0,
+    "start_x": 500.0,
+    "interval_x": 100.0,
+    "interval": 10.0,
+    "rand_from": 0.0,
+    "rand_to": 80.0
+   }
+  },
   "triple_counter_strike": {
    "kind": "ranged",
    "internal": "COUNTER_TRIPLE",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "triple_shatter": {
+   "kind": "ranged",
+   "internal": "TRIPLE_BREAK",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "true_thrust": {
+   "kind": "melee",
+   "internal": "TRUE_THRUST",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   },
   "vengeance_strike": {
@@ -6266,6 +7268,17 @@
    "internal": "VERTICAL_EDGE",
    "cast": [
     "VERTICALEDGE"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "vicious_torment": {
+   "kind": "melee",
+   "internal": "DIABONATOR",
+   "cast": [
+    "DIABONATOR_1",
+    "DIABONATOR_2"
    ],
    "hit": [
     "HIT_A"
@@ -6368,6 +7381,14 @@
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "wyrmcleave": {
+   "kind": "melee",
+   "internal": "DOUBLE_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
    ]
   }
  },
@@ -6989,75 +8010,17 @@
       "S03_GROUND_STRIKE_4"
      ]
     }
+   },
+   "bishop": {
+    "timing": {
+     "skyward_thrust": {
+      "approach": "none"
+     }
+    }
    }
   },
   "skills": {},
   "scenes": {},
-  "composites": {
-   "attack_1": {
-    "parts": [
-     "ATTACK_1",
-     "ATTACK_2",
-     "ATTACK_END"
-    ],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "arbalist"
-   },
-   "attack_1_h": {
-    "parts": [
-     "ATTACK_C2",
-     "ATTACK_C2_TO_IDLE"
-    ],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "legionnaire"
-   },
-   "attack_2": {
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2",
-     "ATTACK_B3"
-    ],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "arbalist"
-   },
-   "comp_1": {
-    "parts": [],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "arbalist"
-   },
-   "comp_2": {
-    "parts": [
-     "ATTACK",
-     "ATTACK_IDLE",
-     "ATTACK_END"
-    ],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "elven_archer"
-   },
-   "guard": {
-    "parts": [
-     "GUARD"
-    ],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "legionnaire"
-   },
-   "skill_1": {
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "source_kind": "unit",
-    "source_name": "legionnaire"
-   }
-  },
   "animations": {
    "arbalist__poison_arrow": {
     "class": "arbalist",
@@ -7187,6 +8150,99 @@
     "holds": {},
     "tags": []
    },
+   "black_prince__attack_1": {
+    "class": "black_prince",
+    "name": "black_prince__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince__magic_1": {
+    "class": "black_prince",
+    "name": "black_prince__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince__skill_1": {
+    "class": "black_prince",
+    "name": "black_prince__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__attack_1": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__attack_2": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__attack_2",
+    "parts": [
+     "ATTACK_B_1",
+     "ATTACK_B_2",
+     "ATTACK_B_3",
+     "ATTACK_B_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__magic_1": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__magic_2": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_2_IDLE",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__skill_1": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "breaker__assaulting_blow": {
     "class": "breaker",
     "name": "breaker__assaulting_blow",
@@ -7216,6 +8272,52 @@
     "name": "breaker__row_smash",
     "parts": [
      "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__attack_1": {
+    "class": "cleric",
+    "name": "cleric__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__magic_1": {
+    "class": "cleric",
+    "name": "cleric__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__magic_2": {
+    "class": "cleric",
+    "name": "cleric__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__skill_1": {
+    "class": "cleric",
+    "name": "cleric__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
     ],
     "holds": {},
     "tags": []
@@ -7291,6 +8393,163 @@
     "holds": {},
     "tags": []
    },
+   "dark_marquess_a__attack_1": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4",
+     "ATTACK_A5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__attack_2": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__attack_3": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__skill_1": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_l__attack_1": {
+    "class": "dark_marquess_l",
+    "name": "dark_marquess_l__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4",
+     "ATTACK_A5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_l__attack_2": {
+    "class": "dark_marquess_l",
+    "name": "dark_marquess_l__attack_2",
+    "parts": [
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_l__skill_1": {
+    "class": "dark_marquess_l",
+    "name": "dark_marquess_l__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_r__magic_1": {
+    "class": "dark_marquess_r",
+    "name": "dark_marquess_r__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_r__magic_2": {
+    "class": "dark_marquess_r",
+    "name": "dark_marquess_r__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_r__skill_1": {
+    "class": "dark_marquess_r",
+    "name": "dark_marquess_r__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__attack_1": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__attack_2": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__attack_2",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__attack_3": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__attack_3",
+    "parts": [
+     "ATTACK_D1",
+     "ATTACK_D2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__skill_1": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "doom_knight__dark_flame": {
     "class": "doom_knight",
     "name": "doom_knight__dark_flame",
@@ -7362,6 +8621,50 @@
      "S04_PASSIVE_CURSE_3",
      "S04_PASSIVE_CURSE_4",
      "S04_PASSIVE_CURSE_5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__attack_1": {
+    "class": "eltlinde",
+    "name": "eltlinde__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__attack_2": {
+    "class": "eltlinde",
+    "name": "eltlinde__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__attack_3": {
+    "class": "eltlinde",
+    "name": "eltlinde__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__skill_1": {
+    "class": "eltlinde",
+    "name": "eltlinde__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
     ],
     "holds": {},
     "tags": []
@@ -7447,6 +8750,114 @@
     "holds": {},
     "tags": []
    },
+   "feather_bow__attack_1": {
+    "class": "feather_bow",
+    "name": "feather_bow__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__attack_2": {
+    "class": "feather_bow",
+    "name": "feather_bow__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__attack_3": {
+    "class": "feather_bow",
+    "name": "feather_bow__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__skill_1": {
+    "class": "feather_bow",
+    "name": "feather_bow__skill_1",
+    "parts": [
+     "SKILL",
+     "SKILL_IDLE",
+     "SKILL_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_rod__magic_1": {
+    "class": "feather_rod",
+    "name": "feather_rod__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_rod__magic_2": {
+    "class": "feather_rod",
+    "name": "feather_rod__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_rod__skill_1": {
+    "class": "feather_rod",
+    "name": "feather_rod__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_shield__attack_1": {
+    "class": "feather_shield",
+    "name": "feather_shield__attack_1",
+    "parts": [
+     "ATTACK_A"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_shield__attack_2": {
+    "class": "feather_shield",
+    "name": "feather_shield__attack_2",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_shield__skill_1": {
+    "class": "feather_shield",
+    "name": "feather_shield__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "feathersword__honed_slash": {
     "class": "feathersword",
     "name": "feathersword__honed_slash",
@@ -7497,6 +8908,54 @@
     "name": "fighter__warding_slash",
     "parts": [
      "ATTACK_1"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__attack_1": {
+    "class": "gladiator",
+    "name": "gladiator__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__attack_2": {
+    "class": "gladiator",
+    "name": "gladiator__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4",
+     "ATTACK_B5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__attack_3": {
+    "class": "gladiator",
+    "name": "gladiator__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__skill_1": {
+    "class": "gladiator",
+    "name": "gladiator__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
     ],
     "holds": {},
     "tags": []
@@ -7702,6 +9161,39 @@
     "holds": {},
     "tags": []
    },
+   "knight__attack_1": {
+    "class": "knight",
+    "name": "knight__attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "knight__attack_2": {
+    "class": "knight",
+    "name": "knight__attack_2",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "knight__skill_1": {
+    "class": "knight",
+    "name": "knight__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "landsknecht__bastards_cross": {
     "class": "landsknecht",
     "name": "landsknecht__bastards_cross",
@@ -7741,6 +9233,85 @@
     "holds": {},
     "tags": []
    },
+   "lord__attack_1": {
+    "class": "lord",
+    "name": "lord__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__attack_2": {
+    "class": "lord",
+    "name": "lord__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__attack_3": {
+    "class": "lord",
+    "name": "lord__attack_3",
+    "parts": [
+     "ATTACK_D1",
+     "ATTACK_D2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__skill_1": {
+    "class": "lord",
+    "name": "lord__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "necromancer__magic_1": {
+    "class": "necromancer",
+    "name": "necromancer__magic_1",
+    "parts": [
+     "MAGIC_C_1",
+     "MAGIC_C_2",
+     "MAGIC_C_3",
+     "MAGIC_C_4",
+     "MAGIC_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "necromancer__magic_2": {
+    "class": "necromancer",
+    "name": "necromancer__magic_2",
+    "parts": [
+     "MAGIC_D_1",
+     "MAGIC_D_2",
+     "MAGIC_D_3",
+     "MAGIC_D_4",
+     "MAGIC_D_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "necromancer__skill_1": {
+    "class": "necromancer",
+    "name": "necromancer__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "paladin__divine_cross": {
     "class": "paladin",
     "name": "paladin__divine_cross",
@@ -7762,6 +9333,41 @@
      "ATTACK_3",
      "ATTACK_4",
      "ATTACK_5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "priestess__magic_1": {
+    "class": "priestess",
+    "name": "priestess__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_3",
+     "MAGIC_A_4",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "priestess__magic_2": {
+    "class": "priestess",
+    "name": "priestess__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "priestess__skill_1": {
+    "class": "priestess",
+    "name": "priestess__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
     ],
     "holds": {},
     "tags": []
@@ -7861,6 +9467,36 @@
     "holds": {},
     "tags": []
    },
+   "sellsword__attack_1": {
+    "class": "sellsword",
+    "name": "sellsword__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sellsword__attack_2": {
+    "class": "sellsword",
+    "name": "sellsword__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sellsword__skill_1": {
+    "class": "sellsword",
+    "name": "sellsword__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "sergeant__honed_spear": {
     "class": "sergeant",
     "name": "sergeant__honed_spear",
@@ -7887,6 +9523,52 @@
     "name": "sergeant__long_thrust",
     "parts": [
      "ATTACK_1"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__attack_1": {
+    "class": "shaman",
+    "name": "shaman__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__magic_1": {
+    "class": "shaman",
+    "name": "shaman__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__magic_2": {
+    "class": "shaman",
+    "name": "shaman__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__skill_1": {
+    "class": "shaman",
+    "name": "shaman__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
     ],
     "holds": {},
     "tags": []
@@ -7957,6 +9639,49 @@
     "holds": {},
     "tags": []
    },
+   "soldier__attack_1": {
+    "class": "soldier",
+    "name": "soldier__attack_1",
+    "parts": [
+     "ATTACK_1"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__attack_2": {
+    "class": "soldier",
+    "name": "soldier__attack_2",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__attack_3": {
+    "class": "soldier",
+    "name": "soldier__attack_3",
+    "parts": [
+     "ATTACK_C_1",
+     "ATTACK_C_2",
+     "ATTACK_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__skill_1": {
+    "class": "soldier",
+    "name": "soldier__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "sorceress__icebolt": {
     "class": "sorceress",
     "name": "sorceress__icebolt",
@@ -8004,999 +9729,6 @@
     "name": "sword_master__meteor_slash",
     "parts": [
      "ATTACK_C"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "valkyria__brandish": {
-    "class": "valkyria",
-    "name": "valkyria__brandish",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3",
-     "ATTACK_C4",
-     "ATTACK_C5_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "vanguard__defender": {
-    "class": "vanguard",
-    "name": "vanguard__defender",
-    "parts": [
-     "ATTACK_B"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "viking__wide_breaker": {
-    "class": "viking",
-    "name": "viking__wide_breaker",
-    "parts": [
-     "ATTACK_C"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "warlock__fireball": {
-    "class": "warlock",
-    "name": "warlock__fireball",
-    "parts": [
-     "MAGIC_A",
-     "MAGIC_A_IDLE",
-     "MAGIC_A_2",
-     "MAGIC_A_2_IDLE",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "warlock__thunderous_strike": {
-    "class": "warlock",
-    "name": "warlock__thunderous_strike",
-    "parts": [
-     "MAGIC_B",
-     "MAGIC_B_IDLE",
-     "MAGIC_B_2",
-     "MAGIC_B_2_IDLE",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "warlock__volcano": {
-    "class": "warlock",
-    "name": "warlock__volcano",
-    "parts": [
-     "MAGIC_C",
-     "MAGIC_C_IDLE",
-     "MAGIC_C_2",
-     "MAGIC_C_2_IDLE",
-     "MAGIC_C_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werebear__bear_crush": {
-    "class": "werebear",
-    "name": "werebear__bear_crush",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werebear__earthshaker": {
-    "class": "werebear",
-    "name": "werebear__earthshaker",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3",
-     "ATTACK_C4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werebear__round_swing": {
-    "class": "werebear",
-    "name": "werebear__round_swing",
-    "parts": [
-     "ATTACK_B",
-     "ATTACK_B_IDLE",
-     "ATTACK_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werefox__passive_hold": {
-    "class": "werefox",
-    "name": "werefox__passive_hold",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2",
-     "ATTACK_B3",
-     "ATTACK_B4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werefox__piercing_lance": {
-    "class": "werefox",
-    "name": "werefox__piercing_lance",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werefox__venom_thrust": {
-    "class": "werefox",
-    "name": "werefox__venom_thrust",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3",
-     "ATTACK_C4",
-     "ATTACK_C5"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "wereowl__aurora_veil": {
-    "class": "wereowl",
-    "name": "wereowl__aurora_veil",
-    "parts": [
-     "MAGIC_A_1",
-     "MAGIC_A_2",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "wereowl__night_vision": {
-    "class": "wereowl",
-    "name": "wereowl__night_vision",
-    "parts": [
-     "MAGIC_B_1",
-     "MAGIC_B_2",
-     "MAGIC_B_3",
-     "MAGIC_B_4",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werewolf__decimate": {
-    "class": "werewolf",
-    "name": "werewolf__decimate",
-    "parts": [
-     "ATTACK_B",
-     "ATTACK_B_IDLE",
-     "ATTACK_B_2",
-     "ATTACK_B_IDLE2",
-     "ATTACK_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werewolf__finishing_stab": {
-    "class": "werewolf",
-    "name": "werewolf__finishing_stab",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "werewolf__wild_fang": {
-    "class": "werewolf",
-    "name": "werewolf__wild_fang",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3",
-     "ATTACK_C4",
-     "ATTACK_C5"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "wyvern_knight__diving_thrust": {
-    "class": "wyvern_knight",
-    "name": "wyvern_knight__diving_thrust",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3",
-     "ATTACK_A4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "wyvern_master__fire_breath": {
-    "class": "wyvern_master",
-    "name": "wyvern_master__fire_breath",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2",
-     "ATTACK_B3",
-     "ATTACK_B4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "wyvern_master__tempest_drive": {
-    "class": "wyvern_master",
-    "name": "wyvern_master__tempest_drive",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3",
-     "ATTACK_A4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince__attack_1": {
-    "class": "black_prince",
-    "name": "black_prince__attack_1",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince__skill_1": {
-    "class": "black_prince",
-    "name": "black_prince__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince__magic_1": {
-    "class": "black_prince",
-    "name": "black_prince__magic_1",
-    "parts": [
-     "MAGIC_A",
-     "MAGIC_A_IDLE",
-     "MAGIC_A_2",
-     "MAGIC_A_2_IDLE",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince_hg__attack_1": {
-    "class": "black_prince_hg",
-    "name": "black_prince_hg__attack_1",
-    "parts": [
-     "ATTACK_1",
-     "ATTACK_2",
-     "ATTACK_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince_hg__attack_2": {
-    "class": "black_prince_hg",
-    "name": "black_prince_hg__attack_2",
-    "parts": [
-     "ATTACK_B_1",
-     "ATTACK_B_2",
-     "ATTACK_B_3",
-     "ATTACK_B_4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince_hg__skill_1": {
-    "class": "black_prince_hg",
-    "name": "black_prince_hg__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince_hg__magic_1": {
-    "class": "black_prince_hg",
-    "name": "black_prince_hg__magic_1",
-    "parts": [
-     "MAGIC_A",
-     "MAGIC_A_IDLE",
-     "MAGIC_A_2",
-     "MAGIC_A_2_IDLE",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "black_prince_hg__magic_2": {
-    "class": "black_prince_hg",
-    "name": "black_prince_hg__magic_2",
-    "parts": [
-     "MAGIC_B",
-     "MAGIC_B_IDLE",
-     "MAGIC_B_2",
-     "MAGIC_B_2_IDLE",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "cleric__attack_1": {
-    "class": "cleric",
-    "name": "cleric__attack_1",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "cleric__skill_1": {
-    "class": "cleric",
-    "name": "cleric__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "cleric__magic_1": {
-    "class": "cleric",
-    "name": "cleric__magic_1",
-    "parts": [
-     "MAGIC_A",
-     "MAGIC_A_IDLE",
-     "MAGIC_A_2",
-     "MAGIC_A_IDLE2",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "cleric__magic_2": {
-    "class": "cleric",
-    "name": "cleric__magic_2",
-    "parts": [
-     "MAGIC_B",
-     "MAGIC_B_IDLE",
-     "MAGIC_B_2",
-     "MAGIC_B_IDLE2",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_a__attack_1": {
-    "class": "dark_marquess_a",
-    "name": "dark_marquess_a__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3",
-     "ATTACK_A4",
-     "ATTACK_A5"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_a__attack_2": {
-    "class": "dark_marquess_a",
-    "name": "dark_marquess_a__attack_2",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_a__attack_3": {
-    "class": "dark_marquess_a",
-    "name": "dark_marquess_a__attack_3",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_a__skill_1": {
-    "class": "dark_marquess_a",
-    "name": "dark_marquess_a__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_l__attack_1": {
-    "class": "dark_marquess_l",
-    "name": "dark_marquess_l__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3",
-     "ATTACK_A4",
-     "ATTACK_A5"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_l__attack_2": {
-    "class": "dark_marquess_l",
-    "name": "dark_marquess_l__attack_2",
-    "parts": [
-     "ATTACK_B2",
-     "ATTACK_B3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_l__skill_1": {
-    "class": "dark_marquess_l",
-    "name": "dark_marquess_l__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_r__skill_1": {
-    "class": "dark_marquess_r",
-    "name": "dark_marquess_r__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_r__magic_1": {
-    "class": "dark_marquess_r",
-    "name": "dark_marquess_r__magic_1",
-    "parts": [
-     "MAGIC_A_1",
-     "MAGIC_A_2",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_r__magic_2": {
-    "class": "dark_marquess_r",
-    "name": "dark_marquess_r__magic_2",
-    "parts": [
-     "MAGIC_B_1",
-     "MAGIC_B_2",
-     "MAGIC_B_3",
-     "MAGIC_B_4",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_s__attack_1": {
-    "class": "dark_marquess_s",
-    "name": "dark_marquess_s__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_s__attack_2": {
-    "class": "dark_marquess_s",
-    "name": "dark_marquess_s__attack_2",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_s__attack_3": {
-    "class": "dark_marquess_s",
-    "name": "dark_marquess_s__attack_3",
-    "parts": [
-     "ATTACK_D1",
-     "ATTACK_D2"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "dark_marquess_s__skill_1": {
-    "class": "dark_marquess_s",
-    "name": "dark_marquess_s__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "eltlinde__attack_1": {
-    "class": "eltlinde",
-    "name": "eltlinde__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "eltlinde__attack_2": {
-    "class": "eltlinde",
-    "name": "eltlinde__attack_2",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2",
-     "ATTACK_B3_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "eltlinde__attack_3": {
-    "class": "eltlinde",
-    "name": "eltlinde__attack_3",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "eltlinde__skill_1": {
-    "class": "eltlinde",
-    "name": "eltlinde__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_bow__attack_1": {
-    "class": "feather_bow",
-    "name": "feather_bow__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_bow__attack_2": {
-    "class": "feather_bow",
-    "name": "feather_bow__attack_2",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2",
-     "ATTACK_B3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_bow__attack_3": {
-    "class": "feather_bow",
-    "name": "feather_bow__attack_3",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_bow__skill_1": {
-    "class": "feather_bow",
-    "name": "feather_bow__skill_1",
-    "parts": [
-     "SKILL",
-     "SKILL_IDLE",
-     "SKILL_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_rod__skill_1": {
-    "class": "feather_rod",
-    "name": "feather_rod__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_rod__magic_1": {
-    "class": "feather_rod",
-    "name": "feather_rod__magic_1",
-    "parts": [
-     "MAGIC_A_1",
-     "MAGIC_A_2",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_rod__magic_2": {
-    "class": "feather_rod",
-    "name": "feather_rod__magic_2",
-    "parts": [
-     "MAGIC_B_1",
-     "MAGIC_B_2",
-     "MAGIC_B_3",
-     "MAGIC_B_4",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_shield__attack_1": {
-    "class": "feather_shield",
-    "name": "feather_shield__attack_1",
-    "parts": [
-     "ATTACK_A"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_shield__attack_2": {
-    "class": "feather_shield",
-    "name": "feather_shield__attack_2",
-    "parts": [
-     "ATTACK_B"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "feather_shield__skill_1": {
-    "class": "feather_shield",
-    "name": "feather_shield__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "gladiator__attack_1": {
-    "class": "gladiator",
-    "name": "gladiator__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3",
-     "ATTACK_A4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "gladiator__attack_2": {
-    "class": "gladiator",
-    "name": "gladiator__attack_2",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2",
-     "ATTACK_B3",
-     "ATTACK_B4",
-     "ATTACK_B5"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "gladiator__attack_3": {
-    "class": "gladiator",
-    "name": "gladiator__attack_3",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2",
-     "ATTACK_C3",
-     "ATTACK_C4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "gladiator__skill_1": {
-    "class": "gladiator",
-    "name": "gladiator__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "knight__attack_1": {
-    "class": "knight",
-    "name": "knight__attack_1",
-    "parts": [
-     "ATTACK_1",
-     "ATTACK_2",
-     "ATTACK_3",
-     "ATTACK_4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "knight__attack_2": {
-    "class": "knight",
-    "name": "knight__attack_2",
-    "parts": [
-     "ATTACK_C1",
-     "ATTACK_C2"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "knight__skill_1": {
-    "class": "knight",
-    "name": "knight__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "lord__attack_1": {
-    "class": "lord",
-    "name": "lord__attack_1",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "lord__attack_2": {
-    "class": "lord",
-    "name": "lord__attack_2",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "lord__attack_3": {
-    "class": "lord",
-    "name": "lord__attack_3",
-    "parts": [
-     "ATTACK_D1",
-     "ATTACK_D2_TO_IDLE"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "lord__skill_1": {
-    "class": "lord",
-    "name": "lord__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "necromancer__skill_1": {
-    "class": "necromancer",
-    "name": "necromancer__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "necromancer__magic_1": {
-    "class": "necromancer",
-    "name": "necromancer__magic_1",
-    "parts": [
-     "MAGIC_C_1",
-     "MAGIC_C_2",
-     "MAGIC_C_3",
-     "MAGIC_C_4",
-     "MAGIC_C_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "necromancer__magic_2": {
-    "class": "necromancer",
-    "name": "necromancer__magic_2",
-    "parts": [
-     "MAGIC_D_1",
-     "MAGIC_D_2",
-     "MAGIC_D_3",
-     "MAGIC_D_4",
-     "MAGIC_D_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "priestess__skill_1": {
-    "class": "priestess",
-    "name": "priestess__skill_1",
-    "parts": [
-     "ORDER_1",
-     "ORDER_2",
-     "ORDER_3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "priestess__magic_1": {
-    "class": "priestess",
-    "name": "priestess__magic_1",
-    "parts": [
-     "MAGIC_A_1",
-     "MAGIC_A_2",
-     "MAGIC_A_3",
-     "MAGIC_A_4",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "priestess__magic_2": {
-    "class": "priestess",
-    "name": "priestess__magic_2",
-    "parts": [
-     "MAGIC_B_1",
-     "MAGIC_B_2",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "sellsword__attack_1": {
-    "class": "sellsword",
-    "name": "sellsword__attack_1",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "sellsword__attack_2": {
-    "class": "sellsword",
-    "name": "sellsword__attack_2",
-    "parts": [
-     "ATTACK_B1",
-     "ATTACK_B2"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "sellsword__skill_1": {
-    "class": "sellsword",
-    "name": "sellsword__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "shaman__attack_1": {
-    "class": "shaman",
-    "name": "shaman__attack_1",
-    "parts": [
-     "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "shaman__skill_1": {
-    "class": "shaman",
-    "name": "shaman__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "shaman__magic_1": {
-    "class": "shaman",
-    "name": "shaman__magic_1",
-    "parts": [
-     "MAGIC_A",
-     "MAGIC_A_IDLE",
-     "MAGIC_A_2",
-     "MAGIC_A_IDLE2",
-     "MAGIC_A_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "shaman__magic_2": {
-    "class": "shaman",
-    "name": "shaman__magic_2",
-    "parts": [
-     "MAGIC_B",
-     "MAGIC_B_IDLE",
-     "MAGIC_B_2",
-     "MAGIC_B_IDLE2",
-     "MAGIC_B_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "soldier__attack_1": {
-    "class": "soldier",
-    "name": "soldier__attack_1",
-    "parts": [
-     "ATTACK_1"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "soldier__attack_2": {
-    "class": "soldier",
-    "name": "soldier__attack_2",
-    "parts": [
-     "ATTACK_A1",
-     "ATTACK_A2",
-     "ATTACK_A3",
-     "ATTACK_A4"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "soldier__attack_3": {
-    "class": "soldier",
-    "name": "soldier__attack_3",
-    "parts": [
-     "ATTACK_C_1",
-     "ATTACK_C_2",
-     "ATTACK_C_END"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "soldier__skill_1": {
-    "class": "soldier",
-    "name": "soldier__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
     ],
     "holds": {},
     "tags": []
@@ -9114,6 +9846,76 @@
     "holds": {},
     "tags": []
    },
+   "valkyria__brandish": {
+    "class": "valkyria",
+    "name": "valkyria__brandish",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "vanguard__defender": {
+    "class": "vanguard",
+    "name": "vanguard__defender",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "viking__wide_breaker": {
+    "class": "viking",
+    "name": "viking__wide_breaker",
+    "parts": [
+     "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warlock__fireball": {
+    "class": "warlock",
+    "name": "warlock__fireball",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warlock__thunderous_strike": {
+    "class": "warlock",
+    "name": "warlock__thunderous_strike",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_2_IDLE",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warlock__volcano": {
+    "class": "warlock",
+    "name": "warlock__volcano",
+    "parts": [
+     "MAGIC_C",
+     "MAGIC_C_IDLE",
+     "MAGIC_C_2",
+     "MAGIC_C_2_IDLE",
+     "MAGIC_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "warrior__attack_1": {
     "class": "warrior",
     "name": "warrior__attack_1",
@@ -9142,6 +9944,72 @@
      "SKILL_A1",
      "SKILL_A2",
      "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werebear__bear_crush": {
+    "class": "werebear",
+    "name": "werebear__bear_crush",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werebear__earthshaker": {
+    "class": "werebear",
+    "name": "werebear__earthshaker",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werebear__round_swing": {
+    "class": "werebear",
+    "name": "werebear__round_swing",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werefox__passive_hold": {
+    "class": "werefox",
+    "name": "werefox__passive_hold",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werefox__piercing_lance": {
+    "class": "werefox",
+    "name": "werefox__piercing_lance",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werefox__venom_thrust": {
+    "class": "werefox",
+    "name": "werefox__venom_thrust",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
     ],
     "holds": {},
     "tags": []
@@ -9192,22 +10060,70 @@
     "holds": {},
     "tags": []
    },
-   "witch__attack_1": {
-    "class": "witch",
-    "name": "witch__attack_1",
+   "wereowl__aurora_veil": {
+    "class": "wereowl",
+    "name": "wereowl__aurora_veil",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wereowl__night_vision": {
+    "class": "wereowl",
+    "name": "wereowl__night_vision",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werewolf__decimate": {
+    "class": "werewolf",
+    "name": "werewolf__decimate",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werewolf__finishing_stab": {
+    "class": "werewolf",
+    "name": "werewolf__finishing_stab",
     "parts": [
      "ATTACK"
     ],
     "holds": {},
     "tags": []
    },
-   "witch__skill_1": {
-    "class": "witch",
-    "name": "witch__skill_1",
+   "werewolf__wild_fang": {
+    "class": "werewolf",
+    "name": "werewolf__wild_fang",
     "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "witch__attack_1": {
+    "class": "witch",
+    "name": "witch__attack_1",
+    "parts": [
+     "ATTACK"
     ],
     "holds": {},
     "tags": []
@@ -9236,22 +10152,22 @@
     "holds": {},
     "tags": []
    },
+   "witch__skill_1": {
+    "class": "witch",
+    "name": "witch__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
    "wizard__attack_1": {
     "class": "wizard",
     "name": "wizard__attack_1",
     "parts": [
      "ATTACK"
-    ],
-    "holds": {},
-    "tags": []
-   },
-   "wizard__skill_1": {
-    "class": "wizard",
-    "name": "wizard__skill_1",
-    "parts": [
-     "SKILL_A1",
-     "SKILL_A2",
-     "SKILL_A3"
     ],
     "holds": {},
     "tags": []
@@ -9278,6 +10194,53 @@
      "MAGIC_B_2",
      "MAGIC_B_2_IDLE",
      "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wizard__skill_1": {
+    "class": "wizard",
+    "name": "wizard__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wyvern_knight__diving_thrust": {
+    "class": "wyvern_knight",
+    "name": "wyvern_knight__diving_thrust",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wyvern_master__fire_breath": {
+    "class": "wyvern_master",
+    "name": "wyvern_master__fire_breath",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wyvern_master__tempest_drive": {
+    "class": "wyvern_master",
+    "name": "wyvern_master__tempest_drive",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
     ],
     "holds": {},
     "tags": []
@@ -10420,14 +11383,6 @@
     "trajectory": null,
     "rain": null
    },
-   "sanguine_darts": {
-    "animation": "",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
    "sanguine_rain": {
     "animation": "",
     "tags": [],
@@ -10478,14 +11433,6 @@
    },
    "single_shot": {
     "animation": "hunter__single_shot",
-    "tags": [],
-    "caster_fx": [],
-    "target_fx": [],
-    "trajectory": null,
-    "rain": null
-   },
-   "skyward_thrust": {
-    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],

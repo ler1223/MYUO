@@ -46,6 +46,19 @@ SHOT_STOP = 40               # не долетая до её середины
 WIDE_FX = 3000.0             # эффект шире этого (единиц) — на всё поле: по центру целей
 TRAIL_EVERY = 8              # след снаряда (EFFECTID 軌跡, エフェクト): в точке вылета и дальше через столько тиков
 MAGIC_KINDS = ("magic", "heal", "support")
+
+
+def walks_up(kind: str, approach: str = "auto") -> bool:
+    """Сближается ли боец с целью перед ударом.
+
+    По умолчанию — только ближний бой: дальние навыки и магия играются с места (стрела летит
+    сама, каст идёт у себя). Для них сближение задаётся явно: «разбег», «прыжок» или «в цепочке».
+    """
+    if approach != "auto":
+        return approach in ("dash", "jump", "chain")
+    return kind == "melee"
+
+
 GENERIC = {"skill_on": "SKILL_ON_01", "passive_on": "PAS_PARTICLE_A", "active_on": "ACT_PARTICLE_A",
            "buff": "STATUS_UP_A", "debuff": "STATUS_DOWN_A", "heal": "HEAL_HIT_01", "died": "DIED_01",
            "guard": "PROTECTION_A", "dash": "DASH_EF_END_A1", "land": "LAND_EF_A1", "chant": "CHANTING_COMMON_A"}
@@ -366,6 +379,8 @@ class Director:
         after = [m for m in moves if m > hits[-1]]
         in_chain = (hostile and not own_shot and bool(before)
                     and (len(parts) > 1 or not self.phase(uid, "dash")))
+        if not walks_up(kind, approach):             # дальние и магия — с места, без сближения
+            in_chain = False
         if approach != "auto":                       # подход задан в редакторе
             in_chain = approach == "chain" and hostile
             if approach == "chain":

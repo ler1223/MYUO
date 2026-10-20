@@ -1085,7 +1085,10 @@ class Editor:
         y += 32
         ui.text("Подход к цели", x, y, TEXT, "main")
         y += 22
+        kind = self.data.skill(self.sid or "", self.cls).get("kind", "melee")
         for k, (key, label) in enumerate(APPROACH):
+            if key == "auto" and kind != "melee":
+                label = "с места"        # дальние и магия по умолчанию не сближаются
             if ui.button(label, pygame.Rect(x + k * 80, y, 76, 22), selected=self.edit["approach"] == key):
                 self.edit["approach"] = key
                 if key == "chain" and not self.edit["approach_to"]:

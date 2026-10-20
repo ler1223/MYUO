@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from battle.data import TICK_MS, ShowData
-from battle.director import Director
+from battle.director import Director, walks_up
 from battle.timeline import Shot, Timeline
 from engine.uo.drg import parse
 from game.combat import Battle
@@ -63,6 +63,22 @@ class VolleyTests(unittest.TestCase):
         arrivals = sorted(s.start + s.ms for s in shots)
         times = [p.time for p in timeline.track(orc.uid).plates if p.time > 0]
         self.assertEqual([round(t) for t in times[:2]], [round(t) for t in arrivals])   # удар — когда долетел
+
+
+class ApproachTests(unittest.TestCase):
+    """Сближение с целью: по умолчанию идёт только ближний бой, дальние и магия — с места."""
+
+    def test_ranged_and_magic_stay_put_by_default(self):
+        self.assertTrue(walks_up("melee"))
+        for kind in ("ranged", "magic", "heal", "support"):
+            self.assertFalse(walks_up(kind), kind)
+
+    def test_explicit_approach_moves_any_kind(self):
+        for approach in ("dash", "jump", "chain"):
+            self.assertTrue(walks_up("ranged", approach), approach)
+            self.assertTrue(walks_up("magic", approach), approach)
+        self.assertFalse(walks_up("ranged", "none"))
+        self.assertFalse(walks_up("magic", "back"))
 
 
 class DbRegTests(unittest.TestCase):
