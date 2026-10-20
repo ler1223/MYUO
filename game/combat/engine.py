@@ -650,6 +650,9 @@ class Battle:
                 self._emit(sub, PassiveTriggered(owner.uid, passive_id))
                 if reaction.effect_id:
                     self._give(owner, reaction.effect_id, owner, sub)
+                if reaction.then:                       # например, «прикрыть и вылечить прикрытого»
+                    extra = [self._step_plan(owner, passive, step, moment) for step in reaction.then]
+                    self._run_steps(owner, [e for e in extra if e[2]], moment, sub, passive_id, owner, 1)
                 if reaction.cover_many:
                     action.covering.add(owner.uid)
                 act.before.append(sub)
@@ -834,28 +837,20 @@ class Battle:
         return None
 
     def _perform(self, owner: Unit, origin, reaction: Reaction, moment: Moment, key: tuple) -> Optional[Act]:
-        """Ответ: кому, оплата (PP пассивки), действие. Делать нечего — ничего не тратится, None."""
+        """Ответ: кому, оплата (PP пассивки), действие и дополнительные действия (reaction.then).
+        Делать нечего — ничего не тратится, None."""
         passive = isinstance(origin, PassiveDefinition)
-        skill = None
         plan = self._passive_plan(owner, origin.id, moment) if passive else None
+        steps: list[tuple[Reaction, Optional[SkillDefinition], list[Unit]]] = []
         if plan is not None:                          # правила пассивки: навык по цели, вызвавшей срабатывание
             skill, chosen = plan
-            action, targets = DO_USE_SKILL, [chosen]
+            steps.append((reaction, skill, [chosen]))
         else:
-            action = reaction.action
-            targets = self._recipients(owner, origin, reaction, moment)
-            if action == DO_USE_SKILL:
-                skill = self.db.skills.get(reaction.skill_id or "")
-                target = self._skill_target(owner, skill, reaction, moment, targets) if skill and owner.is_alive else None
-                targets = [target] if target is not None and skill.requires_self.check(owner, owner) \
-                    and skill.requires_target.check(owner, target) else []
-            elif action == DO_APPLY_EFFECT:
-                targets = [t for t in targets if self._would_apply(t, reaction.effect_id)]
-            elif action == DO_REMOVE_EFFECT:
-                targets = [t for t in targets if t.has_effect(reaction.effect_id or "")]
-            elif action == DO_DISPEL:
-                targets = [t for t in targets if any(reaction.label in e.definition.tags for e in t.effects)]
-        if not targets:
+            steps.append(self._step_plan(owner, origin, reaction, moment))
+        for extra in reaction.then:
+            steps.append(self._step_plan(owner, origin, extra, moment))
+        steps = [s for s in steps if s[2]]
+        if not steps:
             return None
         self._uses[key] = self.round
         if passive:
@@ -870,42 +865,67 @@ class Battle:
             sub = Act(AFFLICTION, owner.uid, origin.definition.id, target=owner.uid, reason=moment.event,
                       round=self.round)
             cause, source, stacks = origin.definition.id, self.units.get(origin.source) if origin.source else None, origin.stacks
-        sub.targets = [t.uid for t in targets]
-        for target in targets:
-            if self.finished:
-                break
-            if not target.is_alive and action != DO_USE_SKILL:
-                continue
-            if action == DO_USE_SKILL:
-                sub.skill_used, sub.target, sub.hits = skill.id, target.uid, skill.hits
-                self._reaction_kind = self._kind_of_response(owner, moment)
-                try:
-                    self._resolve(owner, skill, target, sub, root=False)
-                finally:
-                    self._reaction_kind = None
-            elif action == DO_APPLY_EFFECT:
-                self._give(target, reaction.effect_id, source, sub)
-            elif action == DO_REMOVE_EFFECT:
-                for effect in [e for e in target.effects if e.definition.id == reaction.effect_id]:
-                    self._expire(target, effect, sub, "expire")
-            elif action == DO_DISPEL:
-                self._dispel(target, reaction.label or "", sub)
-            elif action == DO_DAMAGE:
-                amount = max(1, round(target.max_hp * reaction.amount / 100)) if reaction.percent \
-                    else reaction.amount * stacks
-                if reaction.percent:
-                    amount *= stacks
-                self._lose_hp(target, amount, source, cause, sub)
-                if not target.is_alive:
-                    self._die(target, sub)
-                    self._check_wipe()
-            elif action == DO_HEAL:
-                amount = round(target.max_hp * reaction.amount / 100) if reaction.percent else reaction.amount * stacks
-                self._heal(target, amount, source, cause, sub)
-            elif action in (DO_RESTORE_AP, DO_RESTORE_PP):
-                self._resource(target, "AP" if action == DO_RESTORE_AP else "PP", reaction.amount, source,
-                               cause, sub)
+        sub.targets = list(dict.fromkeys(t.uid for _, _, ts in steps for t in ts))
+        self._run_steps(owner, steps, moment, sub, cause, source, stacks)
         return sub
+
+    def _step_plan(self, owner: Unit, origin, step: Reaction, moment: Moment
+                   ) -> tuple[Reaction, Optional[SkillDefinition], list[Unit]]:
+        """Кому достанется действие step (отфильтрованные: делать нечего — пустой список)."""
+        action = step.action
+        targets = self._recipients(owner, origin, step, moment)
+        skill = None
+        if action == DO_USE_SKILL:
+            skill = self.db.skills.get(step.skill_id or "")
+            target = self._skill_target(owner, skill, step, moment, targets) if skill and owner.is_alive else None
+            targets = [target] if target is not None and skill.requires_self.check(owner, owner) \
+                and skill.requires_target.check(owner, target) else []
+        elif action == DO_APPLY_EFFECT:
+            targets = [t for t in targets if self._would_apply(t, step.effect_id)]
+        elif action == DO_REMOVE_EFFECT:
+            targets = [t for t in targets if t.has_effect(step.effect_id or "")]
+        elif action == DO_DISPEL:
+            targets = [t for t in targets if any(step.label in e.definition.tags for e in t.effects)]
+        return step, skill, targets
+
+    def _run_steps(self, owner: Unit, steps: list, moment: Moment, sub: Act, cause: str,
+                   source: Optional[Unit], stacks: int) -> None:
+        for step, skill, targets in steps:
+            action = step.action
+            for target in targets:
+                if self.finished:
+                    return
+                if not target.is_alive and action != DO_USE_SKILL:
+                    continue
+                if action == DO_USE_SKILL:
+                    sub.skill_used, sub.target, sub.hits = skill.id, target.uid, skill.hits
+                    self._reaction_kind = self._kind_of_response(owner, moment)
+                    try:
+                        self._resolve(owner, skill, target, sub, root=False)
+                    finally:
+                        self._reaction_kind = None
+                elif action == DO_APPLY_EFFECT:
+                    self._give(target, step.effect_id, source, sub)
+                elif action == DO_REMOVE_EFFECT:
+                    for effect in [e for e in target.effects if e.definition.id == step.effect_id]:
+                        self._expire(target, effect, sub, "expire")
+                elif action == DO_DISPEL:
+                    self._dispel(target, step.label or "", sub)
+                elif action == DO_DAMAGE:
+                    amount = max(1, round(target.max_hp * step.amount / 100)) if step.percent \
+                        else step.amount * stacks
+                    if step.percent:
+                        amount *= stacks
+                    self._lose_hp(target, amount, source, cause, sub)
+                    if not target.is_alive:
+                        self._die(target, sub)
+                        self._check_wipe()
+                elif action == DO_HEAL:
+                    amount = round(target.max_hp * step.amount / 100) if step.percent else step.amount * stacks
+                    self._heal(target, amount, source, cause, sub)
+                elif action in (DO_RESTORE_AP, DO_RESTORE_PP):
+                    self._resource(target, "AP" if action == DO_RESTORE_AP else "PP", step.amount, source,
+                                   cause, sub)
 
     def _kind_of_response(self, owner: Unit, moment: Moment) -> Optional[str]:
         """Ответ пассивки: контратака (вызвал враг) или преследование (атаковал союзник)."""

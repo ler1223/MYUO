@@ -252,6 +252,15 @@ def describe_reaction(reaction: Reaction, db: Database, t: Optional[Callable[...
     if reaction.to_area and reaction.to in GROUPS:
         to += f" ({t(reaction.to_area)})"
     text = f"{when} -> {what} -> {to}"
+    for step in reaction.then:                       # дополнительные действия: «+ действие -> кому»
+        extra = t(step.action)
+        if step.action == DO_USE_SKILL and step.skill_id in db.skills:
+            extra += f" {t(db.skills[step.skill_id].name)}"
+        elif step.action in EFFECT_ACTIONS and step.effect_id in db.effects:
+            extra += f" {t(db.effects[step.effect_id].name)}"
+        elif step.action in AMOUNT_ACTIONS:
+            extra += f" {step.amount}"
+        text += f"; + {extra} -> {t(step.to)}"
     if reaction.limit != "none":
         text += f" [{t(reaction.limit)}]"
     return text

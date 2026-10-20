@@ -140,6 +140,8 @@ class Reaction:
     to: str = TO_SUBJECT
     to_area: Optional[str] = None               # для групп: область вокруг владельца; None = вся сторона
     cover_many: bool = False                    # прикрытие: всех подходящих союзников, а не одного
+    # дополнительные действия: выполняются после главного, PP тратится один раз; роли берутся из того же события
+    then: tuple["Reaction", ...] = ()
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "Reaction":
@@ -165,6 +167,7 @@ class Reaction:
             to=_check(data.get("to", TO_SUBJECT), TARGETS, "target"),
             to_area=data.get("to_area") or None,
             cover_many=data.get("cover_many", False),
+            then=tuple(cls._step(data["event"], step) for step in data.get("then", ())),
         )
         if reaction.action == DO_USE_SKILL:
             if reaction.skill_id is None:
@@ -177,6 +180,14 @@ class Reaction:
         if reaction.action == DO_COVER and reaction.event != ON_TARGETED:
             raise ValueError("cover works only on the 'targeted' event")
         return reaction
+
+    @classmethod
+    def _step(cls, event: str, data: Mapping[str, Any]) -> "Reaction":
+        """Дополнительное действие реакции: те же поля действия, событие и фильтры — от главной реакции."""
+        step = cls.from_dict({"event": event, "whose": "any", **{k: v for k, v in data.items() if k != "then"}})
+        if step.action == DO_COVER:
+            raise ValueError("cover cannot be an additional action")
+        return step
 
     @classmethod
     def from_legacy_effect_trigger(cls, data: Mapping[str, Any]) -> "Reaction":
@@ -192,7 +203,21 @@ class Reaction:
             "to": LEGACY_TARGETS.get(to, to), "to_area": data.get("area"),
         })
 
+    def step_dict(self) -> dict[str, Any]:
+        """Дополнительное действие в данных: только поля действия."""
+        keep = ("action", "skill_id", "effect_id", "amount", "percent", "label", "to", "to_area")
+        full = self.to_dict()
+        defaults = {"skill_id": None, "effect_id": None, "amount": 0, "percent": False, "label": None,
+                    "to_area": None}
+        return {k: full[k] for k in keep if k in ("action", "to") or full[k] != defaults.get(k)}
+
     def to_dict(self) -> dict[str, Any]:
+        data = self._base_dict()
+        if self.then:
+            data["then"] = [step.step_dict() for step in self.then]
+        return data
+
+    def _base_dict(self) -> dict[str, Any]:
         return {
             "event": self.event,
             "whose": self.whose,
@@ -220,12 +245,16 @@ class Reaction:
     def references(self) -> dict[str, list[str]]:
         """Ссылки на другие определения, для проверки справочника: {раздел: [id]}."""
         effects = [e for e in (self.effect_id, self.effect_filter) if e and e != THIS_EFFECT]
-        return {
+        refs = {
             "skills": [self.skill_id] if self.skill_id else [],
             "effects": effects,
             "areas": [a for a in (self.area, self.to_area, *self.skill_areas) if a],
             "attack_tags": list(self.attack_tags),
         }
+        for step in self.then:
+            for section, ids in step.references().items():
+                refs[section] += ids
+        return refs
 
 
 def new_reaction_data() -> dict[str, Any]:
