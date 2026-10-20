@@ -49,18 +49,30 @@ def learned_to_list(ids: Sequence[str], levels: Mapping[str, int]) -> list[Any]:
     return [{"id": i, "level": levels[i]} if levels.get(i, 1) > 1 else i for i in ids]
 
 
-def class_allowed(item: ItemDefinition, class_ids: Sequence[str], story: bool = False) -> bool:
-    """Предмет разрешён классу: пустой список — без ограничений, иначе совпадение хотя бы с одним классом.
+def class_allowed(item: ItemDefinition, class_ids: Sequence[str], story: bool = False,
+                  kinds: Optional[Collection[str]] = None) -> bool:
+    """Предмет разрешён классу (как в UO: вид предмета и класс):
 
-    Классы бойца — текущий и история повышений (game/promotion.py): то, чем он был до этого.
-    Сюжетные классы (story: true) не ограничены: их снаряжение задаётся сюжетом, а вики-списки
-    «Equippable By» их не покрывают.
+    1. вид предмета (ItemDefinition.equip_kind) есть среди видов класса (UnitDefinition.kinds); kinds None — не
+       проверять (старые вызовы);
+    2. список-исключение предмета (classes) пуст или в нём есть один из классов бойца — текущий или из истории
+       повышений (game/promotion.py). Сюжетные классы (story: true) списками-исключениями не ограничены: их
+       снаряжение задаётся сюжетом, а вики-списки «Equippable By» их не покрывают. Вид проверяется и у них.
+    Слот проверяется отдельно (can_equip, place_equipment).
     """
-    if story:
-        return True
-    if not item.classes:
+    if kinds is not None and item.equip_kind not in kinds:
+        return False
+    if story or not item.classes:
         return True
     return any(c in item.classes for c in class_ids)
+
+
+def wearable(item: ItemDefinition, definition: "UnitDefinition", history: Sequence[str] = ()) -> bool:
+    """Может ли класс (с историей повышений) носить предмет: слот, вид и список-исключение."""
+    if item.slot not in definition.slots:
+        return False
+    class_ids = tuple(dict.fromkeys((definition.id, *history, *(a.id for a in definition.ancestors))))
+    return class_allowed(item, class_ids, definition.story, definition.kinds)
 
 
 def class_ids_of(definition: UnitDefinition) -> tuple[str, ...]:
@@ -111,6 +123,9 @@ class UnitDefinition:
     passives: tuple[str, ...] = ()
     tactics: TacticsSet = TacticsSet()
     slots: tuple[str, ...] = ()         # типы слотов снаряжения
+    # Виды предметов сверх основных видов своих слотов (ItemDefinition.kind): молоты, арбалеты, рапиры,
+    # посохи магов, лекарей, шаманов (config.json: item_kinds).
+    equips: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()          # особенности класса: пехота, конница и т. д.
     ap_max: int = DEFAULT_AP_MAX
     pp_max: int = DEFAULT_PP_MAX
@@ -139,6 +154,7 @@ class UnitDefinition:
             passives=passives,
             tactics=TacticsSet.from_list(data.get("tactics", ())),
             slots=tuple(data.get("slots", ())),
+            equips=tuple(data.get("equips", ())),
             tags=tuple(data.get("tags", ())),
             ap_max=data.get("ap_max", DEFAULT_AP_MAX),
             pp_max=data.get("pp_max", DEFAULT_PP_MAX),
@@ -160,6 +176,7 @@ class UnitDefinition:
             "pp_max": self.pp_max,
             "tags": list(self.tags),
             "slots": list(self.slots),
+            **({"equips": list(self.equips)} if self.equips else {}),
             "skills": learned_to_list(self.skills, self.skill_levels),
             "passives": learned_to_list(self.passives, self.passive_levels),
             "tactics": self.tactics.to_list(),
@@ -169,6 +186,11 @@ class UnitDefinition:
             **({"story": True} if self.story else {}),
             **({"roles": list(self.roles)} if self.roles else {}),
         }
+
+    @property
+    def kinds(self) -> frozenset[str]:
+        """Виды предметов, которые носит класс: основные виды его слотов и equips."""
+        return frozenset((*self.slots, *self.equips))
 
     def base_stat(self, stat: Stat, level: int) -> float:
         """Стат класса на уровне без снаряжения; у повышенного бойца — не ниже, чем у прежних классов."""
@@ -245,9 +267,8 @@ class Unit:
 
     def _filter_by_class(self, item_ids: Sequence[Optional[str]]) -> tuple[list[Optional[str]], list[str]]:
         """Делит снаряжение на подходящее классу и отброшенное (class_allowed, game/unit.py)."""
-        if self.definition.story:                 # сюжетные классы не ограничены списками снаряжения
-            return list(item_ids), []
         class_ids = tuple(dict.fromkeys((self.definition.id, *self.state.history)))
+        story = self.definition.story             # сюжетные классы: только вид, без списков-исключений
         kept: list[Optional[str]] = []
         rejected: list[str] = []
         for item_id in item_ids:
@@ -255,7 +276,7 @@ class Unit:
                 kept.append(item_id)
                 continue
             item = self._items.get(item_id)
-            if item is not None and not class_allowed(item, class_ids):
+            if item is not None and not class_allowed(item, class_ids, story, self.definition.kinds):
                 rejected.append(item_id)
                 continue
             kept.append(item_id)
@@ -265,9 +286,7 @@ class Unit:
         """Предмет разрешён бойцу: сюжетные классы — любой, остальные — по списку классов."""
         if item is None:
             return False
-        if self.definition.story:
-            return True
-        return class_allowed(item, self.class_ids)
+        return class_allowed(item, self.class_ids, self.definition.story, self.definition.kinds)
 
     # --- идентичность ---
 

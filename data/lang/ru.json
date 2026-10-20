@@ -2154,5 +2154,13 @@
   "Enemies Present": "Враги на поле",
   "High Stats": "Наибольший стат",
   "Low Stats": "Наименьший стат",
-  "Custom conditions": "Свои условия"
+  "Custom conditions": "Свои условия",
+  "main": "основной",
+  "hammer": "молот",
+  "crossbow": "арбалет",
+  "rapier": "рапира",
+  "staff_arcane": "посох мага",
+  "staff_divine": "посох лекаря",
+  "staff_shaman": "посох шамана",
+  "Only for classes": "Только для классов"
 }

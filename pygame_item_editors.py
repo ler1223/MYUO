@@ -11,7 +11,7 @@ from game.editing import new_item_data, new_rule_data, new_tag_data
 from game.stats import ModOp, Stat
 from game.tags import TAG_DAMAGE, TAG_KINDS, TAG_UNIT
 from game.tiers import TIER_MAX
-from game.unit import class_allowed, class_ids_of
+from game.unit import wearable
 from pygame_data_editors import list_buttons
 from pygame_editors import FORM_X, ROW_H, TOP, EditorHost, apply, entity_list, named, plain, tag_options
 from pygame_ui import DIM, PANEL, RED, UI, WIDTH
@@ -68,11 +68,26 @@ class ItemEditor:
         picked = ui.dropdown((key, "slot"), pygame.Rect(x + 110, TOP + 30, 220, 24), plain(ui, db.slot_types), data["slot"])
         if picked is not None:
             new["slot"] = picked
+            new.pop("kind", None)                  # особый вид принадлежит слоту
+        # Вид предмета: кто носит — решает класс (виды класса в редакторе классов)
+        kinds = [(k, t("main") if k == data["slot"] else t(k)) for k in db.kinds_of_slot(data["slot"])]
+        picked = ui.dropdown((key, "kind"), pygame.Rect(x + 344, TOP + 30, 140, 24), kinds,
+                             data.get("kind", data["slot"]))
+        if picked is not None:
+            new.pop("kind", None)
+            if picked != data["slot"]:
+                new["kind"] = picked
         wearers = [t(u.name) for u in db.units.values()
-                   if data["slot"] in u.slots and class_allowed(db.items[item_id],
-                                                                class_ids_of(db.definition_for(u.id, db.lineage(u.id))),
-                                                                u.story)]
-        ui.text(f"{t('fits')}: {', '.join(wearers) or '-'}", x + 344, TOP + 35, DIM, "small", WIDTH - x - 360)
+                   if wearable(db.items[item_id], db.definition_for(u.id, db.lineage(u.id)))]
+        ui.text(f"{t('fits')}: {', '.join(wearers) or '-'}", x + 494, TOP + 35, DIM, "small", WIDTH - x - 510)
+        # Исключение: только эти классы (именное оружие, особые аксессуары); пусто — все, кто носит вид
+        ui.text(t("Only for classes"), x + 580, TOP + 64, DIM, "small")
+        picked = ui.multiselect((key, "classes"), pygame.Rect(x + 580, TOP + 90, 180, 24),
+                                named(ui, db.units.values()), data.get("classes", []))
+        if picked is not None:
+            new["classes"] = picked
+            if not picked:
+                new.pop("classes")
 
         lists = (
             ("tags", "Wearer tags", tag_options(ui, db, TAG_UNIT)),

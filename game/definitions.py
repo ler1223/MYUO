@@ -46,6 +46,9 @@ class ItemDefinition:
     id: str
     name: str
     slot: str                               # тип слота, в который предмет надевается
+    # Вид предмета (как подтип word7 в UO): кто его носит, решает класс списком видов (UnitDefinition.equips).
+    # Пусто — основной вид слота (вид = имя слота): его носят все классы с таким слотом.
+    kind: str = ""
     modifiers: tuple[Modifier, ...] = ()
     skills: tuple[str, ...] = ()            # активные навыки, доступные носителю
     passives: tuple[str, ...] = ()          # пассивки носителя
@@ -55,8 +58,13 @@ class ItemDefinition:
     price: int = 0                          # цена в магазине; продаётся дешевле
     ap_bonus: int = 0                       # прибавка к запасу AP носителя (кулоны UO)
     pp_bonus: int = 0                       # прибавка к запасу PP
-    classes: tuple[str, ...] = ()           # классы, которым предмет разрешён; пусто — всем (как в UO)
+    classes: tuple[str, ...] = ()           # исключения: только эти классы (именное оружие, особые аксессуары); пусто — по виду
     traits: tuple[tuple[str, float], ...] = ()   # особые свойства (ITEM_TRAITS): пары (имя, число)
+
+    @property
+    def equip_kind(self) -> str:
+        """Вид для проверки класса: свой или основной вид слота."""
+        return self.kind or self.slot
 
     def trait(self, name: str) -> float:
         return sum(value for key, value in self.traits if key == name)
@@ -67,6 +75,7 @@ class ItemDefinition:
             id=item_id,
             name=data.get("name", item_id),
             slot=data["slot"],
+            kind="" if data.get("kind") in (None, data["slot"]) else str(data["kind"]),
             modifiers=tuple(Modifier.from_dict(m) for m in data.get("modifiers", ())),
             skills=tuple(data.get("skills", ())),
             passives=tuple(data.get("passives", ())),
@@ -95,6 +104,7 @@ class ItemDefinition:
         return {
             "name": self.name,
             "slot": self.slot,
+            **({"kind": self.kind} if self.kind else {}),
             "tier": self.tier,
             "price": self.price,
             **({"ap_bonus": self.ap_bonus} if self.ap_bonus else {}),

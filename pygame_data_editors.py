@@ -127,6 +127,15 @@ class ClassEditor:
                              [(EMPTY, t("+ add slot...")), *slot_choices], EMPTY)
         if picked and len(slots) < MAX_SLOTS:
             new["slots"] = slots + [picked]
+        # Особые виды предметов сверх основных видов слотов: молоты, арбалеты, рапиры, посохи магов...
+        kinds = [(k, t(k)) for k, slot in db.item_kinds.items() if slot in slots]
+        if kinds or data.get("equips"):
+            picked = ui.multiselect((key, "equips"), pygame.Rect(rx + 370, sy, 130, 24), kinds,
+                                    data.get("equips", []))
+            if picked is not None:
+                new["equips"] = picked
+                if not picked:
+                    new.pop("equips")
         for i, slot in enumerate(slots[:MAX_SLOTS]):
             rect = pygame.Rect(rx + (i % 3) * 168, sy + 30 + (i // 3) * 28, 160, 24)
             picked = ui.dropdown((key, "slot", i), rect, [(EMPTY, t("(remove slot)")), *slot_choices], slot)

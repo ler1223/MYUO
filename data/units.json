@@ -82,6 +82,9 @@
     },
     "roles": [
       "archer"
+    ],
+    "equips": [
+      "crossbow"
     ]
   },
   "berserker": {
@@ -282,6 +285,9 @@
     },
     "roles": [
       "healer"
+    ],
+    "equips": [
+      "staff_divine"
     ]
   },
   "breaker": {
@@ -373,6 +379,9 @@
     },
     "roles": [
       "warrior"
+    ],
+    "equips": [
+      "hammer"
     ]
   },
   "cleric": {
@@ -459,6 +468,9 @@
     },
     "roles": [
       "healer"
+    ],
+    "equips": [
+      "staff_divine"
     ]
   },
   "crusader": {
@@ -909,6 +921,9 @@
     "roles": [
       "mage",
       "support"
+    ],
+    "equips": [
+      "staff_shaman"
     ]
   },
   "elven_archer": {
@@ -1980,7 +1995,10 @@
       "guard_rate": "F",
       "initiative": "D"
     },
-    "story": true
+    "story": true,
+    "equips": [
+      "staff_divine"
+    ]
   },
   "hoplite": {
     "name": "Hoplite",
@@ -2344,7 +2362,7 @@
     ],
     "slots": [
       "light_sword",
-      "artifact",
+      "light_shield",
       "artifact",
       "artifact"
     ],
@@ -2762,7 +2780,10 @@
       "guard_rate": "F",
       "initiative": "D"
     },
-    "story": true
+    "story": true,
+    "equips": [
+      "staff_divine"
+    ]
   },
   "prince": {
     "name": "Prince",
@@ -3072,7 +3093,7 @@
       "cavalry"
     ],
     "slots": [
-      "lance",
+      "light_sword",
       "light_shield",
       "artifact",
       "artifact"
@@ -3392,6 +3413,9 @@
     "roles": [
       "mage",
       "support"
+    ],
+    "equips": [
+      "staff_shaman"
     ]
   },
   "shieldshooter": {
@@ -3486,6 +3510,9 @@
     "roles": [
       "archer",
       "tank"
+    ],
+    "equips": [
+      "crossbow"
     ]
   },
   "sniper": {
@@ -3848,6 +3875,9 @@
     },
     "roles": [
       "mage"
+    ],
+    "equips": [
+      "staff_arcane"
     ]
   },
   "sword_master": {
@@ -3940,6 +3970,9 @@
     },
     "roles": [
       "warrior"
+    ],
+    "equips": [
+      "rapier"
     ]
   },
   "swordfighter": {
@@ -4024,6 +4057,9 @@
     },
     "roles": [
       "warrior"
+    ],
+    "equips": [
+      "rapier"
     ]
   },
   "thief": {
@@ -4328,7 +4364,7 @@
     ],
     "slots": [
       "heavy_weapon",
-      "artifact",
+      "light_shield",
       "artifact",
       "artifact"
     ],
@@ -4475,6 +4511,9 @@
     },
     "roles": [
       "mage"
+    ],
+    "equips": [
+      "staff_arcane"
     ]
   },
   "warrior": {
@@ -4554,6 +4593,9 @@
     },
     "roles": [
       "warrior"
+    ],
+    "equips": [
+      "hammer"
     ]
   },
   "werebear": {
@@ -4647,6 +4689,9 @@
     },
     "roles": [
       "tank"
+    ],
+    "equips": [
+      "hammer"
     ]
   },
   "werefox": {
@@ -4938,6 +4983,9 @@
     },
     "roles": [
       "support"
+    ],
+    "equips": [
+      "staff_divine"
     ]
   },
   "werewolf": {
@@ -5113,6 +5161,9 @@
     },
     "roles": [
       "mage"
+    ],
+    "equips": [
+      "staff_arcane"
     ]
   },
   "wizard": {
@@ -5188,6 +5239,9 @@
     },
     "roles": [
       "mage"
+    ],
+    "equips": [
+      "staff_arcane"
     ]
   },
   "wyvern_knight": {
@@ -5694,6 +5748,9 @@
     "story": true,
     "roles": [
       "mage"
+    ],
+    "equips": [
+      "staff_arcane"
     ]
   },
   "dark_marquess_s": {
@@ -5983,6 +6040,9 @@
     "story": true,
     "roles": [
       "mage"
+    ],
+    "equips": [
+      "staff_divine"
     ]
   },
   "feather_shield": {

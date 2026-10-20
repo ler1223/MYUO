@@ -9,7 +9,7 @@ from .database import Database
 from .squad import Squad
 from .stats import Stat
 from .tactics import Always, Frontmost, HpBelow, TacticRule, TacticsSet, Weakest
-from .unit import class_allowed
+from .unit import wearable
 from .world import Army, WorldMap
 
 MAP_SIZE = (8, 6)
@@ -190,12 +190,11 @@ def variety_rules(db: Database, class_id: str) -> tuple[TacticRule, ...]:
 
 def auto_equipment(db: Database, class_id: str) -> tuple[str, ...]:
     """По предмету на каждый не-артефактный слот класса: первый подходящий и разрешённый классу."""
-    class_ids = tuple(dict.fromkeys((class_id, *db.lineage(class_id))))
-    story = db.units[class_id].story
+    definition = db.definition_for(class_id, db.lineage(class_id))
     chosen = []
     for slot in db.units[class_id].slots:
         item = next((i for i, d in db.items.items()
-                     if d.slot == slot and i not in chosen and class_allowed(d, class_ids, story)), None)
+                     if d.slot == slot and i not in chosen and wearable(d, definition)), None)
         if item is not None and slot != "artifact":
             chosen.append(item)
     return tuple(chosen)

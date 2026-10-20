@@ -7,6 +7,7 @@
   навыки и пассивки — все, что были у прежних классов, плюс свои (уровень открытия — меньший);
   особенности (теги) — все;
   слоты — каждого типа столько, сколько было больше всего у одного из классов (надетое не слетает);
+  виды снаряжения (equips) — все;
   AP и PP — наибольшие;
   статы — у каждого стата на уровне бойца наибольшее значение среди классов истории и нового
           (UnitDefinition.base_stat), поэтому повышение никогда не ослабляет;
@@ -69,6 +70,7 @@ def merged_definition(chain: Sequence[UnitDefinition]) -> UnitDefinition:
         passives=passives, passive_levels=_levels(order, passives, "passive_levels", "passives"),
         tags=_union([d.tags for d in order]),
         slots=_slots(order),
+        equips=_union([d.equips for d in order]),
         ap_max=max(d.ap_max for d in order),
         pp_max=max(d.pp_max for d in order),
         ancestors=tuple(chain[:-1]),

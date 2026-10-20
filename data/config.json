@@ -87,5 +87,13 @@
   },
   "combat": {
     "passives_per_action": 2
+  },
+  "item_kinds": {
+    "hammer": "heavy_weapon",
+    "crossbow": "bow",
+    "rapier": "light_sword",
+    "staff_arcane": "staff",
+    "staff_divine": "staff",
+    "staff_shaman": "staff"
   }
 }

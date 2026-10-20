@@ -85,6 +85,7 @@ class Database:
         self.items: dict[str, ItemDefinition] = {}
         self.units: dict[str, UnitDefinition] = {}
         self.slot_types: tuple[str, ...] = ()
+        self.item_kinds: dict[str, str] = {}    # особые виды предметов: вид -> слот (основной вид слота = его имя)
         self.formation = FormationSize()
         self.rules: list[TagRule] = []
         self.passives_per_action = 2      # сколько пассивок срабатывает за одно активное действие
@@ -112,6 +113,7 @@ class Database:
             for section in SECTIONS
         }
         data[CONFIG] = {"formation": self.formation.to_dict(), "slot_types": list(self.slot_types),
+                        **({"item_kinds": dict(self.item_kinds)} if self.item_kinds else {}),
                         "tag_rules": [r.to_dict() for r in self.rules], "guard": self.guard.to_dict(),
                         "combat": {"passives_per_action": self.passives_per_action}}
         return data
@@ -149,15 +151,23 @@ class Database:
                     raise ValueError(str(error)) from None
         config = data.get(CONFIG, {})
         slot_types = tuple(config.get("slot_types", ()))
+        item_kinds = {str(k): str(v) for k, v in (config.get("item_kinds") or {}).items()}
+        for kind, slot in item_kinds.items():
+            if slot not in slot_types:
+                raise ValueError(f"item kind {kind!r}: unknown slot {slot!r}")
+            if kind in slot_types:
+                raise ValueError(f"item kind {kind!r} is a slot type (the main kind of a slot needs no entry)")
         rules = [TagRule.from_dict(r) for r in config.get("tag_rules", ())]
         formation = FormationSize.from_dict(config.get("formation", {}))
         guard = GuardRules.from_dict(config.get("guard", {}))
         self._validate(parsed, slot_types, rules)
+        self._validate_kinds(parsed, slot_types, item_kinds)
         for section, values in parsed.items():
             target = getattr(self, section)
             target.clear()
             target.update(values)
         self.slot_types = slot_types
+        self.item_kinds = item_kinds
         self.rules = rules
         self.formation = formation
         self.guard = guard
@@ -224,6 +234,23 @@ class Database:
 
         for class_id in units:
             climb(class_id, ())
+
+    @staticmethod
+    def _validate_kinds(parsed: Mapping[str, Mapping[str, Any]], slot_types: Sequence[str],
+                        item_kinds: Mapping[str, str]) -> None:
+        """Вид предмета подходит его слоту; виды класса известны."""
+        for item in parsed["items"].values():
+            if item.kind and item_kinds.get(item.kind) != item.slot:
+                raise ValueError(f"item {item.id}: kind {item.kind!r} is not a kind of slot {item.slot!r}")
+        known = {*slot_types, *item_kinds}
+        for unit in parsed["units"].values():
+            for kind in unit.equips:
+                if kind not in known:
+                    raise ValueError(f"unit {unit.id}: unknown item kind {kind!r}")
+
+    def kinds_of_slot(self, slot: str) -> list[str]:
+        """Виды предметов слота: основной (имя слота) и особые из config.json."""
+        return [slot, *(k for k, s in self.item_kinds.items() if s == slot)]
 
     # --- правка (редакторы) ---
 

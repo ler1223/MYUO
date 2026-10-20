@@ -24,7 +24,7 @@ from .promotion import promote
 from .save import unit_from_save, unit_to_save
 from .scenario import MAP_SIZE, Scenario
 from .squad import Formation, FormationSize
-from .unit import UnitDefinition, class_allowed
+from .unit import UnitDefinition, wearable
 from .world import Army, WorldMap
 
 TOWER_RULES_PATH = DEFAULT_DATA_DIR / "tower.json"
@@ -276,18 +276,17 @@ class TowerRun:
         """
         named = self.rules.data.get("starter_gear", {})
         tier = self.rules.data.get("starter_tier", 1)
-        class_ids = tuple(dict.fromkeys((class_id, *db.lineage(class_id))))
-        story = db.units[class_id].story
+        definition = db.definition_for(class_id, db.lineage(class_id))
         gear = []
         for slot in db.units[class_id].slots:
             if slot == ARTIFACT:
                 continue
             item = named.get(slot)
-            if item in db.items and db.items[item].slot == slot and class_allowed(db.items[item], class_ids, story):
+            if item in db.items and db.items[item].slot == slot and wearable(db.items[item], definition):
                 gear.append(item)
                 continue
             fitting = [i for i in db.items.values()
-                       if i.slot == slot and i.rank == tier and class_allowed(i, class_ids, story)]
+                       if i.slot == slot and i.rank == tier and wearable(i, definition)]
             item = min(fitting, key=lambda i: i.price).id if fitting else None
             if item is not None:
                 gear.append(item)
@@ -417,14 +416,13 @@ class TowerRun:
         gear = []
         if tier < 1:
             return ()
-        class_ids = tuple(dict.fromkeys((definition.id, *(a.id for a in definition.ancestors))))
         for slot in definition.slots:
             if slot == ARTIFACT and rng.random() >= self.rules.artifact_chance(self.floor):
                 continue
             # Лучший доступный тир, не выше нужного
             for wanted in range(tier, 0, -1):
                 fitting = sorted(i.id for i in db.items.values() if i.slot == slot and i.rank == wanted
-                                 and class_allowed(i, class_ids, definition.story))
+                                 and wearable(i, definition))
                 if fitting:
                     gear.append(rng.choice(fitting))
                     break
