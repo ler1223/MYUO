@@ -17,6 +17,7 @@ data/anim_review_notes.json), пункт помечается «изменено
 from __future__ import annotations
 
 import json
+import math
 import sys
 import time
 from pathlib import Path
@@ -207,8 +208,57 @@ class PhasePlayer:
         del tick_mod
 
 
+def pick_dummy(db, conditions, fallback: str = "fighter") -> str:
+    """Класс манекена, у которого есть (или нет) теги из условий цели."""
+    from game.tactics import HasTag, LacksTag
+    wanted = [c for c in conditions if isinstance(c, (HasTag, LacksTag))]
+    if not wanted:
+        return fallback
+    order = sorted(db.units, key=lambda c: (c != fallback, db.units[c].story, c))
+    for cid in order:
+        tags = set(db.units[cid].tags)
+        if all((c.tag in tags) == isinstance(c, HasTag) for c in wanted):
+            return cid
+    return fallback
+
+
+def satisfy(db, unit, condition) -> bool:
+    """Подгоняет юнита под условие навыка: HP, эффекты, теги. True — условие выполнено."""
+    from game import tactics
+    if condition is None or isinstance(condition, tactics.Always):
+        return True
+    if isinstance(condition, tactics.HpBelow):
+        limit = unit.max_hp * max(0.0, condition.value)
+        unit.state.current_hp = max(1, min(unit.max_hp, math.ceil(limit) - 1))
+    elif isinstance(condition, tactics.HpAbove):
+        unit.state.current_hp = unit.max_hp
+    elif isinstance(condition, tactics.HasEffect):
+        effect = db.effects.get(condition.effect_id)
+        if effect is not None:
+            unit.add_effect(effect)
+    elif isinstance(condition, tactics.LacksEffect):
+        unit.effects = [e for e in unit.effects if e.definition.id != condition.effect_id]
+    elif isinstance(condition, tactics.HasLabel):
+        effect = next((e for e in db.effects.values() if condition.label in e.tags), None)
+        if effect is not None:
+            unit.add_effect(effect)
+    elif isinstance(condition, tactics.HasFlag):
+        effect = next((e for e in db.effects.values() if condition.flag in e.flags), None)
+        if effect is not None:
+            unit.add_effect(effect)
+    elif isinstance(condition, tactics.HasTag) and condition.tag not in unit.tags:
+        effect = next((e for e in db.effects.values() if condition.tag in e.grants_tags), None)
+        if effect is not None:
+            unit.add_effect(effect)
+    return condition.check(unit, unit)
+
+
 class SkillPlayer:
-    """Навык сценой боя: класс против манекена; показ с начала его хода до конца."""
+    """Навык сценой боя: класс против манекена; показ с начала его хода до конца.
+
+    Условия навыка (requires_self / requires_target и условия накладываемых эффектов)
+    сцена выполняет сама: манекен берётся с нужными тегами, HP и эффекты подгоняются,
+    чтобы в показе играл именно выбранный навык, а не запасной."""
 
     def __init__(self, db, cls: str, sid: str, data=None):
         from battle import BattleShow
@@ -216,24 +266,35 @@ class SkillPlayer:
         from game.squad import Formation, Squad
         skill = db.skills[sid]
         ally = skill.targets in ("ally", "self")
+        applied = [a.condition for a in skill.applies]
+        dummy_cls = pick_dummy(db, [skill.requires_target, *applied])
 
         def squad(name, cells):
             f = Formation()
+            made = []
             for uid, c, row, col, tactic, level in cells:
                 unit = db.create_unit(c, uid, level=level)
                 set_tactics(db, unit, tactic)
                 f.place(unit, row, col)
-            return Squad(name, name, f)
+                made.append(unit)
+            return Squad(name, name, f), made
         mine = [(1, cls, 0, 1, [{"skill": sid}], 50)]     # 50: открыты все навыки класса
         if ally:
             mine.append((2, "fighter", 0, 0, [], 50))
-        left = squad("left", mine)
-        right = squad("right", [(11, "fighter", 0, 1, [], 60)])
+        left, mine_units = squad("left", mine)
+        right, right_units = squad("right", [(11, dummy_cls, 0, 1, [], 60)])
         for s in (left, right):
             for u in s.formation.units:
                 u.pp.current = 0                # без пассивок: только сам навык
-        if ally:
-            left.formation.units[1].take_damage(left.formation.units[1].max_hp // 2)
+        me, dummy = mine_units[0], right_units[0]
+        mate = mine_units[1] if ally else None
+        target = me if skill.targets == "self" else (mate if mate is not None else dummy)
+        if mate is not None:
+            mate.take_damage(mate.max_hp // 2)      # чтобы лечение и «цель ранена» было видно
+        satisfy(db, me, skill.requires_self)
+        satisfy(db, target, skill.requires_target)
+        for condition in applied:
+            satisfy(db, target, condition)
         self.show = BattleShow(db, left, right, seed=7, scene="default", data=data)
         director = self.show.director
         spans = []
