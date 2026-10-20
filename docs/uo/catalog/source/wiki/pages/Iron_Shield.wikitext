@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=646
+ |Name=Iron Shield
+ |Icon=IronShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

@@ -1,0 +1,17 @@
+{{Item InfoBox
+ |Id=670
+ |Name=Obsidian Shield
+ |Icon=
+ |Sort=Shield
+ |PhysickalDefense=0
+ |GuardRate=0
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}
+
+== Acquisition ==
+This item is not available trough regular means

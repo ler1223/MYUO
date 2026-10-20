@@ -1,0 +1,18 @@
+{{Item InfoBox
+|Id=690
+|Name=Moonlight Shield
+|Icon=MoonlightShield.png
+|Sort=Shield
+|PhysickalDefense=6
+|GuardRate=25
+|Skill=Nocturnal Guard
+|Slot1=Guard Efficiency +25%
+|Slot2=
+|Slot3=
+|Cost=
+|Sell=1000
+|EquippableBy=
+}}
+
+== Acquisition ==
+Reward from [[Bastorias Treasure Map 1]]

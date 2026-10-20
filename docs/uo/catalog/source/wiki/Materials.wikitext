@@ -1,0 +1,292 @@
+Materials are items which can be used to make [[Deliveries|deliveries]]. they can be acquired by interacting with '''Foraging sites''' which are set glowing spot dispatched around the [[Overworld|overworld]]. Once collected, the spot becomes yellowish and replenish after a few battles. They can also be automatically collected at the end of each battles by stationing a guard in neighboring towns and cities.
+
+Each Region has it's own unique materials which are exclusive to their region. These unique material can be distinguished by the following categories : 
+* Wood
+* Stone
+* Herb
+* Sea Fish
+* River Fish
+* Ore
+* Specialty
+<!-- 
+* Timber
+* Scrap
+-->
+=== Cornia ===
+{{ItemList|width=210px
+ | name1 = Cornut Lumber
+ | image1 = CornutLumber.png
+ | name2 = Corsite Stone
+ | image2 = CorsiteStone.png
+ | name3 = Corvia Herb
+ | image3 = CorviaHerb.png
+ | name4 = Cornian Sardine
+ | image4 = CornianSardine.png
+ | name5 = Cornian Trout
+ | image5 = CornianTrout.png
+ | name6 = Iron Ore
+ | image6 = IronOre.png
+ | name7 = Honey Apple
+ | image7 = HoneyApple.png
+}}
+=== Drakenhold ===
+{{ItemList|width=210px
+ | name1 = Dracia Lumber
+ | image1 = DraciaLumber.png
+ | name2 = Sedranite Stone
+ | image2 = SedraniteStone.png
+ | name3 =Holdra Herb
+ | image3 = HoldraHerb.png
+ | name4 = Draken Sea Bream
+ | image4 = DrakenSeaBream.png
+ | name5 = Draken Tilapia
+ | image5 = DrakenTilapia.png
+ | name6 = Copper Ore
+ | image6 = CopperOre.png
+ | name7 = Ancient Dragon Skull
+ | image7 = AncientDragonSkull.png
+}}
+=== Elheim ===
+{{ItemList|width=210px
+ | name1 = Elgrove Lumber
+ | image1 = ElgroveLumber.png
+ | name2 = Felcite Stone
+ | image2 = FelciteStone.png
+ | name3 = Elweiss Herb
+ | image3 = ElweissHerb.png
+ | name4 = Elheim Mullet
+ | image4 = ElheimMullet.png
+ | name5 = Elheim Pirarucu
+ | image5 = ElheimPirarucu.png
+ | name6 = Silver Ore
+ | image6 = SilverOre.png
+ | name7 = Thorny Vine
+ | image7 = ThornyVine.png
+}}
+=== Bastorias ===
+{{ItemList|width=210px
+ | name1 = Baspine Lumber
+ | image1 = BaspineLumber.png
+ | name2 = Bastrite Stone
+ | image2 = BastriteStone.png
+ | name3 = Bascaria Herb
+ | image3 = BascariaHerb.png
+ | name4 = Bastorian Salmon
+ | image4 = BastorianSalmon.png
+ | name5 = Bastorian Smelt
+ | image5 = BastorianSmelt.png
+ | name6 = Gold Ore
+ | image6 = GoldOre.png
+ | name7 = Ice Crystal
+ | image7 = IceCrystal.png
+}}
+=== Albion ===
+{{ItemList|width=210px
+ | name1 = Albirch Lumber
+ | image1 = AlbirchLumber.png
+ | name2 = Alcedony Stone
+ | image2 = AlcedonyStone.png
+ | name3 = Althus Herb
+ | image3 = AlthusHerb.png
+ | name4 = Albion Herring
+ | image4 = AlbionHerring.png
+ | name5 = Albion Pike
+ | image5 = AlbionPike.png
+ | name6 = Platinum Ore
+ | image6 = PlatinumOre.png
+ | name7 = Goat Milk
+ | image7 = GoatMilk.png
+}}
+== Special ==
+''' This section needs verification in regards to if they are exclusives to certain region and how they should be classified on the wiki '''
+{{ItemList|width=210px
+ | name1 = Meager Timber
+ | image1 = MeagerTimber.png
+ | name2 = Unsullied Timber
+ | image2 = UnsulliedTimber.png
+ | name3 = Sturdy Timber
+ | image3 = SturdyTimber.png
+ | name4 = Meager Scrap Metal
+ | image4 = MeagerScrapMetal.png
+ | name5 = Unsullied Scrap Metal
+ | image5 = UnsulliedScrapMetal.png
+ | name6 = Sturdy Scrap Metal
+ | image6 = SturdyScrapMetal.png
+}}
+== Detailed List ==
+{| class="wikitable sortable mw-collapsible mw-collapsed"
+|+ <!-- blank caption -->
+! class="unsortable" | Icon !! Name 
+!Description!! ID
+|-
+| [[File:CornutLumber.png|link=|40px]] || [[Cornut Lumber]] 
+| Lumber from Cornia known for being easy to work with.|| 90
+|-
+| [[File:DraciaLumber.png|link=|40px]] || [[Dracia Lumber]] 
+| Robust lumber from Drakenhold that holds up well in drier climates.|| 91
+|-
+| [[File:ElgroveLumber.png|link=|40px]] || [[Elgrove Lumber]] 
+| Sturdy lumber from Elheim with a natural resistance to rot.|| 92
+|-
+| [[File:BaspineLumber.png|link=|40px]] || [[Baspine Lumber]] 
+| Softwood lumber from Bastorias with an even, linear grain.|| 93
+|-
+| [[File:AlbirchLumber.png|link=|40px]] || [[Albirch Lumber]] 
+| Beautiful white lumber from Albion.|| 94
+|-
+| [[File:CorsiteStone.png|link=|40px]] || [[Corsite Stone]] 
+| Stone quarried in Cornia.|| 95
+|-
+| [[File:SedraniteStone.png|link=|40px]] || [[Sedranite Stone]] 
+| Stone quarried in Drakenhold.|| 96
+|-
+| [[File:FelciteStone.png|link=|40px]] || [[Felcite Stone]] 
+| Stone quarried in Elheim.|| 97
+|-
+| [[File:BastriteStone.png|link=|40px]] || [[Bastrite Stone]] 
+| Stone quarried in Bastorias.|| 98
+|-
+| [[File:AlcedonyStone.png|link=|40px]] || [[Alcedony Stone]] 
+| Stone quarried in Albion.|| 99
+|-
+| [[File:CorviaHerb.png|link=|40px]] || [[Corvia Herb]] 
+| Wild grass harvested in Cornia.|| 100
+|-
+| [[File:HoldraHerb.png|link=|40px]] || [[Holdra Herb]] 
+| Wild grass harvested in Drakenhold.|| 101
+|-
+| [[File:ElweissHerb.png|link=|40px]] || [[Elweiss Herb]] 
+| Wild grass harvested in Elheim.|| 102
+|-
+| [[File:BascariaHerb.png|link=|40px]] || [[Bascaria Herb]] 
+| Wild grass harvested in Bastorias.|| 103
+|-
+| [[File:AlthusHerb.png|link=|40px]] || [[Althus Herb]] 
+| Wild grass harvested in Albion.|| 104
+|-
+| [[File:CornianSardine.png|link=|40px]] || [[Cornian Sardine]] 
+| A small saltwater fish from Cornia. Often caught in great quantities.|| 105
+|-
+| [[File:DrakenSeaBream.png|link=|40px]] || [[Draken Sea Bream]] 
+| A saltwater fish from Drakenhold. It's covered with sturdy scales.|| 106
+|-
+| [[File:ElheimMullet.png|link=|40px]] || [[Elheim Mullet]] 
+| A saltwater fish from Elheim with mild white flesh.|| 107
+|-
+| [[File:BastorianSalmon.png|link=|40px]] || [[Bastorian Salmon]] 
+| A saltwater fish from Bastorias. This lean whitefish is a favorite amon st the bear bloodline.|| 108
+|-
+| [[File:AlbionHerring.png|link=|40px]] || [[Albion Herring]] 
+| A saltwater fish from Albion that's often pickled.|| 109
+|-
+| [[File:CornianTrout.png|link=|40px]] || [[Cornian Trout]] 
+| A freshwater fish from Cornia. Said to taste best when salted and grilled.|| 110
+|-
+| [[File:DrakenTilapia.png|link=|40px]] || [[Draken Tilapia]] 
+| A freshwater fish from Drakenhold. Though tasty, its intense fishy odor can be difficult to handle.|| 111
+|-
+| [[File:ElheimPirarucu.png|link=|40px]] || [[Elheim Pirarucu]] 
+| A massive freshwater fish from Elheim. Considered by some to be a living fossil.|| 112
+|-
+| [[File:BastorianSmelt.png|link=|40px]] || [[Bastorian Smelt]] 
+| A freshwater fish from Bastorias. When small, they can be eaten whole—bones and all.|| 113
+|-
+| [[File:AlbionPike.png|link=|40px]] || [[Albion Pike]] 
+| A massive freshwater fish from Albion. It has a rather bland, boring flavor.
+| 114
+|-
+| [[File:IronOre.png|link=|40px]] || [[Iron Ore]] 
+| Ore containing a high concentration of iron.|| 115
+|-
+| [[File:CopperOre.png|link=|40px]] || [[Copper Ore]] 
+| Ore containing a high concentration of copper.|| 116
+|-
+| [[File:SilverOre.png|link=|40px]] || [[Silver Ore]] 
+| Ore containing a high concentration of silver.|| 117
+|-
+| [[File:GoldOre.png|link=|40px]] || [[Gold Ore]] 
+| Ore containing a high concentration of gold.|| 118
+|-
+| [[File:PlatinumOre.png|link=|40px]] || [[Platinum Ore]] 
+| Ore containing a high concentration of platinum.|| 119
+|-
+| [[File:HoneyApple.png|link=|40px]] || [[Honey Apple]] 
+| A sweet fruit picked fresh from Cornian trees.|| 120
+|-
+| [[File:AncientDragonSkull.png|link=|40px]] || [[Ancient Dragon Skull]] 
+| A massive skull from a prehistoric Draken beast.|| 121
+|-
+| [[File:ThornyVine.png|link=|40px]] || [[Thorny Vine]] 
+| A trimming of the thorny vines which spread through Elheim.|| 122
+|-
+| [[File:IceCrystal.png|link=|40px]] || [[Ice Crystal]] 
+| A crystal of ice from the frozen falls of Bastorias.|| 123
+|-
+| [[File:GoatMilk.png|link=|40px]] || [[Goat Milk]] 
+| Rich goat's milk from the fields of Albion.|| 124
+|-
+| [[File:MeagerTimber.png|link=|40px]] || [[Meager Timber]] 
+| Wood gathered from abandoned dwellings.|| 125
+|-
+| [[File:UnsulliedTimber.png|link=|40px]] || [[Unsullied Timber]] 
+| Wood gathered from abandoned dwellings.|| 126
+|-
+| [[File:SturdyTimber.png|link=|40px]] || [[Sturdy Timber]] 
+| Wood gathered from abandoned dwellings.|| 127
+|-
+| [[File:MeagerScrapMetal.png|link=|40px]] || [[Meager Scrap Metal]] 
+| Scrap metal gathered from broken siege equipment.|| 128
+|-
+| [[File:UnsulliedScrapMetal.png|link=|40px]] || [[Unsullied Scrap Metal]] 
+| Scrap metal gathered from broken siege equipment.|| 129
+|-
+| [[File:SturdyScrapMetal.png|link=|40px]] || [[Sturdy Scrap Metal]] 
+| Scrap metal gathered from broken siege equipment.|| 130
+|}
+
+<!-- CSV table for batch edit 2025-08-03 
+Icon,Name,ID
+[[File:CornutLumber.png|link=|40px]],[[Cornut Lumber]],90
+[[File:DraciaLumber.png|link=|40px]],[[Dracia Lumber]],91
+[[File:ElgroveLumber.png|link=|40px]],[[Elgrove Lumber]],92
+[[File:BaspineLumber.png|link=|40px]],[[Baspine Lumber]],93
+[[File:AlbirchLumber.png|link=|40px]],[[Albirch Lumber]],94
+[[File:CorsiteStone.png|link=|40px]],[[Corsite Stone]],95
+[[File:SedraniteStone.png|link=|40px]],[[Sedranite Stone]],96
+[[File:FelciteStone.png|link=|40px]],[[Felcite Stone]],97
+[[File:BastriteStone.png|link=|40px]],[[Bastrite Stone]],98
+[[File:AlcedonyStone.png|link=|40px]],[[Alcedony Stone]],99
+[[File:CorviaHerb.png|link=|40px]],[[Corvia Herb]],100
+[[File:HoldraHerb.png|link=|40px]],[[Holdra Herb]],101
+[[File:ElweissHerb.png|link=|40px]],[[Elweiss Herb]],102
+[[File:BascariaHerb.png|link=|40px]],[[Bascaria Herb]],103
+[[File:AlthusHerb.png|link=|40px]],[[Althus Herb]],104
+[[File:CornianSardine.png|link=|40px]],[[Cornian Sardine]],105
+[[File:DrakenSeaBream.png|link=|40px]],[[Draken Sea Bream]],106
+[[File:ElheimMullet.png|link=|40px]],[[Elheim Mullet]],107
+[[File:BastroianSalmon.png|link=|40px]],[[Bastroian Salmon]],108
+[[File:AlbionHerring.png|link=|40px]],[[Albion Herring]],109
+[[File:CornianTrout.png|link=|40px]],[[Cornian Trout]],110
+[[File:DrakenTilapia.png|link=|40px]],[[Draken Tilapia]],111
+[[File:ElheimPirarucu.png|link=|40px]],[[Elheim Pirarucu]],112
+[[File:BastorianSmelt.png|link=|40px]],[[Bastorian Smelt]],113
+[[File:AlbionPike.png|link=|40px]],[[Albion Pike]],114
+[[File:IronOre.png|link=|40px]],[[Iron Ore]],115
+[[File:CopperOre.png|link=|40px]],[[Copper Ore]],116
+[[File:SilverOre.png|link=|40px]],[[Silver Ore]],117
+[[File:GoldOre.png|link=|40px]],[[Gold Ore]],118
+[[File:PlatinumOre.png|link=|40px]],[[Platinum Ore]],119
+[[File:HoneyApple.png|link=|40px]],[[Honey Apple]],120
+[[File:AncientDragonSkull.png|link=|40px]],[[Ancient Dragon Skull]],121
+[[File:ThornyVine.png|link=|40px]],[[Thorny Vine]],122
+[[File:IceCrystal.png|link=|40px]],[[Ice Crystal]],123
+[[File:GoatMilk.png|link=|40px]],[[Goat Milk]],124
+[[File:MeagerTimber.png|link=|40px]],[[Meager Timber]],125
+[[File:UnsulliedTimber.png|link=|40px]],[[Unsullied Timber]],126
+[[File:SturdyTimber.png|link=|40px]],[[Sturdy Timber]],127
+[[File:MeagerScrapMetal.png|link=|40px]],[[Meager Scrap Metal]],128
+[[File:UnsulliedScrapMetal.png|link=|40px]],[[Unsullied Scrap Metal]],129
+[[File:SturdyScrapMetal.png|link=|40px]],[[Sturdy Scrap Metal]],130
+-->
+
+[[Category:Items]]

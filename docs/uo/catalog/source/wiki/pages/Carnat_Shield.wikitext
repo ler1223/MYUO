@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=648
+ |Name=Carnat Shield
+ |Icon=CarnatShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=24
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Initiative +1
+ |Slot3=
+ |Cost=
+ |Sell=400
+}}

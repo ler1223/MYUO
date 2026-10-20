@@ -1,0 +1,20 @@
+== Weapons ==
+*[[Swords]] complete but needs icons
+*[[Axes]] mostly complete but needs icons
+*[[Spears]] WIP
+*[[Bows]] WIP
+*[[Staves]]
+
+== Shields ==
+*[[Shields]]
+*[[Great Shields]]
+
+== Accessories ==
+*[[Accessories]]
+
+== Consumables ==
+*[[Consumables]]
+
+== Miscellaneous Items ==
+*[[Miscellaneous]]
+*[[Story Items]]

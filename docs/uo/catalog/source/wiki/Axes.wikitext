@@ -1,0 +1,186 @@
+Back to [[Main Page]]. <br \>
+All axes/hammers under 25 Physical Attack stat can be upgraded via the [[Blacksmith]]. Upgrading does not affect the substats or skills that weapon provides, only the base stats.
+==Equippable By==
+The axe category also includes hammers, which can only be equipped by [[Werebear]]s and [[Warrior]]s/[[Breaker]]s. These classes can equip non-hammers without issue.
+*[[Housecarl]]/[[Viking]]
+*[[Gladiator]]/[[Berserker]]/[[Werelion]]
+*[[Warrior]]/[[Breaker]]
+*[[Dark Knight]]/[[Doom Knight]]
+*[[Gryphon Knight]]/[[Gryphon Master]]
+*[[Werebear]]
+*[[Dark Marquess (Axe)]]
+{| class="wikitable sortable" style="text-align: center;
+|-
+! class="unsortable" | Icon !! Name !! P.Atk !! M.Atk !! Skill !! style="width: 18% | Substats !! Price !! How to Obtain
+|-
+|  || Bronze Axe || 8 || 0 || || || -||style="text-align: left | All mercenaries and recruits early on start with this weapon.
+|-
+|  || Recruit's ShortAxe || 11 || 0 || || ||1500 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+|  || Baroque Axe || 13 || 0 || ||style="text-align: left | Accuracy +5 ||2000 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+|  || Iron Axe || 15 || 0 || || || 2000||style="text-align: left | Can be purchased from many shops in [[Cornia]], [[Drakenhold]], and [[Elheim]].
+|-
+|  || Templar's Axe || 15 || 0 || ||style="text-align: left |
+Physickal Defence +1<br \>
+Guard Rate +5%
+|| -||style="text-align: left |
+Can be purchased for 4 Divine Shards.<br \>
+|-
+|  || Black-Iron Axe || 17 || 0 || ||style="text-align: left | Critical Rate +5% ||3000 ||style="text-align: left | Can be purchased from many shops in [[Drakenhold]].
+|-
+|  || Greatwood Axe || 8 || 16 || ||style="text-align: left | Magick Defense +3 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+|  || Carnat Axe || 19 || 0 || ||style="text-align: left | Initiative +2 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+|  || Steel Axe || 22 || 0 || || || 4000||style="text-align: left | Can be purchased from many shops in [[Bastoria]] and [[Albion]].
+|-
+|  || Spellsteel Axe || 9 || 18 || || || 6000||style="text-align: left | Can be purchased from many shops in [[Bastoria]] and [[Albion]].
+|-
+|  || Vorpal Axe || 23 || 0 || || style="text-align: left |
+Max HP +5<br \>
+Initiative +3
+||6000 ||style="text-align: left | Can be purchased from many shops in [[Bastoria]] and [[Albion]].
+|-
+|  || Sanguine Axe || 16 || 0 || [[File:AP_Gem.png|link=|23px]] [[Sanguine Attack]] || ||15000 ||style="text-align: left | Purchased at [[Schaetze Town]] in [[Drakenhold]].
+|-
+|  || Icefall Axe || 19 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Guard Rate -20%</span>
+|| 12000||style="text-align: left | Can be purchased at select shops in [[Bastoria]].
+|-
+|  || Dragonbone Axe || 15 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Initiative -10</span>
+||8000 ||style="text-align: left | Can be purchased at select shops in [[Drakenhold]].
+|-
+|  || Thorn Axe || 17 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">HP -15</span>
+|| 10000||style="text-align: left | Can be purchased at [[Subterranean City of Quantipelt]].
+|-
+|  || Wingcrest Axe || 21 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Critical Rate -20%</span>
+||14000 ||style="text-align: left | Can be purchased at select shops in [[Albion]].
+|-
+|  || Carnelian Axe || 21 || 0 || || style="text-align: left | Base [[File:AP_Gem.png|link=|23px]]AP +1 ||- ||style="text-align: left | Can be purchased for 500 Coliseum Coins.
+|-
+|  || Phantom Knight's Axe || 0 || 16 || [[File:AP_Gem.png|link=|23px]] [[Phantom Attack]] ||style="text-align: left | Magick Defense +5 ||- ||style="text-align: left | Reward from [[The Sigil's Trial, Moderate 2]].
+|-
+|  || Zenoiran Axe || 14 || 0 || ||style="text-align: left |
+Max HP +10<br \>
+Physickal Defense +2<br \>
+Magickal Defense +2
+||5000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Cornia]].
+|-
+|  || Zenoiran Knight Axe || 20 || 0 || ||style="text-align: left |
+Max HP +15<br \>
+Physickal Defense +4<br \>
+Magickal Defense +4
+||10000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Bastoria]].
+|-
+|  || Bandit's Handaxe || 16 || 0 || ||style="text-align: left | 
+User's Unit Earns +100% Gold<br \>
+Evasion +10
+|| 5000 || style="text-align: left | 
+Purchased from the [[Black Market Dealer]] in [[Elheim]].<br \>
+Reward from the first group of offline Coliseum battles.
+|-
+|  || Golden Ram Axe || 17 || 0 || ||style="text-align: left | 
+Accuracy +20<br \>
+Physickal Defense +4
+||- ||style="text-align: left | [[Gloucester]] starts with this weapon.
+|-
+|  || Hunter's Halberd || 21 || 0 || ||style="text-align: left | 
+Follow-up Skills Deal +20 Damage<br \>
+Critical Rate +10%
+|| 8000||style="text-align: left | Purchased from the [[Walled City of Peyston]].
+|-
+|  || Knot of Ruin || 22 || 0 || ||style="text-align: left |
+Base [[File:AP_Gem.png|link=|23px]]AP +1<br \>
+<span style="color:#FF0000">HP -30</span><br \>
+<span style="color:#FF0000">Initiative -10</span>
+||- ||style="text-align: left | Drakenhold [[Treasure Map]] 3.
+|-
+|  || Meteorite Axe || 24 || 0 || ||style="text-align: left |
+Max HP +20<br \>
+Guard Rate +10%
+||- ||style="text-align: left | Obtained by trading 5 Star Iron to the Axe statue in [[Bastorias]].
+|-
+|  || Crushing Axe || 13 || 0 ||[[File:AP_Gem.png|link=|23px]] [[Crush]] || ||3000 ||style="text-align: left | Purchased from [[Colquillage Town]], [[Riviere Town]], and [[Satama Town]].
+|-
+|  || Hoarfrost Axe || 13 || 0 ||[[File:AP_Gem.png|link=|23px]] [[Icy Blow]] || ||6000 ||style="text-align: left | 
+Purchased from [[Grupont Town]] in [[Cornia]].<br \>
+Reward from the first group of offline Coliseum battles.
+|-
+|  || Frozen Battleaxe || 21 || 0 ||[[File:APgem2.png|link=|29px]] [[Icy Crush]] || || 10000||style="text-align: left | Purchased from [[Tzontiesta Town]]in [[Bastorias]].<br \>
+[[Morard]] starts with this weapon.
+|-
+|  || Barbarian's Axe || 13 || 0 ||[[File:AP_Gem.png|link=|23px]] [[Provoking Slash]] || || ||style="text-align: left | ???.
+|-
+|  || Mason's Hammer || 10 || 0 ||[[File:APgem2.png|link=|29px]] [[Powerful Impact]] || || ||style="text-align: left | ???
+|-
+|  || Spiked Hammer || 13 || 0 ||[[File:AP_Gem.png|link=|23px]] [[Spiked Blow]] || ||3000 ||style="text-align: left | Purchased from [[La Criselle Town]] and [[Krannich Harbor]].
+|-
+|  || Headsman's Axe || 16 || 0 ||[[File:AP_Gem.png|link=|23px]] [[Execution]] || ||5000 ||style="text-align: left | Purchased from [[Fruth Harbor]]in [[Drakenhold]].
+|-
+|  || Eliminator || 23 || 0 ||[[File:AP_Gem.png|link=|23px]] [[Execution]] || ||15000 ||style="text-align: left | Purchased from [[Greige Town]] in [[Albion]].
+|-
+|  || Morningstar || 18 || 0 ||[[File:APgem2.png|link=|29px]] [[Painful Smash]] || || 8000||style="text-align: left | Purchased from [[Sarlicotti Town]] and [[Chetretatsia Town]].
+|-
+|  || Silvermoon Axe || 20 || 0 ||[[File:APgem2.png|link=|29px]] [[Beast Slayer]] || || 10000||style="text-align: left | Purchased from [[Silphakom Town]] and [[Voronagru Town]] in Bastoria.
+|-
+|  || Giant's Greataxe || 18 || 0 ||[[File:APgem2.png|link=|29px]] [[Heavy Smash]] ||style="text-align: left | 
+Max HP +20<br \>
+<span style="color:#FF0000">Initiative -10</span>
+ || 10000||style="text-align: left | Purchased from [[Voitarafi Town]] and [[Warnby Town]].<br \>
+Reward from [[Archer of the Setting Sun]].
+|-
+|  || Banishing Hammer || 21 || 0 ||[[File:APgem2.png|link=|29px]] [[Banishing Smite]] || || 12000||style="text-align: left | Purchased from [[Proszruni Town]] and [[Hampton Harbor]].
+|-
+|  || Dark Knight Cleaver || 9 || 18 ||[[File:APgem2.png|link=|29px]] [[Desperation]] || ||-||style="text-align: left | Dropped in the quest [[Flower of Memories]].
+|-
+|  || Rose Knight Axe || 14 || 0 || ||style="text-align: left | 
+Initiative +3<br \>
+Accuracy +10 
+||-||style="text-align: left | [[Fran]] starts with this weapon.
+|-
+|  || Rose Knight Hammer || 15 || 0 || ||style="text-align: left | 
+Initiative +3<br \>
+Accuracy +10 
+||-||style="text-align: left | [[Kitra]] starts with this weapon.
+|-
+|  || Labrys || 18 || 0 || ||style="text-align: left | 
+Initiative +5<br \>
+Guard Rate +20% 
+||-||style="text-align: left | [[Celeste]] starts with this weapon.
+|-
+| [[file:Warhammer.png|link=|40px]] || Warhammer || 13 || 0 || ||style="text-align: left | 
+Max HP +5<br \>
+Guard Rate +10% 
+||-||style="text-align: left | [[Mordon]] starts with this weapon.
+|-
+|  || Juggernaut || 23 || 0 ||[[File:APgem2.png|link=|29px]] [[Ground Strike]] ||style="text-align: left | 
+Critical Damage +30%<br \>
+Stun Immunity
+ || 30000||style="text-align: left | Purchased from [[Dracodorina Citadel]] in [[Bastoria]].
+|-
+|  || Helleborus Axe || 25 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+HP Recovery +30%
+|| -||style="text-align: left | Drakenhold [[Treasure Map]] 6.
+|-
+|  || Sacral Axe || 25 || 0 || ||style="text-align: left |
+Affliction Immunity<br \>
+Heal 20% HP when using Active Skill
+|| -||style="text-align: left | Drakenhold Sanctuary.
+|-
+|  || Kingsaxe Drakenash || 20 || 0 || ||style="text-align: left | All Stats +5 ||- ||style="text-align: left | Reward from the [[Carved of Drakenhold Stone]] quest.
+|-
+| [[File:BoreasAxe.png|link=|40px]] || Boreas's Axe || 25 || 0 || ||style="text-align: left |
+Base [[File:AP_Gem.png|link=|23px]]AP +1<br \>
+Initiative +10<br \>
+Evasion +10
+|| -||style="text-align: left | Rewarded during the [[Armaments of the Anemoi]] quest.
+|}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=696
+ |Name=White Knight's Shield
+ |Icon=WhiteKnight'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=4
+ |GuardRate=15
+ |Skill=Lifeshare
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Max HP +15
+ |Slot3=
+ |Cost=
+ |Sell=500
+}}

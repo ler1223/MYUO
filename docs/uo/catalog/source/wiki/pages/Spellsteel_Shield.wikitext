@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=651
+ |Name=Spellsteel Shield
+ |Icon=SpellsteelShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Magick Defense +5
+ |Slot3=
+ |Cost=
+ |Sell=600
+}}

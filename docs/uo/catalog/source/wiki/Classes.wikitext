@@ -1,0 +1,94 @@
+== Base Class ==
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Mercenary
+|-
+| style="width:12em;" | [[File:Icon Fighter M.png|frameless|50x50px|link=]] [[Fighter]]
+| style="width:12em;" | [[File:Icon Soldier M.png|frameless|50x50px|link=]] [[Soldier]]
+| style="width:12em;" | [[File:Icon Huscarl M.png|frameless|50x50px|link=]] [[Housecarl]]
+| style="width:12em;" | [[File:Icon Swordsman M.png|frameless|50x50px|link=]] [[Swordfighter]]
+| style="width:12em;" | [[File:Icon Mercenary M.png|frameless|50x50px|link=]] [[Sellsword]]
+|-
+| [[File:Icon Hoplite M.png|frameless|50x50px|link=]] [[Hoplite]] || [[File:Icon Gladiator M.png|frameless|50x50px|link=]] [[Gladiator]] || [[File:Icon Warrior M.png|frameless|50x50px|link=]] [[Warrior]] || [[File:Icon Hunter M.png|frameless|50x50px|link=]] [[Hunter]] || [[File:Icon Ranger F.png|frameless|50x50px|link=]] [[Arbalist]]
+|-
+| [[File:Icon Thief M.png|frameless|50x50px|link=]] [[Thief]] || [[File:Icon Knight M.png|frameless|50x50px|link=]] [[Knight]] || [[File:Icon WhiteKnight F.png|frameless|50x50px|link=]] [[Radiant Knight]] || [[File:Icon BlackKnight M.png|frameless|50x50px|link=]] [[Dark Knight]] || [[File:Icon Cleric F.png|frameless|50x50px|link=]] [[Cleric]]
+|-
+| [[File:Icon Wizard M.png|frameless|50x50px|link=]] [[Wizard]] || [[File:Icon Witch F.png|frameless|50x50px|link=]] [[Witch]] || [[File:Icon Shaman F.png|frameless|50x50px|link=]] [[Shaman]] || [[File:Icon WyvernKnight F.png|frameless|50x50px|link=]] [[Wyvern Knight]] || [[File:Icon GriffonKnight_F.png|frameless|50x50px|link=]] [[Gryphon Knight]]
+|}
+
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Base Unique
+|-
+| style="width:12em;" | [[File:Icon Lord M.png|frameless|50x50px|link=]] [[Lord]]
+| style="width:12em;" | [[File:Icon Scarlet F.png|frameless|50x50px|link=]] [[Priestess]]
+| style="width:12em;" | [[File:Icon Virginia F.png|frameless|50x50px|link=]] [[Crusader]]
+| style="width:12em;" | 
+| style="width:12em;" | 
+|}
+
+== Promoted Class ==
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Promoted Mercenary
+| style="width:12em;" | [[File:Icon Fighter HG_M.png|frameless|50x50px|link=]] [[Vanguard]]
+| style="width:12em;" | [[File:Icon Soldier_HG M.png|frameless|50x50px|link=]] [[Sergeant]]
+| style="width:12em;" | [[File:Icon Huscarl HG_M.png|frameless|50x50px|link=]] [[Viking]]
+| style="width:12em;" | [[File:Icon Swordsman_HG M.png|frameless|50x50px|link=]] [[Sword Master]]
+| style="width:12em;" | [[File:Icon Mercenary_HG M.png|frameless|50x50px|link=]] [[Landsknecht]]
+|-
+|  [[File:Icon Hoplite_HG M.png|frameless|50x50px|link=]] [[Legionnaire]] || [[File:Icon Gladiator_HG M.png|frameless|50x50px|link=]] [[Berserker]] || [[File:Icon Warrior_HG M.png|frameless|50x50px|link=]] [[Breaker]] || [[File:Icon Hunter_HG M.png|frameless|50x50px|link=]] [[Sniper]] || [[File:Icon Ranger_HG F.png|frameless|50x50px|link=]] [[Shieldshooter]]
+|-
+| [[File:Icon Thief_HG M.png|frameless|50x50px|link=]] [[Rogue]] || [[File:Icon Knight_HG M.png|frameless|50x50px|link=]] [[Great Knight]] || [[File:Icon WhiteKnight_HG F.png|frameless|50x50px|link=]] [[Sainted Knight]] || [[File:Icon BlackKnight_HG M.png|frameless|50x50px|link=]] [[Doom Knight]] || [[File:Icon Cleric_HG F.png|frameless|50x50px|link=]] [[Bishop]]
+|-
+| [[File:Icon Wizard_HG M.png|frameless|50x50px|link=]] [[Warlock]] || [[File:Icon Witch_HG F.png|frameless|50x50px|link=]] [[Sorceress]] || [[File:Icon Shaman_HG F.png|frameless|50x50px|link=]] [[Druid]] || [[File:Icon WyvernKnight_HG F.png|frameless|50x50px|link=]] [[Wyvern Master]] || [[File:Icon GriffonKnight_HG F.png|frameless|50x50px|link=]] [[Gryphon Master]] 
+|} 
+
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Elheim
+|-
+| style="width:12em;" | [[File:Icon ElfFencer M.png|frameless|50x50px|link=]] [[Elven Fencer]]
+| style="width:12em;" | [[File:Icon ElfArcher M.png|frameless|50x50px|link=]] [[Elven Archer]]
+| style="width:12em;" | 
+| style="width:12em;" | 
+| style="width:12em;" | 
+|}
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Bastorias
+|-
+| style="width:12em;" | [[File:Icon WereWolf M.png|frameless|50x50px|link=]] [[Werewolf]]
+| style="width:12em;" | [[File:Icon WereFox F.png|frameless|50x50px|link=]] [[Werefox]]
+| style="width:12em;" | [[File:Icon WereBear M.png|frameless|50x50px|link=]] [[Werebear]]
+| style="width:12em;" | [[File:Icon WereOwl F.png|frameless|50x50px|link=]] [[Wereowl]]
+| style="width:12em;" | 
+|}
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Albion
+|-
+| style="width:12em;" | [[File:Icon FeatherSword F.png|frameless|50x50px|link=]] [[Feathersword]]
+| style="width:12em;" | [[File:Icon FeatherBow F.png|frameless|50x50px|link=]] [[Featherbow]] wip
+| style="width:12em;" | [[File:Icon FeatherRod M.png|frameless|50x50px|link=]] [[Featherstaff]] wip
+| style="width:12em;" | [[File:Icon FeatherShield M.png|frameless|50x50px|link=]] [[Feathershield]] wip
+| style="width:12em;" | 
+|}
+
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Promoted Unique
+|-
+| style="width:12em;" | [[File:Icon Lord_HG_M.png|frameless|50x50px|link=]] [[High Lord]]
+| style="width:12em;" | [[High Priestess]]
+| style="width:12em;" | [[File:Icon Virginia_HG F.png|frameless|50x50px|link=]] [[Valkyria]]
+| style="width:12em;" | [[Elven Sibyl]]
+| style="width:12em;" | [[Elven Augur]]
+|-
+| [[File:Icon Unify F.png|frameless|50x50px|link=]] [[Snow Ranger]] || [[Werelion]] || [[File:Icon WhiteKnight_HG M.png|frameless|50x50px|link=]] [[Paladin]] || [[File:Icon Prince M.png|frameless|50x50px|link=]] [[Prince]] || [[File:Icon Armoria_HG F.png|frameless|50x50px|link=]] [[Dreadnought]]
+|-
+| [[Dark Marquess (Axe)]] || [[Dark Marquess (Sword)]] || [[Dark Marquess (Staff)]] || [[Dark Marquess (Spear)]] || 
+|}
+== Non-Playable Classes ==
+{| class="wikitable" style="margin-left: auto; margin-right: auto; border: none;"
+|+ Non-Playable
+|-
+| style="width:12em;" | Dark Lord
+| style="width:12em;" | Necromancer
+| style="width:12em;" | Overlord
+| style="width:12em;" | 
+| style="width:12em;" | 
+|}

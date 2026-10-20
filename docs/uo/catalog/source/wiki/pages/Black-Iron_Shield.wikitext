@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=647
+ |Name=Black-Iron Shield
+ |Icon=Black-IronShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=22
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Critical Rate +4%
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

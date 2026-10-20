@@ -1,0 +1,353 @@
+<div class="noexcerpt">{{MissingInfo|page}}</div> 
+'''Consumables''' are items which have a one time use either inside or outside of battles. For example, healing items can only be used inside battles to heal units while gifts can only be used in the overworld to build rapports with units placed as guard in towns and cities.
+== Healing ==
+{{ItemList|width=235px
+ | name1 = Healing Tonic (S)
+ | image1 = HealingTonic(S).png
+ | name2 = Healing Tonic (M)
+ | image2 = HealingTonic(M).png
+ | name3 = Healing Tonic (L)
+ | image3 = HealingTonic(L).png
+ | name4 = Healing Font (S)
+ | image4 = HealingFont(S).png
+ | name5 = Healing Font (M)
+ | image5 = HealingFont(M).png
+ | name6 = Healing Font (L)
+ | image6 = HealingFont(L).png
+ | name7 = Revival Orb (S)
+ | image7 = RevivalOrb(S).png
+ | name8 = Revival Orb (M)
+ | image8 = RevivalOrb(M).png
+ | name9 = Revival Orb (L)
+ | image9 = RevivalOrb(L).png
+ | name10 = Elixir
+ | image10 = Elixir.png
+}}
+== Misc ==
+
+== Stage Hazard ==
+
+== Experience ==
+{{ItemList|width=235px
+ | name1 = Novice Military Treatise
+ | image1 = NoviceMilitaryTreatise.png
+ | name2 = Standard Military Treatise
+ | image2 = StandardMilitaryTreatise.png
+ | name3 = Expert  Military Treatise
+ | image3 =ExpertMilitaryTreatise.png
+ | name4 = Master Military Treatise
+ | image4 = MasterMilitaryTreatise.png
+ | name5 = Supreme Military Treatise
+ | image5 =SupremeMilitaryTreatise.png
+ | name6 = Miracle Fruit
+ | image6 =MiracleFruit.png
+}}
+== Dews ==
+
+== Gifts ==
+
+== Detailed List==
+
+{| class="wikitable sortable mw-collapsible"
+|+ <!-- blank caption -->
+! class="unsortable" | Icon !! Name !! Description !! ID
+|-
+| [[file:HallowedCorneAsh.png|link=|40px]] || [[Hallowed Corne Ash]] ||  Sacred ash that prevents defeat. Can be used to recover 2 Valor Points.|| 6
+|-
+| [[file:HallowedCorneAsh.png|link=|40px]]* || [[Luminous Corne Ash]] ||  Luminous ash that can revitalize combatants who have retreated from battle.|| 7
+|-
+| [[file:HealingTonic(S).png|link=|40px]] || [[Healing Tonic (S)]] ||  Restores 30 HP to a single combatant.|| 8
+|-
+| [[file:HealingTonic(M).png|link=|40px]] || [[Healing Tonic (M)]] ||  Restores 60 HP to a single combatant.|| 9
+|-
+| [[file:HealingTonic(L).png|link=|40px]] || [[Healing Tonic (L)]] ||  Restores 120 HP to a single combatant.|| 10
+|-
+| [[file:HealingFont(S).png|link=|40px]] || [[Healing Font (S)]] ||  Restores 20 HP to all combatants in a unit.|| 11
+|-
+| [[file:HealingFont(M).png|link=|40px]] || [[Healing Font (M)]] ||  Restores 40 HP to all combatants in a unit.|| 12
+|-
+| [[file:HealingFont(L).png|link=|40px]] || [[Healing Font (L)]] ||  Restores 80 HP to all combatants in a unit.|| 13
+|-
+| [[file:RevivalOrb(S).png|link=|40px]] || [[Revival Orb (S)]] ||  Revives an incapacitated combatant, restoring 25% HP.|| 14
+|-
+| [[file:RevivalOrb(M).png|link=|40px]] || [[Revival Orb (M)]] ||  Revives an incapacitated combatant, restoring 50% HP.|| 15
+|-
+| [[file:RevivalOrb(L).png|link=|40px]] || [[Revival Orb (L)]] ||  Revives an incapacitated combatant, restoring 100% HP.|| 16
+|-
+| [[file:Elixir.png|link=|40px]] || [[Elixir]] ||  Revives all incapacitated combatants in a unit, restoring 100% HP.|| 17
+|-
+| [[file:SmokedNuts.png|link=|40px]] || [[Smoked Nuts]] ||  Restores 1 Stamina to the user's unit.|| 18
+|-
+| [[file:HotCrossBuns.png|link=|40px]] || [[Hot Cross Buns]] ||  Restores 3 Stamina to the user's unit.|| 19
+|-
+| [[file:GrilledSteak.png|link=|40px]] || [[Grilled Steak]] ||  Restores 5 Stamina to the user's unit.|| 20
+|-
+| [[file:SilverHourglass.png|link=|40px]] || [[Silver Hourglass]] ||  Significantly shortens the wait time of the user's unit.|| 21
+|-
+| [[file:GoldHourglass.png|link=|40px]] || [[Gold Hourglass]] ||  Instantly ends the wait time of the user's unit.|| 22
+|-
+| [[file:StardustHourglass.png|link=|40px]] || [[Stardust Hourglass]] ||  Instantly ends the wait time of nearby allied units.|| 23
+|-
+| [[file:CampingSet(S).png|link=|40px]] || [[Camping Set (S)]] ||  Revives incapacitated allied units in range, granting them 30 HP and 2 Stamina.|| 24
+|-
+| [[file:CampingSet(M).png|link=|40px]] || [[Camping Set (M)]] ||  Revives incapacitated allied units in range, granting them 60 HP and 4 Stamina.|| 25
+|-
+| [[file:CampingSet(L).png|link=|40px]] || [[Camping Set (L)]] ||  Revives incapacitated allied units in range, granting them full HP and full Stamina.|| 26
+|-
+| [[file:EmpoweringDraught.png|link=|40px]] || [[Empowering Draught]] ||  Increases damage dealt by the user's unit by 30%. Lasts for one battle.|| 27
+|-
+| [[file:DefensiveDraught.png|link=|40px]] || [[Defensive Draught]] ||  Decreases damage taken by the user's unit by 30%. Lasts for one battle.|| 28
+|-
+| [[file:LiquidFortune.png|link=|40px]] || [[Liquid Fortune]] ||  Doubles the EXP and gold gained by the user's unit for 20 seconds.|| 29
+|-
+| [[file:LightTailfeather.png|link=|40px]]* || [[Light Feather]] ||  Doubles the Mobility of an allied unit for 30 seconds.|| 30
+|-
+| [[file:LightTailfeather.png|link=|40px]] || [[Light Tailfeather]] ||  Doubles the Mobility of all allied units in range for 30 seconds.|| 31
+|-
+| [[file:BeckoningChime.png|link=|40px]]* || [[Beckoning Bell]] ||  Targeted enemy unit moues toward the user for 10 seconds. Does not affect enemies in towns, forts, or bases.|| 32
+|-
+| [[file:BeckoningChime.png|link=|40px]] || [[Beckoning Chime]] ||  All enemy units in range moue toward the user for 10 seconds. Does not affect enemies in towns, forts, or bases.|| 33
+|-
+| [[file:WindFaerie'sCharm.png|link=|40px]] || [[Wind Faerie's Charm]] ||  Allied units will not incur assist attacks. Lasts for one battle.|| 34
+|-
+| [[file:HolyHerb.png|link=|40px]] || [[Holy Herb]] ||  Allied units recover 50% HP at the end of battle. (Duration: 3 battles.)|| 35
+|-
+| [[file:ConcealingCloak.png|link=|40px]] || [[Concealing Cloak]] ||  Allied units cannot be detected by enemies for 20 seconds. Ends upon initiating a battle.|| 36
+|-
+| [[file:Giant'sCanopy.png|link=|40px]] || [[Giant's Canopy]] ||  Negates all non-combat damage taken in a stage for 10 seconds.|| 37
+|-
+| [[file:FarsightCrystal.png|link=|40px]] || [[Farsight Crystal]] ||  Improve visibility, rendering enemy units in range detectable for 30 seconds. (Ally Accuracy +50 during battle in the area.)|| 38
+|-
+| [[file:ConveyanceCrystal.png|link=|40px]]* || [[Conveyance Stone]] ||  Teleports the user's unit to a designated allied facility.|| 39
+|-
+| [[file:ConveyanceCrystal.png|link=|40px]] || [[Conveyance Crystal]] ||  Teleports the user's unit to a designated allied facility, or to another unit.|| 40
+|-
+| [[file:DreamBlossom.png|link=|40px]] || [[Dream Blossom]] ||  Inverts the positions of the sun and moon, changing the time of day.|| 41
+|-
+| [[file:BarricadeKit.png|link=|40px]] || [[Barricade Kit]] ||  Deploys a barricade in the designated location.s|| 42
+|-
+| [[file:MantletKit.png|link=|40px]] || [[Mantlet Kit]] ||  Deploys a mantlet in the designated location.|| 43
+|-
+| [[file:SteelTrap.png|link=|40px]] || [[Steel Trap]] ||  Deploys a steel trap in the designated location.|| 44
+|-
+| [[file:MagickMine.png|link=|40px]] || [[Magick Mine]] ||  Deploys a magick mine in the designated location.|| 45
+|-
+| [[file:MagickBomb.png|link=|40px]] || [[Magick Bomb]] ||  Damages all units and traps in the designated area.|| 46
+|-
+| [[file:NoviceMilitaryTreatise.png|link=|40px]] || [[Novice Military Treatise]] ||  Grants 50 EXP to a selected ally. Grants 3x EXP if they are level 10 or below.|| 47
+|-
+| [[file:StandardMilitaryTreatise.png|link=|40px]] || [[Standard Military Treatise]] ||  Grants 300 EXP to a selected ally. Grants 3x EXP if they are level 20 or below.|| 48
+|-
+| [[file:ExpertMilitaryTreatise.png|link=|40px]] || [[Expert  Military Treatise]] ||  Grants 1,000 EXP to a selected ally. Grants 3x EXP if they are level 30 or below.|| 49
+|-
+| [[file:MasterMilitaryTreatise.png|link=|40px]] || [[Master Military Treatise]] ||  || 50
+|-
+| [[file:SupremeMilitaryTreatise.png|link=|40px]] || [[Supreme Military Treatise]] ||  Grants 10,000 EXP to a selected ally.|| 51
+|-
+| [[file:MiracleFruit.png|link=|40px]] || [[Miracle Fruit]] ||  A mysterious fruit that increases the target's level by 1.|| 52
+|-
+| [[file:DewofVitality.png|link=|40px]] || [[Dew of Vitality]] || A mysterious droplet brimming with power. Increases the target's HP by 2. (Up to 5 uses.) || 53
+|-
+| [[file:DewofStrength.png|link=|40px]] || [[Dew of Strength]] ||  A mysterious droplet brimming with power. Increases the target's Phys. Attack by 1. (Up to 5 uses.)|| 54
+|-
+| [[file:DewofProtection.png|link=|40px]] || [[Dew of Protection]] ||  A mysterious droplet brimming with power. Increases the target's Phys. Defense by 1. (Up to 5 uses.)|| 55
+|-
+| [[file:DewofKnowledge.png|link=|40px]] || [[Dew of Knowledge]] ||  A mysterious droplet brimming with power. Increases the target's Mag. Attack by 1. (Up to 5 uses.)|| 56
+|-
+| [[file:DewofWarding.png|link=|40px]] || [[Dew of Warding]] ||  A mysterious droplet brimming with power. Increases the target's Mag. Defense by 1. (Up to 5 uses.)|| 57
+|-
+| [[file:DewofSkill.png|link=|40px]] || [[Dew of Skill]] ||  A mysterious droplet brimming with power. Increases the target's Accuracy by 2. (Up to 5 uses.)|| 58
+|-
+| [[file:DewofAcuity.png|link=|40px]] || [[Dew of Acuity]] ||  A mysterious droplet brimming with power. Increases the target's Evasion by 2. (Up to 5 uses.)|| 59
+|-
+| [[file:DewofKeenness.png|link=|40px]] || [[Dew of Keenness]] ||  A mysterious droplet brimming with power. Increases the target's Critical Rate by 1. (Up to 5 uses.)|| 60
+|-
+| [[file:DewofParrrying.png|link=|40px]] || [[Dew of Parrrying]] ||  A mysterious droplet brimming with power. Increases the target's Guard Rate by 1. (Up to 5 uses.)|| 61
+|-
+| [[file:DewofAgility.png|link=|40px]] || [[Dew of Agility]] ||  || 62
+|-
+| [[file:DewofIllusion.png|link=|40px]] || [[Dew of Illusion]] ||  A mysterious droplet brimming with power. Increases all of the target's stats by 1 or 2. (Up to 5 uses.)|| 63
+|-
+| [[file:Idealist'sHandmirror.png|link=|40px]] || [[Idealist's Handmirror]] ||  A handmirror that shows the holder their idealized self. Allows a character's appearance and growth to be changed.
+| 66
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Secular Texts]] ||  || 133
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Palevian Scriptures]] ||  A tome outlining Paleuian church doctrine and the teachings of its saints. An excellent gift for one who enjoys reading.|| 134
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[History Of Fevrith]] ||  || 135
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Sectrieve Rock Salt]] ||  || 136
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Vilta Herb]] ||  Herbs harvested in Elheim that give off a woody scent. An excellent gift for one who enjoys cooking.|| 137
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Warnby Pepper]] ||  || 138
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Replica Sword]] ||  || 139
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Music Box]] ||  A music box that plays a rustic, soothing tune. An excellent gift for one who enjoys decorating.|| 140
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Opulant Urn]] ||  An eye-catching ornate urn of indisputable quality. An excellent gift for one who enjoys decorating.|| 141
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Greige Ale]] ||  || 142
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Zagavona Wine]] ||  Wine made from ripe, cold-hardy grapes. An excellent gift for one who enjoys the occasional drink.|| 143
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Merietra Brandy]] ||  || 144
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Scented Soap]] ||  || 145
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Pleasant Perfume]] ||  A perfume made from essential plant oils and fragrances. An excellent gift for one attuned to their appearance.|| 146
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Face Powder]] ||  || 147
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Cut Flowers]] ||  Brightly colored buds that give off a floral aroma. An excellent gift for one who appreciates flowers.|| 148
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Pressed Flowers]] ||  A lovely flower that has been pressed for preservation. An excellent gift for one who appreciates flowers.|| 149
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Bouquet]] ||  A stunning bouquet of flowers perfect for showing gratitude. An excellent gift for one who appreciates flowers.|| 150
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Flan Pâtissier]] ||  || 151
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Blancmange]] ||  A chilled dessert made from almond milk and gelatin. An excellent gift for one who enjoys confections.|| 152
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Galette]] ||  A flaky pastry with a rich, buttery aroma. An excellent gift for one who enjoys confections.|| 153
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Brochette]] ||  || 154
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Cutting Board]] ||  A wooden cutting board on which food can be prepared or served. An excellent gift for one who enjoys preparing food.|| 155
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Carving Knife]] ||  || 156
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Cup And Saucer]] ||  || 157
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Teapot]] ||  A tasteful ceramic teapot that lends an air of refinement. An excellent gift for one who enjoys tea.|| 158
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Snack Tray]] ||  || 159
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Dice]] ||  || 160
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Deck of Cards]] ||  A pocket-sized deck of cards for playing on the go. An excellent gift for one who enjoys amusement.|| 161
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Table Game]] ||  || 162
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Surcoat]] ||  || 163
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Tunic]] ||  || 164
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Chemise Dress]] ||  A white dress made of sheer fabric. An excellent gift for one keen on their attire.|| 165
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Quill]] ||  || 166
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Paints]] ||  || 167
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Easel]] ||  || 168
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Lapis Lazuli]] ||  A deep blue stone streaked with golden veins. An excellent gift for one who appreciates finery.|| 169
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Ruby]] ||  A vibrant red gem that represents passion and courage. An excellent gift for one who appreciates finery.|| 170
+|-
+| [[File:GiftTemp.png|link=link=|40x40px]]* || [[Black Diamond]] ||  A black gem believed to grant its owner incredible power. An excellent gift for one who appreciates finery.|| 171
+|}
+
+<!-- csv 2025-08-07
+Icon,Name,Description,ID
+[[file:HallowedCorneAsh.png|link=|40px]],[[Hallowed Corne Ash]],,6
+[[file:LuminousCorneAsh.png|link=|40px]],[[Luminous Corne Ash]],,7
+[[file:HealingTonic(S).png|link=|40px]],[[Healing Tonic (S)]],,8
+[[file:HealingTonic(M).png|link=|40px]],[[Healing Tonic (M)]],,9
+[[file:HealingTonic(L).png|link=|40px]],[[Healing Tonic (L)]],,10
+[[file:HealingFont(S).png|link=|40px]],[[Healing Font (S)]],,11
+[[file:HealingFont(M).png|link=|40px]],[[Healing Font (M)]],,12
+[[file:HealingFont(L).png|link=|40px]],[[Healing Font (L)]],,13
+[[file:RevivalOrb(S).png|link=|40px]],[[Revival Orb (S)]],,14
+[[file:RevivalOrb(M).png|link=|40px]],[[Revival Orb (M)]],,15
+[[file:RevivalOrb(L).png|link=|40px]],[[Revival Orb (L)]],,16
+[[file:Elixir.png|link=|40px]],[[Elixir]],,17
+[[file:SmokedNuts.png|link=|40px]],[[Smoked Nuts]],,18
+[[file:HotCrossBuns.png|link=|40px]],[[Hot Cross Buns]],,19
+[[file:GrilledSteak.png|link=|40px]],[[Grilled Steak]],,20
+[[file:SilverHourglass.png|link=|40px]],[[Silver Hourglass]],,21
+[[file:GoldHourglass.png|link=|40px]],[[Gold Hourglass]],,22
+[[file:StardustHourglass.png|link=|40px]],[[Stardust Hourglass]],,23
+[[file:CampingSet(S).png|link=|40px]],[[Camping Set (S)]],,24
+[[file:CampingSet(M).png|link=|40px]],[[Camping Set (M)]],,25
+[[file:CampingSet(L).png|link=|40px]],[[Camping Set (L)]],,26
+[[file:EmpoweringDraught.png|link=|40px]],[[Empowering Draught]],,27
+[[file:DefensiveDraught.png|link=|40px]],[[Defensive Draught]],,28
+[[file:LiquidFortune.png|link=|40px]],[[Liquid Fortune]],,29
+[[file:LightFeather.png|link=|40px]],[[Light Feather]],,30
+[[file:LightTailfeather.png|link=|40px]],[[Light Tailfeather]],,31
+[[file:BeckoningBell.png|link=|40px]],[[Beckoning Bell]],,32
+[[file:BeckoningChime.png|link=|40px]],[[Beckoning Chime]],,33
+[[file:WindFaerie'sCharm.png|link=|40px]],[[Wind Faerie's Charm]],,34
+[[file:HolyHerb.png|link=|40px]],[[Holy Herb]],,35
+[[file:ConcealingCloak.png|link=|40px]],[[Concealing Cloak]],,36
+[[file:Giant'sCanopy.png|link=|40px]],[[Giant's Canopy]],,37
+[[file:FarsightCrystal.png|link=|40px]],[[Farsight Crystal]],,38
+[[file:ConveyanceStone.png|link=|40px]],[[Conveyance Stone]],,39
+[[file:ConveyanceCrystal.png|link=|40px]],[[Conveyance Crystal]],,40
+[[file:DreamBlossom.png|link=|40px]],[[Dream Blossom]],,41
+[[file:BarricadeKit.png|link=|40px]],[[Barricade Kit]],,42
+[[file:MantletKit.png|link=|40px]],[[Mantlet Kit]],,43
+[[file:SteelTrap.png|link=|40px]],[[Steel Trap]],,44
+[[file:MagickMine.png|link=|40px]],[[Magick Mine]],,45
+[[file:MagickBomb.png|link=|40px]],[[Magick Bomb]],,46
+[[file:NoviceMilitaryTreatise.png|link=|40px]],[[Novice Military Treatise]],,47
+[[file:StandardMilitaryTreatise.png|link=|40px]],[[Standard Military Treatise]],,48
+[[file:ExpertMilitaryTreatise.png|link=|40px]],[[Expert  Military Treatise]],,49
+[[file:MasterMilitaryTreatise.png|link=|40px]],[[Master Military Treatise]],,50
+[[file:SupremeMilitaryTreatise.png|link=|40px]],[[Supreme Military Treatise]],,51
+[[file:MiracleFruit.png|link=|40px]],[[Miracle Fruit]],,52
+[[file:DewofVitality.png|link=|40px]],[[Dew of Vitality]],,53
+[[file:DewofStrength.png|link=|40px]],[[Dew of Strength]],,54
+[[file:DewofProtection.png|link=|40px]],[[Dew of Protection]],,55
+[[file:DewofKnowledge.png|link=|40px]],[[Dew of Knowledge]],,56
+[[file:DewofWarding.png|link=|40px]],[[Dew of Warding]],,57
+[[file:DewofSkill.png|link=|40px]],[[Dew of Skill]],,58
+[[file:DewofAcuity.png|link=|40px]],[[Dew of Acuity]],,59
+[[file:DewofKeenness.png|link=|40px]],[[Dew of Keenness]],,60
+[[file:DewofParrrying.png|link=|40px]],[[Dew of Parrrying]],,61
+[[file:DewofAgility.png|link=|40px]],[[Dew of Agility]],,62
+[[file:DewofIllusion.png|link=|40px]],[[Dew of Illusion]],,63
+[[file:Idealist'sHandmirror.png|link=|40px]],[[Idealist's Handmirror]],,66
+[[file:SecularTexts.png|link=|40px]],[[Secular Texts]],,133
+[[file:PalevianScriptures.png|link=|40px]],[[Palevian Scriptures]],,134
+[[file:HistoryOfFevrith.png|link=|40px]],[[History Of Fevrith]],,135
+[[file:SectrieveRockSalt.png|link=|40px]],[[Sectrieve Rock Salt]],,136
+[[file:ViltaHerb.png|link=|40px]],[[Vilta Herb]],,137
+[[file:WarnbyPepper.png|link=|40px]],[[Warnby Pepper]],,138
+[[file:ReplicaSword.png|link=|40px]],[[Replica Sword]],,139
+[[file:MusicBox.png|link=|40px]],[[Music Box]],,140
+[[file:OpulantUrn.png|link=|40px]],[[Opulant Urn]],,141
+[[file:GreigeAle.png|link=|40px]],[[Greige Ale]],,142
+[[file:ZagavonaWine.png|link=|40px]],[[Zagavona Wine]],,143
+[[file:MerietraBrandy.png|link=|40px]],[[Merietra Brandy]],,144
+[[file:ScentedSoap.png|link=|40px]],[[Scented Soap]],,145
+[[file:PleasantPerfume.png|link=|40px]],[[Pleasant Perfume]],,146
+[[file:FacePowder.png|link=|40px]],[[Face Powder]],,147
+[[file:CutFlowers.png|link=|40px]],[[Cut Flowers]],,148
+[[file:PressedFlowers.png|link=|40px]],[[Pressed Flowers]],,149
+[[file:Bouquet.png|link=|40px]],[[Bouquet]],,150
+[[file:FlanPâtissier.png|link=|40px]],[[Flan Pâtissier]],,151
+[[file:Blancmange.png|link=|40px]],[[Blancmange]],,152
+[[file:Galette.png|link=|40px]],[[Galette]],,153
+[[file:Brochette.png|link=|40px]],[[Brochette]],,154
+[[file:CuttingBoard.png|link=|40px]],[[Cutting Board]],,155
+[[file:CarvingKnife.png|link=|40px]],[[Carving Knife]],,156
+[[file:CupAndSaucer.png|link=|40px]],[[Cup And Saucer]],,157
+[[file:Teapot.png|link=|40px]],[[Teapot]],,158
+[[file:SnackTray.png|link=|40px]],[[Snack Tray]],,159
+[[file:Dice.png|link=|40px]],[[Dice]],,160
+[[file:DeckofCards.png|link=|40px]],[[Deck of Cards]],,161
+[[file:TableGame.png|link=|40px]],[[Table Game]],,162
+[[file:Surcoat.png|link=|40px]],[[Surcoat]],,163
+[[file:Tunic.png|link=|40px]],[[Tunic]],,164
+[[file:ChemiseDress.png|link=|40px]],[[Chemise Dress]],,165
+[[file:Quill.png|link=|40px]],[[Quill]],,166
+[[file:Paints.png|link=|40px]],[[Paints]],,167
+[[file:Easel.png|link=|40px]],[[Easel]],,168
+[[file:LapisLazuli.png|link=|40px]],[[Lapis Lazuli]],,169
+[[file:Ruby.png|link=|40px]],[[Ruby]],,170
+[[file:BlackDiamond.png|link=|40px]],[[Black Diamond]],,171
+-->

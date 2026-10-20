@@ -1,0 +1,33 @@
+{{Item InfoBox
+|Id=661
+|HexId=
+|Sort=Shield
+|Name=Nameless Guard's Shield
+|Image=
+|ImageFile=NamelessGuard'sShield.png
+|MainStat1=6
+|MainStat2=25
+|Skill=Radiant Cover
+|SubStat1=Guard Efficiency +25%
+|SubStat2=Blindness Immunity
+|SubStat3=
+|Buy=
+|Sell=300
+|Unobtainable=
+|EquippableBy=
+}}
+<!--
+{{Item InfoBox
+ |Id=661
+ |Name=Nameless Guard's Shield
+ |Icon=NamelessGuard'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=Radiant Cover
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Blindness Immunity
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}-->

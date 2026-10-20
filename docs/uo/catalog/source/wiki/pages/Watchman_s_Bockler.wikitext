@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=660
+ |Name=Watchman's Bockler
+ |Icon=Watchman'sBockler.png
+ |Sort=Shield
+ |PhysickalDefense=4
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Blindness Immunity
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

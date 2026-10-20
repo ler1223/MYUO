@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=659
+ |Name=Wingcrest Shield
+ |Icon=WingcrestShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Base [[File:PP_Gem.png|link=|23px]]PP +1
+ |Slot3=Critical Rate -20%
+ |Cost=
+ |Sell=1400
+}}

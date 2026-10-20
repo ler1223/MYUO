@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=710
+ |Name=Bronze Greatshield
+ |Icon=BronzeGreatshield.png
+ |Sort=Greatshield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +50%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=50
+}}

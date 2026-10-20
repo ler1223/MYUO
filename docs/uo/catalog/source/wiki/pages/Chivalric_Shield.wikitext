@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=682
+ |Name=Chivalric Shield
+ |Icon=ChivalricShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Stun Immunity
+ |Slot3=Guard Seal Immunity
+ |Cost=
+ |Sell=500
+}}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=700
+ |Name=White Rider's Shield
+ |Icon=WhiteRider'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Stun Immunity
+ |Slot3=Guard Seal Immunity
+ |Cost=
+ |Sell=
+}}

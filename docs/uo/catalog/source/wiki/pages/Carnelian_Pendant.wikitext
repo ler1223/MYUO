@@ -1,0 +1,19 @@
+The Carnelian Pendant is one of the few items which which gives additional [[File:AP_Gem.png|link=|23px]]AP. As such, it is a great boon early game where, except for [[Josef]], all units are limited to 1 [[File:AP_Gem.png|link=|23px]]AP.
+
+{{Item InfoBox
+ |Id=784
+ |Name=Carnelian Pendant
+ |Icon=CarnelianPendant.png
+ |Sort=Accessory
+ |PhysickalDefense=0
+ |MagickalDefense=0
+ | Skill =
+ |Slot1=Base [[File:AP_Gem.png|link=|23px]]AP +1
+ |Slot2=
+ |Slot3=
+ |Cost=10000
+ |Sell=1000
+}}
+
+== Acquisition ==
+*

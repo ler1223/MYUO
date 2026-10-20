@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=645
+ |Name=Battler's Shield
+ |Icon=Battler'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=2
+ |GuardRate=5
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Physickal Attack +2
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

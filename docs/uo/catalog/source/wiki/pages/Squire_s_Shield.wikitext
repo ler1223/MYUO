@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=692
+ |Name=Squire's Shield
+ |Icon=Squire'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=Quick Cover
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=1000
+}}

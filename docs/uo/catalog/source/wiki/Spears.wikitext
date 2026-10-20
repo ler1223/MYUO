@@ -1,0 +1,179 @@
+Back to [[Main Page]]. <br \>
+All spears under 25 Physical Attack stat can be upgraded via the [[Blacksmith]]. Upgrading does not affect the substats or skills that weapon provides, only the base stats.
+==Equippable By==
+*[[Soldier]]/[[Sergeant]]
+*[[Hoplite]]/[[Legionnaire]]
+*[[Knight]]/[[Great Knight]]
+*[[Wyvern Knight]]/[[Wyvern Master]]
+*[[Elven Sibyl]]/[[Elven Augur]]
+*[[Werefox]]
+*[[Dark Marquess (Spear)]]
+
+{| class="wikitable sortable" style="text-align: center;
+|-
+! class="unsortable" | Icon !! Name !! P.Atk !! M.Atk !! Skill !! style="width: 18% | Substats !! Price !! How to Obtain
+|-
+|  || Bronze Spear || 8 || 0 || || || -||style="text-align: left | All mercenaries and recruits early on start with this weapon.
+|-
+|  || Recruit's ShortSpear || 11 || 0 || || ||1500 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+|  || Baroque Spear || 13 || 0 || ||style="text-align: left | Accuracy +5 ||2000 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+|  || Iron Spear || 15 || 0 || || || 2000||style="text-align: left | Can be purchased from many shops in [[Cornia]], [[Drakenhold]], and [[Elheim]].
+|-
+|  || Templar's Spear || 15 || 0 || ||style="text-align: left |
+Physickal Defence +1<br \>
+Guard Rate +5%
+|| -||style="text-align: left |
+Can be purchased for 4 Divine Shards.<br \>
+|-
+|  || Black-Iron Spear || 17 || 0 || ||style="text-align: left | Critical Rate +5% ||3000 ||style="text-align: left | Can be purchased from many shops in [[Drakenhold]].
+|-
+|  || Greatwood Spear || 8 || 16 || ||style="text-align: left | Magick Defense +3 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+|  || Carnat Spear || 19 || 0 || ||style="text-align: left | Initiative +2 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+|  || Steel Spear || 22 || 0 || || || 4000||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Spellsteel Spear || 9 || 18 || || || 6000||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Vorpal Spear || 23 || 0 || || style="text-align: left |
+Max HP +5<br \>
+Initiative +3
+||6000 ||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Bloody Spear || 16 || 0 || [[File:AP_Gem.png|link=|23px]] [[Sanguine Attack]] || ||15000 ||style="text-align: left | Purchased at [[Yaniss Town]] in [[Elheim]].
+|-
+|  || Icefall Spear || 19 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Guard Rate -20%</span>
+|| 12000||style="text-align: left | Can be purchased at select shops in [[Bastorias]].
+|-
+|  || Dragonbone Spear || 15 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Initiative -10</span>
+||8000 ||style="text-align: left | Can be purchased at select shops in [[Drakenhold]].
+|-
+|  || Thorn Spear || 17 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">HP -15</span>
+|| 10000||style="text-align: left | Can be purchased at [[Subterranean City of Quantipelt]].
+|-
+|  || Wingcrest Spear || 21 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Critical Rate -20%</span>
+||14000 ||style="text-align: left | Can be purchased at select shops in [[Albion]].
+|-
+|  || Watchman's Longspear || 14 || 0 || [[File:PP_Gem.png|link=|23px]] [[Eagle Eye]] ||style="text-align: left | 
+Blind Immunity<br \>
+Accuracy +10 
+|| -||style="text-align: left | Found on the overworld map in [[Elheim]].
+|-
+|  || Nameless Guard's Spear || 21 || 0 || [[File:PP_Gem.png|link=|23px]] [[Eagle Eye]] ||style="text-align: left | 
+Blind Immunity<br \>
+Accuracy +20 
+|| -||style="text-align: left | Found on the overworld map in [[Albion]].
+|-
+|  || Carnelian Spear || 21 || 0 || || style="text-align: left | Base [[File:AP_Gem.png|link=|23px]]AP +1 ||- ||style="text-align: left | Can be purchased for 500 Coliseum Coins.
+|-
+|  || Phantom Knight's Spear || 0 || 16 || [[File:AP_Gem.png|link=|23px]] [[Phantom Attack]] ||style="text-align: left | Magick Defense +5 ||- ||style="text-align: left | Reward from [[The Sigil's Trial, Moderate 1]].
+|-
+|  || Zenoiran Spear || 14 || 0 || ||style="text-align: left |
+Max HP +10<br \>
+Physickal Defense +2<br \>
+Magickal Defense +2
+||5000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Cornia]].
+|-
+|  || Zenoiran Knight Spear || 20 || 0 || ||style="text-align: left |
+Max HP +15<br \>
+Physickal Defense +4<br \>
+Magickal Defense +4
+||10000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Bastorias]].
+|-
+|  || Glaive || 21 || 0 || ||style="text-align: left |
+Follow-up Skills Deal +20 Damage<br \>
+Critical Rate +10%
+||8000 ||style="text-align: left | Purchased from the [[Ancient City of Bastoritza]] in [[Bastorias]].
+|-
+|  || Adept's Shortspear || 21 || 0 || ||style="text-align: left |
+Passive Seal Immunity<br \>
+Critical Rate +15%
+||- ||style="text-align: left | Found on the overworld map in [[Bastorias]].
+|-
+|  || Meteorite Lance || 24 || 0 || ||style="text-align: left |
+Max HP +20<br \>
+Guard Rate +10%
+||- ||style="text-align: left | Obtained by trading 5 Star Iron to the Spear statue in [[Bastorias]].
+|-
+|  || Unwavering Spear || 12 || 0 || [[File:AP_Gem.png|link=|23px]] [[True Thrust]] ||style="text-align: left | Accuracy +10 || 3000||style="text-align: left | Purchased from [[Ouvrir Harbor]], [[Nordplage Town]], [[Avague Village]], and [[Rokkuros Town]].
+|-
+|  || Storm of Hail || 20 || 0 || [[File:APgem2.png|link=|29px]] [[Icicle Dart]] ||style="text-align: left | 
+Accuracy +20<br \>
+Freeze Immunity 
+|| 8000||style="text-align: left | Purchased from [[Vastokgora Town]] and [[Vosfraga Town]] in [[Bastorias]].
+|-
+|  || Corroded Spear || 17 || 0 || [[File:AP_Gem.png|link=|23px]] [[Shadow Thrust]] || || 8000||style="text-align: left | Purchased from [[Schwarthruse Town]] in [[Drakenhold]].
+|-
+|  || Valkyrie's Partisan || 14 || 0 || [[File:AP_Gem.png|link=|23px]] [[Passive Shatter (Spear)]] ||style="text-align: left | Initiative +5 || 15000||style="text-align: left | 
+Purchased from [[Chouvre Town]] in [[Cornia]].<br \>
+Reward from the first group of offline Coliseum battles.
+|-
+|  || Surging Shortspear || 13 || 0 || [[File:AP_Gem.png|link=|23px]] [[Rampage]] || || 5000||style="text-align: left | Purchased from [[Facon Town]] and [[Kleitur Town]].
+|-
+|  || Elfeater || 20 || 0 || [[File:APgem2.png|link=|29px]] [[Elfslayer]] ||style="text-align: left | Magick Defense +5 || 10000||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Elheim]].
+|-
+|  || General's Pike || 17 || 0 || [[File:PP_Gem.png|link=|23px]] [[Phalanx Shift]] ||style="text-align: left | Base [[File:PP_Gem.png|link=|23px]]PP +1|| 15000||style="text-align: left | Purchased from [[Castle Laurhal]] in [[Elheim]].
+|-
+|  || Canyon Lance || 21 || 0 || [[File:PPgem2.png|link=|29px]] [[Shattering Pursuit]] || || 12000||style="text-align: left | Purchased from [[Nibessamost Harbor]] and [[Wingsabbey Town]].
+|-
+|  || Helix Spear || 23 || 0 || [[File:APgem2.png|link=|29px]] [[Penetrate]] ||style="text-align: left | Guard Rate +10% || 10000||style="text-align: left | Purchased from the [[Zagatul Harbor]] and [[Bordeaux Town]].
+|-
+|  || Dragoon's Warspear || 20 || 0 || [[File:APgem2.png|link=|29px]] [[Dragoon Dive]] ||style="text-align: left | 
+Max HP +15<br \>
+Initiative +5 
+|| 15000||style="text-align: left | Purchased from the [[Castle Soldraga]] in [[Drakenheim]]. This weapon can only be used by [[Wyvern Knight]]/[[Wyvern Master]].
+|-
+|  || Runic Spear || 8 || 14 || [[File:AP_Gem.png|link=|23px]] [[Magick Attack]] ||style="text-align: left | Magick Defense +3 || 12000||style="text-align: left | Purchased from the [[Bellum Ghoria Hamlet]] in [[Cornia]].
+|-
+|  || Twinned Bough || 8 || 16 || [[File:AP_Gem.png|link=|23px]] [[Thunderous Thrust]] ||style="text-align: left | 
+Magick Defense +5<br \>
+Initiative +5 
+|| -||style="text-align: left | [[Eltolinde]] starts with this weapon.
+|-
+|  || Twinned Bough || 8 || 16 || [[File:AP_Gem.png|link=|23px]] [[Freezing Thrust]] ||style="text-align: left | 
+Magick Defense +5<br \>
+Initiative +5 
+|| -||style="text-align: left | [[Rosalinde]] starts with this weapon.
+|-
+|  || Silver Trident || 16 || 8 || [[File:APgem2.png|link=|29px]] [[Lightning Shaker]] ||style="text-align: left | Accuracy +10 || -||style="text-align: left | Dropped by [[Hilda]] in the quest [[]].
+|-
+|  || Crimson Sarissa || 13 || 0 || [[File:AP_Gem.png|link=|23px]] [[Sanguine Attack]] ||style="text-align: left | 
+Max HP +15<br \>
+Guard Rate +5% 
+||- ||style="text-align: left | Dropped by [[Renault]] in the quest [[]].
+|-
+|  || Flame Javelin || 18 || 0 || [[File:APgem2.png|link=|29px]] [[Flame Javelin]] ||style="text-align: left | Burn Immunity || -||style="text-align: left | Reward from the first group of offline Coliseum battles. This weapon can only be used by [[Soldier]]/[[Sergeant]].
+|-
+|  || Testarossa || 24 || 0 || ||style="text-align: left |
+Critical Damage +30%<br \>
+Stun Immunity
+|| -||style="text-align: left | Found on the overworld in [[Cornia]] west of [[Sorm]].
+|-
+|  || Orchis Spear || 25 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+HP Recovery +30%
+|| -||style="text-align: left | Elheim [[Treasure Map]] 6.
+|-
+|  || Sacral Spear || 25 || 0 || ||style="text-align: left |
+Affliction Immunity<br \>
+Heal 20% HP when using Active Skill
+|| -||style="text-align: left | Elheim Sanctuary.
+|-
+|  || Kingspear Elhal || 9 || 18 || ||style="text-align: left | All Stats +5 ||- ||style="text-align: left | Reward from the [[Carved of Elheim Stone]] quest.
+|-
+| [[File:ZephyrosSpear.png|link=|40px]] || Zephyros's Spear || 25 || 0 || ||style="text-align: left |
+Base [[File:AP_Gem.png|link=|23px]]AP +1<br \>
+Initiative +10<br \>
+Evasion +10
+|| -||style="text-align: left | Rewarded during the [[Armaments of the Anemoi]] quest.
+|}

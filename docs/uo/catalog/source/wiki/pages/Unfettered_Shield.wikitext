@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=681
+ |Name=Unfettered Shield
+ |Icon=UnfetteredShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Guard Seal Immunity
+ |Slot3=Passive Seal Immunity
+ |Cost=
+ |Sell=500
+}}

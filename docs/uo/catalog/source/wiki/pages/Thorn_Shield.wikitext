@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=657
+ |Name=Thorn Shield
+ |Icon=ThornShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Base [[File:PP_Gem.png|link=|23px]]PP +1
+ |Slot3=HP -15
+ |Cost=
+ |Sell=1000
+}}

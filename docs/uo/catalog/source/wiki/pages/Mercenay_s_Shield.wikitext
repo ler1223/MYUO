@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=685
+ |Name=Mercenay's Shield
+ |Icon=Mercenay'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=18
+ |Skill=Vengeful Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Critical Rate +5%
+ |Slot3=
+ |Cost=
+ |Sell=1000
+}}

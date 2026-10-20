@@ -1,0 +1,193 @@
+Back to [[Main Page]]. <br \>
+All Bows under 25 Physical Attack stat can be upgraded via the [[Blacksmith]]. Upgrading does not affect the substats or skills that weapon provides, only the base stats.
+==Equippable By==
+This category includes some crossbows, which are only equippable by [[Arbalist]]s/[[Shieldshooter]]s. All other bows are equippable by the following classes:
+*[[Hunter]]/[[Sniper]]
+*[[Arbalist]]/[[Shieldshooter]]
+*[[Elven Archer]]
+*[[Featherbow]]
+*[[Snow Ranger]]
+{| class="wikitable sortable" style="text-align: center;
+|-
+! class="unsortable" | Icon !! Name !! P.Atk !! M.Atk !! Skill !! style="width: 18% | Substats !! Price !! How to Obtain
+|-
+|  || Bronze Bow || 8 || 0 || || || -||style="text-align: left | All mercenaries and recruits early on start with this weapon.
+|-
+|  || Recruit's ShortBow || 11 || 0 || || ||1500 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+|  || Baroque Bow || 13 || 0 || ||style="text-align: left | Accuracy +5 ||2000 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+|  || Iron Bow || 15 || 0 || || || 2000||style="text-align: left | Can be purchased from many shops in [[Cornia]], [[Drakenhold]], and [[Elheim]].
+|-
+|  || Templar's Bow || 15 || 0 || ||style="text-align: left |
+Physickal Defence +1<br \>
+Guard Rate +5%
+|| -||style="text-align: left |
+Can be purchased for 4 Divine Shards.<br \>
+|-
+|  || Black-Iron Bow || 17 || 0 || ||style="text-align: left | Critical Rate +5% ||3000 ||style="text-align: left | Can be purchased from many shops in [[Drakenhold]].
+|-
+|  || Greatwood Bow || 8 || 16 || ||style="text-align: left | Magick Defense +3 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+|  || Carnat Bow || 19 || 0 || ||style="text-align: left | Initiative +2 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+|  || Steel Bow || 22 || 0 || || || 4000||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Spellsteel Bow || 9 || 18 || || || 6000||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Vorpal Bow || 23 || 0 || || style="text-align: left |
+Max HP +5<br \>
+Initiative +3
+||6000 ||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Sanguine Bow || 16 || 0 || [[File:AP_Gem.png|link=|23px]] [[Sanguine Attack]] || ||15000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Drakenhold]].
+|-
+|  || Icefall Bow || 19 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Guard Rate -20%</span>
+|| 12000||style="text-align: left | Can be purchased at select shops in [[Bastorias]].
+|-
+|  || Dragonbone Bow || 15 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Initiative -10</span>
+||8000 ||style="text-align: left | Can be purchased at select shops in [[Drakenhold]].
+|-
+|  || Thorn Bow || 17 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">HP -15</span>
+|| 10000||style="text-align: left | Can be purchased at [[Subterranean City of Quantipelt]].
+|-
+|  || Wingcrest Bow || 21 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Critical Rate -20%</span>
+||14000 ||style="text-align: left | Can be purchased at select shops in [[Albion]].
+|-
+|  || Watchman's LongBow || 14 || 0 || [[File:PP_Gem.png|link=|23px]] [[Eagle Eye]] ||style="text-align: left | 
+Blind Immunity<br \>
+Accuracy +10 
+|| -||style="text-align: left | Found on the overworld map in [[Elheim]].
+|-
+|  || Nameless Guard's Bow || 21 || 0 || [[File:PP_Gem.png|link=|23px]] [[Eagle Eye]] ||style="text-align: left | 
+Blind Immunity<br \>
+Accuracy +20 
+|| -||style="text-align: left | Found on the overworld map in [[Bastorias]].
+|-
+|  || Carnelian Bow || 21 || 0 || || style="text-align: left | Base [[File:AP_Gem.png|link=|23px]]AP +1 ||- ||style="text-align: left | Can be purchased for 500 Coliseum Coins.
+|-
+|  || Phantom Knight's Bow || 0 || 16 || [[File:AP_Gem.png|link=|23px]] [[Phantom Attack]] ||style="text-align: left | Magick Defense +5 ||- ||style="text-align: left | Reward from [[The Sigil's Trial, Advanced 3]].
+|-
+|  || Zenoiran Bow || 14 || 0 || ||style="text-align: left |
+Max HP +10<br \>
+Physickal Defense +2<br \>
+Magickal Defense +2
+||5000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Drakenhold]].
+|-
+|  || Zenoiran Knight Bow || 20 || 0 || ||style="text-align: left |
+Max HP +15<br \>
+Physickal Defense +4<br \>
+Magickal Defense +4
+||10000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Albion]].
+|-
+|  || Meteorite Bow || 24 || 0 || ||style="text-align: left |
+Max HP +20<br \>
+Guard Rate +10%
+||- ||style="text-align: left | Obtained by trading 5 Star Iron to the Bow statue in [[Bastorias]].
+|-
+|  || Infamous Bow || 18 || 0 || ||style="text-align: left |
+Accuracy +50<br \>
+<span style="color:#FF0000">Critical Rate -30%</span>
+||- ||style="text-align: left | Elheim [[Treasure Map]] 1.
+|-
+|  || Viper Bow || 11 || 0 || [[File:AP_Gem.png|link=|23px]] [[Poison Arrow]] || ||3000 ||style="text-align: left | Purchased from [[Avague Village]]in [[Cornia]].
+|-
+|  || Flame Bow || 11 || 0 || [[File:AP_Gem.png|link=|23px]] [[Flame Arrow]] || ||3000 ||style="text-align: left | Purchased from [[Treyes Village]], [[Chouvre Town]]. and [[Gravemond Town]].
+|-
+|  || Salamander Greatbow || 11 || 0 || [[File:AP_Gem.png|link=|23px]] [[Poison Arrow]] ||style="text-align: left | Burn Immunity ||10000 ||style="text-align: left | Purchased from [[Solwell Town]] in [[Albion]].
+|-
+|  || Starless Bow || 11 || 0 || [[File:AP_Gem.png|link=|23px]] [[Shadow Arrow]] || ||3000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Cornia]].
+|-
+|  || Thundering Bow || 14 || 0 || [[File:AP_Gem.png|link=|23px]] [[Strength Shatter]] || ||3000 ||style="text-align: left | Purchased from [[Ganrafeldt Town]] and [[Paniveda Town]].
+|-
+|  || Thundering Strongbow || 21 || 0 || [[File:APgem2.png|link=|29px]] [[Strength Shatter II]] ||style="text-align: left | 
+Accuracy +5<br \>
+Critical Rate +20% 
+||12000 ||style="text-align: left | Purchased from [[Nibessamost Harbor]] and [[Alledge Town]].
+|-
+|  || Piercing Bow || 14 || 0 || [[File:AP_Gem.png|link=|23px]] [[Armor Shatter]] || ||3000 ||style="text-align: left | Purchased from [[Weszait Town]], [[Yaniss Town]], and [[Gorazmak Town]].
+|-
+|  || Piercing Strongbow || 21 || 0 || [[File:APgem2.png|link=|29px]] [[Armor Shatter II]] ||style="text-align: left | 
+Accuracy +5<br \>
+Critical Rate +20% 
+||12000 ||style="text-align: left | Purchased from [[Burbury Town]] in [[Albion]].
+|-
+|  || Spellseal Bow || 18 || 0 || [[File:APgem2.png|link=|29px]] [[Magick Shatter]] || ||10000 ||style="text-align: left | Purchased from [[Rukasmala Town]] and [[Ancient City of Bastoritza]].
+|-
+|  || Pheasant Bow || 13 || 0 || [[File:AP_Gem.png|link=|23px]] [[Passive Shatter]] || ||5000 ||style="text-align: left | Purchased from [[Riviere Town]] in [[Cornia]].
+|-
+|  || Interrogator's Bow || 16 || 0 || [[File:PP_Gem.png|link=|23px]] [[Healing Hunter]] ||style="text-align: left | 
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+Magick Defense +3 
+||12000 ||style="text-align: left | Purchased from [[Walled City of Eucuit]] in [[Cornia]].
+|-
+|  || The Inquisitor || 21 || 0 || [[File:PP_Gem.png|link=|23px]] [[Healing Hunter]] ||style="text-align: left | 
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+Magick Defense +5 
+||20000 ||style="text-align: left | Purchased from [[Citronpool Harbor]] in [[Albion]].
+|-
+|  || Bow of Swiftness || 16 || 0 || [[File:PP_Gem.png|link=|23px]] [[Rapid Shot]] || ||10000 ||style="text-align: left | 
+Purchased from [[Baumratte]] in [[Drakenhold]].<br \>
+Reward from the first group of offline Coliseum battles.
+|-
+|  || Silvermoon Bow || 19 || 0 || [[File:APgem2.png|link=|29px]] [[Beastslayer]] || ||10000 ||style="text-align: left | Purchased from [[Lornivisch Harbor]] and [[Zagavona Harbor]] in [[Bastorias]].
+|-
+|  || General's Longbow || 17 || 0 || [[File:PP_Gem.png|link=|23px]] [[Aerial Shift]] ||style="text-align: left | Base [[File:PP_Gem.png|link=|23px]]PP +1 ||- ||style="text-align: left | Cornia [[Treasure Map]] 4.
+|-
+|  || Crane Bow || 22 || 0 || [[File:APgem2.png|link=|29px]] [[Triple Shatter]] ||style="text-align: left | Initiative +5 ||20000 ||style="text-align: left | Purchased from the [[Walled City of Peyston]] in [[Albion]].
+|-
+|  || Trapper's Warbow || 20 || 0 || [[File:APgem2.png|link=|29px]] [[Arrow Rain]] ||style="text-align: left | 
+Max HP +15<br \>
+Initiative +5
+ ||15000 ||style="text-align: left | Purchased from [[Voryatan Citadel]] in [[Elheim]].
+|-
+|  || Gallian Crossbow || 21 || 0 || [[File:APgem2.png|link=|29px]] [[Harpoon Bolt]] ||style="text-align: left | 
+Accuracy +10<br \>
+Critical Damage +30%
+ ||15000 ||style="text-align: left | Purchased from [[Dracodorina Citadel]] in [[Bastorias]].
+|-
+|  || Greatwood Spiritbow || 10 || 16 || ||style="text-align: left | Magick Defense +5 || -||style="text-align: left | [[Galadmir]] starts with this weapon.
+|-
+|  || Desert Bow || 15 || 0 || ||style="text-align: left |
+Critical Rate +10%<br \>
+Accuracy +20
+|| -||style="text-align: left | [[Liza]] starts with this weapon.
+|-
+|  || Frostbloom Bow || 21 || 0 || ||style="text-align: left |
+Critical Rate +15%<br \>
+Evasion +20
+|| -||style="text-align: left | [[Yunifi]] starts with this weapon.
+|-
+|  || Woodpecker || 23 || 0 || [[File:APgem2.png|link=|29px]] [[Spiked Bolt]] ||style="text-align: left | 
+Critical Damage +30%<br \>
+Stun Immunity
+ ||- ||style="text-align: left | Bastorias [[Treasure Map]] 3.
+|-
+|  || Alminster || 25 || 0 || [[File:APgem2.png|link=|29px]] [[Checkmate]] ||style="text-align: left | Accuracy +30 ||- ||style="text-align: left | 1000 Coliseum Coins.
+|-
+|  || Quince Bow || 25 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+HP Recovery +30%
+|| -||style="text-align: left | Bastorias [[Treasure Map]] 6.
+|-
+|  || Sacral Bow || 25 || 0 || ||style="text-align: left |
+Affliction Immunity<br \>
+Heal 20% HP when using Active Skill
+|| -||style="text-align: left | Bastorias Sanctuary.
+|-
+|  || Kingsbow Bastorik || 25 || 0 || ||style="text-align: left | All Stats +5 ||- ||style="text-align: left | Reward from the [[Carved of Bastorias Stone]] quest.
+|-
+| [[File:ApeliotesBow.png|link=|40px]] || Apeliotes's Bow || 25 || 0 || ||style="text-align: left |
+Base [[File:AP_Gem.png|link=|23px]]AP +1<br \>
+Initiative +10<br \>
+Evasion +10
+|| -||style="text-align: left | Rewarded during the [[Armaments of the Anemoi]] quest.
+|}

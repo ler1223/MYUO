@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=642
+ |Name=Bronze Shield
+ |Icon=BronzeShield.png
+ |Sort=Shield
+ |PhysickalDefense=3
+ |GuardRate=15
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=50
+}}

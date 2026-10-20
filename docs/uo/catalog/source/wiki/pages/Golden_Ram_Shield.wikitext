@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=667
+ |Name=Golden Ram Shield
+ |Icon=GoldenRamShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Max HP +10
+ |Slot3=Stun Immunity
+ |Cost=
+ |Sell=300
+}}

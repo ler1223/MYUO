@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=668
+ |Name=Heavenswing Shield
+ |Icon=HeavenswingShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Accuracy +10
+ |Slot3=Evasion +10
+ |Cost=
+ |Sell=300
+}}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=652
+ |Name=Vorpal Shield
+ |Icon=VorpalShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Max HP +5
+ |Slot3=Initiative +3
+ |Cost=
+ |Sell=600
+}}

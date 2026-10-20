@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=673
+ |Name=Hunter's Buckler
+ |Icon=Hunter'sBuckler.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Follow-up Skills Have +20 Potency
+ |Slot3=Critical Rate +5%
+ |Cost=
+ |Sell=500
+}}

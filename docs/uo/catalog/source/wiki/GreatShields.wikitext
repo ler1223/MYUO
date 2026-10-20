@@ -1,0 +1,154 @@
+<div class="noexcerpt">Back to [[Main Page]].<!--<br>Back to [[Items]]--></div> 
+==Equippable By==
+{{MissingInfo|section}}
+*[[Hoplite]]/[[Legionnaire]]
+*[[Shieldshooter]]
+*[[Werebear]]
+*[[Feathershield]]
+*[[Dreadnought]]
+*[[Dark Marquess (Axe)]]
+*[[Dark Marquess (Staff)]]
+*[[Dark Marquess (Spear)]]
+*[[Dark Marquess (Sword)]]
+
+==List==
+{| class="wikitable sortable" style="text-align: center;
+|-
+! ID 
+! class="unsortable" | Icon!! Name !! P.Def !! Guard Rate !! Skill !! Stat 1 !! style="width: 18% " | Stat 2 !! Stat 3 
+|-
+| 710 
+| ||[[Bronze Greatshield]] || 6 || 25 || || Guard Efficiency +50%|| ||
+|-
+| 711 
+| ||[[Recruit's Greatshield]] || 6 || 27 || || Guard Efficiency +50%|| Max HP +3 || User Earns +10% EXP 
+|-
+| 712 
+| ||[[Baroque Greatshield]] || 8 || 28 || || Guard Efficiency +50%|| Accuracy +5 ||
+|-
+| 713 
+| ||[[Conveyable Greatshield]] || 5 || 10 || || Guard Efficiency +50%|| Initiative +5 ||
+|-
+| 714 
+| ||[[Iron Greatshield]] || 10 || 30 || || Guard Efficiency +50%|| ||
+|-
+| 715 
+| ||[[Black-Iron Greatshield]] || 11 || 32 || || Guard Efficiency +50%|| Critical Rate +4% ||
+|-
+| 716 
+| ||[[Carnat Greatshield]] || 12 || 33 || || Guard Efficiency +50%|| Initiative +1 ||
+|-
+| 717 
+| ||[[Greatwood Greatshield]] || 11 || 30 || || Guard Efficiency +50%|| Magick Defense +2 ||
+|-
+| 718 
+| ||[[Steel Greatshield]] || 14 || 35 || || Guard Efficiency +50%|| ||
+|-
+| 719 
+| ||[[Spellsteel Greatshield]] || 13 || 30 || || Guard Efficiency +50%|| Magick Defense +5 ||
+|-
+| 720 
+| ||[[Vorpal Greatshield]] || 15 || 35 || || Guard Efficiency +50%|| Max HP +5 || Initiative +3 
+|-
+| 724 
+| ||[[Dragonbone Greatshield]] || 11 || 25 || || Guard Efficiency +50%|| Base PP +1 || Initiative -10 
+|-
+| 725 
+| ||[[Thorn Greatshield]] || 12 || 30 || || Guard Efficiency +50%|| Base PP +1 || HP -15 
+|-
+| 726 
+| ||[[Icefall Greatshield]] || 14 || 30 || || Guard Efficiency +50%|| Base PP +1 || Guard Rate -20% 
+|-
+| 727 
+| ||[[Wingcrest Greatshield]] || 15 || 35 || || Guard Efficiency +50%|| Base PP +1 || Critical Rate -20% 
+|-
+| 729 
+| ||[[Templar's Greatshield]] || 10 || 30 || || Guard Efficiency +50%|| HP Recovery +20% ||
+|-
+| 730 
+| ||[[Phantom Knight's Greatshield]] || 0 || 0 || || Guard Efficiency +50%|| Magick Defense +30 ||
+|-
+| 731 
+| ||[[Zenoiran Greatshield]] || 8 || 25 || || Guard Efficiency +50%|| Max HP +10 ||
+|-
+| 732 
+| ||[[Zenoiran Knight's Greatshield]] || 13 || 35 || {{Skill|Enduring Cover}} || Guard Efficiency +50%|| Max HP +15 ||
+|-
+| 737 
+| ||[[Azure Crest Greatshield]] || 10 || 30 || || Guard Efficiency +50%|| Base PP +1 ||
+|-
+| 739 
+| ||[[Mirage Greatshield]] || 3 || 20 || || Guard Efficiency +50%|| Evasion +50 ||
+|-
+| 742 
+| ||[[Viper Greatshield]] || 10 || 30 || || Guard Efficiency +50%|| Poison Immunity ||
+|-
+| 743 
+| ||[[Searing Greatshield]] || 10 || 30 || || Guard Efficiency +50%|| Brun Immunity ||
+|-
+| 744 
+| ||[[Hoarfrost Greatshield]] || 10 || 30 || || Guard Efficiency +50%|| Freeze Immunity ||
+|-
+| 745 
+| ||[[Luminous Greatshield]] || 13 || 35 || || Guard Efficiency +50%|| Poison Immunity || Blindness Immunity 
+|-
+| 747 
+| ||[[Citadel Guard's Greatshield]] || 14 || 30 || {{Skill|Heavy Guard}} || Guard Efficiency +50%|| Max HP +10 ||
+|-
+| 748 
+| ||[[Moonlight Greatshield]] || 13 || 35 || {{Skill|Nocturnal Guard}} || Guard Efficiency +50%|| ||
+|-
+| 749 
+| ||[[Unyielding Greatshield]] || 14 || 40 || {{Skill|Enduring Guard}} || Guard Efficiency +50%|| ||
+|-
+| 750 
+| ||[[Horsekiller Greatshield]] || 10 || 30 || {{Skill|Cavalry Guard}} || Guard Efficiency +50%|| ||
+|-
+| 751 
+| ||[[Wingclipper Greatshield]] || 10 || 30 || {{Skill|Aerial Guard}} || Guard Efficiency +50%|| ||
+|-
+| 752 
+| ||[[Beastslayer Greatshield]] || 13 || 30 || {{Skill|Bestral Guard}} || Guard Efficiency +50%|| ||
+|-
+| 753 
+| ||[[Squire's Greatshield]] || 10 || 30 || {{Skill|Quick Cover}} || Guard Efficiency +50%|| ||
+|-
+| 754 
+| ||[[Panoplied Greatshield]] || 13 || 35 || {{Skill|Heavy Cover}} || Guard Efficiency +50%|| ||
+|-
+| 755 
+| ||[[Ironclad Towershield]] || 10 || 30 || {{Skill|Wall}} || Guard Efficiency +50%|| ||
+|-
+| 756 
+| ||[[Bulwark Towershield]] || 13 || 35 || {{Skill|Bulwark}} || Guard Efficiency +50%|| ||
+|-
+| 757 
+| ||[[White Knight's Greatshield]] || 9 || 25 || {{Skill|Lifeshare}} || Guard Efficiency +50%|| Max HP +15 ||
+|-
+| 758 
+| ||[[Blacksilver Pavise]] || 14 || 30 || {{Skill|Bunker Stance}} || Guard Efficiency +50% || Stun Immunity ||
+|-
+| 761 
+| ||[[Heaven's Mirror Greatshield]] || 6 || 10 || {{Skill|Reflect Magick}} || Guard Efficiency +50% || ||
+|-
+| 762 
+| ||[[Drakestone Iceshield]] || 16 || 40 || || Guard Efficiency +50%|| Freeze Immunity || Stun Immunity 
+|-
+| 763 
+| ||[[Greatshield Of The Abyss]] || 13 || 35 || || Guard Efficiency +50%|| Max HP +20 || Takes 20% Less Damage 
+|-
+| 764 
+| ||[[Greatshield Of The Abyss]] || 16 || 40 || || Guard Efficiency +50%|| Max HP +20 || Takes 20% Less Damage 
+|-
+| 766 
+| [[file:SkironGShield.png|link=|40px]] ||[[Skiron's Greatshield]] || 16 || 40 || {{Skill|Hastened Cover}} || Guard Efficiency +50%|| Initiative +5 ||
+|-
+| 767 
+| ||[[Hero's Greatshield]] || 16 || 40 || {{Skill|Invincible}} || Guard Efficiency +50%|| Base PP +1 ||
+|-
+| 768 
+| ||[[Champion's Towershield]] || 16 || 40 || {{Skill|Provoking Wall}} || Guard Efficiency +50%|| ||
+|-
+| 769 
+| ||[[Gran Baris]] || 16 || 40 || || Guard Efficiency +50%|| Debuff Immunity ||
+|}

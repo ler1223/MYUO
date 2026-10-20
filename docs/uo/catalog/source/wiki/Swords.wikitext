@@ -1,0 +1,197 @@
+<div class="noexcerpt">Back to [[Main Page]].</div> <br \>
+All swords under 25 Physical Attack stat can be upgraded via the [[Blacksmith]]. Upgrading does not affect the substats or skills that weapon provides, only the base stats.
+==Equippable By==
+*[[Lord]]/[[High Lord]]
+*[[Paladin]]
+*[[Fighter]]/[[Vanguard]]
+*[[Swordfighter]]/[[Swordmaster]]
+*[[Sellsword]]/[[Landsknecht]]
+*[[Thief]]/[[Rogue]]
+*[[Radiant Knight]]/[[Sainted Knight]]
+*[[Elven Fencer]]
+*[[Werewolf]]
+*[[Feathersword]]
+*[[Feathershield]]
+*[[Crusader]]/[[Valkyria]]
+*[[Prince]]
+*[[Dreadnought]]
+*[[Dark Marquess (Sword)]]
+
+{| class="wikitable sortable" style="text-align: center;
+|-
+! class="unsortable" | Icon !! Name !! P.Atk !! M.Atk !! Skill !! style="width: 18% | Substats !! Price !! How to Obtain
+|-
+| [[File:BronzeSword.png|link=|40px]] || Bronze Sword || 8 || 0 || || || -||style="text-align: left | All mercenaries and recruits early on start with this weapon.
+|-
+| [[File:RecruitSword.png|link=|40px]] || Recruit's Shortsword || 11 || 0 || || ||1500 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+| [[File:BaroqueSword.png|link=|40px]] || Baroque Sword || 13 || 0 || ||style="text-align: left | Accuracy +5 ||2000 ||style="text-align: left | Can be purchased from many shops in [[Cornia]].
+|-
+| [[File:IronSword.png|link=|40px]] || Iron Sword || 15 || 0 || || || 2000||style="text-align: left | Can be purchased from many shops in [[Cornia]], [[Drakenhold]], and [[Elheim]].
+|-
+| [[File:HallowedBlade.png|link=|40px]] || Templar's Sword || 15 || 0 || ||style="text-align: left |
+Physickal Defence +1<br \>
+Guard Rate +5%
+|| -||style="text-align: left |
+[[Josef]] starts with this weapon.<br \>
+Can be purchased for 4 Divine Shards.<br \>
+|-
+|  || Black-Iron Sword || 17 || 0 || ||style="text-align: left | Critical Rate +5% ||3000 ||style="text-align: left | Can be purchased from many shops in [[Drakenhold]].
+|-
+| [[File:GreatwoodSword.png|link=|40px]] || Greatwood Sword || 8 || 16 || ||style="text-align: left | Magick Defense +3 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+| [[File:CarnatSword.png|link=|40px]] || Carnat Sword || 19 || 0 || ||style="text-align: left | Initiative +2 ||4000 ||style="text-align: left | Can be purchased from many shops in [[Elheim]].
+|-
+| [[File:SteelSword.png|link=|40px]] || Steel Sword || 22 || 0 || || || 4000||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+| [[File:SpellsteelSword.png|link=|40px]] || Spellsteel Sword || 9 || 18 || || || 6000||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+| [[File:VorpalSword.png|link=|40px]] || Vorpal Sword || 23 || 0 || || style="text-align: left |
+Max HP +5<br \>
+Initiative +3
+||6000 ||style="text-align: left | Can be purchased from many shops in [[Bastorias]] and [[Albion]].
+|-
+|  || Sanguine Blade || 16 || 0 || [[File:AP_Gem.png|link=|23px]] [[Sanguine Attack]] || ||15000 ||style="text-align: left | Purchased at [[Ysveda Harbor]] and [[Palevia Harbor]].
+|-
+| [[File:DragonboneBlade.png|link=|40px]] || Dragonbone Blade || 15 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Initiative -10</span>
+||8000 ||style="text-align: left | Can be purchased at select shops in [[Drakenhold]].
+|-
+| [[File:ThornSword.png|link=|40px]] || Thorn Blade || 17 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">HP -15</span>
+|| 10000||style="text-align: left | Can be purchased at [[Subterranean City of Quantipelt]].
+|-
+| [[File:IcefallBlade.png|link=|40px]] || Icefall Blade || 19 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Guard Rate -20%</span>
+|| 12000||style="text-align: left | Can be purchased at select shops in [[Bastorias]].
+|-
+| [[File:WingcrestBlade.png|link=|40px]] || Wingcrest Blade || 21 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+<span style="color:#FF0000">Critical Rate -20%</span>
+||14000 ||style="text-align: left | Can be purchased at select shops in [[Albion]].
+|-
+|  || Carnelian Blade || 21 || 0 || || style="text-align: left | Base [[File:AP_Gem.png|link=|23px]]AP +1 ||- ||style="text-align: left | Can be purchased for 500 Coliseum Coins.
+|-
+| [[File:PhantomKnightSword.png|link=|40px]] || Phantom Knight's Sword || 0 || 16 || [[File:AP_Gem.png|link=|23px]] [[Phantom Attack]] ||style="text-align: left | Magick Defense +5 || -||style="text-align: left | Reward from [[The Sigil's Trial, Advanced 1]].
+|-
+| [[File:ZenoiranSword.png|link=|40px]] || Zenoiran Sword || 14 || 0 || ||style="text-align: left |
+Max HP +10<br \>
+Physickal Defense +2<br \>
+Magickal Defense +2
+||5000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Cornia]].
+|-
+| [[File:ZenoiranKnightSword.png|link=|40px]] || Zenoiran Knight's Sword || 20 || 0 || ||style="text-align: left |
+Max HP +15<br \>
+Physickal Defense +4<br \>
+Magickal Defense +4
+||10000 ||style="text-align: left | Purchased from the [[Black Market Dealer]] in [[Bastorias]].
+|-
+|  || Barbarian's Might || 14 || 0 || [[File:AP_Gem.png|link=|23px]] [[Provoking Slash]] ||style="text-align: left | Max HP +5 ||3000 ||style="text-align: left | Purchased from [[Rokkuros Town]] in [[Elheim]].
+|-
+| [[File:HeavenswingSword.png|link=|40px]] || Heavenswing Sword || 16 || 0 || ||style="text-align: left |
+Accuracy +10<br \>
+Evasion +10
+||- ||style="text-align: left | [[Ochlys]] starts with this weapon.
+|-
+| [[File:HuntersClaymore.png|link=|40px]] || Hunter's Claymore || 22 || 0 || ||style="text-align: left |
+Follow-up Skills Deal +20 Damage<br \>
+Critical Rate +10%
+||8000 ||style="text-align: left | Purchased at [[Drynarot Town]] in [[Bastorias]].
+|-
+| [[File:HallowedBlade.png|link=|40px]] || Hallowed Blade || 14 || 0 || ||style="text-align: left |
+Heal 10% HP when using Active Skill<br \>
+Max HP +5
+||- ||style="text-align: left | Reward from Cornia [[Treasure Map]] 1.
+|-
+| [[File:MeteoriteSword.png|link=|40px]] || Meteorite Sword || 24 || 0 || ||style="text-align: left |
+Max HP +20<br \>
+Guard Rate +10%
+||- ||style="text-align: left | Obtained by trading 5 Star Iron to the sword statue in [[Bastorias]].
+|-
+| [[File:Viperfang.png|link=|40px]] || Viperfang || 12 || 0 || [[File:AP_Gem.png|link=|23px]] [[Poison Slash]] || || 3000||style="text-align: left | Purchased at [[Thulust Harbor]], [[Elzecouvre Town]], and [[Siltakulya Town]].
+|-
+| [[File:SearingRapier.png|link=|40px]] || Searing Rapier || 15 || 0 || [[File:AP_Gem.png|link=|23px]] [[Fire Slash]] || ||3000 ||style="text-align: left | Purchased at [[Gozefauss Town]] and [[Schwieger Town]].
+|-
+| [[File:FlambergeS.png|link=|40px]] || Flamberge || 22 || 0 || [[File:APgem2.png|link=|29px]] [[Grisly Fire]] ||style="text-align: left | Burn Immunity ||10000 ||style="text-align: left | Purchased at [[Devolpis Harbor]] in [[Bastorias]].
+|-
+| [[File:ScorpionSting.png|link=|40px]] || Scorpion's Sting || 21 || 0 || [[File:APgem2.png|link=|29px]] [[Grisly Poison]] ||style="text-align: left | Poison Immunity ||10000 ||style="text-align: left | Purchased at [[Shroudford Town]] in [[Albion]].
+|-
+| [[File:DancersDelight.png|link=|40px]] || Dancer's Delight || 16 || 0 || [[File:AP_Gem.png|link=|23px]] [[Leaping Slash]] ||style="text-align: left | Critical Rate +10% || 8000||style="text-align: left | Purchased at [[Znova Town]] in [[Drakenhold]].
+|-
+| [[File:SylphsBane.png|link=|40px]] || Sylph's Bane || 16 || 0 || [[File:AP_Gem.png|link=|23px]] [[Sonic Blast]] ||style="text-align: left | Evasion +10 || 5000||style="text-align: left | Purchased at [[Simtukka Town]] and [[Merietra Town]] in [[Elheim]].
+|-
+|  || Galecutter || 22 || 0 || [[File:APgem2.png|link=|29px]] [[Double Blast]] ||style="text-align: left | Evasion +20 || 12000||style="text-align: left | Purchased at [[Heavensriver Town]] in [[Albion]].
+|-
+| [[File:HailstormEdge.png|link=|40px]] || Hailstorm Edge || 20 || 0 || [[File:APgem2.png|link=|29px]] [[Icicle Dart]] ||style="text-align: left |
+Accuracy +20<br \>
+Freeze Immunity
+||8000 ||style="text-align: left | Purchased at [[Domgakom Town]] and [[Prigaschari Harbor]] in [[Bastorias]].
+|-
+|  || Pursuant's Blade || 20 || 0 || [[File:PP_Gem.png|link=|23px]] [[Pursuit]] || || 10000||style="text-align: left | Purchased at [[Gorazmak Town]] in [[Bastorias]].
+|-
+|  || Cutthroat's Boon || 21 || 0 || [[File:APgem2.png|link=|29px]] [[Assassin's Nail]] ||style="text-align: left |
+Evasion +10<br \>
+Blindness Immunity
+||12000 ||style="text-align: left | Purchased from [[Black Market Dealer]] in [[Bastorias]].
+|-
+| [[File:WyvernRazor.png|link=|40px]] || Wyvern Razor || 14 || 0 || ||style="text-align: left |
+Critical Rate +10%<br \>
+Critical Damage +20%
+|| -||style="text-align: left | [[Leah]] and [[Aramis]] start with this weapon.
+|-
+| [[File:StingrayS.png|link=|40px]] || Stingray || 14 || 0 || [[File:PP_Gem.png|link=|23px]] [[Artenie Strike]] ||style="text-align: left |
+Critical Rate +15%<br \>
+Poison Immunity
+|| -||style="text-align: left | [[Melisandre]] drops this weapon upon defeat. This weapon can only be equipped by [[Swordfighter]]/[[Swordmaster]].
+|-
+| [[File:RoseKnightSword.png|link=|40px]] || Rose Knight Sword || 14 || 0 || ||style="text-align: left |
+Initiative +3<br \>
+Accuracy +10
+|| -||style="text-align: left | [[Miriam]] starts with this weapon.
+|-
+| [[File:BanditLongsword.png|link=|40px]] || Bandit Longsword || 18 || 0 || ||style="text-align: left |
+Initiative +3<br \>
+Evasion +10<br \>
+User's Unit Earns +100% Gold
+||- ||style="text-align: left | Reward from [[Battle for the Walled City of Adopti]].
+|-
+| [[File:RoyalSaber.png|link=|40px]] || Royal Saber || 18 || 0 || ||style="text-align: left | Initiative +5
+||- ||style="text-align: left | [[Gilbert]] starts with this weapon.
+|-
+| [[File:RunicSword.png|link=|40px]] || Runic Sword || 8 || 14 || [[File:AP_Gem.png|link=|23px]] [[Magick Attack]] ||style="text-align: left | Magick Defense +3 ||12000 ||style="text-align: left |
+Purchased at [[Ouvrir Harbor]] in [[Cornia]].<br \>
+Reward from the first group of offline Coliseum battles.
+|-
+|  || Crimson Épée || 14 || 0 || [[File:AP_Gem.png|link=|23px]] [[Active Shatter]] ||style="text-align: left | Initiative +3 || 10000||style="text-align: left | Purchased at [[Nordplage Town]] in [[Cornia]].
+|-
+| [[File:MoonlightRapier.png|link=|40px]] || Moonlight Rapier || 21 || 0 || [[File:PP_Gem.png|link=|23px]] [[Nocturnal Strike]] || ||12000 ||style="text-align: left | Purchased at [[Dyregulf Town]] in [[Albion]].
+|-
+|  || Greatsword || 25 || 0 || || ||- ||style="text-align: left | [[Amalia]] starts with this weapon.
+|-
+| [[File:RosularisSword.png|link=|40px]] || Rosularis Sword || 25 || 0 || ||style="text-align: left |
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+HP Recovery +30%
+|| -||style="text-align: left | Cornia [[Treasure Map]] 6.
+|-
+| [[File:SacralSword.png|link=|40px]] || Sacral Sword || 25 || 0 || ||style="text-align: left |
+Affliction Immunity<br \>
+Heal 20% HP when using Active Skill
+|| -||style="text-align: left | Cornia Sanctuary.
+|-
+| [[File:KingsbladeCornix.png|link=|40px]] || Kingsblade Cornix || 15 || 0 || ||style="text-align: left | All Stats +5 ||- ||style="text-align: left | Reward from the [[Carved of Cornia Stone]] quest.
+|-
+| [[File:NotosSword.png|link=|40px]] || Notos's Sword || 25 || 0 || ||style="text-align: left |
+Base [[File:AP_Gem.png|link=|23px]]AP +1<br \>
+Initiative +10<br \>
+Evasion +10
+|| -||style="text-align: left | Rewarded during the [[Armaments of the Anemoi]] quest.
+|-
+| [[File:HolyUnicornBlade.png|link=|40px]] || Holy Unicorn Blade || 28 || 0 || ||style="text-align: left |
+Base [[File:AP_Gem.png|link=|23px]]AP +1<br \>
+Base [[File:PP_Gem.png|link=|23px]]PP +1<br \>
+Debuff Immunity
+|| -||style="text-align: left | Reward from [[The Royal Mausoleum]] quest. This weapon is only equippable by [[Alain]].
+|}

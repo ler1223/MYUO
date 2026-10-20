@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=676
+ |Name=Viper Shield
+ |Icon=ViperShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Poison Immunity
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

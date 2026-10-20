@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=643
+ |Name=Recruit's Shield
+ |Icon=Recruit'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=3
+ |GuardRate=16
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Max HP +3
+ |Slot3=User Earns +10% EXP
+ |Cost=
+ |Sell=
+}}

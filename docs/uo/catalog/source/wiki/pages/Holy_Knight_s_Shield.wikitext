@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=686
+ |Name=Holy Knight's Shield
+ |Icon=HolyKnight'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=30
+ |Skill=Holy Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Heal 10% HP when using Active Skill
+ |Slot3=
+ |Cost=
+ |Sell=2000
+}}

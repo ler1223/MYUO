@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=664
+ |Name=Phantom Knight's Shield
+ |Icon=PhantomKnight'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=0
+ |GuardRate=0
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Magick Defense +20 
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

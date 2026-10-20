@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=658
+ |Name=Icefall Shield
+ |Icon=IcefallShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Base [[File:PP_Gem.png|link=|23px]]PP +1
+ |Slot3=Guard Rate -20%
+ |Cost=
+ |Sell=1200
+}}

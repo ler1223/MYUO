@@ -1,0 +1,1526 @@
+<div class="noexcerpt">
+Back to [[Main Page]].
+</div> 
+
+Accessories are a form of [[Equipement|equipement]] which can be equipped in the designated slot for a character. Most base [[Classes|classes]] have 1 to 2 accessories slots, while promoted [[Classes|classes]] can have up to 3.
+
+== List ==
+{| class="wikitable sortable"
+|-
+!Icon!! Name
+!P.Def
+!M.Def
+!Skill
+!Stat 1
+!Stat 2
+!Stat 3
+! ID 
+|-
+| || [[Carnelian Pendant]]
+|0
+|0
+|
+|Base [[File:AP_Gem.png|link=|23x23px]]AP +1
+|
+|
+| 784 
+|-
+| || [[Ruby Pendant]]
+|0
+|0
+|
+|Base [[File:AP_Gem.png|link=|23x23px]]AP +2
+|
+|
+| 785 
+|-
+| || [[Lapis Pendant]]
+|0
+|0
+|
+|Base [[File:PP_Gem.png|link=|23x23px]]PP +1
+|
+|
+| 786 
+|-
+| || [[Sapphire Pendant]]
+|0
+|0
+|
+|Base [[File:PP_Gem.png|link=|23x23px]]PP +2
+|
+|
+| 787 
+|-
+| || [[Amethyst Pendant]]
+|0
+|0
+|
+|Base [[File:AP_Gem.png|link=|23x23px]]AP +1
+|Base [[File:PP_Gem.png|link=|23x23px]]PP +1
+|
+| 788 
+|-
+| || [[Onyx Pendant]]
+|0
+|0
+|
+|Base [[File:AP_Gem.png|link=|23x23px]]AP +2
+|Base [[File:PP_Gem.png|link=|23x23px]]PP +2
+|<span style="color:#FF0000">All Stats -15</span>
+| 789 
+|-
+| || [[Bronze Bangle]]
+|2
+|2
+|
+|
+|
+|
+| 790 
+|-
+| || [[Silver Bangle]]
+|4
+|4
+|
+|
+|
+|
+| 791 
+|-
+| || [[Gold Bangle]]
+|6
+|6
+|
+|
+|
+|
+| 792 
+|-
+| || [[Bronze Circlet]]
+|0
+|4
+|
+|
+|
+|
+| 793 
+|-
+| || [[Silver Circlet]]
+|0
+|6
+|
+|
+|
+|
+| 794 
+|-
+| || [[Gold Circlet]]
+|0
+|8
+|
+|
+|
+|
+| 795 
+|-
+| || [[Brown Beret]]
+|1
+|0
+|
+|Physickal Attack +8%
+|
+|
+| 796 
+|-
+| || [[Green Beret]]
+|2
+|0
+|
+|Physickal Attack +10%
+|
+|
+| 797 
+|-
+| || [[Elite Beret]]
+|3
+|0
+|
+|Physickal Attack +12%
+|
+|
+| 798 
+|-
+| || [[Leather Hood]]
+|0
+|1
+|
+|Magick Attack +8%
+|
+|
+| 799 
+|-
+| || [[Silk Hood]]
+|0
+|2
+|
+|Magick Attack +10%
+|
+|
+| 800 
+|-
+| || [[Sage's Hood]]
+|0
+|3
+|
+|Magick Attack +12%
+|
+|
+| 801 
+|-
+| || [[Vitality Talisman]]
+|0
+|0
+|
+|Max HP +10
+|
+|
+| 802 
+|-
+| || [[Lifeblood Talisman]]
+|0
+|0
+|
+|Max HP +20
+|
+|
+| 803 
+|-
+| || [[Ervélda's Talisman]]
+|0
+|0
+|
+|Max HP +30
+|Max HP +10%
+|
+| 804 
+|-
+| || [[Dove Plume]]
+|0
+|0
+|
+|Initiative +10
+|
+|
+| 805 
+|-
+| || [[Raven Plume]]
+|0
+|0
+|
+|Initiative +15
+|
+|
+| 806 
+|-
+| || [[Angel Plume]]
+|0
+|0
+|[[File:PP_Gem.png|link=|23x23px]] [[Tailwind]]
+|Initiative +20
+|
+|
+| 807 
+|-
+| || [[Iron Shackles]]
+|0
+|0
+|
+|Initiative -10
+|Take 5% Less Damage
+|
+| 808 
+|-
+| || [[Prisoner's Shackles]]
+|0
+|0
+|
+|Initiative -15
+|Take 10% Less Damage
+|
+| 809 
+|-
+| || [[Daemon's Shackles]]
+|0
+|0
+|
+|Initiative -20
+|Take 15% Less Damage
+|
+| 810 
+|-
+| || [[Blue Spectacles]]
+|1
+|0
+|
+|Accuracy +20
+|
+|
+| 811 
+|-
+| || [[Mirrored Spectacles]]
+|2
+|0
+|
+|Accuracy +30
+|
+|
+| 812 
+|-
+| || [[Silken Scarf]]
+|1
+|0
+|
+|Evasion +20
+|
+|
+| 813 
+|-
+| || [[Royal Scarf]]
+|2
+|0
+|
+|Evasion +30
+|
+|
+| 814 
+|-
+| || [[Mercenary's Eyepatch]]
+|1
+|0
+|
+|Critical Rate +20%
+|
+|
+| 815 
+|-
+| || [[Veteran's Eyepatch]]
+|2
+|0
+|
+|Critical Rate +30%
+|
+|
+| 816 
+|-
+| || [[Lucky Coin]]
+|0
+|0
+|
+|Critical Rate +20%
+|Evasion +20
+|
+| 817 
+|-
+| || [[Gauntlets]]
+|1
+|0
+|
+|Guard Rate +20%
+|
+|
+| 818 
+|-
+| || [[Cloth Gauntlets]]
+|2
+|0
+|
+|Guard Rate +30%
+|
+|
+| 819 
+|-
+| || [[Leaf Broach]]
+|1
+|1
+|
+|Heal 10% HP when using Active skill
+|
+|
+| 820 
+|-
+| || [[Rose Broach]]
+|1
+|1
+|
+|Heal 15% HP when using Active skill
+|
+|
+| 821 
+|-
+| || [[Holy Broach]]
+|2
+|2
+|
+|Heal 20% HP when using Active skill
+|
+|
+| 822 
+|-
+| || [[Sacral Broach]]
+|3
+|3
+|
+|Heal 20% HP when using Active skill
+|Affliction Immunity
+|
+| 823 
+|-
+| || [[White Ribbon]]
+|*
+|*
+|
+|
+|
+|
+| 824 
+|-
+| || [[Verdant Ribbon]]
+|*
+|*
+|
+|
+|
+|
+| 825 
+|-
+| || [[Scarlett's Ribbon]]
+|0
+|1
+|[[File:PP_Gem.png|link=|23x23px]] [[Quick Heal]]
+|Max HP +3
+|Evasion +10
+|
+| 826 
+|-
+| || [[Bloodstained Ribbon]]
+|0
+|5
+|
+|All Stats +3
+|Drain Skill Efficiency +30%
+|
+| 827 
+|-
+| || [[Warrior's Medallion]]
+|0
+|0
+|
+|Physickal Attack +2
+|Physickal Attack +10%
+|Critical Rate +10%
+| 828 
+|-
+| || [[Sorcerer's Medallion]]
+|0
+|0
+|
+|Magick Attack +2
+|Magick Attack +10%
+|Critical Rate +10%
+| 829 
+|-
+| || [[Knight's Medallion]]
+|0
+|0
+|
+|Physickal Defense +2
+|Physickal Defense +10%
+|Guard Rate +10%
+| 830 
+|-
+| || [[Cleric's Medallion]]
+|0
+|0
+|
+|Magick Defense +2
+|Magick Defense +10%
+|Guard Rate +10%
+| 831 
+|-
+| || [[Hero's Medallion]]
+|1
+|1
+|
+|Base [[File:AP_Gem.png|link=|23x23px]]AP +1
+|Base [[File:PP_Gem.png|link=|23x23px]]PP +1
+|Physickal Attack +20%
+| 832 
+|-
+| || [[Charm Of Land & Sea]]
+|2
+|2
+|
+|Max HP +10
+|Physickal Attack +4
+|
+| 833 
+|-
+| || [[Charm Of Sun & Moon]]
+|2
+|2
+|
+|Max HP +10
+|Magick Attack +4
+|
+| 834 
+|-
+| || [[Lionheart]]
+|3
+|3
+|
+|Physickal Attack +10%
+|Critical Rate +10%
+|Physickal Attack +20
+| 835 
+|-
+| || [[Mistletoe Charm]]
+|1
+|1
+|
+|Guard Seal Immunity
+|Passive Seal Immunity
+|Evasion +20
+| 836 
+|-
+| || [[Lamplight Ring]]
+|0
+|1
+|[[File:AP_Gem.png|link=|23x23px]] [[Glowing Light]]
+|Blindness Immunity
+|Heal 10% HP when using Active Skill
+|
+| 837 
+|-
+| || [[Watchman's Lantern]]
+|0
+|1
+|
+|Blindness Immunity
+|Burn Immunity
+|
+| 838 
+|-
+| || [[Watchman's Horn]]
+|0
+|1
+|[[File:PPgem2.png|link=|23x23px]] [[Dawn Horn]]
+|Blindness Immunity
+|Burn Immunity
+|
+| 839 
+|-
+| || [[Gravekeeper Lantern]]
+|0
+|1
+|
+|Poison Immunity
+|Deathblow Immunity
+|
+| 840 
+|-
+| || [[Gravekeeper Boots]]
+|0
+|1
+|Grave Impetus
+|Poison Immunity
+|Poison Immunity
+|
+| 841 
+|-
+| || [[Undead Ring]]
+|0
+|1
+|
+|Poison Immunity
+|Deathblow Immunity
+|Base [[File:PP_Gem.png|link=|23x23px]]PP +1
+| 842 
+|-
+| || [[Necromancer's Lantern]]
+|0
+|1
+|Vanitas
+|Poison Immunity
+|Deathblow Immunity
+|
+| 843 
+|-
+| || [[Bloodmoon Earrings]]
+|1
+|0
+|
+|Drain Skill Efficiency +30%
+|
+|
+| 844 
+|-
+| || [[Retaliation Earrings]]
+|1
+|0
+|
+|Counterattack Skills Deal +40 Damage
+|
+|
+| 845 
+|-
+| || [[Earrings Of Pursuit]]
+|1
+|0
+|
+|Follow-up Skills Deal +40 Damage
+|
+|
+| 846 
+|-
+| || [[Tailwind Cape]]
+|0
+|0
+|Quick Action
+|
+|
+|
+| 848 
+|-
+| || [[Lips's Ring]]
+|0
+|0
+|Hastened Action
+|
+|
+|
+| 849 
+|-
+| || [[Gust Bracelet]]
+|0
+|0
+|Hastened Strike
+|
+|
+|
+| 850 
+|-
+| || [[Squall Bracelet]]
+|0
+|0
+|Hastened Shatter
+|
+|
+|
+| 851 
+|-
+| || [[Crude Tasset]]
+|2
+|0
+|War Cry
+|
+|
+|
+| 852 
+|-
+| || [[Defender's Ring]]
+|1
+|1
+|Honed Shield
+|
+|
+|
+| 853 
+|-
+| || [[Acrobat's Shoes]]
+|1
+|0
+|Impetus Stance
+|
+|
+|
+| 854 
+|-
+| || [[Battleline Standard]]
+|0
+|0
+|Heavy Alignment
+|
+|
+|
+| 855 
+|-
+| || [[Wingline Standard]]
+|0
+|0
+|Aerial Alignment
+|
+|
+|
+| 856 
+|-
+| || [[Elite Standard]]
+|0
+|0
+|United Front
+|
+|
+|
+| 857 
+|-
+| || [[Wolfpack Gauntlets]]
+|2
+|0
+|Wolf Pack
+|
+|
+|
+| 858 
+|-
+| || [[Badger Gauntlets]]
+|2
+|0
+|Bear's Den
+|
+|
+|
+| 859 
+|-
+| || [[First Aid Kit]]
+|0
+|0
+|First Aid
+|
+|
+|
+| 861 
+|-
+| || [[Medical Kit]]
+|0
+|0
+|Medical Aid
+|
+|
+|
+| 862 
+|-
+| || [[Large Aid Kit]]
+|0
+|0
+|Party Aid
+|
+|
+|
+| 863 
+|-
+| || [[Shawl Of Repose]]
+|1
+|0
+|Wing Rest
+|
+|
+|
+| 864 
+|-
+| || [[Defensive Ring]]
+|1
+|0
+|Quick Barrier
+|
+|
+|
+| 866 
+|-
+| || [[Aurora Ring]]
+|1
+|0
+|Mighty Shield
+|
+|
+|
+| 867 
+|-
+| || [[Charm Of Warding]]
+|0
+|3
+|Magick Barrier
+|
+|
+|
+| 868 
+|-
+| || [[Wind Faerie's Bell]]
+|0
+|0
+|Sylphic Barrier
+|
+|
+|
+| 869 
+|-
+| || [[Thief's Bell]]
+|0
+|0
+|Grant Evade
+|
+|
+|
+| 870 
+|-
+| || [[Flamebrand Tome]]
+|0
+|0
+|Flame Conferral
+|Magick Attack +2
+|
+|
+| 871 
+|-
+| || [[Frostbrand Tome]]
+|0
+|0
+|Ice Conferral
+|Magick Attack +2
+|
+|
+| 872 
+|-
+| || [[Thunderbrand Tome]]
+|0
+|0
+|Thunderous Conferral
+|Magick Attack +2
+|
+|
+| 873 
+|-
+| || [[Bloodbrand Tome]]
+|0
+|0
+|Sanguine Conferral
+|Magick Attack +2
+|
+|
+| 874 
+|-
+| || [[Glory Sash]]
+|0
+|0
+|Reinforce
+|
+|
+|
+| 875 
+|-
+| || [[Dancer's Bracelet]]
+|0
+|0
+|Powerful Call
+|
+|
+|
+| 876 
+|-
+| || [[Gambler's Coin]]
+|0
+|0
+|Inspiration
+|
+|
+|
+| 877 
+|-
+| || [[Dirty Gambler's Coin]]
+|1
+|1
+|Wide Inspiration
+|
+|
+|
+| 878 
+|-
+| || [[Familiar's Choker]]
+|0
+|0
+|Sorcerous Connection
+|
+|
+|
+| 879 
+|-
+| || [[Truestrike Star]]
+|0
+|0
+|Focus Sight
+|
+|
+|
+| 880 
+|-
+| || [[Sage Owl's Shawl]]
+|0
+|0
+|Quick Dispel
+|
+|
+|
+| 881 
+|-
+| || [[Sniper's Lens]]
+|1
+|0
+|{{Skill|Eagle Eye}}
+|Accuracy +10
+|
+|
+| 883 
+|-
+| || [[Sniper's Amber Lens]]
+|1
+|0
+|Hawk Eye
+|Accuracy +20
+|
+|
+| 884 
+|-
+| || [[Wyvern Reins]]
+|1
+|1
+|Aerial Wing
+|Initiative +3
+|
+|
+| 885 
+|-
+| || [[Heavenwyvern Reins]]
+|3
+|3
+|Aerial Wing
+|Initiative +6
+|Max HP +10
+|
+| 886 
+|-
+| || [[Armored Gauntlets]]
+|3
+|0
+|Binding Guard
+|Physickal Attack +3
+|
+|
+| 887 
+|-
+| || [[Pursuant's Bracelet]]
+|0
+|0
+|Pursuit
+|
+|
+|
+| 889 
+|-
+| || [[Liberator's Bracelet]]
+|0
+|0
+|Banishing Pursuit
+|
+|
+|
+| 890 
+|-
+| || [[Outlaw's Bracelet]]
+|0
+|0
+|Wide Pursuit
+|
+|
+|
+| 891 
+|-
+| || [[Wolf Fang Bracelet]]
+|0
+|0
+|Killing Pursuit
+|
+|
+|
+| 892 
+|-
+| || [[Cleric's Bracelet]]
+|0
+|0
+|Healing Pursuit
+|
+|
+|
+| 893 
+|-
+| || [[Counter Belt]]
+|1
+|0
+|Counter
+|
+|
+|
+| 894 
+|-
+| || [[Wyvern Claw]]
+|0
+|0
+|Ground Counter
+|
+|
+|
+| 896 
+|-
+| || [[Mage's Gloves]]
+|1
+|0
+|Magick Counter
+|
+|
+|
+| 897 
+|-
+| || [[Liberator's Belt]]
+|1
+|0
+|Banishing Counter
+|
+|
+|
+| 898 
+|-
+| || [[Monk's Mitre]]
+|1
+|1
+|Quick Heal
+|
+|
+|
+| 899 
+|-
+| || [[Archbishop's Mitre]]
+|1
+|1
+|Relic Heal
+|Magick Attack +5
+|
+|
+| 900 
+|-
+| || [[Spirit's Necklace]]
+|1
+|0
+|Quick Cure
+|
+|
+|
+| 901 
+|-
+| || [[Self-Aid Kit]]
+|0
+|0
+|Self-Care
+|Max HP +3
+|
+|
+| 902 
+|-
+| || [[Lapis Bell]]
+|0
+|0
+|Passive Gift
+|
+|
+|
+| 903 
+|-
+| || [[Dancer's Anklet]]
+|0
+|0
+|Blade Dance
+|Critical Rate +5%
+|
+|
+| 904 
+|-
+| || [[Dawn Robes]]
+|1
+|1
+|Diurnal Impetus
+|
+|
+|
+| 905 
+|-
+| || [[Dusk Robes]]
+|1
+|1
+|Nocturnal Impetus
+|
+|
+|
+| 906 
+|-
+| || [[Power Belt]]
+|1
+|0
+|Toughness
+|Max HP +10
+|
+|
+| 908 
+|-
+| || [[Defensive Gauntlets]]
+|3
+|0
+|Quick Guard
+|
+|
+|
+| 909 
+|-
+| || [[Thief's Mantle]]
+|1
+|1
+|Evade
+|
+|
+|
+| 910 
+|-
+| || [[Twilight Cloak]]
+|1
+|1
+|Nocturnal Evade
+|
+|
+|
+| 911 
+|-
+| || [[Illusory Cloak]]
+|1
+|1
+|Phantom Step
+|
+|
+|
+| 912 
+|-
+| || [[Courser's Reins]]
+|1
+|1
+|Dynamic Glide
+|Initiative +3
+|
+|
+| 913 
+|-
+| || [[Heavensteed Reins]]
+|3
+|3
+|Dynamic Glide
+|Initiative +6
+|Max HP +10
+|
+| 914 
+|-
+| || [[Old Witch's Ring]]
+|0
+|3
+|Magick Conversion
+|Magick Attack +2
+|
+|
+| 915 
+|-
+| || [[Master's Gauntlets]]
+|1
+|0
+|Nimble Fighter
+|Evasion +10
+|
+|
+| 917 
+|-
+| || [[Guardian Gloves]]
+|2
+|0
+|Guarding Fighter
+|
+|
+|
+| 918 
+|-
+| || [[Vengeful Caligae]]
+|1
+|0
+|Vengeful Impetus
+|Physickal Attack +2
+|
+|
+| 919 
+|-
+| || [[Citadel Guard's Sabatons]]
+|2
+|0
+|Guarding Impetus
+|
+|
+|
+| 920 
+|-
+| || [[Druid's Robes]]
+|1
+|1
+|Cursed Impetus
+|
+|
+|
+| 921 
+|-
+| || [[Sorcerer's Gauntlets]]
+|3
+|0
+|Sorcerous Blow
+|
+|
+|
+| 922 
+|-
+| || [[Soothing Plume]]
+|0
+|0
+|Healing Wind
+|Initiative +5
+|
+|
+| 923 
+|-
+| || [[Phoenix's Plume]]
+|0
+|0
+|Reincarnation
+|Initiative +5
+|
+|
+| 924 
+|-
+| || [[Detoxifying Amulet]]
+|0
+|1
+|Poison Cure
+|Poison Immunity
+|
+|
+| 926 
+|-
+| || [[Quenching Amulet]]
+|0
+|1
+|Fire Cure
+|Burn Immunity
+|
+|
+| 927 
+|-
+| || [[Defrosting Amulet]]
+|0
+|1
+|Freeze Cure
+|Freeze Immunity
+|
+|
+| 928 
+|-
+| || [[Awakening Amulet]]
+|0
+|1
+|Stun Cure
+|Stun Immunity
+|
+|
+| 929 
+|-
+| || [[Clearsight Amulet]]
+|0
+|1
+|Blind Cure
+|Blindness
+|
+|
+| 930 
+|-
+| || [[Parrying Amulet]]
+|0
+|1
+|Guard Cure
+|Guard Seal Immunity
+|
+|
+| 931 
+|-
+| || [[Skillful Amulet]]
+|0
+|1
+|Passive Cure
+|Passive Seal Immunity
+|
+|
+| 932 
+|-
+| || [[Holy Unicorn Signet]]
+|3
+|3
+|
+|Debuff Immunity
+|
+|
+| 933 
+|-
+| || [[Salamander Ring]]
+|0
+|8
+|
+|Burn Immunity
+|Max HP +5
+|
+| 934 
+|-
+| || [[Glacial Ring]]
+|0
+|8
+|
+|Freeze Immunity
+|Max HP +5
+|
+| 935 
+|-
+| || [[Thunderclap Ring]]
+|0
+|8
+|
+|Stun Immunity
+|Max HP +5
+|
+| 936 
+|-
+| || [[Cooling Bandana]]
+|1
+|1
+| -
+|
+|
+|
+| 937 
+|-
+| || [[Barbed Ribbon]]
+|1
+|1
+| -
+|
+|
+|
+| 938 
+|-
+| || [[Wooly Mittens]]
+|1
+|1
+| -
+|
+|
+|
+| 939 
+|-
+| || [[Fluffy Cape]]
+|1
+|1
+| -
+|
+|
+|
+| 940 
+|-
+| || [[Chloe's Charm]]
+|0
+|0
+| -
+|
+|
+|
+| 942 
+|-
+| || [[Rookie Egg]]
+|0
+|0
+| -
+|
+|
+|
+| 943 
+|-
+| || [[Golden Egg]]
+|0
+|0
+| -
+|
+|
+|
+| 944 
+|-
+| || [[Miser's Bracelet]]
+|1
+|1
+| -
+|
+|
+|
+| 945 
+|-
+| || [[Silver Goblet]]
+|0
+|0
+| -
+|
+|
+|
+| 946 
+|-
+| || [[Gold Goblet]]
+|0
+|0
+| -
+|
+|
+|
+| 947 
+|-
+| || [[Gauntlets Of The Abyss]]
+|3
+|3
+| -
+|
+|
+|
+| 948 
+|-
+| || [[Crown Of The Abyss]]
+|3
+|3
+| -
+|
+|
+|
+| 949 
+|-
+| || [[Talisman Of The Abyss]]
+|0
+|0
+| -
+|
+|
+|
+| 950 
+|-
+| || [[Celestial Talisman]]
+|0
+|0
+|
+|
+|
+|
+| 951 
+|-
+| || [[Magia Soul]]
+|0
+|0
+|
+|
+|
+|
+| 952 
+|-
+| || [[Magia Heart]]
+|0
+|0
+|
+|
+|
+|
+| 953 
+|-
+| || [[White Cat-Ear Hood]]
+|0
+|5
+|
+|
+|
+|
+| 954 
+|-
+| || [[Black Cat-Ear Hood]]
+|0
+|5
+|
+|
+|
+|
+| 955 
+|-
+| || [[Dream Crown]]
+|0
+|0
+| -
+|
+|
+|
+| 956 
+|-
+| || [[Ancient Crown]]
+|0
+|0
+| -
+|
+|
+|
+| 957 
+|-
+| || [[Ring Of The Unicorn]]
+|
+|
+|
+|
+|
+|
+| 959 
+|-
+|}
+==== Unavailable ====
+{| class="wikitable sortable"
+|-
+!Icon!! Name
+!P.Def
+!M.Def
+!Skill
+!Stat 1
+!Stat 2
+!Stat 3
+! ID 
+|-
+| || [[Riot Belt]]
+|1
+|0
+|Wide Counter
+|
+|
+|
+| 895 
+|-
+|}

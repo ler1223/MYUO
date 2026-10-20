@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=688
+ |Name=Angel Hunter's Buckler
+ |Icon=AngelHunter'sBuckler.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=Aerial Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=800
+}}

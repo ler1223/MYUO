@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=689
+ |Name=Beast Hunter's Buckler
+ |Icon=BeastHunter'sBuckler.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=20
+ |Skill=Bestral Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=800
+}}

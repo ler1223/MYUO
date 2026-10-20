@@ -1,0 +1,2763 @@
+{
+ "_comment": "Пассивки-заглушки data/passives.json (restore_pp без числа): полный текст UO. trigger — UcSkillList[1428+id], effect — UcSkillList[957+id], числа — блоки записи навыка (слова 17/26/35: вид, значение).",
+ "skills": {
+  "lifeshare": {
+   "name": "Lifeshare",
+   "game_id": 360,
+   "internal": "PAS_LIFE_DIVIDE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is hit by an attack.",
+   "effect": "Share HP with an ally.\n(50% of the user's HP).",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     146,
+     0.5
+    ]
+   ],
+   "items": [
+    "white_knights_shield",
+    "white_knights_greatshield"
+   ],
+   "classes": []
+  },
+  "dawn_horn": {
+   "name": "Dawn Horn",
+   "game_id": 260,
+   "internal": "PAS_DAWN_HORN",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants all allies immunity to Stun\nand 20% Guard Rate.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     67,
+     0.0
+    ],
+    [
+     110,
+     0.2
+    ]
+   ],
+   "items": [
+    "watchmans_horn"
+   ],
+   "classes": []
+  },
+  "honed_shield": {
+   "name": "Honed Shield",
+   "game_id": 247,
+   "internal": "PAS_SHIELD_ENHANCE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants an ally +1 Guard Rate.\nGrants the ability to nullify piercing strikes.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     110,
+     1.0
+    ],
+    [
+     154,
+     0.0
+    ]
+   ],
+   "items": [
+    "defenders_ring"
+   ],
+   "classes": []
+  },
+  "bunker_stance": {
+   "name": "Bunker Stance",
+   "game_id": 248,
+   "internal": "PAS_BUNKER_STANCE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants the user +30 Initiative, 40% Phys. Defense,\nand 40% Guard Rate.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     220,
+     30.0
+    ],
+    [
+     137,
+     0.4
+    ],
+    [
+     110,
+     0.4
+    ]
+   ],
+   "items": [
+    "blacksilver_pavise"
+   ],
+   "classes": []
+  },
+  "impetus_stance": {
+   "name": "Impetus Stance",
+   "game_id": 249,
+   "internal": "PAS_ACT_STANCE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants the user +1 AP and 50% Attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     83,
+     1.0
+    ],
+    [
+     225,
+     0.5
+    ]
+   ],
+   "items": [
+    "acrobats_shoes"
+   ],
+   "classes": []
+  },
+  "war_cry": {
+   "name": "War Cry",
+   "game_id": 250,
+   "internal": "PAS_WARCRY",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants the user 20% Phys. Attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     130,
+     0.2
+    ]
+   ],
+   "items": [
+    "crude_tasset"
+   ],
+   "classes": []
+  },
+  "magick_shell": {
+   "name": "Magick Shell",
+   "game_id": 251,
+   "internal": "PAS_SHELL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Completely negate attacks up to three hits.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [
+    "ein_seeker"
+   ],
+   "classes": []
+  },
+  "darkness_armor": {
+   "name": "Darkness Armor",
+   "game_id": 253,
+   "internal": "PAS_DARKNESS_ARMOR",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Completely negate attacks up to six hits.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "hastened_charge": {
+   "name": "Hastened Charge",
+   "game_id": 254,
+   "internal": "PAS_FAST_CHARGE",
+   "pp": 4,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Immediately activate one charge attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     168,
+     0.0
+    ]
+   ],
+   "items": [
+    "celestial_talisman"
+   ],
+   "classes": []
+  },
+  "quick_action": {
+   "name": "Quick Action",
+   "game_id": 255,
+   "internal": "PAS_QUICK_MOVE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants an ally +15 Initiative for their next action.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     114,
+     15.0
+    ]
+   ],
+   "items": [
+    "tailwind_cape"
+   ],
+   "classes": []
+  },
+  "hastened_action": {
+   "name": "Hastened Action",
+   "game_id": 256,
+   "internal": "PAS_QUICK_MOVE_III",
+   "pp": 3,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants an ally max Initiative for their next action.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     114,
+     999.0
+    ]
+   ],
+   "items": [
+    "libonotus_wind_ring"
+   ],
+   "classes": []
+  },
+  "hastened_cast": {
+   "name": "Hastened Cast",
+   "game_id": 258,
+   "internal": "PAS_FAST_CAST",
+   "pp": 3,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants an ally max Initiative for their next action.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     114,
+     999.0
+    ]
+   ],
+   "items": [
+    "magia_heart"
+   ],
+   "classes": []
+  },
+  "provoking_wall": {
+   "name": "Provoking Wall",
+   "game_id": 263,
+   "internal": "PAS_ATTRUCT_WALL",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Force a row of enemies to focus attacks on the user.\nUser will negate one physickal attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     234,
+     0.0
+    ],
+    [
+     160,
+     0.0
+    ]
+   ],
+   "items": [
+    "champions_towershield"
+   ],
+   "classes": []
+  },
+  "scornful_dead": {
+   "name": "Scornful Dead",
+   "game_id": 264,
+   "internal": "PAS_DEAD_BOOING",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Force all enemies to focus attacks on the user.\nUser will evade attacks up to two hits.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     234,
+     0.0
+    ],
+    [
+     163,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "hastened_curse": {
+   "name": "Hastened Curse",
+   "game_id": 266,
+   "internal": "PAS_FAST_CURSE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Inflicts Initiative +30 on a single enemy.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     220,
+     30.0
+    ]
+   ],
+   "items": [
+    "speed_hex_staff"
+   ],
+   "classes": []
+  },
+  "eye_of_the_warrior_princess": {
+   "name": "Eye of the Warrior Princess",
+   "game_id": 268,
+   "internal": "PAS_SEKIGAN_SENKI",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Inflicts Attack 20% and Initiative +10 on all enemies.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     225,
+     0.2
+    ],
+    [
+     220,
+     10.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "ominous_wall": {
+   "name": "Ominous Wall",
+   "game_id": 269,
+   "internal": "PAS_OMINOUS_WALL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants all allies a buff that negates one attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "heavy_alignment": {
+   "name": "Heavy Alignment",
+   "game_id": 271,
+   "internal": "PAS_HEAVY_ALIGN",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants a row of allies buffs based on the number\nof armored targets. (1: Grants 20% Guard Rate.\n2: Grants Stun immunity. 3: Grants 20% Defense.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     110,
+     0.2
+    ],
+    [
+     67,
+     0.0
+    ],
+    [
+     136,
+     0.2
+    ]
+   ],
+   "items": [
+    "battleline_standard"
+   ],
+   "classes": []
+  },
+  "aerial_alignment": {
+   "name": "Aerial Alignment",
+   "game_id": 272,
+   "internal": "PAS_FEATHER_ALIGN",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants a row of allies buffs based on the number\nof flying targets. (1: Grants 20% Critical Rate.\n2: Grants +20 Accuracy. 3: Grants 20% Attack.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     109,
+     0.2
+    ],
+    [
+     105,
+     20.0
+    ],
+    [
+     129,
+     0.2
+    ]
+   ],
+   "items": [
+    "wingline_standard"
+   ],
+   "classes": []
+  },
+  "united_front": {
+   "name": "United Front",
+   "game_id": 273,
+   "internal": "PAS_LIMIT_FORCE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants all allies buffs based on the number of enemies\nminus the number of allies. (1: Grants +30 Initiative.\n2: Grants 50% Defense. 3: Negates attacks up to five hits.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     114,
+     30.0
+    ],
+    [
+     136,
+     0.5
+    ],
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [
+    "elite_standard"
+   ],
+   "classes": []
+  },
+  "wolf_pack": {
+   "name": "Wolf Pack",
+   "game_id": 274,
+   "internal": "PAS_WOLF_PACK",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants 20% Phys. Attack to all allies.\nGrants 50% Critical Rate to bestral targets.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     130,
+     0.2
+    ],
+    [
+     109,
+     0.5
+    ]
+   ],
+   "items": [
+    "wolfpack_gauntlets"
+   ],
+   "classes": []
+  },
+  "bears_den": {
+   "name": "Bear's Den",
+   "game_id": 275,
+   "internal": "PAS_BEAR_CATHSH",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants 20% Phys. Defense to all allies.\nGrants 50% Guard Rate to bestral targets.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     137,
+     0.2
+    ],
+    [
+     110,
+     0.5
+    ]
+   ],
+   "items": [
+    "badger_gauntlets"
+   ],
+   "classes": []
+  },
+  "reheal": {
+   "name": "Reheal",
+   "game_id": 278,
+   "internal": "PAS_REHEAL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Grants a row of allies HP regeneration.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     43,
+     0.25
+    ]
+   ],
+   "items": [
+    "hallowed_mace"
+   ],
+   "classes": []
+  },
+  "hastened_heal": {
+   "name": "Hastened Heal",
+   "game_id": 280,
+   "internal": "PAS_FAST_HEAL",
+   "pp": 1,
+   "phys": null,
+   "mag": 50,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Restore minor HP to all allies.\nGrants HP regeneration during the day.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     43,
+     0.25
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "rapid_shot": {
+   "name": "Rapid Shot",
+   "game_id": 286,
+   "internal": "PAS_RAPID_SHOT",
+   "pp": 1,
+   "phys": 100,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Attack a single enemy with a first strike.\nInflicts Stun.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     191,
+     0.0
+    ]
+   ],
+   "items": [
+    "bow_of_swiftness"
+   ],
+   "classes": []
+  },
+  "hastened_shatter": {
+   "name": "Hastened Shatter",
+   "game_id": 287,
+   "internal": "PAS_FAST_BREAK",
+   "pp": 2,
+   "phys": 150,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Attack a single enemy with a first strike.\nInflicts Phys. Defense 50%.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     229,
+     0.5
+    ]
+   ],
+   "items": [
+    "squall_bracelet"
+   ],
+   "classes": []
+  },
+  "provoking_strike": {
+   "name": "Provoking Strike",
+   "game_id": 288,
+   "internal": "PAS_HATE_STRIKE",
+   "pp": 1,
+   "phys": 50,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Attack a single enemy with a first strike.\nForce target to focus attacks on the user.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     234,
+     0.0
+    ]
+   ],
+   "items": [
+    "usurpers_spear"
+   ],
+   "classes": []
+  },
+  "ground_punisher": {
+   "name": "Ground Punisher",
+   "game_id": 290,
+   "internal": "PAS_GROUND_PUNISHER",
+   "pp": 1,
+   "phys": 50,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the start of a battle.",
+   "effect": "Attack all enemies with a first strike.\nInflicts AP +1 and PP +1.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     205,
+     1.0
+    ],
+    [
+     206,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "fire_burst": {
+   "name": "Fire Burst",
+   "game_id": 292,
+   "internal": "PAS_FIRE_BURST",
+   "pp": 1,
+   "phys": null,
+   "mag": 100,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the end of a battle.",
+   "effect": "Attack a single enemy with magick.\nHits all enemies if target is burning.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     165,
+     0.0
+    ]
+   ],
+   "items": [
+    "chlorotic"
+   ],
+   "classes": []
+  },
+  "poison_burst": {
+   "name": "Poison Burst",
+   "game_id": 293,
+   "internal": "PAS_POISON_BURST",
+   "pp": 1,
+   "phys": null,
+   "mag": 100,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the end of a battle.",
+   "effect": "Attack a single enemy with magick.\nHits all enemies if target is poisoned.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     165,
+     0.0
+    ]
+   ],
+   "items": [
+    "pestilent_staff"
+   ],
+   "classes": []
+  },
+  "judgment": {
+   "name": "Judgment",
+   "game_id": 296,
+   "internal": "PAS_JUDGMENT",
+   "pp": 1,
+   "phys": 100,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the end of a battle.",
+   "effect": "Attack all enemies.\nIgnores 50% of the target's Defense.\nRecover HP equal to +1 of damage dealt.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     224,
+     0.5
+    ],
+    [
+     49,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "party_aid": {
+   "name": "Party Aid",
+   "game_id": 299,
+   "internal": "PAS_PARTY_AID",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates at the end of a battle.",
+   "effect": "Restore 25% HP to all allies.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     43,
+     0.25
+    ]
+   ],
+   "items": [
+    "large_aid_kit"
+   ],
+   "classes": []
+  },
+  "daemonic_pact": {
+   "name": "Daemonic Pact",
+   "game_id": 304,
+   "internal": "PAS_DEMON_TRADE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after using an active skill.",
+   "effect": "Sacrifice 25% HP to grant the user +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     198,
+     0.25
+    ],
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": [
+    "Doom Knight 25"
+   ]
+  },
+  "diurnal_impetus": {
+   "name": "Diurnal Impetus",
+   "game_id": 306,
+   "internal": "PAS_DIURNAL_ACT",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after using an active skill.",
+   "effect": "Grants the user 20% Mag. Attack.\nGrants the user +1 AP during the day.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     131,
+     0.2
+    ],
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "dawn_robes"
+   ],
+   "classes": []
+  },
+  "nocturnal_impetus": {
+   "name": "Nocturnal Impetus",
+   "game_id": 307,
+   "internal": "PAS_NOCTURNAL_ACT",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after using an active skill.",
+   "effect": "Grants the user 20% Mag. Attack.\nGrants the user +1 AP at night.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     131,
+     0.2
+    ],
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "dusk_robes"
+   ],
+   "classes": []
+  },
+  "grave_impetus": {
+   "name": "Grave Impetus",
+   "game_id": 308,
+   "internal": "PAS_GRAVE_ACT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is defeated by an attack.",
+   "effect": "Grants the user +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "gravekeeper_boots"
+   ],
+   "classes": []
+  },
+  "blade_dance": {
+   "name": "Blade Dance",
+   "game_id": 309,
+   "internal": "PAS_BLADE_DANCE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after using an active skill.",
+   "effect": "Grants the user 20% Critical Rate and 20% Critical damage.\n(Effect stacks.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     109,
+     0.2
+    ],
+    [
+     91,
+     0.2
+    ]
+   ],
+   "items": [
+    "dancers_anklet"
+   ],
+   "classes": []
+  },
+  "tailwind": {
+   "name": "Tailwind",
+   "game_id": 310,
+   "internal": "PAS_FOLLOW_WIND",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after using an active skill.",
+   "effect": "Grants a row of allies %s Initiative. (Effect stacks.)\nEffect is doubled for flying targets.",
+   "numbers_filled": false,
+   "effect_blocks": [
+    [
+     114,
+     10.0
+    ],
+    [
+     114,
+     10.0
+    ]
+   ],
+   "items": [
+    "angel_plume"
+   ],
+   "classes": []
+  },
+  "recast": {
+   "name": "Recast",
+   "game_id": 314,
+   "internal": "PAS_RESPELL",
+   "pp": 4,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after using a magickal attack.",
+   "effect": "Cast the same magick again.",
+   "numbers_filled": true,
+   "effect_blocks": [],
+   "items": [
+    "magia_soul"
+   ],
+   "classes": []
+  },
+  "inner_balance": {
+   "name": "Inner Balance",
+   "game_id": 321,
+   "internal": "PAS_RENKI",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before attacking with an active skill.",
+   "effect": "Remove all of the user's debuffs.\nMakes the user's next attack a truestrike\nand guaranteed critical.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     159,
+     0.0
+    ],
+    [
+     158,
+     1.0
+    ],
+    [
+     54,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "aerial_wing": {
+   "name": "Aerial Wing",
+   "game_id": 322,
+   "internal": "PAS_AERIAL_WING",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before attacking with an active skill.",
+   "effect": "Makes the user's next attack a truestrike.\nGrants the user 20% Attack if the user is at 100%% HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     159,
+     0.0
+    ],
+    [
+     129,
+     0.2
+    ]
+   ],
+   "items": [
+    "wyvern_reins",
+    "heavenwyvern_reins"
+   ],
+   "classes": []
+  },
+  "passive_gift": {
+   "name": "Passive Gift",
+   "game_id": 326,
+   "internal": "PAS_PASSIVE_GIFT",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally uses a passive skill.",
+   "effect": "Grants an ally +1 PP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     84,
+     1.0
+    ]
+   ],
+   "items": [
+    "lapis_bell"
+   ],
+   "classes": []
+  },
+  "quick_impetus": {
+   "name": "Quick Impetus",
+   "game_id": 329,
+   "internal": "PAS_QUICK_ACT",
+   "pp": 4,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally uses an active skill.",
+   "effect": "Allow an ally to act again.\nGrants the target +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     117,
+     0.0
+    ],
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "white_cat_ear_hood",
+    "black_cat_ear_hood"
+   ],
+   "classes": []
+  },
+  "counter": {
+   "name": "Counter",
+   "game_id": 333,
+   "internal": "PAS_COUNTER",
+   "pp": 1,
+   "phys": 150,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Counterattack a single enemy.",
+   "numbers_filled": true,
+   "effect_blocks": [],
+   "items": [
+    "counter_belt"
+   ],
+   "classes": []
+  },
+  "vanitas": {
+   "name": "Vanitas",
+   "game_id": 339,
+   "internal": "PAS_VANITAS",
+   "pp": 1,
+   "phys": null,
+   "mag": 50,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is hit by an attack.",
+   "effect": "Counterattack a single enemy.\nInflicts Blindness and Poison.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     192,
+     0.0
+    ],
+    [
+     188,
+     0.0
+    ]
+   ],
+   "items": [
+    "necromancers_lantern"
+   ],
+   "classes": []
+  },
+  "banishing_counter": {
+   "name": "Banishing Counter",
+   "game_id": 343,
+   "internal": "PAS_VANISH_COUNTER",
+   "pp": 1,
+   "phys": 150,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Counterattack a single enemy.\nRemoves all of target's buffs.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     185,
+     0.0
+    ]
+   ],
+   "items": [
+    "liberators_belt"
+   ],
+   "classes": []
+  },
+  "phantom_counter": {
+   "name": "Phantom Counter",
+   "game_id": 344,
+   "internal": "PAS_PHANTOM_EDGE",
+   "pp": 1,
+   "phys": 100,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Counterattack a single enemy.\nInflicts Burn and removes all of target's buffs.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     189,
+     0.0
+    ],
+    [
+     185,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "vanquish": {
+   "name": "Vanquish",
+   "game_id": 347,
+   "internal": "PAS_VANQUISH_DOWN",
+   "pp": 1,
+   "phys": 100,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Counterattack a row of enemies.\nInflicts AP +2 to debuffed targets.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     205,
+     2.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "magick_burst": {
+   "name": "Magick Burst",
+   "game_id": 348,
+   "internal": "PAS_MAGIC_BURST",
+   "pp": 3,
+   "phys": null,
+   "mag": 100,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Counterattack all enemies with magick.\nInflicts Initiative +10.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     220,
+     10.0
+    ]
+   ],
+   "items": [
+    "grand_magus_staff"
+   ],
+   "classes": []
+  },
+  "phantom_kick": {
+   "name": "Phantom Kick",
+   "game_id": 349,
+   "internal": "PAS_PHANTOM_KICK",
+   "pp": 1,
+   "phys": 50,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Attack a row of enemies.\nInflicts Stun and Passive Seal.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     191,
+     0.0
+    ],
+    [
+     194,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "poison_touch": {
+   "name": "Poison Touch",
+   "game_id": 350,
+   "internal": "PAS_POISON_TOUCH",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is hit by an attack.",
+   "effect": "Inflicts Poison and 20% Attack on a single enemy.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     188,
+     0.0
+    ],
+    [
+     225,
+     0.2
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "venom_touch": {
+   "name": "Venom Touch",
+   "game_id": 351,
+   "internal": "PAS_VENOM_TOUCH",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy attacks with an active skill.",
+   "effect": "Inflicts Poison and 25% Attack on a row of enemies.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     188,
+     0.0
+    ],
+    [
+     225,
+     0.25
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "phalanx_shift": {
+   "name": "Phalanx Shift",
+   "game_id": 352,
+   "internal": "PAS_PHALANX_SHIFT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is attacked with an active skill.",
+   "effect": "Buff a row of allies.\nGrants 20% Attack and 40% Critical Rate to cavalry allies.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     129,
+     0.2
+    ],
+    [
+     109,
+     0.4
+    ]
+   ],
+   "items": [
+    "generals_pike"
+   ],
+   "classes": []
+  },
+  "aerial_shift": {
+   "name": "Aerial Shift",
+   "game_id": 353,
+   "internal": "PAS_AERIAL_SHIFT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is attacked with an active skill.",
+   "effect": "Buff a row of allies.\nGrants 20% Attack and 40% Critical Rate to flying allies.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     129,
+     0.2
+    ],
+    [
+     109,
+     0.4
+    ]
+   ],
+   "items": [
+    "generals_longbow"
+   ],
+   "classes": []
+  },
+  "self_care": {
+   "name": "Self-Care",
+   "game_id": 354,
+   "internal": "PAS_SELF_CARE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after the user is debuffed.",
+   "effect": "Remove all debuffs from the user.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     54,
+     0.0
+    ]
+   ],
+   "items": [
+    "self_aid_kit"
+   ],
+   "classes": []
+  },
+  "relic_heal": {
+   "name": "Relic Heal",
+   "game_id": 357,
+   "internal": "PAS_RELIC_HEAL",
+   "pp": 2,
+   "phys": null,
+   "mag": 100,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is hit by an attack.",
+   "effect": "Restore moderate HP to an ally.\nGrants HP regeneration.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     43,
+     0.25
+    ]
+   ],
+   "items": [
+    "archbishops_mitre"
+   ],
+   "classes": []
+  },
+  "poison_cure": {
+   "name": "Poison Cure",
+   "game_id": 361,
+   "internal": "PAS_CURE_POISON",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Poison from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     55,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "detoxifying_amulet"
+   ],
+   "classes": []
+  },
+  "fire_cure": {
+   "name": "Fire Cure",
+   "game_id": 362,
+   "internal": "PAS_CURE_FIRE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Burn from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     56,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "quenching_amulet"
+   ],
+   "classes": []
+  },
+  "freeze_cure": {
+   "name": "Freeze Cure",
+   "game_id": 363,
+   "internal": "PAS_CURE_FREEZE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Freeze from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     57,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "defrosting_amulet"
+   ],
+   "classes": []
+  },
+  "stun_cure": {
+   "name": "Stun Cure",
+   "game_id": 364,
+   "internal": "PAS_CURE_STUN",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Stun from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     58,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "awakening_amulet"
+   ],
+   "classes": []
+  },
+  "blind_cure": {
+   "name": "Blind Cure",
+   "game_id": 365,
+   "internal": "PAS_CURE_BLIND",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Blindness from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     59,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "clearsight_amulet"
+   ],
+   "classes": []
+  },
+  "guard_cure": {
+   "name": "Guard Cure",
+   "game_id": 366,
+   "internal": "PAS_CURE_GUARD",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Guard Seal from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     61,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "parrying_amulet"
+   ],
+   "classes": []
+  },
+  "passive_cure": {
+   "name": "Passive Cure",
+   "game_id": 367,
+   "internal": "PAS_CURE_PASSIVE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove Passive Seal from an ally.\nRestores 10% of target's HP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     62,
+     0.0
+    ],
+    [
+     43,
+     0.1
+    ]
+   ],
+   "items": [
+    "skillful_amulet"
+   ],
+   "classes": []
+  },
+  "sacred_cure": {
+   "name": "Sacred Cure",
+   "game_id": 370,
+   "internal": "PAS_SACRED_CURE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally is debuffed.",
+   "effect": "Remove all debuffs from a row of allies.\nGrants targets immunity to one debuff.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     54,
+     0.0
+    ],
+    [
+     72,
+     0.0
+    ]
+   ],
+   "items": [
+    "purifier"
+   ],
+   "classes": []
+  },
+  "abyssal_miasma": {
+   "name": "Abyssal Miasma",
+   "game_id": 372,
+   "internal": "PAS_MIASUMA",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after the user is debuffed.",
+   "effect": "Remove the user's debuffs.\nUser will completely negate one attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     54,
+     0.0
+    ],
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "cursed_impetus": {
+   "name": "Cursed Impetus",
+   "game_id": 374,
+   "internal": "PAS_CURSE_ACT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after the user is debuffed.",
+   "effect": "Grants the user +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "druids_robes"
+   ],
+   "classes": []
+  },
+  "mirror_weakness": {
+   "name": "Mirror Weakness",
+   "game_id": 375,
+   "internal": "PAS_WEAK_SPECULAR",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after the user is debuffed.",
+   "effect": "Remove the user's debuffs.\nInflicts all removed debuffs on a target.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     54,
+     0.0
+    ],
+    [
+     186,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "aerial_pursuit": {
+   "name": "Aerial Pursuit",
+   "game_id": 379,
+   "internal": "PAS_CHASE_WING",
+   "pp": 1,
+   "phys": 100,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after a flying ally attacks (Active).",
+   "effect": "Follow-up attack a single enemy.",
+   "numbers_filled": true,
+   "effect_blocks": [],
+   "items": [],
+   "classes": []
+  },
+  "banishing_pursuit": {
+   "name": "Banishing Pursuit",
+   "game_id": 380,
+   "internal": "PAS_VANISH_CHASE",
+   "pp": 1,
+   "phys": 75,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally attacks (Active).",
+   "effect": "Follow-up attack a single enemy.\nRemoves all of target's buffs.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     185,
+     0.0
+    ]
+   ],
+   "items": [
+    "liberators_bracelet"
+   ],
+   "classes": []
+  },
+  "wide_pursuit": {
+   "name": "Wide Pursuit",
+   "game_id": 381,
+   "internal": "PAS_WIDE_CHASE",
+   "pp": 2,
+   "phys": 75,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally attacks (Active).",
+   "effect": "Follow-up attack a row of enemies.",
+   "numbers_filled": true,
+   "effect_blocks": [],
+   "items": [
+    "outlaws_bracelet"
+   ],
+   "classes": []
+  },
+  "shattering_pursuit": {
+   "name": "Shattering Pursuit",
+   "game_id": 382,
+   "internal": "PAS_CRACK_CHASE",
+   "pp": 2,
+   "phys": 75,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally attacks (Active).",
+   "effect": "Follow-up attack a column of enemies with\na piercing strike. Inflicts Phys. Defense 25%.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     229,
+     0.25
+    ]
+   ],
+   "items": [
+    "canyon_lance"
+   ],
+   "classes": []
+  },
+  "sanguine_pursuit": {
+   "name": "Sanguine Pursuit",
+   "game_id": 384,
+   "internal": "PAS_BLOOD_CHASE",
+   "pp": 1,
+   "phys": 100,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an ally attacks (Active).",
+   "effect": "Follow-up attack a single enemy.\nUser recovers HP equal to 50% of damage dealt.\nGrants the user +1 PP v. afflicted targets.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     49,
+     0.5
+    ],
+    [
+     84,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "guard_hunter": {
+   "name": "Guard Hunter",
+   "game_id": 389,
+   "internal": "PAS_GUARD_HUNT",
+   "pp": 1,
+   "phys": null,
+   "mag": 100,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after an enemy guards an attack.",
+   "effect": "Attack a single enemy with magick.\nIgnores 30% of the target's Defense.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     224,
+     0.3
+    ]
+   ],
+   "items": [
+    "thawing_scepter"
+   ],
+   "classes": []
+  },
+  "reflect_magick": {
+   "name": "Reflect Magick",
+   "game_id": 392,
+   "internal": "PAS_REFLECT",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before enemy uses a magick attack (Active).",
+   "effect": "Reflect a magick attack.\n(Enemy's passive skills set to activate before\nor after an attack will not activate.)",
+   "numbers_filled": true,
+   "effect_blocks": [],
+   "items": [
+    "heavens_mirror_greatshield"
+   ],
+   "classes": []
+  },
+  "cursed_gaol": {
+   "name": "Cursed Gaol",
+   "game_id": 394,
+   "internal": "PAS_CURSED_JAIL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an enemy uses an attack skill.",
+   "effect": "Inflicts Attack 50% to a single enemy.\nInflicts Critical Seal.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     225,
+     0.5
+    ],
+    [
+     218,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "shining_light": {
+   "name": "Shining Light",
+   "game_id": 395,
+   "internal": "PAS_SHINING",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an enemy uses an attack skill.",
+   "effect": "Inflicts Blindness on a row of enemies.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     192,
+     0.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "preemptive_heal": {
+   "name": "Preemptive Heal",
+   "game_id": 396,
+   "internal": "PAS_BEFORE_HEAL",
+   "pp": 2,
+   "phys": null,
+   "mag": 100,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Restore moderate HP to an ally.",
+   "numbers_filled": true,
+   "effect_blocks": [],
+   "items": [],
+   "classes": []
+  },
+  "holy_breath": {
+   "name": "Holy Breath",
+   "game_id": 397,
+   "internal": "PAS_HOLY_BLESS",
+   "pp": 1,
+   "phys": null,
+   "mag": 50,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally attacks (Active).",
+   "effect": "Restore minor HP to an ally.\nIf target is afflicted, remove the affliction\nand grant the user +1 PP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     63,
+     0.0
+    ],
+    [
+     84,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "sorcerous_connection": {
+   "name": "Sorcerous Connection",
+   "game_id": 398,
+   "internal": "PAS_SORCERY_CONNECT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before ally uses a magick attack (Active).",
+   "effect": "Grants an ally 50% Mag. Attack.\nGrants the user 50% Mag. Attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     131,
+     0.5
+    ],
+    [
+     227,
+     0.5
+    ]
+   ],
+   "items": [
+    "familiars_choker"
+   ],
+   "classes": []
+  },
+  "powerful_call": {
+   "name": "Powerful Call",
+   "game_id": 402,
+   "internal": "PAS_POWER_YELL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally attacks (Active).",
+   "effect": "Grants 30% Phys. Attack for an ally's next attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     130,
+     0.3
+    ]
+   ],
+   "items": [
+    "dancers_bracelet"
+   ],
+   "classes": []
+  },
+  "inspiration": {
+   "name": "Inspiration",
+   "game_id": 403,
+   "internal": "PAS_PUSH",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally attacks (Active).",
+   "effect": "Buff an ally for their next attack.\nGrants 30% Attack, 50% Critical Damage,\nand +50 Accuracy.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     129,
+     0.3
+    ],
+    [
+     91,
+     0.5
+    ],
+    [
+     213,
+     50.0
+    ]
+   ],
+   "items": [
+    "gamblers_coin"
+   ],
+   "classes": []
+  },
+  "wide_inspiration": {
+   "name": "Wide Inspiration",
+   "game_id": 404,
+   "internal": "PAS_WIDE_PUSH",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally attacks (Active).",
+   "effect": "Buff a row of allies for their next attack.\nGrants 30% Attack, 50% Critical Damage,\nand +50 Accuracy.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     129,
+     0.3
+    ],
+    [
+     91,
+     0.5
+    ],
+    [
+     213,
+     50.0
+    ]
+   ],
+   "items": [
+    "dirty_gamblers_coin"
+   ],
+   "classes": []
+  },
+  "reinforce": {
+   "name": "Reinforce",
+   "game_id": 405,
+   "internal": "PAS_NO_CONSUME_AP",
+   "pp": 4,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally attacks (Active).",
+   "effect": "Allow an ally to act once without consuming AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     156,
+     1.0
+    ]
+   ],
+   "items": [
+    "glory_sash"
+   ],
+   "classes": []
+  },
+  "sylphic_barrier": {
+   "name": "Sylphic Barrier",
+   "game_id": 406,
+   "internal": "PAS_SYLPHID_BARRIER",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is hit by a ranged phys. attack.",
+   "effect": "Allow an ally to evade one attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     163,
+     0.0
+    ]
+   ],
+   "items": [
+    "wind_faeries_bell"
+   ],
+   "classes": [
+    "Elven Fencer 1"
+   ]
+  },
+  "grant_evade": {
+   "name": "Grant Evade",
+   "game_id": 407,
+   "internal": "PAS_EVADE_ATTACH",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Allow an ally to evade one hit.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     163,
+     0.0
+    ]
+   ],
+   "items": [
+    "thiefs_bell"
+   ],
+   "classes": []
+  },
+  "quick_barrier": {
+   "name": "Quick Barrier",
+   "game_id": 408,
+   "internal": "PAS_QUICK_BARRIER",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Reduce damage taken by an ally\nby 50% for one attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     140,
+     0.5
+    ]
+   ],
+   "items": [
+    "defenders_mace",
+    "defensive_ring"
+   ],
+   "classes": []
+  },
+  "protection": {
+   "name": "Protection",
+   "game_id": 409,
+   "internal": "PAS_PROTECTION",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Reduce damage taken by a row of allies\nby 50% for one attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     140,
+     0.5
+    ]
+   ],
+   "items": [
+    "clerics_cane"
+   ],
+   "classes": []
+  },
+  "mighty_shield": {
+   "name": "Mighty Shield",
+   "game_id": 415,
+   "internal": "PAS_MIGHTY_SHIELD",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Negate the next damage dealt to an ally.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     162,
+     0.0
+    ]
+   ],
+   "items": [
+    "aurora_ring"
+   ],
+   "classes": []
+  },
+  "celestial_light": {
+   "name": "Celestial Light",
+   "game_id": 416,
+   "internal": "PAS_CELESTIAL_LIGHT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked with ???.",
+   "effect": "Unleash its true power amidst a sea of miasma.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [
+    "ring_of_the_maiden__3"
+   ],
+   "classes": []
+  },
+  "enduring_cover": {
+   "name": "Enduring Cover",
+   "game_id": 419,
+   "internal": "PAS_ENDURANCE_COVER",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Cover an ally with a heavy guard.\nGrants the user a buff to endure one lethal blow.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     153,
+     0.0
+    ],
+    [
+     45,
+     1.0
+    ]
+   ],
+   "items": [
+    "zenoiran_knights_greatshield"
+   ],
+   "classes": []
+  },
+  "healing_cover": {
+   "name": "Healing Cover",
+   "game_id": 425,
+   "internal": "PAS_AID_COVER",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Cover an ally with a medium guard.\nRestores 25% HP to that ally.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     153,
+     0.0
+    ],
+    [
+     43,
+     0.25
+    ]
+   ],
+   "items": [],
+   "classes": [
+    "Shieldshooter 25"
+   ]
+  },
+  "advance_cover": {
+   "name": "Advance Cover",
+   "game_id": 426,
+   "internal": "PAS_ADVANCE_COVER",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Cover an ally with a medium guard.\nGrants the user +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     153,
+     0.0
+    ],
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "evil_cover": {
+   "name": "Evil Cover",
+   "game_id": 427,
+   "internal": "PAS_EVIL_COVER",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Cover an ally with a medium guard.\nSteals +1 PP from that ally.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     153,
+     0.0
+    ],
+    [
+     48,
+     1.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "sacrifice": {
+   "name": "Sacrifice",
+   "game_id": 428,
+   "internal": "PAS_SACRIFICE",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally is attacked.",
+   "effect": "Risk one's life to cover an ally.\nGrants the user +2 PP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     153,
+     0.0
+    ],
+    [
+     111,
+     0.0
+    ],
+    [
+     84,
+     2.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "flame_conferral": {
+   "name": "Flame Conferral",
+   "game_id": 431,
+   "internal": "PAS_FRAME_SABER",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally's physickal attack (Active).",
+   "effect": "Add magick damage and Burn to\nan ally's next attack. (+50 potency.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     76,
+     0.0
+    ],
+    [
+     75,
+     50.0
+    ]
+   ],
+   "items": [
+    "flamebrand_tome"
+   ],
+   "classes": []
+  },
+  "ice_conferral": {
+   "name": "Ice Conferral",
+   "game_id": 432,
+   "internal": "PAS_ICE_SABER",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally's physickal attack (Active).",
+   "effect": "Add magick damage and Freeze to\nan ally's next attack. (+50 potency.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     77,
+     0.0
+    ],
+    [
+     75,
+     50.0
+    ]
+   ],
+   "items": [
+    "frostbrand_tome"
+   ],
+   "classes": []
+  },
+  "thunderous_conferral": {
+   "name": "Thunderous Conferral",
+   "game_id": 433,
+   "internal": "PAS_THUNDER_SABER",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally's physickal attack (Active).",
+   "effect": "Add magick damage and Stun to\nan ally's next attack. (+50 potency.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     78,
+     0.0
+    ],
+    [
+     75,
+     50.0
+    ]
+   ],
+   "items": [
+    "thunderbrand_tome"
+   ],
+   "classes": []
+  },
+  "sanguine_conferral": {
+   "name": "Sanguine Conferral",
+   "game_id": 434,
+   "internal": "PAS_BLOOD_SABER",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally's physickal attack (Active).",
+   "effect": "Add magick damage to an ally's next attack.\n(+50 potency.) User recovers HP equal to\n50% of damage dealt.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     75,
+     50.0
+    ],
+    [
+     49,
+     0.5
+    ]
+   ],
+   "items": [
+    "bloodbrand_tome"
+   ],
+   "classes": []
+  },
+  "dark_conferral": {
+   "name": "Dark Conferral",
+   "game_id": 435,
+   "internal": "PAS_DARK_SABER",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before an ally's physickal attack (Active).",
+   "effect": "Add magick damage and Blindness to\nan ally's next attack. (+50 potency.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     80,
+     0.0
+    ],
+    [
+     75,
+     50.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "toughness": {
+   "name": "Toughness",
+   "game_id": 436,
+   "internal": "PAS_TOUGHNESS",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being attacked.",
+   "effect": "Grants the user a buff to endure one lethal blow.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     45,
+     1.0
+    ]
+   ],
+   "items": [
+    "power_belt"
+   ],
+   "classes": []
+  },
+  "painbringer": {
+   "name": "Painbringer",
+   "game_id": 438,
+   "internal": "PAS_PAIN_ACCEL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being attacked.",
+   "effect": "Grants the user +1 AP, 20% Attack,\nand +10 Initiative. (Effect stacks.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     83,
+     1.0
+    ],
+    [
+     129,
+     0.2
+    ],
+    [
+     114,
+     10.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "nimble_fighter": {
+   "name": "Nimble Fighter",
+   "game_id": 440,
+   "internal": "PAS_EVADE_YO_DAMAGE_UP",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after evading an attack.",
+   "effect": "Grants the user 20% Phys. Attack and 30% Critical damage.\n(Effect stacks.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     130,
+     0.2
+    ],
+    [
+     91,
+     0.3
+    ]
+   ],
+   "items": [
+    "masters_gauntlets"
+   ],
+   "classes": []
+  },
+  "guarding_fighter": {
+   "name": "Guarding Fighter",
+   "game_id": 441,
+   "internal": "PAS_GUARD_YO_DAMAGE_UP",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after guarding an attack.",
+   "effect": "Grants the user 20% Phys. Attack and 30% Critical damage.\n(Effect stacks.)",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     130,
+     0.2
+    ],
+    [
+     91,
+     0.3
+    ]
+   ],
+   "items": [
+    "guardian_gloves"
+   ],
+   "classes": []
+  },
+  "vengeful_impetus": {
+   "name": "Vengeful Impetus",
+   "game_id": 443,
+   "internal": "PAS_REVENGE_ACT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after being attacked.",
+   "effect": "Grants the user +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "vengeful_caligae"
+   ],
+   "classes": []
+  },
+  "guarding_impetus": {
+   "name": "Guarding Impetus",
+   "game_id": 444,
+   "internal": "PAS_GUARD_ACT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates after guarding an attack.",
+   "effect": "Grants the user +1 AP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     83,
+     1.0
+    ]
+   ],
+   "items": [
+    "citadel_guards_sabatons"
+   ],
+   "classes": []
+  },
+  "undead_wall": {
+   "name": "Undead Wall",
+   "game_id": 458,
+   "internal": "PAS_UNDEAD_WALL",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being hit by a physickal attack.",
+   "effect": "Negate physical damage once.\nGrants the user +20 Initiative.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     162,
+     0.0
+    ],
+    [
+     114,
+     20.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "invincible": {
+   "name": "Invincible",
+   "game_id": 459,
+   "internal": "PAS_INVINCIBLE",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being attacked.",
+   "effect": "Completely negate the next attack received.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     164,
+     0.0
+    ]
+   ],
+   "items": [
+    "heros_greatshield"
+   ],
+   "classes": []
+  },
+  "phantom_step": {
+   "name": "Phantom Step",
+   "game_id": 461,
+   "internal": "PAS_PHANTOM_STEP",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being attacked.",
+   "effect": "Evade the next attack received.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     163,
+     0.0
+    ]
+   ],
+   "items": [
+    "illusory_cloak"
+   ],
+   "classes": []
+  },
+  "dynamic_glide": {
+   "name": "Dynamic Glide",
+   "game_id": 462,
+   "internal": "PAS_DYNAMIC_RIDE",
+   "pp": 2,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being attacked.",
+   "effect": "Evade a single hit.\nGrants the user 20% Phys. Attack.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     163,
+     0.0
+    ],
+    [
+     130,
+     0.2
+    ]
+   ],
+   "items": [
+    "coursers_reins",
+    "heavensteed_reins"
+   ],
+   "classes": []
+  },
+  "dark_step": {
+   "name": "Dark Step",
+   "game_id": 464,
+   "internal": "PAS_DARK_STEP",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being attacked.",
+   "effect": "Evade a single hit.\nGrants the user +25 Evasion.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     163,
+     0.0
+    ],
+    [
+     107,
+     25.0
+    ]
+   ],
+   "items": [],
+   "classes": []
+  },
+  "magick_conversion": {
+   "name": "Magick Conversion",
+   "game_id": 468,
+   "internal": "PAS_MAGIC_CONVERT",
+   "pp": 1,
+   "phys": null,
+   "mag": null,
+   "hits": 1,
+   "accuracy": 100,
+   "trigger": "Activates before being hit by a magick attack.",
+   "effect": "Negate a single magick attack targeting the user.\nGrants the user +2 PP.",
+   "numbers_filled": true,
+   "effect_blocks": [
+    [
+     164,
+     0.0
+    ],
+    [
+     84,
+     2.0
+    ]
+   ],
+   "items": [
+    "old_witchs_ring"
+   ],
+   "classes": []
+  }
+ }
+}

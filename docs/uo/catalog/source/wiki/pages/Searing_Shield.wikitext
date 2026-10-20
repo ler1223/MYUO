@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=677
+ |Name=Searing Shield
+ |Icon=SearingShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Burn Immunity
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

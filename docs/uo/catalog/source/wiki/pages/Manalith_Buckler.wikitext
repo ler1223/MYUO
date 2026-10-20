@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=695
+ |Name=Manalith Buckler
+ |Icon=ManalithBuckler.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=Magick Wall
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=1000
+}}

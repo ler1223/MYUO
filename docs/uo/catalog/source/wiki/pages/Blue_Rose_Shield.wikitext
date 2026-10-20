@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=699
+ |Name=Blue Rose Shield
+ |Icon=BlueRoseShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=20
+ |Skill=Royal Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Base [[File:PP_Gem.png|link=|23px]]PP +1
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

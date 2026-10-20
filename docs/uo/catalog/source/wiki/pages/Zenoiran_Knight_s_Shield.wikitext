@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=666
+ |Name=Zenoiran Knight's Shield
+ |Icon=ZenoiranKnight'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=Enduring Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Max HP +15
+ |Slot3=
+ |Cost=
+ |Sell=1000
+}}

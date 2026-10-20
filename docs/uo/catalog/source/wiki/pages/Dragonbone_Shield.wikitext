@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=656
+ |Name=Dragonbone Shield
+ |Icon=DragonboneShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=15
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Base [[File:PP_Gem.png|link=|23px]]PP +1
+ |Slot3=Initiative -10 
+ |Cost=
+ |Sell=800
+}}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=665
+ |Name=Zenoiran Shield
+ |Icon=ZenoiranShield.png
+ |Sort=Shield
+ |PhysickalDefense=3
+ |GuardRate=15
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Max HP +10
+ |Slot3=
+ |Cost=
+ |Sell=500
+}}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=694
+ |Name=Ironclad Buckler
+ |Icon=IroncladBuckler.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=Wall
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=500
+}}

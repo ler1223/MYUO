@@ -1,0 +1,17 @@
+{{Item InfoBox
+ |Id=672
+ |Name=Scarlet Crest Shield
+ |Icon=ScarletCrestShield.png
+ |Sort=Shield
+ |PhysickalDefense=6
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Base [[File:AP_Gem.png|link=|23px]]PP +1
+ |Slot3=
+ |Cost=
+ |Sell=1500
+}}
+
+== Acquisition ==
+Available in the [[Coliseum]] shop.

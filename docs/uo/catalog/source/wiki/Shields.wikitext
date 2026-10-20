@@ -1,0 +1,14 @@
+<div class="noexcerpt">Back to [[Main Page]].</div> 
+==Equippable By==
+*[[Lord]]/[[High Lord]]
+*[[Paladin]]
+*[[Fighter]]/[[Vanguard]]
+*[[Viking]]
+*[[Landsknecht]]
+*[[Knight]]/[[Great Knight]]
+*[[Radiant Knight]]/[[Sainted Knight]]
+*[[Dark Knight]]/[[Doom Knight]]
+*[[Feathersword]]
+*[[Crusader]]/[[Valkyria]]
+==List==
+{{ShieldTable}}

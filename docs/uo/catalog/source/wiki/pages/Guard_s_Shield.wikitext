@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=684
+ |Name=Guard's Shield
+ |Icon=Guard'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=4
+ |GuardRate=20
+ |Skill=Quick Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=500
+}}

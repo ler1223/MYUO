@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=706
+ |Name=Holy Unicorn Shield
+ |Icon=HolyUnicornShield.png
+ |Sort=Shield
+ |PhysickalDefense=8
+ |GuardRate=30
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Debuff Immunity
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

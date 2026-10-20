@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=705
+ |Name=Kaikai's Shield
+ |Icon=Kaikai'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=8
+ |GuardRate=30
+ |Skill=Hastened Cover
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Initiative +10
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

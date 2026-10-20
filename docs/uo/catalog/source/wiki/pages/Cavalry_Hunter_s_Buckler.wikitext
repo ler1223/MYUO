@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=687
+ |Name=Cavalry Hunter's Buckler
+ |Icon=CavalryHunter'sBuckler.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=Cavalry Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=800
+}}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=663
+ |Name=Templar's Shield
+ |Icon=Templar'sShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=HP Recovery +20%
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

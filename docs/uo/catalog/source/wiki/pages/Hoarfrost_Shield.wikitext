@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=678
+ |Name=Hoarfrost Shield
+ |Icon=HoarfrostShield.png
+ |Sort=Shield
+ |PhysickalDefense=5
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Freeze Immunity
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=696
+ |Name=Parrying Shield
+ |Icon=ParryingShield.png
+ |Sort=Shield
+ |PhysickalDefense=2
+ |GuardRate=10
+ |Skill=Parry
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Counterattack Skills have +50 Potency
+ |Slot3=
+ |Cost=
+ |Sell=1200
+}}

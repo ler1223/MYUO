@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=644
+ |Name=Baroque Shield
+ |Icon=BaroqueShield.png
+ |Sort=Shield
+ |PhysickalDefense=4
+ |GuardRate=18
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Accuracy +5
+ |Slot3=
+ |Cost=
+ |Sell=
+}}

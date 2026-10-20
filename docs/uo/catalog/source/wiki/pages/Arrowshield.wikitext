@@ -1,0 +1,16 @@
+{{Item InfoBox
+ |Id=693
+ |Name=Arrowshield
+ |Icon=
+ |Sort=Shield
+ |PhysickalDefense=2
+ |GuardRate=20
+ |Skill=Arrow Cover
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=1000
+}}
+== Acquisition ==
+This item is not available trough regular means

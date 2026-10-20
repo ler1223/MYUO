@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=691
+ |Name=Unyielding Shield
+ |Icon=UnyieldingShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=25
+ |Skill=Enduring Guard
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=1000
+}}

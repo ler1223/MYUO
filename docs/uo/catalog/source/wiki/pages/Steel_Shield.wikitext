@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=650
+ |Name=Steel Shield
+ |Icon=SteelShield.png
+ |Sort=Shield
+ |PhysickalDefense=7
+ |GuardRate=25
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=
+ |Slot3=
+ |Cost=
+ |Sell=300
+}}

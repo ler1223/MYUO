@@ -1,0 +1,14 @@
+{{Item InfoBox
+ |Id=674
+ |Name=Blessed Roundshield
+ |Icon=BlessedRoundshield.png
+ |Sort=Shield
+ |PhysickalDefense=2
+ |GuardRate=20
+ |Skill=
+ |Slot1=Guard Efficiency +25%
+ |Slot2=Heal 10% HP when using Active Skill
+ |Slot3=Max HP +5%
+ |Cost=
+ |Sell=500
+}}

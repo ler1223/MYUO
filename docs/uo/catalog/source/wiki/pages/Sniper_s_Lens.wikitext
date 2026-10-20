@@ -1,0 +1,20 @@
+{{Item InfoBox
+|Id=883
+|HexId=
+|Name=Sniper's Lens
+|Image=
+|ImageFile=
+|Sort=Accessory
+|MainStat1=1
+|MainStat2=0
+|Skill=Eagle Eye
+|SubStat1=Accuracy +10
+|SubStat2=
+|SubStat3=
+|Buy=5000
+|Sell=500
+|Unobtainable=
+|EquippableBy=
+}}
+== Acquisition ==
+* [[Celeste]] has one equipped upon recruitment.
