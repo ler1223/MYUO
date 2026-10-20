@@ -157,10 +157,15 @@ class Editor:
         return sorted(n for n, a in self.animations.items() if (a.get("class") or "") == self.cls)
 
     def select_class(self, cls: str) -> None:
+        """Выбрать класс: сцена всегда пересобирается на модели нового класса.
+
+        Навык бывает у обоих классов (heal, дождь стрел, дротик): если оставить прежнюю сцену,
+        она играет куклу старого класса, а части цепочки ищутся уже в модели нового — отсюда
+        KeyError на первой же анимации, которой у нового класса нет.
+        """
         self.cls = cls
         skills = self.visible_skills()
-        if self.sid not in skills:
-            self.select_skill(skills[0] if skills else None)
+        self.select_skill(self.sid if self.sid in skills else (skills[0] if skills else None))
         # библиотека анимаций: если включён фильтр по классу — выбрать подходящую
         if self.anim_only_current:
             visible = self.visible_animations()
@@ -688,6 +693,8 @@ class Editor:
             return out
         _, layout, _, _ = self.chain_layout()
         for name, at, ms in layout:
+            if name not in model.puppet.anims:      # цепочка могла остаться от другой модели
+                continue
             for tick, kind in model.puppet.events(name):
                 if tick * TICK <= ms:
                     out.append((at + tick * TICK, kind, name))
