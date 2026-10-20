@@ -1,0 +1,1832 @@
+{
+ "source": "MsgSheet/UcFactorList.fms",
+ "factors": [
+  {
+   "id": 0,
+   "key": "none",
+   "name": "None",
+   "short": "None",
+   "description": "",
+   "group": "none",
+   "kind": "none"
+  },
+  {
+   "id": 1,
+   "key": "prioritize_front_row",
+   "name": "Prioritize Front Row",
+   "short": "Prioritize the front row",
+   "description": "Prioritize combatants in the front row.",
+   "group": "formation",
+   "kind": "prioritize"
+  },
+  {
+   "id": 2,
+   "key": "prioritize_back_row",
+   "name": "Prioritize Back Row",
+   "short": "Prioritize the back row",
+   "description": "Prioritize combatants in the back row.",
+   "group": "formation",
+   "kind": "prioritize"
+  },
+  {
+   "id": 3,
+   "key": "front_row",
+   "name": "Front Row",
+   "short": "In the front row",
+   "description": "Target only combatants in the front row.",
+   "group": "formation",
+   "kind": "target_only"
+  },
+  {
+   "id": 4,
+   "key": "back_row",
+   "name": "Back Row",
+   "short": "In the back row",
+   "description": "Target only combatants in the back row.",
+   "group": "formation",
+   "kind": "target_only"
+  },
+  {
+   "id": 5,
+   "key": "full_column",
+   "name": "Full Column",
+   "short": "Lined up in front and back row",
+   "description": "Target only columns with combatants in both rows.",
+   "group": "formation",
+   "kind": "target_only"
+  },
+  {
+   "id": 6,
+   "key": "row_with_most_combatants",
+   "name": "Row with Most Combatants",
+   "short": "Row with the most combatants",
+   "description": "Prioritize combatants in the row with the most members.",
+   "group": "formation",
+   "kind": "prioritize"
+  },
+  {
+   "id": 7,
+   "key": "row_with_least_combatants",
+   "name": "Row with Least Combatants",
+   "short": "Row with the least combatants",
+   "description": "Prioritize combatants in the row with the least members.",
+   "group": "formation",
+   "kind": "prioritize"
+  },
+  {
+   "id": 8,
+   "key": "row_with_2_plus_combatants",
+   "name": "Row with 2+ Combatants",
+   "short": "Rows with 2+ enemies (allies)",
+   "description": "Target only combatants in rows with two or more members.",
+   "group": "formation",
+   "kind": "target_only"
+  },
+  {
+   "id": 9,
+   "key": "row_with_3_plus_combatants",
+   "name": "Row with 3+ Combatants",
+   "short": "Rows with 3+ enemies (allies)",
+   "description": "Target only combatants in rows with three or more members.",
+   "group": "formation",
+   "kind": "target_only"
+  },
+  {
+   "id": 10,
+   "key": "daytime",
+   "name": "Daytime",
+   "short": "Daytime only",
+   "description": "Activates during the day only.",
+   "group": "formation",
+   "kind": "activates_only"
+  },
+  {
+   "id": 11,
+   "key": "nighttime",
+   "name": "Nighttime",
+   "short": "Nighttime only",
+   "description": "Activates at night only.",
+   "group": "formation",
+   "kind": "activates_only"
+  },
+  {
+   "id": 12,
+   "key": "highest_hp",
+   "name": "Highest HP",
+   "short": "Most HP",
+   "description": "Prioritize combatants with the most HP.",
+   "group": "hp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 13,
+   "key": "lowest_hp",
+   "name": "Lowest HP",
+   "short": "Least HP",
+   "description": "Prioritize combatants with the lowest HP.",
+   "group": "hp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 14,
+   "key": "highest_pct_hp",
+   "name": "Highest % HP",
+   "short": "Highest % HP",
+   "description": "Prioritize combatants with the highest percentage HP.",
+   "group": "hp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 15,
+   "key": "lowest_pct_hp",
+   "name": "Lowest % HP",
+   "short": "Lowest % HP",
+   "description": "Prioritize combatants with the lowest percentage HP.",
+   "group": "hp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 16,
+   "key": "target_hp_is_lt_25_pct",
+   "name": "Target HP is <25%",
+   "short": "With 25% or less HP",
+   "description": "Target only combatants with 25% or less HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 17,
+   "key": "target_hp_is_lt_50_pct",
+   "name": "Target HP is <50%",
+   "short": "With 50% or less HP",
+   "description": "Target only combatants with 50% or less HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 18,
+   "key": "target_hp_is_lt_75_pct",
+   "name": "Target HP is <75%",
+   "short": "With 75% or less HP",
+   "description": "Target only combatants with 75% or less HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 19,
+   "key": "target_hp_is_gt_25_pct",
+   "name": "Target HP is >25%",
+   "short": "With 25% or more HP",
+   "description": "Target only combatants with 25% or more HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 20,
+   "key": "target_hp_is_gt_50_pct",
+   "name": "Target HP is >50%",
+   "short": "With 50% or more HP",
+   "description": "Target only combatants with 50% or more HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 21,
+   "key": "target_hp_is_gt_75_pct",
+   "name": "Target HP is >75%",
+   "short": "With 75% or more HP",
+   "description": "Target only combatants with 75% or more HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 22,
+   "key": "target_hp_is_gt_100_pct",
+   "name": "Target HP is >100%",
+   "short": "With 100% or more HP",
+   "description": "Target only combatants with 100% or more HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 23,
+   "key": "target_hp_is_lt_100_pct",
+   "name": "Target HP is <100%",
+   "short": "With less than 100% HP",
+   "description": "Target only combatants with less than 100% HP.",
+   "group": "hp",
+   "kind": "target_only"
+  },
+  {
+   "id": 24,
+   "key": "average_hp_is_lt_25_pct",
+   "name": "Average HP is <25%",
+   "short": "Avg. enemy (ally) HP 25% or less",
+   "description": "Activates only if the average HP of its targets is 25% or less.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 25,
+   "key": "average_hp_is_lt_50_pct",
+   "name": "Average HP is <50%",
+   "short": "Avg. enemy (ally) HP 50% or less",
+   "description": "Activates only if the average HP of its targets is 50% or less.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 26,
+   "key": "average_hp_is_lt_75_pct",
+   "name": "Average HP is <75%",
+   "short": "Avg. enemy (ally) HP 75% or less",
+   "description": "Activates only if the average HP of its targets is 75% or less.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 27,
+   "key": "average_hp_is_gt_25_pct",
+   "name": "Average HP is >25%",
+   "short": "Avg. enemy (ally) HP 25% or more",
+   "description": "Activates only if the average HP of its targets is 25% or more.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 28,
+   "key": "average_hp_is_gt_50_pct",
+   "name": "Average HP is >50%",
+   "short": "Avg. enemy (ally) HP 50% or more",
+   "description": "Activates only if the average HP of its targets is 50% or more.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 29,
+   "key": "average_hp_is_gt_75_pct",
+   "name": "Average HP is >75%",
+   "short": "Avg. enemy (ally) HP 75% or more",
+   "description": "Activates only if the average HP of its targets is 75% or more.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 30,
+   "key": "average_hp_is_gt_100_pct",
+   "name": "Average HP is >100%",
+   "short": "Avg. enemy (ally) HP 100% or more",
+   "description": "Activates only if the average HP of its targets is 100% or more.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 31,
+   "key": "average_hp_is_lt_100_pct",
+   "name": "Average HP is <100%",
+   "short": "Avg. enemy (ally) HP less than 100%",
+   "description": "Activates only if the average HP of its targets is less than 100%.",
+   "group": "hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 32,
+   "key": "prioritize_buffed",
+   "name": "Prioritize Buffed",
+   "short": "Prioritize Buffed",
+   "description": "Prioritize combatants with buffs.",
+   "group": "status",
+   "kind": "prioritize"
+  },
+  {
+   "id": 33,
+   "key": "prioritize_debuffed",
+   "name": "Prioritize Debuffed",
+   "short": "Prioritize Debuffed",
+   "description": "Prioritize combatants with debuffs.",
+   "group": "status",
+   "kind": "prioritize"
+  },
+  {
+   "id": 34,
+   "key": "buffed",
+   "name": "Buffed",
+   "short": "Buffed",
+   "description": "Target only combatants with buffs.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 35,
+   "key": "debuffed",
+   "name": "Debuffed",
+   "short": "Debuffed",
+   "description": "Target only combatants with debuffs.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 36,
+   "key": "afflicted",
+   "name": "Afflicted",
+   "short": "Afflicted",
+   "description": "Target only combatants with afflictions.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 37,
+   "key": "poisoned",
+   "name": "Poisoned",
+   "short": "Poisoned",
+   "description": "Target only poisoned combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 38,
+   "key": "burning",
+   "name": "Burning",
+   "short": "Burning",
+   "description": "Target only burning combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 39,
+   "key": "frozen",
+   "name": "Frozen",
+   "short": "Frozen",
+   "description": "Target only frozen combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 40,
+   "key": "stunned",
+   "name": "Stunned",
+   "short": "Stunned",
+   "description": "Target only stunned combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 41,
+   "key": "blinded",
+   "name": "Blinded",
+   "short": "Blinded",
+   "description": "Target only blinded combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 42,
+   "key": "passive_sealed",
+   "name": "Passive Sealed",
+   "short": "Passive Sealed",
+   "description": "Target only passive-sealed combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 43,
+   "key": "guard_sealed",
+   "name": "Guard Sealed",
+   "short": "Guard Sealed",
+   "description": "Target only guard-sealed combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 44,
+   "key": "not_buffed",
+   "name": "Not Buffed",
+   "short": "Not buffed",
+   "description": "Target only combatants without buffs.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 45,
+   "key": "not_debuffed",
+   "name": "Not Debuffed",
+   "short": "Not debuffed",
+   "description": "Target only combatants without debuffs.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 46,
+   "key": "not_afflicted",
+   "name": "Not Afflicted",
+   "short": "Not afflicted",
+   "description": "Target only combatants without afflictions.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 47,
+   "key": "not_poisoned",
+   "name": "Not Poisoned",
+   "short": "Not afflicted with Poison",
+   "description": "Target only non-poisoned combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 48,
+   "key": "not_burning",
+   "name": "Not Burning",
+   "short": "Not afflicted with Burn",
+   "description": "Target only non-burning combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 49,
+   "key": "not_frozen",
+   "name": "Not Frozen",
+   "short": "Not afflicted with Frozen",
+   "description": "Target only non-frozen combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 50,
+   "key": "not_stunned",
+   "name": "Not Stunned",
+   "short": "Not afflicted with Stun",
+   "description": "Target only non-stunned combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 51,
+   "key": "not_blinded",
+   "name": "Not Blinded",
+   "short": "Not afflicted with Darkness",
+   "description": "Target only non-blinded combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 52,
+   "key": "not_passive_sealed",
+   "name": "Not Passive Sealed",
+   "short": "Not afflicted with Passive Seal",
+   "description": "Target only non-passive-sealed combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 53,
+   "key": "not_guard_sealed",
+   "name": "Not Guard Sealed",
+   "short": "Not afflicted with Guard Seal",
+   "description": "Target only non-guard sealed-combatants.",
+   "group": "status",
+   "kind": "target_only"
+  },
+  {
+   "id": 54,
+   "key": "prioritize_infantry",
+   "name": "Prioritize Infantry",
+   "short": "Prioritize Infantry combatants",
+   "description": "Prioritize Infantry combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 55,
+   "key": "prioritize_cavalry",
+   "name": "Prioritize Cavalry",
+   "short": "Prioritize Cavalry combatants",
+   "description": "Prioritize Cavalry combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 56,
+   "key": "prioritize_flying",
+   "name": "Prioritize Flying",
+   "short": "Prioritize Flying combatants",
+   "description": "Prioritize Flying combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 57,
+   "key": "prioritize_armored",
+   "name": "Prioritize Armored",
+   "short": "Prioritize Armored combatants",
+   "description": "Prioritize Armored combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 58,
+   "key": "prioritize_scout",
+   "name": "Prioritize Scout",
+   "short": "Prioritize Scout combatants",
+   "description": "Prioritize Scout combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 59,
+   "key": "prioritize_archer",
+   "name": "Prioritize Archer",
+   "short": "Prioritize Archer combatants",
+   "description": "Prioritize Archer combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 60,
+   "key": "prioritize_caster",
+   "name": "Prioritize Caster",
+   "short": "Prioritize Caster combatants",
+   "description": "Prioritize Caster combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 61,
+   "key": "prioritize_elven",
+   "name": "Prioritize Elven",
+   "short": "Prioritize Elven combatants",
+   "description": "Prioritize Elven combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 62,
+   "key": "prioritize_bestral",
+   "name": "Prioritize Bestral",
+   "short": "Prioritize Bestral combatants",
+   "description": "Prioritize Bestral combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 63,
+   "key": "prioritize_angel",
+   "name": "Prioritize Angel",
+   "short": "Prioritize Angel combatants",
+   "description": "Prioritize Angel combatants.",
+   "group": "combatant_type",
+   "kind": "prioritize"
+  },
+  {
+   "id": 64,
+   "key": "infantry",
+   "name": "Infantry",
+   "short": "Infantry",
+   "description": "Target only Infantry combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 65,
+   "key": "cavalry",
+   "name": "Cavalry",
+   "short": "Cavalry",
+   "description": "Target only Cavalry combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 66,
+   "key": "flying",
+   "name": "Flying",
+   "short": "Flying",
+   "description": "Target only Flying combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 67,
+   "key": "armored",
+   "name": "Armored",
+   "short": "Armored",
+   "description": "Target only Armored combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 68,
+   "key": "scout",
+   "name": "Scout",
+   "short": "Scout",
+   "description": "Target only Scout combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 69,
+   "key": "archer",
+   "name": "Archer",
+   "short": "Archer",
+   "description": "Target only Archer combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 70,
+   "key": "caster",
+   "name": "Caster",
+   "short": "Caster",
+   "description": "Target only Caster combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 71,
+   "key": "elven",
+   "name": "Elven",
+   "short": "Elven",
+   "description": "Target only Elven combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 72,
+   "key": "bestral",
+   "name": "Bestral",
+   "short": "Bestral",
+   "description": "Target only Bestral combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 73,
+   "key": "angel",
+   "name": "Angel",
+   "short": "Angel",
+   "description": "Target only Angel combatants.",
+   "group": "combatant_type",
+   "kind": "target_only"
+  },
+  {
+   "id": 74,
+   "key": "physickally_attacked",
+   "name": "Physickally Attacked",
+   "short": "When physickally attacked",
+   "description": "Activates only when the user suffers a physickal attack.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 75,
+   "key": "magickally_attacked",
+   "name": "Magickally Attacked",
+   "short": "When magickally attacked",
+   "description": "Activates only when the user suffers a magick attack.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 76,
+   "key": "row_is_attacked",
+   "name": "Row is Attacked",
+   "short": "When the row is attacked",
+   "description": "Activates only when the user's row is attacked.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 77,
+   "key": "column_is_attacked",
+   "name": "Column is Attacked",
+   "short": "When the column is attacked",
+   "description": "Activates only when the user's column is attacked.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 78,
+   "key": "all_allies_are_attacked",
+   "name": "All Allies are Attacked",
+   "short": "When all allies are attacked",
+   "description": "Activates only when all allies are attacked.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 79,
+   "key": "attacked_by_infantry",
+   "name": "Attacked by Infantry",
+   "short": "When attacked by an Infantry combatant",
+   "description": "Activates only when the user is attacked by an Infantry combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 80,
+   "key": "attacked_by_cavalry",
+   "name": "Attacked by Cavalry",
+   "short": "When attacked by a Cavalry combatant",
+   "description": "Activates only when the user is attacked by a Cavalry combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 81,
+   "key": "attacked_by_flying",
+   "name": "Attacked by Flying",
+   "short": "When attacked by a Flying combatant",
+   "description": "Activates only when the user is attacked by a Flying combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 82,
+   "key": "attacked_by_armored",
+   "name": "Attacked by Armored",
+   "short": "When attacked by an Armored combatant",
+   "description": "Activates only when the user is attacked by an Armored combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 83,
+   "key": "attacked_by_scout",
+   "name": "Attacked by Scout",
+   "short": "When attacked by a Scout combatant",
+   "description": "Activates only when the user is attacked by a Scout combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 84,
+   "key": "attacked_by_archer",
+   "name": "Attacked by Archer",
+   "short": "When attacked by an Archer combatant",
+   "description": "Activates only when the user is attacked by an Archer combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 85,
+   "key": "attacked_by_caster",
+   "name": "Attacked by Caster",
+   "short": "When attacked by a Caster combatant",
+   "description": "Activates only when the user is attacked by a Caster combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 86,
+   "key": "attacked_by_elven",
+   "name": "Attacked by Elven",
+   "short": "When attacked by an Elven combatant",
+   "description": "Activates only when the user is attacked by an Elven combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 87,
+   "key": "attacked_by_bestral",
+   "name": "Attacked by Bestral",
+   "short": "When attacked by a Bestral combatant",
+   "description": "Activates only when the user is attacked by a Bestral combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 88,
+   "key": "attacked_by_angel",
+   "name": "Attacked by Angel",
+   "short": "When attacked by an Angel combatant",
+   "description": "Activates only when the user is attacked by a Angel combatant.",
+   "group": "attack_type",
+   "kind": "activates_only"
+  },
+  {
+   "id": 89,
+   "key": "2_or_more_enemies",
+   "name": "2 or More Enemies",
+   "short": "With 2 or more enemies",
+   "description": "Activates only when there are two or more enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 90,
+   "key": "3_or_more_enemies",
+   "name": "3 or More Enemies",
+   "short": "With 3 or more enemies",
+   "description": "Activates only when there are three or more enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 91,
+   "key": "4_or_more_enemies",
+   "name": "4 or More Enemies",
+   "short": "With 4 or more enemies",
+   "description": "Activates only when there are four or more enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 92,
+   "key": "5_or_more_enemies",
+   "name": "5 or More Enemies",
+   "short": "With 5 or more enemies",
+   "description": "Activates only when there are five or more enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 93,
+   "key": "1_or_fewer_enemies",
+   "name": "1 or Fewer Enemies",
+   "short": "With 1 or fewer enemies",
+   "description": "Activates only when there are one or fewer enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 94,
+   "key": "2_or_fewer_enemies",
+   "name": "2 or Fewer Enemies",
+   "short": "With 2 or fewer enemies",
+   "description": "Activates only when there are two or fewer enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 95,
+   "key": "3_or_fewer_enemies",
+   "name": "2 or Fewer Enemies",
+   "short": "With 3 or fewer enemies",
+   "description": "Activates only when there are three or fewer enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 96,
+   "key": "4_or_fewer_enemies",
+   "name": "4 or Fewer Enemies",
+   "short": "With 4 or fewer enemies",
+   "description": "Activates only when there are four or fewer enemies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 97,
+   "key": "2_or_more_allies",
+   "name": "2 or More Allies",
+   "short": "With 2 or more allies",
+   "description": "Activates only when there are two or more allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 98,
+   "key": "3_or_more_allies",
+   "name": "3 or More Allies",
+   "short": "With 3 or more allies",
+   "description": "Activates only when there are three or more allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 99,
+   "key": "4_or_more_allies",
+   "name": "4 or More Allies",
+   "short": "With 4 or more allies",
+   "description": "Activates only when there are four or more allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 100,
+   "key": "5_or_more_allies",
+   "name": "5 or More Allies",
+   "short": "With 5 or more allies",
+   "description": "Activates only when there are five or more allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 101,
+   "key": "1_or_fewer_allies",
+   "name": "1 or Fewer Allies",
+   "short": "With 1 or fewer allies",
+   "description": "Activates only when there are one or fewer allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 102,
+   "key": "2_or_fewer_allies",
+   "name": "2 or Fewer Allies",
+   "short": "With 2 or fewer allies",
+   "description": "Activates only when there are two or fewer allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 103,
+   "key": "3_or_fewer_allies",
+   "name": "3 or Fewer Allies",
+   "short": "With 3 or fewer allies",
+   "description": "Activates only when there are three or fewer allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 104,
+   "key": "4_or_fewer_allies",
+   "name": "4 or Fewer Allies",
+   "short": "With 4 or fewer allies",
+   "description": "Activates only when there are four or fewer allies.",
+   "group": "unit_size",
+   "kind": "activates_only"
+  },
+  {
+   "id": 105,
+   "key": "own_hp_is_lt_25_pct",
+   "name": "Own HP is <25%",
+   "short": "Own HP is 25% or less",
+   "description": "Activates only when the user has 25% or less HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 106,
+   "key": "own_hp_is_lt_50_pct",
+   "name": "Own HP is <50%",
+   "short": "Own HP is 50% or less",
+   "description": "Activates only when the user has 50% or less HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 107,
+   "key": "own_hp_is_lt_75_pct",
+   "name": "Own HP is >75%",
+   "short": "Own HP is 75% or less",
+   "description": "Activates only when the user has 75% or less HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 108,
+   "key": "own_hp_is_gt_25_pct",
+   "name": "Own HP is >25%",
+   "short": "Own HP is 25% or more",
+   "description": "Activates only when the user has 25% or more HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 109,
+   "key": "own_hp_is_gt_50_pct",
+   "name": "Own HP is >50%",
+   "short": "Own HP is 50% or more",
+   "description": "Activates only when the user has 50% or more HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 110,
+   "key": "own_hp_is_gt_75_pct",
+   "name": "Own HP is >75%",
+   "short": "Own HP is 75% or more",
+   "description": "Activates only when the user has 75% or more HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 111,
+   "key": "own_hp_is_gt_100_pct",
+   "name": "Own HP is >100%",
+   "short": "Own HP is 100% or more",
+   "description": "Activates only when the user has 100% or more HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 112,
+   "key": "own_hp_is_lt_100_pct",
+   "name": "Own HP is <100%",
+   "short": "Own HP is less than 100%",
+   "description": "Activates only when the user has less than 100% HP.",
+   "group": "own_hp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 113,
+   "key": "most_ap",
+   "name": "Most AP",
+   "short": "Most AP",
+   "description": "Prioritize combatants with the most AP.",
+   "group": "ap_pp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 114,
+   "key": "least_ap",
+   "name": "Least AP",
+   "short": "Least AP",
+   "description": "Prioritize combatants with the least AP.",
+   "group": "ap_pp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 115,
+   "key": "0_ap",
+   "name": "0 AP",
+   "short": "AP is 0",
+   "description": "Target only combatants with 0 AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 116,
+   "key": "1_or_less_ap",
+   "name": "1 or Less AP",
+   "short": "AP is 1 or less",
+   "description": "Target only combatants with 1 or less AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 117,
+   "key": "2_or_less_ap",
+   "name": "2 or Less AP",
+   "short": "AP is 2 or less",
+   "description": "Target only combatants with 2 or less AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 118,
+   "key": "3_or_less_ap",
+   "name": "3 or Less AP",
+   "short": "AP is 3 or less",
+   "description": "Target only combatants with 3 or less AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 119,
+   "key": "1_or_more_ap",
+   "name": "1 or More AP",
+   "short": "AP is 1 or more",
+   "description": "Target only combatants with 1 or more AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 120,
+   "key": "2_or_more_ap",
+   "name": "2 or More AP",
+   "short": "AP is 2 or more",
+   "description": "Target only combatants with 2 or more AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 121,
+   "key": "3_or_more_ap",
+   "name": "3 or More AP",
+   "short": "AP is 3 or more",
+   "description": "Target only combatants with 3 or more AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 122,
+   "key": "4_or_more_ap",
+   "name": "4 or More AP",
+   "short": "AP is 4 or more",
+   "description": "Target only combatants with 4 or more AP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 123,
+   "key": "most_pp",
+   "name": "Most PP",
+   "short": "Most PP",
+   "description": "Prioritize combatants with the most PP.",
+   "group": "ap_pp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 124,
+   "key": "least_pp",
+   "name": "Least PP",
+   "short": "Least PP",
+   "description": "Prioritize combatants with the least PP.",
+   "group": "ap_pp",
+   "kind": "prioritize"
+  },
+  {
+   "id": 125,
+   "key": "0_pp",
+   "name": "0 PP",
+   "short": "PP is 0",
+   "description": "Target only combatants with 0 PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 126,
+   "key": "1_or_less_pp",
+   "name": "1 or Less PP",
+   "short": "PP is 1 or less",
+   "description": "Target only combatants with 1 or less PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 127,
+   "key": "2_or_less_pp",
+   "name": "2 or Less PP",
+   "short": "PP is 2 or less",
+   "description": "Target only combatants with 2 or less PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 128,
+   "key": "3_or_less_pp",
+   "name": "3 or Less PP",
+   "short": "PP is 3 or less",
+   "description": "Target only combatants with 3 or less PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 129,
+   "key": "1_or_more_pp",
+   "name": "1 or More PP",
+   "short": "PP is 1 or more",
+   "description": "Target only combatants with 1 or more PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 130,
+   "key": "2_or_more_pp",
+   "name": "2 or More PP",
+   "short": "PP is 2 or more",
+   "description": "Target only combatants with 2 or more PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 131,
+   "key": "3_or_more_pp",
+   "name": "3 or More PP",
+   "short": "PP is 3 or more",
+   "description": "Target only combatants with 3 or more PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 132,
+   "key": "4_or_more_pp",
+   "name": "4 or More PP",
+   "short": "PP is 4 or more",
+   "description": "Target only combatants with 4 or more PP.",
+   "group": "ap_pp",
+   "kind": "target_only"
+  },
+  {
+   "id": 133,
+   "key": "own_ap_is_0",
+   "name": "Own AP is 0",
+   "short": "Own AP is 0",
+   "description": "Activates only when the user has 0 AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 134,
+   "key": "own_ap_is_1_or_less",
+   "name": "Own AP is 1 or less",
+   "short": "Own AP is 1 or less",
+   "description": "Activates only when the user has 1 or less AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 135,
+   "key": "own_ap_is_2_or_less",
+   "name": "Own AP is 2 or less",
+   "short": "Own AP is 2 or less",
+   "description": "Activates only when the user has 2 or less AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 136,
+   "key": "own_ap_is_3_or_less",
+   "name": "Own AP is 3 or less",
+   "short": "Own AP is 3 or less",
+   "description": "Activates only when the user has 3 or less AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 137,
+   "key": "own_ap_is_1_or_more",
+   "name": "Own AP is 1 or more",
+   "short": "Own AP is 1 or more",
+   "description": "Activates only when the user has 1 or more AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 138,
+   "key": "own_ap_is_2_or_more",
+   "name": "Own AP is 2 or more",
+   "short": "Own AP is 2 or more",
+   "description": "Activates only when the user has 2 or more AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 139,
+   "key": "own_ap_is_3_or_more",
+   "name": "Own AP is 3 or more",
+   "short": "Own AP is 3 or more",
+   "description": "Activates only when the user has 3 or more AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 140,
+   "key": "own_ap_is_4_or_more",
+   "name": "Own AP is 4 or more",
+   "short": "Own AP is 4 or more",
+   "description": "Activates only when the user has 4 or more AP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 141,
+   "key": "own_pp_is_0",
+   "name": "Own PP is 0",
+   "short": "Own PP is 0",
+   "description": "Activates only when the user has 0 PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 142,
+   "key": "own_pp_is_1_or_less",
+   "name": "Own PP is 1 or less",
+   "short": "Own PP is 1 or less",
+   "description": "Activates only when the user has 1 or less PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 143,
+   "key": "own_pp_is_2_or_less",
+   "name": "Own PP is 2 or less",
+   "short": "Own PP is 2 or less",
+   "description": "Activates only when the user has 2 or less PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 144,
+   "key": "own_pp_is_3_or_less",
+   "name": "Own PP is 3 or less",
+   "short": "Own PP is 3 or less",
+   "description": "Activates only when the user has 3 or less PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 145,
+   "key": "own_pp_is_1_or_more",
+   "name": "Own PP is 1 or more",
+   "short": "Own PP is 1 or more",
+   "description": "Activates only when the user has 1 or more PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 146,
+   "key": "own_pp_is_2_or_more",
+   "name": "Own PP is 2 or more",
+   "short": "Own PP is 2 or more",
+   "description": "Activates only when the user has 2 or more PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 147,
+   "key": "own_pp_is_3_or_more",
+   "name": "Own PP is 3 or more",
+   "short": "Own PP is 3 or more",
+   "description": "Activates only when the user has 3 or more PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 148,
+   "key": "own_pp_is_4_or_more",
+   "name": "Own PP is 4 or more",
+   "short": "Own PP is 4 or more",
+   "description": "Activates only when the user has 4 or more PP.",
+   "group": "own_ap_pp",
+   "kind": "activates_only"
+  },
+  {
+   "id": 149,
+   "key": "user",
+   "name": "User",
+   "short": "User",
+   "description": "Target only the user.",
+   "group": "own_condition",
+   "kind": "target_only"
+  },
+  {
+   "id": 150,
+   "key": "other_combatants",
+   "name": "Other Combatants",
+   "short": "Other combatants",
+   "description": "Target only other combatants.",
+   "group": "own_condition",
+   "kind": "target_only"
+  },
+  {
+   "id": 151,
+   "key": "user_is_buffed",
+   "name": "User is Buffed",
+   "short": "User is buffed",
+   "description": "Activates only when the user is buffed.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 152,
+   "key": "user_is_debuffed",
+   "name": "User is Debuffed",
+   "short": "User is debuffed",
+   "description": "Activates only when the user is debuffed.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 153,
+   "key": "first_action",
+   "name": "First Action",
+   "short": "1st action",
+   "description": "Activates only on the user's first action of a battle.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 154,
+   "key": "second_action",
+   "name": "Second Action",
+   "short": "2nd action",
+   "description": "Activates only on the user's second action of a battle.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 155,
+   "key": "third_action",
+   "name": "Third Action",
+   "short": "3rd action",
+   "description": "Activates only on the user's third action of a battle.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 156,
+   "key": "fourth_action",
+   "name": "Fourth Action",
+   "short": "4th action",
+   "description": "Activates only on the user's fourth action of a battle.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 157,
+   "key": "fifth_action",
+   "name": "Fifth Action",
+   "short": "5th action",
+   "description": "Activates only on the user's fifth action of a battle.",
+   "group": "own_condition",
+   "kind": "activates_only"
+  },
+  {
+   "id": 158,
+   "key": "infantry_enemies_present",
+   "name": "Infantry Enemies Present",
+   "short": "Infantry enemies present",
+   "description": "Activates only when there are Infantry enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 159,
+   "key": "cavalry_enemies_present",
+   "name": "Cavalry Enemies Present",
+   "short": "Cavalry enemies present",
+   "description": "Activates only when there are Cavalry enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 160,
+   "key": "flying_enemies_present",
+   "name": "Flying Enemies Present",
+   "short": "Flying enemies present",
+   "description": "Activates only when there are Flying enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 161,
+   "key": "armored_enemies_present",
+   "name": "Armored Enemies Present",
+   "short": "Armored enemies present",
+   "description": "Activates only when there are Armored enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 162,
+   "key": "scout_enemies_present",
+   "name": "Scout Enemies Present",
+   "short": "Scout enemies present",
+   "description": "Activates only when there are Scout enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 163,
+   "key": "archer_enemies_present",
+   "name": "Archer Enemies Present",
+   "short": "Archer enemies present",
+   "description": "Activates only when there are Archer enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 164,
+   "key": "caster_enemies_present",
+   "name": "Caster Enemies Present",
+   "short": "Caster enemies present",
+   "description": "Activates only when there are Caster enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 165,
+   "key": "elven_enemies_present",
+   "name": "Elven Enemies Present",
+   "short": "Elven enemies present",
+   "description": "Activates only when there are Elven enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 166,
+   "key": "bestral_enemies_present",
+   "name": "Bestral Enemies Present",
+   "short": "Bestral enemies present",
+   "description": "Activates only when there are Bestral enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 167,
+   "key": "angel_enemies_present",
+   "name": "Angel Enemies Present",
+   "short": "Angel enemies present",
+   "description": "Activates only when there are Angel enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 168,
+   "key": "no_infantry_enemies",
+   "name": "No Infantry Enemies",
+   "short": "No infantry enemies",
+   "description": "Activates only when there are no Infantry enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 169,
+   "key": "no_cavalry_enemies",
+   "name": "No Cavalry Enemies",
+   "short": "No cavalry enemies",
+   "description": "Activates only when there are no Cavalry enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 170,
+   "key": "no_flying_enemies",
+   "name": "No Flying Enemies",
+   "short": "No flying enemies",
+   "description": "Activates only when there are no Flying enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 171,
+   "key": "no_armored_enemies",
+   "name": "No Armored Enemies",
+   "short": "No armored enemies",
+   "description": "Activates only when there are no Armored enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 172,
+   "key": "no_scout_enemies",
+   "name": "No Scout Enemies",
+   "short": "No scout enemies",
+   "description": "Activates only when there are no Scout enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 173,
+   "key": "no_archer_enemies",
+   "name": "No Archer Enemies",
+   "short": "No archer enemies",
+   "description": "Activates only when there are no Archer enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 174,
+   "key": "no_caster_enemies",
+   "name": "No Caster Enemies",
+   "short": "No caster enemies",
+   "description": "Activates only when there are no Caster enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 175,
+   "key": "no_elven_enemies",
+   "name": "No Elven Enemies",
+   "short": "No elven enemies",
+   "description": "Activates only when there are no Elven enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 176,
+   "key": "no_bestral_enemies",
+   "name": "No Bestral Enemies",
+   "short": "No bestral enemies",
+   "description": "Activates only when there are no Bestral enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 177,
+   "key": "no_angel_enemies",
+   "name": "No Angel Enemies",
+   "short": "No Angel enemies",
+   "description": "Activates only when there are no Angel enemies present.",
+   "group": "enemies_present",
+   "kind": "activates_only"
+  },
+  {
+   "id": 178,
+   "key": "highest_max_hp",
+   "name": "Highest Max HP",
+   "short": "Highest Max HP",
+   "description": "Prioritize combatants with the highest max HP.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 179,
+   "key": "highest_max_ap",
+   "name": "Highest Max AP",
+   "short": "Highest Max AP",
+   "description": "Prioritize combatants with the highest max AP.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 180,
+   "key": "highest_max_pp",
+   "name": "Highest Max PP",
+   "short": "Highest Max PP",
+   "description": "Prioritize combatants with the highest max PP.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 181,
+   "key": "highest_phys_atk",
+   "name": "Highest Phys. ATK",
+   "short": "Highest PATK",
+   "description": "Prioritize combatants with the highest Physickal Attack.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 182,
+   "key": "highest_mag_atk",
+   "name": "Highest Mag. ATK",
+   "short": "Highest MATK",
+   "description": "Prioritize combatants with the highest Magickal Attack.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 183,
+   "key": "highest_phys_def",
+   "name": "Highest Phys. DEF",
+   "short": "Highest PDEF",
+   "description": "Prioritize combatants with the highest Physickal Defense.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 184,
+   "key": "highest_mag_def",
+   "name": "Highest Mag. DEF",
+   "short": "Highest MDEF",
+   "description": "Prioritize combatants with the highest Magickal Defense.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 185,
+   "key": "highest_initiative",
+   "name": "Highest Initiative",
+   "short": "Highest INIT",
+   "description": "Prioritize combatants with the highest Initiative.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 186,
+   "key": "highest_accuracy",
+   "name": "Highest Accuracy",
+   "short": "Highest ACC",
+   "description": "Prioritize combatants with the highest Accuracy.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 187,
+   "key": "highest_evasion",
+   "name": "Highest Evasion",
+   "short": "Highest EVA",
+   "description": "Prioritize combatants with the highest Evasion.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 188,
+   "key": "highest_critical_rate",
+   "name": "Highest Critical Rate",
+   "short": "Highest CRIT",
+   "description": "Prioritize combatants with the highest Critical Rate.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 189,
+   "key": "highest_guard_rate",
+   "name": "Highest Guard Rate",
+   "short": "Highest GRD",
+   "description": "Prioritize combatants with the highest Guard Rate.",
+   "group": "high_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 190,
+   "key": "lowest_max_hp",
+   "name": "Lowest Max HP",
+   "short": "Lowest Max HP",
+   "description": "Prioritize combatants with the lowest max HP.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 191,
+   "key": "lowest_max_ap",
+   "name": "Lowest Max AP",
+   "short": "Lowest Max AP",
+   "description": "Prioritize combatants with the lowest max AP.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 192,
+   "key": "lowest_max_pp",
+   "name": "Lowest Max PP",
+   "short": "Lowest Max PP",
+   "description": "Prioritize combatants with the lowest max PP.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 193,
+   "key": "lowest_phys_atk",
+   "name": "Lowest Phys. ATK",
+   "short": "Lowest PATK",
+   "description": "Prioritize combatants with the lowest Physical Attack.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 194,
+   "key": "lowest_mag_atk",
+   "name": "Lowest Mag. ATK",
+   "short": "Lowest MATK",
+   "description": "Prioritize combatants with the lowest Magickal Attack.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 195,
+   "key": "lowest_phys_def",
+   "name": "Lowest Phys. DEF",
+   "short": "Lowest PDEF",
+   "description": "Prioritize combatants with the lowest Physical Defense.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 196,
+   "key": "lowest_mag_def",
+   "name": "Lowest Mag. DEF",
+   "short": "Lowest MDEF",
+   "description": "Prioritize combatants with the lowest Magickal Defense.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 197,
+   "key": "lowest_initiative",
+   "name": "Lowest Initiative",
+   "short": "Lowest INIT",
+   "description": "Prioritize combatants with the lowest Initiative.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 198,
+   "key": "lowest_accuracy",
+   "name": "Lowest Accuracy",
+   "short": "Lowest ACC",
+   "description": "Prioritize combatants with the lowest Accuracy.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 199,
+   "key": "lowest_evasion",
+   "name": "Lowest Evasion",
+   "short": "Lowest EVA",
+   "description": "Prioritize combatants with the lowest Evasion.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 200,
+   "key": "lowest_critical_rate",
+   "name": "Lowest Critical Rate",
+   "short": "Lowest CRIT",
+   "description": "Prioritize combatants with the lowest Critical Rate.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 201,
+   "key": "lowest_guard_rate",
+   "name": "Lowest Guard Rate",
+   "short": "Lowest GRD",
+   "description": "Prioritize combatants with the lowest Guard Rate.",
+   "group": "low_stats",
+   "kind": "prioritize"
+  },
+  {
+   "id": 202,
+   "key": "story_only",
+   "name": "???",
+   "short": "???",
+   "description": "",
+   "group": "none",
+   "kind": "none"
+  }
+ ]
+}

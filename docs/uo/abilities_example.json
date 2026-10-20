@@ -1,0 +1,84 @@
+{
+ "_comment": "Целевой формат навыков (docs/uo/ABILITIES_DESIGN.md). Пассивка — такой же навык: своё тело (удар, лечение, наложение), а trigger говорит, когда он срабатывает. Ниже — примеры, переведённые руками из нынешних data/skills.json + data/passives.json. Поля, которых нет, берут значения по умолчанию.",
+ "skills": {
+  "heal": {
+   "name": "Heal", "kind": "active", "type": "heal", "ap_cost": 1, "pp_cost": 0,
+   "target": "ally", "area": "single", "hits": 1, "accuracy": 100, "tags": ["magic"],
+   "parts": [{"kind": "heal", "category": "magical", "power": 1.0, "scaling": [{"stat": "mag_atk", "coef": 1.0}]}],
+   "default_tactic": ["target_hp_is_lt_100_pct"]
+  },
+  "counter": {
+   "name": "Counter", "kind": "passive", "type": "attack", "ap_cost": 0, "pp_cost": 1,
+   "trigger": {"phase": "after", "event": "skill_used", "whose": "enemy"},
+   "target": "attacker", "response": "counter", "area": "single", "hits": 1, "accuracy": 100, "tags": ["melee"],
+   "parts": [{"kind": "damage", "category": "physical", "power": 1.5, "scaling": [{"stat": "phys_atk", "coef": 1.0}]}]
+  },
+  "pursuit": {
+   "name": "Pursuit", "kind": "passive", "type": "attack", "ap_cost": 0, "pp_cost": 1,
+   "trigger": {"phase": "after", "event": "skill_used", "whose": "ally", "attack_tags": ["attack"]},
+   "target": "ally_target", "response": "pursuit", "area": "single", "tags": ["melee"],
+   "parts": [{"kind": "damage", "category": "physical", "power": 0.75, "scaling": [{"stat": "phys_atk", "coef": 1.0}]}]
+  },
+  "heavy_cover": {
+   "name": "Heavy Cover", "kind": "passive", "type": "support", "pp_cost": 1, "limit": "round",
+   "trigger": {"phase": "before_other", "event": "targeted", "whose": "ally"},
+   "target": "affected_ally", "response": "cover", "cover": {"guard": "heavy", "many": false},
+   "applies": []
+  },
+  "healing_cover": {
+   "name": "Healing Cover", "kind": "passive", "type": "support", "pp_cost": 1,
+   "trigger": {"phase": "before_other", "event": "targeted", "whose": "ally"},
+   "target": "affected_ally", "response": "cover", "cover": {"guard": "medium"},
+   "parts": [{"kind": "heal_pct", "category": "magical", "power": 0.25}],
+   "_note": "тело навыка (лечение 25%) применяется к прикрытому союзнику; бывший шаг then стал частью навыка"
+  },
+  "keen_call": {
+   "name": "Keen Call", "kind": "passive", "type": "support", "pp_cost": 1, "limit": "round",
+   "trigger": {"phase": "before_other", "event": "before_skill", "whose": "ally"},
+   "target": "acting_ally", "area": "single",
+   "applies": [{"effect_id": "uo_next_crit", "to": "target"}]
+  },
+  "rapid_shot": {
+   "name": "Rapid Shot", "kind": "passive", "type": "attack", "pp_cost": 1,
+   "trigger": {"phase": "battle_start", "event": "battle_start"},
+   "target": "enemy", "area": "single", "tags": ["ranged"],
+   "parts": [{"kind": "damage", "category": "physical", "power": 1.0, "scaling": [{"stat": "phys_atk", "coef": 1.0}]}],
+   "applies": [{"effect_id": "uo_stun", "to": "target"}],
+   "_note": "навык начала боя: цель выбирается как у активного (условия тактики, затем обычный выбор цели UO)"
+  },
+  "first_aid": {
+   "name": "First Aid", "kind": "passive", "type": "heal", "pp_cost": 1,
+   "trigger": {"phase": "battle_end", "event": "battle_end"},
+   "target": "ally", "area": "single", "tags": ["magic"],
+   "parts": [{"kind": "heal_pct", "category": "magical", "power": 0.25}],
+   "default_tactic": ["lowest_hp"]
+  },
+  "dawn_horn": {
+   "name": "Dawn Horn", "kind": "passive", "type": "support", "pp_cost": 2,
+   "trigger": {"phase": "battle_start", "event": "battle_start"},
+   "target": "ally", "area": "all",
+   "applies": [{"effect_id": "uo_immune_stun_guard_rate_p20", "to": "target"}]
+  },
+  "heavy_alignment": {
+   "name": "Heavy Alignment", "kind": "passive", "type": "support", "pp_cost": 1,
+   "trigger": {"phase": "battle_start", "event": "battle_start"},
+   "target": "self", "area": "row",
+   "steps": [
+    {"action": "tiered", "label": "ally:armored", "to": "owner", "then": [
+     {"action": "apply_effect", "effect_id": "uo_guard_rate_p20", "to": "side", "to_area": "row"},
+     {"action": "apply_effect", "effect_id": "uo_immune_stun", "to": "side", "to_area": "row"},
+     {"action": "apply_effect", "effect_id": "uo_phys_def_mag_def_p20pct", "to": "side", "to_area": "row"}]}
+   ],
+   "_note": "редкие действия, не выражаемые телом навыка (ступени, повтор навыка, перенос дебаффов, поглощение баффов), остаются шагами в старом формате реакции"
+  }
+ },
+ "unit_tactics_example": {
+  "_comment": "Тактика бойца: один список, активные и пассивные вперемешку, порядок = приоритет; до двух условий, ключи — docs/uo/catalog/factors.json",
+  "tactics": [
+   {"skill": "heal", "conditions": ["target_hp_is_lt_50_pct", "lowest_hp"]},
+   {"skill": "power_bolt", "conditions": ["prioritize_flying"]},
+   {"skill": "counter", "conditions": ["attacked_by_cavalry"]},
+   {"skill": "first_aid", "conditions": []}
+  ]
+ }
+}
