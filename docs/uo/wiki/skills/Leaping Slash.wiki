@@ -1,0 +1,5 @@
+Attack a single enemy.
+
+Grants the user +1 AP if the attack is critical.
+
+Grants the user -30% Critical Rate. (Effect stacks.)

@@ -1,0 +1,512 @@
+{
+  "_comment": "Скин интерфейса из Unicorn Overlord: какие элементы GUI/<file>.mbs становятся рамками uikit (assets/ui/frame/<вид>.png). engine/uo/ui.py рисует их видеокартой в assets/uo_anim/_cache/ui и замеряет тело рамки; uikit берёт эти картинки вместо своих, если есть папка игры. anim — анимация-раскладка, tick — её тик (по умолчанию середина), border/scale/middle — как в assets/ui/theme.json (scale 1 — родной размер UO при ширине окна 1920), tint — множитель цвета [r, g, b] (затемнить неактивное). fonts/text — шрифты и стили текста поверх assets/ui/theme.json (шрифты игры без кириллицы — похожие свободные). item_icons — иконки предметов из GUI/ItemIcon.mbs (engine/uo/items.py): items — вручную по id, keywords — [регулярка по англ. названию, иконка] для аксессуаров; оружие и щиты — по виду и тиру. fill — тело рамки вручную [слева, сверху, справа, снизу] в пикселях картинки (иначе замер); widgets — поправки виджетов темы (цвета текста по состояниям).",
+  "file": "Interface",
+  "frames": {
+    "panel": {
+      "anim": "CHARA_LIST_IDLE",
+      "border": 70,
+      "scale": 0.8
+    },
+    "dialog": {
+      "anim": "QUEST_REWARD_IDLE",
+      "border": 40,
+      "scale": 1.0
+    },
+    "card": {
+      "anim": "UNT_EDT_CHRLST02_IDLE",
+      "border": 40,
+      "scale": 0.8
+    },
+    "card_selected": {
+      "anim": "UNT_EDT_CHARALIST_IDLE",
+      "border": 40,
+      "scale": 0.8
+    },
+    "inset": {
+      "anim": "HELP_TEXT03_IDLE",
+      "border": 24,
+      "scale": 1.0
+    },
+    "tooltip": {
+      "anim": "HELP_TEXT01_IDLE",
+      "border": 24,
+      "scale": 1.0
+    },
+    "header": {
+      "anim": "ITEM_TITLE_IDLE",
+      "border": [
+        70,
+        20
+      ],
+      "scale": 0.8
+    },
+    "banner": {
+      "anim": "BRV_TITLE_IDLE",
+      "border": [
+        70,
+        20
+      ],
+      "scale": 1.0
+    },
+    "button": {
+      "anim": "MINI_KEY_HELP07_IDLE",
+      "border": [
+        36,
+        14
+      ],
+      "scale": 1.0
+    },
+    "button_hover": {
+      "anim": "MINI_KEY_HELP02_IDLE",
+      "border": [
+        36,
+        14
+      ],
+      "scale": 1.0
+    },
+    "button_selected": {
+      "anim": "MINI_KEY_HELP04_IDLE",
+      "border": [
+        36,
+        14
+      ],
+      "scale": 1.0
+    },
+    "button_disabled": {
+      "anim": "MINI_KEY_HELP07_IDLE",
+      "border": [
+        36,
+        14
+      ],
+      "scale": 1.0,
+      "tint": [
+        110,
+        110,
+        110
+      ]
+    },
+    "button_primary": {
+      "anim": "BRV_DIALOG_IDLE",
+      "border": [
+        60,
+        16
+      ],
+      "scale": 1.0
+    },
+    "button_primary_hover": {
+      "anim": "MINI_KEY_HELP06_IDLE",
+      "border": [
+        36,
+        14
+      ],
+      "scale": 1.0
+    },
+    "tab": {
+      "anim": "MENU_FIELD_UNSELECT",
+      "border": [
+        96,
+        18
+      ],
+      "scale": 1.0,
+      "fill": [
+        96,
+        12,
+        40,
+        12
+      ]
+    },
+    "tab_active": {
+      "anim": "MENU_FIELD_SELECT",
+      "border": [
+        96,
+        18
+      ],
+      "scale": 1.0,
+      "fill": [
+        96,
+        12,
+        40,
+        12
+      ]
+    },
+    "slot": {
+      "anim": "SUB_MENU_DISP_IDLE",
+      "border": 14,
+      "scale": 1.0
+    },
+    "slot_empty": {
+      "anim": "SUB_MENU_DISP_SLCT",
+      "border": 14,
+      "scale": 1.0,
+      "tint": [
+        150,
+        150,
+        150
+      ]
+    },
+    "slot_hover": {
+      "anim": "SUB_MENU_DISP_UNSLCT",
+      "border": 14,
+      "scale": 1.0
+    },
+    "nameplate": {
+      "anim": "UNT_NAME_PLATE01_IDLE",
+      "border": [
+        50,
+        16
+      ],
+      "scale": 0.9
+    },
+    "nameplate_enemy": {
+      "anim": "UNT_NAME_PLATE01_IDLE",
+      "border": [
+        50,
+        16
+      ],
+      "scale": 0.9
+    },
+    "row": {
+      "anim": "GENERAL_LABEL_IDLE",
+      "border": [
+        30,
+        12
+      ],
+      "scale": 1.0
+    },
+    "row_hover": {
+      "anim": "MENU_FIELD_SELECT",
+      "border": [
+        40,
+        12
+      ],
+      "scale": 1.0
+    },
+    "portrait": {
+      "anim": "SUB_MENU_DISP_IDLE",
+      "border": 14,
+      "scale": 1.0
+    },
+    "portrait_enemy": {
+      "anim": "SUB_MENU_DISP_IDLE",
+      "border": 14,
+      "scale": 1.0,
+      "tint": [
+        255,
+        150,
+        150
+      ]
+    },
+    "portrait_leader": {
+      "anim": "SUB_MENU_DISP_UNSLCT",
+      "border": 14,
+      "scale": 1.0
+    },
+    "skill": {
+      "anim": "TACTICS_SKILL_INFO",
+      "border": [
+        40,
+        12
+      ],
+      "scale": 0.9
+    },
+    "gauge": {
+      "anim": "UNIT_EDIT_EXP_GAUGE",
+      "border": [
+        16,
+        6
+      ],
+      "scale": 1.0
+    }
+  },
+  "fonts": {
+    "serif": "fonts/LinLibertine_RB.ttf",
+    "serif_regular": "fonts/LinLibertine_R.ttf"
+  },
+  "text": {
+    "title": {
+      "face": "serif",
+      "size": 48
+    },
+    "heading": {
+      "face": "serif",
+      "size": 33
+    },
+    "huge": {
+      "face": "serif",
+      "size": 70
+    },
+    "name": {
+      "face": "serif",
+      "size": 27
+    },
+    "tab": {
+      "face": "serif",
+      "size": 31
+    },
+    "button": {
+      "face": "serif",
+      "size": 27
+    }
+  },
+  "item_icons": {
+    "items": {},
+    "keywords": [
+      [
+        "cat-ear hood",
+        "HOOD_4"
+      ],
+      [
+        "sage'?s hood",
+        "HOOD_3"
+      ],
+      [
+        "silk hood",
+        "HOOD_2"
+      ],
+      [
+        "hood",
+        "HOOD_1"
+      ],
+      [
+        "gold bangle",
+        "BANGLE_3"
+      ],
+      [
+        "silver bangle",
+        "BANGLE_2"
+      ],
+      [
+        "bangle",
+        "BANGLE_1"
+      ],
+      [
+        "gold circlet",
+        "CIRCLET_3"
+      ],
+      [
+        "silver circlet",
+        "CIRCLET_2"
+      ],
+      [
+        "circlet",
+        "CIRCLET_1"
+      ],
+      [
+        "elite beret",
+        "BERET_3"
+      ],
+      [
+        "green beret",
+        "BERET_2"
+      ],
+      [
+        "beret",
+        "BERET_1"
+      ],
+      [
+        "(carnelian|ruby) pendant",
+        "PENDANT_PP"
+      ],
+      [
+        "(lapis|sapphire) pendant",
+        "PENDANT_AP"
+      ],
+      [
+        "(amethyst|onyx) pendant",
+        "PENDANT_AP_PP"
+      ],
+      [
+        "pendant",
+        "PENDANT_AP2"
+      ],
+      [
+        "vitality talisman|lifeblood talisman",
+        "TALISMAN_HP"
+      ],
+      [
+        "detoxifying",
+        "CURE_POISON"
+      ],
+      [
+        "quenching",
+        "CURE_FLAME"
+      ],
+      [
+        "defrosting",
+        "CURE_FREEZE"
+      ],
+      [
+        "awakening",
+        "CURE_STUN"
+      ],
+      [
+        "clearsight",
+        "CURE_SHADE"
+      ],
+      [
+        "parrying",
+        "QUICK_GUARD"
+      ],
+      [
+        "unicorn signet|holy unicorn",
+        "UNICORN_HOLY_SYMBOL"
+      ],
+      [
+        "ring of the unicorn",
+        "RING_UNICORN"
+      ],
+      [
+        "witch'?s ring|lips'?s ring",
+        "RING_MAIDEN"
+      ],
+      [
+        "salamander|glacial|thunderclap|aurora",
+        "RING_GEM01"
+      ],
+      [
+        "ring",
+        "RING_GEM00"
+      ],
+      [
+        "plume",
+        "FEATHER_ACC"
+      ],
+      [
+        "spectacles|lens",
+        "GLASS"
+      ],
+      [
+        "scarf|sash|shawl|choker",
+        "SCARF"
+      ],
+      [
+        "eyepatch",
+        "EYEPATCH"
+      ],
+      [
+        "bandana",
+        "BANDANNA"
+      ],
+      [
+        "coin",
+        "COIN_ACCESSORY"
+      ],
+      [
+        "broach",
+        "BADGE"
+      ],
+      [
+        "ribbon",
+        "RIBBON"
+      ],
+      [
+        "medallion",
+        "MEDALLION"
+      ],
+      [
+        "lionheart",
+        "LION_HEART"
+      ],
+      [
+        "lantern",
+        "LANTERN"
+      ],
+      [
+        "horn",
+        "HORN"
+      ],
+      [
+        "bell",
+        "BELL"
+      ],
+      [
+        "tome",
+        "MAGIC_BOOK"
+      ],
+      [
+        "gravekeeper boots|sabatons|caligae",
+        "STONE_BOOTS"
+      ],
+      [
+        "boots|shoes|anklet",
+        "WIND_BOOTS"
+      ],
+      [
+        "earrings",
+        "EARRING"
+      ],
+      [
+        "cape|cloak|mantle|robes",
+        "HOLY_CLOAK"
+      ],
+      [
+        "standard",
+        "BATTLE_FLAG"
+      ],
+      [
+        "first aid|self-aid",
+        "FIRST_AID"
+      ],
+      [
+        "medical|large aid",
+        "MEDICAL_AID"
+      ],
+      [
+        "reins",
+        "REINS"
+      ],
+      [
+        "star",
+        "EAGLE_EYE"
+      ],
+      [
+        "counter belt",
+        "COUNTER"
+      ],
+      [
+        "egg",
+        "EGG_ACCESSORY"
+      ],
+      [
+        "goblet",
+        "GOBLET"
+      ],
+      [
+        "crown|mitre",
+        "CROWN"
+      ],
+      [
+        "magia",
+        "ORB"
+      ],
+      [
+        "gauntlets|gloves|mittens|shackles|claw",
+        "GAUNTLET"
+      ],
+      [
+        "bracelet|belt|tasset",
+        "BANGLE_2"
+      ],
+      [
+        "necklace|amulet|charm|talisman",
+        "TALISMAN"
+      ]
+    ]
+  },
+  "widgets": {
+    "primary": {
+      "colors": {
+        "normal": "text",
+        "hover": "text"
+      },
+      "shadow": true
+    },
+    "tab": {
+      "colors": {
+        "normal": "dim",
+        "hover": "text",
+        "selected": "dark"
+      }
+    }
+  }
+}

@@ -25,15 +25,17 @@ EMPTY_TINT = (52, 52, 64)            # заливка полосы в пусто
 
 
 class Images:
-    """Картинки по ключу «папка/имя» (без .png) из папки темы; нет файла — None."""
+    """Картинки по ключу «папка/имя» (без .png) из папки темы; нет файла — None.
+    over — папки, которые важнее папки темы (скин из Unicorn Overlord, engine.uo.ui)."""
 
-    def __init__(self, folder: Path):
+    def __init__(self, folder: Path, over: tuple[Path, ...] = ()):
         self.folder = Path(folder)
+        self.over = tuple(Path(p) for p in over)
         self._cache: dict[str, Optional[pygame.Surface]] = {}
 
     def get(self, key: str) -> Optional[pygame.Surface]:
         if key not in self._cache:
-            path = self.folder / f"{key}.png"
+            path = next((p / f"{key}.png" for p in self.over if (p / f"{key}.png").is_file()), self.folder / f"{key}.png")
             image = None
             if path.is_file():
                 image = pygame.image.load(str(path))

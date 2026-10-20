@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.database import Database
 from game.definitions import SkillDefinition
 from game.editing import (

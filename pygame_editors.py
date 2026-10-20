@@ -24,6 +24,7 @@ from game.editing import (
     new_skill_data,
     param_options,
     set_owners,
+    set_passive_tactics,
     set_tactics,
     skill_owners,
 )
@@ -409,8 +410,34 @@ class TacticsEditor:
             except (ValueError, KeyError) as error:
                 app.message = str(error)
 
-        y += 40
-        ui.text(t("Available skills"), x, y, DIM, "small")
+        y += 34
+        ui.text(t("Passive tactics: rules apply to the targets that caused the trigger."), x, y, DIM, "small")
+        y += 22
+        for passive_id in unit.passive_ids:
+            passive = db.passives.get(passive_id)
+            if passive is None or y > HEIGHT - 140:
+                continue
+            state = t("custom") if unit.has_passive_tactics(passive_id) else t("default")
+            ui.text(t("Passive {name} ({state})", name=t(passive.name), state=state), x, y)
+            if ui.button(t("Reset to default"), pygame.Rect(x + 192, y - 2, 200, 22),
+                         enabled=unit.has_passive_tactics(passive_id)):
+                unit.reset_passive_tactics(passive_id)
+                app.changed()
+                return
+            y += 24
+            rules = unit.passive_tactics_of(passive_id).to_list()
+            new_rules = rule_table(ui, db, ("passive", unit.uid, passive_id), rules, unit.skill_ids, x, y,
+                                   max_rules=4)
+            if new_rules is not None:
+                try:
+                    set_passive_tactics(db, unit, passive_id, new_rules)
+                    app.changed()
+                except (ValueError, KeyError) as error:
+                    app.message = str(error)
+            y += 24 + max(1, len(rules)) * ROW_H
+
+        ui.text(t("Available skills"), x, y + 8, DIM, "small")
+        y += 8
         for skill_id in unit.skill_ids:
             y += 18
             if y > HEIGHT - 44 or skill_id not in db.skills:

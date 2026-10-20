@@ -33,20 +33,37 @@ SINGLE_MS = 500             # сколько живёт одиночная ка�
 
 
 class FxLibrary:
-    """Описания и кадры спрайтовых эффектов папки."""
+    """Описания и кадры спрайтовых эффектов папки.
 
-    def __init__(self, folder: Path = FX_DIR):
+    extra — ещё папки с effects.json того же формата: их эффекты добавляются, если имя не занято
+    своими, и картинки берутся из их папки. live — эффекты uo_* из Unicorn Overlord, которые рисует
+    видеокарта на лету (engine.uo.library.LiveFx): описание и кадры нужного размера — у него."""
+
+    def __init__(self, folder: Path = FX_DIR, extra: tuple[Path, ...] = (), live: Any = None):
         self.folder = Path(folder)
         path = self.folder / "effects.json"
         self.specs: dict[str, dict[str, Any]] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        self._dirs: dict[str, Path] = {}
+        for more in extra:
+            path = Path(more) / "effects.json"
+            if path.is_file():
+                for name, spec in json.loads(path.read_text(encoding="utf-8")).items():
+                    if name not in self.specs:
+                        self.specs[name] = spec
+                        self._dirs[name] = Path(more)
+        self.live = live
         self._frames: dict[str, list[pygame.Surface]] = {}
         self._scaled: OrderedDict = OrderedDict()
 
+    def _live(self, name: str) -> Optional[dict[str, Any]]:
+        return self.live.spec(name) if self.live is not None and name not in self.specs \
+            and name.startswith("uo_") else None
+
     def __contains__(self, name: str) -> bool:
-        return name in self.specs
+        return name in self.specs or self._live(name) is not None
 
     def spec(self, name: str) -> dict[str, Any]:
-        return self.specs.get(name, {})
+        return self.specs.get(name) or self._live(name) or {}
 
     def files(self, name: str) -> dict[str, str]:
         """Часть эффекта -> файл: main, или back и front у обвивающих."""
@@ -62,13 +79,16 @@ class FxLibrary:
         return default
 
     def frames(self, name: str, part: str) -> list[pygame.Surface]:
+        live = self._live(name)
+        if live is not None:          # кадры рисуются в scaled; здесь — только их число и пропорции
+            return [_Shape(self.live.aspect(name))] * live["frames"]
         key = f"{name}/{part}"
         if key not in self._frames:
             self._frames[key] = self._load(name, self.files(name).get(part, ""))
         return self._frames[key]
 
     def _load(self, name: str, file: str) -> list[pygame.Surface]:
-        path = self.folder / file
+        path = self._dirs.get(name, self.folder) / file
         if not file or not path.is_file():
             return []
         spec = self.spec(name)
@@ -93,6 +113,8 @@ class FxLibrary:
     def scaled(self, name: str, part: str, frame: int, height: int, width: Optional[int] = None,
                flip: bool = False, angle: float = 0.0) -> Optional[pygame.Surface]:
         """Кадр нужного размера в пикселях окна (повёрнутый, отражённый), с кэшем."""
+        if self._live(name) is not None:
+            return self.live.scaled(name, frame, height, flip, angle)
         frames = self.frames(name, part)
         if not frames:
             return None
@@ -111,6 +133,19 @@ class FxLibrary:
         if len(self._scaled) > CACHE:
             self._scaled.popitem(last=False)
         return image
+
+
+class _Shape:
+    """Пропорции кадра живого эффекта (вместо картинки в frames)."""
+
+    def __init__(self, aspect: float):
+        self.aspect = aspect
+
+    def get_width(self) -> float:
+        return self.aspect
+
+    def get_height(self) -> float:
+        return 1.0
 
 
 def trim(image: pygame.Surface) -> pygame.Surface:
@@ -161,19 +196,22 @@ class SpriteEffect(Effect):
         spec = self.library.spec(self.name)
         z = self.pos[2]
         layer = spec.get("layer", "front")
+        gl = lambda part, ground=False: lambda f, v: self._draw(f, v, now, t, part, ground, f)
         if layer == "wrap":
-            return [Part(UPRIGHT, z + BEHIND, lambda s, v: self._draw(s, v, now, t, "back")),
-                    Part(UPRIGHT, z + IN_FRONT, lambda s, v: self._draw(s, v, now, t, "front"))]
+            return [Part(UPRIGHT, z + BEHIND, lambda s, v: self._draw(s, v, now, t, "back"), gl=gl("back")),
+                    Part(UPRIGHT, z + IN_FRONT, lambda s, v: self._draw(s, v, now, t, "front"), gl=gl("front"))]
         if layer == "ground":
-            return [Part(GROUND, z, lambda s, v: self._draw(s, v, now, t, "main", ground=True))]
+            return [Part(GROUND, z, lambda s, v: self._draw(s, v, now, t, "main", ground=True), gl=gl("main", True))]
         depth = z + BEHIND if layer == "back" else z - 2
-        return [Part(UPRIGHT, depth, lambda s, v: self._draw(s, v, now, t, "main"))]
+        return [Part(UPRIGHT, depth, lambda s, v: self._draw(s, v, now, t, "main"), gl=gl("main"))]
 
     def _frame(self, now: int) -> int:
         spec = self.library.spec(self.name)
         return int((now - self.start) * spec.get("fps", 24) / 1000)
 
-    def _draw(self, target: pygame.Surface, view: View, now: int, t: float, part: str, ground: bool = False) -> None:
+    def _draw(self, target: pygame.Surface, view: View, now: int, t: float, part: str, ground: bool = False,
+              frame_gl: Any = None) -> None:
+        """В картинку pygame или (frame_gl — кадр видеокарты engine.uo.frame) сразу видеокартой."""
         library, spec = self.library, self.library.spec(self.name)
         x, y, k = view.p(self.pos)
         height = spec.get("size", 160) * self.scale * k
@@ -211,9 +249,27 @@ class SpriteEffect(Effect):
             px_w = max(2, round(height * aspect * scale_x))
             px_h = max(2, abs(near - far))
             y = (near + far) // 2
+        additive = spec.get("blend") == "add"
+        if frame_gl is not None:
+            if strength <= 0.02:
+                return
+            live = library._live(self.name)
+            if live is not None:     # кукла эффекта UO: точка 0,0 — центр эффекта
+                found = library.live.mesh(self.name, frame)
+                if found is not None:
+                    mesh, pages, live = found
+                    box = live["box"]
+                    frame_gl.puppet(mesh, pages, px_h / max(1.0, box[3] - box[1]), self.facing < 0, (x, y),
+                                    alpha=strength, angle=angle, additive=additive, box=box)
+                return
+            image = library.scaled(self.name, part, frame, px_h, px_w, self.facing < 0, angle)
+            if image is not None:
+                w, h = image.get_size()
+                frame_gl.image(image, (x - w / 2, y - h / 2, w, h), alpha=strength, additive=additive)
+            return
         image = library.scaled(self.name, part, frame, px_h, px_w, self.facing < 0, angle)
         if image is not None:
-            blit_effect(target, image, (x, y), spec.get("blend") == "add", strength)
+            blit_effect(target, image, (x, y), additive, strength)
 
 
 @dataclass

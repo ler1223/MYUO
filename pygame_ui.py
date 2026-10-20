@@ -425,18 +425,58 @@ class Window:
     WIDTH x HEIGHT) и масштабируется с сохранением пропорций; поле боя рисуется прямо в окно, чётко.
 
     sizes: размеры окна, которые перебирает F12 (берутся только помещающиеся на экран).
+    alpha: холст с прозрачностью — интерфейс можно класть поверх поля, нарисованного прямо в окно.
+    gl: окно OpenGL (если получится): поле боя рисует видеокарта прямо в окно (battle.render),
+    интерфейс ложится поверх текстурой; рисовать в surface тогда нельзя — только present и present_gl.
     """
 
     def __init__(self, size: tuple[int, int], logical: tuple[int, int] = (WIDTH, HEIGHT),
-                 sizes: Sequence[tuple[int, int]] = RESOLUTIONS):
+                 sizes: Sequence[tuple[int, int]] = RESOLUTIONS, alpha: bool = False, gl: bool = False):
         self.logical = logical
         self.sizes = tuple(sizes)
-        self.canvas = pygame.Surface(logical)
-        self.resize(size)
+        self.canvas = pygame.Surface(logical, pygame.SRCALPHA) if alpha or gl else pygame.Surface(logical)
+        self.gl = False
+        self.overlay: Any = None
+        self.size = size
+        if gl:
+            self._open_gl(size)
+        if not self.gl:
+            self.resize(size)
 
-    def resize(self, size: tuple[int, int]) -> None:
+    def _open_gl(self, size: tuple[int, int]) -> None:
+        """Окно OpenGL и контекст видеокарты в нём; не вышло — обычное окно."""
+        try:
+            from battle.render import ScreenOverlay
+            from engine.uo.gl import GLRenderer
+            self.surface = pygame.display.set_mode(size, pygame.OPENGL | pygame.DOUBLEBUF | pygame.RESIZABLE)
+            renderer = GLRenderer.use_window_context()
+        except Exception:      # нет moderngl, OpenGL или окна (SDL_VIDEODRIVER=dummy)
+            renderer = None
+        if renderer is None:
+            return
+        self.gl = True
+        self.overlay = ScreenOverlay(renderer)
+        from engine.uo import library        # куклы, загруженные до окна, — в прежнем контексте
+        if library._SOURCE is not None:
+            library._SOURCE._models.clear()
+        self._layout(size)
+
+    def resize(self, size: tuple[int, int], resized: bool = False) -> None:
+        """Новый размер окна; resized — окно уже стало таким (событие VIDEORESIZE)."""
+        if self.gl:
+            if not resized:
+                import warnings
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore", DeprecationWarning)
+                    pygame.Window.from_display_module().size = size
+            self._layout(size)
+            return
         self.surface = pygame.display.set_mode(size, pygame.RESIZABLE)
-        w, h = self.surface.get_size()
+        self._layout(self.surface.get_size())
+
+    def _layout(self, size: tuple[int, int]) -> None:
+        self.size = tuple(size)
+        w, h = size
         lw, lh = self.logical
         self.scale = min(w / lw, h / lh)
         self.offset = ((w - lw * self.scale) / 2, (h - lh * self.scale) / 2)
@@ -456,6 +496,13 @@ class Window:
 
         area: только эта часть интерфейса (логические пиксели) — например, открытый список поверх поля.
         """
+        if self.gl:
+            if area is None:
+                self.clear()
+            lw, lh = self.logical
+            self.overlay.draw(self.canvas, self.size, (self.offset[0], self.offset[1], lw * self.scale, lh * self.scale),
+                              area)
+            return
         if area is None:
             self.surface.fill((0, 0, 0))
             area = self.canvas.get_rect()
@@ -465,10 +512,20 @@ class Window:
         image = part if size == part.get_size() else pygame.transform.smoothscale(part, size)
         self.surface.blit(image, (round(self.offset[0] + area.x * self.scale), round(self.offset[1] + area.y * self.scale)))
 
+    def clear(self) -> None:
+        """Окно OpenGL — чёрным (перед полем и интерфейсом)."""
+        if self.gl:
+            ctx = self.overlay.gl.ctx
+            ctx.screen.use()
+            ctx.viewport = (0, 0, *self.size)
+            ctx.clear(0, 0, 0, 1)
+        else:
+            self.surface.fill((0, 0, 0))
+
     def next_size(self) -> None:
         """Следующий размер окна из помещающихся на экран (F12)."""
         presets = Window.presets(self.sizes)
-        current = self.surface.get_size()
+        current = self.size
         bigger = [r for r in presets if r[0] > current[0]]
         self.resize(bigger[0] if bigger else presets[0])
 

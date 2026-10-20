@@ -17,12 +17,12 @@ from typing import Any, Optional
 import pygame
 
 from game import promotion
-from game.editing import describe_condition, describe_reaction, describe_skill, set_tactics
+from game.editing import describe_condition, describe_reaction, describe_skill, set_passive_tactics, set_tactics
 from game.rating import rate_unit
 from game.unit import Unit
 from pygame_tips import modifier_text, tier_color
 from pygame_tower_style import (BODY, DIM, GAP, GOLD, TEXT, bar, button, class_entries, class_line, crown, diamonds,
-                                item_icon, level_badge, portrait, preview_stats, skill_chip,
+                                full_figure, item_icon, level_badge, portrait, preview_stats, skill_chip,
                                 stat_rows, unit_name)
 from uikit import Gui
 from uikit import widgets as w
@@ -144,8 +144,20 @@ def draw_unit_art(ui: Gui, app: Any, unit: Unit) -> None:
     else:
         pygame.draw.ellipse(ui.screen, (10, 14, 28), pedestal)
         pygame.draw.ellipse(ui.screen, (150, 124, 72), pedestal, 2)
-    image = app.portraits.full(unit.definition.id, (figure_r.width - 40, figure_r.height - 40))
-    ui.screen.blit(image, image.get_rect(midbottom=(pedestal.centerx, pedestal.centery + 6)))
+    full_figure(ui, app, unit.definition.id, (figure_r.width - 40, figure_r.height - 40),
+                (pedestal.centerx, pedestal.centery + 6), look=unit.state.look)
+    looks = app.figures.data.looks(unit.definition.id)
+    if len(looks) > 1:                            # модель бойца: варианты класса из игры (пол, внешность)
+        row = pygame.Rect(0, 0, 230, 34)
+        row.midtop = (pedestal.centerx, pedestal.bottom + 4)
+        left, label_r, right = pygame.Rect(row.x, row.y, 40, row.h), row.inflate(-88, 0), \
+            pygame.Rect(row.right - 40, row.y, 40, row.h)
+        index = unit.state.look % len(looks)
+        if button(ui, "<", left, style="small"):
+            app.set_look(unit, (index - 1) % len(looks))
+        if button(ui, ">", right, style="small"):
+            app.set_look(unit, (index + 1) % len(looks))
+        ui.label(t("Model {n}/{m}", n=index + 1, m=len(looks)), label_r, "small", align="center", color=DIM)
 
     fielded = run.squad.formation.position_of(unit.uid) is not None
     if button(ui, t("To reserve") if fielded else t("To the squad"), FIELD_TOGGLE):
@@ -395,7 +407,14 @@ def icon_button(ui: Gui, rect: pygame.Rect, kind: str, enabled: bool = True) -> 
 
 def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
     t, db = ui.t, app.db
-    rules_ = [dict(r) for r in unit.tactics.to_list()]
+    selected = getattr(app, "tactic_passive", None)      # None — тактики юнита, иначе id пассивки
+    if selected is not None and selected not in unit.passive_ids:
+        selected = None
+        app.tactic_passive = None
+    if selected is None:
+        rules_ = [dict(r) for r in unit.tactics.to_list()]
+    else:
+        rules_ = [dict(r) for r in unit.passive_tactics_of(selected).to_list()]
     head = tactic_columns(TACTIC_HEAD)
     for rect, text in zip(head, (t("Priority"), t("Skill"), t("Condition 1"), t("Condition 2"))):
         ui.label(text, rect, "label", align="center")
@@ -452,20 +471,45 @@ def draw_tactics(ui: Gui, app: Any, unit: Unit) -> None:
         if icon_button(ui, remove, "remove"):
             changed = rules_[:i] + rules_[i + 1:]
     reset = RESET_TACTICS
-    if button(ui, t("Reset to default"), reset, enabled=unit.has_custom_tactics):
-        unit.reset_tactics()
+    custom = unit.has_custom_tactics if selected is None else unit.has_passive_tactics(selected)
+    if button(ui, t("Reset to default"), reset, enabled=custom):
+        if selected is None:
+            unit.reset_tactics()
+        else:
+            unit.reset_passive_tactics(selected)
         app.tactic_pick = None
         app.save()
     note = pygame.Rect(reset.right + 30, reset.y, CONTENT_BODY.right - reset.right - 30, reset.height)
-    ui.paragraph(t("Rules are checked top to bottom: the first one whose conditions hold, with a target and enough "
-                   "AP, is used."), note, color=DIM, max_lines=2)
+    if selected is None:
+        note_text = t("Rules are checked top to bottom: the first one whose conditions hold, with a target and "
+                      "enough AP, is used.")
+    else:
+        note_text = t("Passive rules pick a skill for the targets that caused the trigger; without rules the "
+                      "passive works as written in its data.")
+    ui.paragraph(note_text, note, color=DIM, max_lines=3)
+    # Пассивки настраиваются в той же таблице: переключатель юнит <-> пассивка.
+    hint = pygame.Rect(CONTENT_BODY.x, reset.bottom + 14, CONTENT_BODY.width, 24)
+    ui.label(t("Whose tactics to edit (passives apply to the targets that caused the trigger):"),
+             hint, "small", color=DIM)
+    switch = pygame.Rect(CONTENT_BODY.x, hint.bottom + 6, CONTENT_BODY.width, 48)
+    ids = [None] + [pid for pid in unit.passive_ids if pid in db.passives]
+    for pid, rect in zip(ids, row_of(switch, [300] * len(ids), 12, "left")):
+        name = t("Main tactics") if pid is None else t(db.passives[pid].name)
+        if pid is not None and unit.has_passive_tactics(pid):
+            name += " *"
+        if button(ui, name, rect, selected=selected == pid, style="small"):
+            app.tactic_passive = pid
+            app.tactic_pick = None
     if pick is not None and pick[0] < len(rules_):
         picked = draw_picker(ui, app, unit, rules_, pick)
         if picked is not None:
             changed = picked
     if changed is not None:
         try:
-            set_tactics(db, unit, changed)
+            if selected is None:
+                set_tactics(db, unit, changed)
+            else:
+                set_passive_tactics(db, unit, selected, changed)
             app.save()
         except (ValueError, KeyError) as error:
             app.message = str(error)

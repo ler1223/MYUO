@@ -248,7 +248,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "sanguine_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -375,7 +377,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "phantom_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -461,7 +465,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "provoking_slash"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -578,7 +584,9 @@
         "value": 12
       }
     ],
-    "skills": [],
+    "skills": [
+      "poison_slash"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -595,7 +603,9 @@
         "value": 15
       }
     ],
-    "skills": [],
+    "skills": [
+      "fire_slash"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -612,7 +622,9 @@
         "value": 22
       }
     ],
-    "skills": [],
+    "skills": [
+      "grisly_fire"
+    ],
     "passives": [],
     "tags": [
       "immune_burn"
@@ -631,7 +643,9 @@
         "value": 21
       }
     ],
-    "skills": [],
+    "skills": [
+      "grisly_poison"
+    ],
     "passives": [],
     "tags": [
       "immune_poison"
@@ -655,7 +669,9 @@
         "value": 10
       }
     ],
-    "skills": [],
+    "skills": [
+      "leaping_slash"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -677,7 +693,9 @@
         "value": 10
       }
     ],
-    "skills": [],
+    "skills": [
+      "sonic_blast"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -699,7 +717,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "double_blast"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -721,7 +741,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "icicle_dart"
+    ],
     "passives": [],
     "tags": [
       "immune_freeze"
@@ -764,7 +786,9 @@
         "value": 10
       }
     ],
-    "skills": [],
+    "skills": [
+      "assassins_nail"
+    ],
     "passives": [],
     "tags": [
       "immune_blind"
@@ -815,7 +839,9 @@
         "value": 15
       }
     ],
-    "skills": [],
+    "skills": [
+      "artenie_strike"
+    ],
     "passives": [],
     "tags": [
       "immune_poison"
@@ -920,7 +946,9 @@
         "value": 3
       }
     ],
-    "skills": [],
+    "skills": [
+      "magick_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -942,7 +970,9 @@
         "value": 3
       }
     ],
-    "skills": [],
+    "skills": [
+      "active_shatter"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1387,7 +1417,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "sanguine_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1514,7 +1546,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "phantom_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1716,7 +1750,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "crush"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1733,7 +1769,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "icy_blow"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1750,7 +1788,9 @@
         "value": 21
       }
     ],
-    "skills": [],
+    "skills": [
+      "icy_crush"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1767,7 +1807,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "provoking_slash"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1784,7 +1826,9 @@
         "value": 10
       }
     ],
-    "skills": [],
+    "skills": [
+      "powerful_impact"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1801,7 +1845,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "spiked_blow"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1818,7 +1864,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "execution"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1835,7 +1883,9 @@
         "value": 23
       }
     ],
-    "skills": [],
+    "skills": [
+      "execution"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1852,7 +1902,9 @@
         "value": 18
       }
     ],
-    "skills": [],
+    "skills": [
+      "painful_smash"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1915,7 +1967,9 @@
         "value": 21
       }
     ],
-    "skills": [],
+    "skills": [
+      "banishing_smite"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -1937,7 +1991,9 @@
         "value": 18
       }
     ],
-    "skills": [],
+    "skills": [
+      "desperation"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2067,7 +2123,9 @@
         "value": 0.3
       }
     ],
-    "skills": [],
+    "skills": [
+      "ground_strike"
+    ],
     "passives": [],
     "tags": [
       "immune_stun"
@@ -2457,7 +2515,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "sanguine_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2636,7 +2696,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "phantom_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2795,7 +2857,9 @@
         "value": 10
       }
     ],
-    "skills": [],
+    "skills": [
+      "true_thrust"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2817,7 +2881,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "icicle_dart"
+    ],
     "passives": [],
     "tags": [
       "immune_freeze"
@@ -2836,7 +2902,9 @@
         "value": 17
       }
     ],
-    "skills": [],
+    "skills": [
+      "shadow_thrust"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2858,7 +2926,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "passive_shatter_spear"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2875,7 +2945,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "rampage"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2897,7 +2969,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "elfslayer"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -2916,7 +2990,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "phalanx_shift"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -2933,7 +3009,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "shattering_pursuit"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -2983,7 +3061,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "dragoon_dive"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3010,7 +3090,9 @@
         "value": 3
       }
     ],
-    "skills": [],
+    "skills": [
+      "magick_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3042,7 +3124,10 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "thunderous_thrust",
+      "freezing_thrust"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3069,7 +3154,9 @@
         "value": 10
       }
     ],
-    "skills": [],
+    "skills": [
+      "lightning_shaker"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3096,7 +3183,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "sanguine_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3113,7 +3202,9 @@
         "value": 18
       }
     ],
-    "skills": [],
+    "skills": [
+      "flame_javelin"
+    ],
     "passives": [],
     "tags": [
       "immune_burn"
@@ -3532,7 +3623,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "sanguine_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3711,7 +3804,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "phantom_attack"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3846,7 +3941,9 @@
         "value": 11
       }
     ],
-    "skills": [],
+    "skills": [
+      "poison_arrow"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3863,7 +3960,9 @@
         "value": 11
       }
     ],
-    "skills": [],
+    "skills": [
+      "flame_arrow"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3880,7 +3979,9 @@
         "value": 11
       }
     ],
-    "skills": [],
+    "skills": [
+      "poison_arrow"
+    ],
     "passives": [],
     "tags": [
       "immune_burn"
@@ -3899,7 +4000,9 @@
         "value": 11
       }
     ],
-    "skills": [],
+    "skills": [
+      "shadow_arrow"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3916,7 +4019,9 @@
         "value": 14
       }
     ],
-    "skills": [],
+    "skills": [
+      "strength_shatter"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3943,7 +4048,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "strength_shatter_ii"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3960,7 +4067,9 @@
         "value": 14
       }
     ],
-    "skills": [],
+    "skills": [
+      "armor_shatter"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -3987,7 +4096,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "armor_shatter_ii"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4004,7 +4115,9 @@
         "value": 18
       }
     ],
-    "skills": [],
+    "skills": [
+      "magick_shatter"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4021,7 +4134,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "passive_shatter"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4045,7 +4160,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "healing_hunter"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -4068,7 +4185,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "healing_hunter"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -4085,7 +4204,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "rapid_shot"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -4101,7 +4222,9 @@
         "value": 19
       }
     ],
-    "skills": [],
+    "skills": [
+      "beastslayer"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4120,7 +4243,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "aerial_shift"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -4141,7 +4266,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "triple_shatter"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4168,7 +4295,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "arrow_rain"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4195,7 +4324,9 @@
         "value": 0.3
       }
     ],
-    "skills": [],
+    "skills": [
+      "harpoon_bolt"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4298,7 +4429,9 @@
         "value": 0.3
       }
     ],
-    "skills": [],
+    "skills": [
+      "spiked_bolt"
+    ],
     "passives": [],
     "tags": [
       "immune_stun"
@@ -4322,7 +4455,9 @@
         "value": 30
       }
     ],
-    "skills": [],
+    "skills": [
+      "checkmate"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4792,7 +4927,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "phantom_veil"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -4951,7 +5088,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "guard_hunter"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -4968,7 +5107,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "poison_burst"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -4984,7 +5125,9 @@
         "value": 18
       }
     ],
-    "skills": [],
+    "skills": [
+      "sanguine_darts"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5006,7 +5149,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "skyward_thrust"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5023,7 +5168,9 @@
         "value": 19
       }
     ],
-    "skills": [],
+    "skills": [
+      "earthquake"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5041,7 +5188,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "magick_burst"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5057,7 +5206,9 @@
         "value": 22
       }
     ],
-    "skills": [],
+    "skills": [
+      "blizzard"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5074,7 +5225,9 @@
         "value": 15
       }
     ],
-    "skills": [],
+    "skills": [
+      "gravity"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5092,7 +5245,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "quick_barrier"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5110,7 +5265,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "protection"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5127,7 +5284,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "active_heal"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5151,7 +5310,8 @@
     ],
     "skills": [],
     "passives": [
-      "uo_item_heal_10"
+      "uo_item_heal_10",
+      "reheal"
     ],
     "tags": [],
     "damage_tags": []
@@ -5168,7 +5328,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "double_heal"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5190,7 +5352,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "circle_heal"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5212,7 +5376,9 @@
         "value": 5
       }
     ],
-    "skills": [],
+    "skills": [
+      "radiant_heal"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5229,7 +5395,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "limited_heal"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5246,7 +5414,9 @@
         "value": 13
       }
     ],
-    "skills": [],
+    "skills": [
+      "resurrection"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5264,7 +5434,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "sacred_cure"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5280,7 +5452,9 @@
         "value": 14
       }
     ],
-    "skills": [],
+    "skills": [
+      "dispel_all"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5298,7 +5472,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "hastened_curse"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5314,7 +5490,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "poison_curse"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5331,7 +5509,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "fire_curse"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5348,7 +5528,9 @@
         "value": 16
       }
     ],
-    "skills": [],
+    "skills": [
+      "sandstorm"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5359,7 +5541,9 @@
     "tier": 0,
     "price": 500,
     "modifiers": [],
-    "skills": [],
+    "skills": [
+      "cursed_strike"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5376,7 +5560,9 @@
         "value": 18
       }
     ],
-    "skills": [],
+    "skills": [
+      "holy_smite"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5459,7 +5645,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "fire_burst"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5476,7 +5664,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "magick_shell"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -5492,7 +5682,9 @@
         "value": 24
       }
     ],
-    "skills": [],
+    "skills": [
+      "trinity_rain"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5509,7 +5701,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "reincarnation"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -5526,7 +5720,9 @@
         "value": 20
       }
     ],
-    "skills": [],
+    "skills": [
+      "holy_cradle"
+    ],
     "passives": [],
     "tags": [],
     "damage_tags": []
@@ -7322,7 +7518,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "tailwind"
+    ],
     "tags": [],
     "damage_tags": []
   },
@@ -8071,7 +8269,9 @@
         "value": 1
       }
     ],
-    "skills": [],
+    "skills": [
+      "glowing_light"
+    ],
     "passives": [
       "uo_item_heal_10"
     ],
@@ -8113,7 +8313,9 @@
       }
     ],
     "skills": [],
-    "passives": [],
+    "passives": [
+      "dawn_horn"
+    ],
     "tags": [
       "immune_blind",
       "immune_burn"
@@ -11403,6 +11605,1675 @@
       "shield",
       "immune_debuff"
     ],
+    "damage_tags": []
+  },
+  "mist_scimitar": {
+    "name": "Mist Scimitar",
+    "slot": "light_sword",
+    "tier": 1,
+    "price": 32,
+    "modifiers": [
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "evade"
+    ],
+    "tags": [],
+    "damage_tags": []
+  },
+  "cursed_blade_of_the_abyss": {
+    "name": "Cursed Blade of the Abyss",
+    "slot": "light_sword",
+    "tier": 9,
+    "price": 128,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 23
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "cursed_blade_of_the_abyss_ii": {
+    "name": "Cursed Blade of the Abyss II",
+    "slot": "light_sword",
+    "tier": 11,
+    "price": 152,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "greatsword_of_the_abyss": {
+    "name": "Greatsword of the Abyss",
+    "slot": "light_sword",
+    "tier": 12,
+    "price": 164,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "red_rose": {
+    "name": "Red Rose",
+    "slot": "light_sword",
+    "tier": 28,
+    "price": 356,
+    "ap_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "crit_damage",
+        "op": "PERCENT_ADD",
+        "value": 0.15
+      }
+    ],
+    "skills": [
+      "firestorm"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "blue_rose": {
+    "name": "Blue Rose",
+    "slot": "light_sword",
+    "tier": 26,
+    "price": 332,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "crit_damage",
+        "op": "PERCENT_ADD",
+        "value": 0.15
+      }
+    ],
+    "skills": [
+      "icestorm"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "notus": {
+    "name": "Notus",
+    "slot": "light_sword",
+    "tier": 29,
+    "price": 368,
+    "ap_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "rosularis": {
+    "name": "Rosularis",
+    "slot": "light_sword",
+    "tier": 23,
+    "price": 296,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sainted_sword": {
+    "name": "Sainted Sword",
+    "slot": "light_sword",
+    "tier": 14,
+    "price": 188,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "uo_item_heal_20"
+    ],
+    "tags": [
+      "immune_ailment"
+    ],
+    "damage_tags": []
+  },
+  "zenoiran_knights_spear": {
+    "name": "Zenoiran Knight's Spear",
+    "slot": "lance",
+    "tier": 28,
+    "price": 250,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 15
+      },
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 4
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 4
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "salamander_spear": {
+    "name": "Salamander Spear",
+    "slot": "lance",
+    "tier": 2,
+    "price": 44,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 17
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sacred_heart_spear": {
+    "name": "Sacred Heart Spear",
+    "slot": "lance",
+    "tier": 9,
+    "price": 128,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 23
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "usurpers_spear": {
+    "name": "Usurper's Spear",
+    "slot": "lance",
+    "tier": 16,
+    "price": 212,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 18
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "provoking_strike"
+    ],
+    "tags": [],
+    "damage_tags": []
+  },
+  "death_pillar": {
+    "name": "Death Pillar",
+    "slot": "lance",
+    "tier": 10,
+    "price": 500,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "skills": [
+      "lethal_venom"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "cursed_lance_of_the_abyss": {
+    "name": "Cursed Lance of the Abyss",
+    "slot": "lance",
+    "tier": 7,
+    "price": 104,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 22
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "cursed_lance_of_the_abyss_ii": {
+    "name": "Cursed Lance of the Abyss II",
+    "slot": "lance",
+    "tier": 11,
+    "price": 152,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "kingslance_elhal": {
+    "name": "Kingslance Elhal",
+    "slot": "lance",
+    "tier": 30,
+    "price": 380,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 10
+      },
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "zephyros": {
+    "name": "Zephyros",
+    "slot": "lance",
+    "tier": 28,
+    "price": 356,
+    "ap_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "orchis": {
+    "name": "Orchis",
+    "slot": "lance",
+    "tier": 21,
+    "price": 272,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sainted_spear": {
+    "name": "Sainted Spear",
+    "slot": "lance",
+    "tier": 12,
+    "price": 164,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "uo_item_heal_20"
+    ],
+    "tags": [
+      "immune_ailment"
+    ],
+    "damage_tags": []
+  },
+  "lance_of_devotion": {
+    "name": "Lance of Devotion",
+    "slot": "lance",
+    "tier": 11,
+    "price": 152,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "recruits_handaxe": {
+    "name": "Recruit's Handaxe",
+    "slot": "heavy_weapon",
+    "tier": 3,
+    "price": 38,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 11
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 3
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "obsidian_axe": {
+    "name": "Obsidian Axe",
+    "slot": "heavy_weapon",
+    "tier": 1,
+    "price": 32,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "nameless_greataxe": {
+    "name": "Nameless Greataxe",
+    "slot": "heavy_weapon",
+    "tier": 1,
+    "price": 32,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "veterans_axe": {
+    "name": "Veteran's Axe",
+    "slot": "heavy_weapon",
+    "tier": 2,
+    "price": 44,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "berserkers_battleaxe": {
+    "name": "Berserker's Battleaxe",
+    "slot": "heavy_weapon",
+    "tier": 3,
+    "price": 56,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [
+      "demolition"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "runic_axe": {
+    "name": "Runic Axe",
+    "slot": "heavy_weapon",
+    "tier": 22,
+    "price": 300,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 8
+      },
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 14
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 3
+      }
+    ],
+    "skills": [
+      "magick_attack"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "black_axe_of_the_abyss": {
+    "name": "Black Axe of the Abyss",
+    "slot": "heavy_weapon",
+    "tier": 5,
+    "price": 80,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 13
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "black_axe_of_the_abyss_ii": {
+    "name": "Black Axe of the Abyss II",
+    "slot": "heavy_weapon",
+    "tier": 29,
+    "price": 368,
+    "ap_bonus": 2,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "cursed_axe_of_the_abyss": {
+    "name": "Cursed Axe of the Abyss",
+    "slot": "heavy_weapon",
+    "tier": 9,
+    "price": 128,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "cursed_axe_of_the_abyss_ii": {
+    "name": "Cursed Axe of the Abyss II",
+    "slot": "heavy_weapon",
+    "tier": 15,
+    "price": 200,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "boreas": {
+    "name": "Boreas",
+    "slot": "heavy_weapon",
+    "tier": 28,
+    "price": 356,
+    "ap_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "helleborus": {
+    "name": "Helleborus",
+    "slot": "heavy_weapon",
+    "tier": 24,
+    "price": 308,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sainted_axe": {
+    "name": "Sainted Axe",
+    "slot": "heavy_weapon",
+    "tier": 16,
+    "price": 212,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "uo_item_heal_20"
+    ],
+    "tags": [
+      "immune_ailment"
+    ],
+    "damage_tags": []
+  },
+  "zenoiran_knights_bow": {
+    "name": "Zenoiran Knight's Bow",
+    "slot": "bow",
+    "tier": 26,
+    "price": 250,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 15
+      },
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 4
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 4
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "runic_bow": {
+    "name": "Runic Bow",
+    "slot": "bow",
+    "tier": 17,
+    "price": 300,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 8
+      },
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 14
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 3
+      }
+    ],
+    "skills": [
+      "magick_attack"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "replica_alminster": {
+    "name": "Replica Alminster",
+    "slot": "bow",
+    "tier": 22,
+    "price": 284,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 22
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 30
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "apeliotes": {
+    "name": "Apeliotes",
+    "slot": "bow",
+    "tier": 28,
+    "price": 356,
+    "ap_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "quince": {
+    "name": "Quince",
+    "slot": "bow",
+    "tier": 19,
+    "price": 248,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sainted_bow": {
+    "name": "Sainted Bow",
+    "slot": "bow",
+    "tier": 11,
+    "price": 152,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "uo_item_heal_20"
+    ],
+    "tags": [
+      "immune_ailment"
+    ],
+    "damage_tags": []
+  },
+  "baroque_rod": {
+    "name": "Baroque Rod",
+    "slot": "staff",
+    "tier": 2,
+    "price": 50,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 13
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "carnat_rod": {
+    "name": "Carnat Rod",
+    "slot": "staff",
+    "tier": 8,
+    "price": 100,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 19
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 2
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "vorpal_rod": {
+    "name": "Vorpal Rod",
+    "slot": "staff",
+    "tier": 20,
+    "price": 150,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 23
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 3
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "raven_staff": {
+    "name": "Raven Staff",
+    "slot": "staff",
+    "tier": 10,
+    "price": 140,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "twilight_staff": {
+    "name": "Twilight Staff",
+    "slot": "staff",
+    "tier": 14,
+    "price": 188,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 23
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "meteorite_rod": {
+    "name": "Meteorite Rod",
+    "slot": "staff",
+    "tier": 26,
+    "price": 332,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 24
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "undead_staff": {
+    "name": "Undead Staff",
+    "slot": "staff",
+    "tier": 28,
+    "price": 356,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "heavenswing_staff": {
+    "name": "Heavenswing Staff",
+    "slot": "staff",
+    "tier": 25,
+    "price": 320,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 23
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 20
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sanguis_mea": {
+    "name": "Sanguis Mea",
+    "slot": "staff",
+    "tier": 29,
+    "price": 368,
+    "ap_bonus": 2,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "skills": [
+      "sanguine_rain"
+    ],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "cursed_staff_of_the_abyss": {
+    "name": "Cursed Staff of the Abyss",
+    "slot": "staff",
+    "tier": 8,
+    "price": 116,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "cursed_staff_of_the_abyss_ii": {
+    "name": "Cursed Staff of the Abyss II",
+    "slot": "staff",
+    "tier": 17,
+    "price": 224,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "immune_passive_seal"
+    ],
+    "damage_tags": []
+  },
+  "euros": {
+    "name": "Euros",
+    "slot": "staff",
+    "tier": 28,
+    "price": 356,
+    "ap_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 25
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "lupine": {
+    "name": "Lupine",
+    "slot": "staff",
+    "tier": 24,
+    "price": 308,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sainted_rod": {
+    "name": "Sainted Rod",
+    "slot": "staff",
+    "tier": 18,
+    "price": 236,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 25
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "uo_item_heal_20"
+    ],
+    "tags": [
+      "immune_ailment"
+    ],
+    "damage_tags": []
+  },
+  "watchmans_buckler": {
+    "name": "Watchman's Buckler",
+    "slot": "light_shield",
+    "tier": 4,
+    "price": 68,
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 4
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 20
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "shield",
+      "immune_blind"
+    ],
+    "damage_tags": []
+  },
+  "mercenary_s_shield": {
+    "name": "Mercenary’s Shield",
+    "slot": "light_shield",
+    "tier": 20,
+    "price": 250,
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 6
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 18
+      },
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "vengeful_guard"
+    ],
+    "tags": [
+      "shield"
+    ],
+    "damage_tags": []
+  },
+  "caecius": {
+    "name": "Caecius",
+    "slot": "light_shield",
+    "tier": 28,
+    "price": 356,
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 8
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 30
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 10
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "hastened_cover"
+    ],
+    "tags": [
+      "shield"
+    ],
+    "damage_tags": []
+  },
+  "heavenswing_greatshield": {
+    "name": "Heavenswing Greatshield",
+    "slot": "greatshield",
+    "tier": 0,
+    "price": 20,
+    "modifiers": [],
+    "skills": [],
+    "passives": [],
+    "tags": [
+      "greatshield"
+    ],
+    "damage_tags": []
+  },
+  "skiron_greatshield": {
+    "name": "Skiron Greatshield",
+    "slot": "greatshield",
+    "tier": 27,
+    "price": 344,
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 16
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 40
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "hastened_cover"
+    ],
+    "tags": [
+      "greatshield"
+    ],
+    "damage_tags": []
+  },
+  "ervelda_talisman": {
+    "name": "Ervélda Talisman",
+    "slot": "artifact",
+    "tier": 26,
+    "price": 332,
+    "modifiers": [
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 30
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "sainted_broach": {
+    "name": "Sainted Broach",
+    "slot": "artifact",
+    "tier": 21,
+    "price": 272,
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 3
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 3
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "uo_item_heal_20"
+    ],
+    "tags": [
+      "immune_ailment"
+    ],
+    "damage_tags": []
+  },
+  "libonotus_wind_ring": {
+    "name": "Libonotus Wind Ring",
+    "slot": "artifact",
+    "tier": 15,
+    "price": 200,
+    "modifiers": [],
+    "skills": [],
+    "passives": [
+      "hastened_action"
+    ],
+    "tags": [],
+    "damage_tags": []
+  },
+  "riot_belt": {
+    "name": "Riot Belt",
+    "slot": "artifact",
+    "tier": 18,
+    "price": 236,
+    "modifiers": [
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 1
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "wide_counter"
+    ],
+    "tags": [],
+    "damage_tags": []
+  },
+  "ring_of_the_maiden": {
+    "name": "Ring of the Maiden",
+    "slot": "artifact",
+    "tier": 29,
+    "price": 368,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "ring_of_the_maiden_ii": {
+    "name": "Ring of the Maiden II",
+    "slot": "artifact",
+    "tier": 29,
+    "price": 368,
+    "pp_bonus": 1,
+    "modifiers": [
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "phys_def",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "mag_atk",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "mag_def",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "crit_rate",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "guard_rate",
+        "op": "FLAT",
+        "value": 5
+      },
+      {
+        "stat": "initiative",
+        "op": "FLAT",
+        "value": 5
+      }
+    ],
+    "skills": [],
+    "passives": [
+      "celestial_light"
+    ],
+    "tags": [],
+    "damage_tags": []
+  },
+  "hp_50": {
+    "name": "HP +50",
+    "slot": "artifact",
+    "tier": 28,
+    "price": 356,
+    "modifiers": [
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 50
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "hp_200": {
+    "name": "HP +200",
+    "slot": "artifact",
+    "tier": 30,
+    "price": 380,
+    "modifiers": [
+      {
+        "stat": "hp",
+        "op": "FLAT",
+        "value": 200
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "str_100": {
+    "name": "STR +100",
+    "slot": "artifact",
+    "tier": 30,
+    "price": 380,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "FLAT",
+        "value": 100
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "physical_attack": {
+    "name": "Physical Attack +",
+    "slot": "artifact",
+    "tier": 29,
+    "price": 368,
+    "modifiers": [
+      {
+        "stat": "phys_atk",
+        "op": "PERCENT_ADD",
+        "value": 1.0
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "magical_attack": {
+    "name": "Magical Attack +",
+    "slot": "artifact",
+    "tier": 29,
+    "price": 368,
+    "modifiers": [
+      {
+        "stat": "mag_atk",
+        "op": "PERCENT_ADD",
+        "value": 1.0
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
+    "damage_tags": []
+  },
+  "critical_damage": {
+    "name": "Critical Damage +",
+    "slot": "artifact",
+    "tier": 29,
+    "price": 368,
+    "modifiers": [
+      {
+        "stat": "crit_damage",
+        "op": "PERCENT_ADD",
+        "value": 1.0
+      }
+    ],
+    "skills": [],
+    "passives": [],
+    "tags": [],
     "damage_tags": []
   }
 }

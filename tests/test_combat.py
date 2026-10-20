@@ -1,7 +1,7 @@
 """Тесты боевых формул: урон, скейлы, попадание, крит, блок, теги и модификаторы атак."""
 import unittest
 
-from game.battle import GUARD_REDUCTION, BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.events import AttackMissed, DamageDealt, EffectApplied, EffectExpired, Healed, SkillUsed, TurnSkipped
 from game.stats import Stat
 from game.tags import TagRule, rule_multipliers
@@ -70,10 +70,10 @@ class DamageFormulaTests(unittest.TestCase):
         add_skill(self.db, "shield_slam", ["knight"], parts=[part(scaling=[("phys_def", 2.0)])])
         self.assertEqual(amounts(strike(self.db, "knight", "orc", "shield_slam")[0]), [20])
 
-    def test_mixed_skill_deals_each_part_separately(self):
+    def test_mixed_skill_sums_physical_and_magical(self):
         add_skill(self.db, "spellblade", ["knight"], parts=[part(), part("magical")])
-        # физика 22 - 8, магия mag_atk 4 - mag_def 3
-        self.assertEqual(amounts(strike(self.db, "knight", "orc", "spellblade")[0]), [14, 1])
+        # UO: один удар = физика (22 - 8) + магия (mag_atk 4 - mag_def 3)
+        self.assertEqual(amounts(strike(self.db, "knight", "orc", "spellblade")[0]), [15])
 
     def test_heal_scales_from_any_stat(self):
         add_skill(self.db, "bandage", ["knight"], targets="self",
@@ -98,10 +98,13 @@ class AccuracyTests(unittest.TestCase):
             self.assertFalse(any(isinstance(e, EffectApplied) for e in events))
 
     def test_evasion_is_subtracted_and_high_accuracy_beats_it(self):
+        # UO: попадание = (Accuracy 100 - Evasion) x точность навыка
         set_stats(self.db, "orc", evasion=100)
-        add_skill(self.db, "sure_shot", ["knight"], accuracy=200, parts=[part()])
-        for seed in range(10):
+        add_skill(self.db, "sure_shot", ["knight"], accuracy=300, parts=[part()])
+        for seed in range(10):                                       # (100 - 100) x 1 = 0
             self.assertIsInstance(strike(self.db, "knight", "orc", "attack", seed)[0][0], AttackMissed)
+        set_stats(self.db, "orc", evasion=60)
+        for seed in range(10):                                       # (100 - 60) x 3 = 120
             self.assertEqual(amounts(strike(self.db, "knight", "orc", "sure_shot", seed)[0]), [14])
 
     def test_accuracy_stat_multiplies_skill_accuracy(self):
@@ -146,7 +149,7 @@ class CritAndGuardTests(unittest.TestCase):
     def test_guard_halves_physical_damage(self):
         set_stats(self.db, "orc", guard_rate=100)
         outcomes = strike(self.db, "knight", "orc", "attack", gear=["iron_sword"])[0]
-        self.assertEqual(GUARD_REDUCTION, 0.5)
+        self.assertEqual(self.db.guard.reduction(self.db.guard.level_of(set())), 0.5)
         self.assertEqual([(e.amount, e.guarded) for e in outcomes], [(10, True)])  # (27 - 8) * 0.5 = 9.5
 
     def test_blunt_cannot_be_guarded(self):
@@ -165,13 +168,13 @@ class CritAndGuardTests(unittest.TestCase):
         set_stats(self.db, "orc", guard_rate=100)
         add_skill(self.db, "spellblade", ["knight"], parts=[part(tags=["slashing"]), part("magical", power=5)])
         outcomes = strike(self.db, "knight", "orc", "spellblade")[0]
-        self.assertEqual([(e.amount, e.guarded) for e in outcomes], [(7, True), (5, False)])
+        self.assertEqual([(e.amount, e.guarded) for e in outcomes], [(12, True)])   # 14 x 0.5 + (4 - 3) x 5
 
     def test_mixed_blunt_and_slashing_is_unblockable(self):
         set_stats(self.db, "orc", guard_rate=100)
         add_skill(self.db, "mace_sword", ["knight"], parts=[part(tags=["slashing"]), part(tags=["blunt"])])
         outcomes = strike(self.db, "knight", "orc", "mace_sword")[0]
-        self.assertEqual([(e.amount, e.guarded) for e in outcomes], [(14, False), (14, False)])
+        self.assertEqual([(e.amount, e.guarded) for e in outcomes], [(28, False)])  # один удар, дробящий — без блока
 
 
 class MultiHitTests(unittest.TestCase):

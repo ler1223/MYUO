@@ -17,22 +17,21 @@ from typing import Any, Callable, Optional, Union
 
 import pygame
 
-from engine.camera import Camera
-from engine.scene import SCENES_DIR, SceneStore
+from game import roles
 from game.database import Database
-from game.events import format_event
 from game.i18n import Translator, available_languages
 from game.tower import (DEFAULT_SAVE_PATH, DRAFT, OVER, PREPARE, REWARD, SHOP, TOWER_RULES_PATH, TowerRules,
                         TowerRun)
 from game.unit import Unit
 from pygame_art import ArtBank, Portraits
-from pygame_battle import FIELD_RECT, SKIP_BACKLOG_MS, BattleView
-from pygame_stage import TOWER_MODE, StageScreen, load_visuals
+from battle import BattleShow
+from battle.data import ENABLED as UO_ANIM_ENABLED
+from battle.figures import Figures
 from pygame_tips import STAT_COLORS, class_tip, modifier_text, tier_color, unit_tip
 from pygame_tower_inventory import InventoryFilter
 from pygame_tower_prepare import EQUIPMENT, INVENTORY, MAIN, PROMOTE, UNIT, draw_prepare, go_back
-from pygame_tower_style import (BACK, DIM, ENEMY, FULL_BODY, GAP, GOLD, GREEN, H, M, SIZE, SIZES, TEXT, TOP_H, W,
-                                background, bar, button, class_entries, diamonds, item_icon, level_badge,
+from pygame_tower_style import (BACK, DIM, ENEMY, FULL_BODY, GAP, GOLD, H, M, SIZE, SIZES, TEXT, TOP_H, W,
+                                background, bar, button, class_entries, full_figure, item_icon, level_badge,
                                 make_ui, panel, portrait, shade, skill_chip, stat_rows, unit_name)
 from pygame_ui import Window
 from uikit import Gui
@@ -41,6 +40,7 @@ from uikit.layout import cols, cut_left, cut_top, grid, inset, place, row_of, ro
 
 FPS = 60
 AUTO_STEP_MS = 600
+MAX_FRAME_MS = 50                        # больше за кадр время боя не идёт
 SPEEDS = (1, 2, 4)                       # клавиши 1, 2, 3
 NONE_ITEM = "__none__"                   # в списке снаряжения: снять предмет
 RESULT = 4                               # слой итога боя: над полем и панелями, забирает мышь
@@ -71,15 +71,16 @@ LEAVE = place(SELL_AREA, (SELL_AREA.width, 78), "bottom")
 REROLL = place(GOODS_AREA, (GOODS_AREA.width, 70), "bottom")
 OVER_PANEL = place(FULL_BODY, (1200, 860), "center")
 NEW_RUN = place(inset(OVER_PANEL, 0, 0, 0, 50), (420, 84), "bottom")
-# Бой: поле во всю ширину, снизу отряды и журнал
-FIELD = pygame.Rect(0, TOP_H, W, round(FIELD_RECT.height * W / FIELD_RECT.width))
-HUD = pygame.Rect(0, FIELD.bottom, W, H - FIELD.bottom)
-PLAYER_HUD, LOG, ENEMY_HUD = cols(inset(HUD, 12, 6, 12, 10), [760, 1.0, 760], 12)
-BANNER = place(FIELD, (900, 300), "center")
-CONTINUE = place(inset(BANNER, 0, 0, 0, 44), (440, 84), "bottom")
-SPEED_BUTTONS = row_of(pygame.Rect(560, TOP_ROW.y, 0, TOP_ROW.height), [96, 96, 96], 10, "left")
-PAUSE = pygame.Rect(SPEED_BUTTONS[-1].right + 22, TOP_ROW.y, 200, TOP_ROW.height)
-SKIP = pygame.Rect(PAUSE.right + 12, TOP_ROW.y, 200, TOP_ROW.height)
+# Бой, как в UO: поле на весь экран, поверх — плашки бойцов и небольшие кнопки сверху.
+# Логическое поле сцены — поле демо (FIELD_RECT), продолженное вверх (небо) до пропорций экрана.
+FIELD = pygame.Rect(0, 0, W, H)
+BANNER = place(FIELD, (W, 420), "center")                       # итог боя: надпись UO и кнопка под ней
+CONTINUE = place(inset(BANNER, 0, 0, 0, 30), (440, 84), "bottom")
+BATTLE_BAR = pygame.Rect(0, 0, W, TOP_H)                         # кнопки боя поверх поля
+FLOOR_PLATE, ROUND_LABEL = row_of(TOP_ROW, [400, 240], 18, "left")
+*SPEED_BUTTONS, PAUSE, SKIP = row_of(TOP_ROW, [96, 96, 96, 190, 210], 10, "right")
+UO_RESULT_FILE = "Interface"                                     # GUI/Interface.mbs: RESULT_WIN_* / RESULT_LOSE_*
+MESSAGE = pygame.Rect(0, H - 70, W, 60)                          # строка сообщения внизу экрана
 
 
 def reward_card(i: int) -> pygame.Rect:
@@ -101,32 +102,20 @@ def goods_card(i: int, count: int = 5) -> pygame.Rect:
     return rows(area, [1.0] * max(count, i + 1), 10)[i]
 
 
-def field_scale() -> float:
-    """Во сколько раз поле боя на экране башни крупнее логического поля сцены."""
-    return FIELD.width / FIELD_RECT.width
-
-
-def field_camera(stage: StageScreen, window: Optional[Window]) -> Camera:
-    """Камера сцены, вписывающая её поле в прямоугольник FIELD (с окном — в пиксели окна)."""
-    k = field_scale()
-    scale, offset = (window.scale, window.offset) if window is not None else (1.0, (0.0, 0.0))
-    ws = scale * k
-    return stage.camera(ws, (offset[0] + FIELD.x * scale - FIELD_RECT.x * ws,
-                             offset[1] + FIELD.y * scale - FIELD_RECT.y * ws))
-
-
-def to_field(pos: tuple[float, float]) -> tuple[float, float]:
-    """Точка экрана башни -> точка логического поля сцены."""
-    k = field_scale()
-    return (pos[0] - FIELD.x) / k + FIELD_RECT.x, (pos[1] - FIELD.y) / k + FIELD_RECT.y
+def window_field(window: Optional[Window]) -> pygame.Rect:
+    """Поле боя в пикселях окна (без окна — логические пиксели)."""
+    if window is None:
+        return pygame.Rect(FIELD)
+    k, (ox, oy) = window.scale, window.offset
+    return pygame.Rect(round(ox + FIELD.x * k), round(oy + FIELD.y * k), round(FIELD.width * k), round(FIELD.height * k))
 
 
 class TowerApp:
     """Забег, справочник, картинки, сцена боя и состояние экранов."""
 
     def __init__(self, save_path: Union[str, Path, None] = DEFAULT_SAVE_PATH, data_dir: Union[str, Path, None] = None,
-                 rules_path: Union[str, Path] = TOWER_RULES_PATH, scenes_dir: Optional[Path] = SCENES_DIR,
-                 props_dir: Optional[Path] = None, lang: Optional[str] = None, seed: Optional[int] = None):
+                 rules_path: Union[str, Path] = TOWER_RULES_PATH,
+                 lang: Optional[str] = None, seed: Optional[int] = None):
         """seed: случайность новых забегов (тесты); None — каждый забег свой."""
         self.seed = seed
         self.save_path = Path(save_path) if save_path else None
@@ -138,11 +127,13 @@ class TowerApp:
         self.message = ""
         self.run = self._load(lang)
         self.art = ArtBank()
-        self.store = SceneStore(scenes_dir or SCENES_DIR)
-        self.stage = StageScreen(None, props_dir)
-        self.portraits = Portraits(self.art, self.stage.bank)
-        self.stage.mode = TOWER_MODE
-        self.stage.on_return = self.finish_battle
+        self._item_icons: Any = None       # иконки предметов из UO (engine.uo.items), если есть игра
+        if UO_ANIM_ENABLED:
+            self.art.providers.append(self._uo_art)
+        self.figures = Figures()           # фигуры и портреты классов на экранах башни (куклы UO)
+        self.portraits = Portraits(self.art, self.figures)
+        self.show: Optional[BattleShow] = None   # бой этажа: правила game.combat, показ battle/
+        self.result_at: Optional[int] = None   # когда показан итог боя (время боя) — для анимации надписи
         self.scenario: Any = None          # бой этажа, который идёт сейчас
         self.in_battle = False
         self.paused = False
@@ -155,6 +146,7 @@ class TowerApp:
         self.selected: Optional[int] = None
         self.tab = EQUIPMENT
         self.tactic_pick = None                # открытый список в таблице тактики: (правило, колонка)
+        self.tactic_passive = None             # чьи тактики в таблице: None — юнита, иначе id пассивки
         self.slot = 0
         self.drag: Optional[tuple[int, tuple[int, int]]] = None   # (uid, где нажали) — бойца тащат
         self.preview = None
@@ -193,6 +185,20 @@ class TowerApp:
         except OSError as error:
             self.message = f"{self.t('cannot save')}: {error}"
 
+    def _uo_art(self, key: str) -> Optional[pygame.Surface]:
+        """Картинка из Unicorn Overlord для ключа ArtBank: иконка предмета item/<слот>/<id>."""
+        parts = key.split("/")
+        if len(parts) != 3 or parts[0] != "item" or parts[2] not in self.db.items:
+            return None
+        if self._item_icons is None:
+            from engine.uo.items import ItemIcons
+            self._item_icons = ItemIcons(self.db.items)
+        rgba = self._item_icons.image(parts[2])
+        if rgba is None:
+            return None
+        image = pygame.image.frombuffer(rgba.tobytes(), (rgba.shape[1], rgba.shape[0]), "RGBA")
+        return image.convert_alpha() if pygame.display.get_surface() is not None else image.copy()
+
     def reload(self) -> bool:
         """Перечитать справочник, правила башни и визуал навыков; забег пересобирается по ним."""
         try:
@@ -203,7 +209,8 @@ class TowerApp:
             self.message = self.t("data not reloaded: {error}", error=error)
             return False
         self.db, self.rules, self.run = db, rules, run
-        self.stage.skill_visuals = load_visuals()
+        self._item_icons = None
+        self.art.forget()
         self._enemies = None
         return True
 
@@ -217,6 +224,11 @@ class TowerApp:
         self.message = ""
         self.save()
         return result
+
+    def set_look(self, unit: Any, look: int) -> None:
+        """Модель бойца из моделей его класса (пол, внешность); сохраняется в забеге."""
+        unit.state.look = int(look)
+        self.save()
 
     def new_run(self) -> None:
         self.run = TowerRun.new(self.db, self.rules, best=self.run.best, seed=self.seed)
@@ -255,44 +267,38 @@ class TowerApp:
         except ValueError as error:
             self.message = self.t(str(error))
             return
-        scene_id = self.rules.scene(self.run.floor)
-        if scene_id in self.store.ids():
-            self.stage.set_scene(self.store.load(scene_id))
         seed = self.run.seed + self.run.floor * 7919
-        self.stage.battle_view = BattleView(self.db, seed, lambda: self.scenario, self.stage.windup)
+        self.clock = 0
+        self.show = BattleShow(self.db, self.scenario.player_squad, self.scenario.enemy_squad, seed=seed,
+                               scene=self.rules.scene(self.run.floor))
         self.in_battle, self.paused, self.message = True, False, ""
-        self.last_step = self.clock
 
     def tick(self, dt: int) -> None:
-        """Время боя и автоматические ходы: следующий ход, когда эффекты прошлого доиграли."""
-        if not self.in_battle:
+        """Время боя: идёт быстрее при ускорении, стоит на паузе; показ берёт у боя следующие акты сам,
+        когда доиграна сцена прошлого."""
+        if not self.in_battle or self.show is None:
             return
-        view = self.stage.battle_view
         if not self.paused:
-            self.clock += dt * self.speed
-            ready = self.clock - self.last_step >= AUTO_STEP_MS and self.clock >= view.busy_until
-            if not view.sim.finished and ready:
-                view.step(self.clock)
-                self.last_step = self.clock
-        view.prune(self.clock)
+            self.clock += min(dt, MAX_FRAME_MS) * self.speed     # долгий кадр не перескакивает через сцены
+        self.show.update(self.clock)
+
+    def battle_over(self) -> bool:
+        """Бой кончился и доигран: итог и «Дальше» — только после последней сцены."""
+        return self.show is not None and self.show.done(self.clock)
 
     def skip(self) -> None:
-        """Доиграть бой сразу: сцена перескакивает к итогу без анимаций."""
-        view = self.stage.battle_view
-        mark = len(view.sim.events)
-        view.sim.run()
-        view.consume(view.sim.events[mark:], self.clock)
-        self.clock = view.busy_until + SKIP_BACKLOG_MS + 1
-        self.last_step = self.clock
+        """Доиграть бой сразу: сцены пропускаются, плашки и павшие — как в итоге."""
+        if self.show is not None and not self.show.battle.finished:
+            self.clock = self.show.skip(self.clock)
 
     def finish_battle(self) -> None:
         """Enter после боя: итог в забег, дальше награда или конец."""
-        view = self.stage.battle_view
-        if not self.in_battle or view is None or not view.sim.finished:
+        if not self.in_battle or not self.battle_over():
             return
-        won = view.sim.winner_id == view.sim.attacker.id
+        battle = self.show.battle
+        won = battle.winner_id == battle.attacker.id
         self.run.finish(self.db, self.scenario, won)
-        self.in_battle, self.scenario, self.picks = False, None, []
+        self.in_battle, self.scenario, self.picks, self.show = False, None, [], None
         self.save()
 
     def handle_key(self, key: int) -> None:
@@ -305,15 +311,10 @@ class TowerApp:
             self.paused = not self.paused
         elif key in (pygame.K_1, pygame.K_2, pygame.K_3):
             self.speed = SPEEDS[key - pygame.K_1]
-        elif key == pygame.K_s and not self.stage.battle_view.sim.finished:
+        elif key == pygame.K_s:
             self.skip()
-
-    def handle_battle_event(self, event: pygame.event.Event, pos: tuple[float, float], window_scale: float) -> None:
-        """Мышь и клавиши поля сцены: координаты экрана башни переводятся в координаты поля."""
-        if hasattr(event, "pos"):
-            data = dict(event.dict, pos=to_field(event.pos))
-            event = pygame.event.Event(event.type, data)
-        self.stage.handle_event(event, to_field(pos), window_scale * field_scale())
+        elif key in (pygame.K_RETURN, pygame.K_KP_ENTER):
+            self.finish_battle()
 
     # --- снаряжение ---
 
@@ -374,8 +375,11 @@ def draw_top(ui: Gui, app: TowerApp) -> None:
 
 def draw_draft(ui: Gui, app: TowerApp) -> None:
     t, run = ui.t, app.run
-    total = app.rules.data["draft"]["picks"]
-    ui.label(t("Choose a fighter {n}/{total}", n=len(run.army.units) + 1, total=total), DRAFT_TITLE, "title")
+    groups = app.rules.draft_groups()
+    group = groups[min(run.draft_group, len(groups) - 1)]
+    total = len(groups)
+    ui.label(t("Choose a fighter {n}/{total}: {role}", n=len(run.army.units) + 1, total=total,
+               role=t(roles.TITLES.get(group["role"], group["role"]))), DRAFT_TITLE, "title")
     taken = list(run.army.units.values())
     faces = row_of(DRAFT_TITLE, [64] * len(taken), 10, "right")
     for rect, unit in zip(faces, taken):                     # уже взятые — портреты справа от заголовка
@@ -395,8 +399,7 @@ def draw_class_card(ui: Gui, app: TowerApp, class_id: str, rect: pygame.Rect) ->
     body.height = take_button(rect).y - body.y - 14
     art_r, rest = cut_top(body, 340, 12)
     shade(ui, art_r, 120)
-    image = app.portraits.full(class_id, (art_r.width - 20, art_r.height - 16))
-    ui.screen.blit(image, image.get_rect(midbottom=(art_r.centerx, art_r.bottom - 8)))
+    full_figure(ui, app, class_id, (art_r.width - 20, art_r.height - 16), (art_r.centerx, art_r.bottom - 8))
     tags = ", ".join(t(db.tags[tag].name) for tag in unit.definition.tags if tag in db.tags)
     ui.label(tags, inset(pygame.Rect(art_r.x, art_r.y, art_r.width, 40), 12, 0), "small", color=DIM)
     stats_r, rest = cut_top(rest, 6 * 34, 10)
@@ -502,8 +505,7 @@ def draw_shop(ui: Gui, app: TowerApp) -> None:
         definition = db.units[class_id]
         art_r, info = cut_left(inset(body, 10, 10), 210, 16)
         shade(ui, art_r, 120)
-        image = app.portraits.full(class_id, (art_r.width - 12, art_r.height - 12))
-        ui.screen.blit(image, image.get_rect(midbottom=(art_r.centerx, art_r.bottom - 6)))
+        full_figure(ui, app, class_id, (art_r.width - 12, art_r.height - 12), (art_r.centerx, art_r.bottom - 6))
         ui.tip(art_r, lambda c=class_id, lv=level: class_tip(t, db, c, lv))
         name_r, level_r, skills_r = rows(pygame.Rect(info.x, info.y, info.width, hire_button(card).y - info.y - 10),
                                          [44, 36, 1.0], 4)
@@ -527,7 +529,7 @@ def draw_shop(ui: Gui, app: TowerApp) -> None:
         price = db.items[item_id].price if item_id in db.items else 0
         buy = place(inset(card, 0, 0, 18, 20), (200, 64), "bottomright")
         item_card(ui, app, item_id, card, price=price, action=buy)
-        if button(ui, t("Buy {n}", n=price), buy, primary=True, enabled=run.inventory.gold >= price):
+        if button(ui, t("Buy {n}", n=price), buy, enabled=run.inventory.gold >= price):
             app.act(run.buy, db, i)
     reroll = rules.reroll_price(run.rerolls)
     if button(ui, t("New goods for {n}", n=reroll), REROLL, enabled=run.inventory.gold >= reroll):
@@ -570,137 +572,68 @@ def draw_over(ui: Gui, app: TowerApp) -> None:
 # --- бой ----------------------------------------------------------------------------
 
 def draw_battle(ui: Gui, app: TowerApp) -> None:
-    """Верхняя полоса с раундом и скоростью, снизу панели отрядов и журнал; поле рисует сцена."""
-    t, stage, view = ui.t, app.stage, app.stage.battle_view
-    stage.update(ui, view, app.clock)
-    sim = view.sim
-    ui.screen.blit(app.art.image("bg/battle_hud", HUD.size, cover=True), HUD.topleft)
-    top_strip(ui)
+    """Поверх поля, как в UO: этаж и раунд слева сверху, скорость, пауза и пропуск справа.
+    Остальное — на самом поле: плашки под бойцами, цифры урона, названия навыков."""
+    t, show = ui.t, app.show
     boss = app.rules.is_boss(app.run.floor)
-    title_r, round_r = row_of(TOP_ROW, [280, 220], 16, "left")
-    ui.label(t("Floor {n}", n=app.run.floor) + ("  " + t("(boss)") if boss else ""), title_r, "title",
-             color=ENEMY if boss else GOLD)
-    ui.label(t("Round {n}", n=view.round), round_r, "heading", color=TEXT)
-    for rect, speed in zip(SPEED_BUTTONS, SPEEDS):
+    plate = w.frame(ui, "header", FLOOR_PLATE)
+    ui.label(t("Floor {n}", n=app.run.floor) + ("  " + t("(boss)") if boss else ""), plate, "heading",
+             align="center", color=ENEMY if boss else GOLD)
+    ui.label(t("Round {n}", n=max(1, show.round)), ROUND_LABEL, ui.ts("heading").but(outline=ui.colors["shadow"]), color=TEXT)
+    for rect, speed, key in zip(SPEED_BUTTONS, SPEEDS, "123"):
         if button(ui, f"×{speed}", rect, selected=app.speed == speed, style="small"):
             app.speed = speed
     if button(ui, t("Continue") if app.paused else t("Pause"), PAUSE, selected=app.paused, style="small"):
         app.paused = not app.paused
-    if button(ui, t("Skip"), SKIP, enabled=not sim.finished, style="small"):
+    ui.tip(PAUSE, lambda: [(t("SPACE pause   1/2/3 speed   S skip   ENTER after the battle"), TEXT, "small")])
+    if button(ui, t("Skip"), SKIP, enabled=not show.battle.finished, style="small"):
         app.skip()
-    ui.label(t("SPACE pause   1/2/3 speed   S skip   wheel zoom"),
-             pygame.Rect(SKIP.right + 24, TOP_ROW.y, W - M - SKIP.right - 24, TOP_ROW.height), "tiny", align="right",
-             color=DIM)
-    squad_hud(ui, app, sim.attacker, PLAYER_HUD, t("Your squad"), False)
-    squad_hud(ui, app, sim.defender, ENEMY_HUD, t("Enemies"), True)
-    body = hud_panel(ui, LOG, t("Battle log"))
-    name = lambda uid: f"{unit_name(t, sim.units[uid])}"
-    lines = [format_event(ev, name, t).strip() for ev in view.log[-8:]]
-    step = 27
-    lines = lines[-max(1, body.height // step):]
-    for i, line in enumerate(lines):
-        ui.label(line, pygame.Rect(body.x, body.y + i * step, body.width, step), "tiny",
-                 color=TEXT if i == len(lines) - 1 else DIM)
-
-
-def hud_panel(ui: Gui, rect: pygame.Rect, title: str) -> pygame.Rect:
-    """Панель под полем: рамка, короткий заголовок с линией. Возвращает область под ним."""
-    body = inset(w.frame(ui, "panel", rect), 14, 4, 14, 8)
-    head, rest = cut_top(body, 38, 6)
-    ui.label(title, head, "heading")
-    w.divider(ui, head.x, head.right, head.bottom)
-    return rest
-
-
-def squad_hud(ui: Gui, app: TowerApp, squad, rect: pygame.Rect, title: str, enemy: bool) -> None:
-    """Отряд в бою: карточки с портретом, именем, HP (как уже показано на сцене), AP и PP."""
-    t, stage, view = ui.t, app.stage, app.stage.battle_view
-    body = hud_panel(ui, rect, title)
-    units = squad.formation.units
-    columns = 3
-    lines = max(1, (len(units) + columns - 1) // columns)
-    cell_h = min(96, (body.height - 6 * (lines - 1)) // lines)
-    for card, unit in zip(grid(body, len(units), columns, cell_h, 8, 6), units):
-        hp = stage.hp.get(unit.uid, unit.hp)
-        dead = unit.uid in stage.dead or hp <= 0
-        inner = w.family_frame(ui, "row", card, "selected" if view.current_uid == unit.uid else "normal")
-        face, info = cut_left(inset(inner, 2, 2), inner.height - 4, 10)
-        portrait_image = app.portraits.portrait(unit.definition.id, face.height, enemy)
-        if dead:
-            portrait_image = portrait_image.copy()
-            portrait_image.fill((90, 80, 80, 255), special_flags=pygame.BLEND_RGBA_MULT)
-        ui.screen.blit(portrait_image, face)
-        name_r, bar_r, pips_r = rows(info, [1.0, 20, 18], 2)
-        ui.label(unit_name(t, unit) if not enemy else t(unit.name), name_r, "small", color=DIM if dead else TEXT)
-        bar(ui, bar_r, max(0, hp), unit.max_hp, "enemy" if enemy else "hp", f"{max(0, hp)}/{unit.max_hp}")
-        x = diamonds(ui, app, pips_r.x, pips_r.centery, unit.ap.current, "ap", unit.ap.max, 16)
-        diamonds(ui, app, x + 10, pips_r.centery, unit.pp.current, "pp", unit.pp.max, 16)
-        ui.tip(card, lambda u=unit: unit_tip(t, app.db, u))
-
-
-def battle_plate(ui: Gui, app: TowerApp, target: pygame.Surface, unit: Unit, hp: int, feet: tuple[int, int],
-                 k: float) -> None:
-    """Плашка под ногами бойца на сцене: уровень, полоса HP из кусков с числом, ромбики AP и PP, эффекты."""
-    view = app.stage.battle_view
-    enemy = view is not None and view.sim.defender.formation.position_of(unit.uid) is not None
-    x, y = feet
-    bar_rect = pygame.Rect(0, 0, round(104 * k), max(8, round(15 * k)))
-    bar_rect.midtop = (x + round(10 * k), y + round(8 * k))
-    share = max(0, hp) / max(1, unit.max_hp)
-    kind = "enemy" if enemy else "hp"
-    if not ui.skin.draw_bar(target, kind, bar_rect, share):
-        pygame.draw.rect(target, (30, 20, 26), bar_rect)
-        pygame.draw.rect(target, ENEMY if enemy else GREEN, bar_rect.inflate(-2, -2).clip(
-            pygame.Rect(bar_rect.x, bar_rect.y, round(bar_rect.width * share), bar_rect.height)))
-    inner = ui.skin.bar_inner(kind, bar_rect)
-    texts = ui.texts
-    texts.draw(target, str(max(0, hp)), ui.ts("bar").but(size=max(9, round(13 * k))), inner.inflate(0, 8), "center")
-    level_box = pygame.Rect(bar_rect.x - round(26 * k), bar_rect.y - round(4 * k), round(24 * k), bar_rect.height + round(8 * k))
-    texts.draw(target, str(unit.state.level), ui.ts("level").but(size=max(9, round(16 * k))), level_box, "right")
-    size = max(6, round(10 * k))
-    cy = bar_rect.bottom + round(3 * k) + size // 2
-    images = {key: app.art.image(f"icon/{key}", (size, size)) if app.art.has_own(f"icon/{key}") else None
-              for key in ("ap", "pp")}
-    total = unit.ap.max + unit.pp.max
-    sx = bar_rect.centerx - (total * (size + 1) + size // 2) // 2
-    for i in range(total):
-        key, full = ("ap", i < unit.ap.current) if i < unit.ap.max else ("pp", i - unit.ap.max < unit.pp.current)
-        px = sx + i * (size + 1) + (size // 2 if key == "pp" else 0)
-        image = images[key]
-        rect = pygame.Rect(px, cy - size // 2, size, size)
-        if image is not None:
-            if not full:
-                image = image.copy()
-                image.set_alpha(70)
-            target.blit(image, rect)
-        else:
-            color = (90, 160, 240) if key == "ap" else (190, 120, 235)
-            points = [rect.midtop, rect.midright, rect.midbottom, rect.midleft]
-            if full:
-                pygame.draw.polygon(target, color, points)
-            pygame.draw.polygon(target, color, points, 1)
-    if unit.effects:
-        names = ", ".join(app.t(e.definition.name) for e in unit.effects)
-        line = pygame.Rect(x - round(90 * k), cy + size // 2 + 2, round(180 * k), round(14 * k))
-        texts.draw(target, names, ui.ts("bar").but(size=max(8, round(11 * k)), color=(220, 190, 255)), line, "center")
 
 
 def draw_result(ui: Gui, app: TowerApp) -> None:
-    """Итог боя поверх поля: победа или поражение и кнопка «Дальше» (слой RESULT забирает мышь)."""
-    view = app.stage.battle_view
-    if not view.sim.finished or view.ended is None:
+    """Итог боя поверх поля: надпись UO WIN/LOSE (появление, затем покой) и кнопка «Дальше»
+    (слой RESULT забирает мышь). Без игры — своя рамка с надписью."""
+    if not app.battle_over():
+        app.result_at = None
         return
     t = ui.t
-    won = view.sim.winner_id == view.sim.attacker.id
+    battle = app.show.battle
+    won = battle.winner_id == battle.attacker.id
+    if app.result_at is None:
+        app.result_at = app.clock
     ui.block(BANNER, RESULT)
 
     def draw() -> None:
-        body = w.frame(ui, "dialog", BANNER)
-        head, _ = cut_top(inset(body, 20, 10), 110)
-        ui.label(t("Victory!") if won else t("Defeat"), head, "huge", align="center", color=GOLD if won else ENEMY)
+        if not uo_result(ui, app, won):
+            body = w.frame(ui, "dialog", place(BANNER, (900, 300), "center"))
+            head, _ = cut_top(inset(body, 20, 10), 110)
+            ui.label(t("Victory!") if won else t("Defeat"), head, "huge", align="center", color=GOLD if won else ENEMY)
     ui.later(RESULT, draw)
     ui.later(RESULT, lambda: button(ui, t("Continue (ENTER)"), CONTINUE, primary=True, style="tab", layer=RESULT)
              and app.finish_battle())
+
+
+def uo_result(ui: Gui, app: TowerApp, won: bool) -> bool:
+    """Надпись итога из интерфейса UO по центру поля; False — нет игры."""
+    if not UO_ANIM_ENABLED:
+        return False
+    from engine.uo import ui as uo_ui
+    name = "RESULT_WIN" if won else "RESULT_LOSE"
+    model = uo_ui.source().model("GUI", UO_RESULT_FILE)
+    if model is None or f"{name}_OPEN" not in model.puppet.anims:
+        return False
+    tick = (app.clock - (app.result_at if app.result_at is not None else app.clock)) * 60 / 1000
+    opening = model.length(f"{name}_OPEN")
+    if tick < opening:
+        anim, tick = f"{name}_OPEN", int(tick)
+    else:
+        anim = f"{name}_IDLE"
+        tick = int(tick - opening) % max(1, model.length(anim))
+    found = uo_ui.sprite(UO_RESULT_FILE, anim, tick, W / 1920)
+    if found is not None:
+        image, (ox, oy) = found
+        ui.screen.blit(image, (BANNER.centerx - ox, BANNER.centery - 50 - oy))
+    return True
 
 
 SCREENS: dict[str, Callable[[Gui, TowerApp], None]] = {
@@ -711,14 +644,15 @@ SCREENS: dict[str, Callable[[Gui, TowerApp], None]] = {
 def draw_frame(ui: Gui, app: TowerApp, window: Optional[Window] = None) -> None:
     """Кадр в ui.screen (1920x1280); с окном поле боя рисуется прямо в окно в полном разрешении."""
     ui.t = app.t
-    app.stage.plate_drawer = lambda target, unit, hp, feet, k: battle_plate(ui, app, target, unit, hp, feet, k)
-    ui.screen.fill(BACK)
     if app.in_battle:
+        ui.screen.fill((0, 0, 0, 0))            # в окне OpenGL поле рисуется в окно, интерфейс — поверх него
+        if window is None or not window.gl:
+            ui.screen.fill(BACK)
+            app.show.draw(ui.screen, pygame.Rect(FIELD), app.clock)
         draw_battle(ui, app)
-        if window is None:
-            app.stage.draw_field(ui.screen, app.clock, field_camera(app.stage, None))
         draw_result(ui, app)
     else:
+        ui.screen.fill(BACK)
         phase = UNIT if app.view in (UNIT, PROMOTE) and app.run.phase == PREPARE else app.run.phase
         scene = INVENTORY if app.view == INVENTORY and app.run.phase == PREPARE else phase
         background(ui, app, scene)
@@ -727,25 +661,19 @@ def draw_frame(ui: Gui, app: TowerApp, window: Optional[Window] = None) -> None:
     if app.message:
         style = ui.ts("body", color="gold")
         width = min(W - 80, ui.width(app.message, style) + 60)
-        box = place(pygame.Rect(0, H - 70, W, 60), (width, 56), "center")
+        box = place(MESSAGE, (width, 56), "center")
         ui.later(3, lambda: (w.frame(ui, "tooltip", box), ui.label(app.message, inset(box, 30, 0), style,
                                                                    align="center")))
     ui.end()
-    if window is not None:
-        window.present()
+    if window is not None and window.gl:      # окно OpenGL: поле видеокартой в окно, интерфейс текстурой поверх
+        window.clear()
         if app.in_battle:
-            app.stage.draw_field(window.surface, app.clock, field_camera(app.stage, window))
-            # подсказки, итог боя и открытый список — поверх поля
-            for area in (banner_area(app), ui.popup_box if ui.popup is not None else ui.tip_box):
-                if area is not None:
-                    window.present(area)
-
-
-def banner_area(app: TowerApp) -> Optional[pygame.Rect]:
-    view = app.stage.battle_view
-    if view is None or not view.sim.finished:
-        return None
-    return BANNER
+            canvas = app.show.render(window.size, window_field(window), app.clock)
+            if canvas is not None:
+                canvas.present(window.size)
+        window.present(window.canvas.get_rect())
+    elif window is not None:
+        window.present()
 
 
 def main(max_frames: Optional[int] = None, save_path: Union[str, Path, None] = DEFAULT_SAVE_PATH,
@@ -753,12 +681,13 @@ def main(max_frames: Optional[int] = None, save_path: Union[str, Path, None] = D
     """max_frames нужен только для проверки запуска без окна (SDL_VIDEODRIVER=dummy)."""
     pygame.init()
     pygame.display.set_caption("Squad auto-battle — Tower")
-    pygame.display.set_mode(SIZES[0])
-    app = TowerApp(save_path, data_dir, lang=lang)
     fitting = Window.presets(SIZES)
-    size = app.resolution if app.resolution in fitting else fitting[-1]
-    window = Window(size, SIZE, SIZES)
-    app.resolution = window.surface.get_size()
+    # окно (и контекст OpenGL) — до забега: куклы и текстуры сразу грузятся в контекст окна
+    window = Window(fitting[-1], SIZE, SIZES, alpha=True, gl=True)
+    app = TowerApp(save_path, data_dir, lang=lang)
+    if app.resolution in fitting and app.resolution != window.size:
+        window.resize(app.resolution)
+    app.resolution = window.size
     ui = make_ui(window.canvas)
     ui.transform = window.to_logical
     clock = pygame.time.Clock()
@@ -768,15 +697,11 @@ def main(max_frames: Optional[int] = None, save_path: Union[str, Path, None] = D
         events = [window.logical_event(e) for e in pygame.event.get()]
         ui.begin(events)
         for event in events:
-            if app.in_battle and not ui.captured:
-                mouse = event.pos if hasattr(event, "pos") else ui.mouse
-                if FIELD.collidepoint(mouse) or event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONUP:
-                    app.handle_battle_event(event, mouse, window.scale)
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.VIDEORESIZE:
-                window.resize(event.size)
-                app.resolution = window.surface.get_size()
+                window.resize(event.size, resized=True)
+                app.resolution = window.size
             elif event.type != pygame.KEYDOWN or ui.captured:
                 continue
             elif event.key == pygame.K_ESCAPE:
@@ -784,7 +709,7 @@ def main(max_frames: Optional[int] = None, save_path: Union[str, Path, None] = D
                 running = app.in_battle or app.run.phase != PREPARE or go_back(app)
             elif event.key == pygame.K_F12:
                 window.next_size()
-                app.resolution = window.surface.get_size()
+                app.resolution = window.size
             else:
                 app.handle_key(event.key)
         app.tick(dt)

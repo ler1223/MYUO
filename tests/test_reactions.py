@@ -1,7 +1,7 @@
 """Тесты реакций: события, фильтры, действие «применить навык», порядок, лимиты, фаза «до»."""
 import unittest
 
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.database import Database
 from game.editing import describe_reaction, new_passive_data, reaction_defaults, set_owners
 from game.events import (
@@ -68,9 +68,10 @@ class UseSkillTests(unittest.TestCase):
         self.assertIn(AttackMissed(1, 2, "whiff"), events)
         self.assertEqual(triggered(events), [2])
 
-    def test_every_hit_of_a_multi_hit_skill_is_an_event_and_limits_work(self):
+    def test_multi_hit_skill_is_answered_once(self):
+        # UO: на действие боец отвечает одной пассивкой — сколько бы ударов ни было в навыке
         add_skill(self.db, "double", ["knight"], hits=2, parts=[part(power=0.3)])
-        for limit, expected in (("none", 2), ("round", 1)):
+        for limit, expected in (("none", 1), ("round", 1)):
             give(self.db, ["orc"], **counter(limit=limit))
             sim = self.battle([("knight", 9, 0, 0)], [("orc", 9, 0, 0)])
             only(self.db, sim.units[1], "double")

@@ -1,0 +1,1 @@
+Grisly Poison - 150 Phys, 1 Hit, Inflicts Poison, +50 potency vs. poisoned targets [2 AP]

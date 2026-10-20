@@ -2,7 +2,7 @@
 import unittest
 
 from game.areas import AREA_SINGLE, MAX_SPAN, AreaDefinition
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.effects import EffectDefinition
 from game.events import BattleEnded, DamageDealt, EffectApplied, EffectExpired, Healed, ResourceGained, UnitDied
 from game.save import scenario_from_save, scenario_to_save

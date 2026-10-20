@@ -145,7 +145,8 @@ DEMO_LEVEL = 5
 DEMO_AP = 8                 # запас AP в демонстрации: хватает, чтобы каждый показал все свои навыки
 DEMO_HP = 3                 # во столько раз больше HP: юниты живут, пока не покажут навыки
 DEMO_PP = 4                 # запас PP: пассивки срабатывают чаще
-DEMO_SEED = 25              # на этом сиде 29 навыков (всё, кроме «Шквала» и whirlwind) и все 7 пассивок
+DEMO_SEED = 15              # на этом сиде (движок game.combat) все 31 навык и 26 из 32 пассивок
+                            # (assets-тест показывает демонстрацию без предела пассивок за действие)
 DEMO_FRAGILE = ("thief", "goblin")  # эти без запаса HP: их гибель показывает реакции на смерть союзника
 
 
@@ -157,6 +158,13 @@ class VarietyTactics(TacticsSet):
     """
 
     used: dict = field(default_factory=dict, compare=False, hash=False)
+
+    def ordered(self, actor):
+        done = self.used.setdefault(actor.uid, set())
+        return [r for r in self.rules if r.skill_id not in done] + [r for r in self.rules if r.skill_id in done]
+
+    def chosen(self, actor, skill_id):
+        self.used.setdefault(actor.uid, set()).add(skill_id)
 
     def choose(self, actor, allies, enemies, rng, skills):
         done = self.used.setdefault(actor.uid, set())

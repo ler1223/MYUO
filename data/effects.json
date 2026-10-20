@@ -1553,5 +1553,47 @@
     "stack_rule": "REFRESH",
     "max_stacks": 1,
     "triggers": []
+  },
+  "uo_accuracy_p30": {
+    "name": "UO accuracy_p30",
+    "modifiers": [
+      {
+        "stat": "accuracy",
+        "op": "FLAT",
+        "value": 30
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_evasion_p50": {
+    "name": "UO evasion_p50",
+    "modifiers": [
+      {
+        "stat": "evasion",
+        "op": "FLAT",
+        "value": 50
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
   }
 }

@@ -18,10 +18,9 @@ try:
 except ImportError:
     pygame = None
 
-from engine.scene import SCENES_DIR
 from game.database import Database
-from game.tower import DRAFT, OVER, PREPARE, REWARD, SHOP, TOWER_RULES_PATH
-from tests.helpers import FIXTURE_DIR
+from game.tower import DRAFT, OVER, PREPARE, REWARD, SHOP
+from tests.helpers import FIXTURE_DIR, tower_rules_data
 
 if pygame is not None:
     import pygame_tower as tw
@@ -44,8 +43,8 @@ class TowerWindowTests(unittest.TestCase):
         self.data_dir = Path(self.tmp) / "data"
         shutil.copytree(FIXTURE_DIR, self.data_dir)
         self.save_path = Path(self.tmp) / "tower.json"
-        self.scenes_dir = Path(self.tmp) / "scenes"
-        shutil.copytree(SCENES_DIR, self.scenes_dir)
+        self.rules_path = Path(self.tmp) / "tower.json.rules"    # правила с группами под фикстуру
+        self.rules_path.write_text(json.dumps(tower_rules_data()), encoding="utf-8")
         pygame.display.set_mode(tw.SIZE)
         self.ui = tw.make_ui(pygame.Surface(tw.SIZE))
         self.app = self.open_app()
@@ -54,7 +53,7 @@ class TowerWindowTests(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def open_app(self):
-        return tw.TowerApp(self.save_path, self.data_dir, scenes_dir=self.scenes_dir, seed=SEED)
+        return tw.TowerApp(self.save_path, self.data_dir, rules_path=self.rules_path, seed=SEED)
 
     def frame(self, events=()):
         self.ui.begin(list(events))
@@ -82,16 +81,16 @@ class TowerWindowTests(unittest.TestCase):
         self.app.skip()
         self.app.tick(16)
         self.frame()
-        self.app.handle_battle_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN), (0, 0), 1.0)
+        self.app.handle_key(pygame.K_RETURN)
         self.assertFalse(self.app.in_battle)
 
     def test_draft_by_clicks_and_the_run_is_saved(self):
         self.frame()
         self.draft()
         run = self.app.run
-        self.assertEqual((run.phase, len(run.army.units)), (PREPARE, 3))
+        self.assertEqual((run.phase, len(run.army.units)), (PREPARE, 6))
         saved = json.loads(self.save_path.read_text(encoding="utf-8"))
-        self.assertEqual(len(saved["units"]), 3)
+        self.assertEqual(len(saved["units"]), 6)
         self.assertEqual(self.open_app().run.to_dict()["units"], run.to_dict()["units"])   # забег продолжается
 
     def test_floor_battle_reward_and_next_floor(self):
@@ -281,6 +280,26 @@ class TowerWindowTests(unittest.TestCase):
         self.click(*pu.tactic_columns(pu.tactic_row(rules_before))[1].center)   # «+ Добавить тактику»
         self.assertEqual(len(unit.tactics.to_list()), rules_before + 1)
 
+    def test_passive_tactics_switch_in_the_tower_table(self):
+        import pygame_tower_unit as pu
+        self.draft()
+        app = self.app
+        unit = next(u for u in pp.ordered_units(app) if u.passive_ids)
+        pp.open_unit(app, unit.uid, pp.MAIN, pp.TACTICS)
+        self.frame()
+        pid = next(p for p in unit.passive_ids if p in app.db.passives)
+        switch = pygame.Rect(pu.CONTENT_BODY.x, pu.RESET_TACTICS.bottom + 14 + 24 + 6, pu.CONTENT_BODY.width, 48)
+        self.click(switch.x + 312 + 150, switch.centery)          # вторая плашка — первая пассивка
+        self.assertEqual(app.tactic_passive, pid)
+        self.frame()
+        self.click(*pu.tactic_columns(pu.tactic_row(0))[1].center)   # «+ Добавить тактику» пассивки
+        self.assertTrue(unit.has_passive_tactics(pid))
+        self.assertEqual(unit.passive_tactics_of(pid).to_list()[0]["skill"], unit.skill_ids[0])
+        self.click(*pu.RESET_TACTICS.center)                      # сброс пассивки к данным
+        self.assertFalse(unit.has_passive_tactics(pid))
+        self.assertTrue(pp.go_back(app))                          # Esc — назад к тактикам юнита
+        self.assertIsNone(app.tactic_passive)
+
     def test_promotion_by_clicks(self):
         path = self.data_dir / "units.json"
         units = json.loads(path.read_text(encoding="utf-8"))
@@ -310,11 +329,10 @@ class TowerWindowTests(unittest.TestCase):
         self.assertIn(["orc"], [[u["state"]["definition_id"]] for u in saved["units"]])
 
     def test_shop_by_clicks(self):
-        rules = json.loads(TOWER_RULES_PATH.read_text(encoding="utf-8"))
-        rules["shop"]["every"] = 1                             # магазин после каждого этажа
+        rules = tower_rules_data(shop={"every": 1})            # магазин после каждого этажа
         rules_path = Path(self.tmp) / "tower_rules.json"
         rules_path.write_text(json.dumps(rules), encoding="utf-8")
-        self.app = tw.TowerApp(self.save_path, self.data_dir, rules_path, scenes_dir=self.scenes_dir, seed=SEED)
+        self.app = tw.TowerApp(self.save_path, self.data_dir, rules_path, seed=SEED)
         self.draft()
         self.app.run.inventory.add_gold(1000)
         self.frame()

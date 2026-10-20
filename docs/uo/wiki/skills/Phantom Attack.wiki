@@ -1,0 +1,10 @@
+Phantom Attack - 120 Mag, 1 Hit, Inflicts -1PP [1 AP]{{Active Skill Box
+| gem pic = [[File:AP_Gem.png|link=|40px]]
+| skill name = Phantom Attack
+| pdmg number = 0
+| mdmg number = 120
+| target number = 1
+| number % = 100%
+| skill description = Attack a single enemy. Inflicts [[File:PP_Gem.png|link=|23px]]PP -1.
+| trait = 
+}}

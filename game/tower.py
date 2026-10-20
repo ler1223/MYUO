@@ -52,8 +52,8 @@ DRAFT, PREPARE, REWARD, SHOP, OVER = "draft", "prepare", "reward", "shop", "over
 def base_classes(db: Database) -> list[str]:
     """Классы, в которые никто не повышается и с тиром ниже 20: из них набор, найм и враги
     (повышенные — повышением; сразу повышенные классы вроде эльфов в набор не попадают)."""
-    roots = sorted(c for c in db.units if not db.parents(c))
-    return [c for c in roots if db.units[c].tier < 20] or roots or sorted(db.units)
+    roots = sorted(c for c in db.units if not db.parents(c) and not db.units[c].story)
+    return [c for c in roots if db.units[c].tier < 20] or roots or sorted(c for c in db.units if not db.units[c].story)
 
 
 def by_floor(table: Sequence[Mapping[str, Any]], floor: int) -> Mapping[str, Any]:
@@ -79,10 +79,33 @@ class TowerRules:
                 raise ValueError(f"tower {name}: floors must start at 1 and grow")
         if data["reward"]["take"] > data["reward"]["offer"]:
             raise ValueError("tower reward: cannot take more items than offered")
+        groups = data.get("draft", {}).get("groups")
+        if not groups:
+            raise ValueError("tower draft: groups must not be empty")
+        for group in groups:
+            if not group.get("role"):
+                raise ValueError("tower draft: every group needs a role")
 
     @classmethod
     def load(cls, path: Union[str, Path] = TOWER_RULES_PATH) -> "TowerRules":
         return cls(json.loads(Path(path).read_text(encoding="utf-8")))
+
+    # --- набор отряда ---
+
+    def draft_groups(self) -> list[Mapping[str, Any]]:
+        """Группы набора по порядку: в каждой роль (или явные классы); выбор — общий `.choices`."""
+        return list(self.data["draft"]["groups"])
+
+    def draft_pool(self, db: Database, group: Mapping[str, Any]) -> list[str]:
+        """Классы на выбор в группе: свои (classes) или все базовые классы этой роли (role).
+
+        Повышенные классы в набор не попадают, даже если записаны в группе.
+        """
+        available = set(base_classes(db))
+        listed = [c for c in group.get("classes", ()) if c in available]
+        if listed:
+            return listed
+        return [c for c in base_classes(db) if group["role"] in db.units[c].roles]
 
     # --- отряд игрока ---
 
@@ -126,7 +149,8 @@ class TowerRules:
     def enemy_classes(self, db: Database) -> dict[str, float]:
         """Пул классов врагов с весами; пусто в данных — все базовые классы поровну (повышенные
         получаются повышением на этаже, enemy_promotion)."""
-        listed = {k: v for k, v in self.data["enemies"].get("classes", {}).items() if k in db.units and v > 0}
+        listed = {k: v for k, v in self.data["enemies"].get("classes", {}).items()
+                  if k in db.units and v > 0 and not db.units[k].story}
         return listed or {class_id: 1.0 for class_id in base_classes(db)}
 
     def enemy_promotion(self, floor: int) -> float:
@@ -222,6 +246,7 @@ class TowerRun:
         self.shop_items: list[Optional[str]] = []         # None — уже куплен
         self.rerolls = 0
         self.report: Optional[BattleReport] = None
+        self.draft_group = 0                              # какая группа набора сейчас выбирается
 
     @classmethod
     def new(cls, db: Database, rules: TowerRules, best: int = 0, seed: Optional[int] = None) -> "TowerRun":
@@ -282,16 +307,21 @@ class TowerRun:
     # --- набор отряда ---
 
     def _draft_offers(self, db: Database) -> list[str]:
-        rng = self._rng(f"draft{len(self.army.units)}")
-        pool = base_classes(db)
-        return rng.sample(pool, min(self.rules.data["draft"]["choices"], len(pool)))
+        groups = self.rules.draft_groups()
+        if self.draft_group >= len(groups):
+            return []
+        rng = self._rng(f"draft{self.draft_group}")
+        pool = self.rules.draft_pool(db, groups[self.draft_group])
+        choices = min(self.rules.data["draft"]["choices"], len(pool))
+        return rng.sample(pool, choices) if choices else []
 
     def pick(self, db: Database, class_id: str) -> int:
-        """Выбор бойца при наборе; после последнего — подготовка к первому этажу."""
+        """Выбор бойца при наборе: группа за группой, после последней — подготовка к первому этажу."""
         if self.phase != DRAFT or class_id not in self.offers:
             raise ValueError(f"class {class_id!r} is not offered")
         uid = self._add_unit(db, class_id, self.rules.data["draft"]["level"])
-        if len(self.army.units) >= self.rules.data["draft"]["picks"]:
+        self.draft_group += 1
+        if self.draft_group >= len(self.rules.draft_groups()):
             self.phase, self.offers = PREPARE, []
         else:
             self.offers = self._draft_offers(db)
@@ -358,7 +388,8 @@ class TowerRun:
             unit_level = min(unit_level, rules.exp.max_level)
             chance = rules.enemy_promotion(floor)
             while True:                                   # повышение по случайному открытому пути
-                paths = [p for p in db.units[class_id].promotions if p.level <= unit_level and p.class_id in db.units]
+                paths = [p for p in db.units[class_id].promotions
+                         if p.level <= unit_level and p.class_id in db.units and not db.units[p.class_id].story]
                 if not paths or rng.random() >= chance:
                     break
                 class_id = rng.choice(paths).class_id
@@ -485,7 +516,8 @@ class TowerRun:
         shop = self.rules.data["shop"]
         level = max(1, sum(u.state.level for u in self.army.units.values()) // max(1, len(self.army.units)))
         pool = base_classes(db)
-        self.recruits = [(rng.choice(pool), level) for _ in range(shop["recruits"])] if pool else []
+        fresh = rng.sample(pool, min(shop["recruits"], len(pool))) if pool else []
+        self.recruits = [(class_id, level) for class_id in fresh]
         self.shop_items = list(self._offer_items(db, rng, shop["items"]))
 
     def hire(self, db: Database, index: int) -> int:
@@ -537,6 +569,7 @@ class TowerRun:
         return {
             "version": SAVE_VERSION, "seed": self.seed, "best": self.best, "floor": self.floor,
             "phase": self.phase, "next_uid": self.next_uid, "rerolls": self.rerolls,
+            "draft_group": self.draft_group,
             "units": [unit_to_save(u) for u in self.army.units.values()],
             "cells": [[u.uid, *self.squad.formation.position_of(u.uid)] for u in self.fielded],
             "inventory": self.inventory.to_dict(),
@@ -570,8 +603,14 @@ class TowerRun:
         run.recruits = [tuple(r) if r else None for r in data.get("recruits", ())]
         run.shop_items = list(data.get("shop_items", ()))
         run.report = BattleReport.from_dict(data["report"]) if data.get("report") else None
+        # Старые сохранения без draft_group: считаем, что выбрано столько групп, сколько бойцов.
+        groups = rules.draft_groups()
+        run.draft_group = max(0, min(int(data.get("draft_group", len(run.army.units))), len(groups)))
         if run.phase == DRAFT and not run.offers:
-            run.offers = run._draft_offers(db)
+            if run.draft_group < len(groups):
+                run.offers = run._draft_offers(db)
+            else:
+                run.phase = PREPARE
         return run
 
     def rebuild(self, db: Database, rules: Optional[TowerRules] = None) -> "TowerRun":

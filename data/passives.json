@@ -65,7 +65,7 @@
     "name": "Medical Aid",
     "pp_cost": 1,
     "reaction": {
-      "event": "round_end",
+      "event": "battle_end",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -80,7 +80,7 @@
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
-      "limit": "battle",
+      "limit": "none",
       "action": "heal",
       "skill_id": null,
       "effect_id": null,
@@ -282,7 +282,7 @@
     "name": "Parting Resurrection",
     "pp_cost": 1,
     "reaction": {
-      "event": "round_end",
+      "event": "battle_end",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -297,7 +297,7 @@
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
-      "limit": "battle",
+      "limit": "none",
       "action": "apply_effect",
       "skill_id": null,
       "effect_id": "uo_endure",
@@ -1570,7 +1570,7 @@
     "name": "Parting Blow",
     "pp_cost": 1,
     "reaction": {
-      "event": "round_end",
+      "event": "battle_end",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -1585,7 +1585,7 @@
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
-      "limit": "battle",
+      "limit": "none",
       "action": "use_skill",
       "skill_id": "parting_blow_strike",
       "effect_id": null,
@@ -2074,7 +2074,7 @@
     "name": "First Aid",
     "pp_cost": 1,
     "reaction": {
-      "event": "round_end",
+      "event": "battle_end",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -2089,7 +2089,7 @@
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
-      "limit": "battle",
+      "limit": "none",
       "action": "heal",
       "skill_id": null,
       "effect_id": null,
@@ -2762,7 +2762,7 @@
     "name": "Life Blow",
     "pp_cost": 1,
     "reaction": {
-      "event": "round_end",
+      "event": "battle_end",
       "whose": "self",
       "self_condition": {
         "type": "always"
@@ -2777,7 +2777,7 @@
       "effect_filter": null,
       "effect_label": null,
       "threshold": 0.5,
-      "limit": "battle",
+      "limit": "none",
       "action": "use_skill",
       "skill_id": "life_blow_strike",
       "effect_id": null,
@@ -3570,6 +3570,3492 @@
       "action": "cover",
       "skill_id": null,
       "effect_id": "uo_guard_medium",
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "dawn_horn": {
+    "name": "Dawn Horn",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "round",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "honed_shield": {
+    "name": "Honed Shield",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "bunker_stance": {
+    "name": "Bunker Stance",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "impetus_stance": {
+    "name": "Impetus Stance",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "war_cry": {
+    "name": "War Cry",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "magick_shell": {
+    "name": "Magick Shell",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "darkness_armor": {
+    "name": "Darkness Armor",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_charge": {
+    "name": "Hastened Charge",
+    "pp_cost": 4,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "quick_action": {
+    "name": "Quick Action",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_action": {
+    "name": "Hastened Action",
+    "pp_cost": 3,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_cast": {
+    "name": "Hastened Cast",
+    "pp_cost": 3,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "provoking_wall": {
+    "name": "Provoking Wall",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "scornful_dead": {
+    "name": "Scornful Dead",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_curse": {
+    "name": "Hastened Curse",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "eye_of_the_warrior_princess": {
+    "name": "Eye of the Warrior Princess",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "ominous_wall": {
+    "name": "Ominous Wall",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "heavy_alignment": {
+    "name": "Heavy Alignment",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "aerial_alignment": {
+    "name": "Aerial Alignment",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "united_front": {
+    "name": "United Front",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "wolf_pack": {
+    "name": "Wolf Pack",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "bears_den": {
+    "name": "Bear's Den",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "reheal": {
+    "name": "Reheal",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_heal": {
+    "name": "Hastened Heal",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "rapid_shot": {
+    "name": "Rapid Shot",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "hastened_shatter": {
+    "name": "Hastened Shatter",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "provoking_strike": {
+    "name": "Provoking Strike",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "ground_punisher": {
+    "name": "Ground Punisher",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "fire_burst": {
+    "name": "Fire Burst",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_end",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "poison_burst": {
+    "name": "Poison Burst",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_end",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "judgment": {
+    "name": "Judgment",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_end",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "party_aid": {
+    "name": "Party Aid",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_end",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "daemonic_pact": {
+    "name": "Daemonic Pact",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "diurnal_impetus": {
+    "name": "Diurnal Impetus",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "nocturnal_impetus": {
+    "name": "Nocturnal Impetus",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "grave_impetus": {
+    "name": "Grave Impetus",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "blade_dance": {
+    "name": "Blade Dance",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "tailwind": {
+    "name": "Tailwind",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "recast": {
+    "name": "Recast",
+    "pp_cost": 4,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "inner_balance": {
+    "name": "Inner Balance",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "aerial_wing": {
+    "name": "Aerial Wing",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "passive_gift": {
+    "name": "Passive Gift",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "quick_impetus": {
+    "name": "Quick Impetus",
+    "pp_cost": 4,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "counter": {
+    "name": "Counter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "vanitas": {
+    "name": "Vanitas",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "attacked",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "landed",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "banishing_counter": {
+    "name": "Banishing Counter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "phantom_counter": {
+    "name": "Phantom Counter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "vanquish": {
+    "name": "Vanquish",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "magick_burst": {
+    "name": "Magick Burst",
+    "pp_cost": 3,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "phantom_kick": {
+    "name": "Phantom Kick",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "poison_touch": {
+    "name": "Poison Touch",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "attacked",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "landed",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "venom_touch": {
+    "name": "Venom Touch",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "phalanx_shift": {
+    "name": "Phalanx Shift",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "aerial_shift": {
+    "name": "Aerial Shift",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "self_care": {
+    "name": "Self-Care",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "relic_heal": {
+    "name": "Relic Heal",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "attacked",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "landed",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "poison_cure": {
+    "name": "Poison Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "fire_cure": {
+    "name": "Fire Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "freeze_cure": {
+    "name": "Freeze Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "stun_cure": {
+    "name": "Stun Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "blind_cure": {
+    "name": "Blind Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "guard_cure": {
+    "name": "Guard Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "passive_cure": {
+    "name": "Passive Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "sacred_cure": {
+    "name": "Sacred Cure",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "abyssal_miasma": {
+    "name": "Abyssal Miasma",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "cursed_impetus": {
+    "name": "Cursed Impetus",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "mirror_weakness": {
+    "name": "Mirror Weakness",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "effect_applied",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": "debuff",
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "aerial_pursuit": {
+    "name": "Aerial Pursuit",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "banishing_pursuit": {
+    "name": "Banishing Pursuit",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "wide_pursuit": {
+    "name": "Wide Pursuit",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "shattering_pursuit": {
+    "name": "Shattering Pursuit",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "sanguine_pursuit": {
+    "name": "Sanguine Pursuit",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "skill_used",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "healing_pursuit": {
+    "name": "Healing Pursuit",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "use_skill",
+      "skill_id": "healing_pursuit_heal",
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "healing_hunter": {
+    "name": "Healing Hunter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "use_skill",
+      "skill_id": "healing_hunter_heal",
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "guard_hunter": {
+    "name": "Guard Hunter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "reflect_magick": {
+    "name": "Reflect Magick",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "cursed_gaol": {
+    "name": "Cursed Gaol",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "shining_light": {
+    "name": "Shining Light",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "enemy",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "preemptive_heal": {
+    "name": "Preemptive Heal",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "holy_breath": {
+    "name": "Holy Breath",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "sorcerous_connection": {
+    "name": "Sorcerous Connection",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "powerful_call": {
+    "name": "Powerful Call",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "inspiration": {
+    "name": "Inspiration",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "wide_inspiration": {
+    "name": "Wide Inspiration",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "reinforce": {
+    "name": "Reinforce",
+    "pp_cost": 4,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "sylphic_barrier": {
+    "name": "Sylphic Barrier",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "ranged"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "grant_evade": {
+    "name": "Grant Evade",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "quick_barrier": {
+    "name": "Quick Barrier",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "protection": {
+    "name": "Protection",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "mighty_shield": {
+    "name": "Mighty Shield",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "celestial_light": {
+    "name": "Celestial Light",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "enduring_cover": {
+    "name": "Enduring Cover",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "healing_cover": {
+    "name": "Healing Cover",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "advance_cover": {
+    "name": "Advance Cover",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "evil_cover": {
+    "name": "Evil Cover",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "sacrifice": {
+    "name": "Sacrifice",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "flame_conferral": {
+    "name": "Flame Conferral",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "ice_conferral": {
+    "name": "Ice Conferral",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "thunderous_conferral": {
+    "name": "Thunderous Conferral",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "sanguine_conferral": {
+    "name": "Sanguine Conferral",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "dark_conferral": {
+    "name": "Dark Conferral",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "before_skill",
+      "whose": "ally",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "toughness": {
+    "name": "Toughness",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "painbringer": {
+    "name": "Painbringer",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "nimble_fighter": {
+    "name": "Nimble Fighter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "attacked",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "missed",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "guarding_fighter": {
+    "name": "Guarding Fighter",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "vengeful_impetus": {
+    "name": "Vengeful Impetus",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "attacked",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "guarding_impetus": {
+    "name": "Guarding Impetus",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "undead_wall": {
+    "name": "Undead Wall",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [
+        "physical"
+      ],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "invincible": {
+    "name": "Invincible",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "phantom_step": {
+    "name": "Phantom Step",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "dynamic_glide": {
+    "name": "Dynamic Glide",
+    "pp_cost": 2,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "dark_step": {
+    "name": "Dark Step",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "targeted",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
+      "amount": 0,
+      "percent": false,
+      "label": null,
+      "to": "owner",
+      "to_area": null,
+      "cover_many": false
+    }
+  },
+  "magick_conversion": {
+    "name": "Magick Conversion",
+    "pp_cost": 1,
+    "reaction": {
+      "event": "battle_start",
+      "whose": "self",
+      "self_condition": {
+        "type": "always"
+      },
+      "subject_condition": {
+        "type": "always"
+      },
+      "area": null,
+      "attack_tags": [],
+      "skill_areas": [],
+      "outcome": "any",
+      "effect_filter": null,
+      "effect_label": null,
+      "threshold": 0.5,
+      "limit": "none",
+      "action": "restore_pp",
+      "skill_id": null,
+      "effect_id": null,
       "amount": 0,
       "percent": false,
       "label": null,

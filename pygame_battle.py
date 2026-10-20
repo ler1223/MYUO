@@ -93,9 +93,38 @@ class BattleView:
         self.ended: Optional[BattleEnded] = None
         self.timeline: list[tuple[int, Event]] = []   # (когда показать, событие)
         self.busy_until = 0
+        self.pending: list[list[Event]] = []   # ещё не показанные куски шага (см. step)
+
+    @property
+    def done(self) -> bool:
+        """Бой кончился и все его события уже отданы на показ."""
+        return self.sim.finished and not self.pending
 
     def step(self, now: int) -> None:
-        self.consume(self.sim.step(), now)
+        """Следующий кусок боя. Шаг симуляции режется перед каждым применением навыка (контратака,
+        преследование, ответ пассивкой): кусок показывается, когда показан прошлый, — анимации не
+        начинаются поверх друг друга."""
+        if not self.pending:
+            self.pending = self._chunks(self.sim.step())
+        if self.pending:
+            self.consume(self.pending.pop(0), now)
+
+    @staticmethod
+    def _chunks(events: list[Event]) -> list[list[Event]]:
+        chunks: list[list[Event]] = []
+        for ev in events:
+            if not chunks or (isinstance(ev, SkillUsed) and any(isinstance(e, SkillUsed) for e in chunks[-1])):
+                chunks.append([])
+            chunks[-1].append(ev)
+        return chunks
+
+    def flush(self, now: int) -> None:
+        """Отдать на показ всё оставшееся сразу (пропуск боя)."""
+        events = [ev for chunk in self.pending for ev in chunk]
+        self.pending = []
+        mark = len(self.sim.events)
+        self.sim.run()
+        self.consume(events + self.sim.events[mark:], now)
 
     def schedule(self, events: list[Event], now: int) -> list[int]:
         """Время показа каждого события: замах, удары по очереди, гибель."""
@@ -199,9 +228,10 @@ class BattleScreen:
 
     is_battle = True
 
-    def __init__(self) -> None:
+    def __init__(self, field: Optional[pygame.Rect] = None) -> None:
+        self.field = pygame.Rect(field or FIELD_RECT)     # область поля в логических пикселях сцены
         self.fx = FxSystem()
-        self.camera_view = ViewCamera(FIELD_RECT)
+        self.camera_view = ViewCamera(self.field)
         self._sim: Any = None
         self._shown_until = 0               # события до этого момента уже показаны
         self._prev_frame = 0
@@ -276,24 +306,19 @@ class BattleScreen:
                 look = DOT_VISUALS.get(ev.cause, "dark")
                 fx.burst(when, pos, ELEMENT_COLORS[look], 12, 1.4, 600, 3, up=1.2,
                          shape="bubble" if look == "poison" else "glow")
-            head = self.point(ev.target, "head")
-            size = 1.4 if ev.crit else 1.0
-            fx.add(FloatText(when, 1000, head, str(ev.amount), (255, 90, 70) if not ev.crit else (255, 230, 80),
-                             int(40 * size), 44, numbers=True))
+            self.popup(when, ev.target, "damage", ev.amount, ev.crit, ev.guarded)
             if ev.crit:
                 self.sprite("crit", when, pos, 1.2)
-                fx.add(FloatText(when, 900, (head[0], head[1] + 40, head[2]), t("crit").upper() + "!", (255, 230, 80), 22, 20))
                 fx.add(Flash(when, 160, (255, 240, 200), 0.35))
                 fx.shake(when, 300, 7)
             if ev.guarded:
                 fx.add(Ring(when, 450, pos, ELEMENT_COLORS["guard"], 20, 55, 5))
-                fx.add(FloatText(when, 800, self.point(ev.target, "feet"), t("guarded").upper(), ELEMENT_COLORS["guard"], 14, 10))
 
         elif isinstance(ev, AttackMissed):
             pos = self.point(ev.target)
             f = self.facing(ev.source)
             fx.add(Thrust(when, 260, (pos[0] + 30 * f, pos[1], pos[2]), (160, 160, 170), f))
-            fx.add(FloatText(when, 900, self.point(ev.target, "head"), "MISS", (200, 200, 210), 22, 30))
+            self.popup(when, ev.target, "miss")
 
         elif isinstance(ev, Healed):
             self.hp[ev.target] = ev.hp_left
@@ -301,7 +326,7 @@ class BattleScreen:
                 return  # лечить было нечего: эффект не нужен
             fx.rise(when, self.point(ev.target, "feet"), 30, 120, ELEMENT_COLORS["heal"], 18,
                     "star" if ev.crit else "glow", 1.4, 900, 3)
-            fx.add(FloatText(when, 1000, self.point(ev.target, "head"), f"+{ev.amount}", GREEN, 36, 40, numbers=True))
+            self.popup(when, ev.target, "heal", ev.amount, ev.crit)
 
         elif isinstance(ev, EffectApplied):
             pos, feet = self.point(ev.target), self.point(ev.target, "feet")
@@ -335,9 +360,7 @@ class BattleScreen:
         elif isinstance(ev, PassiveTriggered):
             passive = db.passives.get(ev.passive_id)
             fx.add(Ring(when, 600, self.point(ev.unit, "feet"), (255, 210, 110), 30, 80, 4))
-            head = self.point(ev.unit, "head")
-            fx.add(FloatText(when, 1100, (head[0], head[1] + 30, head[2]), t(passive.name) if passive else ev.passive_id,
-                             (255, 214, 120), 14, 14))
+            self.announce(when, ev.unit, t(passive.name) if passive else ev.passive_id, True)
 
         elif isinstance(ev, ResourceGained):
             fx.rise(when, self.point(ev.target, "feet"), 24, 100, AP_COLOR if ev.resource == "AP" else PP_COLOR,
@@ -358,6 +381,31 @@ class BattleScreen:
         elif isinstance(ev, BattleEnded):
             text = t("{winner} wins", winner=t(ev.winner_id)) if ev.winner_id else t("draw")
             fx.add(FloatText(when, 2500, self.screen_point(CENTER_X, 250), text.upper(), (255, 236, 170), 64, 10, numbers=True))
+
+    def announce(self, when: int, uid: int, text: str, passive: bool = False) -> None:
+        """Название навыка (passive — пассивного умения) над бойцом uid."""
+        head = self.point(uid, "head")
+        if passive:
+            self.fx.add(FloatText(when, 1100, (head[0], head[1] + 30, head[2]), text, (255, 214, 120), 14, 14))
+        else:
+            self.fx.add(FloatText(when, 900, head, text, (255, 236, 170), 14, 18, False))
+
+    def popup(self, when: int, uid: int, kind: str, amount: int = 0, crit: bool = False, guarded: bool = False) -> None:
+        """Всплывающее над бойцом: kind damage (число урона), heal (+число) или miss; крит и защита — подписью."""
+        fx, t = self.fx, self.t
+        head = self.point(uid, "head")
+        if kind == "miss":
+            fx.add(FloatText(when, 900, head, "MISS", (200, 200, 210), 22, 30))
+            return
+        if kind == "heal":
+            fx.add(FloatText(when, 1000, head, f"+{amount}", GREEN, 36, 40, numbers=True))
+            return
+        fx.add(FloatText(when, 1000, head, str(amount), (255, 90, 70) if not crit else (255, 230, 80),
+                         int(40 * (1.4 if crit else 1.0)), 44, numbers=True))
+        if crit:
+            fx.add(FloatText(when, 900, (head[0], head[1] + 40, head[2]), t("crit").upper() + "!", (255, 230, 80), 22, 20))
+        if guarded:
+            fx.add(FloatText(when, 800, self.point(uid, "feet"), t("guarded").upper(), ELEMENT_COLORS["guard"], 14, 10))
 
     def sprite(self, name: str, when: int, pos: World, scale: float = 1.0, facing: int = 1,
                ms: Optional[int] = None) -> bool:
@@ -427,7 +475,7 @@ class BattleScreen:
         cam = self.camera_view
         if event.type == pygame.MOUSEWHEEL:
             cam.zoom_at(pos, event.y)
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button in (1, 3) and FIELD_RECT.collidepoint(pos):
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button in (1, 3) and self.field.collidepoint(pos):
             self.dragging = cam.zoom > 1
         elif event.type == pygame.MOUSEBUTTONUP and event.button in (1, 3):
             self.dragging = False
@@ -439,9 +487,9 @@ class BattleScreen:
             if event.key in (pygame.K_HOME, pygame.K_0):
                 cam.reset()
             elif event.key in (pygame.K_EQUALS, pygame.K_PLUS, pygame.K_KP_PLUS):
-                cam.zoom_at(FIELD_RECT.center, 1)
+                cam.zoom_at(self.field.center, 1)
             elif event.key in (pygame.K_MINUS, pygame.K_KP_MINUS):
-                cam.zoom_at(FIELD_RECT.center, -1)
+                cam.zoom_at(self.field.center, -1)
             elif event.key == pygame.K_c:
                 cam.auto = not cam.auto
 

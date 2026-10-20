@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any, Callable, Optional
 
@@ -25,7 +26,7 @@ THEME_PATH = ROOT / "assets" / "ui" / "theme.json"
 
 
 class Gui(UI):
-    def __init__(self, screen: pygame.Surface, theme: dict, folder: Path, assets: Path):
+    def __init__(self, screen: pygame.Surface, theme: dict, folder: Path, assets: Path, over: tuple[Path, ...] = ()):
         self.theme = theme
         self.colors = {name: tuple(value) for name, value in theme.get("colors", {}).items()}
         fonts = Fonts({face: assets / path for face, path in theme.get("fonts", {}).items()})
@@ -34,7 +35,7 @@ class Gui(UI):
         legacy = {key: self.texts.font(self.styles[name]) for key, name in theme.get("legacy", {}).items()
                   if name in self.styles}
         super().__init__(screen, legacy)
-        self.skin = Skin(Images(folder), theme.get("frames", {}), theme.get("bars", {}))
+        self.skin = Skin(Images(folder, over), theme.get("frames", {}), theme.get("bars", {}))
         self.widgets: dict[str, dict] = theme.get("widgets", {})
         self.frames = lambda target, kind, rect: self.skin.draw(target, kind, rect)
         self._layers: dict[int, list[Callable[[], None]]] = {}
@@ -114,6 +115,31 @@ class Gui(UI):
 
 
 def load_gui(screen: pygame.Surface, theme_path: Path = THEME_PATH) -> Gui:
+    """Тема из theme_path; поверх — скин из Unicorn Overlord (engine.uo.ui), если есть папка игры:
+    его рамки заменяют одноимённые рамки темы. MYUO_UO_ANIM=0 выключает (так делают тесты)."""
     theme = json.loads(Path(theme_path).read_text(encoding="utf-8"))
     folder = Path(theme_path).parent
-    return Gui(screen, theme, folder, folder.parent)
+    over = uo_skin()
+    if over is not None:
+        uo_theme = json.loads((over / "theme.json").read_text(encoding="utf-8"))
+        text = dict(theme.get("text", {}))
+        for name, style in uo_theme.get("text", {}).items():       # стиль скина дополняет стиль темы
+            text[name] = {**text.get(name, {}), **style}
+        widgets = dict(theme.get("widgets", {}))
+        for name, spec in uo_theme.get("widgets", {}).items():     # и виджеты: цвета текста по состояниям
+            widgets[name] = {**widgets.get(name, {}), **spec,
+                             "colors": {**widgets.get(name, {}).get("colors", {}), **spec.get("colors", {})}}
+        theme = {**theme, "frames": {**theme.get("frames", {}), **uo_theme.get("frames", {})},
+                 "fonts": {**theme.get("fonts", {}), **uo_theme.get("fonts", {})}, "text": text, "widgets": widgets}
+    return Gui(screen, theme, folder, folder.parent, (over,) if over is not None else ())
+
+
+def uo_skin() -> Optional[Path]:
+    """Папка скина из Unicorn Overlord или None (нет игры, видеокарты или выключено)."""
+    if os.environ.get("MYUO_UO_ANIM", "1") == "0":
+        return None
+    try:
+        from engine.uo.ui import skin_folder
+        return skin_folder()
+    except Exception:           # нет moderngl, битые файлы — свой скин
+        return None

@@ -109,6 +109,16 @@ def set_tactics(db: Database, unit: Unit, rules: Sequence[Mapping[str, Any]]) ->
     unit.set_tactics(TacticsSet.from_list(rules))
 
 
+def set_passive_tactics(db: Database, unit: Unit, passive_id: str, rules: Sequence[Mapping[str, Any]]) -> None:
+    """Заменяет правила пассивки: они применяются к целям, вызвавшим её срабатывание."""
+    if passive_id not in db.passives:
+        raise ValueError(f"unknown passive {passive_id!r}")
+    for rule in rules:
+        if rule["skill"] not in db.skills:
+            raise ValueError(f"unknown skill {rule['skill']!r}")
+    unit.set_passive_tactics(passive_id, TacticsSet.from_list(rules))
+
+
 def skill_users(skill_id: str, units: Iterable[Unit]) -> list[Unit]:
     """Юниты, в тактиках которых используется навык."""
     return [u for u in units if any(rule.skill_id == skill_id for rule in u.tactics.rules)]

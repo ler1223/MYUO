@@ -87,6 +87,7 @@ class Database:
         self.slot_types: tuple[str, ...] = ()
         self.formation = FormationSize()
         self.rules: list[TagRule] = []
+        self.passives_per_action = 2      # сколько пассивок срабатывает за одно активное действие
         self._apply(data)
 
     # --- загрузка и сохранение ---
@@ -108,7 +109,8 @@ class Database:
             for section in SECTIONS
         }
         data[CONFIG] = {"formation": self.formation.to_dict(), "slot_types": list(self.slot_types),
-                        "tag_rules": [r.to_dict() for r in self.rules], "guard": self.guard.to_dict()}
+                        "tag_rules": [r.to_dict() for r in self.rules], "guard": self.guard.to_dict(),
+                        "combat": {"passives_per_action": self.passives_per_action}}
         return data
 
     def save(self, directory: Union[str, Path, None] = None) -> None:
@@ -146,6 +148,7 @@ class Database:
         self.rules = rules
         self.formation = formation
         self.guard = guard
+        self.passives_per_action = max(0, int(config.get("combat", {}).get("passives_per_action", 2)))
         self._merged: dict[tuple[str, ...], UnitDefinition] = {}
 
     @staticmethod

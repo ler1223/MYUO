@@ -1,0 +1,237 @@
+{
+ "Active Heal": [
+  "Lyrical Wand"
+ ],
+ "Active Shatter": [
+  "Crimson Épée"
+ ],
+ "Aerial Shift": [
+  "General's Longbow"
+ ],
+ "Armor Shatter": [
+  "Piercing Bow"
+ ],
+ "Armor Shatter II": [
+  "Piercing Strongbow"
+ ],
+ "Arrow Rain": [
+  "Trapper's Warbow"
+ ],
+ "Banishing Smite": [
+  "Banishing Hammer"
+ ],
+ "Beast Slayer": [
+  "Silvermoon Axe"
+ ],
+ "Beastslayer": [
+  "Silvermoon Bow"
+ ],
+ "Blizzard": [
+  "Icestorm Staff"
+ ],
+ "Checkmate": [
+  "Alminster"
+ ],
+ "Circle Heal": [
+  "Ringed Staff"
+ ],
+ "Crush": [
+  "Crushing Axe"
+ ],
+ "Cursed Strike": [
+  "Shaman's Bonestaff"
+ ],
+ "Desperation": [
+  "Dark Knight Cleaver"
+ ],
+ "Dispel All": [
+  "Liberator's Staff"
+ ],
+ "Double Heal": [
+  "Staff of Succor"
+ ],
+ "Dragoon Dive": [
+  "Dragoon's Warspear"
+ ],
+ "Earthquake": [
+  "Telluric Staff"
+ ],
+ "Elfslayer": [
+  "Elfeater"
+ ],
+ "Execution": [
+  "Headsman's Axe",
+  "Eliminator"
+ ],
+ "Fire Burst": [
+  "Chlorotic"
+ ],
+ "Fire Curse": [
+  "Flame-Hex Staff"
+ ],
+ "Flame Arrow": [
+  "Flame Bow"
+ ],
+ "Flame Javelin": [
+  "Flame Javelin"
+ ],
+ "Freezing Thrust": [
+  "Twinned Bough"
+ ],
+ "Glowing Light": [
+  "Lamplight Ring"
+ ],
+ "Gravity": [
+  "Quartz Rod"
+ ],
+ "Ground Strike": [
+  "Juggernaut"
+ ],
+ "Guard Hunter": [
+  "Thawing Scepter"
+ ],
+ "Harpoon Bolt": [
+  "Gallian Crossbow"
+ ],
+ "Hastened Curse": [
+  "Speed-Hex Staff"
+ ],
+ "Healing Hunter": [
+  "Interrogator's Bow",
+  "The Inquisitor"
+ ],
+ "Holy Cradle": [
+  "Cardinal's Mace"
+ ],
+ "Holy Smite": [
+  "Gleaming Mace"
+ ],
+ "Icy Blow": [
+  "Hoarfrost Axe"
+ ],
+ "Icy Crush": [
+  "Frozen Battleaxe"
+ ],
+ "Leaping Slash": [
+  "Dancer's Delight"
+ ],
+ "Lightning Shaker": [
+  "Silver Trident"
+ ],
+ "Limited Heal": [
+  "Precious Rod"
+ ],
+ "Magick Attack": [
+  "Runic Sword",
+  "Runic Spear"
+ ],
+ "Magick Burst": [
+  "Grand Magus Staff"
+ ],
+ "Magick Shatter": [
+  "Spellseal Bow"
+ ],
+ "Magick Shell": [
+  "Ein Seeker"
+ ],
+ "Painful Smash": [
+  "Morningstar"
+ ],
+ "Passive Shatter": [
+  "Pheasant Bow"
+ ],
+ "Passive Shatter (Spear)": [
+  "Valkyrie's Partisan"
+ ],
+ "Phalanx Shift": [
+  "General's Pike"
+ ],
+ "Phantom Veil": [
+  "Phantom Knight's Staff"
+ ],
+ "Poison Arrow": [
+  "Viper Bow",
+  "Salamander Greatbow"
+ ],
+ "Poison Burst": [
+  "Pestilent Staff"
+ ],
+ "Poison Curse": [
+  "Poison-Hex Staff"
+ ],
+ "Powerful Impact": [
+  "Mason's Hammer"
+ ],
+ "Protection": [
+  "Cleric's Cane"
+ ],
+ "Quick Barrier": [
+  "Defender's Mace"
+ ],
+ "Radiant Heal": [
+  "Phosphorescent Staff"
+ ],
+ "Rampage": [
+  "Surging Shortspear"
+ ],
+ "Rapid Shot": [
+  "Bow of Swiftness"
+ ],
+ "Reheal": [
+  "Hallowed Mace"
+ ],
+ "Reincarnation": [
+  "Libera"
+ ],
+ "Resurrection": [
+  "Lifeblood Staff"
+ ],
+ "Sacred Cure": [
+  "Purifier"
+ ],
+ "Sandstorm": [
+  "Dustbound Staff"
+ ],
+ "Sanguine Darts": [
+  "Bloodmoon Rod"
+ ],
+ "Shadow Arrow": [
+  "Starless Bow"
+ ],
+ "Shadow Thrust": [
+  "Corroded Spear"
+ ],
+ "Shattering Pursuit": [
+  "Canyon Lance"
+ ],
+ "Skyward Thrust": [
+  "Wind Scepter"
+ ],
+ "Spiked Blow": [
+  "Spiked Hammer"
+ ],
+ "Spiked Bolt": [
+  "Woodpecker"
+ ],
+ "Strength Shatter": [
+  "Thundering Bow"
+ ],
+ "Strength Shatter II": [
+  "Thundering Strongbow"
+ ],
+ "Tailwind": [
+  "Angel Plume"
+ ],
+ "Thunderous Thrust": [
+  "Twinned Bough"
+ ],
+ "Trinity Rain": [
+  "Millenium Scepter"
+ ],
+ "Triple Shatter": [
+  "Crane Bow"
+ ],
+ "True Thrust": [
+  "Unwavering Spear"
+ ]
+}

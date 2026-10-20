@@ -1,0 +1,1 @@
+100 Phys, 1 Hit Recover HP equal to 50% of damage dealt [1 AP]

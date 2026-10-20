@@ -30,8 +30,8 @@ from pygame_tower_unit import (ART, CONTENT, EDITOR, EQUIPMENT, FIELD_TOGGLE, NO
                                PROMOTE_BUTTON, STATUS, TABS, TACTICS, draw_editor, draw_unit_art, leader_kind,
                                place_text, power_tip)
 from pygame_tower_style import (BODY, BOTTOM_H, BOTTOM_Y, DIM, ENEMY, GAP, GOLD, GREEN, M, TEXT, W, bar, button,  # noqa
-                                class_line, figure, item_icon, level_badge, nameplate, panel, portrait, preview_stats,
-                                shade, skill_chip, unit_name)
+                                class_line, figure, full_figure, item_icon, level_badge, nameplate, panel, portrait,
+                                preview_stats, shade, skill_chip, unit_name)
 from uikit import Gui
 from uikit import widgets as w
 from uikit.layout import cols, cut_left, cut_top, grid, inset, place, row_of, rows
@@ -164,7 +164,8 @@ def draw_field(ui: Gui, app: Any, half: pygame.Rect, entries: list[dict], rows_:
                 continue
             x, y, scale = places[(row, col)]
             alpha = 90 if entry.get("uid") is not None and entry.get("uid") == dragging_uid else 255
-            rect = figure(ui, app, entry["class_id"], (round(x), round(y + 4)), round(height * scale), mirror, alpha)
+            rect = figure(ui, app, entry["class_id"], (round(x), round(y + 4)), round(height * scale), mirror, alpha,
+                          entry.get("look", 0))
             targets.append((rect, (row, col), entry.get("uid")))
             if entry.get("tip"):
                 ui.tip(rect, entry["tip"])
@@ -178,7 +179,7 @@ def draw_field(ui: Gui, app: Any, half: pygame.Rect, entries: list[dict], rows_:
 def squad_entries(app: Any) -> list[dict]:
     run, t = app.run, app.t
     formation = run.squad.formation
-    return [dict(uid=u.uid, class_id=u.definition.id, name=unit_name(t, u), level=u.state.level, hp=u.hp,
+    return [dict(uid=u.uid, class_id=u.definition.id, look=u.state.look, name=unit_name(t, u), level=u.state.level, hp=u.hp,
                  max_hp=u.max_hp, row=formation.position_of(u.uid)[0], col=formation.position_of(u.uid)[1],
                  leader=run.squad.leader_uid == u.uid, tip=lambda u=u: unit_tip(app.t, app.db, u))
             for u in formation.units]
@@ -356,10 +357,11 @@ def handle_drag(ui: Gui, app: Any, field: list, roster: list) -> None:
         if cell is not None:                         # тень на клетке, куда он встанет
             x, y, scale = spots(area, formation.rows, formation.cols, False)[cell]
             ui.later(DRAG, lambda: figure(ui, app, unit.definition.id, (round(x), round(y + 4)),
-                                          round(height * scale), alpha=150))
+                                          round(height * scale), alpha=150, look=unit.state.look))
         else:                                        # в руке: ноги в точке курсора
             mouse = ui.mouse
-            ui.later(DRAG, lambda: figure(ui, app, unit.definition.id, mouse, round(height * 0.9), alpha=210))
+            ui.later(DRAG, lambda: figure(ui, app, unit.definition.id, mouse, round(height * 0.9), alpha=210,
+                                          look=unit.state.look))
 
 
 def open_unit(app: Any, uid: int, back: str, tab: Optional[str] = None, slot: int = 0) -> None:
@@ -469,8 +471,7 @@ def promotion_card(ui: Gui, app: Any, unit: Unit, path: Any, card: pygame.Rect) 
     ui.label(t("tier {n}", n=target.tier), head, "small", align="right", color=DIM)
     art_r, rest = cut_top(rest, min(250, rest.height // 3), 8)
     shade(ui, art_r, 110)
-    image = app.portraits.full(path.class_id, (art_r.width - 16, art_r.height - 12))
-    ui.screen.blit(image, image.get_rect(midbottom=(art_r.centerx, art_r.bottom - 6)))
+    full_figure(ui, app, path.class_id, (art_r.width - 16, art_r.height - 12), (art_r.centerx, art_r.bottom - 6))
     power_r, rest = cut_top(rest, 34, 6)
     ui.label(t("Power {a} → {b}", a=rate_unit(unit, db).power, b=rate_unit(ghost, db).power), power_r, "body",
              color=GOLD)
@@ -518,6 +519,9 @@ def go_back(app: Any) -> bool:
     """Esc на подготовке: закрыть список тактики; из редактора — туда, откуда пришли, из списков — на главный."""
     if getattr(app, "tactic_pick", None) is not None:
         app.tactic_pick = None
+        return True
+    if getattr(app, "tactic_passive", None) is not None:
+        app.tactic_passive = None                  # вернуться к тактикам юнита
         return True
     if app.view == PROMOTE:
         app.view = UNIT

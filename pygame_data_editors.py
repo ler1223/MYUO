@@ -10,6 +10,7 @@ from typing import Optional
 
 import pygame
 
+from game import roles
 from game.editing import new_unit_data, stat_default
 from game.stats import Stat
 from game.tags import TAG_UNIT
@@ -62,13 +63,19 @@ class ClassEditor:
         new = copy.deepcopy(data)
         key = ("class", unit_id)
 
-        # Название и ресурсы
+        # Название, id и ресурсы
         ui.text(t("Name"), x, TOP + 4, font="small")
-        name = ui.text_input((key, "name"), pygame.Rect(x + 76, TOP, 200, 24), data["name"])
+        name = ui.text_input((key, "name"), pygame.Rect(x + 76, TOP, 150, 24), data["name"])
         if name:
             new["name"] = name
-        ui.text(f"id: {unit_id}", x + 290, TOP + 5, DIM, "small")
-        for field, label, fx in (("ap_max", "AP max", 480), ("pp_max", "PP max", 610)):
+        ui.text(f"id: {unit_id}", x + 232, TOP + 5, DIM, "small", 104)
+        # Роли (game/roles.py): их может быть несколько; из ролей собираются группы набора башни
+        ui.text(t("Roles"), x + 338, TOP + 4, font="small")
+        role_choices = [(r, t(roles.TITLES[r])) for r in roles.ROLES]
+        picked = ui.multiselect((key, "roles"), pygame.Rect(x + 374, TOP, 148, 24), role_choices, definition.roles)
+        if picked is not None:
+            new["roles"] = picked
+        for field, label, fx in (("ap_max", "AP max", 530), ("pp_max", "PP max", 644)):
             ui.text(t(label), x + fx, TOP + 4, font="small")
             value = ui.number_input((key, field), pygame.Rect(x + fx + 64, TOP, 44, 24), data[field], 0, 9)
             if value is not None:

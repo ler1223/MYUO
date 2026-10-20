@@ -13,21 +13,22 @@
   passive/<тип>/<id>         пассивка               -> passive/<тип> -> passive
   stat/<стат>                иконка стата           -> stat
   icon/<имя>                 значки интерфейса      -> icon  (gold, exp, floor, boss, level)
-  portrait/<класс>           портрет класса         -> верх спрайта класса (assets/units) -> portrait
+  portrait/<класс>           портрет класса         -> голова куклы класса из UO (battle.figures) -> portrait
 """
 from __future__ import annotations
 
 from collections import OrderedDict
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 import pygame
 
+from battle.figures import Figures
 from game.skill_kinds import passive_kind, skill_kind
-from pygame_stage import SpriteBank
 
 UI_DIR = Path(__file__).resolve().parent / "assets" / "ui"
 CACHE = 600
+STILL_HEIGHT = 360         # рост человека в кадре, из которого режутся портреты и картинки фигур
 PORTRAIT_SHARE = 0.36      # верхняя доля фигуры, которая идёт в портрет (голова и плечи)
 
 
@@ -54,12 +55,19 @@ class ArtBank:
         self.folder = Path(folder)
         self._files: dict[str, Optional[pygame.Surface]] = {}
         self._sized: OrderedDict = OrderedDict()
+        # источники картинок важнее файлов: ключ -> картинка или None (иконки предметов из UO)
+        self.providers: list[Callable[[str], Optional[pygame.Surface]]] = []
+
+    def forget(self) -> None:
+        """Забыть загруженные картинки (поменялся справочник или источники)."""
+        self._files.clear()
+        self._sized.clear()
 
     def _load(self, key: str) -> Optional[pygame.Surface]:
         if key not in self._files:
             path = self.folder / f"{key}.png"
-            image = None
-            if path.is_file():
+            image = next((found for found in (provider(key) for provider in self.providers) if found is not None), None)
+            if image is None and path.is_file():
                 image = pygame.image.load(str(path))
                 if pygame.display.get_surface() is not None:
                     image = image.convert_alpha()
@@ -114,16 +122,16 @@ def _missing() -> pygame.Surface:
 
 
 class Portraits:
-    """Портреты классов: своя картинка portrait/<класс>, иначе верхняя часть спрайта, иначе заглушка.
+    """Портреты классов: своя картинка portrait/<класс>, иначе портрет UO (CharaFace), иначе голова
+    куклы боя, иначе заглушка.
 
-    Вырезка из спрайта: голова находится по верхним непрозрачным строкам, берётся квадрат
-    высотой PORTRAIT_SHARE роста фигуры. В assets/units/units.json у спрайта можно задать
-    "portrait": [центр x, верх, размер] в долях картинки, если вырезка выходит неудачной.
+    Вырезка из первого кадра стойки (battle.figures): голова находится по верхним непрозрачным
+    строкам, берётся квадрат высотой PORTRAIT_SHARE роста фигуры.
     """
 
-    def __init__(self, art: ArtBank, sprites: Optional[SpriteBank] = None):
+    def __init__(self, art: ArtBank, figures: Optional[Figures] = None):
         self.art = art
-        self.sprites = sprites or SpriteBank()
+        self.figures = figures or Figures()
         self._crops: dict[str, Optional[pygame.Surface]] = {}
         self._sized: OrderedDict = OrderedDict()
 
@@ -131,8 +139,7 @@ class Portraits:
         """Фигура целиком (карточки найма и набора)."""
         key = ("full", class_id, size, flip)
         if key not in self._sized:
-            sprite_id = self.sprites.sprite_for(class_id)
-            image = self.sprites.image(f"{sprite_id}.png") if sprite_id else None
+            image = self._still(class_id)
             if image is None:
                 image = self.art.find(f"portrait/{class_id}")[1]
             else:
@@ -144,7 +151,10 @@ class Portraits:
         """Квадратный портрет size x size."""
         key = ("portrait", class_id, size, flip)
         if key not in self._sized:
-            if self.art.has_own(f"portrait/{class_id}"):
+            face = None if self.art.has_own(f"portrait/{class_id}") else self.figures.face(class_id, size)
+            if face is not None:                      # портрет из игры (CharaFace)
+                image = face
+            elif self.art.has_own(f"portrait/{class_id}"):
                 image = self.art.image(f"portrait/{class_id}", (size, size), cover=True)
             else:
                 crop = self._crop(class_id)
@@ -157,20 +167,18 @@ class Portraits:
         if class_id in self._crops:
             return self._crops[class_id]
         crop = None
-        sprite_id = self.sprites.sprite_for(class_id)
-        image = self.sprites.image(f"{sprite_id}.png") if sprite_id else None
+        image = self._still(class_id)
         if image is not None:
-            iw, ih = image.get_size()
-            own = self.sprites.sprites.get(sprite_id, {}).get("portrait")
-            if own:
-                cx, top, side = own[0] * iw, own[1] * ih, own[2] * ih
-            else:
-                cx, top, side = _head_box(image)
+            cx, top, side = _head_box(image, STILL_HEIGHT)
             rect = pygame.Rect(round(cx - side / 2), round(top), round(side), round(side)).clip(image.get_rect())
             if rect.width > 4 and rect.height > 4:
                 crop = image.subsurface(rect).copy()
         self._crops[class_id] = crop
         return crop
+
+    def _still(self, class_id: str) -> Optional[pygame.Surface]:
+        found = self.figures.still(class_id, STILL_HEIGHT) if self.figures.has(class_id) else None
+        return found[0] if found else None
 
     def _remember(self, key, image: pygame.Surface) -> None:
         self._sized[key] = image
@@ -185,19 +193,25 @@ class Portraits:
 HEAD_MIN_WIDTH = 0.16      # голова шире древка: строка фигуры шире этой доли — уже голова, а не оружие
 
 
-def _head_box(image: pygame.Surface) -> tuple[float, float, float]:
+HEAD_WIDTH = 0.07         # ширина головы в долях роста человека (древко копья много уже)
+
+
+def _head_box(image: pygame.Surface, human: Optional[float] = None) -> tuple[float, float, float]:
     """(центр x, верх, сторона) квадрата с головой и плечами.
 
     Верх фигуры часто — наконечник копья или навершие посоха, поэтому голова ищется как первая
     строка, где непрозрачная часть шире HEAD_MIN_WIDTH ширины фигуры; центр — середина
-    непрозрачных пикселей в полосе головы.
+    непрозрачных пикселей в полосе головы. human — рост человека в пикселях картинки: тогда
+    ширина головы и сторона квадрата — от него (всадник с конём и копьём выше человека втрое).
     """
     box = image.get_bounding_rect()
     try:
         import numpy  # есть вместе с pygame-ce в обычной установке; без него — грубая вырезка
         alpha = pygame.surfarray.array_alpha(image)[box.left:box.right, box.top:box.bottom] > 60
     except (ImportError, ValueError):
-        return box.centerx, box.top, box.height * PORTRAIT_SHARE
+        return box.centerx, box.top, (human or box.height) * PORTRAIT_SHARE
+    if human:
+        return _rider_head(alpha, box, human)
     # Середина туловища: на этой высоте оружие тонкое, а тело широкое
     torso = alpha[:, round(box.height * 0.22):round(box.height * 0.42)].sum(axis=1)
     center = float((numpy.arange(len(torso)) * torso).sum() / torso.sum()) if torso.sum() else box.width / 2
@@ -213,6 +227,21 @@ def _head_box(image: pygame.Surface) -> tuple[float, float, float]:
     if columns.sum():
         center = max(0, round(center - side / 2)) + float((numpy.arange(len(columns)) * columns).sum() / columns.sum())
     return box.left + center, box.top + head - side * 0.06, side
+
+
+def _rider_head(alpha, box: pygame.Rect, human: float) -> tuple[float, float, float]:
+    """Голова по росту человека: первая строка (подряд несколько), где фигура шире головы."""
+    import numpy
+    side = human * PORTRAIT_SHARE
+    wide = alpha.sum(axis=0) >= human * HEAD_WIDTH
+    run = max(2, round(human * 0.02))
+    rows = numpy.convolve(wide.astype(int), numpy.ones(run, dtype=int), "valid")
+    found = numpy.nonzero(rows >= run)[0]
+    head = int(found[0]) if len(found) else 0
+    band = alpha[:, head:head + max(1, round(side * 0.3))]
+    columns = band.sum(axis=1)
+    center = float((numpy.arange(len(columns)) * columns).sum() / columns.sum()) if columns.sum() else box.width / 2
+    return box.left + center, box.top + head - side * 0.08, side
 
 
 def _flip(image: pygame.Surface, flip: bool) -> pygame.Surface:

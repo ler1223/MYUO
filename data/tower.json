@@ -1,9 +1,16 @@
 {
   "start_gold": 100,
   "draft": {
-    "picks": 3,
     "choices": 3,
-    "level": 1
+    "level": 1,
+    "groups": [
+      {"role": "warrior"},
+      {"role": "archer"},
+      {"role": "mage"},
+      {"role": "support"},
+      {"role": "tank"},
+      {"role": "healer"}
+    ]
   },
   "starter_tier": 1,
   "starter_gear": {

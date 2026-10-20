@@ -1,0 +1,1555 @@
+{
+ "source": "таблица предметов в данных main + UcItemList.fms",
+ "stat_ids": {
+  "105": [
+   "Accuracy",
+   "+",
+   false
+  ],
+  "109": [
+   "Critical Rate",
+   "+",
+   true
+  ],
+  "114": [
+   "Initiative",
+   "+",
+   false
+  ],
+  "90": [
+   "Magick Defense",
+   "+",
+   false
+  ],
+  "85": [
+   "Max HP",
+   "+",
+   false
+  ],
+  "84": [
+   "Base PP",
+   "+",
+   false
+  ],
+  "220": [
+   "Initiative",
+   "-",
+   false
+  ],
+  "207": [
+   "HP",
+   "-",
+   false
+  ],
+  "219": [
+   "Guard Rate",
+   "-",
+   true
+  ],
+  "217": [
+   "Critical Rate",
+   "-",
+   true
+  ],
+  "88": [
+   "Physickal Defense",
+   "+",
+   false
+  ],
+  "110": [
+   "Guard Rate",
+   "+",
+   true
+  ],
+  "106": [
+   "Evasion",
+   "+",
+   false
+  ],
+  "52": [
+   "Follow-up Skills Deal +{n} Damage",
+   "T",
+   false
+  ],
+  "43": [
+   "Heal {n}% HP when using Active Skill",
+   "T",
+   true
+  ],
+  "83": [
+   "Base AP",
+   "+",
+   false
+  ],
+  "64": [
+   "Poison Immunity",
+   "R",
+   false
+  ],
+  "65": [
+   "Burn Immunity",
+   "R",
+   false
+  ],
+  "66": [
+   "Freeze Immunity",
+   "R",
+   false
+  ],
+  "68": [
+   "Blindness Immunity",
+   "R",
+   false
+  ],
+  "91": [
+   "Critical Damage",
+   "+",
+   true
+  ],
+  "16": [
+   "User's Unit Earns +{n}% Gold",
+   "T",
+   true
+  ],
+  "82": [
+   "All Stats",
+   "+",
+   false
+  ],
+  "72": [
+   "Debuff Immunity",
+   "R",
+   false
+  ],
+  "71": [
+   "Passive Seal Immunity",
+   "R",
+   false
+  ],
+  "67": [
+   "Stun Immunity",
+   "R",
+   false
+  ],
+  "212": [
+   "Magickal Defense",
+   "+",
+   false
+  ],
+  "112": [
+   "Guard Efficiency",
+   "+",
+   true
+  ],
+  "15": [
+   "User Earns +{n}% EXP",
+   "T",
+   true
+  ],
+  "87": [
+   "Physickal Attack",
+   "+",
+   false
+  ],
+  "141": [
+   "HP Recovery",
+   "+",
+   true
+  ],
+  "70": [
+   "Guard Seal Immunity",
+   "R",
+   false
+  ],
+  "51": [
+   "Counterattack Skills have +{n} Potency",
+   "T",
+   false
+  ],
+  "140": [
+   "Take {n}% Less Damage",
+   "T",
+   true
+  ],
+  "204": [
+   "All Stats",
+   "-",
+   false
+  ],
+  "130": [
+   "Physickal Attack",
+   "+",
+   true
+  ],
+  "131": [
+   "Magick Attack",
+   "+",
+   true
+  ],
+  "50": [
+   "Drain Skill Efficiency",
+   "+",
+   true
+  ],
+  "89": [
+   "Magick Attack",
+   "+",
+   false
+  ],
+  "137": [
+   "Physickal Defense",
+   "+",
+   true
+  ],
+  "138": [
+   "Magick Defense",
+   "+",
+   true
+  ],
+  "69": [
+   "Deathblow Immunity",
+   "R",
+   false
+  ],
+  "73": [
+   "Affliction Immunity",
+   "R",
+   false
+  ]
+ },
+ "new_items": [
+  {
+   "name": "Mist Scimitar",
+   "kind": "sword",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Evade"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 322,
+   "game_internal": "SWORD_SKILL_08"
+  },
+  {
+   "name": "Cursed Blade of the Abyss",
+   "kind": "sword",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 338,
+   "game_internal": "SWORD_BOSS_01"
+  },
+  {
+   "name": "Cursed Blade of the Abyss II",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 339,
+   "game_internal": "SWORD_BOSS_02"
+  },
+  {
+   "name": "Greatsword of the Abyss",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 340,
+   "game_internal": "SWORD_BOSS_03"
+  },
+  {
+   "name": "Red Rose",
+   "kind": "sword",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Firestorm"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Critical Damage +15%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 341,
+   "game_internal": "SWORD_UNIQUE_01"
+  },
+  {
+   "name": "Blue Rose",
+   "kind": "sword",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Icestorm"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "Critical Damage +15%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 342,
+   "game_internal": "SWORD_UNIQUE_02"
+  },
+  {
+   "name": "Notus",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 345,
+   "game_internal": "SWORD_LEGEND_02"
+  },
+  {
+   "name": "Rosularis",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 346,
+   "game_internal": "SWORD_LEGEND_03"
+  },
+  {
+   "name": "Sainted Sword",
+   "kind": "sword",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 347,
+   "game_internal": "SWORD_LEGEND_04"
+  },
+  {
+   "name": "Zenoiran Knight's Spear",
+   "kind": "spear",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magick Defense +4"
+   ],
+   "price": 10000,
+   "classes": "",
+   "game_id": 373,
+   "game_internal": "LANCE_KNIGHT_04"
+  },
+  {
+   "name": "Salamander Spear",
+   "kind": "spear",
+   "phys_atk": 17,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 374,
+   "game_internal": "LANCE_KNIGHT_05"
+  },
+  {
+   "name": "Sacred Heart Spear",
+   "kind": "spear",
+   "phys_atk": 23,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 375,
+   "game_internal": "LANCE_KNIGHT_06"
+  },
+  {
+   "name": "Usurper's Spear",
+   "kind": "spear",
+   "phys_atk": 18,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Provoking Strike"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 391,
+   "game_internal": "LANCE_SKILL_06"
+  },
+  {
+   "name": "Death Pillar",
+   "kind": "spear",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Lethal Venom"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 20000,
+   "classes": "",
+   "game_id": 405,
+   "game_internal": "LANCE_BOSS_03"
+  },
+  {
+   "name": "Cursed Lance of the Abyss",
+   "kind": "spear",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 406,
+   "game_internal": "LANCE_BOSS_04"
+  },
+  {
+   "name": "Cursed Lance of the Abyss II",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 407,
+   "game_internal": "LANCE_BOSS_05"
+  },
+  {
+   "name": "Kingslance Elhal",
+   "kind": "spear",
+   "phys_atk": 10,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 410,
+   "game_internal": "LANCE_LEGEND_01"
+  },
+  {
+   "name": "Zephyros",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 411,
+   "game_internal": "LANCE_LEGEND_02"
+  },
+  {
+   "name": "Orchis",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 412,
+   "game_internal": "LANCE_LEGEND_03"
+  },
+  {
+   "name": "Sainted Spear",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 413,
+   "game_internal": "LANCE_LEGEND_04"
+  },
+  {
+   "name": "Lance of Devotion",
+   "kind": "spear",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 414,
+   "game_internal": "LANCE_LEGEND_05"
+  },
+  {
+   "name": "Recruit's Handaxe",
+   "kind": "axe",
+   "phys_atk": 11,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +3",
+    "User Earns +20% EXP"
+   ],
+   "price": 1500,
+   "classes": "",
+   "game_id": 416,
+   "game_internal": "AXE_01_1"
+  },
+  {
+   "name": "Obsidian Axe",
+   "kind": "axe",
+   "phys_atk": 10,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 441,
+   "game_internal": "AXE_STATUS_01"
+  },
+  {
+   "name": "Nameless Greataxe",
+   "kind": "axe",
+   "phys_atk": 10,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 442,
+   "game_internal": "AXE_STATUS_02"
+  },
+  {
+   "name": "Veteran's Axe",
+   "kind": "axe",
+   "phys_atk": 10,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 443,
+   "game_internal": "AXE_STATUS_03"
+  },
+  {
+   "name": "Berserker's Battleaxe",
+   "kind": "axe",
+   "phys_atk": 10,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Demolition"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 462,
+   "game_internal": "AXE_GLADIATOR_01"
+  },
+  {
+   "name": "Runic Axe",
+   "kind": "axe",
+   "phys_atk": 8,
+   "mag_atk": 14,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Attack"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 12000,
+   "classes": "",
+   "game_id": 464,
+   "game_internal": "AXE_MAGIC_01"
+  },
+  {
+   "name": "Black Axe of the Abyss",
+   "kind": "axe",
+   "phys_atk": 13,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 470,
+   "game_internal": "AXE_BOSS_01"
+  },
+  {
+   "name": "Black Axe of the Abyss II",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +2",
+    "Accuracy +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 471,
+   "game_internal": "AXE_BOSS_02"
+  },
+  {
+   "name": "Cursed Axe of the Abyss",
+   "kind": "axe",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 472,
+   "game_internal": "AXE_BOSS_03"
+  },
+  {
+   "name": "Cursed Axe of the Abyss II",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 473,
+   "game_internal": "AXE_BOSS_04"
+  },
+  {
+   "name": "Boreas",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 477,
+   "game_internal": "AXE_REGEND_02"
+  },
+  {
+   "name": "Helleborus",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 478,
+   "game_internal": "AXE_REGEND_03"
+  },
+  {
+   "name": "Sainted Axe",
+   "kind": "axe",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 479,
+   "game_internal": "AXE_REGEND_04"
+  },
+  {
+   "name": "Zenoiran Knight's Bow",
+   "kind": "bow",
+   "phys_atk": 20,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +15",
+    "Physickal Defense +4",
+    "Magick Defense +4"
+   ],
+   "price": 10000,
+   "classes": "",
+   "game_id": 505,
+   "game_internal": "BOW_KNIGHT_04"
+  },
+  {
+   "name": "Runic Bow",
+   "kind": "bow",
+   "phys_atk": 8,
+   "mag_atk": 14,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Magick Attack"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Magick Defense +3"
+   ],
+   "price": 12000,
+   "classes": "",
+   "game_id": 534,
+   "game_internal": "BOW_MAGIC_01"
+  },
+  {
+   "name": "Replica Alminster",
+   "kind": "bow",
+   "phys_atk": 22,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +30"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 540,
+   "game_internal": "BOW_UNIQUE_02"
+  },
+  {
+   "name": "Apeliotes",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 543,
+   "game_internal": "BOW_LEGEND_02"
+  },
+  {
+   "name": "Quince",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 544,
+   "game_internal": "BOW_LEGEND_03"
+  },
+  {
+   "name": "Sainted Bow",
+   "kind": "bow",
+   "phys_atk": 25,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 545,
+   "game_internal": "BOW_LEGEND_04"
+  },
+  {
+   "name": "Baroque Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 13,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Accuracy +5"
+   ],
+   "price": 2000,
+   "classes": "",
+   "game_id": 549,
+   "game_internal": "ROD_01_2"
+  },
+  {
+   "name": "Carnat Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 19,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Initiative +2"
+   ],
+   "price": 4000,
+   "classes": "",
+   "game_id": 553,
+   "game_internal": "ROD_02_2"
+  },
+  {
+   "name": "Vorpal Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 23,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +5",
+    "Initiative +3"
+   ],
+   "price": 6000,
+   "classes": "",
+   "game_id": 557,
+   "game_internal": "ROD_03_2"
+  },
+  {
+   "name": "Raven Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 570,
+   "game_internal": "ROD_KNIGHT_5"
+  },
+  {
+   "name": "Twilight Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 23,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 571,
+   "game_internal": "ROD_KNIGHT_6"
+  },
+  {
+   "name": "Meteorite Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 24,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Guard Rate +10%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 577,
+   "game_internal": "ROD_STATUS_05"
+  },
+  {
+   "name": "Undead Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Magick Defense +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 614,
+   "game_internal": "ROD_BOSS_02"
+  },
+  {
+   "name": "Heavenswing Staff",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 23,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +20",
+    "Initiative +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 616,
+   "game_internal": "ROD_BOSS_04"
+  },
+  {
+   "name": "Sanguis Mea",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Sanguine Rain"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +2",
+    "Max HP +20"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 617,
+   "game_internal": "ROD_BOSS_05"
+  },
+  {
+   "name": "Cursed Staff of the Abyss",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 20,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 618,
+   "game_internal": "ROD_BOSS_06"
+  },
+  {
+   "name": "Cursed Staff of the Abyss II",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Passive Seal Immunity",
+    "Deathblow Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 619,
+   "game_internal": "ROD_BOSS_07"
+  },
+  {
+   "name": "Euros",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base AP +1",
+    "Initiative +10",
+    "Evasion +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 625,
+   "game_internal": "ROD_LEGEND_02"
+  },
+  {
+   "name": "Lupine",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "HP Recovery +30%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 626,
+   "game_internal": "ROD_LEGEND_03"
+  },
+  {
+   "name": "Sainted Rod",
+   "kind": "staff",
+   "phys_atk": 0,
+   "mag_atk": 25,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Affliction Immunity",
+    "Heal 20% HP when using Active Skill"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 627,
+   "game_internal": "ROD_LEGEND_04"
+  },
+  {
+   "name": "Watchman's Buckler",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 4,
+   "mag_def": 0,
+   "guard_rate": 20,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Blindness Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 660,
+   "game_internal": "SHIELD_TOWER_01"
+  },
+  {
+   "name": "Mercenary’s Shield",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 6,
+   "mag_def": 0,
+   "guard_rate": 18,
+   "skills": [
+    "Vengeful Guard"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Critical Rate +5%"
+   ],
+   "price": 10000,
+   "classes": "",
+   "game_id": 685,
+   "game_internal": "SHIELD_GUARD_02"
+  },
+  {
+   "name": "Caecius",
+   "kind": "shield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 8,
+   "mag_def": 0,
+   "guard_rate": 30,
+   "skills": [
+    "Hastened Cover"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +25%",
+    "Initiative +10"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 705,
+   "game_internal": "SHIELD_LEGEND_01"
+  },
+  {
+   "name": "Heavenswing Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 734,
+   "game_internal": "SHIELD_L_KNIGNT_06"
+  },
+  {
+   "name": "Skiron Greatshield",
+   "kind": "greatshield",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 16,
+   "mag_def": 0,
+   "guard_rate": 40,
+   "skills": [
+    "Hastened Cover"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Guard Efficiency +50%",
+    "Initiative +5"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 766,
+   "game_internal": "SHIELD_L_LEGEND_01"
+  },
+  {
+   "name": "Ervélda Talisman",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +30"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 804,
+   "game_internal": "ACC_HP_03"
+  },
+  {
+   "name": "Sainted Broach",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 3,
+   "mag_def": 3,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Heal 20% HP when using Active Skill",
+    "Affliction Immunity"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 823,
+   "game_internal": "ACC_REGE_04"
+  },
+  {
+   "name": "Libonotus Wind Ring",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Hastened Action"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 849,
+   "game_internal": "ACC_QUICKMOVE_02"
+  },
+  {
+   "name": "Riot Belt",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 1,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Wide Counter"
+   ],
+   "skill_cost": "",
+   "stats": [],
+   "price": 0,
+   "classes": "",
+   "game_id": 895,
+   "game_internal": "ACC_COUNTER_02"
+  },
+  {
+   "name": "Ring of the Maiden",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 963,
+   "game_internal": "ACC_STORY_05"
+  },
+  {
+   "name": "Ring of the Maiden II",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [
+    "Celestial Light"
+   ],
+   "skill_cost": "",
+   "stats": [
+    "Base PP +1",
+    "All Stats +5"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 964,
+   "game_internal": "ACC_STORY_06"
+  },
+  {
+   "name": "HP +50",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +50"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 965,
+   "game_internal": "ACC_DEBUG_1"
+  },
+  {
+   "name": "HP +200",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Max HP +200"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 966,
+   "game_internal": "ACC_DEBUG_2"
+  },
+  {
+   "name": "STR +100",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +100"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 967,
+   "game_internal": "ACC_DEBUG_3"
+  },
+  {
+   "name": "Physical Attack +",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Physickal Attack +100%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 968,
+   "game_internal": "ACC_DEBUG_4"
+  },
+  {
+   "name": "Magical Attack +",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Magick Attack +100%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 969,
+   "game_internal": "ACC_DEBUG_5"
+  },
+  {
+   "name": "Critical Damage +",
+   "kind": "accessory",
+   "phys_atk": 0,
+   "mag_atk": 0,
+   "phys_def": 0,
+   "mag_def": 0,
+   "guard_rate": 0,
+   "skills": [],
+   "skill_cost": "",
+   "stats": [
+    "Critical Damage +100%"
+   ],
+   "price": 0,
+   "classes": "",
+   "game_id": 970,
+   "game_internal": "ACC_DEBUG_6"
+  }
+ ]
+}

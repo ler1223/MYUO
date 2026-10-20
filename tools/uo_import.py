@@ -461,7 +461,7 @@ class Importer:
         ("after an ally is hit by an attack", {"event": "attacked", "whose": "ally", "outcome": "landed"}),
         ("before being hit by a physickal attack", {"event": "targeted", "whose": "self", "attack_tags": ["physical"]}),
         ("after using an active skill", {"event": "skill_used", "whose": "self"}),
-        ("at the end", {"event": "round_end", "limit": "battle"}),
+        ("at the end", {"event": "battle_end"}),
         ("after an ally attacks", {"event": "skill_used", "whose": "ally"}),
         ("before being attacked", {"event": "targeted", "whose": "self"}),
         ("before an ally attacks", {"event": "before_skill", "whose": "ally"}),

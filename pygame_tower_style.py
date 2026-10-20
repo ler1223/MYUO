@@ -123,16 +123,39 @@ def portrait(ui: Gui, app: Any, class_id: str, rect: pygame.Rect, kind: str = "n
 
 
 def figure(ui: Gui, app: Any, class_id: str, feet: tuple[int, int], height: int, flip: bool = False,
-           alpha: int = 255) -> pygame.Rect:
-    """Фигура класса в полный рост, стоящая ногами в точке feet. Возвращает её прямоугольник."""
-    bank = app.stage.bank
-    sprite_id = bank.sprite_for(class_id)
-    sprite, _ = bank.unit_sprite(sprite_id, max(8, round(height * bank.ratio(sprite_id))), flip)
+           alpha: int = 255, look: int = 0) -> pygame.Rect:
+    """Фигура класса в полный рост, стоящая ногами в точке feet (height — рост человека в пикселях).
+    Кукла UO стоит в стойке по кругу (battle.figures); без неё — картинка app.portraits.full.
+    Возвращает прямоугольник фигуры."""
+    pose = app.figures.pose(class_id, pygame.time.get_ticks(), max(8, height), flip, look)
+    if pose is not None:
+        sprite, origin = pose
+        rect = sprite.get_rect(topleft=(round(feet[0] - origin[0]), round(feet[1] - origin[1])))
+    else:
+        sprite = app.portraits.full(class_id, (max(8, round(height * 0.6)), max(8, round(height))), flip)
+        rect = sprite.get_rect(midbottom=feet)
     if alpha < 255:
         sprite = sprite.copy()
         sprite.set_alpha(alpha)
-    rect = sprite.get_rect(midbottom=feet)
     ui.screen.blit(sprite, rect)
+    return rect
+
+
+def full_figure(ui: Gui, app: Any, class_id: str, size: tuple[int, int], feet: tuple[int, int],
+                flip: bool = False, look: int = 0) -> pygame.Rect:
+    """Фигура класса, вписанная в size и стоящая ногами в точке feet (карточки найма, экран бойца).
+    Кукла UO стоит в стойке по кругу, иначе — картинка app.portraits.full."""
+    figures = app.figures
+    if figures.has(class_id, look):
+        pose = figures.pose(class_id, pygame.time.get_ticks(), figures.fit(class_id, size, look), flip, look)
+        if pose is not None:
+            sprite, origin = pose
+            rect = sprite.get_rect(topleft=(round(feet[0] - origin[0]), round(feet[1] - origin[1])))
+            ui.screen.blit(sprite, rect)
+            return rect
+    image = app.portraits.full(class_id, size, flip)
+    rect = image.get_rect(midbottom=feet)
+    ui.screen.blit(image, rect)
     return rect
 
 

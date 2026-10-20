@@ -1,0 +1,4029 @@
+{
+  "_comment": "Анимации юнитов из файлов Unicorn Overlord (tools/uo_extract/build_anims.py собирает их в assets/uo_anim, папка не хранится в git). classes: класс -> файл .mbs из папки Chara распакованной игры и вариант внешности (variant, 0 — первый; в одном файле обычно несколько шлемов и причёсок). Классов без файла здесь нет — у них остаются обычные спрайты. states: состояние -> какие анимации файла взять; chain — регулярные выражения по порядку, берётся первое, у которого есть совпадения, и все анимации этой группы по порядку (ATTACK_A1, ATTACK_A2, …) идут частями одного состояния; fps — своя частота кадров (у стойки ниже: она длинная, а движения в ней медленные). human — класс, чей рост в стойке считается ростом человека. Ручной выбор (правит редактор: python tools/uo_extract/anim_editor.py --src <папка игры>): у класса states.<состояние> — список частей: имя анимации или {anim, from, to} (тики, 60 в секунду); пустой список — состояния нет. broken: файл -> анимации, которые правила не берут (битые).",
+  "human": "soldier",
+  "scale": 0.8,
+  "fps": 30,
+  "states": {
+    "idle": {
+      "chain": [
+        "^UPWARD$",
+        "^UPWARD_IDLE$",
+        "^UPWARD_END$"
+      ],
+      "loop": true,
+      "fps": 15
+    },
+    "attack": {
+      "chain": [
+        "^ATTACK_A\\d+$",
+        "^ATTACK_\\d+$",
+        "^ATTACK_[A-Z]\\d*$"
+      ]
+    },
+    "skill": {
+      "chain": [
+        "^SKILL_A\\d+$",
+        "^SKILL_[A-Z]\\d+$"
+      ]
+    },
+    "hit": {
+      "chain": [
+        "^KNOCKBACK$"
+      ]
+    },
+    "avoid": {
+      "chain": [
+        "^AVOID$"
+      ]
+    },
+    "guard": {
+      "chain": [
+        "^GUARD$"
+      ]
+    },
+    "cover": {
+      "chain": [
+        "^COVER_A\\d$"
+      ]
+    },
+    "die": {
+      "chain": [
+        "^DIE$",
+        "^DIE_BLOW_\\d$",
+        "^DOWN$"
+      ]
+    },
+    "victory": {
+      "chain": [
+        "^VICTORY_1$"
+      ]
+    }
+  },
+  "classes": {
+    "fighter": {
+      "file": "Fighter_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_1"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": []
+      },
+      "skills": {}
+    },
+    "vanguard": {
+      "file": "Fighter_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_1"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_GUARD_IDLE_1",
+          "S02_GUARD_IDLE_2",
+          "S02_GUARD_IDLE_END",
+          "S02_ATTACK_F1",
+          "S02_ATTACK_F2",
+          "S02_ATTACK_F3",
+          "S02_ATTACK_F4"
+        ]
+      },
+      "skills": {}
+    },
+    "gladiator": {
+      "file": "Gladiator_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      },
+      "skills": {
+        "wide_smash": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "wide_counter_strike": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2"
+        ]
+      }
+    },
+    "berserker": {
+      "file": "Gladiator_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      },
+      "skills": {
+        "wide_smash": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "grand_smash": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2"
+        ],
+        "wide_counter_strike": [
+          "S04_ATTACK_B3",
+          "S04_ATTACK_B4",
+          "S04_ATTACK_B5"
+        ]
+      }
+    },
+    "hoplite": {
+      "file": "Hoplite_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A2_TO_IDLE"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A2_TO_IDLE"
+        ]
+      },
+      "skills": {
+        "sting": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A2_TO_IDLE"
+        ]
+      }
+    },
+    "legionnaire": {
+      "file": "Hoplite_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A2_TO_IDLE"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A2_TO_IDLE"
+        ]
+      },
+      "skills": {
+        "sting": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A2_TO_IDLE"
+        ]
+      }
+    },
+    "housecarl": {
+      "file": "Huscarl_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B"
+        ]
+      },
+      "skills": {
+        "smash": [
+          "S02_ATTACK_B"
+        ],
+        "rolling_axe": [
+          "S03_ATTACK_C"
+        ],
+        "parting_blow_strike": [
+          "S04_ATTACK_C"
+        ],
+        "frenzied_strike_strike": [
+          "S05_ATTACK_C"
+        ]
+      }
+    },
+    "viking": {
+      "file": "Huscarl_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B"
+        ]
+      },
+      "skills": {
+        "smash": [
+          "S02_ATTACK_B"
+        ],
+        "rolling_axe": [
+          "S03_ATTACK_C"
+        ],
+        "wide_breaker": [
+          "S04_ATTACK_C"
+        ],
+        "parting_blow_strike": [
+          "S05_ATTACK_C"
+        ]
+      }
+    },
+    "hunter": {
+      "file": "Hunter_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S03_ATTACK_B",
+          "S03_ATTACK_B_IDLE",
+          "S03_ATTACK_B_2",
+          "S03_ATTACK_B_IDLE2"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ARROW_RAIN_3"
+        ]
+      },
+      "skills": {
+        "pursuit_strike": [
+          "S20_CHASE"
+        ],
+        "single_shot": [
+          "S03_ATTACK_B",
+          "S03_ATTACK_B_IDLE",
+          "S03_ATTACK_B_2",
+          "S03_ATTACK_B_IDLE2"
+        ],
+        "dual_shot": [
+          "S04_ATTACK_B_END",
+          "S04_ATTACK_B_END2"
+        ]
+      }
+    },
+    "sniper": {
+      "file": "Hunter_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S03_ATTACK_B",
+          "S03_ATTACK_B_IDLE",
+          "S03_ATTACK_B_2"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ARROW_RAIN_3"
+        ]
+      },
+      "skills": {
+        "pursuit_strike": [
+          "S20_CHASE"
+        ],
+        "single_shot": [
+          "S03_ATTACK_B",
+          "S03_ATTACK_B_IDLE",
+          "S03_ATTACK_B_2"
+        ],
+        "dual_shot": [
+          "S04_ATTACK_B_END",
+          "S04_ATTACK_B_END2"
+        ],
+        "row_shot": [
+          "S05_ATTACK_C",
+          "S05_ATTACK_C_IDLE",
+          "S05_ATTACK_C_END"
+        ],
+        "aerial_snipe_strike": [
+          "S06_ATTACK_C",
+          "S06_ATTACK_C_IDLE",
+          "S06_ATTACK_C_END"
+        ]
+      }
+    },
+    "knight": {
+      "file": "Knight_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_1",
+          "S01_ATTACK_2",
+          "S01_ATTACK_3",
+          "S01_ATTACK_4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S03_ATTACK_C1",
+          "S03_ATTACK_C2_F",
+          "S03_ATTACK_C2_B",
+          "S03_ATTACK_C2_F_ATK",
+          "S03_ATTACK_C2_B_ATK",
+          "S03_ATTACK_C2"
+        ]
+      },
+      "skills": {
+        "assaulting_lance": [
+          "S03_ATTACK_C1",
+          "S03_ATTACK_C2_F",
+          "S03_ATTACK_C2_B",
+          "S03_ATTACK_C2_F_ATK",
+          "S03_ATTACK_C2_B_ATK",
+          "S03_ATTACK_C2"
+        ]
+      }
+    },
+    "great_knight": {
+      "file": "Knight_HG_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_1",
+          "S01_ATTACK_2",
+          "S01_ATTACK_3",
+          "S01_ATTACK_4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B2_2"
+        ]
+      },
+      "skills": {
+        "assaulting_lance": [
+          "S02_ATTACK_B2_2"
+        ],
+        "wild_rush": [
+          "S03_ATTACK_C1",
+          "S03_ATTACK_C2_F",
+          "S03_ATTACK_C2_B",
+          "S03_ATTACK_C2_F_ATK",
+          "S03_ATTACK_C2_B_ATK",
+          "S03_ATTACK_C2"
+        ]
+      }
+    },
+    "lord": {
+      "file": "Lord_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A2_TO_IDLE"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2_TO_IDLE"
+        ]
+      },
+      "skills": {
+        "lean_edge": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2_TO_IDLE"
+        ]
+      }
+    },
+    "high_lord": {
+      "file": "Lord_HG_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      },
+      "skills": {
+        "lean_edge": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      }
+    },
+    "prince": {
+      "file": "Prince_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S04_SKILL_A1",
+          "S04_SKILL_A2",
+          "S04_SKILL_A3"
+        ]
+      },
+      "skills": {}
+    },
+    "sellsword": {
+      "file": "Mercenary_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "heavy_slash": [
+          "S04_MEGA_SLASH_1",
+          "S04_MEGA_SLASH_2"
+        ],
+        "killing_chain": [
+          "S02_ATTACK"
+        ],
+        "following_slash_strike": [
+          "S05_ATTACK_B1",
+          "S05_ATTACK_B2"
+        ]
+      }
+    },
+    "landsknecht": {
+      "file": "Mercenary_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "heavy_slash": [
+          "S04_MEGA_SLASH_1",
+          "S04_MEGA_SLASH_2"
+        ],
+        "killing_chain": [
+          "S02_ATTACK"
+        ],
+        "bastards_cross": [
+          "S05_ATTACK_B1",
+          "S05_ATTACK_B2"
+        ],
+        "following_slash_strike": [
+          "S06_ATTACK_C1"
+        ]
+      }
+    },
+    "soldier": {
+      "file": "Soldier_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B_TO_IDLE"
+        ]
+      },
+      "skills": {
+        "long_thrust": [
+          "S02_ATTACK_B_TO_IDLE"
+        ],
+        "javelin": [
+          "S03_ATTACK_C_1",
+          "S03_ATTACK_C_2"
+        ]
+      }
+    },
+    "sergeant": {
+      "file": "Soldier_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B_TO_IDLE"
+        ]
+      },
+      "skills": {
+        "long_thrust": [
+          "S02_ATTACK_B_TO_IDLE"
+        ],
+        "javelin": [
+          "S03_ATTACK_C_1",
+          "S03_ATTACK_C_2"
+        ],
+        "honed_spear": [
+          "S04_ATTACK_C_END"
+        ]
+      }
+    },
+    "swordfighter": {
+      "file": "Swordsman_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S02_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "hastened_strike_strike": [
+          "S01_FAST_STRIKE"
+        ],
+        "keen_edge": [
+          "S02_ATTACK"
+        ],
+        "impale": [
+          "S03_ATTACK_B"
+        ]
+      }
+    },
+    "sword_master": {
+      "file": "Swordsman_HG_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S02_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "hastened_strike_strike": [
+          "S01_FAST_STRIKE"
+        ],
+        "keen_edge": [
+          "S02_ATTACK"
+        ],
+        "impale": [
+          "S03_ATTACK_B"
+        ]
+      }
+    },
+    "thief": {
+      "file": "Thief_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "passive_steal": [
+          "S02_ATTACK"
+        ],
+        "toxic_throw": [
+          "S05_ATTACK_B1",
+          "S05_ATTACK_B2",
+          "S05_ATTACK_B3"
+        ]
+      }
+    },
+    "rogue": {
+      "file": "Thief_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "passive_steal": [
+          "S02_ATTACK"
+        ],
+        "toxic_throw": [
+          "S05_ATTACK_B1",
+          "S05_ATTACK_B2",
+          "S05_ATTACK_B3"
+        ]
+      }
+    },
+    "warrior": {
+      "file": "Warrior_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_1",
+          "S01_ATTACK_2",
+          "S01_ATTACK_3",
+          "S01_ATTACK_4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_1",
+          "S02_ATTACK_2",
+          "S02_ATTACK_3",
+          "S02_ATTACK_4"
+        ]
+      },
+      "skills": {
+        "heavy_smash": [
+          "S02_ATTACK_1",
+          "S02_ATTACK_2",
+          "S02_ATTACK_3",
+          "S02_ATTACK_4"
+        ]
+      }
+    },
+    "breaker": {
+      "file": "Warrior_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK_1",
+          "S01_ATTACK_2",
+          "S01_ATTACK_3",
+          "S01_ATTACK_4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_1",
+          "S02_ATTACK_2",
+          "S02_ATTACK_3",
+          "S02_ATTACK_4"
+        ]
+      },
+      "skills": {
+        "heavy_smash": [
+          "S02_ATTACK_1",
+          "S02_ATTACK_2",
+          "S02_ATTACK_3",
+          "S02_ATTACK_4"
+        ]
+      }
+    },
+    "shaman": {
+      "file": "Shaman_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S06_MAGIC_B",
+          "S06_MAGIC_B_IDLE",
+          "S06_MAGIC_B_2",
+          "S06_MAGIC_B_IDLE2",
+          "S06_MAGIC_B_END"
+        ]
+      },
+      "skills": {
+        "passive_curse": [
+          "S04_PASSIVE_CURSE_1",
+          "S04_PASSIVE_CURSE_2",
+          "S04_PASSIVE_CURSE_3",
+          "S04_PASSIVE_CURSE_4",
+          "S04_PASSIVE_CURSE_5"
+        ]
+      }
+    },
+    "druid": {
+      "file": "Shaman_HG_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S06_MAGIC_B",
+          "S06_MAGIC_B_IDLE",
+          "S06_MAGIC_B_2",
+          "S06_MAGIC_B_IDLE2",
+          "S06_MAGIC_B_END"
+        ]
+      },
+      "skills": {
+        "passive_curse": [
+          "S04_PASSIVE_CURSE_1",
+          "S04_PASSIVE_CURSE_2",
+          "S04_PASSIVE_CURSE_3",
+          "S04_PASSIVE_CURSE_4",
+          "S04_PASSIVE_CURSE_5"
+        ]
+      }
+    },
+    "witch": {
+      "file": "Witch_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_MAGIC_A_1",
+          "S01_MAGIC_A_2",
+          "S01_MAGIC_A_END"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_MAGIC_A_1",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_END"
+        ]
+      },
+      "skills": {
+        "icebolt": [
+          "S02_MAGIC_A_1",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_END"
+        ],
+        "magick_missile": [
+          "S03_MAGIC_A_1",
+          "S03_MAGIC_A_2",
+          "S03_MAGIC_A_END"
+        ]
+      }
+    },
+    "sorceress": {
+      "file": "Witch_HG_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_MAGIC_A_1",
+          "S01_MAGIC_A_2",
+          "S01_MAGIC_A_END"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_MAGIC_A_1",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_END"
+        ]
+      },
+      "skills": {
+        "icebolt": [
+          "S02_MAGIC_A_1",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_END"
+        ],
+        "magick_missile": [
+          "S03_MAGIC_A_1",
+          "S03_MAGIC_A_2",
+          "S03_MAGIC_A_END"
+        ],
+        "ice_coffin": [
+          "S05_MAGIC_B_1",
+          "S05_MAGIC_B_2",
+          "S05_MAGIC_B_3",
+          "S05_MAGIC_B_4",
+          "S05_MAGIC_B_END"
+        ]
+      }
+    },
+    "wizard": {
+      "file": "Wizard_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_MAGIC_A",
+          "S02_MAGIC_A_IDLE",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_2_IDLE",
+          "S02_MAGIC_A_END"
+        ]
+      },
+      "skills": {
+        "fireball": [
+          "S02_MAGIC_A",
+          "S02_MAGIC_A_IDLE",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_2_IDLE",
+          "S02_MAGIC_A_END"
+        ],
+        "magick_counter_strike": [
+          "S03_MAGIC_B",
+          "S03_MAGIC_B_IDLE",
+          "S03_MAGIC_B_2",
+          "S03_MAGIC_B_2_IDLE",
+          "S03_MAGIC_B_END"
+        ],
+        "magick_pursuit_strike": [
+          "S05_MAGIC_C",
+          "S05_MAGIC_C_IDLE",
+          "S05_MAGIC_C_2",
+          "S05_MAGIC_C_2_IDLE",
+          "S05_MAGIC_C_END"
+        ]
+      }
+    },
+    "warlock": {
+      "file": "Wizard_HG_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_MAGIC_A",
+          "S02_MAGIC_A_IDLE",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_2_IDLE",
+          "S02_MAGIC_A_END"
+        ]
+      },
+      "skills": {
+        "fireball": [
+          "S02_MAGIC_A",
+          "S02_MAGIC_A_IDLE",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_2_IDLE",
+          "S02_MAGIC_A_END"
+        ],
+        "thunderous_strike": [
+          "S03_MAGIC_B",
+          "S03_MAGIC_B_IDLE",
+          "S03_MAGIC_B_2",
+          "S03_MAGIC_B_2_IDLE",
+          "S03_MAGIC_B_END"
+        ],
+        "volcano": [
+          "S05_MAGIC_C",
+          "S05_MAGIC_C_IDLE",
+          "S05_MAGIC_C_2",
+          "S05_MAGIC_C_2_IDLE",
+          "S05_MAGIC_C_END"
+        ]
+      }
+    },
+    "cleric": {
+      "file": "Cleric_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_BT_HEAL_A1",
+          "S02_BT_HEAL_A2",
+          "S02_BT_HEAL_A3",
+          "S02_BT_HEAL_A4",
+          "S02_BT_HEAL_A5"
+        ]
+      },
+      "skills": {
+        "quick_heal_heal": [
+          "S19_QUICK_HEAL_1",
+          "S19_QUICK_HEAL_2",
+          "S19_QUICK_HEAL_3"
+        ],
+        "heal": [
+          "S02_BT_HEAL_A1",
+          "S02_BT_HEAL_A2",
+          "S02_BT_HEAL_A3",
+          "S02_BT_HEAL_A4",
+          "S02_BT_HEAL_A5"
+        ]
+      }
+    },
+    "bishop": {
+      "file": "Cleric_HG_F",
+      "states": {
+        "attack": [
+          "ATTACK"
+        ],
+        "idle": [
+          "UPWARD_IDLE"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_BT_HEAL_A1",
+          "S02_BT_HEAL_A2",
+          "S02_BT_HEAL_A3",
+          "S02_BT_HEAL_A4",
+          "S02_BT_HEAL_A5"
+        ]
+      },
+      "skills": {
+        "quick_heal_heal": [
+          "S19_QUICK_HEAL_1",
+          "S19_QUICK_HEAL_2",
+          "S19_QUICK_HEAL_3"
+        ],
+        "heal": [
+          "S02_BT_HEAL_A1",
+          "S02_BT_HEAL_A2",
+          "S02_BT_HEAL_A3",
+          "S02_BT_HEAL_A4",
+          "S02_BT_HEAL_A5"
+        ],
+        "sacred_heal": [
+          "S05_END_RESURRECT_1",
+          "S05_END_RESURRECT_2",
+          "S05_END_RESURRECT_3",
+          "S05_END_RESURRECT_4",
+          "S05_END_RESURRECT_5"
+        ]
+      }
+    },
+    "dark_knight": {
+      "file": "BlackKnight_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      },
+      "skills": {
+        "vengeful_axe": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ],
+        "venom_axe": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ],
+        "vengeance_strike": [
+          "S04_ATTACK_A1",
+          "S04_ATTACK_A2",
+          "S04_ATTACK_A3",
+          "S04_ATTACK_A4"
+        ]
+      }
+    },
+    "doom_knight": {
+      "file": "BlackKnight_HG_M",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      },
+      "skills": {
+        "vengeful_axe": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ],
+        "venom_axe": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ],
+        "vengeance_strike": [
+          "S04_ATTACK_A1",
+          "S04_ATTACK_A2",
+          "S04_ATTACK_A3",
+          "S04_ATTACK_A4"
+        ]
+      }
+    },
+    "radiant_knight": {
+      "file": "WhiteKnight_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S03_MAGIC_BARRIER_1",
+          "S03_MAGIC_BARRIER_2",
+          "S03_MAGIC_BARRIER_3"
+        ]
+      },
+      "skills": {
+        "hache": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      }
+    },
+    "sainted_knight": {
+      "file": "WhiteKnight_HG_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S03_MAGIC_BARRIER_1",
+          "S03_MAGIC_BARRIER_2",
+          "S03_MAGIC_BARRIER_3"
+        ]
+      },
+      "skills": {
+        "hache": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      }
+    },
+    "gryphon_knight": {
+      "file": "GriffonKnight_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      },
+      "skills": {
+        "high_swing": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      }
+    },
+    "gryphon_master": {
+      "file": "GriffonKnight_HG_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      },
+      "skills": {
+        "high_swing": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "fatal_dive": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ]
+      }
+    },
+    "wyvern_knight": {
+      "file": "WyvernKnight_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      },
+      "skills": {
+        "diving_thrust": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ],
+        "ground_counter_strike": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ]
+      }
+    },
+    "wyvern_master": {
+      "file": "WyvernKnight_HG_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      },
+      "skills": {
+        "diving_thrust": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ],
+        "fire_breath": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ]
+      }
+    },
+    "elven_archer": {
+      "file": "ElfArcher_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK",
+          "S01_ATTACK_IDLE",
+          "S01_ATTACK_END"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S06_MAGIC_A",
+          "S06_MAGIC_A_IDLE",
+          "S06_MAGIC_A_2",
+          "S06_MAGIC_A_IDLE2",
+          "S06_MAGIC_A_END"
+        ]
+      },
+      "skills": {
+        "wind_arrow": [
+          "S06_MAGIC_A",
+          "S06_MAGIC_A_IDLE",
+          "S06_MAGIC_A_2",
+          "S06_MAGIC_A_IDLE2",
+          "S06_MAGIC_A_END"
+        ],
+        "icicle_arrow": [
+          "S07_MAGIC_B",
+          "S07_MAGIC_B_IDLE",
+          "S07_MAGIC_B_2",
+          "S07_MAGIC_B_IDLE2",
+          "S07_MAGIC_B_END"
+        ]
+      }
+    },
+    "elven_fencer": {
+      "file": "ElfFencer_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B"
+        ]
+      },
+      "skills": {}
+    },
+    "feathersword": {
+      "file": "FeatherSword_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ]
+      },
+      "skills": {
+        "spiral_sword": [
+          "S02_ATTACK_A1",
+          "S02_ATTACK_A2",
+          "S02_ATTACK_A3",
+          "S02_ATTACK_A4"
+        ],
+        "shield_smite": [
+          "S03_ATTACK_E1",
+          "S03_ATTACK_E2",
+          "S03_ATTACK_E3",
+          "S03_ATTACK_E4"
+        ],
+        "honed_slash": [
+          "S05_ATTACK_C1",
+          "S05_ATTACK_C2",
+          "S05_ATTACK_C3",
+          "S05_ATTACK_C4"
+        ]
+      }
+    },
+    "werebear": {
+      "file": "WereBear_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [
+          "COVER_A1",
+          "COVER_A2"
+        ],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B"
+        ]
+      },
+      "skills": {
+        "bear_crush": [
+          "S02_ATTACK_B"
+        ],
+        "round_swing": [
+          "S03_ATTACK_B_IDLE",
+          "S03_ATTACK_B_END"
+        ],
+        "earthshaker": [
+          "S04_ATTACK_C1",
+          "S04_ATTACK_C2",
+          "S04_ATTACK_C3",
+          "S04_ATTACK_C4"
+        ]
+      }
+    },
+    "werefox": {
+      "file": "WereFox_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "piercing_lance": [
+          "S02_ATTACK"
+        ],
+        "passive_hold": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ],
+        "venom_thrust": [
+          "S04_ATTACK_B1",
+          "S04_ATTACK_B2",
+          "S04_ATTACK_B3",
+          "S04_ATTACK_B4"
+        ],
+        "shadow_pursuit_strike": [
+          "S05_ATTACK_C1",
+          "S05_ATTACK_C2"
+        ],
+        "weakness_hunter_strike": [
+          "S06_ATTACK_C3",
+          "S06_ATTACK_C4",
+          "S06_ATTACK_C5"
+        ]
+      }
+    },
+    "wereowl": {
+      "file": "WereOwl_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_MAGIC_A_1",
+          "S01_MAGIC_A_2",
+          "S01_MAGIC_A_END"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_MAGIC_A_1",
+          "S02_MAGIC_A_2",
+          "S02_MAGIC_A_END"
+        ]
+      },
+      "skills": {}
+    },
+    "werewolf": {
+      "file": "WereWolf_M",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK"
+        ]
+      },
+      "skills": {
+        "nocturnal_strike_strike": [
+          "S06_NIGHT_STRIKE_1",
+          "S06_NIGHT_STRIKE_2",
+          "S06_NIGHT_STRIKE_3",
+          "S06_NIGHT_STRIKE_4",
+          "S06_NIGHT_STRIKE_5"
+        ],
+        "finishing_stab": [
+          "S02_ATTACK"
+        ],
+        "decimate": [
+          "S03_ATTACK_B",
+          "S03_ATTACK_B_IDLE"
+        ],
+        "wild_fang": [
+          "S04_ATTACK_B_2"
+        ],
+        "killing_pursuit_strike": [
+          "S05_ATTACK_B_IDLE2",
+          "S05_ATTACK_B_END"
+        ]
+      }
+    },
+    "snow_ranger": {
+      "file": "WyvernKnight_HG_F",
+      "states": {
+        "idle": [
+          "STANCE_1",
+          "STANCE_2",
+          "STANCE_3"
+        ],
+        "attack": [
+          "S01_ATTACK_A1",
+          "S01_ATTACK_A2",
+          "S01_ATTACK_A3",
+          "S01_ATTACK_A4"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ]
+      },
+      "skills": {
+        "sonic_shaft": [
+          "S02_ATTACK_B1",
+          "S02_ATTACK_B2",
+          "S02_ATTACK_B3",
+          "S02_ATTACK_B4"
+        ],
+        "glacial_rain": [
+          "S03_ATTACK_B1",
+          "S03_ATTACK_B2",
+          "S03_ATTACK_B3",
+          "S03_ATTACK_B4"
+        ]
+      }
+    },
+    "valkyria": {
+      "file": "Cleric_F",
+      "states": {
+        "idle": [
+          "UPWARD",
+          "UPWARD_IDLE",
+          "UPWARD_END"
+        ],
+        "attack": [
+          "S01_ATTACK"
+        ],
+        "hit": [
+          "KNOCKBACK"
+        ],
+        "avoid": [
+          "AVOID"
+        ],
+        "guard": [
+          "GUARD"
+        ],
+        "cover": [],
+        "die": [
+          "DIE_BLOW_1",
+          "DIE_BLOW_2"
+        ],
+        "victory": [
+          "VICTORY_1"
+        ],
+        "skill": [
+          "S02_BT_HEAL_A1",
+          "S02_BT_HEAL_A2",
+          "S02_BT_HEAL_A3",
+          "S02_BT_HEAL_A4",
+          "S02_BT_HEAL_A5"
+        ]
+      },
+      "skills": {}
+    }
+  },
+  "broken": {},
+  "effects_comment": "Эффекты из Effect/<effects_file>.mbs -> assets/uo_anim/fx (формат assets/fx/effects.json). effects — общие события: uo_guard (прикрытие), uo_death (гибель). skill_fx.<навык> — эффекты навыка: cast — на применившем, hit — на цели (имя в игре uo_<анимация>); generic — своего эффекта у навыка в игре нет, стоит общий удар. Правится во вкладке «Эффекты навыков» редактора.",
+  "effects_file": "Battle_Effect",
+  "effects": {
+    "uo_guard": {
+      "anim": "GUARDMARK_00",
+      "anchor": "body"
+    },
+    "uo_death": {
+      "anim": "DIED_01",
+      "anchor": "body"
+    }
+  },
+  "skill_fx": {
+    "attack": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "fireball": {
+      "cast": [
+        "FIREBALL"
+      ],
+      "hit": [
+        "FIREBALL_OUT",
+        "FIREBALL_HIT"
+      ]
+    },
+    "heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_OUT",
+        "HEAL_HIT_01",
+        "HEAL_HIT_02",
+        "HEAL_HIT_03",
+        "HEAL_HIT_04",
+        "HEAL_HIT_05"
+      ]
+    },
+    "impale": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "shield_bash": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "power_bolt": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "toxic_bolt": {
+      "cast": [],
+      "hit": [
+        "HIT_A_POIZON"
+      ],
+      "generic": true
+    },
+    "quick_reload_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "wide_smash": {
+      "cast": [
+        "WIDESMASH"
+      ],
+      "hit": []
+    },
+    "mounting_charge": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "grand_smash": {
+      "cast": [
+        "GRANDSLAM"
+      ],
+      "hit": []
+    },
+    "wide_counter_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "sacred_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "quick_heal_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "heavy_smash": {
+      "cast": [
+        "HEAVYSMASH"
+      ],
+      "hit": []
+    },
+    "assaulting_blow": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "row_smash": {
+      "cast": [
+        "LINEBUSTER"
+      ],
+      "hit": []
+    },
+    "enrage_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "heavy_counter_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "vertical_edge": {
+      "cast": [
+        "VERTICALEDGE"
+      ],
+      "hit": []
+    },
+    "iron_crusher": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "maidens_hammer_strike": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "vengeful_axe": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "venom_axe": {
+      "cast": [
+        "VENOMAXE"
+      ],
+      "hit": []
+    },
+    "vengeance_strike": {
+      "cast": [
+        "REVENGER"
+      ],
+      "hit": []
+    },
+    "dark_flame": {
+      "cast": [],
+      "hit": [
+        "DARKFLAME_HIT"
+      ]
+    },
+    "heavy_slash": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "penetrate": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "omega_shatter": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "wild_kick_strike": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "passive_curse": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "offensive_curse": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "defensive_curse": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "compounding_curse": {
+      "cast": [
+        "CURSEHAZARD"
+      ],
+      "hit": []
+    },
+    "wind_arrow": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "icicle_arrow": {
+      "cast": [],
+      "hit": [
+        "HIT_A_ICE"
+      ],
+      "generic": true
+    },
+    "selfless_heal_heal": {
+      "cast": [],
+      "hit": [
+        "SHAREHEAL_OUT"
+      ]
+    },
+    "primus_edge": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "sylphic_wind": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "elemental_roar": {
+      "cast": [
+        "ELEMENTALROAR"
+      ],
+      "hit": [
+        "ELEMENTALROAR_HIT"
+      ]
+    },
+    "curing_heal_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "rage_of_the_faeries_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "lightning_blade": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "natures_wrath": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "mirage_stab": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "faerie_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "boon_of_the_faeries_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "spiral_sword": {
+      "cast": [
+        "SPIRALSWORD"
+      ],
+      "hit": []
+    },
+    "shield_smite": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "honed_slash": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "warding_slash": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "assaulting_lance": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "wild_rush": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "pile_thrust": {
+      "cast": [],
+      "hit": [
+        "PILETHRUST_HIT"
+      ]
+    },
+    "knights_pursuit_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "high_swing": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "fatal_dive": {
+      "cast": [
+        "FATALFALL"
+      ],
+      "hit": []
+    },
+    "aerial_smite": {
+      "cast": [
+        "AERIALSMITE"
+      ],
+      "hit": [
+        "AERIALSMITE_HIT"
+      ]
+    },
+    "lean_edge": {
+      "cast": [
+        "LEANEDGE"
+      ],
+      "hit": []
+    },
+    "cavalry_slayer": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "spinning_edge": {
+      "cast": [
+        "ASTRALBLADE_EFFECT",
+        "ASTRALBLADE_1"
+      ],
+      "hit": [
+        "ASTRALBLADE_2"
+      ]
+    },
+    "holy_light": {
+      "cast": [
+        "HOLYLIGHT"
+      ],
+      "hit": [
+        "HOLYLIGHT_OUT"
+      ]
+    },
+    "curing_call": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "innocent_ray": {
+      "cast": [
+        "INNOCENTRAY_BUFFER",
+        "INNOCENTRAY"
+      ],
+      "hit": [
+        "INNOCENTRAY_OUT"
+      ]
+    },
+    "passive_miracle_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "sting": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "smash": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "rolling_axe": {
+      "cast": [
+        "ROLLAXE"
+      ],
+      "hit": []
+    },
+    "parting_blow_strike": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "frenzied_strike_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "single_shot": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "dual_shot": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "pursuit_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "killing_chain": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "bastards_cross": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "following_slash_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "row_protection": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "greatshield": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "slice": {
+      "cast": [],
+      "hit": [
+        "HIT_A_ICE"
+      ],
+      "generic": true
+    },
+    "divine_cross": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "banishing_stab": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "defensive_order": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "offensive_order": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "hache": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "row_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "passive_steal": {
+      "cast": [
+        "PASSIVE_STEAL"
+      ],
+      "hit": []
+    },
+    "toxic_throw": {
+      "cast": [],
+      "hit": [
+        "HIT_A_POIZON"
+      ],
+      "generic": true
+    },
+    "shadowbite": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "active_steal": {
+      "cast": [
+        "ACTIVE_STEAL"
+      ],
+      "hit": []
+    },
+    "sneaking_edge_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "saints_blade": {
+      "cast": [],
+      "hit": [
+        "SAINTBLADE_HIT_01",
+        "SAINTBLADE_HIT_02"
+      ]
+    },
+    "long_thrust": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "javelin": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "honed_spear": {
+      "cast": [
+        "ENHANCED_SPEAR"
+      ],
+      "hit": [
+        "ENHANCED_SPEAR_HIT"
+      ]
+    },
+    "heavy_bolt": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "row_shot": {
+      "cast": [],
+      "hit": [
+        "LINESHOT_OUT"
+      ]
+    },
+    "aerial_snipe_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "mystic_arrow": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    },
+    "sonic_shaft": {
+      "cast": [
+        "SONICSHAFT_EFFECT"
+      ],
+      "hit": [
+        "SONICSHAFT"
+      ]
+    },
+    "glacial_rain": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "triple_counter_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "snow_white_strike_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A_ICE"
+      ],
+      "generic": true
+    },
+    "icebolt": {
+      "cast": [],
+      "hit": [
+        "HIT_A_ICE"
+      ],
+      "generic": true
+    },
+    "magick_missile": {
+      "cast": [
+        "MAGICMISSILE",
+        "MAGICMISSILE_EFFECT"
+      ],
+      "hit": [
+        "MAGICMISSILE_OUT",
+        "MAGICMISSILE_HIT"
+      ]
+    },
+    "ice_coffin": {
+      "cast": [
+        "ICECOFFIN"
+      ],
+      "hit": []
+    },
+    "keen_edge": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "meteor_slash": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "hastened_strike_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "brandish": {
+      "cast": [
+        "BRANDISH_1",
+        "BRANDISH_2",
+        "BRANDISH_3"
+      ],
+      "hit": [
+        "BRANDISH_4"
+      ]
+    },
+    "defender": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "wide_breaker": {
+      "cast": [
+        "WIDEBREAKER"
+      ],
+      "hit": []
+    },
+    "thunderous_strike": {
+      "cast": [],
+      "hit": [
+        "THUNDER_OUT"
+      ]
+    },
+    "volcano": {
+      "cast": [
+        "VOLCANO_BUFFER"
+      ],
+      "hit": [
+        "VOLCANO"
+      ]
+    },
+    "magick_counter_strike": {
+      "cast": [
+        "COUNTER_MAGIC"
+      ],
+      "hit": []
+    },
+    "magick_pursuit_strike": {
+      "cast": [
+        "CHASE_MAGIC"
+      ],
+      "hit": [
+        "CHASE_MAGIC_OUT",
+        "CHASE_MAGIC_HIT"
+      ]
+    },
+    "bear_crush": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "round_swing": {
+      "cast": [
+        "AROUNDSWING"
+      ],
+      "hit": [
+        "AROUNDSWING_EFFECT"
+      ]
+    },
+    "earthshaker": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "life_blow_strike": {
+      "cast": [],
+      "hit": [
+        "HITMARK_00A"
+      ],
+      "generic": true
+    },
+    "piercing_lance": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "passive_hold": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "venom_thrust": {
+      "cast": [
+        "VENOMTHRUST"
+      ],
+      "hit": [
+        "VENOMTHRUST_OUT"
+      ]
+    },
+    "shadow_pursuit_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "weakness_hunter_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "aurora_veil": {
+      "cast": [
+        "AURORAVEIL_EFFECT"
+      ],
+      "hit": []
+    },
+    "night_vision": {
+      "cast": [
+        "NIGHTVISION"
+      ],
+      "hit": []
+    },
+    "extra_heal": {
+      "cast": [],
+      "hit": [
+        "HEAL_HIT_01"
+      ],
+      "generic": true
+    },
+    "finishing_stab": {
+      "cast": [],
+      "hit": [
+        "HIT_C"
+      ],
+      "generic": true
+    },
+    "decimate": {
+      "cast": [
+        "DECIMALKILLER"
+      ],
+      "hit": []
+    },
+    "wild_fang": {
+      "cast": [],
+      "hit": [
+        "WILDFANG_HIT"
+      ]
+    },
+    "nocturnal_strike_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "killing_pursuit_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "diving_thrust": {
+      "cast": [
+        "FALLTHRUST"
+      ],
+      "hit": []
+    },
+    "ground_counter_strike": {
+      "cast": [],
+      "hit": [
+        "HIT_A"
+      ],
+      "generic": true
+    },
+    "fire_breath": {
+      "cast": [],
+      "hit": [
+        "HIT_A_FIRE"
+      ],
+      "generic": true
+    },
+    "tempest_drive": {
+      "cast": [
+        "TEMPESTDRIVE"
+      ],
+      "hit": []
+    },
+    "wall": {
+      "cast": [
+        "WALL"
+      ],
+      "hit": [
+        "WALL_HIT"
+      ]
+    },
+    "magick_wall": {
+      "cast": [],
+      "hit": [
+        "HIT_A_MAGIC"
+      ],
+      "generic": true
+    }
+  },
+  "backgrounds": {
+    "BGBtAbandonedPort_B": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtAirRock_01": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtAirRock_B_01": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtAirRock_D_01": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtAlbionForest_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtBridge_A": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtCampAnime": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtCampDesertPlain": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtCampElfPlain": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtCampPlain": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtCampPlain_A": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtCampSnowPlain": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtCampThornForest": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtCampWasteland": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtCapital_A_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCapital_B_01": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCapital_C_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCapital_C_b": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCapital_D_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCapital_D_b": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCapital_E_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCastleGate_c": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCathedral": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCathedral_A": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtCave_a": {
+      "use": true,
+      "scene": "lava",
+      "floor": 420
+    },
+    "BGBtColosseum_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtDarkElfCave_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtDesertOasis_a": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtDesertPlain_a": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtDesertPlain_b": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtDesertPlain_c": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtElfForest_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtElfPlain_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtElfPlain_b": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtForest_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtFort": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtFort_A": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtFort_E": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtGraveyard": {
+      "use": true,
+      "scene": "lava",
+      "floor": 420
+    },
+    "BGBtIceFall": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtLakeside_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtLimestoneCave_a": {
+      "use": true,
+      "scene": "lava",
+      "floor": 420
+    },
+    "BGBtNightsky_a": {
+      "use": true,
+      "scene": "lava",
+      "floor": 420
+    },
+    "BGBtPlain_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPlain_A_2": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPlain_A_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPlain_A_b": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPlain_A_c": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPlain_A_d": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPlain_b": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPort_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPort_B_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPort_B_b": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPort_B_c": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtPort_D": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_b": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_c": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_d": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_e": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_f": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_g": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_h": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_i": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_j": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_k": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRoad_l": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtRuins_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtRuins_b": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtSanctuary": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtSanctum": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtSanctum_Opening": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtShore_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtSnowForest_a": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSnowPlain_a": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSnowPlain_b": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSnowPlain_c": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSnowRuins_a": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSnowRuins_b": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSnowShore_a": {
+      "use": true,
+      "scene": "winter",
+      "floor": 420
+    },
+    "BGBtSquare_C_01": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtThornForest_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtTown_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_A_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_A_Citadel": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_A_Cliff_01": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_B_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_B_Forest_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtTown_C_Citadel_01": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_D_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_D_b": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_D_Citadel": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_E_Elf_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtTown_E_Human_a": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtTown_E_Human_b": {
+      "use": true,
+      "scene": "castle",
+      "floor": 420
+    },
+    "BGBtUndergroundRuins_a": {
+      "use": true,
+      "scene": "lava",
+      "floor": 420
+    },
+    "BGBtUndergroundRuins_b": {
+      "use": true,
+      "scene": "lava",
+      "floor": 420
+    },
+    "BGBtUndergroundRuinsDesert": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtVillage_a": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtWarPlain": {
+      "use": true,
+      "scene": "default",
+      "floor": 420
+    },
+    "BGBtWasteland_a": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtWastelandForest_a": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtWastelandMist": {
+      "use": true,
+      "scene": "desert",
+      "floor": 420
+    },
+    "BGBtWetland_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtWetlandVillage_a": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtWoodFort": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    },
+    "BGBtWoodFort_B": {
+      "use": true,
+      "scene": "forest",
+      "floor": 420
+    }
+  }
+}

@@ -226,6 +226,13 @@ class TacticsSet:
     def to_list(self) -> list[dict[str, Any]]:
         return [rule.to_dict() for rule in self.rules]
 
+    def ordered(self, actor: "Unit") -> Sequence[TacticRule]:
+        """Правила в порядке проверки (наследники могут переставлять)."""
+        return self.rules
+
+    def chosen(self, actor: "Unit", skill_id: str) -> None:
+        """Бой выбрал навык по этой тактике (наследникам — запомнить)."""
+
     def choose(
         self,
         actor: "Unit",

@@ -84,5 +84,8 @@
       "shield": "medium",
       "greatshield": "heavy"
     }
+  },
+  "combat": {
+    "passives_per_action": 2
   }
 }

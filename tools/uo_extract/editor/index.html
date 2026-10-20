@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Анимации, эффекты и фоны UO — редактор</title>
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+<header>
+  <h1>UO: анимации, эффекты, фоны</h1>
+  <nav id="tabs">
+    <button data-tab="chars" class="active">Персонажи</button>
+    <button data-tab="fx">Эффекты навыков</button>
+    <button data-tab="bg">Фоны</button>
+  </nav>
+  <span id="dirty" class="muted"></span>
+  <button id="save" title="Ctrl+S">Сохранить</button>
+  <span class="muted">игра подхватывает сохранённое сама</span>
+</header>
+<main>
+  <aside id="left">
+    <input id="leftSearch" type="search" placeholder="Поиск…">
+    <label class="chk" id="leftFilterLabel"><input id="leftFilter" type="checkbox"> <span id="leftFilterText"></span></label>
+    <ul id="leftList"></ul>
+  </aside>
+
+  <section id="middle">
+    <!-- Персонажи -->
+    <div id="charsPanel">
+      <h2 id="className">Выберите класс</h2>
+      <div class="row">
+        <label>Файл <select id="fileSelect"></select></label>
+        <label>Внешность <select id="variantSelect"></select></label>
+        <label>Текстура <select id="skinSelect"></select></label>
+      </div>
+      <h3>Состояния</h3>
+      <div id="states"></div>
+      <h3>Навыки класса <span class="muted">— анимация персонажа при применении навыка</span></h3>
+      <div id="skills"></div>
+    </div>
+    <!-- Эффекты навыков -->
+    <div id="fxPanel" hidden>
+      <h2 id="fxName">Выберите навык</h2>
+      <p class="muted" id="fxNote"></p>
+      <div id="fxSlots"></div>
+    </div>
+    <!-- Фоны -->
+    <div id="bgPanel" hidden>
+      <h2 id="bgName">Выберите фон</h2>
+      <div class="row">
+        <label class="chk"><input id="bgUse" type="checkbox"> использовать в игре</label>
+        <label>Сцена проекта <select id="bgScene"></select></label>
+      </div>
+      <div class="row">
+        <label>Линия пола (ноги переднего ряда), y <input id="bgFloor" type="number" step="5"></label>
+        <input id="bgFloorRange" type="range" min="-300" max="700" step="5">
+      </div>
+      <p class="muted">Жёлтая линия — пол; серые силуэты — рост человека (300 единиц) в трёх колоннах. Слои: «задний» — картина за юнитами, «передний» — поверх юнитов, «скрыт» — не рисуется.</p>
+      <div id="layers"></div>
+    </div>
+    <div id="partEditor" hidden>
+      <h3>Часть: <span id="partName"></span></h3>
+      <div class="row">
+        <label>с тика <input id="partFrom" type="number" min="0" step="1"></label>
+        <label>по тик <input id="partTo" type="number" min="1" step="1"></label>
+        <span id="partLen" class="muted"></span>
+        <button id="partFromNow">начало = сейчас</button>
+        <button id="partToNow">конец = сейчас</button>
+        <button id="partReset">вся анимация</button>
+      </div>
+      <h3>Скорость по зонам</h3>
+      <div class="muted">Зона ускоряет (×2) или замедляет (×0.5) отрезок части; границы — тики анимации.</div>
+      <div id="zones"></div>
+      <div class="row"><button id="addZone" title="Новая зона с текущего момента предпросмотра">+ зона скорости</button></div>
+    </div>
+  </section>
+
+  <div id="addDialog" class="dialog" hidden>
+    <div class="box">
+      <h3>Добавить: <span id="addName"></span></h3>
+      <div class="row">
+        <label>с тика <input id="addFrom" type="number" min="0" step="1"></label>
+        <label>по тик <input id="addTo" type="number" min="1" step="1"></label>
+        <span id="addLen" class="muted"></span>
+      </div>
+      <div class="row">
+        <button id="addNow1">начало = сейчас</button><button id="addNow2">конец = сейчас</button>
+      </div>
+      <div class="row"><button id="addOk">Добавить</button><button id="addCancel">Отмена</button></div>
+    </div>
+  </div>
+
+  <section id="previewPanel">
+    <div id="stage"><canvas id="view"></canvas><div id="hud"></div></div>
+    <div class="row controls">
+      <button id="play">⏸</button>
+      <button id="stepBack" title="←">◀</button>
+      <button id="stepFwd" title="→">▶</button>
+      <input id="timeline" type="range" min="0" max="0" value="0">
+      <span id="timeText" class="mono"></span>
+      <select id="speed"><option value="0.25">×0.25</option><option value="0.5">×0.5</option>
+        <option value="1" selected>×1</option><option value="2">×2</option></select>
+      <select id="bg"><option value="#3a3d46">тёмный</option><option value="checker">шахматка</option>
+        <option value="#000000">чёрный</option><option value="#7d8a6a">трава</option><option value="#d8d8d8">светлый</option></select>
+    </div>
+    <div id="animTools" class="row">
+      <input id="animSearch" type="search" placeholder="Фильтр (слова через пробел, -слово исключает)">
+      <label class="chk" id="hideTalkLabel"><input id="hideTalk" type="checkbox" checked> скрыть разговорные (D_, FACE_, EP_)</label>
+    </div>
+    <div id="animListWrap"><table id="animList"><thead><tr>
+      <th>анимация</th><th>тиков</th><th>с</th><th>используется</th><th></th></tr></thead><tbody></tbody></table></div>
+  </section>
+</main>
+<div id="toast" hidden></div>
+<script src="mbs.js"></script>
+<script src="render.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>

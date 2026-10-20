@@ -2,9 +2,8 @@
 
 Запуск: python demo_pygame.py [seed]
 Вкладки переключаются клавишами F1, F2, ... или кликом; язык кнопкой справа от вкладок.
-Бой показывают две вкладки: Battle (карточки) и Stage (статичные спрайты, свой бой
-тестовых отрядов).
-Экран боя делает sim.step() и рисует полученные события; в логику боя не вмешивается.
+Бой показывают две вкладки: Battle (карточки и лог, по ходу) и Show (показ UO, battle.BattleShow);
+правила боя — game.combat. Экраны боя только читают бой; в логику не вмешиваются.
 Редакторы меняют справочник (app.db, папка data/) и расстановку (app.setup);
 бой каждый раз идёт на копии расстановки.
 """
@@ -16,13 +15,12 @@ from typing import Any, Optional, Union
 
 import pygame
 
-from engine.scene import DEFAULT_SCENE, SCENES_DIR, SceneStore
 from game.database import Database
 from game.events import format_event
 from game.i18n import Translator, available_languages
 from game.save import DEFAULT_SETUP_PATH, clone_scenario, load_settings, load_setup, save_setup
 from game.overworld import DEFAULT_WORLD, WORLD_DIR, WorldDef, encounter_scenario
-from game.scenario import DEMO_SEED, Scenario, build_demo
+from game.scenario import Scenario, build_demo
 from game.squad import Formation, Squad
 from game.unit import Unit
 from pygame_data_editors import ClassEditor
@@ -30,9 +28,8 @@ from pygame_effect_editor import AreaEditor, EffectEditor
 from pygame_editors import SkillEditor, SquadEditor, TacticsEditor
 from pygame_item_editors import ItemEditor, TagEditor
 from pygame_passive_editor import PassiveEditor
-from pygame_battle import POPUP_MS, BattleView
-from pygame_scene_editor import SceneEditor
-from pygame_stage import WORLD_MODE, StageScreen
+from pygame_battle_log import POPUP_MS, BattleLog
+from pygame_show_tab import ShowScreen
 from pygame_world import WorldScreen
 from pygame_ui import BG, DIM, GREEN, HEIGHT, PANEL, RED, SLOT, TEXT, UI, WIDTH, YELLOW, Window, fit, load_fonts
 
@@ -67,7 +64,6 @@ class App:
     """Справочник, редактируемая расстановка, бой на её копии, вкладки и язык."""
 
     def __init__(self, db: Database, seed: int, save_path: Union[str, Path, None], lang: Optional[str] = None,
-                 scenes_dir: Optional[Path] = SCENES_DIR, props_dir: Optional[Path] = None,
                  world_dir: Optional[Path] = None):
         self.db = db
         self.save_path = Path(save_path) if save_path else None
@@ -77,15 +73,9 @@ class App:
         self.tab = TAB_BATTLE
         self.t = Translator()
         self.resolution: tuple[int, int] = (WIDTH, HEIGHT)   # размер окна; сохраняется вместе с языком
-        self.scene_id = DEFAULT_SCENE                        # сцена вкладки Stage; тоже в настройках
         self.setup = self._load_setup(lang)
-        self.view = BattleView(db, seed, lambda: clone_scenario(self.db, self.setup))
-        # Сцены: scenes_dir=None — не читать и не записывать (сцена по умолчанию в памяти).
-        store = SceneStore(scenes_dir or SCENES_DIR)
-        if scenes_dir is not None and self.scene_id not in store.ids():
-            self.scene_id = store.ids()[0] if store.ids() else DEFAULT_SCENE
-        stage = StageScreen(store.load(self.scene_id) if scenes_dir is not None else None, props_dir)
-        stage.battle_view = BattleView(db, DEMO_SEED, lambda: stage.scenario(self.db, self.setup), stage.windup)
+        self.view = BattleLog(db, seed, lambda: clone_scenario(self.db, self.setup))
+        self.show = ShowScreen(self)
         # (название вкладки, экран); у вкладки боя с карточками экрана нет
         self.tabs: list[tuple[str, Any]] = [
             ("Battle", None),
@@ -98,12 +88,9 @@ class App:
             ("Passives", PassiveEditor()),
             ("Effects", EffectEditor()),
             ("Areas", AreaEditor()),
-            ("Stage", stage),
-            ("Scene", SceneEditor(stage, store, self.scene_id, self._select_scene, props_dir, scenes_dir is not None)),
+            ("Show", self.show),
             ("World", self._world_screen(world_dir)),
         ]
-        self.store, self.stage = store, stage
-        self._stage_before: Optional[tuple[str, Any]] = None   # режим и сцена Stage до боя из мира
 
     # --- открытый мир ---
 
@@ -120,7 +107,7 @@ class App:
         return [n for n, _ in self.tabs].index(name)
 
     def _start_world_battle(self, enemy_id: str) -> None:
-        """Враг настиг героя: бой основного отряда с ним на вкладке Stage, в сцене региона."""
+        """Враг настиг героя: бой основного отряда с ним на вкладке Show, на фоне региона."""
         world_screen = self.tabs[self.tab_index("World")][1]
         enemy = world_screen.world.enemy(enemy_id)
         try:
@@ -130,27 +117,15 @@ class App:
             world_screen.state.resolve_battle(enemy_id, True)
             self.message = str(error)
             return
-        stage = self.stage
-        self._stage_before = (stage.mode, stage.scene)
-        stage.mode = WORLD_MODE
-        stage.encounter = lambda: encounter_scenario(self.db, self.setup, enemy)
-        scene_id = world_screen.world.battle_scene((enemy.x, enemy.z))
-        if scene_id in self.store.ids():
-            stage.set_scene(self.store.load(scene_id))
-        stage.on_return = lambda: self.switch(self.tab_index("World"))
-        stage.battle_view.restart(stage.battle_view.seed + 1)
-        self.switch(self.tab_index("Stage"))
+        self.show.start_world(lambda: encounter_scenario(self.db, self.setup, enemy),
+                              world_screen.world.battle_scene((enemy.x, enemy.z)),
+                              lambda: self.switch(self.tab_index("World")), self.show.seed + 1)
+        self.switch(self.tab_index("Show"))
 
     def _finish_world_battle(self) -> Optional[bool]:
-        """Итог боя из мира (None — бой не доигран) и прежний режим и сцена Stage."""
-        stage, view = self.stage, self.stage.battle_view
-        outcome = (view.sim.winner_id == view.sim.attacker.id) if view.sim.finished else None
-        if self._stage_before is not None:
-            stage.mode, scene = self._stage_before
-            stage.set_scene(scene)
-            self._stage_before = None
-        stage.encounter = None
-        view.restart(DEMO_SEED if stage.mode == "demo" else view.seed)
+        """Итог боя из мира (None — бой не доигран); вкладка Show возвращается к своему бою."""
+        outcome = self.show.outcome()
+        self.show.leave_world()
         return outcome
 
     def _load_setup(self, lang: Optional[str]) -> Scenario:
@@ -162,7 +137,6 @@ class App:
                 lang = lang or settings.get("language")
                 if settings.get("resolution"):
                     self.resolution = tuple(settings["resolution"])
-                self.scene_id = settings.get("scene") or self.scene_id
             except (OSError, ValueError, KeyError, TypeError) as error:  # JSONDecodeError = ValueError
                 self.message = f"save ignored ({error}); demo setup loaded"
         if lang in available_languages():
@@ -170,10 +144,6 @@ class App:
         if scenario is not None:
             self.message = self.t("loaded {file}", file=self.save_path.name)
         return scenario or build_demo(self.db)
-
-    def _select_scene(self, scene_id: str) -> None:
-        self.scene_id = scene_id
-        self._save()
 
     # --- интерфейс для редакторов ---
 
@@ -222,8 +192,7 @@ class App:
             if self.data_dirty:
                 self.db.save()
                 self.data_dirty = False
-            save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang, "resolution": list(self.resolution),
-                                                                 "scene": self.scene_id})
+            save_setup(self.save_path, self.db, self.setup, {"language": self.t.lang, "resolution": list(self.resolution)})
             return True
         except OSError as error:
             self.message = f"{self.t('cannot save')}: {error}"
@@ -234,24 +203,18 @@ class App:
         if not self.dirty:
             return
         self.dirty = False
-        for view in self.views():
-            view.restart(view.seed)
+        self.view.restart(self.view.seed)
+        if self.show.show is not None and self.show.mode != "world":
+            self.show.restart()
         if self._save():
             self.message = self.t("saved, battle restarted")
 
-    def views(self) -> list[BattleView]:
-        """Все бои окна: общий и свои у вкладок (Stage)."""
-        own = [screen.battle_view for _, screen in self.tabs if getattr(screen, "battle_view", None) is not None]
-        return [self.view] + own
-
-    def battle_view(self) -> BattleView:
-        """Бой открытой вкладки: свой у вкладки, иначе общий."""
-        return getattr(self.tabs[self.tab][1], "battle_view", None) or self.view
+    def battle_view(self) -> BattleLog:
+        return self.view
 
     def on_battle_tab(self) -> bool:
-        """Открыта ли вкладка, показывающая бой (карточки или спрайты)."""
-        screen = self.tabs[self.tab][1]
-        return screen is None or getattr(screen, "is_battle", False)
+        """Открыта ли вкладка боя с карточками (SPACE, A, R — её клавиши)."""
+        return self.tabs[self.tab][1] is None
 
     def switch(self, tab: int) -> None:
         if tab != self.tab and 0 <= tab < len(self.tabs):
@@ -333,7 +296,7 @@ def draw_squad(ui: UI, squad: Squad, side: str, current_uid: Optional[int]) -> d
     return rects
 
 
-def draw_battle(ui: UI, view: BattleView, autoplay: bool, now: int) -> None:
+def draw_battle(ui: UI, view: BattleLog, autoplay: bool, now: int) -> None:
     screen, t = ui.screen, ui.t
     font, small, big = ui.fonts["main"], ui.fonts["small"], ui.fonts["big"]
     sim = view.sim
@@ -409,14 +372,12 @@ def draw_frame(ui: UI, app: App, autoplay: bool, now: int, window: Optional[Wind
     editor = app.tabs[app.tab][1]
     if editor is None:
         draw_battle(ui, app.view, autoplay, now)
-    elif app.on_battle_tab():
-        editor.native = window is not None
-        editor.draw_battle(ui, app.battle_view(), autoplay, now)
     else:
         editor.native = window is not None
         editor.draw(ui, app)
-        note = app.message or (t("unsaved changes: open the Battle or Stage tab to apply and save") if app.dirty else "")
-        ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
+        if editor is not app.show:
+            note = app.message or (t("unsaved changes: open the Battle or Show tab to apply and save") if app.dirty else "")
+            ui.text(note, 16, HEIGHT - 26, YELLOW, "small", WIDTH - 32)
     ui.end()
     if window is not None:
         window.present()
@@ -487,12 +448,11 @@ def main(seed: int = 1, autoplay: bool = False, max_frames: Optional[int] = None
                 view.restart(view.seed + 1)
 
         ready = now - last_step >= AUTO_STEP_MS and now >= view.busy_until   # эффекты прошлого шага доиграли
-        if app.on_battle_tab() and autoplay and not view.sim.finished and ready:
+        if app.on_battle_tab() and autoplay and not view.done and ready:
             view.step(now)
             last_step = now
 
-        for each in app.views():
-            each.prune(now)
+        view.prune(now)
         draw_frame(ui, app, autoplay, now, window)
         pygame.display.flip()
         clock.tick(FPS)

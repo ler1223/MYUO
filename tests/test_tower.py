@@ -1,27 +1,23 @@
 """Уровни, опыт, навыки по уровню и бесконечная башня без графики."""
-import copy
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.database import Database
 from game.editing import set_owners
 from game.progression import ExpRules, grant_exp
 from game.tower import DRAFT, OVER, PREPARE, REWARD, SHOP, TOWER_RULES_PATH, TowerRules, TowerRun, by_floor
 from game.world import Army
-from tests.helpers import DB
+from tests.helpers import DB, tower_rules_data
 
 RULES_DATA = json.loads(TOWER_RULES_PATH.read_text(encoding="utf-8"))
 
 
 def rules(**changes) -> TowerRules:
-    """Правила башни из data/tower.json с правками верхнего уровня (раздел целиком или его поля)."""
-    data = copy.deepcopy(RULES_DATA)
-    for key, value in changes.items():
-        data[key] = dict(data[key], **value) if isinstance(data.get(key), dict) else value
-    return TowerRules(data)
+    """Правила башни с правками верхнего уровня и группами набора под классы фикстуры."""
+    return TowerRules(tower_rules_data(**changes))
 
 
 def learning_db() -> Database:
@@ -112,20 +108,70 @@ class TowerRulesTests(unittest.TestCase):
         self.assertEqual(r.scene(5), RULES_DATA["boss"]["scene"])
         with self.assertRaises(ValueError):
             rules(squad=[{"floor": 2, "units": 3}])                  # таблица должна начинаться с 1 этажа
+        with self.assertRaises(ValueError):
+            rules(draft={"choices": 3, "level": 1, "groups": []})    # группы набора обязательны
+        with self.assertRaises(ValueError):
+            rules(draft={"choices": 3, "level": 1, "groups": [{"classes": ["knight"]}]})
 
 
 class TowerRunTests(unittest.TestCase):
-    def test_draft_gives_three_equipped_units_in_sensible_rows(self):
+    def test_draft_gives_six_units_one_per_role_group(self):
         run = drafted(DB)
-        self.assertEqual((run.phase, len(run.army.units), len(run.fielded)), (PREPARE, 3, 3))
-        for unit in run.army.units.values():
-            self.assertTrue(unit.equipped)                           # стартовое снаряжение надето
+        groups = run.rules.draft_groups()
+        self.assertEqual((run.phase, len(run.army.units), len(run.fielded)), (PREPARE, 6, 3))
+        self.assertEqual([g["role"] for g in groups], ["warrior", "archer", "mage", "support", "tank", "healer"])
+        picked = list(run.army.units.values())
+        for index, unit in enumerate(picked):                         # боец взят из пула своей группы
+            group = groups[index]
+            self.assertIn(unit.definition.id, run.rules.draft_pool(DB, group))
+            self.assertTrue(unit.equipped)                            # стартовое снаряжение надето
             self.assertNotIn("artifact", [i.slot for i in unit.equipped])
+        for unit in run.fielded:
             row = run.squad.formation.position_of(unit.uid)[0]
             ranged = any(s in ("bow", "staff") for s in unit.definition.slots)
             self.assertEqual(row, 1 if ranged else 0)
         with self.assertRaises(ValueError):
-            run.pick(DB, "knight")                                   # набор закончен
+            run.pick(DB, "knight")                                    # набор закончен
+
+    def test_draft_offers_three_classes_of_the_current_group(self):
+        run = TowerRun.new(DB, rules(), seed=1)
+        for index, group in enumerate(run.rules.draft_groups()):
+            pool = run.rules.draft_pool(DB, group)
+            self.assertEqual(run.draft_group, index)
+            self.assertEqual(len(run.offers), 3)
+            self.assertEqual(len(set(run.offers)), 3)                 # без повторов
+            for class_id in run.offers:
+                self.assertIn(class_id, pool)
+            run.pick(DB, run.offers[0])
+        self.assertEqual((run.phase, run.draft_group), (PREPARE, 6))
+
+    def test_role_pools_default_to_the_class_role(self):
+        db = DB.copy()
+        for class_id, roles in (("knight", ["tank"]), ("goblin", ["warrior"]), ("orc", ["warrior"])):
+            db.update("units", class_id, dict(db.units[class_id].to_dict(), roles=roles))
+        r = rules(draft={"choices": 3, "level": 1, "groups": [{"role": "warrior"}]})
+        run = TowerRun.new(db, r, seed=1)
+        self.assertEqual(set(run.offers), {"goblin", "orc"})          # роли класса задают пул группы
+        self.assertTrue(all("warrior" in db.units[c].roles for c in run.offers))
+
+    def test_a_class_can_have_several_roles(self):
+        db = DB.copy()
+        data = db.units["knight"].to_dict()
+        data["role"] = "tank"                                         # старый формат: одна роль строкой
+        db.update("units", "knight", data)
+        self.assertEqual(db.units["knight"].roles, ("tank",))
+        db.update("units", "knight", dict(data, role="", roles=["tank", "support"]))
+        r = rules(draft={"choices": 3, "level": 1, "groups": [{"role": "support"}, {"role": "tank"}]})
+        self.assertIn("knight", r.draft_pool(db, {"role": "support"}))
+        self.assertIn("knight", r.draft_pool(db, {"role": "tank"}))
+
+    def test_draft_ignores_promoted_classes_even_if_listed(self):
+        db = DB.copy()
+        data = db.units["goblin"].to_dict()
+        data["promotions"] = [{"class": "orc", "level": 5}]
+        db.update("units", "goblin", data)
+        r = rules(draft={"choices": 3, "level": 1, "groups": [{"role": "warrior", "classes": ["goblin", "orc"]}]})
+        self.assertEqual(r.draft_pool(db, {"role": "warrior", "classes": ["goblin", "orc"]}), ["goblin"])
 
     def test_battle_win_gives_exp_gold_and_two_of_five_items(self):
         db = DB.copy()
@@ -158,7 +204,7 @@ class TowerRunTests(unittest.TestCase):
     def test_squad_grows_and_reserve_can_be_fielded(self):
         r = rules(squad=[{"floor": 1, "units": 2, "rows": 3, "cols": 3}, {"floor": 2, "units": 3}])
         run = drafted(DB, r)
-        self.assertEqual((len(run.fielded), len(run.reserve)), (2, 1))
+        self.assertEqual((len(run.fielded), len(run.reserve)), (2, 4))
         benched = run.reserve[0]
         with self.assertRaises(ValueError):
             run.place(benched.uid, 2, 2)                              # поле полно
@@ -183,6 +229,7 @@ class TowerRunTests(unittest.TestCase):
         run.take(db, [0])
         self.assertEqual(run.phase, SHOP)
         self.assertEqual((len(run.recruits), len(run.shop_items)), (3, 5))
+        self.assertEqual(len({class_id for class_id, _ in run.recruits}), 3)   # три разных класса на найм
         gold = run.inventory.gold
         uid = run.hire(db, 0)
         self.assertIn(uid, run.army.units)

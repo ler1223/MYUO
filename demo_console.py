@@ -11,7 +11,7 @@ import json
 import sys
 from dataclasses import asdict
 
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.database import Database
 from game.events import format_event
 from game.i18n import DEFAULT_LANG, Translator, available_languages

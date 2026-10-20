@@ -1,9 +1,13 @@
 """Вкладка Stage: бой статичными спрайтами юнитов в сцене 2.5D, как в Unicorn Overlord.
 
-Юниты стоят в трёхмерной сцене (engine.scene) и не анимируются покадрово: живость дают
-движения в мире (рывок с послеобразами, прыжок, отскок, наклон, отбрасывание, подъём,
-свечение) и трёхмерные эффекты (engine.fx). Рывок вглубь уменьшает спрайт, к зрителю —
-увеличивает. Камера наезжает на атакующего и цели (engine.camera).
+Юниты стоят в трёхмерной сцене (engine.scene); живость дают движения в мире (рывок с
+послеобразами, прыжок, отскок, наклон, отбрасывание, подъём, свечение) и трёхмерные эффекты
+(engine.fx). Рывок вглубь уменьшает спрайт, к зрителю — увеличивает. Камера наезжает на
+атакующего и цели (engine.camera).
+
+Классы с листами анимаций из Unicorn Overlord (engine.uo_anim, assets/uo_anim) ещё и играют их:
+стойка по кругу, при рывке к цели — бег, удар по прибытии, бег назад; на месте — атака или каст;
+попадание, уклонение, прикрытие и смерть — свои анимации (_animate_*).
 
 Что делает каждый навык, задаётся данными в assets/visuals/skills.json: шаги в момент
 применения (cast) и на каждое попадание (hit). Навыки без описания берут общий визуал по виду.
@@ -13,7 +17,7 @@ from __future__ import annotations
 
 import json
 import math
-from collections import OrderedDict
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Optional
@@ -29,6 +33,7 @@ from engine.fx import (
     Beam,
     Bolt,
     Dome,
+    Effect,
     Flash,
     FloatText,
     Glint,
@@ -43,11 +48,17 @@ from engine.fx import (
     add_glow,
     ease_out,
     fx_font,
+    glow_sprite,
 )
 from engine.projection import World
-from engine.render import GROUND, OVERLAY, UPRIGHT, Part, View, draw_parts
+from engine.render import GROUND, OVERLAY, UPRIGHT, Part, View, draw_parts, draw_parts_gl
 from engine.scene import PROPS_DIR, SceneConfig, SceneObject
 from engine.sprites import FxLibrary, SpriteBeam, SpriteEffect, SpriteProjectile
+from engine.uo import ui as uo_ui
+from engine.uo.frame import GLFrame
+from engine.uo.gl import GLRenderer
+from engine.uo.library import LiveAnims, LiveFx
+from engine.uo_anim import Actions, Clip
 from game.events import (
     AttackMissed,
     Covered,
@@ -63,14 +74,21 @@ from game.events import (
 from game.save import clone_scenario
 from game.scenario import DEMO_SEED, build_demo_battle, build_showcase
 from game.unit import Unit
-from pygame_battle import FIELD_RECT, BattleScreen, skill_visual, weapon_kind
+from pygame_battle import BattleScreen, skill_visual, weapon_kind
+from pygame_images import ImageBank, placeholder  # noqa: F401
 from pygame_ui import GREEN, RED
 
 ROOT = Path(__file__).resolve().parent
 UNITS_DIR = ROOT / "assets" / "units"
 TEMP_SPRITES_DIR = ROOT / "assets" / "ref" / "sprites"   # временные спрайты из референсов (tools/ref_sprites.py)
 TEMP_PREFIX = "ref:"
+UO_PREFIX = "uo:"           # анимированный юнит из Unicorn Overlord (engine.uo.library)
+# Куклы из Unicorn Overlord включены, если есть папка игры и видеокарта; MYUO_UO_ANIM=0 выключает (так делают тесты).
+UO_ANIM_ENABLED = os.environ.get("MYUO_UO_ANIM", "1") != "0"
+# Поле боя рисует видеокарта целиком (engine.uo.frame), если куклы включены; MYUO_GL_FIELD=0 — по-старому pygame.
+GL_FIELD = UO_ANIM_ENABLED and os.environ.get("MYUO_GL_FIELD", "1") != "0"
 VISUALS_PATH = ROOT / "assets" / "visuals" / "skills.json"
+UO_ANIM_CONFIG = ROOT / "data" / "uo_anim.json"
 
 FOCUS_MS = 700             # сколько после удара участники атаки остаются в фокусе
 SEE_THROUGH = 70           # непрозрачность того, кто закрывает участника атаки (из 255)
@@ -79,9 +97,18 @@ DEFAULT_WINDUP = 380
 DEATH_MS = 800
 TRAIL_GHOSTS = 4           # послеобразов при рывке
 TRAIL_STEP_MS = 28
-SPRITE_CACHE = 300
 FLYING_TAG = "flying"
 TALL = 1.3                 # спрайт выше человека в столько раз — «большой» (всадник): тень шире
+# Анимации юнитов (engine.uo_anim): сколько удар может задержать возврат после рывка, сколько
+# держится середина каста, на сколько можно ускорить начало каста, сдвиг стойки соседей.
+STRIKE_HOLD_MAX = 1200
+CAST_LOOP_MS = 300
+CAST_SPEEDUP = 2.0
+IDLE_DESYNC_MS = 731
+# Навык с эффектами из Unicorn Overlord (data/uo_anim.json, skill_fx): из шагов его визуала остаются только
+# движения, эффекты — из игры (каст на применившем, попадание на цели).
+UO_MOTION_STEPS = {"dash", "hop", "lunge", "jump", "rise", "tilt", "knockback", "shake"}
+SKILL_PART_MAX_MS = 1500           # длинная часть анимации навыка (удержание каста) сжимается до этого
 SIDE_RING = {"left": (60, 110, 220), "right": (220, 70, 60)}
 CURRENT_RING = (230, 200, 80)
 # Бои вкладки: демонстрация всех навыков и пассивок, пять тестовых классов, расстановка игрока.
@@ -153,67 +180,35 @@ class Tint:
         return math.sin(math.pi * t) if 0 <= t <= 1 else 0.0
 
 
+def uo_skill_fx() -> dict[str, dict[str, list[str]]]:
+    """Навык -> эффекты из Unicorn Overlord: {"cast": [имя в FxLibrary], "hit": [...]} (data/uo_anim.json).
+    Имя эффекта — uo_<анимация Battle_Effect>, как его собирает tools/uo_extract/build_anims.py."""
+    if not UO_ANIM_CONFIG.is_file():
+        return {}
+    name = lambda e: "uo_" + (e if isinstance(e, str) else e["anim"]).lower()
+    fx = json.loads(UO_ANIM_CONFIG.read_text(encoding="utf-8")).get("skill_fx", {})
+    return {sid: {k: [name(e) for e in v.get(k, [])] for k in ("cast", "hit")} for sid, v in fx.items()}
+
+
 # --- картинки -----------------------------------------------------------------
-
-class ImageBank:
-    """Картинки папки и их масштабированные копии (с белым силуэтом для вспышки), с кэшем."""
-
-    def __init__(self, folder: Path):
-        self.folder = Path(folder)
-        self._images: dict[str, Optional[pygame.Surface]] = {}
-        self._scaled: OrderedDict = OrderedDict()
-
-    def image(self, name: str) -> Optional[pygame.Surface]:
-        if name not in self._images:
-            path = self.folder / name
-            image = None
-            if name and path.is_file():
-                image = pygame.image.load(str(path))
-                if pygame.display.get_surface() is not None:
-                    image = image.convert_alpha()
-            self._images[name] = image
-        return self._images[name]
-
-    def scaled(self, name: str, px_height: int, flip: bool, fallback: Callable[[], pygame.Surface]):
-        """(картинка, белый силуэт) нужной высоты в пикселях окна."""
-        key = (name, px_height, flip)
-        if key in self._scaled:
-            self._scaled.move_to_end(key)
-            return self._scaled[key]
-        image = self.image(name) or fallback()
-        k = px_height / image.get_height()
-        sprite = pygame.transform.smoothscale(image, (max(1, round(image.get_width() * k)), max(1, px_height)))
-        if flip:
-            sprite = pygame.transform.flip(sprite, True, False)
-        white = sprite.copy()
-        white.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
-        self._scaled[key] = (sprite, white)
-        if len(self._scaled) > SPRITE_CACHE:
-            self._scaled.popitem(last=False)
-        return sprite, white
-
-
-def placeholder() -> pygame.Surface:
-    """Силуэт для картинки, которой нет: голова и плащ."""
-    s = pygame.Surface((60, 150), pygame.SRCALPHA)
-    pygame.draw.ellipse(s, (150, 150, 165), (10, 30, 40, 120))
-    pygame.draw.circle(s, (190, 180, 170), (30, 20), 16)
-    return s
-
 
 class SpriteBank(ImageBank):
     """Спрайты классов, их рост относительно человека и опорные точки (assets/units/units.json).
 
     Временные спрайты из референсов (папка temporary, tools/ref_sprites.py) встают вместо временных
-    похожих старых (fallback.classes), но не вместо своих спрайтов класса из assets/units."""
+    похожих старых (fallback.classes), но не вместо своих спрайтов класса из assets/units.
+    Анимированные юниты из Unicorn Overlord (anims — engine.uo.library.LiveAnims или то же по
+    интерфейсу) важнее всех: их id — «uo:<класс>», картинка для неподвижных мест — первый кадр стойки."""
 
-    def __init__(self, folder: Path = UNITS_DIR, temporary: Optional[Path] = TEMP_SPRITES_DIR):
+    def __init__(self, folder: Path = UNITS_DIR, temporary: Optional[Path] = TEMP_SPRITES_DIR,
+                 anims: Any = "live"):
         super().__init__(folder)
         path = self.folder / "units.json"
         self.config: dict[str, Any] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
         self.temporary = Path(temporary) if temporary else None
         if self.temporary and (self.temporary / "units.json").is_file():
             self._add_temporary(json.loads((self.temporary / "units.json").read_text(encoding="utf-8")))
+        self.anims = (LiveAnims() if UO_ANIM_ENABLED else None) if anims == "live" else anims
 
     def _add_temporary(self, index: dict[str, Any]) -> None:
         sprites = self.config.setdefault("sprites", {})
@@ -228,6 +223,8 @@ class SpriteBank(ImageBank):
             classes[class_id] = sprite_id
 
     def image(self, name: str) -> Optional[pygame.Surface]:
+        if name.startswith(UO_PREFIX) and name not in self._images:
+            self._images[name] = self.anims.still(name[len(UO_PREFIX):-len(".png")]) if self.anims else None
         if self.temporary and name.startswith(TEMP_PREFIX) and name not in self._images:
             path = self.temporary / name[len(TEMP_PREFIX):]
             image = pygame.image.load(str(path)) if path.is_file() else None
@@ -248,7 +245,10 @@ class SpriteBank(ImageBank):
 
     def sprite_for(self, class_id: str, tags: Any = ()) -> Optional[str]:
         """Спрайт класса (и его тегов), когда юнита ещё нет — например, отряд врага на карте мира.
-        Порядок: явное соответствие класса (fallback.classes), свой спрайт с тем же id, по тегу, по умолчанию."""
+        Порядок: анимация из Unicorn Overlord, явное соответствие класса (fallback.classes), свой спрайт
+        с тем же id, по тегу, по умолчанию."""
+        if self.anims is not None and self.anims.has(class_id):
+            return UO_PREFIX + class_id
         sprites = self.sprites
         fallback = self.config.get("fallback", {})
         if fallback.get("classes", {}).get(class_id) in sprites:
@@ -263,6 +263,8 @@ class SpriteBank(ImageBank):
 
     def ratio(self, sprite_id: Optional[str]) -> float:
         """Высота спрайта в ростах человека (у всадника с копьём около 1.8)."""
+        if self.animated(sprite_id):
+            return self.anims.ratio(sprite_id[len(UO_PREFIX):])
         info = self.sprites.get(sprite_id or "")
         if not info:
             return 1.0
@@ -280,6 +282,28 @@ class SpriteBank(ImageBank):
 
     def unit_sprite(self, sprite_id: Optional[str], px_height: int, flip: bool):
         return self.scaled(f"{sprite_id}.png" if sprite_id else "", px_height, flip, placeholder)
+
+    # --- анимированные юниты (engine.uo_anim) ---
+
+    def animated(self, sprite_id: Optional[str]) -> bool:
+        return bool(sprite_id) and sprite_id.startswith(UO_PREFIX) and self.anims is not None \
+            and self.anims.has(sprite_id[len(UO_PREFIX):])
+
+    def parts(self, sprite_id: str, state: str) -> list[dict]:
+        """Части состояния анимированного юнита (пусто, если такого состояния у класса нет)."""
+        return self.anims.parts(sprite_id[len(UO_PREFIX):], state) if self.animated(sprite_id) else []
+
+    def pose(self, sprite_id: str, part: dict, index: int, px_height: float, flip: bool):
+        """(кадр, белый силуэт, точка ног в кадре) анимированного юнита: px_height — рост в стойке
+        в пикселях окна."""
+        class_id = sprite_id[len(UO_PREFIX):]
+        k = px_height / max(1.0, self.anims.height_px(class_id))
+        return self.anims.scaled(part, index, k, flip)
+
+    def idle_pose(self, sprite_id: str, now: int, px_height: float, flip: bool):
+        """Кадр стойки в момент now (мс): части стойки идут по кругу."""
+        found = self.anims.idle_at(sprite_id[len(UO_PREFIX):], now)
+        return self.pose(sprite_id, *found, px_height, flip) if found else None
 
 
 def load_visuals(path: Path = VISUALS_PATH) -> dict[str, Any]:
@@ -329,17 +353,165 @@ class Place:
 Context = dict[str, Any]
 
 
+def put(target: Any, image: pygame.Surface, pos: tuple[float, float], alpha: float = 1.0,
+        additive: bool = False) -> None:
+    """Картинка pygame в картинку pygame или в кадр видеокарты (GLFrame), левый верхний угол в pos."""
+    if isinstance(target, GLFrame):
+        target.blit(image, pos, alpha, additive)
+        return
+    if alpha < 0.996:
+        image = image.copy()
+        image.set_alpha(int(255 * alpha))
+    target.blit(image, (round(pos[0]), round(pos[1])), special_flags=pygame.BLEND_RGB_ADD if additive else 0)
+
+
+def glow(target: Any, pos: tuple[float, float], color, radius: float, strength: float = 1.0) -> None:
+    """Свечение (как engine.fx.add_glow) и в кадр видеокарты."""
+    if not isinstance(target, GLFrame):
+        add_glow(target, pos, color, radius, strength)
+        return
+    if strength <= 0.02 or radius < 2:
+        return
+    sprite = glow_sprite(tuple(color), int(radius) // 2 * 2 or 2)
+    w, h = sprite.get_size()
+    target.image(sprite, (pos[0] - w / 2, pos[1] - h / 2, w, h), alpha=min(1.0, strength), additive=True)
+
+
+_GROUND_ART: dict[str, pygame.Surface] = {}
+
+
+def ground_art(kind: str) -> pygame.Surface:
+    """Белые заготовки для кадра видеокарты: shadow — залитый эллипс, ring — его контур."""
+    if kind not in _GROUND_ART:
+        surface = pygame.Surface((256, 64), pygame.SRCALPHA)
+        if kind == "shadow":
+            pygame.draw.ellipse(surface, (255, 255, 255, 255), surface.get_rect())
+        else:
+            pygame.draw.ellipse(surface, (255, 255, 255, 255), surface.get_rect(), 5)
+        _GROUND_ART[kind] = surface
+    return _GROUND_ART[kind]
+
+
+UO_POPUP_FILE = "Interface"
+UO_POPUP_SIZE = 0.42       # цифры UO (высота 76 при 1080p) к масштабу сцены
+UO_DIGIT_STEP = 64         # шаг разрядов в NUM_*
+UO_WORD_RISE = 70          # подпись (Critical, Guard, Miss) над числом, единицы раскладки
+
+
+def uo_popup_anims(kind: str, crit: bool, guarded: bool) -> list[str]:
+    """Какие раскладки UO показать: число и подпись (крит, защита, промах)."""
+    if kind == "miss":
+        return ["STR_MISS"]
+    if kind == "heal":
+        return ["NUM_CRITICAL_HEAL", "STR_CRITICAL_HEAL"] if crit else ["NUM_HEAL"]
+    if guarded:
+        return ["NUM_GUARD", "STR_CRITICAL_GUARD" if crit else "STR_GUARD"]
+    return ["NUM_CRITICAL_DAMAGE", "STR_CRITICAL_DAMAGE"] if crit else ["NUM_DAMAGE"]
+
+
+@dataclass
+class UoPopup(Effect):
+    """Всплывающая раскладка интерфейса UO над точкой мира: число урона/лечения (value) или подпись."""
+
+    pos: World = (0, 0, 0)
+    anim: str = ""
+    value: Optional[int] = None
+
+    def parts(self, now: int) -> list[Part]:
+        if self.progress(now) is None:
+            return []
+        return [Part(OVERLAY, 0, lambda s, v: self.draw(s, v, now), 2, gl=lambda f, v: self.draw(f, v, now))]
+
+    def draw(self, target: Any, view: View, now: int) -> None:
+        """В картинку pygame или в кадр видеокарты."""
+        tick = int((now - self.start) * 60 / 1000)
+        scale = view.cam.s(UO_POPUP_SIZE)
+        if not isinstance(target, GLFrame):
+            scale = uo_ui.snap(scale)
+        tracks = parts = None
+        shift = 0.0
+        if self.value is not None:
+            tracks, parts = uo_ui.number(self.value, 4, 2, tick)
+            shift = (len(str(max(0, self.value))[-4:]) - 1) * UO_DIGIT_STEP * scale / 2   # число по центру
+        x, y = view.xy(self.pos)
+        rise = UO_WORD_RISE * scale if self.value is None and not self.anim.startswith("STR_MISS") else 0
+        uo_ui.draw(target, UO_POPUP_FILE, self.anim, (x + shift, y - rise), scale, tick, tracks=tracks, parts=parts)
+
+
+UO_BANNER_FILE = "Interface_Battle_00"
+UO_SKILL_BANNER = "A_SKILL_1"        # красная лента навыка: _ON (появление), сама лента, _OFF (уход)
+UO_PASSIVE_BANNER = "S_SKILL"        # синяя — пассивное умение
+UO_BANNER_MS = 1500
+UO_BANNER_SCALE = 0.42               # к ширине поля 1920
+UO_BANNER_FONT = Path(__file__).resolve().parent / "assets" / "fonts" / "LinLibertine_RB.ttf"
+_banner_fonts: dict[int, pygame.font.Font] = {}
+
+
+def banner_font(size: int) -> pygame.font.Font:
+    if size not in _banner_fonts:
+        _banner_fonts[size] = (pygame.font.Font(str(UO_BANNER_FONT), size) if UO_BANNER_FONT.is_file()
+                               else pygame.font.SysFont(None, size, bold=True))
+    return _banner_fonts[size]
+
+
+@dataclass
+class UoBanner(Effect):
+    """Лента UO с названием навыка вверху поля; side -1 — левая половина (наши), 1 — правая (враги)."""
+
+    text: str = ""
+    anim: str = UO_SKILL_BANNER
+    side: int = -1
+
+    def draw(self, target: pygame.Surface, clip: pygame.Rect, now: int) -> None:
+        model = uo_ui.source().model("GUI", UO_BANNER_FILE)
+        if model is None or self.anim not in model.puppet.anims:
+            return
+        tick = (now - self.start) * 60 / 1000
+        opening, closing = model.length(f"{self.anim}_ON"), model.length(f"{self.anim}_OFF")
+        left = (self.start + self.duration - now) * 60 / 1000
+        if tick < opening:
+            anim, tick, shown = f"{self.anim}_ON", tick, tick / max(1, opening)
+        elif left < closing:
+            anim, tick, shown = f"{self.anim}_OFF", closing - left, left / max(1, closing)
+        else:
+            anim, tick, shown = self.anim, 0, 1.0
+        scale = clip.width / 1920 * UO_BANNER_SCALE
+        x = clip.x + clip.width * (0.5 + 0.24 * self.side)
+        y = clip.y + clip.height * 0.17
+        if not uo_ui.draw(target, UO_BANNER_FILE, anim, (x, y), scale, int(tick)):
+            return
+        if shown > 0.35:
+            size = max(10, round(54 * scale * 1.6))
+            text, shadow = self._text(size)
+            alpha = min(1.0, (shown - 0.35) / 0.4)
+            rect = text.get_rect(center=(round(x), round(y)))
+            put(target, shadow, rect.move(2, 2).topleft, alpha)
+            put(target, text, rect.topleft, alpha)
+
+    def _text(self, size: int) -> tuple[pygame.Surface, pygame.Surface]:
+        """Надпись и её тень (одни и те же картинки, пока лента видна: в кадре видеокарты — одна текстура)."""
+        cached = getattr(self, "_texts", None)
+        if cached is None or cached[0] != size:
+            font = banner_font(size)
+            cached = (size, font.render(self.text, True, (255, 246, 226)), font.render(self.text, True, (30, 16, 8)))
+            self._texts = cached
+        return cached[1], cached[2]
+
+
 class StageScreen(BattleScreen):
     """Вкладка боя спрайтами. Свой бой: демонстрация, тестовые отряды или расстановка игрока (клавиша T)."""
 
-    def __init__(self, scene: Optional[SceneConfig] = None, props_dir: Optional[Path] = None):
-        super().__init__()
+    def __init__(self, scene: Optional[SceneConfig] = None, props_dir: Optional[Path] = None,
+                 field: Optional[pygame.Rect] = None):
+        """field — область поля в логических пикселях сцены (по умолчанию FIELD_RECT демо)."""
+        super().__init__(field)
         self.scene = scene or SceneConfig()
         self.bank = SpriteBank()
         self.props = ImageBank(props_dir or PROPS_DIR)
-        self.backdrop = Backdrop(FIELD_RECT, props_dir)
+        self.backdrop = Backdrop(self.field, props_dir)
         self.skill_visuals = load_visuals()
-        self.sprites = FxLibrary()
+        self.sprites = FxLibrary(live=LiveFx() if UO_ANIM_ENABLED else None)
+        self.skill_fx = uo_skill_fx() if UO_ANIM_ENABLED else {}   # навык -> эффекты из Unicorn Overlord
         self.battle_view: Any = None        # свой BattleView; его создаёт окно
         self.mode = MODES[0]                # какой бой показывает вкладка (клавиша T)
         self.encounter: Optional[Callable[[], Any]] = None   # чужой бой (EXTERNAL_MODES): мир, башня
@@ -350,8 +522,12 @@ class StageScreen(BattleScreen):
         self.motions: dict[int, list[Motion]] = {}
         self.tints: dict[int, list[Tint]] = {}
         self.deaths: dict[int, int] = {}
+        self.actions = Actions()            # кадры анимированных юнитов (engine.uo_anim)
         self.focus: tuple[frozenset, int, int] = (frozenset(), 0, 0)   # участники атаки, с, по
         self.alpha: dict[Any, float] = {}   # непрозрачность юнита (uid) или объекта (("prop", i))
+        self.banners: list[UoBanner] = []   # ленты с названиями навыков (UO) вверху экрана
+        self.fx_until = 0                   # когда доиграют эффекты навыков, которые уже запущены
+        self._frame: Optional[GLFrame] = None   # кадр видеокарты (GL_FIELD)
         self._last_draw = 0
         # Шаги визуала навыков: имя -> обработчик (шаг, момент, юнит, контекст).
         self.steps: dict[str, Callable[[dict, int, int, Context], None]] = {
@@ -412,7 +588,7 @@ class StageScreen(BattleScreen):
             return
         if self.mode in EXTERNAL_MODES:      # чужой бой: только вернуться, когда он закончен
             if event.key in (pygame.K_RETURN, pygame.K_KP_ENTER) and self.battle_view is not None \
-                    and self.battle_view.sim.finished:
+                    and self.battle_view.done:
                 self.on_return()
         elif event.key == pygame.K_t:
             self.next_mode()
@@ -455,6 +631,7 @@ class StageScreen(BattleScreen):
         self.motions.clear()
         self.tints.clear()
         self.deaths.clear()
+        self.actions.clear()
         self.alpha.clear()
         self.focus = (frozenset(), 0, 0)
         self.camera_view.focus_until = 0
@@ -470,26 +647,59 @@ class StageScreen(BattleScreen):
             visual = skill_visual(skill, unit)
             self.visuals[ev.user] = visual
             if ev.user in stage:
-                self.fx.add(FloatText(when, 900, stage[ev.user].anchor("head"), self.t(skill.name) if skill else ev.skill_id,
-                                      (255, 236, 170), 14, 18, False))
+                self.announce(when, ev.user, self.t(skill.name) if skill else ev.skill_id)
             spec = self.spec(unit, ev.skill_id)
             context = self._context(ev.user, ev.target, self._targets_of(view, ev))
-            until = when + int(spec.get("windup", DEFAULT_WINDUP)) + FOCUS_MS
+            windup = int(spec.get("windup", DEFAULT_WINDUP))
+            until = when + windup + FOCUS_MS
             self.focus = (frozenset([ev.user, *context["targets"]]), when, until)
             self._focus_camera(self.focus[0], until)
-            self.run(spec.get("cast", []), when, context, "self")
+            self.run(self._steps(spec.get("cast", []), ev.skill_id), when, context, "self")
+            self._animate_skill(ev.user, when, windup, visual[0], ev.skill_id)
+            self._uo_skill_fx(ev.skill_id, "cast", when, ev.user)
         elif isinstance(ev, DamageDealt) and not self.is_periodic(ev, view.db):
-            self.run(self.spec(units.get(ev.source), ev.cause).get("hit", []), when,
+            self.run(self._steps(self.spec(units.get(ev.source), ev.cause).get("hit", []), ev.cause), when,
                      self._context(ev.source, ev.target, [ev.target]), "target")
+            self._uo_skill_fx(ev.cause, "hit", when, ev.target)
+            if ev.target != ev.source:
+                self._animate(ev.target, "hit", when)
         elif isinstance(ev, Healed) and ev.source is not None and ev.amount > 0:
-            self.run(self.spec(units.get(ev.source), ev.cause).get("hit", []), when,
+            self.run(self._steps(self.spec(units.get(ev.source), ev.cause).get("hit", []), ev.cause), when,
                      self._context(ev.source, ev.target, [ev.target]), "target")
+            self._uo_skill_fx(ev.cause, "hit", when, ev.target)
         elif isinstance(ev, AttackMissed) and ev.target in stage:   # уклонение: короткий отскок назад
             self._move(ev.target, Motion(when, 90, 80, 260, dx=-stage[ev.target].facing * 22, lift=10))
+            self._animate(ev.target, "avoid", when)
         elif isinstance(ev, Covered):
             self._cover(ev, when)
+            self._animate(ev.protector, "cover" if self._parts(ev.protector, "cover") else "guard", when + 200)
         elif isinstance(ev, UnitDied):
-            self.deaths[ev.unit] = when
+            self.deaths[ev.unit] = when + self._animate(ev.unit, "die", when, hold=True)
+            if ev.unit in stage:
+                self._uo_effect("uo_death", when, stage[ev.unit].anchor("body"), stage[ev.unit].facing)
+
+    def announce(self, when: int, uid: int, text: str, passive: bool = False) -> None:
+        """Название навыка лентой UO вверху экрана на стороне бойца (навык — красная A_SKILL,
+        пассивное умение — синяя S_SKILL); новая лента той же стороны сменяет прежнюю. Без игры — как у родителя."""
+        if not (UO_ANIM_ENABLED and uo_ui.source().ok) or uid not in self.stage:
+            super().announce(when, uid, text, passive)
+            return
+        side = -1 if self.stage[uid].facing > 0 else 1        # смотрит вправо — наш, лента слева
+        self.banners = [b for b in self.banners if b.side != side or b.start + b.duration < when] + [
+            UoBanner(when, UO_BANNER_MS, text, UO_PASSIVE_BANNER if passive else UO_SKILL_BANNER, side)]
+
+    def popup(self, when: int, uid: int, kind: str, amount: int = 0, crit: bool = False, guarded: bool = False) -> None:
+        """Цифры и подписи UO (NUM_*, STR_* из GUI/Interface.mbs); без игры — как у родителя."""
+        anims = uo_popup_anims(kind, crit, guarded) if UO_ANIM_ENABLED and uo_ui.source().ok else None
+        model = uo_ui.source().model("GUI", UO_POPUP_FILE) if anims else None
+        if model is None or uid not in self.stage:
+            super().popup(when, uid, kind, amount, crit, guarded)
+            return
+        head = self.stage[uid].anchor("head")
+        for anim in anims:
+            if anim in model.puppet.anims:
+                ms = int(model.length(anim) * 1000 / 60)
+                self.fx.add(UoPopup(when, ms, head, anim, amount if anim.startswith("NUM_") else None))
 
     def _focus_camera(self, members, until: int) -> None:
         """Камера наезжает на участников: прямоугольник их ног и голов на экране."""
@@ -525,6 +735,7 @@ class StageScreen(BattleScreen):
         if not self.sprite("shield_dome", when + 150, (front_x, ward.human * 0.45, ward.z - 4), 1.3, ward.facing, 800):
             self.fx.add(Dome(when + 150, 700, (front_x, 0.0, ward.z - 4), ELEMENT_COLORS["guard"], ward.human * 0.45))
         self.fx.add(FloatText(when, 900, ward.anchor("head"), self.t("cover").upper(), ELEMENT_COLORS["guard"], 20, 20))
+        self._uo_effect("uo_guard", when + 200, (front_x, ward.human * 0.45, ward.z - 4), ward.facing)
 
     @staticmethod
     def _targets_of(view: Any, ev: SkillUsed) -> list[int]:
@@ -552,6 +763,85 @@ class StageScreen(BattleScreen):
             for uid in uids:
                 if uid in self.stage:
                     handler(step, base + int(step.get("at", 0)), uid, context)
+
+    # --- анимации юнитов (engine.uo_anim) ---
+
+    def _parts(self, uid: int, state: str) -> list[dict]:
+        place = self.stage.get(uid)
+        return self.bank.parts(place.sprite, state) if place is not None else []
+
+    def _animate(self, uid: int, state: str, when: int, hold: bool = False) -> int:
+        """Сыграть состояние целиком (части подряд); hold — потом держать последний кадр.
+        Возвращает длительность в мс (0, если у юнита нет такой анимации)."""
+        parts = self._parts(uid, state)
+        if not parts or uid in self.deaths:
+            return 0
+        clips, at = [], when
+        for part in parts:
+            clips.append(Clip(at, part))
+            at += int(part["ms"])
+        if hold:
+            self.actions.play(uid, clips[:-1])
+            self.actions.hold(uid, clips[-1])
+        else:
+            self.actions.play(uid, clips)
+        return at - when
+
+    def _animate_skill(self, uid: int, when: int, windup: int, delivery: str, skill_id: str = "") -> None:
+        """Навык: своя анимация навыка класса, иначе атака или каст. С рывком к цели — бег, удар по
+        прибытии, бег назад; на месте — части подряд (слишком длинные сжимаются)."""
+        own, attack, cast = self._parts(uid, f"skill.{skill_id}"), self._parts(uid, "attack"), self._parts(uid, "skill")
+        dash = max((m for m in self.motions.get(uid, ()) if m.start >= when and abs(m.dx) > 30),
+                   key=lambda m: abs(m.dx), default=None)
+        if own:
+            if dash is not None:
+                self.actions.play(uid, self._dash_clips(dash, own))
+            else:
+                clips, at = [], when
+                for part in own:
+                    ms = min(SKILL_PART_MAX_MS, int(part["ms"]))
+                    clips.append(Clip(at, part, "stretch", ms))
+                    at += ms
+                self.actions.play(uid, clips)
+            return
+        if not attack and not cast:
+            return
+        magic = delivery in ("magic", "heal", "support")
+        if dash is not None and attack:
+            self.actions.play(uid, self._dash_clips(dash, attack))
+        elif magic and cast:
+            first = int(cast[0]["ms"])
+            clips = [Clip(when, cast[0], "stretch", max(windup, round(first / CAST_SPEEDUP)))]
+            at = clips[0].end
+            if len(cast) > 1:
+                clips.append(Clip(at, cast[1], "loop", CAST_LOOP_MS))
+                at += CAST_LOOP_MS
+            clips += [Clip(at, part) for part in cast[2:3]]
+            self.actions.play(uid, clips)
+        else:
+            parts = attack or cast
+            at, clips = when, []
+            for part in parts[1:] if len(parts) >= 4 else parts:    # бег к цели на месте не нужен
+                clips.append(Clip(at, part))
+                at += int(part["ms"])
+            self.actions.play(uid, clips[:3])
+
+    @staticmethod
+    def _dash_clips(dash: Motion, attack: list[dict]) -> list[Clip]:
+        """Части атаки на фазы рывка: бег (go), удар (hold, удлиняется под удар), бег назад (back)."""
+        run, strike, back, settle = (attack + [None] * 4)[:4] if len(attack) >= 3 else (
+            (attack[0], attack[1], None, None) if len(attack) == 2 else (None, attack[0], None, None))
+        clips = []
+        if run is not None:
+            clips.append(Clip(dash.start, run, "stretch", max(1, dash.go)))
+        strike_ms = min(STRIKE_HOLD_MAX, int(strike["ms"]))
+        dash.hold = max(dash.hold, strike_ms)                # возвращаться, когда удар доигран
+        clips.append(Clip(dash.start + dash.go, strike, "stretch", strike_ms))
+        if back is not None:
+            clips.append(Clip(dash.start + dash.go + dash.hold, back, "stretch", max(1, dash.back)))
+        if settle is not None:
+            clips.append(Clip(dash.end, settle))
+        return clips
 
     # --- шаги: движения (единицы мира) ---
 
@@ -719,7 +1009,7 @@ class StageScreen(BattleScreen):
             return
         place = self.stage[uid]
         x, y, z = self._pos(step, uid)
-        if self.sprites.spec(name).get("layer") == "ground":
+        if self.sprites.spec(name).get("layer") == "ground" or self.sprites.spec(name).get("uo_anim")                 and self.sprites.spec(name).get("anchor") == "feet":
             y = 0.0
         ms = self.sprites.duration(name, self._ms(step, 500))
         self.fx.add(SpriteEffect(at, ms, self.sprites, name, (x + step.get("dx", 0) * place.facing, y + step.get("dy", 0), z),
@@ -735,6 +1025,65 @@ class StageScreen(BattleScreen):
     def _impact(self, step: dict, at: int, uid: int, context: Context) -> None:
         """Общий эффект удара по виду навыка и стихии."""
         self.impact(at, self._pos(step, uid), context["visual"], self._source(uid, context).facing)
+
+    def _uo_fx(self, skill_id: str) -> Optional[dict[str, list[str]]]:
+        """Эффекты навыка из Unicorn Overlord, если хоть один собран (иначе визуал проекта)."""
+        fx = self.skill_fx.get(skill_id)
+        if fx and any(name in self.sprites for name in fx["cast"] + fx["hit"]):
+            return fx
+        return None
+
+    def _steps(self, steps: list[dict], skill_id: str) -> list[dict]:
+        """Шаги визуала навыка: у навыка с эффектами из игры остаются только движения."""
+        return [s for s in steps if s.get("do") in UO_MOTION_STEPS] if self._uo_fx(skill_id) else steps
+
+    def _uo_skill_fx(self, skill_id: str, kind: str, when: int, uid: int) -> None:
+        """Эффекты навыка (cast — на применившем, hit — на цели) друг за другом."""
+        fx = self._uo_fx(skill_id)
+        if not fx or uid not in self.stage:
+            return
+        place = self.stage[uid]
+        for name in fx[kind]:
+            if self._uo_effect(name, when, place.anchor("body"), place.facing):
+                when += self.sprites.duration(name)
+
+    def _uo_effect(self, name: str, when: int, pos: World, facing: int) -> bool:
+        """Эффект из assets/uo_anim/fx в точке pos (лежащий на земле — у ног); False, если его нет."""
+        if name not in self.sprites:
+            return False
+        if self.sprites.spec(name).get("anchor") == "feet":
+            pos = (pos[0], 0.0, pos[2])
+        self.fx.add(SpriteEffect(when, self.sprites.duration(name), self.sprites, name, pos, 1.0, facing))
+        self.fx_until = max(self.fx_until, when + self.sprites.duration(name))
+        return True
+
+    def preload(self, class_ids) -> None:
+        """Заранее загрузить куклы бойцов, эффектов и интерфейса UO: иначе первая загрузка (до секунды)
+        случается посреди боя и картинка встаёт."""
+        if not (UO_ANIM_ENABLED and uo_ui.source().ok):
+            return
+        src = uo_ui.source()
+        for cid in set(class_ids):
+            if self.bank.animated(self.bank.sprite_for(cid) or ""):
+                src.class_model(cid)
+        if self.sprites is not None and self.sprites.live is not None:
+            self.sprites.live.model()
+        for file in (UO_POPUP_FILE, UO_BANNER_FILE):
+            src.model("GUI", file)
+
+    def busy_until(self) -> int:
+        """Когда доиграет всё запущенное на сцене: анимации бойцов, движения, эффекты навыков.
+        Следующий ход и итог боя ждут этого момента, чтобы ничего не начиналось поверх."""
+        until = self.fx_until
+        for clips in self.actions.clips.values():
+            for clip in clips:
+                end = clip.end
+                if end is not None:
+                    until = max(until, end)
+        for motions in self.motions.values():
+            for motion in motions:
+                until = max(until, motion.end)
+        return until
 
     # --- положение в кадре ---
 
@@ -757,7 +1106,7 @@ class StageScreen(BattleScreen):
         return (place.x + dx, dy, place.z + dz), angle
 
     def death_progress(self, uid: int, now: int) -> float:
-        """0 жив, 0..1 падает и тает, 1 исчез."""
+        """0 жив, 0..1 падает и тает, 1 исчез (анимированный сначала доигрывает смерть)."""
         if uid not in self.dead:
             return 0.0
         died = self.deaths.get(uid)
@@ -769,13 +1118,35 @@ class StageScreen(BattleScreen):
         """Другая сцена: расстановка пересчитается в следующем кадре."""
         self.scene = scene
 
-    def draw_field(self, target: pygame.Surface, now: int, cam: Camera) -> None:
-        previous_clip = target.get_clip()
-        target.set_clip(cam.clip)
+    def gl_frame(self) -> Optional[GLFrame]:
+        """Кадр видеокарты для поля или None (выключено, нет видеокарты)."""
+        if not GL_FIELD:
+            return None
+        if self._frame is None:
+            gl = GLRenderer.get()
+            if gl is None:
+                return None
+            self._frame = GLFrame(gl)
+        return self._frame
+
+    def render_gl(self, size: tuple[int, int], now: int, cam: Camera) -> Optional[GLFrame]:
+        """Поле в кадр видеокарты размера size (пиксели окна; поле — в cam.clip). Без вывода:
+        окно OpenGL кладёт его на экран (GLFrame.present), остальные читают в картинку (draw_field)."""
+        frame = self.gl_frame()
+        if frame is None:
+            return None
+        frame.begin(size, cam.clip)
         cam = cam.shifted(*self.fx.screen_offset(now))
         quality = cam.scale / max(1.0, self.camera_view.zoom) * FOCUS_ZOOM
-        self.backdrop.draw(target, self.scene, cam, quality)
+        self.backdrop.draw_gl(frame, self.scene, cam, quality)
         view = View(self.scene.projection(), cam, now)
+        draw_parts_gl(frame, view, self._field_parts(view, now))
+        for banner in self._live_banners(now):
+            banner.draw(frame, cam.clip or pygame.Rect(0, 0, *size), now)
+        frame.end()
+        return frame
+
+    def _field_parts(self, view: View, now: int) -> list[Part]:
         parts = self.prop_parts(view)
         if self.view is not None:
             for uid in list(self.motions):      # закончившиеся движения больше не нужны
@@ -788,7 +1159,26 @@ class StageScreen(BattleScreen):
             for uid in visible:
                 parts.extend(self.unit_parts(units[uid], view))
             parts.extend(self.fx.parts(now))
-        draw_parts(target, view, parts)
+        return parts
+
+    def _live_banners(self, now: int) -> list[UoBanner]:
+        self.banners = [b for b in self.banners if b.start + b.duration >= now]
+        return [b for b in self.banners if b.start <= now]
+
+    def draw_field(self, target: pygame.Surface, now: int, cam: Camera) -> None:
+        if self.gl_frame() is not None:          # видеокартой, одно чтение кадра в картинку
+            frame = self.render_gl(target.get_size(), now, cam)
+            frame.read_into(target, cam.clip)
+            return
+        previous_clip = target.get_clip()
+        target.set_clip(cam.clip)
+        cam = cam.shifted(*self.fx.screen_offset(now))
+        quality = cam.scale / max(1.0, self.camera_view.zoom) * FOCUS_ZOOM
+        self.backdrop.draw(target, self.scene, cam, quality)
+        view = View(self.scene.projection(), cam, now)
+        draw_parts(target, view, self._field_parts(view, now))
+        for banner in self._live_banners(now):
+            banner.draw(target, cam.clip or target.get_rect(), now)
         target.set_clip(previous_clip)
 
     def prop_parts(self, view: View) -> list[Part]:
@@ -796,7 +1186,8 @@ class StageScreen(BattleScreen):
         parts = []
         for i, obj in enumerate(self.scene.objects):
             if obj.layer == "upright":
-                parts.append(Part(UPRIGHT, obj.z, lambda s, v, i=i, obj=obj: self._draw_prop(s, v, i, obj)))
+                parts.append(Part(UPRIGHT, obj.z, lambda s, v, i=i, obj=obj: self._draw_prop(s, v, i, obj),
+                                  gl=lambda f, v, i=i, obj=obj: self._draw_prop_gl(f, v, i, obj)))
         return parts
 
     def prop_rect(self, obj: SceneObject, view: View) -> Optional[pygame.Rect]:
@@ -819,17 +1210,50 @@ class StageScreen(BattleScreen):
             sprite.set_alpha(int(alpha))
         target.blit(sprite, sprite.get_rect(midbottom=view.xy((obj.x, obj.y, obj.z))))
 
+    def _draw_prop_gl(self, frame: GLFrame, view: View, index: int, obj: SceneObject) -> None:
+        image = self.props.image(obj.image)
+        rect = self.prop_rect(obj, view)
+        if image is None or rect is None:
+            return
+        tex = frame.keyed_texture(("prop", id(self.props), obj.image), lambda: image, mipmaps=True)
+        frame.image(None, tuple(rect), alpha=self.alpha.get(("prop", index), 255) / 255, texture=tex, flip=obj.flip)
+
     def _sprite(self, uid: int, view: View, now: int, feet: World):
+        """(картинка, белый силуэт, точка ног в картинке) юнита в момент now."""
         place = self.stage[uid]
         k = view.p(feet)[2]
+        flip = place.side == "right"
+        if self.bank.animated(place.sprite):
+            pose = self.actions.pose(uid, now)
+            frame = self.bank.pose(place.sprite, *pose, place.height * k, flip) if pose else \
+                self.bank.idle_pose(place.sprite, now + uid * IDLE_DESYNC_MS, place.height * k, flip)
+            if frame is not None:
+                return frame
         breath = 1 + 0.012 * math.sin(now / 650 + uid * 1.7)      # еле заметное дыхание
         px_height = max(4, round(place.height * k * breath / 2) * 2)
-        return self.bank.unit_sprite(place.sprite, px_height, place.side == "right")
+        sprite, white = self.bank.unit_sprite(place.sprite, px_height, flip)
+        return sprite, white, (sprite.get_width() / 2, sprite.get_height())
+
+    @staticmethod
+    def _placed(sprite: pygame.Surface, origin: tuple[float, float], point: tuple[float, float]) -> pygame.Rect:
+        """Прямоугольник картинки, у которой точка origin стоит в point."""
+        return sprite.get_rect(topleft=(round(point[0] - origin[0]), round(point[1] - origin[1])))
 
     def unit_rect(self, uid: int, view: View) -> pygame.Rect:
         feet, _ = self.world_at(uid, view.now)
-        sprite, _ = self._sprite(uid, view, view.now, feet)
-        return sprite.get_rect(midbottom=view.xy(feet))
+        place = self.stage[uid]
+        if self.gl_frame() is not None and self.bank.animated(place.sprite):    # по сетке куклы, без картинки
+            cid = place.sprite[len(UO_PREFIX):]
+            anims = self.bank.anims
+            pose = self.actions.pose(uid, view.now) or anims.idle_at(cid, view.now + uid * IDLE_DESYNC_MS)
+            found = anims.mesh(*pose) if pose else None
+            if found is not None:
+                scale = place.height * view.p(feet)[2] / max(1.0, anims.height_px(cid))
+                ox, oy, w, h = found[0].frame_box(scale, place.side == "right")
+                x, y = view.xy(feet)
+                return pygame.Rect(round(x - ox), round(y - oy), w, h)
+        sprite, _, origin = self._sprite(uid, view, view.now, feet)
+        return self._placed(sprite, origin, view.xy(feet))
 
     def _update_alpha(self, visible: list[int], view: View) -> None:
         """Во время атаки всё, что стоит ближе атакующего или цели и закрывает их, становится прозрачным."""
@@ -856,11 +1280,71 @@ class StageScreen(BattleScreen):
         """Тень (земля), спрайт с послеобразами (стоящие) и плашка HP (надписи)."""
         uid = unit.uid
         feet, angle = self.world_at(uid, view.now)
-        parts = [Part(GROUND, feet[2], lambda s, v: self._draw_ground(s, v, uid, feet)),
-                 Part(UPRIGHT, feet[2], lambda s, v: self._draw_unit(s, v, uid, feet, angle))]
+        parts = [Part(GROUND, feet[2], lambda s, v: self._draw_ground(s, v, uid, feet),
+                      gl=lambda f, v: self._draw_ground_gl(f, v, uid, feet)),
+                 Part(UPRIGHT, feet[2], lambda s, v: self._draw_unit(s, v, uid, feet, angle),
+                      gl=lambda f, v: self._draw_unit_gl(f, v, uid, feet, angle))]
         if uid not in self.dead:
-            parts.append(Part(OVERLAY, 0, lambda s, v: self._draw_plate(s, v, unit), 1))
+            parts.append(Part(OVERLAY, 0, lambda s, v: self._draw_plate(s, v, unit), 1,
+                              gl=lambda f, v: self._draw_plate(f, v, unit)))
         return parts
+
+    def _draw_ground_gl(self, frame: GLFrame, view: View, uid: int, feet: World) -> None:
+        """Тень и кольцо стороны — белыми заготовками, окрашенными видеокартой."""
+        place = self.stage[uid]
+        x, y, k = view.p((feet[0], 0.0, feet[2]))
+        fade = 1 - self.death_progress(uid, view.now)
+        shrink = 1 - min(0.5, feet[1] / (place.human * 0.5))
+        width = place.shadow * k * shrink
+        w, h = max(2.0, width), max(2.0, width * 0.22)
+        frame.image(ground_art("shadow"), (x - w / 2, y - h / 2, w, h), alpha=110 / 255 * fade, mul=(0, 0, 0))
+        if fade < 1:
+            return
+        color = CURRENT_RING if self.view is not None and uid == self.view.current_uid else SIDE_RING[place.side]
+        rw, rh = w + 8, h + 6
+        frame.image(ground_art("ring"), (x - rw / 2, y - rh / 2, rw, rh), additive=True,
+                    mul=tuple(c / 255 for c in color))
+
+    def _draw_unit_gl(self, frame: GLFrame, view: View, uid: int, feet: World, angle: float) -> None:
+        """Юнит видеокартой: кукла UO рисуется сразу нужного размера (без кэша картинок), у спрайтов —
+        их картинка; прозрачность, свечение, вспышка, поворот и послеобразы — при наложении."""
+        place, now = self.stage[uid], view.now
+        animated = self.bank.animated(place.sprite)
+        shake, flash = self.fx.hit_reaction(uid, now)
+        dying = self.death_progress(uid, now)
+        alpha = self.alpha.get(uid, 255) * (1 - dying) / 255
+        if dying > 0 and not animated:   # падает назад и тает (анимированный падает сам)
+            angle += 70 * ease_out(dying) * place.facing
+        point = view.xy((feet[0] + shake, feet[1], feet[2]))
+        add = [0.0, 0.0, 0.0]
+        for t in self.tints.get(uid, ()):
+            k = t.strength(now)
+            if k > 0.02:
+                add = [a + c * k * 0.55 / 255 for a, c in zip(add, t.color)]
+        ghosts = ()
+        if any(m.trail and m.moving(now) for m in self.motions.get(uid, ())):
+            ghosts = tuple((view.xy(self.world_at(uid, now - i * TRAIL_STEP_MS)[0]),
+                            0.47 * (1 - i / (TRAIL_GHOSTS + 1)) * alpha) for i in range(TRAIL_GHOSTS, 0, -1))
+        flip = place.side == "right"
+        k = view.p(feet)[2]
+        flash = 0.78 * flash if not angle else 0.0
+        if animated:
+            cid = place.sprite[len(UO_PREFIX):]
+            anims = self.bank.anims
+            pose = self.actions.pose(uid, now) or anims.idle_at(cid, now + uid * IDLE_DESYNC_MS)
+            found = anims.mesh(*pose) if pose else None
+            if found is not None:
+                scale = place.height * k / max(1.0, anims.height_px(cid))
+                frame.puppet(found[0], found[1], scale, flip, point, alpha, tuple(add), flash, angle, ghosts=ghosts)
+                return
+        breath = 1 + 0.012 * math.sin(now / 650 + uid * 1.7)      # еле заметное дыхание
+        px_height = max(4, round(place.height * k * breath / 2) * 2)
+        sprite, _ = self.bank.unit_sprite(place.sprite, px_height, flip)
+        w, h = sprite.get_size()
+        for (gx, gy), ghost_alpha in ghosts:
+            frame.image(sprite, (gx - w / 2, gy - h, w, h), alpha=ghost_alpha, add=(70 / 255, 90 / 255, 140 / 255))
+        frame.image(sprite, (point[0] - w / 2, point[1] - h, w, h), alpha=alpha, add=tuple(add), flash=flash,
+                    angle=angle, pivot=point)
 
     def _draw_ground(self, target: pygame.Surface, view: View, uid: int, feet: World) -> None:
         """Тень под ногами (остаётся на земле при прыжке) и кольцо стороны; у ходящего кольцо жёлтое."""
@@ -883,11 +1367,12 @@ class StageScreen(BattleScreen):
 
     def _draw_unit(self, target: pygame.Surface, view: View, uid: int, feet: World, angle: float) -> None:
         place, now = self.stage[uid], view.now
-        sprite, white = self._sprite(uid, view, now, feet)
+        sprite, white, origin = self._sprite(uid, view, now, feet)
+        animated = self.bank.animated(place.sprite)
         shake, flash = self.fx.hit_reaction(uid, now)
         dying = self.death_progress(uid, now)
         alpha = self.alpha.get(uid, 255) * (1 - dying)
-        if dying > 0:   # падает назад и тает
+        if dying > 0 and not animated:   # падает назад и тает (анимированный падает сам)
             angle += 70 * ease_out(dying) * place.facing
         # Послеобразы рывка: тот же спрайт в недавних точках пути, всё прозрачнее.
         if any(m.trail and m.moving(now) for m in self.motions.get(uid, ())):
@@ -896,7 +1381,7 @@ class StageScreen(BattleScreen):
             for i in range(TRAIL_GHOSTS, 0, -1):
                 past, _ = self.world_at(uid, now - i * TRAIL_STEP_MS)
                 ghost.set_alpha(int(120 * (1 - i / (TRAIL_GHOSTS + 1)) * alpha / 255))
-                target.blit(ghost, ghost.get_rect(midbottom=view.xy(past)))
+                target.blit(ghost, self._placed(ghost, origin, view.xy(past)))
         image = sprite
         tint = [(t.color, t.strength(now)) for t in self.tints.get(uid, ()) if t.strength(now) > 0.02]
         if tint:
@@ -906,14 +1391,19 @@ class StageScreen(BattleScreen):
         if alpha < 254:
             image = image.copy() if image is sprite else image
             image.set_alpha(int(alpha))
-        if angle:
+        point = view.xy((feet[0] + shake, feet[1], feet[2]))
+        rect = self._placed(image, origin, point)
+        if angle:   # поворот вокруг ног: ноги остаются на месте
+            w, h = image.get_size()
             image = pygame.transform.rotate(image, angle)
-        rect = image.get_rect(midbottom=view.xy((feet[0] + shake, feet[1], feet[2])))
-        if angle:   # поворот вокруг ног: сдвиг, чтобы ноги остались на месте
-            rect.centerx += round(math.sin(math.radians(angle)) * -sprite.get_height() * 0.3)
+            a = math.radians(angle)
+            vx, vy = origin[0] - w / 2, origin[1] - h / 2
+            rx, ry = vx * math.cos(a) + vy * math.sin(a), -vx * math.sin(a) + vy * math.cos(a)
+            rect = image.get_rect(center=(round(point[0] - rx), round(point[1] - ry)))
         target.blit(image, rect)
         if flash > 0 and not angle:
-            white = white.copy()
+            white = (white if white is not None else image).copy()     # у кукол UO силуэт делается здесь
+            white.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_MAX)
             white.set_alpha(int(200 * flash * alpha / 255))
             target.blit(white, rect)
 
@@ -925,8 +1415,10 @@ class StageScreen(BattleScreen):
         if self.plate_drawer is not None:
             self.plate_drawer(target, unit, hp, (x, y), k)
             if self.view is not None and uid == self.view.current_uid:
-                add_glow(target, view.xy(place.anchor("head")), (60, 50, 15), 30 * k, 1.0)
+                glow(target, view.xy(place.anchor("head")), (60, 50, 15), 30 * k, 1.0)
             return
+        if isinstance(target, GLFrame):          # своя плашка рисуется pygame — на слой кадра
+            target = target.legacy
         w = max(4, round(place.human * 0.3 * k))
         bar = pygame.Rect(x - w // 2, y + round(8 * k), w, max(2, round(5 * k)))
         pygame.draw.rect(target, (30, 20, 22), bar.inflate(2, 2))

@@ -156,12 +156,15 @@ class SceneTests(unittest.TestCase):
 
 class DemoBattleTests(unittest.TestCase):
     def test_demo_battle_shows_almost_every_skill_and_every_passive(self):
-        from game.battle import BattleSimulation
+        from game.combat import Battle as BattleSimulation
         from game.events import Covered, PassiveTriggered, SkillUsed, UnitDied
         from game.scenario import DEMO_SEED, build_demo_battle
         db = Database.load()                                    # демонстрация собрана под настоящие данные
         scenario = build_demo_battle(db)
-        sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, db, seed=DEMO_SEED)
+        # Демонстрация показывает анимации: предел пассивок за действие здесь снят,
+        # иначе часть пассивок не успевает появиться в бою.
+        sim = BattleSimulation(scenario.player_squad, scenario.enemy_squad, db, seed=DEMO_SEED,
+                               passives_per_action=-1)
         skills, passives, covers, deaths = set(), set(), 0, 0
         while not sim.finished:
             for ev in sim.step():

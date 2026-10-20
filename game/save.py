@@ -26,6 +26,9 @@ def unit_to_save(unit: Unit) -> dict[str, Any]:
         "effects": unit.save_effects(),
         # None = тактики по умолчанию из определения
         "tactics": unit.tactics.to_list() if unit.has_custom_tactics else None,
+        # Правила пассивок: {id пассивки: правила} или None, если ничего не настроено
+        "passive_tactics": ({pid: t.to_list() for pid, t in unit.passive_tactics.items() if t.rules}
+                            or None),
     }
 
 
@@ -37,6 +40,10 @@ def unit_from_save(db: Database, data: Mapping[str, Any]) -> Optional[Unit]:
     unit = db.restore_unit(state, data.get("effects", ()))
     if data.get("tactics") is not None:
         unit.set_tactics(TacticsSet.from_list([r for r in data["tactics"] if r["skill"] in db.skills]))
+    for passive_id, rules in (data.get("passive_tactics") or {}).items():
+        if passive_id in db.passives:
+            unit.set_passive_tactics(passive_id,
+                                     TacticsSet.from_list([r for r in rules if r["skill"] in db.skills]))
     return unit
 
 

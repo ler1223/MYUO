@@ -13,18 +13,19 @@
 from __future__ import annotations
 
 import math
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Callable, Optional
 
 import pygame
 
 from engine.camera import Camera
-from engine.fx import add_glow, fx_font
 from engine.projection import Projection
 from engine.render import GROUND, OVERLAY, UPRIGHT, Part, View, draw_parts
 from game.overworld import SAFE_KINDS, Interaction, Overworld, WorldDef, WorldObject
-from pygame_stage import ImageBank, SpriteBank, placeholder
-from pygame_ui import DIM, GREEN, HEIGHT, PANEL, RED, TEXT, UI, WIDTH, YELLOW
+from battle.figures import Figures
+from pygame_images import ImageBank, placeholder
+from pygame_ui import DIM, FONT_NAMES, GREEN, HEIGHT, PANEL, RED, TEXT, UI, WIDTH, YELLOW
 
 ROOT = Path(__file__).resolve().parent
 WORLD_IMAGES = ROOT / "assets" / "world"
@@ -54,6 +55,31 @@ INV_ROW = 22
 SQUAD_ROW = 52
 
 
+
+@lru_cache(maxsize=None)
+def label_font(size: int) -> pygame.font.Font:
+    """Шрифт подписей на карте нужного размера в пикселях окна."""
+    return pygame.font.SysFont(FONT_NAMES, max(8, size), bold=True)
+
+
+_glow_cache: dict[tuple[tuple[int, int, int], int], pygame.Surface] = {}
+
+
+def add_glow(screen: pygame.Surface, pos: tuple[float, float], color: tuple[int, int, int], radius: float) -> None:
+    """Круглое свечение сложением цветов: яркий центр, мягко гаснущие края (кольцо героя)."""
+    radius = max(2, int(radius) // 2 * 2)
+    key = (color, radius)
+    if key not in _glow_cache:
+        if len(_glow_cache) > 400:
+            _glow_cache.clear()
+        surface = pygame.Surface((radius * 2, radius * 2))
+        for r in range(radius, 0, -max(1, radius // 40)):
+            k = (1 - r / radius) ** 1.8
+            pygame.draw.circle(surface, tuple(min(255, int(c * k)) for c in color), (radius, radius), r)
+        _glow_cache[key] = surface
+    sprite = _glow_cache[key]
+    screen.blit(sprite, sprite.get_rect(center=(int(pos[0]), int(pos[1]))), special_flags=pygame.BLEND_RGB_ADD)
+
 class WorldScreen:
     """Экран мира. start_battle(enemy_id) — окно начинает бой; finish_battle() — забрать итог."""
 
@@ -69,7 +95,7 @@ class WorldScreen:
             except (OSError, ValueError, KeyError, TypeError):
                 pass                           # чужое или битое сохранение: новая игра
         self.cam: tuple[float, float] = self.state.hero
-        self.bank = SpriteBank()
+        self.figures = Figures()           # герой и отряды — куклы UO в стойке (battle.figures)
         self.images = ImageBank(WORLD_IMAGES)
         self.panel = False                     # открыт инвентарь и отряд
         self.minimap = True
@@ -450,12 +476,27 @@ class WorldScreen:
             target.blit(sprite, sprite.get_rect(midbottom=(px, py)))
         return Part(UPRIGHT, point[2], draw)
 
+    def _figure(self, class_id: str, x: float, z: float, now: int, flip: bool, lift: float = 0.0) -> Part:
+        """Кукла класса в стойке (рост человека — HUMAN); без куклы — силуэт-заглушка."""
+        point = self.rel(x, z, lift)
+
+        def draw(target: pygame.Surface, view: View) -> None:
+            px, py, k = view.p(point)
+            pose = self.figures.pose(class_id, now, max(4.0, HUMAN * k), flip)
+            if pose is None:
+                sprite, _ = self.images.scaled("", max(4, round(HUMAN * k / 2) * 2), flip, placeholder)
+                target.blit(sprite, sprite.get_rect(midbottom=(px, py)))
+                return
+            sprite, (ox, oy) = pose
+            target.blit(sprite, (round(px - ox), round(py - oy)))
+        return Part(UPRIGHT, point[2], draw)
+
     def _label(self, text: str, x: float, z: float, height: float, color: tuple[int, int, int]) -> Part:
         point = self.rel(x, z, height + 12)
 
         def draw(target: pygame.Surface, view: View) -> None:
             px, py, k = view.p(point)
-            font = fx_font(max(10, round(14 * view.cam.scale)), False)
+            font = label_font(max(10, round(14 * view.cam.scale)))
             img, shade = font.render(text, True, color), font.render(text, True, (10, 10, 14))
             rect = img.get_rect(midbottom=(px, py))
             target.blit(shade, rect.move(1, 1))
@@ -476,29 +517,24 @@ class WorldScreen:
         enemy = self.world.enemy(enemy_id)
         db = self.app.db if self.app is not None else None
         leader = enemy.leader_in(list(db.units)) if db is not None else enemy.leader_class
-        tags = db.units[leader].tags if db is not None and leader in db.units else ()
-        sprite = self.bank.sprite_for(leader, tags)
-        height = HUMAN * self.bank.ratio(sprite)
+        height = HUMAN * self.figures.ratio(leader)
         bob = 3 * abs(math.sin(now / 140 + hash(enemy_id) % 7)) if state.target is not None or state.chasing else 0
         facing = self._enemy_facing.get(enemy_id, -1)
         parts = [self._shadow(state.x, state.z, HUMAN * 0.6),
-                 self._sprite(f"{sprite}.png" if sprite else "", state.x, state.z, height, facing < 0, self.bank, bob)]
+                 self._figure(leader, state.x, state.z, now, facing < 0, bob)]
         name = self.t(enemy.name) + (" !" if state.chasing else "")
         parts.append(self._label(name, state.x, state.z, height, (255, 120, 100) if state.chasing else (230, 170, 160)))
         return parts
 
     def _hero_parts(self, now: int) -> list[Part]:
         x, z = self.state.hero
-        sprite = self.bank.sprite_for(HERO_CLASS, ("cavalry",))
-        height = HUMAN * self.bank.ratio(sprite)
         bob = 2 * math.sin(now / 160)
-        parts = [self._shadow(x, z, HUMAN * 0.9), self._sprite(f"{sprite}.png", x, z, height, self.state.facing < 0,
-                                                               self.bank, abs(bob))]
+        parts = [self._shadow(x, z, HUMAN * 0.9), self._figure(HERO_CLASS, x, z, now, self.state.facing < 0, abs(bob))]
         point = self.rel(x, z)
 
         def ring(target: pygame.Surface, view: View) -> None:   # кольцо героя на земле
             px, py, k = view.p(point)
-            add_glow(target, (px, py), (60, 50, 15), 40 * k, 1.0)
+            add_glow(target, (px, py), (60, 50, 15), 40 * k)
         parts.append(Part(GROUND, point[2] - 1, ring))
         return parts
 

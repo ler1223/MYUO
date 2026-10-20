@@ -1,0 +1,10632 @@
+{
+ "_comment": "Показ боя UO (battle/): собирает tools/uo_battle/build.py из файлов игры; правки — в manual (те же разделы: classes, skills, scenes), они важнее собранного.",
+ "classes": {
+  "arbalist": {
+   "code": "RANGER",
+   "file": "Ranger_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "power_bolt": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "toxic_bolt": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Ranger_F",
+     "variant": 0
+    },
+    {
+     "file": "Ranger_F",
+     "variant": 1
+    }
+   ],
+   "shot": {
+    "anim": "CROSSBOW_SHOT",
+    "speed": 40.0,
+    "trail": "SHOT_EFFECT"
+   }
+  },
+  "berserker": {
+   "code": "GLADIATOR_HG",
+   "file": "Gladiator_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "wide_smash": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "mounting_charge": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4",
+     "ATTACK_B5"
+    ],
+    "grand_smash": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Gladiator_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Gladiator_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Gladiator_HG_M",
+     "variant": 2
+    }
+   ]
+  },
+  "bishop": {
+   "code": "CLERIC_HG",
+   "file": "Cleric_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "heal": [
+     "S02_BT_HEAL_A1",
+     "S02_BT_HEAL_A2",
+     "S02_BT_HEAL_A3",
+     "S02_BT_HEAL_A4",
+     "S02_BT_HEAL_A5",
+     "S19_QUICK_HEAL_1",
+     "S19_QUICK_HEAL_2",
+     "S19_QUICK_HEAL_3"
+    ],
+    "sacred_heal": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Cleric_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Cleric_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "Cleric_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "Cleric_HG_F",
+     "variant": 3
+    },
+    {
+     "file": "Cleric_HG_F",
+     "variant": 4
+    },
+    {
+     "file": "Cleric_HG_F",
+     "variant": 5
+    },
+    {
+     "file": "Cleric_HG_F",
+     "variant": 6
+    }
+   ]
+  },
+  "breaker": {
+   "code": "WARRIOR_HG",
+   "file": "Warrior_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "heavy_smash": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "assaulting_blow": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "row_smash": [
+     "ATTACK_C"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Warrior_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Warrior_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "Warrior_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "Warrior_HG_F",
+     "variant": 3
+    },
+    {
+     "file": "Warrior_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Warrior_HG_M",
+     "variant": 1
+    }
+   ]
+  },
+  "cleric": {
+   "code": "CLERIC",
+   "file": "Cleric_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "heal": [
+     "S02_BT_HEAL_A1",
+     "S02_BT_HEAL_A2",
+     "S02_BT_HEAL_A3",
+     "S02_BT_HEAL_A4",
+     "S02_BT_HEAL_A5",
+     "S19_QUICK_HEAL_1",
+     "S19_QUICK_HEAL_2",
+     "S19_QUICK_HEAL_3"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Cleric_F",
+     "variant": 0
+    },
+    {
+     "file": "Cleric_F",
+     "variant": 1
+    },
+    {
+     "file": "Cleric_F",
+     "variant": 2
+    },
+    {
+     "file": "Cleric_F",
+     "variant": 3
+    },
+    {
+     "file": "Cleric_F",
+     "variant": 4
+    },
+    {
+     "file": "Cleric_F",
+     "variant": 5
+    },
+    {
+     "file": "Cleric_F",
+     "variant": 6
+    }
+   ]
+  },
+  "crusader": {
+   "code": "CORNIA_PRINCESS",
+   "file": "Virginia_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "vertical_edge": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "iron_crusher": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Virginia_F",
+     "variant": 0
+    },
+    {
+     "file": "Virginia_F",
+     "variant": 1
+    },
+    {
+     "file": "Virginia_F",
+     "variant": 2
+    },
+    {
+     "file": "Virginia_F",
+     "variant": 3
+    }
+   ]
+  },
+  "dark_knight": {
+   "code": "BLACK_KNIGHT",
+   "file": "BlackKnight_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "vengeful_axe": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "venom_axe": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "BlackKnight_M",
+     "variant": 0
+    },
+    {
+     "file": "BlackKnight_M",
+     "variant": 1
+    }
+   ]
+  },
+  "doom_knight": {
+   "code": "BLACK_KNIGHT_HG",
+   "file": "BlackKnight_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "vengeful_axe": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "venom_axe": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "dark_flame": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "BlackKnight_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "BlackKnight_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "BlackKnight_HG_M",
+     "variant": 2
+    }
+   ]
+  },
+  "dreadnought": {
+   "code": "DREADNOUGHT",
+   "file": "Armoria_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "heavy_slash": [
+     "S03_MEGA_SLASH_1",
+     "S03_MEGA_SLASH_2"
+    ],
+    "penetrate": [
+     "S01_PENETRATE_1",
+     "S01_PENETRATE_2"
+    ],
+    "omega_shatter": [
+     "ATTACK_A1",
+     "ATTACK_A2"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Armoria_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Armoria_HG_F",
+     "variant": 1
+    }
+   ]
+  },
+  "druid": {
+   "code": "SHAMAN_HG",
+   "file": "Shaman_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "passive_curse": [
+     "S04_PASSIVE_CURSE_1",
+     "S04_PASSIVE_CURSE_2",
+     "S04_PASSIVE_CURSE_3",
+     "S04_PASSIVE_CURSE_4",
+     "S04_PASSIVE_CURSE_5"
+    ],
+    "offensive_curse": [
+     "ATTACK"
+    ],
+    "defensive_curse": [
+     "ATTACK"
+    ],
+    "compounding_curse": [
+     "ATTACK"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Shaman_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Shaman_HG_F",
+     "variant": 1
+    }
+   ]
+  },
+  "elven_archer": {
+   "code": "ELF_ARCHER",
+   "file": "ElfArcher_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "wind_arrow": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "icicle_arrow": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "ElfArcher_F",
+     "variant": 0
+    },
+    {
+     "file": "ElfArcher_F",
+     "variant": 1
+    },
+    {
+     "file": "ElfArcher_F",
+     "variant": 2
+    },
+    {
+     "file": "ElfArcher_M",
+     "variant": 0
+    },
+    {
+     "file": "ElfArcher_M",
+     "variant": 1
+    }
+   ],
+   "shot": {
+    "anim": "BOW_SHOT",
+    "speed": 55.0,
+    "fall": 0.800000011920929,
+    "trail": "SHOT_EFFECT"
+   }
+  },
+  "elven_augur": {
+   "code": "ELHEIM_PRINCESS_B",
+   "file": "Eltlinde_F10",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "primus_edge": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ],
+    "sylphic_wind": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ],
+    "elemental_roar": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Eltlinde_F10",
+     "variant": 0
+    },
+    {
+     "file": "Eltlinde_F10",
+     "variant": 1
+    },
+    {
+     "file": "Eltlinde_F10",
+     "variant": 2
+    },
+    {
+     "file": "Eltlinde_F10",
+     "variant": 3
+    }
+   ]
+  },
+  "elven_fencer": {
+   "code": "ELF_FENCER",
+   "file": "ElfFencer_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "lightning_blade": [
+     "ATTACK"
+    ],
+    "natures_wrath": [
+     "ATTACK_B",
+     "ATTACK_B_END"
+    ],
+    "mirage_stab": [
+     "ATTACK"
+    ]
+   },
+   "looks": [
+    {
+     "file": "ElfFencer_M",
+     "variant": 0
+    },
+    {
+     "file": "ElfFencer_M",
+     "variant": 1
+    },
+    {
+     "file": "ElfFencer_F",
+     "variant": 0
+    },
+    {
+     "file": "ElfFencer_F",
+     "variant": 1
+    }
+   ]
+  },
+  "elven_sibyl": {
+   "code": "ELHEIM_PRINCESS_W",
+   "file": "Eltlinde_F00",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ]
+   },
+   "skills": {
+    "primus_edge": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ],
+    "faerie_heal": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ],
+    "elemental_roar": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Eltlinde_F00",
+     "variant": 0
+    },
+    {
+     "file": "Eltlinde_F00",
+     "variant": 1
+    },
+    {
+     "file": "Eltlinde_F00",
+     "variant": 2
+    },
+    {
+     "file": "Eltlinde_F00",
+     "variant": 3
+    }
+   ]
+  },
+  "feathersword": {
+   "code": "FEATHER_SWORD",
+   "file": "FeatherSword_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "spiral_sword": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "shield_smite": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "honed_slash": [
+     "ATTACK_E1",
+     "ATTACK_E2",
+     "ATTACK_E3",
+     "ATTACK_E4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "FeatherSword_F",
+     "variant": 0
+    },
+    {
+     "file": "FeatherSword_F",
+     "variant": 1
+    },
+    {
+     "file": "FeatherSword_F",
+     "variant": 2
+    },
+    {
+     "file": "FeatherSword_F",
+     "variant": 3
+    }
+   ]
+  },
+  "fighter": {
+   "code": "FIGHTER",
+   "file": "Fighter_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "warding_slash": [
+     "ATTACK_1"
+    ],
+    "shield_bash": [
+     "ATTACK_B"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Fighter_M",
+     "variant": 0
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 1
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 2
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 3
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 4
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 5
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 6
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 7
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 8
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 9
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 10
+    },
+    {
+     "file": "Fighter_M",
+     "variant": 11
+    }
+   ]
+  },
+  "gladiator": {
+   "code": "GLADIATOR",
+   "file": "Gladiator_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "wide_smash": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Gladiator_M",
+     "variant": 0
+    },
+    {
+     "file": "Gladiator_M",
+     "variant": 1
+    },
+    {
+     "file": "Gladiator_M",
+     "variant": 2
+    }
+   ]
+  },
+  "great_knight": {
+   "code": "KNIGHT_HG",
+   "file": "Knight_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "assaulting_lance": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "wild_rush": [
+     "ATTACK_B2_1",
+     "ATTACK_B2_2"
+    ],
+    "pile_thrust": [
+     "ATTACK_C1",
+     "ATTACK_C2"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Knight_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Knight_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Knight_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "Knight_HG_M",
+     "variant": 3
+    },
+    {
+     "file": "Knight_HG_M",
+     "variant": 4
+    },
+    {
+     "file": "Knight_HG_M",
+     "variant": 5
+    }
+   ]
+  },
+  "gryphon_knight": {
+   "code": "GRIFFON_KNIGHT",
+   "file": "GriffonKnight_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "high_swing": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "GriffonKnight_F",
+     "variant": 0
+    },
+    {
+     "file": "GriffonKnight_F",
+     "variant": 1
+    },
+    {
+     "file": "GriffonKnight_F",
+     "variant": 2
+    },
+    {
+     "file": "GriffonKnight_F",
+     "variant": 3
+    },
+    {
+     "file": "GriffonKnight_F",
+     "variant": 4
+    },
+    {
+     "file": "GriffonKnight_F",
+     "variant": 5
+    }
+   ]
+  },
+  "gryphon_master": {
+   "code": "GRIFFON_KNIGHT_HG",
+   "file": "GriffonKnight_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "high_swing": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "fatal_dive": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "aerial_smite": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "GriffonKnight_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "GriffonKnight_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "GriffonKnight_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "GriffonKnight_HG_F",
+     "variant": 3
+    },
+    {
+     "file": "GriffonKnight_HG_F",
+     "variant": 4
+    },
+    {
+     "file": "GriffonKnight_HG_F",
+     "variant": 5
+    }
+   ]
+  },
+  "high_lord": {
+   "code": "LORD_HG",
+   "file": "Lord_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "lean_edge": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4",
+     "ATTACK_A_END"
+    ],
+    "cavalry_slayer": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "spinning_edge": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Lord_HG_M",
+     "variant": 0
+    }
+   ]
+  },
+  "high_priestess": {
+   "code": "ALBION_PRINCESS_HG",
+   "file": "Scarlet_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "holy_light": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_3",
+     "MAGIC_A_4",
+     "MAGIC_A_END"
+    ],
+    "curing_call": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_END"
+    ],
+    "innocent_ray": [
+     "MAGIC_C_1",
+     "MAGIC_C_2",
+     "MAGIC_C_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Scarlet_F",
+     "variant": 0
+    },
+    {
+     "file": "Scarlet_F",
+     "variant": 1
+    }
+   ]
+  },
+  "hoplite": {
+   "code": "HOPLITE",
+   "file": "Hoplite_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "sting": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Hoplite_M",
+     "variant": 0
+    },
+    {
+     "file": "Hoplite_M",
+     "variant": 1
+    },
+    {
+     "file": "Hoplite_M",
+     "variant": 2
+    },
+    {
+     "file": "Hoplite_M",
+     "variant": 3
+    },
+    {
+     "file": "Hoplite_M",
+     "variant": 4
+    }
+   ]
+  },
+  "housecarl": {
+   "code": "HUSCARL",
+   "file": "Huscarl_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "smash": [
+     "ATTACK_A"
+    ],
+    "rolling_axe": [
+     "ATTACK_B"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Huscarl_M",
+     "variant": 0
+    },
+    {
+     "file": "Huscarl_M",
+     "variant": 1
+    },
+    {
+     "file": "Huscarl_M",
+     "variant": 2
+    }
+   ],
+   "shot": {
+    "anim": "TOMAHAWK",
+    "speed": 45.0,
+    "fall": 0.800000011920929
+   }
+  },
+  "hunter": {
+   "code": "HUNTER",
+   "file": "Hunter_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "single_shot": [
+     "ATTACK",
+     "ATTACK_IDLE",
+     "ATTACK_END"
+    ],
+    "dual_shot": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END2"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Hunter_M",
+     "variant": 0
+    },
+    {
+     "file": "Hunter_M",
+     "variant": 1
+    },
+    {
+     "file": "Hunter_M",
+     "variant": 2
+    }
+   ],
+   "shot": {
+    "anim": "BOW_SHOT",
+    "speed": 70.0,
+    "trail": "SHOT_EFFECT"
+   }
+  },
+  "knight": {
+   "code": "KNIGHT",
+   "file": "Knight_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "assaulting_lance": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "wild_rush": [
+     "ATTACK_C1",
+     "ATTACK_C2"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Knight_M",
+     "variant": 0
+    },
+    {
+     "file": "Knight_M",
+     "variant": 1
+    },
+    {
+     "file": "Knight_M",
+     "variant": 2
+    },
+    {
+     "file": "Knight_M",
+     "variant": 3
+    },
+    {
+     "file": "Knight_M",
+     "variant": 4
+    }
+   ]
+  },
+  "landsknecht": {
+   "code": "MERCENARY_HG",
+   "file": "Mercenary_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "heavy_slash": [
+     "S04_MEGA_SLASH_1",
+     "S04_MEGA_SLASH_2"
+    ],
+    "killing_chain": [
+     "ATTACK"
+    ],
+    "bastards_cross": [
+     "ATTACK_B1",
+     "ATTACK_B2"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Mercenary_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Mercenary_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "Mercenary_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Mercenary_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Mercenary_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "Mercenary_HG_M",
+     "variant": 3
+    },
+    {
+     "file": "Mercenary_HG_M",
+     "variant": 4
+    },
+    {
+     "file": "Mercenary_HG_M",
+     "variant": 5
+    }
+   ]
+  },
+  "legionnaire": {
+   "code": "HOPLITE_HG",
+   "file": "Hoplite_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "sting": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "row_protection": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "greatshield": [
+     "ATTACK_C1",
+     "ATTACK_C2_TO_IDLE"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 3
+    },
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 4
+    },
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 5
+    },
+    {
+     "file": "Hoplite_HG_M",
+     "variant": 6
+    }
+   ]
+  },
+  "lord": {
+   "code": "LORD",
+   "file": "Lord_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "lean_edge": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "cavalry_slayer": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Lord_M",
+     "variant": 0
+    },
+    {
+     "file": "Lord_M",
+     "variant": 1
+    },
+    {
+     "file": "Lord_M",
+     "variant": 2
+    },
+    {
+     "file": "Lord_M",
+     "variant": 3
+    }
+   ]
+  },
+  "paladin": {
+   "code": "PALADIN",
+   "file": "WhiteKnight_HG_M",
+   "stand_in": true,
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "slice": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4",
+     "ATTACK_5"
+    ],
+    "heal": [
+     "S07_BT_HEAL_A1",
+     "S07_BT_HEAL_A2",
+     "S07_BT_HEAL_A3"
+    ],
+    "divine_cross": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WhiteKnight_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "WhiteKnight_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "WhiteKnight_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "WhiteKnight_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "WhiteKnight_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "WhiteKnight_HG_F",
+     "variant": 2
+    }
+   ]
+  },
+  "priestess": {
+   "code": "ALBION_PRINCESS",
+   "file": "Scarlet_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "holy_light": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_3",
+     "MAGIC_A_4",
+     "MAGIC_A_END"
+    ],
+    "curing_call": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Scarlet_F",
+     "variant": 0
+    },
+    {
+     "file": "Scarlet_F",
+     "variant": 1
+    }
+   ]
+  },
+  "prince": {
+   "code": "PRINCE",
+   "file": "Prince_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "banishing_stab": [
+     "ATTACK_A"
+    ],
+    "defensive_order": [
+     "ATTACK_C"
+    ],
+    "offensive_order": [
+     "ATTACK_A"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Prince_M",
+     "variant": 0
+    },
+    {
+     "file": "Prince_M",
+     "variant": 1
+    }
+   ]
+  },
+  "radiant_knight": {
+   "code": "WHITE_KNIGHT",
+   "file": "WhiteKnight_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "hache": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "row_heal": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WhiteKnight_F",
+     "variant": 0
+    },
+    {
+     "file": "WhiteKnight_F",
+     "variant": 1
+    },
+    {
+     "file": "WhiteKnight_F",
+     "variant": 2
+    }
+   ]
+  },
+  "rogue": {
+   "code": "THIEF_HG",
+   "file": "Thief_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "passive_steal": [
+     "ATTACK"
+    ],
+    "toxic_throw": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "shadowbite": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "active_steal": [
+     "ATTACK_A"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Thief_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Thief_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Thief_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "Thief_HG_M",
+     "variant": 3
+    },
+    {
+     "file": "Thief_HG_M",
+     "variant": 4
+    },
+    {
+     "file": "Thief_HG_M",
+     "variant": 5
+    }
+   ],
+   "shot": {
+    "anim": "KNIFE_SHOT",
+    "speed": 50.0
+   }
+  },
+  "sainted_knight": {
+   "code": "WHITE_KNIGHT_HG",
+   "file": "WhiteKnight_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "hache": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4",
+     "ATTACK_5"
+    ],
+    "row_heal": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "saints_blade": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4",
+     "ATTACK_5"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WhiteKnight_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "WhiteKnight_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "WhiteKnight_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "WhiteKnight_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "WhiteKnight_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "WhiteKnight_HG_M",
+     "variant": 2
+    }
+   ]
+  },
+  "sellsword": {
+   "code": "MERCENARY",
+   "file": "Mercenary_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "heavy_slash": [
+     "S04_MEGA_SLASH_1",
+     "S04_MEGA_SLASH_2"
+    ],
+    "killing_chain": [
+     "ATTACK"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Mercenary_F",
+     "variant": 0
+    },
+    {
+     "file": "Mercenary_F",
+     "variant": 1
+    },
+    {
+     "file": "Mercenary_F",
+     "variant": 2
+    },
+    {
+     "file": "Mercenary_M",
+     "variant": 0
+    },
+    {
+     "file": "Mercenary_M",
+     "variant": 1
+    },
+    {
+     "file": "Mercenary_M",
+     "variant": 2
+    },
+    {
+     "file": "Mercenary_M",
+     "variant": 3
+    },
+    {
+     "file": "Mercenary_M",
+     "variant": 4
+    },
+    {
+     "file": "Mercenary_M",
+     "variant": 5
+    }
+   ]
+  },
+  "sergeant": {
+   "code": "SOLDIER_HG",
+   "file": "Soldier_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "long_thrust": [
+     "ATTACK_1"
+    ],
+    "javelin": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "honed_spear": [
+     "ATTACK_B_TO_IDLE"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Soldier_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Soldier_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Soldier_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Soldier_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "Soldier_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "Soldier_HG_F",
+     "variant": 3
+    }
+   ],
+   "shot": {
+    "anim": "SPEAR_HG",
+    "speed": 50.0,
+    "fall": 0.800000011920929
+   }
+  },
+  "shaman": {
+   "code": "SHAMAN",
+   "file": "Shaman_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "passive_curse": [
+     "S04_PASSIVE_CURSE_1",
+     "S04_PASSIVE_CURSE_2",
+     "S04_PASSIVE_CURSE_3",
+     "S04_PASSIVE_CURSE_4",
+     "S04_PASSIVE_CURSE_5"
+    ],
+    "offensive_curse": [
+     "ATTACK"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Shaman_F",
+     "variant": 0
+    },
+    {
+     "file": "Shaman_F",
+     "variant": 1
+    }
+   ]
+  },
+  "shieldshooter": {
+   "code": "RANGER_HG",
+   "file": "Ranger_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "power_bolt": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "toxic_bolt": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "heavy_bolt": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Ranger_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Ranger_HG_F",
+     "variant": 1
+    }
+   ],
+   "shot": {
+    "anim": "CROSSBOW_SHOT",
+    "speed": 40.0,
+    "trail": "SHOT_EFFECT"
+   }
+  },
+  "sniper": {
+   "code": "HUNTER_HG",
+   "file": "Hunter_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "single_shot": [
+     "ATTACK",
+     "ATTACK_IDLE",
+     "ATTACK_END"
+    ],
+    "dual_shot": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END2"
+    ],
+    "row_shot": [
+     "ATTACK_C",
+     "ATTACK_C_IDLE",
+     "ATTACK_C_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Hunter_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Hunter_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Hunter_HG_M",
+     "variant": 2
+    }
+   ],
+   "shot": {
+    "anim": "BOW_SHOT",
+    "speed": 70.0,
+    "trail": "SHOT_EFFECT"
+   }
+  },
+  "snow_ranger": {
+   "code": "BASTORIAS_PRINCESS",
+   "file": "Ranger_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "mystic_arrow": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "sonic_shaft": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "glacial_rain": [
+     "S05_ARROW_RAIN_1",
+     "S05_ARROW_RAIN_2",
+     "S06_ARROW_RAIN_3"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Ranger_F",
+     "variant": 0
+    },
+    {
+     "file": "Ranger_F",
+     "variant": 1
+    }
+   ],
+   "shot": {
+    "anim": "CROSSBOW_SHOT",
+    "speed": 40.0,
+    "trail": "SHOT_EFFECT"
+   }
+  },
+  "soldier": {
+   "code": "SOLDIER",
+   "file": "Soldier_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "long_thrust": [
+     "ATTACK_1"
+    ],
+    "javelin": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Soldier_M",
+     "variant": 0
+    },
+    {
+     "file": "Soldier_M",
+     "variant": 1
+    },
+    {
+     "file": "Soldier_F",
+     "variant": 0
+    },
+    {
+     "file": "Soldier_F",
+     "variant": 1
+    },
+    {
+     "file": "Soldier_F",
+     "variant": 2
+    },
+    {
+     "file": "Soldier_F",
+     "variant": 3
+    }
+   ],
+   "shot": {
+    "anim": "SPEAR",
+    "speed": 50.0,
+    "fall": 0.800000011920929
+   }
+  },
+  "sorceress": {
+   "code": "WITCH_HG",
+   "file": "Witch_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "icebolt": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "magick_missile": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "ice_coffin": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Witch_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Witch_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "Witch_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "Witch_HG_F",
+     "variant": 3
+    },
+    {
+     "file": "Witch_HG_F",
+     "variant": 4
+    },
+    {
+     "file": "Witch_HG_F",
+     "variant": 5
+    }
+   ]
+  },
+  "sword_master": {
+   "code": "SWORDSMAN_HG",
+   "file": "Swordsman_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "keen_edge": [
+     "ATTACK"
+    ],
+    "impale": [
+     "ATTACK_B"
+    ],
+    "meteor_slash": [
+     "ATTACK_C"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Swordsman_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "Swordsman_HG_F",
+     "variant": 1
+    },
+    {
+     "file": "Swordsman_HG_F",
+     "variant": 2
+    },
+    {
+     "file": "Swordsman_HG_F",
+     "variant": 3
+    },
+    {
+     "file": "Swordsman_HG_F",
+     "variant": 4
+    },
+    {
+     "file": "Swordsman_HG_F",
+     "variant": 5
+    },
+    {
+     "file": "Swordsman_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Swordsman_HG_M",
+     "variant": 1
+    }
+   ]
+  },
+  "swordfighter": {
+   "code": "SWORDSMAN",
+   "file": "Swordsman_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "keen_edge": [
+     "ATTACK"
+    ],
+    "impale": [
+     "ATTACK_B"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Swordsman_F",
+     "variant": 0
+    },
+    {
+     "file": "Swordsman_F",
+     "variant": 1
+    },
+    {
+     "file": "Swordsman_F",
+     "variant": 2
+    },
+    {
+     "file": "Swordsman_F",
+     "variant": 3
+    },
+    {
+     "file": "Swordsman_F",
+     "variant": 4
+    },
+    {
+     "file": "Swordsman_F",
+     "variant": 5
+    },
+    {
+     "file": "Swordsman_M",
+     "variant": 0
+    },
+    {
+     "file": "Swordsman_M",
+     "variant": 1
+    }
+   ]
+  },
+  "thief": {
+   "code": "THIEF",
+   "file": "Thief_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "passive_steal": [
+     "ATTACK"
+    ],
+    "toxic_throw": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Thief_M",
+     "variant": 0
+    },
+    {
+     "file": "Thief_M",
+     "variant": 1
+    },
+    {
+     "file": "Thief_M",
+     "variant": 2
+    },
+    {
+     "file": "Thief_M",
+     "variant": 3
+    }
+   ],
+   "shot": {
+    "anim": "KNIFE_SHOT",
+    "speed": 50.0
+   }
+  },
+  "valkyria": {
+   "code": "CORNIA_PRINCESS_HG",
+   "file": "Virginia_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "vertical_edge": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "iron_crusher": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "brandish": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5_TO_IDLE"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Virginia_F",
+     "variant": 0
+    },
+    {
+     "file": "Virginia_F",
+     "variant": 1
+    },
+    {
+     "file": "Virginia_F",
+     "variant": 2
+    },
+    {
+     "file": "Virginia_F",
+     "variant": 3
+    }
+   ]
+  },
+  "vanguard": {
+   "code": "FIGHTER_HG",
+   "file": "Fighter_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "warding_slash": [
+     "ATTACK_1"
+    ],
+    "shield_bash": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "defender": [
+     "ATTACK_B"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Fighter_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Fighter_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Fighter_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "Fighter_HG_M",
+     "variant": 3
+    }
+   ]
+  },
+  "viking": {
+   "code": "HUSCARL_HG",
+   "file": "Huscarl_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "smash": [
+     "ATTACK_A"
+    ],
+    "rolling_axe": [
+     "ATTACK_B"
+    ],
+    "wide_breaker": [
+     "ATTACK_C"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Huscarl_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Huscarl_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Huscarl_HG_M",
+     "variant": 2
+    }
+   ],
+   "shot": {
+    "anim": "TOMAHAWK_HG",
+    "speed": 45.0,
+    "fall": 0.800000011920929
+   }
+  },
+  "warlock": {
+   "code": "WIZARD_HG",
+   "file": "Wizard_HG_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "fireball": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "thunderous_strike": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_2_IDLE",
+     "MAGIC_B_END"
+    ],
+    "volcano": [
+     "MAGIC_C",
+     "MAGIC_C_IDLE",
+     "MAGIC_C_2",
+     "MAGIC_C_2_IDLE",
+     "MAGIC_C_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Wizard_HG_M",
+     "variant": 0
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 1
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 2
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 3
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 4
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 5
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 6
+    },
+    {
+     "file": "Wizard_HG_M",
+     "variant": 7
+    }
+   ]
+  },
+  "warrior": {
+   "code": "WARRIOR",
+   "file": "Warrior_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "heavy_smash": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "assaulting_blow": [
+     "ATTACK_C"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Warrior_M",
+     "variant": 0
+    },
+    {
+     "file": "Warrior_M",
+     "variant": 1
+    },
+    {
+     "file": "Warrior_F",
+     "variant": 0
+    },
+    {
+     "file": "Warrior_F",
+     "variant": 1
+    },
+    {
+     "file": "Warrior_F",
+     "variant": 2
+    },
+    {
+     "file": "Warrior_F",
+     "variant": 3
+    }
+   ]
+  },
+  "werebear": {
+   "code": "WEREBEAR",
+   "file": "WereBear_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "cover": [
+     "COVER_A1",
+     "COVER_A2"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "bear_crush": [
+     "ATTACK"
+    ],
+    "round_swing": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_END"
+    ],
+    "earthshaker": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WereBear_M",
+     "variant": 0
+    },
+    {
+     "file": "WereBear_M",
+     "variant": 1
+    }
+   ]
+  },
+  "werefox": {
+   "code": "WEREFOX",
+   "file": "WereFox_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "piercing_lance": [
+     "ATTACK"
+    ],
+    "passive_hold": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "venom_thrust": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WereFox_F",
+     "variant": 0
+    },
+    {
+     "file": "WereFox_F",
+     "variant": 1
+    }
+   ]
+  },
+  "werelion": {
+   "code": "WERELION",
+   "file": "WereWolf_M",
+   "stand_in": true,
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "wide_smash": [
+     "ATTACK"
+    ],
+    "mounting_charge": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END"
+    ],
+    "grand_smash": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WereWolf_M",
+     "variant": 0
+    },
+    {
+     "file": "WereWolf_M",
+     "variant": 1
+    }
+   ]
+  },
+  "wereowl": {
+   "code": "WEREOWL",
+   "file": "WereOwl_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "aurora_veil": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "night_vision": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "extra_heal": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WereOwl_F",
+     "variant": 0
+    },
+    {
+     "file": "WereOwl_F",
+     "variant": 1
+    }
+   ]
+  },
+  "werewolf": {
+   "code": "WEREWOLF",
+   "file": "WereWolf_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "finishing_stab": [
+     "ATTACK"
+    ],
+    "decimate": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END"
+    ],
+    "wild_fang": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WereWolf_M",
+     "variant": 0
+    },
+    {
+     "file": "WereWolf_M",
+     "variant": 1
+    }
+   ]
+  },
+  "witch": {
+   "code": "WITCH",
+   "file": "Witch_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "icebolt": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "magick_missile": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Witch_F",
+     "variant": 0
+    },
+    {
+     "file": "Witch_F",
+     "variant": 1
+    },
+    {
+     "file": "Witch_F",
+     "variant": 2
+    },
+    {
+     "file": "Witch_F",
+     "variant": 3
+    }
+   ]
+  },
+  "wizard": {
+   "code": "WIZARD",
+   "file": "Wizard_M",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "dash": [
+     "DASH_1"
+    ],
+    "stop": [
+     "DASH_2"
+    ],
+    "back": [
+     "BACK_1"
+    ],
+    "home": [
+     "BACK_2"
+    ],
+    "jump": [
+     "JUMP_1"
+    ],
+    "land": [
+     "JUMP_2"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE_BLOW_1",
+     "DIE_BLOW_2"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ],
+    "charge": [
+     "SKILL_A1",
+     "SKILL_A2*"
+    ],
+    "release": [
+     "SKILL_A3"
+    ]
+   },
+   "skills": {
+    "fireball": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ]
+   },
+   "looks": [
+    {
+     "file": "Wizard_M",
+     "variant": 0
+    },
+    {
+     "file": "Wizard_M",
+     "variant": 1
+    },
+    {
+     "file": "Wizard_M",
+     "variant": 2
+    },
+    {
+     "file": "Wizard_M",
+     "variant": 3
+    }
+   ]
+  },
+  "wyvern_knight": {
+   "code": "WYVERN_KNIGHT",
+   "file": "WyvernKnight_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "diving_thrust": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WyvernKnight_F",
+     "variant": 0
+    },
+    {
+     "file": "WyvernKnight_F",
+     "variant": 1
+    }
+   ]
+  },
+  "wyvern_master": {
+   "code": "WYVERN_KNIGHT_HG",
+   "file": "WyvernKnight_HG_F",
+   "phases": {
+    "stance": [
+     "IDLE*"
+    ],
+    "hit": [
+     "KNOCKBACK"
+    ],
+    "guard": [
+     "GUARD"
+    ],
+    "avoid": [
+     "AVOID"
+    ],
+    "die": [
+     "DIE"
+    ],
+    "down": [
+     "DOWN",
+     "DOWN_IDLE*"
+    ],
+    "victory": [
+     "VICTORY_1",
+     "VICTORY_2*"
+    ]
+   },
+   "skills": {
+    "diving_thrust": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "fire_breath": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "tempest_drive": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ]
+   },
+   "looks": [
+    {
+     "file": "WyvernKnight_HG_F",
+     "variant": 0
+    },
+    {
+     "file": "WyvernKnight_HG_F",
+     "variant": 1
+    }
+   ]
+  }
+ },
+ "skills": {
+  "active_steal": {
+   "kind": "melee",
+   "internal": "ACTIVE_STEAL",
+   "cast": [
+    "ACTIVE_STEAL"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "aerial_smite": {
+   "kind": "ranged",
+   "internal": "AERIAL_SMITE",
+   "cast": [
+    "AERIALSMITE"
+   ],
+   "hit": [
+    "AERIALSMITE_HIT"
+   ]
+  },
+  "aerial_snipe_strike": {
+   "kind": "melee",
+   "internal": "AERIAL_SNIPE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "assaulting_blow": {
+   "kind": "melee",
+   "internal": "ASSULT_BLOW",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "assaulting_lance": {
+   "kind": "melee",
+   "internal": "ASSULT_LANCE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "attack": {
+   "kind": "melee",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "aurora_veil": {
+   "kind": "support",
+   "internal": "AURORA_VEIL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "banishing_stab": {
+   "kind": "melee",
+   "internal": "VANISH_STAB",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "bastards_cross": {
+   "kind": "melee",
+   "internal": "CROSS_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "bear_crush": {
+   "kind": "melee",
+   "internal": "BEAR_CLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "boon_of_the_faeries_heal": {
+   "kind": "heal",
+   "internal": "PROTECTION_OF_SPIRIT",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "brandish": {
+   "kind": "melee",
+   "internal": "BRANDISH",
+   "cast": [
+    "BRANDISH_1",
+    "BRANDISH_2"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "cavalry_slayer": {
+   "kind": "melee",
+   "internal": "CAVALRY_SLAY",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "compounding_curse": {
+   "kind": "ranged",
+   "internal": "CURSE_HAZARD",
+   "cast": [
+    "CURSEHAZARD"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "curing_call": {
+   "kind": "heal",
+   "internal": "CURE_YELL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "curing_heal_heal": {
+   "kind": "heal",
+   "internal": "CURE_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "dark_flame": {
+   "kind": "magic",
+   "internal": "DARK_FLAME",
+   "cast": [],
+   "hit": [
+    "DARKFLAME_HIT"
+   ]
+  },
+  "decimate": {
+   "kind": "melee",
+   "internal": "DECIMAL_KILLER",
+   "cast": [
+    "DECIMALKILLER"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "defender": {
+   "kind": "melee",
+   "internal": "DEFENDER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "defensive_curse": {
+   "kind": "ranged",
+   "internal": "DEFENCE_CURSE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "defensive_order": {
+   "kind": "support",
+   "internal": "DEFENCE_ORDER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "divine_cross": {
+   "kind": "magic",
+   "internal": "DIVINE_CROSS",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "diving_thrust": {
+   "kind": "ranged",
+   "internal": "FALL_THRUST",
+   "cast": [
+    "FALLTHRUST"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "dual_shot": {
+   "kind": "ranged",
+   "internal": "DOUBLE_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "earthshaker": {
+   "kind": "ranged",
+   "internal": "EARTH_STAMP",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "elemental_roar": {
+   "kind": "magic",
+   "internal": "ELEMENTAL_ROAR",
+   "cast": [
+    "ELEMENTALROAR"
+   ],
+   "hit": [
+    "ELEMENTALROAR_HIT"
+   ]
+  },
+  "enrage_strike": {
+   "kind": "support",
+   "internal": "OUTRAGE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "extra_heal": {
+   "kind": "heal",
+   "internal": "EXTRA_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "faerie_heal": {
+   "kind": "heal",
+   "internal": "FAIRY_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "fatal_dive": {
+   "kind": "ranged",
+   "internal": "FATAL_FALL",
+   "cast": [
+    "FATALFALL"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "finishing_stab": {
+   "kind": "melee",
+   "internal": "FINISH_STAB",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "fire_breath": {
+   "kind": "ranged",
+   "internal": "FIRE_BREATH",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "fireball": {
+   "kind": "magic",
+   "internal": "FIRE_BALL",
+   "cast": [],
+   "hit": [
+    "FIREBALL_HIT"
+   ],
+   "out": "FIREBALL_OUT",
+   "shot": {
+    "anim": "FIREBALL",
+    "speed": 40.0,
+    "volley": [
+     [
+      -150.0,
+      -50.0,
+      0.0
+     ],
+     [
+      50.0,
+      50.0,
+      10.0
+     ],
+     [
+      50.0,
+      -30.0,
+      20.0
+     ],
+     [
+      100.0,
+      30.0,
+      30.0
+     ],
+     [
+      100.0,
+      -50.0,
+      40.0
+     ],
+     [
+      100.0,
+      50.0,
+      50.0
+     ]
+    ]
+   }
+  },
+  "following_slash_strike": {
+   "kind": "melee",
+   "internal": "FOLLOW_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "frenzied_strike_strike": {
+   "kind": "melee",
+   "internal": "FRENZY",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "glacial_rain": {
+   "kind": "ranged",
+   "internal": "GRACIAL_RAIN",
+   "cast": [],
+   "hit": [
+    "ARROWRAIN_HIT_01",
+    "ARROWRAIN_HIT_02"
+   ],
+   "rain": {
+    "out": "ARROWRAIN_OUT",
+    "hit": [
+     "ARROWRAIN_HIT_01",
+     "ARROWRAIN_HIT_02"
+    ],
+    "speed": 80.0,
+    "start_x": 500.0,
+    "interval_x": 100.0,
+    "interval": 10.0,
+    "rand_from": 0.0,
+    "rand_to": 80.0
+   }
+  },
+  "grand_smash": {
+   "kind": "ranged",
+   "internal": "GRAND_SLAM",
+   "cast": [
+    "GRANDSLAM"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "greatshield": {
+   "kind": "support",
+   "internal": "GREAT_SHIELD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "ground_counter_strike": {
+   "kind": "melee",
+   "internal": "GROUND_COUNTER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "hache": {
+   "kind": "melee",
+   "internal": "HASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "hastened_strike_strike": {
+   "kind": "melee",
+   "internal": "FAST_STRIKE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "heal": {
+   "kind": "heal",
+   "internal": "HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01",
+    "HEAL_HIT_02"
+   ],
+   "out": "HEAL_OUT"
+  },
+  "heavy_bolt": {
+   "kind": "ranged",
+   "internal": "HEAVY_BOLT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "heavy_counter_strike": {
+   "kind": "melee",
+   "internal": "HAVY_COUNTER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "heavy_slash": {
+   "kind": "melee",
+   "internal": "MEGA_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "heavy_smash": {
+   "kind": "melee",
+   "internal": "HEAVY_BUSTER",
+   "cast": [
+    "HEAVYBUSTER"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "high_swing": {
+   "kind": "ranged",
+   "internal": "HIGH_SWING",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "holy_light": {
+   "kind": "magic",
+   "internal": "HOLY_LIGHT",
+   "cast": [
+    "HOLYLIGHT"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ],
+   "out": "HOLYLIGHT_OUT"
+  },
+  "honed_slash": {
+   "kind": "ranged",
+   "internal": "HEAVEN_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "honed_spear": {
+   "kind": "melee",
+   "internal": "ENHANCED_SPEAR",
+   "cast": [],
+   "hit": [
+    "ENHANCED_SPEAR_HIT"
+   ],
+   "shot": {
+    "anim": "ENHANCED_SPEAR"
+   }
+  },
+  "ice_coffin": {
+   "kind": "magic",
+   "internal": "ICE_COFFIN",
+   "cast": [
+    "ICECOFFIN"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "icebolt": {
+   "kind": "magic",
+   "internal": "MAGIC_A_WATER_0",
+   "cast": [],
+   "hit": [
+    "ICESHOT_HIT"
+   ],
+   "out": "ICESHOT_OUT",
+   "shot": {
+    "anim": "ICESHOT",
+    "speed": 40.0,
+    "volley": [
+     [
+      100.0,
+      80.0,
+      20.0
+     ],
+     [
+      200.0,
+      -200.0,
+      0.0
+     ],
+     [
+      -150.0,
+      -100.0,
+      10.0
+     ]
+    ]
+   }
+  },
+  "icicle_arrow": {
+   "kind": "magic",
+   "internal": "ICICLE_ARROW",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "impale": {
+   "kind": "melee",
+   "internal": "INPEIL",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "innocent_ray": {
+   "kind": "magic",
+   "internal": "INNOCENT_RAY",
+   "cast": [
+    "INNOCENTRAY"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ],
+   "out": "INNOCENTRAY_OUT",
+   "buffer": [
+    "INNOCENTRAY_BUFFER"
+   ]
+  },
+  "iron_crusher": {
+   "kind": "melee",
+   "internal": "IRON_RIPPER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "javelin": {
+   "kind": "ranged",
+   "internal": "JAVELIN",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "keen_edge": {
+   "kind": "melee",
+   "internal": "SHARP_EDGE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "killing_chain": {
+   "kind": "melee",
+   "internal": "KILLING_CHAIN",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "killing_pursuit_strike": {
+   "kind": "melee",
+   "internal": "FINISH_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "knights_pursuit_strike": {
+   "kind": "melee",
+   "internal": "KNIGHTS_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "lean_edge": {
+   "kind": "melee",
+   "internal": "REIN_EDGE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "life_blow_strike": {
+   "kind": "melee",
+   "internal": "LIFE_BLOW",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "lightning_blade": {
+   "kind": "magic",
+   "internal": "LIGHTNING_SWORD",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "long_thrust": {
+   "kind": "melee",
+   "internal": "LONG_THRUST",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "magick_counter_strike": {
+   "kind": "magic",
+   "internal": "COUNTER_MAGIC",
+   "cast": [
+    "COUNTER_MAGIC"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "magick_missile": {
+   "kind": "magic",
+   "internal": "MAGIC_MISSILE",
+   "cast": [],
+   "hit": [
+    "MAGICMISSILE_HIT"
+   ],
+   "out": "MAGICMISSILE_OUT",
+   "shot": {
+    "anim": "MAGICMISSILE",
+    "trail": "MAGICMISSILE_EFFECT"
+   }
+  },
+  "magick_pursuit_strike": {
+   "kind": "magic",
+   "internal": "CHASE_MAGIC",
+   "cast": [],
+   "hit": [
+    "CHASE_MAGIC_HIT"
+   ],
+   "out": "CHASE_MAGIC_OUT",
+   "shot": {
+    "anim": "CHASE_MAGIC"
+   }
+  },
+  "magick_wall": {
+   "kind": "support",
+   "internal": "MAGIC_WALL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "maidens_hammer_strike": {
+   "kind": "melee",
+   "internal": "MAIDEN_HAMMER",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "meteor_slash": {
+   "kind": "melee",
+   "internal": "METEO_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "mirage_stab": {
+   "kind": "magic",
+   "internal": "MIRAGE_STAB",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "mounting_charge": {
+   "kind": "heal",
+   "internal": "MASSIVE_CHARGE",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "mystic_arrow": {
+   "kind": "magic",
+   "internal": "MYSTIC_ARROW",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "natures_wrath": {
+   "kind": "magic",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "night_vision": {
+   "kind": "support",
+   "internal": "NIGHT_VISION",
+   "cast": [
+    "NIGHTVISION"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "nocturnal_strike_strike": {
+   "kind": "melee",
+   "internal": "NIGHT_STRIKE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "offensive_curse": {
+   "kind": "ranged",
+   "internal": "OFFENCE_CURSE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "offensive_order": {
+   "kind": "support",
+   "internal": "OFFENCE_ORDER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "omega_shatter": {
+   "kind": "melee",
+   "internal": "OMEGA_BREAK",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "parting_blow_strike": {
+   "kind": "melee",
+   "internal": "END_BLOW",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "passive_curse": {
+   "kind": "ranged",
+   "internal": "PASSIVE_CURSE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "passive_hold": {
+   "kind": "melee",
+   "internal": "PASSIVE_HOLD",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "passive_miracle_heal": {
+   "kind": "heal",
+   "internal": "PASSIVE_SUPPLY",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "passive_steal": {
+   "kind": "melee",
+   "internal": "PASSIVE_STEAL",
+   "cast": [
+    "PASSIVE_STEAL"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "penetrate": {
+   "kind": "melee",
+   "internal": "PENETRATE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "piercing_lance": {
+   "kind": "melee",
+   "internal": "PIERCING_SHIELD",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "pile_thrust": {
+   "kind": "melee",
+   "internal": "PILE_THRUST",
+   "cast": [],
+   "hit": [
+    "PILETHRUST_HIT"
+   ]
+  },
+  "power_bolt": {
+   "kind": "ranged",
+   "internal": "POWER_BOLT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "primus_edge": {
+   "kind": "magic",
+   "internal": "PRIMUS_EDGE",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "pursuit_strike": {
+   "kind": "melee",
+   "internal": "CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "quick_heal_heal": {
+   "kind": "heal",
+   "internal": "QUICK_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "quick_reload_strike": {
+   "kind": "ranged",
+   "internal": "QUICK_RELOAD",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "rage_of_the_faeries_strike": {
+   "kind": "magic",
+   "internal": "RAGE_OF_SPIRIT",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "rolling_axe": {
+   "kind": "melee",
+   "internal": "ROLL_AXE",
+   "cast": [
+    "ROLLAXE_END"
+   ],
+   "hit": [
+    "HIT_A"
+   ],
+   "shot": {
+    "anim": "ROLLAXE"
+   }
+  },
+  "round_swing": {
+   "kind": "melee",
+   "internal": "AROUND_SWING",
+   "cast": [
+    "AROUNDSWING"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "row_heal": {
+   "kind": "heal",
+   "internal": "LINE_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "row_protection": {
+   "kind": "support",
+   "internal": "LINE_PROTECT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "row_shot": {
+   "kind": "ranged",
+   "internal": "LINE_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ],
+   "out": "LINESHOT_OUT"
+  },
+  "row_smash": {
+   "kind": "melee",
+   "internal": "LINE_BUSTER",
+   "cast": [
+    "LINEBUSTER"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "sacred_heal": {
+   "kind": "heal",
+   "internal": "SACRED_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ]
+  },
+  "saints_blade": {
+   "kind": "melee",
+   "internal": "SAINT_BLADE",
+   "cast": [],
+   "hit": [
+    "SAINTBLADE_HIT_01",
+    "SAINTBLADE_HIT_02"
+   ]
+  },
+  "selfless_heal_heal": {
+   "kind": "heal",
+   "internal": "SHARE_HEAL",
+   "cast": [],
+   "hit": [
+    "HEAL_HIT_01"
+   ],
+   "out": "SHAREHEAL_OUT"
+  },
+  "shadow_pursuit_strike": {
+   "kind": "melee",
+   "internal": "SHADE_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "shadowbite": {
+   "kind": "ranged",
+   "internal": "SHADOW_BITE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "shield_bash": {
+   "kind": "melee",
+   "internal": "SHIELD_BASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "shield_smite": {
+   "kind": "ranged",
+   "internal": "SHIELD_SMITE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "single_shot": {
+   "kind": "ranged",
+   "internal": "SINGLE_SHOT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "slice": {
+   "kind": "melee",
+   "internal": "SLICE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "smash": {
+   "kind": "melee",
+   "internal": "SMASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "sneaking_edge_strike": {
+   "kind": "ranged",
+   "internal": "SNEAK",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "snow_white_strike_strike": {
+   "kind": "ranged",
+   "internal": "SILVERY_WHITE_BULLET",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "sonic_shaft": {
+   "kind": "ranged",
+   "internal": "SONIC_SHAFT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ],
+   "shot": {
+    "anim": "SONICSHAFT",
+    "trail": "SONICSHAFT_EFFECT"
+   }
+  },
+  "spinning_edge": {
+   "kind": "melee",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "spiral_sword": {
+   "kind": "ranged",
+   "internal": "SPIRAL_SWORD",
+   "cast": [
+    "SPIRALSWORD"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "sting": {
+   "kind": "melee",
+   "internal": "STING",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "sylphic_wind": {
+   "kind": "magic",
+   "internal": "SPIRIT_WIND",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  },
+  "tempest_drive": {
+   "kind": "ranged",
+   "internal": "TEMPEST_DRIVE",
+   "cast": [
+    "TEMPESTDRIVE"
+   ],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "thunderous_strike": {
+   "kind": "magic",
+   "internal": "THUNDER",
+   "cast": [
+    "THUNDER_A1",
+    "THUNDER_B1"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ],
+   "out": "THUNDER_OUT",
+   "buffer": [
+    "THUNDER_A1_BUFFER",
+    "THUNDER_B1_BUFFER"
+   ]
+  },
+  "toxic_bolt": {
+   "kind": "ranged",
+   "internal": "TOXIC_BOLT",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "toxic_throw": {
+   "kind": "ranged",
+   "internal": "TOXIC_THROW",
+   "cast": [],
+   "hit": [
+    "KNIFE_SHOT_POISON_HIT"
+   ],
+   "shot": {
+    "anim": "KNIFE_SHOT_POISON"
+   }
+  },
+  "triple_counter_strike": {
+   "kind": "ranged",
+   "internal": "COUNTER_TRIPLE",
+   "cast": [],
+   "hit": [
+    "HIT_C"
+   ]
+  },
+  "vengeance_strike": {
+   "kind": "support",
+   "internal": "REVENGER",
+   "cast": [
+    "REVENGER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "vengeful_axe": {
+   "kind": "melee",
+   "internal": "REVENGE_AXE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "venom_axe": {
+   "kind": "melee",
+   "internal": "VENOM_AXE",
+   "cast": [
+    "VENOMAXE"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "venom_thrust": {
+   "kind": "melee",
+   "internal": "VENOM_THRUST",
+   "cast": [
+    "VENOMTHRUST"
+   ],
+   "hit": [
+    "HIT_A"
+   ],
+   "out": "VENOMTHRUST_OUT"
+  },
+  "vertical_edge": {
+   "kind": "melee",
+   "internal": "VERTICAL_EDGE",
+   "cast": [
+    "VERTICALEDGE"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "volcano": {
+   "kind": "magic",
+   "internal": "VOLCANO",
+   "cast": [
+    "VOLCANO"
+   ],
+   "hit": [
+    "HIT_A_MAGIC"
+   ],
+   "buffer": [
+    "VOLCANO_BUFFER"
+   ]
+  },
+  "wall": {
+   "kind": "support",
+   "internal": "WALL",
+   "cast": [
+    "WALL"
+   ],
+   "hit": [
+    "WALL_HIT"
+   ]
+  },
+  "warding_slash": {
+   "kind": "melee",
+   "internal": "GUARD_SLASH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "weakness_hunter_strike": {
+   "kind": "melee",
+   "internal": "WEAK_CHASE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "wide_breaker": {
+   "kind": "melee",
+   "internal": "WIDE_BREAKER",
+   "cast": [
+    "WIDEBREAKER"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "wide_counter_strike": {
+   "kind": "melee",
+   "internal": "COUNTER_LINE",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "wide_smash": {
+   "kind": "melee",
+   "internal": "WIDE_SMASH",
+   "cast": [
+    "WIDESMASH"
+   ],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "wild_fang": {
+   "kind": "melee",
+   "internal": "WILD_FANG",
+   "cast": [],
+   "hit": [
+    "WILDFANG_HIT"
+   ]
+  },
+  "wild_kick_strike": {
+   "kind": "melee",
+   "internal": "KICK",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "wild_rush": {
+   "kind": "melee",
+   "internal": "WILD_RUSH",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
+  "wind_arrow": {
+   "kind": "magic",
+   "internal": "WIND_ARROW",
+   "cast": [],
+   "hit": [
+    "HIT_A_MAGIC"
+   ]
+  }
+ },
+ "scenes": {
+  "default": [
+   "BGBtPlain_b",
+   "BGBtPlain_a"
+  ],
+  "forest": [
+   "BGBtElfPlain_b",
+   "BGBtElfPlain_a"
+  ],
+  "winter": [
+   "BGBtSnowRuins_b",
+   "BGBtSnowRuins_a"
+  ],
+  "desert": [
+   "BGBtDesertPlain_b",
+   "BGBtDesertPlain_a"
+  ],
+  "lava": [
+   "BGBtPlain_A_b",
+   "BGBtWasteland_a"
+  ],
+  "castle": [
+   "BGBtCapital_D_b",
+   "BGBtCapital_D_a"
+  ]
+ },
+ "timing": {
+  "move_attack": 25.0,
+  "return_front": 25.0,
+  "return_back": 34.0,
+  "die_wait": 20.0,
+  "die_fade": 30.0,
+  "next_start": 0.5,
+  "hitstop_crit": 15.0,
+  "hitstop_guard": 10.0,
+  "attack_range": 300.0,
+  "zoom_attack": 1.5,
+  "zoom_all": 1.3,
+  "zoom_skill": 1.6
+ },
+ "manual": {
+  "classes": {
+   "black_prince": {
+    "file": "BlackPrince_M"
+   },
+   "black_prince_hg": {
+    "file": "BlackPrince_HG_M"
+   },
+   "dark_marquess_a": {
+    "file": "DarkMarquess_A_F"
+   },
+   "dark_marquess_l": {
+    "file": "DarkMarquess_L_M"
+   },
+   "dark_marquess_r": {
+    "file": "DarkMarquess_R_F"
+   },
+   "dark_marquess_s": {
+    "file": "DarkMarquess_S_M"
+   },
+   "eltlinde": {
+    "file": "Eltlinde_F"
+   },
+   "feather_bow": {
+    "file": "FeatherBow_F"
+   },
+   "feather_rod": {
+    "file": "FeatherRod_M"
+   },
+   "feather_shield": {
+    "file": "FeatherShield_M"
+   },
+   "necromancer": {
+    "file": "Necromancer_M"
+   },
+   "unify": {
+    "file": "Unify_F"
+   },
+   "werebear": {
+    "face_box": [
+     -70,
+     -110,
+     250
+    ]
+   },
+   "werewolf": {
+    "face_box": [
+     -55,
+     -100,
+     190
+    ]
+   },
+   "druid": {
+    "skills": {
+     "passive_curse": [
+      "S04_PASSIVE_CURSE_1",
+      "S04_PASSIVE_CURSE_3",
+      "S04_PASSIVE_CURSE_5"
+     ],
+     "offensive_curse": [
+      "MAGIC_C_2"
+     ],
+     "defensive_curse": [
+      "MAGIC_B",
+      "MAGIC_B_2",
+      "MAGIC_B_END"
+     ],
+     "compounding_curse": [
+      "LISTED",
+      "LISTED_IDLE",
+      "LISTED_END"
+     ]
+    },
+    "timing": {
+     "passive_curse": {},
+     "offensive_curse": {},
+     "defensive_curse": {
+      "holds": {
+       "0": 2016.666666666667
+      }
+     },
+     "compounding_curse": {}
+    },
+    "skill_fx": {
+     "passive_curse": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "offensive_curse": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "defensive_curse": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "compounding_curse": {
+      "out": null,
+      "cast": [
+       "CURSEHAZARD"
+      ],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "elven_archer": {
+    "skills": {
+     "wind_arrow": [
+      "ATTACK",
+      "ATTACK_IDLE",
+      "ATTACK_END"
+     ],
+     "icicle_arrow": [
+      "ATTACK",
+      "ATTACK_IDLE",
+      "ATTACK_END"
+     ]
+    },
+    "timing": {
+     "wind_arrow": {},
+     "icicle_arrow": {}
+    },
+    "skill_fx": {
+     "wind_arrow": {
+      "out": null,
+      "cast": [
+       "HITMARK_00A"
+      ],
+      "hit": [],
+      "buffer": [],
+      "shot": {
+       "anim": "BOW_SHOT"
+      }
+     },
+     "icicle_arrow": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A_ICE"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "knight": {
+    "skills": {
+     "assaulting_lance": [
+      "ATTACK_1",
+      "ATTACK_2",
+      "ATTACK_3",
+      "ATTACK_4"
+     ],
+     "wild_rush": [
+      "ATTACK_C1",
+      "ATTACK_C2",
+      "BACK_1",
+      "BACK_2"
+     ]
+    },
+    "timing": {
+     "assaulting_lance": {
+      "hits": [
+       2095
+      ],
+      "holds": {
+       "1": 1866.666666666667
+      }
+     },
+     "wild_rush": {}
+    },
+    "skill_fx": {
+     "assaulting_lance": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "wild_rush": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "landsknecht": {
+    "skills": {
+     "bastards_cross": [
+      "ATTACK_C1",
+      "ATTACK_C2"
+     ],
+     "heavy_slash": [
+      "S04_MEGA_SLASH_1",
+      "S04_MEGA_SLASH_2"
+     ]
+    },
+    "timing": {
+     "bastards_cross": {},
+     "heavy_slash": {}
+    },
+    "skill_fx": {
+     "bastards_cross": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "heavy_slash": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "arbalist": {
+    "skills": {
+     "power_bolt": [
+      "ATTACK_1",
+      "ATTACK_2",
+      "ATTACK_END"
+     ],
+     "toxic_bolt": [
+      "ATTACK_1",
+      "ATTACK_2",
+      "ATTACK_END"
+     ]
+    },
+    "timing": {
+     "power_bolt": {},
+     "toxic_bolt": {}
+    },
+    "skill_fx": {
+     "power_bolt": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "toxic_bolt": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "elven_fencer": {
+    "skills": {
+     "lightning_blade": [
+      "ATTACK"
+     ]
+    },
+    "timing": {
+     "lightning_blade": {}
+    },
+    "skill_fx": {
+     "lightning_blade": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A_MAGIC"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "legionnaire": {
+    "skills": {
+     "sting": [
+      "ATTACK_C2",
+      "ATTACK_C2_TO_IDLE"
+     ],
+     "greatshield": [
+      "GUARD"
+     ]
+    },
+    "timing": {
+     "sting": {
+      "approach": "jump",
+      "ret": "jump"
+     },
+     "greatshield": {}
+    },
+    "skill_fx": {
+     "sting": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "greatshield": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "STATUS_UP_A"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "gryphon_knight": {
+    "skills": {
+     "high_swing": [
+      "ATTACK_A1",
+      "ATTACK_A2",
+      "ATTACK_A4"
+     ]
+    },
+    "timing": {
+     "high_swing": {
+      "ret": "chain",
+      "ret_from": 4104
+     }
+    },
+    "skill_fx": {
+     "high_swing": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_C"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "great_knight": {
+    "skills": {
+     "assaulting_lance": [
+      "ATTACK_1",
+      "ATTACK_2",
+      "ATTACK_4"
+     ],
+     "pile_thrust": [
+      "ATTACK_C1",
+      "ATTACK_C2"
+     ]
+    },
+    "timing": {
+     "assaulting_lance": {
+      "ret": "chain",
+      "ret_from": 2939
+     },
+     "pile_thrust": {}
+    },
+    "skill_fx": {
+     "assaulting_lance": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "HIT_A"
+      ],
+      "buffer": [],
+      "shot": null
+     },
+     "pile_thrust": {
+      "out": null,
+      "cast": [],
+      "hit": [
+       "PILETHRUST_HIT"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "sorceress": {
+    "skills": {
+     "ice_coffin": [
+      "MAGIC_A_1",
+      "MAGIC_A_2",
+      "MAGIC_A_END"
+     ]
+    },
+    "timing": {
+     "ice_coffin": {}
+    },
+    "skill_fx": {
+     "ice_coffin": {
+      "out": null,
+      "cast": [
+       "ICECOFFIN"
+      ],
+      "hit": [
+       "HIT_A_MAGIC"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   },
+   "cleric": {
+    "skills": {
+     "heal": [
+      "S02_BT_HEAL_A2",
+      "S02_BT_HEAL_A3"
+     ]
+    },
+    "timing": {
+     "heal": {}
+    },
+    "skill_fx": {
+     "heal": {
+      "out": "HEAL_OUT",
+      "cast": [],
+      "hit": [
+       "HEAL_HIT_01",
+       "HEAL_HIT_02"
+      ],
+      "buffer": [],
+      "shot": null
+     }
+    }
+   }
+  },
+  "skills": {},
+  "scenes": {},
+  "composites": {
+   "attack_1": {
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "arbalist"
+   },
+   "attack_1_h": {
+    "parts": [
+     "ATTACK_C2",
+     "ATTACK_C2_TO_IDLE"
+    ],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "legionnaire"
+   },
+   "attack_2": {
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "arbalist"
+   },
+   "comp_1": {
+    "parts": [],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "arbalist"
+   },
+   "comp_2": {
+    "parts": [
+     "ATTACK",
+     "ATTACK_IDLE",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "elven_archer"
+   },
+   "guard": {
+    "parts": [
+     "GUARD"
+    ],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "legionnaire"
+   },
+   "skill_1": {
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "source_kind": "unit",
+    "source_name": "legionnaire"
+   }
+  },
+  "animations": {
+   "arbalist__poison_arrow": {
+    "class": "arbalist",
+    "name": "arbalist__poison_arrow",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "attack_1": {
+    "class": "arbalist",
+    "name": "attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "attack_1_h": {
+    "class": "legionnaire",
+    "name": "attack_1_h",
+    "parts": [
+     "ATTACK_C2",
+     "ATTACK_C2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "attack_2": {
+    "class": "arbalist",
+    "name": "attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "berserker__crush": {
+    "class": "berserker",
+    "name": "berserker__crush",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "berserker__grand_smash": {
+    "class": "berserker",
+    "name": "berserker__grand_smash",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "berserker__mounting_charge": {
+    "class": "berserker",
+    "name": "berserker__mounting_charge",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4",
+     "ATTACK_B5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "berserker__wide_smash": {
+    "class": "berserker",
+    "name": "berserker__wide_smash",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "bishop__heal": {
+    "class": "bishop",
+    "name": "bishop__heal",
+    "parts": [
+     "S02_BT_HEAL_A1",
+     "S02_BT_HEAL_A2",
+     "S02_BT_HEAL_A3",
+     "S02_BT_HEAL_A4",
+     "S02_BT_HEAL_A5",
+     "S19_QUICK_HEAL_1",
+     "S19_QUICK_HEAL_2",
+     "S19_QUICK_HEAL_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "bishop__phantom_veil": {
+    "class": "bishop",
+    "name": "bishop__phantom_veil",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "bishop__sacred_heal": {
+    "class": "bishop",
+    "name": "bishop__sacred_heal",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "breaker__assaulting_blow": {
+    "class": "breaker",
+    "name": "breaker__assaulting_blow",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "breaker__heavy_smash": {
+    "class": "breaker",
+    "name": "breaker__heavy_smash",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "breaker__row_smash": {
+    "class": "breaker",
+    "name": "breaker__row_smash",
+    "parts": [
+     "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "comp_1": {
+    "class": "arbalist",
+    "name": "comp_1",
+    "parts": [],
+    "holds": {},
+    "tags": []
+   },
+   "comp_2": {
+    "class": "elven_archer",
+    "name": "comp_2",
+    "parts": [
+     "ATTACK",
+     "ATTACK_IDLE",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "crusader__iron_crusher": {
+    "class": "crusader",
+    "name": "crusader__iron_crusher",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "crusader__sanguine_attack": {
+    "class": "crusader",
+    "name": "crusader__sanguine_attack",
+    "parts": [
+     "IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "crusader__vertical_edge": {
+    "class": "crusader",
+    "name": "crusader__vertical_edge",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_knight__vengeful_axe": {
+    "class": "dark_knight",
+    "name": "dark_knight__vengeful_axe",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_knight__venom_axe": {
+    "class": "dark_knight",
+    "name": "dark_knight__venom_axe",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "doom_knight__dark_flame": {
+    "class": "doom_knight",
+    "name": "doom_knight__dark_flame",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dreadnought__heavy_slash": {
+    "class": "dreadnought",
+    "name": "dreadnought__heavy_slash",
+    "parts": [
+     "S03_MEGA_SLASH_1",
+     "S03_MEGA_SLASH_2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dreadnought__omega_shatter": {
+    "class": "dreadnought",
+    "name": "dreadnought__omega_shatter",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dreadnought__penetrate": {
+    "class": "dreadnought",
+    "name": "dreadnought__penetrate",
+    "parts": [
+     "S01_PENETRATE_1",
+     "S01_PENETRATE_2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "druid__defensive_curse": {
+    "class": "druid",
+    "name": "druid__defensive_curse",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {
+     "0": 2016.666666666667
+    },
+    "tags": []
+   },
+   "druid__offensive_curse": {
+    "class": "druid",
+    "name": "druid__offensive_curse",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "druid__passive_curse": {
+    "class": "druid",
+    "name": "druid__passive_curse",
+    "parts": [
+     "S04_PASSIVE_CURSE_1",
+     "S04_PASSIVE_CURSE_2",
+     "S04_PASSIVE_CURSE_3",
+     "S04_PASSIVE_CURSE_4",
+     "S04_PASSIVE_CURSE_5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_archer__icicle_arrow": {
+    "class": "elven_archer",
+    "name": "elven_archer__icicle_arrow",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_archer__wind_arrow": {
+    "class": "elven_archer",
+    "name": "elven_archer__wind_arrow",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_augur__primus_edge": {
+    "class": "elven_augur",
+    "name": "elven_augur__primus_edge",
+    "parts": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_augur__true_thrust": {
+    "class": "elven_augur",
+    "name": "elven_augur__true_thrust",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_fencer__lightning_blade": {
+    "class": "elven_fencer",
+    "name": "elven_fencer__lightning_blade",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_fencer__natures_wrath": {
+    "class": "elven_fencer",
+    "name": "elven_fencer__natures_wrath",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "elven_sibyl__faerie_heal": {
+    "class": "elven_sibyl",
+    "name": "elven_sibyl__faerie_heal",
+    "parts": [
+     "MAGIC_1",
+     "MAGIC_2",
+     "MAGIC_3",
+     "MAGIC_4",
+     "MAGIC_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feathersword__honed_slash": {
+    "class": "feathersword",
+    "name": "feathersword__honed_slash",
+    "parts": [
+     "ATTACK_E1",
+     "ATTACK_E2",
+     "ATTACK_E3",
+     "ATTACK_E4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feathersword__shield_smite": {
+    "class": "feathersword",
+    "name": "feathersword__shield_smite",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feathersword__spiral_sword": {
+    "class": "feathersword",
+    "name": "feathersword__spiral_sword",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "fighter__shield_bash": {
+    "class": "fighter",
+    "name": "fighter__shield_bash",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "fighter__warding_slash": {
+    "class": "fighter",
+    "name": "fighter__warding_slash",
+    "parts": [
+     "ATTACK_1"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "great_knight__assaulting_lance": {
+    "class": "great_knight",
+    "name": "great_knight__assaulting_lance",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "great_knight__pile_thrust": {
+    "class": "great_knight",
+    "name": "great_knight__pile_thrust",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "great_knight__wild_rush": {
+    "class": "great_knight",
+    "name": "great_knight__wild_rush",
+    "parts": [
+     "ATTACK_B2_1",
+     "ATTACK_B2_2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gryphon_knight__high_swing": {
+    "class": "gryphon_knight",
+    "name": "gryphon_knight__high_swing",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gryphon_master__aerial_smite": {
+    "class": "gryphon_master",
+    "name": "gryphon_master__aerial_smite",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gryphon_master__fatal_dive": {
+    "class": "gryphon_master",
+    "name": "gryphon_master__fatal_dive",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "guard": {
+    "class": "legionnaire",
+    "name": "guard",
+    "parts": [
+     "GUARD"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "high_lord__cavalry_slayer": {
+    "class": "high_lord",
+    "name": "high_lord__cavalry_slayer",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "high_lord__lean_edge": {
+    "class": "high_lord",
+    "name": "high_lord__lean_edge",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4",
+     "ATTACK_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "high_lord__spinning_edge": {
+    "class": "high_lord",
+    "name": "high_lord__spinning_edge",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "high_priestess__curing_call": {
+    "class": "high_priestess",
+    "name": "high_priestess__curing_call",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "high_priestess__holy_light": {
+    "class": "high_priestess",
+    "name": "high_priestess__holy_light",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_3",
+     "MAGIC_A_4",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "high_priestess__innocent_ray": {
+    "class": "high_priestess",
+    "name": "high_priestess__innocent_ray",
+    "parts": [
+     "MAGIC_C_1",
+     "MAGIC_C_2",
+     "MAGIC_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "hoplite__sting": {
+    "class": "hoplite",
+    "name": "hoplite__sting",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "housecarl__rolling_axe": {
+    "class": "housecarl",
+    "name": "housecarl__rolling_axe",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "housecarl__smash": {
+    "class": "housecarl",
+    "name": "housecarl__smash",
+    "parts": [
+     "ATTACK_A"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "hunter__dual_shot": {
+    "class": "hunter",
+    "name": "hunter__dual_shot",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "hunter__single_shot": {
+    "class": "hunter",
+    "name": "hunter__single_shot",
+    "parts": [
+     "ATTACK",
+     "ATTACK_IDLE",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "landsknecht__bastards_cross": {
+    "class": "landsknecht",
+    "name": "landsknecht__bastards_cross",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "landsknecht__killing_chain": {
+    "class": "landsknecht",
+    "name": "landsknecht__killing_chain",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "legionnaire__greatshield": {
+    "class": "legionnaire",
+    "name": "legionnaire__greatshield",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "legionnaire__row_protection": {
+    "class": "legionnaire",
+    "name": "legionnaire__row_protection",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "paladin__divine_cross": {
+    "class": "paladin",
+    "name": "paladin__divine_cross",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "paladin__slice": {
+    "class": "paladin",
+    "name": "paladin__slice",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4",
+     "ATTACK_5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "prince__banishing_stab": {
+    "class": "prince",
+    "name": "prince__banishing_stab",
+    "parts": [
+     "ATTACK_A"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "prince__defensive_order": {
+    "class": "prince",
+    "name": "prince__defensive_order",
+    "parts": [
+     "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "radiant_knight__hache": {
+    "class": "radiant_knight",
+    "name": "radiant_knight__hache",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "radiant_knight__row_heal": {
+    "class": "radiant_knight",
+    "name": "radiant_knight__row_heal",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "rogue__active_steal": {
+    "class": "rogue",
+    "name": "rogue__active_steal",
+    "parts": [
+     "ATTACK_A"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "rogue__passive_steal": {
+    "class": "rogue",
+    "name": "rogue__passive_steal",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "rogue__shadowbite": {
+    "class": "rogue",
+    "name": "rogue__shadowbite",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "rogue__toxic_throw": {
+    "class": "rogue",
+    "name": "rogue__toxic_throw",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sainted_knight__saints_blade": {
+    "class": "sainted_knight",
+    "name": "sainted_knight__saints_blade",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4",
+     "ATTACK_5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sergeant__honed_spear": {
+    "class": "sergeant",
+    "name": "sergeant__honed_spear",
+    "parts": [
+     "ATTACK_B_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sergeant__javelin": {
+    "class": "sergeant",
+    "name": "sergeant__javelin",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sergeant__long_thrust": {
+    "class": "sergeant",
+    "name": "sergeant__long_thrust",
+    "parts": [
+     "ATTACK_1"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shieldshooter__heavy_bolt": {
+    "class": "shieldshooter",
+    "name": "shieldshooter__heavy_bolt",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "skill_1": {
+    "class": "legionnaire",
+    "name": "skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sniper__row_shot": {
+    "class": "sniper",
+    "name": "sniper__row_shot",
+    "parts": [
+     "ATTACK_C",
+     "ATTACK_C_IDLE",
+     "ATTACK_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "snow_ranger__glacial_rain": {
+    "class": "snow_ranger",
+    "name": "snow_ranger__glacial_rain",
+    "parts": [
+     "S05_ARROW_RAIN_1",
+     "S05_ARROW_RAIN_2",
+     "S06_ARROW_RAIN_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "snow_ranger__mystic_arrow": {
+    "class": "snow_ranger",
+    "name": "snow_ranger__mystic_arrow",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "snow_ranger__sonic_shaft": {
+    "class": "snow_ranger",
+    "name": "snow_ranger__sonic_shaft",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sorceress__icebolt": {
+    "class": "sorceress",
+    "name": "sorceress__icebolt",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sorceress__magick_missile": {
+    "class": "sorceress",
+    "name": "sorceress__magick_missile",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sword_master__impale": {
+    "class": "sword_master",
+    "name": "sword_master__impale",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sword_master__keen_edge": {
+    "class": "sword_master",
+    "name": "sword_master__keen_edge",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sword_master__meteor_slash": {
+    "class": "sword_master",
+    "name": "sword_master__meteor_slash",
+    "parts": [
+     "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "valkyria__brandish": {
+    "class": "valkyria",
+    "name": "valkyria__brandish",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "vanguard__defender": {
+    "class": "vanguard",
+    "name": "vanguard__defender",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "viking__wide_breaker": {
+    "class": "viking",
+    "name": "viking__wide_breaker",
+    "parts": [
+     "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warlock__fireball": {
+    "class": "warlock",
+    "name": "warlock__fireball",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warlock__thunderous_strike": {
+    "class": "warlock",
+    "name": "warlock__thunderous_strike",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_2_IDLE",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warlock__volcano": {
+    "class": "warlock",
+    "name": "warlock__volcano",
+    "parts": [
+     "MAGIC_C",
+     "MAGIC_C_IDLE",
+     "MAGIC_C_2",
+     "MAGIC_C_2_IDLE",
+     "MAGIC_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werebear__bear_crush": {
+    "class": "werebear",
+    "name": "werebear__bear_crush",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werebear__earthshaker": {
+    "class": "werebear",
+    "name": "werebear__earthshaker",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werebear__round_swing": {
+    "class": "werebear",
+    "name": "werebear__round_swing",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werefox__passive_hold": {
+    "class": "werefox",
+    "name": "werefox__passive_hold",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werefox__piercing_lance": {
+    "class": "werefox",
+    "name": "werefox__piercing_lance",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werefox__venom_thrust": {
+    "class": "werefox",
+    "name": "werefox__venom_thrust",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wereowl__aurora_veil": {
+    "class": "wereowl",
+    "name": "wereowl__aurora_veil",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wereowl__night_vision": {
+    "class": "wereowl",
+    "name": "wereowl__night_vision",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werewolf__decimate": {
+    "class": "werewolf",
+    "name": "werewolf__decimate",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werewolf__finishing_stab": {
+    "class": "werewolf",
+    "name": "werewolf__finishing_stab",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werewolf__wild_fang": {
+    "class": "werewolf",
+    "name": "werewolf__wild_fang",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wyvern_knight__diving_thrust": {
+    "class": "wyvern_knight",
+    "name": "wyvern_knight__diving_thrust",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wyvern_master__fire_breath": {
+    "class": "wyvern_master",
+    "name": "wyvern_master__fire_breath",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wyvern_master__tempest_drive": {
+    "class": "wyvern_master",
+    "name": "wyvern_master__tempest_drive",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince__attack_1": {
+    "class": "black_prince",
+    "name": "black_prince__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince__skill_1": {
+    "class": "black_prince",
+    "name": "black_prince__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince__magic_1": {
+    "class": "black_prince",
+    "name": "black_prince__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__attack_1": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__attack_2": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__attack_2",
+    "parts": [
+     "ATTACK_B_1",
+     "ATTACK_B_2",
+     "ATTACK_B_3",
+     "ATTACK_B_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__skill_1": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__magic_1": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "black_prince_hg__magic_2": {
+    "class": "black_prince_hg",
+    "name": "black_prince_hg__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_2_IDLE",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__attack_1": {
+    "class": "cleric",
+    "name": "cleric__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__skill_1": {
+    "class": "cleric",
+    "name": "cleric__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__magic_1": {
+    "class": "cleric",
+    "name": "cleric__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "cleric__magic_2": {
+    "class": "cleric",
+    "name": "cleric__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__attack_1": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4",
+     "ATTACK_A5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__attack_2": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__attack_3": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_a__skill_1": {
+    "class": "dark_marquess_a",
+    "name": "dark_marquess_a__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_l__attack_1": {
+    "class": "dark_marquess_l",
+    "name": "dark_marquess_l__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4",
+     "ATTACK_A5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_l__attack_2": {
+    "class": "dark_marquess_l",
+    "name": "dark_marquess_l__attack_2",
+    "parts": [
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_l__skill_1": {
+    "class": "dark_marquess_l",
+    "name": "dark_marquess_l__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_r__skill_1": {
+    "class": "dark_marquess_r",
+    "name": "dark_marquess_r__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_r__magic_1": {
+    "class": "dark_marquess_r",
+    "name": "dark_marquess_r__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_r__magic_2": {
+    "class": "dark_marquess_r",
+    "name": "dark_marquess_r__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__attack_1": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__attack_2": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__attack_2",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__attack_3": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__attack_3",
+    "parts": [
+     "ATTACK_D1",
+     "ATTACK_D2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "dark_marquess_s__skill_1": {
+    "class": "dark_marquess_s",
+    "name": "dark_marquess_s__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__attack_1": {
+    "class": "eltlinde",
+    "name": "eltlinde__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__attack_2": {
+    "class": "eltlinde",
+    "name": "eltlinde__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__attack_3": {
+    "class": "eltlinde",
+    "name": "eltlinde__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "eltlinde__skill_1": {
+    "class": "eltlinde",
+    "name": "eltlinde__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__attack_1": {
+    "class": "feather_bow",
+    "name": "feather_bow__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__attack_2": {
+    "class": "feather_bow",
+    "name": "feather_bow__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__attack_3": {
+    "class": "feather_bow",
+    "name": "feather_bow__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_bow__skill_1": {
+    "class": "feather_bow",
+    "name": "feather_bow__skill_1",
+    "parts": [
+     "SKILL",
+     "SKILL_IDLE",
+     "SKILL_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_rod__skill_1": {
+    "class": "feather_rod",
+    "name": "feather_rod__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_rod__magic_1": {
+    "class": "feather_rod",
+    "name": "feather_rod__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_rod__magic_2": {
+    "class": "feather_rod",
+    "name": "feather_rod__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_shield__attack_1": {
+    "class": "feather_shield",
+    "name": "feather_shield__attack_1",
+    "parts": [
+     "ATTACK_A"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_shield__attack_2": {
+    "class": "feather_shield",
+    "name": "feather_shield__attack_2",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "feather_shield__skill_1": {
+    "class": "feather_shield",
+    "name": "feather_shield__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__attack_1": {
+    "class": "gladiator",
+    "name": "gladiator__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__attack_2": {
+    "class": "gladiator",
+    "name": "gladiator__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3",
+     "ATTACK_B4",
+     "ATTACK_B5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__attack_3": {
+    "class": "gladiator",
+    "name": "gladiator__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "gladiator__skill_1": {
+    "class": "gladiator",
+    "name": "gladiator__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "knight__attack_1": {
+    "class": "knight",
+    "name": "knight__attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "knight__attack_2": {
+    "class": "knight",
+    "name": "knight__attack_2",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "knight__skill_1": {
+    "class": "knight",
+    "name": "knight__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__attack_1": {
+    "class": "lord",
+    "name": "lord__attack_1",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__attack_2": {
+    "class": "lord",
+    "name": "lord__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__attack_3": {
+    "class": "lord",
+    "name": "lord__attack_3",
+    "parts": [
+     "ATTACK_D1",
+     "ATTACK_D2_TO_IDLE"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "lord__skill_1": {
+    "class": "lord",
+    "name": "lord__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "necromancer__skill_1": {
+    "class": "necromancer",
+    "name": "necromancer__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "necromancer__magic_1": {
+    "class": "necromancer",
+    "name": "necromancer__magic_1",
+    "parts": [
+     "MAGIC_C_1",
+     "MAGIC_C_2",
+     "MAGIC_C_3",
+     "MAGIC_C_4",
+     "MAGIC_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "necromancer__magic_2": {
+    "class": "necromancer",
+    "name": "necromancer__magic_2",
+    "parts": [
+     "MAGIC_D_1",
+     "MAGIC_D_2",
+     "MAGIC_D_3",
+     "MAGIC_D_4",
+     "MAGIC_D_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "priestess__skill_1": {
+    "class": "priestess",
+    "name": "priestess__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "priestess__magic_1": {
+    "class": "priestess",
+    "name": "priestess__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_3",
+     "MAGIC_A_4",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "priestess__magic_2": {
+    "class": "priestess",
+    "name": "priestess__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sellsword__attack_1": {
+    "class": "sellsword",
+    "name": "sellsword__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sellsword__attack_2": {
+    "class": "sellsword",
+    "name": "sellsword__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "sellsword__skill_1": {
+    "class": "sellsword",
+    "name": "sellsword__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__attack_1": {
+    "class": "shaman",
+    "name": "shaman__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__skill_1": {
+    "class": "shaman",
+    "name": "shaman__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__magic_1": {
+    "class": "shaman",
+    "name": "shaman__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_IDLE2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "shaman__magic_2": {
+    "class": "shaman",
+    "name": "shaman__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_IDLE2",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__attack_1": {
+    "class": "soldier",
+    "name": "soldier__attack_1",
+    "parts": [
+     "ATTACK_1"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__attack_2": {
+    "class": "soldier",
+    "name": "soldier__attack_2",
+    "parts": [
+     "ATTACK_A1",
+     "ATTACK_A2",
+     "ATTACK_A3",
+     "ATTACK_A4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__attack_3": {
+    "class": "soldier",
+    "name": "soldier__attack_3",
+    "parts": [
+     "ATTACK_C_1",
+     "ATTACK_C_2",
+     "ATTACK_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "soldier__skill_1": {
+    "class": "soldier",
+    "name": "soldier__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "swordfighter__attack_1": {
+    "class": "swordfighter",
+    "name": "swordfighter__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "swordfighter__attack_2": {
+    "class": "swordfighter",
+    "name": "swordfighter__attack_2",
+    "parts": [
+     "ATTACK_B"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "swordfighter__skill_1": {
+    "class": "swordfighter",
+    "name": "swordfighter__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "thief__attack_1": {
+    "class": "thief",
+    "name": "thief__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "thief__attack_2": {
+    "class": "thief",
+    "name": "thief__attack_2",
+    "parts": [
+     "ATTACK_B1",
+     "ATTACK_B2",
+     "ATTACK_B3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "thief__attack_3": {
+    "class": "thief",
+    "name": "thief__attack_3",
+    "parts": [
+     "ATTACK_A"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "thief__skill_1": {
+    "class": "thief",
+    "name": "thief__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "unify__attack_1": {
+    "class": "unify",
+    "name": "unify__attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "unify__attack_2": {
+    "class": "unify",
+    "name": "unify__attack_2",
+    "parts": [
+     "ATTACK_B_1",
+     "ATTACK_B_2",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "unify__attack_3": {
+    "class": "unify",
+    "name": "unify__attack_3",
+    "parts": [
+     "ATTACK_C_1",
+     "ATTACK_C_2",
+     "ATTACK_C_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "unify__skill_1": {
+    "class": "unify",
+    "name": "unify__skill_1",
+    "parts": [
+     "ORDER_1",
+     "ORDER_2",
+     "ORDER_3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warrior__attack_1": {
+    "class": "warrior",
+    "name": "warrior__attack_1",
+    "parts": [
+     "ATTACK_1",
+     "ATTACK_2",
+     "ATTACK_3",
+     "ATTACK_4"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warrior__attack_2": {
+    "class": "warrior",
+    "name": "warrior__attack_2",
+    "parts": [
+     "ATTACK_C"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "warrior__skill_1": {
+    "class": "warrior",
+    "name": "warrior__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werelion__attack_1": {
+    "class": "werelion",
+    "name": "werelion__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werelion__attack_2": {
+    "class": "werelion",
+    "name": "werelion__attack_2",
+    "parts": [
+     "ATTACK_B",
+     "ATTACK_B_IDLE",
+     "ATTACK_B_2",
+     "ATTACK_B_IDLE2",
+     "ATTACK_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werelion__attack_3": {
+    "class": "werelion",
+    "name": "werelion__attack_3",
+    "parts": [
+     "ATTACK_C1",
+     "ATTACK_C2",
+     "ATTACK_C3",
+     "ATTACK_C4",
+     "ATTACK_C5"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "werelion__skill_1": {
+    "class": "werelion",
+    "name": "werelion__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "witch__attack_1": {
+    "class": "witch",
+    "name": "witch__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "witch__skill_1": {
+    "class": "witch",
+    "name": "witch__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "witch__magic_1": {
+    "class": "witch",
+    "name": "witch__magic_1",
+    "parts": [
+     "MAGIC_A_1",
+     "MAGIC_A_2",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "witch__magic_2": {
+    "class": "witch",
+    "name": "witch__magic_2",
+    "parts": [
+     "MAGIC_B_1",
+     "MAGIC_B_2",
+     "MAGIC_B_3",
+     "MAGIC_B_4",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wizard__attack_1": {
+    "class": "wizard",
+    "name": "wizard__attack_1",
+    "parts": [
+     "ATTACK"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wizard__skill_1": {
+    "class": "wizard",
+    "name": "wizard__skill_1",
+    "parts": [
+     "SKILL_A1",
+     "SKILL_A2",
+     "SKILL_A3"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wizard__magic_1": {
+    "class": "wizard",
+    "name": "wizard__magic_1",
+    "parts": [
+     "MAGIC_A",
+     "MAGIC_A_IDLE",
+     "MAGIC_A_2",
+     "MAGIC_A_2_IDLE",
+     "MAGIC_A_END"
+    ],
+    "holds": {},
+    "tags": []
+   },
+   "wizard__magic_2": {
+    "class": "wizard",
+    "name": "wizard__magic_2",
+    "parts": [
+     "MAGIC_B",
+     "MAGIC_B_IDLE",
+     "MAGIC_B_2",
+     "MAGIC_B_2_IDLE",
+     "MAGIC_B_END"
+    ],
+    "holds": {},
+    "tags": []
+   }
+  },
+  "skill_animations": {
+   "active_heal": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "active_shatter": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "active_steal": {
+    "animation": "rogue__active_steal",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "aerial_smite": {
+    "animation": "gryphon_master__aerial_smite",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "armor_shatter": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "armor_shatter_ii": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "arrow_rain": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "artenie_strike": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "assassins_nail": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "assaulting_blow": {
+    "animation": "breaker__assaulting_blow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "assaulting_lance": {
+    "animation": "great_knight__assaulting_lance",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "aurora_veil": {
+    "animation": "wereowl__aurora_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "banishing_smite": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "banishing_stab": {
+    "animation": "prince__banishing_stab",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "bastards_cross": {
+    "animation": "landsknecht__bastards_cross",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "bear_crush": {
+    "animation": "werebear__bear_crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "beastslayer": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "blizzard": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "brandish": {
+    "animation": "valkyria__brandish",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "cavalry_slayer": {
+    "animation": "high_lord__cavalry_slayer",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "checkmate": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "circle_heal": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "compounding_curse": {
+    "animation": "druid__offensive_curse",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "crush": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "curing_call": {
+    "animation": "high_priestess__curing_call",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "cursed_strike": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "dark_flame": {
+    "animation": "doom_knight__dark_flame",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "decimate": {
+    "animation": "werewolf__decimate",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "defender": {
+    "animation": "vanguard__defender",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "defensive_curse": {
+    "animation": "druid__defensive_curse",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "defensive_order": {
+    "animation": "prince__defensive_order",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "demolition": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "desperation": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "dispel_all": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "divine_cross": {
+    "animation": "paladin__divine_cross",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "diving_thrust": {
+    "animation": "wyvern_knight__diving_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "double_blast": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "double_heal": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "dragoon_dive": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "dual_shot": {
+    "animation": "hunter__dual_shot",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "earthquake": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "earthshaker": {
+    "animation": "werebear__earthshaker",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "elemental_roar": {
+    "animation": "elven_augur__primus_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "elfslayer": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "execution": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "extra_heal": {
+    "animation": "wereowl__aurora_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "faerie_heal": {
+    "animation": "elven_sibyl__faerie_heal",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "fatal_dive": {
+    "animation": "gryphon_master__fatal_dive",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "finishing_stab": {
+    "animation": "werewolf__finishing_stab",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "fire_breath": {
+    "animation": "wyvern_master__fire_breath",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "fire_curse": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "fire_slash": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "fireball": {
+    "animation": "warlock__fireball",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "firestorm": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "flame_arrow": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "flame_javelin": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "freezing_thrust": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "glacial_rain": {
+    "animation": "snow_ranger__glacial_rain",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "glowing_light": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "grand_smash": {
+    "animation": "berserker__grand_smash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "gravity": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "greatshield": {
+    "animation": "legionnaire__greatshield",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "grisly_fire": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "grisly_poison": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "ground_strike": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "hache": {
+    "animation": "radiant_knight__hache",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "harpoon_bolt": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "heal": {
+    "animation": "bishop__heal",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "heavy_bolt": {
+    "animation": "shieldshooter__heavy_bolt",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "heavy_slash": {
+    "animation": "dreadnought__heavy_slash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "heavy_smash": {
+    "animation": "breaker__heavy_smash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "high_swing": {
+    "animation": "gryphon_knight__high_swing",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "holy_cradle": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "holy_light": {
+    "animation": "high_priestess__holy_light",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "holy_smite": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "honed_slash": {
+    "animation": "feathersword__honed_slash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "honed_spear": {
+    "animation": "sergeant__honed_spear",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "ice_coffin": {
+    "animation": "sorceress__icebolt",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "icebolt": {
+    "animation": "sorceress__icebolt",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "icestorm": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "icicle_arrow": {
+    "animation": "elven_archer__icicle_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "icicle_dart": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "icy_blow": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "icy_crush": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "impale": {
+    "animation": "sword_master__impale",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "innocent_ray": {
+    "animation": "high_priestess__innocent_ray",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "iron_crusher": {
+    "animation": "crusader__iron_crusher",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "javelin": {
+    "animation": "sergeant__javelin",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "keen_edge": {
+    "animation": "sword_master__keen_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "killing_chain": {
+    "animation": "landsknecht__killing_chain",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "lean_edge": {
+    "animation": "high_lord__lean_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "leaping_slash": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "lethal_venom": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "lightning_blade": {
+    "animation": "elven_fencer__lightning_blade",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "lightning_shaker": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "limited_heal": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "long_thrust": {
+    "animation": "sergeant__long_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "magick_attack": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "magick_missile": {
+    "animation": "sorceress__magick_missile",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "magick_shatter": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "magick_wall": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "meteor_slash": {
+    "animation": "sword_master__meteor_slash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "mirage_stab": {
+    "animation": "elven_fencer__lightning_blade",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "mounting_charge": {
+    "animation": "berserker__mounting_charge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "mystic_arrow": {
+    "animation": "snow_ranger__mystic_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "natures_wrath": {
+    "animation": "elven_fencer__natures_wrath",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "night_vision": {
+    "animation": "wereowl__night_vision",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "offensive_curse": {
+    "animation": "druid__offensive_curse",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "offensive_order": {
+    "animation": "prince__banishing_stab",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "omega_shatter": {
+    "animation": "dreadnought__omega_shatter",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "painful_smash": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "passive_curse": {
+    "animation": "druid__passive_curse",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "passive_hold": {
+    "animation": "werefox__passive_hold",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "passive_shatter": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "passive_shatter_spear": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "passive_steal": {
+    "animation": "rogue__passive_steal",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "penetrate": {
+    "animation": "dreadnought__penetrate",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "phantom_attack": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "phantom_veil": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "piercing_lance": {
+    "animation": "werefox__piercing_lance",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "pile_thrust": {
+    "animation": "great_knight__pile_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "poison_arrow": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "poison_curse": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "poison_slash": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "power_bolt": {
+    "animation": "attack_1",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "powerful_impact": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "primus_edge": {
+    "animation": "elven_augur__primus_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "provoking_slash": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "radiant_heal": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "rampage": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "reincarnation": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "resurrection": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "rolling_axe": {
+    "animation": "housecarl__rolling_axe",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "round_swing": {
+    "animation": "werebear__round_swing",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "row_heal": {
+    "animation": "radiant_knight__row_heal",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "row_protection": {
+    "animation": "legionnaire__row_protection",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "row_shot": {
+    "animation": "sniper__row_shot",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "row_smash": {
+    "animation": "breaker__row_smash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sacred_heal": {
+    "animation": "bishop__sacred_heal",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "saints_blade": {
+    "animation": "sainted_knight__saints_blade",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sandstorm": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sanguine_attack": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sanguine_darts": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sanguine_rain": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "shadow_arrow": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "shadow_thrust": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "shadowbite": {
+    "animation": "rogue__shadowbite",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "shield_bash": {
+    "animation": "fighter__shield_bash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "shield_smite": {
+    "animation": "feathersword__shield_smite",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "single_shot": {
+    "animation": "hunter__single_shot",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "skyward_thrust": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "slice": {
+    "animation": "paladin__slice",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "smash": {
+    "animation": "housecarl__smash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sonic_blast": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sonic_shaft": {
+    "animation": "snow_ranger__sonic_shaft",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "spiked_blow": {
+    "animation": "berserker__crush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "spiked_bolt": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "spinning_edge": {
+    "animation": "high_lord__spinning_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "spiral_sword": {
+    "animation": "feathersword__spiral_sword",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sting": {
+    "animation": "hoplite__sting",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "strength_shatter": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "strength_shatter_ii": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "sylphic_wind": {
+    "animation": "elven_augur__primus_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "tempest_drive": {
+    "animation": "wyvern_master__tempest_drive",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "thunderous_strike": {
+    "animation": "warlock__thunderous_strike",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "thunderous_thrust": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "toxic_bolt": {
+    "animation": "attack_2",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "toxic_throw": {
+    "animation": "rogue__toxic_throw",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "trinity_rain": {
+    "animation": "bishop__phantom_veil",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "triple_shatter": {
+    "animation": "arbalist__poison_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "true_thrust": {
+    "animation": "elven_augur__true_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "vengeful_axe": {
+    "animation": "dark_knight__vengeful_axe",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "venom_axe": {
+    "animation": "dark_knight__venom_axe",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "venom_thrust": {
+    "animation": "werefox__venom_thrust",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "vertical_edge": {
+    "animation": "crusader__vertical_edge",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "volcano": {
+    "animation": "warlock__volcano",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "wall": {
+    "animation": "crusader__sanguine_attack",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "warding_slash": {
+    "animation": "fighter__warding_slash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "wide_breaker": {
+    "animation": "viking__wide_breaker",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "wide_smash": {
+    "animation": "berserker__wide_smash",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "wild_fang": {
+    "animation": "werewolf__wild_fang",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "wild_rush": {
+    "animation": "great_knight__wild_rush",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   },
+   "wind_arrow": {
+    "animation": "elven_archer__wind_arrow",
+    "tags": [],
+    "caster_fx": [],
+    "target_fx": [],
+    "trajectory": null,
+    "rain": null
+   }
+  }
+ }
+}

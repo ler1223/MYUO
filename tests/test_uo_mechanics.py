@@ -2,7 +2,9 @@
 условная сила, игнор защиты, кража AP/PP, награда за добивание, проценты HP, снятие по метке."""
 import unittest
 
-from game.battle import BattleSimulation
+from game.combat.record import PASSIVE, Act
+
+from game.combat import Battle as BattleSimulation
 from game.events import AttackMissed, DamageDealt, PassiveTriggered, TurnSkipped
 from game.stats import Stat
 from tests.helpers import add_skill, duel, only, plain_db, set_stats, turn_of
@@ -135,8 +137,9 @@ class ChargeTests(unittest.TestCase):
         self.assertEqual(b.hp, 0)                                          # пережил первый удар, не второй
         sim, a, b = duel(self.db, "knight", "orc")
         b.add_effect(self.db.effects["ward"])
-        self.assertIsNone(sim._give_effect(b, "weak", a.uid))
-        self.assertIsNotNone(sim._give_effect(b, "weak", a.uid))           # заряд потрачен
+        act = Act(PASSIVE, a.uid)
+        self.assertIsNone(sim._give(b, "weak", a, act))
+        self.assertIsNotNone(sim._give(b, "weak", a, act))                 # заряд потрачен
 
 
 class SkillExtrasTests(unittest.TestCase):

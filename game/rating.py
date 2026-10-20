@@ -143,7 +143,7 @@ def build_squad(db: Database, roster: Roster, side: str, first_uid: int, size: A
 
 def simulate(db: Database, first: Roster, second: Roster, runs: int = 20, seed: int = 0) -> float:
     """Доля побед first над second; стороны по очереди нападают (у нападающего преимущество в ничьих)."""
-    from .battle import BattleSimulation
+    from .combat import Battle as BattleSimulation
     wins = 0.0
     for i in range(runs):
         a = build_squad(db, first, "first", 1)

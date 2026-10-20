@@ -1,7 +1,7 @@
 """Тесты пассивок-прикрытий: защитник принимает на себя удар, нацеленный на союзника."""
 import unittest
 
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.definitions import PassiveDefinition
 from game.editing import new_passive_data, set_owners, skill_owners
 from game.events import AttackMissed, Covered, DamageDealt, EffectApplied, Healed, PassiveTriggered, SkillUsed

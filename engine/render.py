@@ -10,7 +10,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable
+from typing import Any, Callable, Optional
 
 import pygame
 
@@ -47,9 +47,31 @@ class Part:
     depth: float
     draw: Callable[[pygame.Surface, View], None]
     order: int = 0              # при равной глубине: меньше — раньше
+    gl: Optional[Callable[[Any, View], None]] = None     # то же в кадр видеокарты (engine.uo.frame.GLFrame)
+
+
+def _order(parts: list[Part]) -> list[Part]:
+    return sorted(parts, key=lambda p: (p.layer, -p.depth if p.layer != OVERLAY else 0, p.order))
 
 
 def draw_parts(target: pygame.Surface, view: View, parts: list[Part]) -> None:
     """Рисует части по слоям; в слоях земли и стоящих — от дальних к ближним."""
-    for part in sorted(parts, key=lambda p: (p.layer, -p.depth if p.layer != OVERLAY else 0, p.order)):
+    for part in _order(parts):
         part.draw(target, view)
+
+
+def draw_parts_gl(frame: Any, view: View, parts: list[Part]) -> None:
+    """То же в кадр видеокарты: у части есть gl — рисует она; нет — рисуется pygame на прозрачный
+    слой кадра (frame.legacy). Слой накладывается в конце каждого слоя частей (земля, стоящие,
+    надписи): внутри слоя нарисованное pygame оказывается поверх кукол — зато слой выгружается
+    не чаще трёх раз за кадр."""
+    layer = None
+    for part in _order(parts):
+        if part.layer != layer:
+            frame.flush()
+            layer = part.layer
+        if part.gl is not None:
+            part.gl(frame, view)
+        else:
+            part.draw(frame.legacy, view)
+    frame.flush()

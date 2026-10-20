@@ -80,7 +80,7 @@ class Region:
     open: bool = False                       # открыт с начала игры
     liberated: bool = False                  # уже наш с начала игры
     unlocks: tuple[str, ...] = ()            # что открывается после освобождения
-    scene: str = ""                          # сцена боя для стычек здесь (assets/scenes); пусто — сцена карты
+    scene: str = ""                          # фон боя для стычек здесь (сцена показа: data/uo_battle.json); пусто — сцена карты
 
     def contains(self, point: Point) -> bool:
         return point_in_polygon(point, self.polygon)
@@ -138,7 +138,7 @@ class WorldDef:
     objects: tuple[WorldObject, ...]
     enemies: tuple[EnemySquadDef, ...]
     goods: Mapping[str, Good] = field(default_factory=dict)
-    scene: str = ""                          # сцена боя для стычек (assets/scenes)
+    scene: str = ""                          # фон боя для стычек (сцена показа: data/uo_battle.json)
 
     @classmethod
     def load(cls, world_id: str = DEFAULT_WORLD, folder: Path = WORLD_DIR) -> "WorldDef":

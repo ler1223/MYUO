@@ -38,22 +38,33 @@ GAP = 40
 LABEL = 90                  # полоса с номерами над персонажами
 
 # Класс -> (источник, файл): fandom / miraheze — файл вики, rpgfan — номер и имя арта,
-# gamehelp — страница класса на Miraheze (полноростового арта нет)
+# gamehelp — страница класса на Miraheze (полноростового арта нет), none — арта класса нет
+# (именованные боссы: внешность берётся из спрайтов модели игры).
 SOURCES = {
     "arbalist": ("fandom", "Unicorn-Overlord-Arbalist.png"),
     "berserker": ("fandom", "Berserker.png"),
     "bishop": ("fandom", "Bishop.png"),
+    "black_prince": ("none", "Black Prince"),
+    "black_prince_hg": ("none", "Black Prince (HG)"),
     "breaker": ("fandom", "Breaker.png"),
     "cleric": ("fandom", "Sharon.png"),
     "crusader": ("fandom", "Virginia.jpg"),
     "dark_knight": ("gamehelp", "Dark Knight"),
+    "dark_marquess_a": ("none", "Dark Marquess (A)"),
+    "dark_marquess_l": ("none", "Dark Marquess (L)"),
+    "dark_marquess_r": ("none", "Dark Marquess (R)"),
+    "dark_marquess_s": ("none", "Dark Marquess (S)"),
     "doom_knight": ("fandom", "Doom Knight png.png"),
     "dreadnought": ("fandom", "Amalia_fullbody.jpg"),
     "druid": ("fandom", "Druid.png"),
+    "eltlinde": ("none", "Eltlinde"),
     "elven_archer": ("miraheze", "Galadmir_Portrait.png"),
     "elven_augur": ("rpgfan", "014-Rosalinde"),
     "elven_fencer": ("fandom", "Unicorn-Overlord-Elven_Fencer.webp"),
     "elven_sibyl": ("rpgfan", "012-Eltolinde"),
+    "feather_bow": ("none", "Feather Bow"),
+    "feather_rod": ("none", "Feather Rod"),
+    "feather_shield": ("none", "Feather Shield"),
     "feathersword": ("fandom", "Unicorn-Overlord-Feathersword.png"),
     "fighter": ("fandom", "Fighter.png"),
     "gladiator": ("fandom", "Gladiator.png"),
@@ -69,6 +80,7 @@ SOURCES = {
     "landsknecht": ("fandom", "Landsknecht.png"),
     "legionnaire": ("fandom", "Legionnaire.png"),
     "lord": ("fandom", "Lord.png"),
+    "necromancer": ("none", "Necromancer"),
     "paladin": ("fandom", "Paladin.png"),
     "priestess": ("fandom", "Scarlett.png"),
     "prince": ("gamehelp", "Prince"),
@@ -86,6 +98,7 @@ SOURCES = {
     "sword_master": ("fandom", "Swordmaster.png"),
     "swordfighter": ("fandom", "Swordfighter.png"),
     "thief": ("fandom", "Travis.png"),
+    "unify": ("none", "Unify"),
     "valkyria": ("fandom", "Valkyria.png"),
     "vanguard": ("fandom", "Vanguard.png"),
     "viking": ("fandom", "Viking.png"),
@@ -189,6 +202,9 @@ def main(argv: list[str]) -> int:
         if class_id not in SOURCES:
             missing.append(class_id)
             print(f"{class_id}: no source in SOURCES")
+            continue
+        if SOURCES[class_id][0] == "none":
+            print(f"{class_id}: без арта класса (именованный босс, спрайт берётся из модели игры)")
             continue
         try:
             image = picture(*SOURCES[class_id], CROP.get(class_id, (0, 0, 1, 1)))

@@ -51,6 +51,7 @@ class Backdrop:
         self._surface: Optional[pygame.Surface] = None
         self._frame_key: Optional[tuple] = None
         self._frame: Optional[pygame.Surface] = None
+        self._smooth = False
 
     # --- готовая картинка ---
 
@@ -68,7 +69,8 @@ class Backdrop:
         image = self.surface(scene, quality)
         q = image.get_width() / self.field.width
         frame_key = (self._key, cam.scale, cam.origin, cam.offset)
-        if frame_key != self._frame_key:
+        moving = frame_key != self._frame_key
+        if moving or not self._smooth:     # камера едет — быстрое масштабирование; встала — сглаженное
             vw, vh = self.field.width * cam.scale, self.field.height * cam.scale   # всё поле в пикселях окна
             left, top = cam.p(*self.field.topleft)
             visible = pygame.Rect(left, top, round(vw), round(vh)).clip(cam.clip) if cam.clip else pygame.Rect(left, top, round(vw), round(vh))
@@ -79,11 +81,23 @@ class Backdrop:
                               max(1, round(visible.width / cam.scale * q)), max(1, round(visible.height / cam.scale * q)))
             src = src.clip(image.get_rect())
             part = image.subsurface(src)
-            self._frame = part if part.get_size() == visible.size else pygame.transform.smoothscale(part, visible.size)
+            if part.get_size() == visible.size:
+                self._frame = part
+            else:
+                self._frame = (pygame.transform.scale if moving else pygame.transform.smoothscale)(part, visible.size)
+            self._smooth = not moving
             self._frame_pos = visible.topleft
             self._frame_key = frame_key
         if self._frame is not None:
             target.blit(self._frame, self._frame_pos)
+
+    def draw_gl(self, frame, scene: SceneConfig, cam: Camera, quality: float) -> None:
+        """То же в кадр видеокарты (engine.uo.frame.GLFrame): готовая картинка одной текстурой с
+        мипмапами, масштаб — на видеокарте."""
+        image = self.surface(scene, quality)
+        tex = frame.keyed_texture(("backdrop", id(self), self._key), lambda: image, mipmaps=True)
+        left, top = cam.p(*self.field.topleft)
+        frame.image(None, (left, top, self.field.width * cam.scale, self.field.height * cam.scale), texture=tex)
 
     # --- построение ---
 

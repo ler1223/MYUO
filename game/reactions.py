@@ -22,6 +22,7 @@ from .tactics import Always, ICondition, condition_from_dict, condition_to_dict
 # --- события ---------------------------------------------------------------
 
 ON_BATTLE_START = "battle_start"
+ON_BATTLE_END = "battle_end"        # конец боя: пассивки UO «Activates at the end of a battle»
 ON_ROUND_START = "round_start"
 ON_ROUND_END = "round_end"
 ON_TURN_START = "turn_start"
@@ -35,9 +36,9 @@ ON_EFFECT_APPLIED = "effect_applied"
 ON_EFFECT_EXPIRED = "effect_expired"  # кончилась длительность или заряды, или эффект сняли
 ON_SKILL_USED = "skill_used"
 ON_BEFORE_SKILL = "before_skill"    # фаза «до»: юнит вот-вот применит активный навык (subject = он сам)
-EVENTS = (ON_BATTLE_START, ON_ROUND_START, ON_ROUND_END, ON_TURN_START, ON_TURN_END, ON_TARGETED, ON_ATTACKED,
+EVENTS = (ON_BATTLE_START, ON_BATTLE_END, ON_ROUND_START, ON_ROUND_END, ON_TURN_START, ON_TURN_END, ON_TARGETED, ON_ATTACKED,
           ON_HP_BELOW, ON_HEALED, ON_DIED, ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED, ON_SKILL_USED, ON_BEFORE_SKILL)
-EVENTS_WITHOUT_SUBJECT = (ON_BATTLE_START, ON_ROUND_START, ON_ROUND_END)
+EVENTS_WITHOUT_SUBJECT = (ON_BATTLE_START, ON_BATTLE_END, ON_ROUND_START, ON_ROUND_END)
 ATTACK_EVENTS = (ON_TARGETED, ON_ATTACKED, ON_BEFORE_SKILL, ON_SKILL_USED)   # фильтры по тегам атаки и области
 EFFECT_EVENTS = (ON_EFFECT_APPLIED, ON_EFFECT_EXPIRED)
 

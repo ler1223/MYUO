@@ -1,0 +1,1 @@
+Grisly Fire - 150 Phys, 1 Hit, Inflicts burn, +50 potency and crit vs. burning targets [2 AP]

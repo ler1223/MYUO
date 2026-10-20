@@ -8,6 +8,7 @@ from typing import Any, Collection, Iterator, Mapping, Optional, Sequence
 from .definitions import ItemDefinition
 from .effects import ActiveEffect, EffectDefinition, apply_effect, tick_effects
 from .resource import Resource
+from .roles import normalize as normalize_roles
 from .stats import STAT_DEFAULTS, Modifier, Stat, compute_stat
 from .tactics import TacticsSet
 from .tiers import check_tier
@@ -102,6 +103,9 @@ class UnitDefinition:
     # Классы, которыми боец был до этого (game/promotion.py): их статы на уровне бойца — нижняя граница.
     ancestors: tuple["UnitDefinition", ...] = ()
     grades: Mapping[str, str] = field(default_factory=lambda: MappingProxyType({}))   # оценки UO (S..F), справочно
+    story: bool = False                 # личный класс сюжетного героя UO (принцессы, принц, Ален): не для найма
+    # Роли (game/roles.py): воин, лучник, маг, поддержка, танк, целитель; их может быть несколько.
+    roles: tuple[str, ...] = ()
 
     @classmethod
     def from_dict(cls, unit_id: str, data: Mapping[str, Any]) -> "UnitDefinition":
@@ -124,6 +128,8 @@ class UnitDefinition:
             tier=check_tier(int(data.get("tier", 10)), f"unit {unit_id}"),
             promotions=tuple(Promotion.from_dict(p) for p in data.get("promotions", ())),
             grades=MappingProxyType(dict(data.get("grades", {}))),
+            story=bool(data.get("story", False)),
+            roles=normalize_roles(data.get("roles") or data.get("role", ())),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -141,6 +147,8 @@ class UnitDefinition:
             "tier": self.tier,
             "promotions": [p.to_dict() for p in self.promotions],
             **({"grades": dict(self.grades)} if self.grades else {}),
+            **({"story": True} if self.story else {}),
+            **({"roles": list(self.roles)} if self.roles else {}),
         }
 
     def base_stat(self, stat: Stat, level: int) -> float:
@@ -194,6 +202,7 @@ class UnitState:
     exp: int = 0          # опыт к следующему уровню
     nickname: str = ""    # личное имя бойца (башня); пусто — зовётся по классу
     history: list[str] = field(default_factory=list)   # классы до повышений, по порядку (game/promotion.py)
+    look: int = 0         # модель из списка моделей класса (data/uo_battle.json, classes.<класс>.looks)
 
 
 class Unit:
@@ -209,6 +218,8 @@ class Unit:
         self.pp = Resource(self.pp_max, self.pp_max)
         self.effects: list[ActiveEffect] = []
         self.tactics: TacticsSet = definition.tactics  # может быть заменён редактором
+        # Тактики пассивок: id пассивки -> правила. Пусто — пассивка работает как задано в данных.
+        self.passive_tactics: dict[str, TacticsSet] = {}
 
     # --- идентичность ---
 
@@ -336,6 +347,28 @@ class Unit:
 
     def reset_tactics(self) -> None:
         self.tactics = self.definition.tactics
+
+    # --- тактики пассивок ---
+
+    def passive_tactics_of(self, passive_id: str) -> TacticsSet:
+        return self.passive_tactics.get(passive_id, TacticsSet())
+
+    def has_passive_tactics(self, passive_id: str) -> bool:
+        tactics = self.passive_tactics.get(passive_id)
+        return tactics is not None and bool(tactics.rules)
+
+    def set_passive_tactics(self, passive_id: str, tactics: TacticsSet) -> None:
+        if tactics.rules:
+            self.passive_tactics[passive_id] = tactics
+        else:
+            self.passive_tactics.pop(passive_id, None)
+
+    def reset_passive_tactics(self, passive_id: str) -> None:
+        self.passive_tactics.pop(passive_id, None)
+
+    @property
+    def has_custom_passive_tactics(self) -> bool:
+        return any(t.rules for t in self.passive_tactics.values())
 
     # --- ресурсы ---
 

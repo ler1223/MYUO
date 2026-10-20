@@ -4,7 +4,7 @@ import json
 import random
 import unittest
 
-from game.battle import BattleSimulation
+from game.combat import Battle as BattleSimulation
 from game.effects import ActiveEffect, EffectDefinition, StackRule, apply_effect, tick_effects
 from game.events import (
     END_DEFEAT,
@@ -221,7 +221,7 @@ class EffectTests(unittest.TestCase):
         unit.take_damage(10)
         unit.add_effect(DB.effects["war_cry"])
         self.assertEqual({f.name for f in dataclasses.fields(UnitState)},
-                         {"uid", "definition_id", "level", "current_hp", "equipment", "exp", "nickname", "history"})
+                         {"uid", "definition_id", "level", "current_hp", "equipment", "exp", "nickname", "history", "look"})
         payload = json.dumps({"state": dataclasses.asdict(unit.state), "effects": unit.save_effects()})
 
         data = json.loads(payload)

@@ -1,0 +1,67 @@
+{
+ "items": {
+  "werefox/stance": {
+   "status": "bad",
+   "comment": "это разговор",
+   "signature": "{\"extra\": {}, \"parts\": [\"STANCE_1\", \"STANCE_2*\"], \"rev\": 2}",
+   "what": {
+    "title": "Боевая стойка",
+    "parts": [
+     "STANCE_1",
+     "STANCE_2*"
+    ]
+   },
+   "used_skill": null,
+   "checked": "2026-10-15 17:07"
+  },
+  "werebear/stance": {
+   "status": "bad",
+   "comment": "Это анимация победы",
+   "signature": "{\"extra\": {}, \"parts\": [\"STANCE_1\", \"STANCE_2*\"], \"rev\": 2}",
+   "what": {
+    "title": "Боевая стойка",
+    "parts": [
+     "STANCE_1",
+     "STANCE_2*"
+    ]
+   },
+   "used_skill": null,
+   "checked": "2026-10-15 17:08"
+  },
+  "werebear/skill/bear_crush": {
+   "status": "bad",
+   "comment": "",
+   "signature": "{\"extra\": {\"effects\": {\"cast\": [], \"hit\": [\"HIT_A\"], \"internal\": \"BEAR_CLASH\", \"kind\": \"melee\"}, \"weapon_shot\": null}, \"parts\": [\"ATTACK\"], \"rev\": 0}",
+   "what": {
+    "title": "Навык: Bear Crush",
+    "parts": [
+     "ATTACK"
+    ],
+    "effects": {
+     "kind": "melee",
+     "internal": "BEAR_CLASH",
+     "cast": [],
+     "hit": [
+      "HIT_A"
+     ]
+    },
+    "weapon_shot": null
+   },
+   "used_skill": "bear_crush",
+   "checked": "2026-10-15 17:08"
+  },
+  "feathersword/stance": {
+   "status": "bad",
+   "comment": "нет головы.",
+   "signature": "{\"extra\": {}, \"parts\": [\"IDLE*\"], \"rev\": 3}",
+   "what": {
+    "title": "Боевая стойка",
+    "parts": [
+     "IDLE*"
+    ]
+   },
+   "used_skill": null,
+   "checked": "2026-10-15 17:21"
+  }
+ }
+}
