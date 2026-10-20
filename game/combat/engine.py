@@ -930,11 +930,17 @@ class Battle:
             return default_order(owner, own, wanted, pool, self.rng)[0] if pool else None
         return None
 
+    @staticmethod
+    def _immunity(unit: Unit, definition) -> Optional[str]:
+        """Флаг заряда защиты (immune:debuff / immune:ailment), который отразит этот эффект."""
+        return next((f"immune:{label}" for label in ("debuff", "ailment")
+                     if label in definition.tags and unit.has_flag(f"immune:{label}")), None)
+
     def _would_apply(self, unit: Unit, effect_id: Optional[str]) -> bool:
         definition = self.db.effects.get(effect_id or "")
         if definition is None or not unit.is_alive:
             return False
-        if "debuff" in definition.tags and unit.has_flag("immune:debuff"):
+        if self._immunity(unit, definition) is not None:
             return False
         existing = next((e for e in unit.effects if e.definition.id == definition.id), None)
         return not (existing is not None and definition.stack_rule == StackRule.IGNORE)
@@ -943,8 +949,9 @@ class Battle:
 
     def _give(self, unit: Unit, effect_id: Optional[str], source: Optional[Unit], act: Act) -> Optional[ActiveEffect]:
         definition = self.db.effects.get(effect_id or "")
-        if definition is not None and unit.is_alive and "debuff" in definition.tags and unit.has_flag("immune:debuff"):
-            self._remove_flagged(unit, "immune:debuff", act)      # ослабление отражено, заряд потрачен
+        immunity = self._immunity(unit, definition) if definition is not None and unit.is_alive else None
+        if immunity is not None:
+            self._remove_flagged(unit, immunity, act)             # ослабление отражено, заряд потрачен
             return None
         if not self._would_apply(unit, effect_id):
             return None

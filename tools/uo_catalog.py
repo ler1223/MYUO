@@ -1256,7 +1256,7 @@ def build_skills(game_skills: list[dict], class_skills: dict, item_entries: list
             has_effect = bool(parts or value.get("applies") or value.get("ap_restore")
                               or value.get("pp_restore") or value.get("extras")
                               or value.get("bonus_vs") or value.get("potency"))
-            known_stub = key in {"wall", "magick_wall", "resurrection"} and not has_effect
+            known_stub = not has_effect and key in {"wall", "magick_wall", "resurrection"}
             entry["implementation"] = {
                 "present": True, "kind": "skill", "id": key,
                 "stub": known_stub, "parts": parts, "has_effect": has_effect,
@@ -1265,9 +1265,12 @@ def build_skills(game_skills: list[dict], class_skills: dict, item_entries: list
             }
         elif key in data_passives:
             value = data_passives[key]
+            reaction = value.get("reaction") or {}
+            # заглушка: реакция «вернуть PP» без числа ничего не делает, но тратит PP пассивки
+            stub = reaction.get("action") == "restore_pp" and not reaction.get("amount")
             entry["implementation"] = {"present": True, "kind": "passive", "id": key,
-                                       "stub": False, "parts": 0, "has_effect": True,
-                                       "status": "implemented"}
+                                       "stub": stub, "parts": 0, "has_effect": not stub,
+                                       "status": "stub" if stub else "implemented"}
         else:
             entry["implementation"] = {"present": False, "kind": None, "id": None, "stub": False,
                                        "parts": 0, "has_effect": False, "status": "missing"}

@@ -1703,7 +1703,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -1872,7 +1873,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -3036,7 +3038,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -8485,6 +8488,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -12177,7 +12185,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -12337,7 +12346,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -14958,6 +14968,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 22
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -30
      },
      {
       "stat": "initiative",
@@ -17842,6 +17857,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -21090,7 +21110,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -21249,7 +21270,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -26218,6 +26240,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -35444,6 +35471,11 @@
       "stat": "phys_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -39119,7 +39151,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -39279,7 +39312,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_passive_seal"
+     "immune_passive_seal",
+     "immune_deathblow"
     ]
    }
   },
@@ -46332,6 +46366,11 @@
       "stat": "mag_atk",
       "op": "FLAT",
       "value": 17
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -56849,6 +56888,11 @@
       "stat": "guard_rate",
       "op": "FLAT",
       "value": 20
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -66461,6 +66505,11 @@
       "stat": "guard_rate",
       "op": "FLAT",
       "value": 30
+     },
+     {
+      "stat": "hp",
+      "op": "FLAT",
+      "value": -15
      }
     ],
     "skills": [],
@@ -79251,7 +79300,7 @@
     "passives": [],
     "tags": [
      "immune_poison",
-     "immune_poison"
+     "immune_deathblow"
     ]
    }
   },
@@ -79392,7 +79441,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ]
    }
   },
@@ -84260,7 +84310,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ]
    }
   },
@@ -90758,6 +90809,7 @@
     "passives": [],
     "tags": [
      "immune_blind",
+     "immune_deathblow",
      "immune_passive_seal"
     ]
    }
@@ -91695,7 +91747,8 @@
     "skills": [],
     "passives": [],
     "tags": [
-     "immune_poison"
+     "immune_poison",
+     "immune_deathblow"
     ]
    }
   },

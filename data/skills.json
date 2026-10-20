@@ -6240,7 +6240,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_negate_physical",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -6265,7 +6273,22 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_negate_magic",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_immune_ailment",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -7449,7 +7472,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_negate_2",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -10370,7 +10401,9 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {
+      "revive": true
+    }
   },
   "reincarnation": {
     "name": "Reincarnation",
@@ -10823,7 +10856,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_negate_physical",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -10838,7 +10879,7 @@
     "ap_cost": 1,
     "pp_cost": 0,
     "targets": "ally",
-    "area": "single",
+    "area": "row",
     "hits": 1,
     "accuracy": 100,
     "tags": [
@@ -10848,7 +10889,15 @@
     "bonus_vs": {},
     "ap_restore": 0,
     "pp_restore": 0,
-    "applies": [],
+    "applies": [
+      {
+        "effect_id": "uo_mag_def_p50pct",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },
@@ -10872,8 +10921,16 @@
     "parts": [],
     "bonus_vs": {},
     "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
+    "pp_restore": 2,
+    "applies": [
+      {
+        "effect_id": "uo_mag_def_p50pct",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
     "requires_self": {
       "type": "always"
     },

@@ -1595,5 +1595,128 @@
     "stack_rule": "REFRESH",
     "max_stacks": 1,
     "triggers": []
+  },
+  "uo_negate_physical": {
+    "name": "UO negate_physical",
+    "modifiers": [],
+    "flags": [
+      "negate:physical"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_negate_2": {
+    "name": "UO negate_2",
+    "modifiers": [],
+    "flags": [
+      "negate"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 2,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_negate_3": {
+    "name": "UO negate_3",
+    "modifiers": [],
+    "flags": [
+      "negate"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 3,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_negate_5": {
+    "name": "UO negate_5",
+    "modifiers": [],
+    "flags": [
+      "negate"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 5,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_negate_6": {
+    "name": "UO negate_6",
+    "modifiers": [],
+    "flags": [
+      "negate"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 6,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_immune_ailment": {
+    "name": "UO immune_ailment",
+    "modifiers": [],
+    "flags": [
+      "immune:ailment"
+    ],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": 1,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
+  },
+  "uo_mag_def_p50pct": {
+    "name": "UO mag_def_p50pct",
+    "modifiers": [
+      {
+        "stat": "mag_def",
+        "op": "PERCENT_ADD",
+        "value": 0.5
+      }
+    ],
+    "flags": [],
+    "tags": [
+      "buff"
+    ],
+    "grants_tags": [],
+    "attack_mods": [],
+    "duration": null,
+    "charges": null,
+    "stack_rule": "REFRESH",
+    "max_stacks": 1,
+    "triggers": []
   }
 }
