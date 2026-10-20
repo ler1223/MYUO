@@ -5360,6 +5360,32 @@
   }
  },
  "skills": {
+  "abyssal_miasma": {
+   "kind": "support",
+   "internal": "MIASUMA",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "accelerate": {
+   "kind": "support",
+   "internal": "ACCELERATE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "active_gift": {
+   "kind": "support",
+   "internal": "ACTIVE_GIFT",
+   "cast": [
+    "ACTIVEGIFT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "active_heal": {
    "kind": "heal",
    "internal": "ACT_HEAL",
@@ -5388,7 +5414,31 @@
     "HIT_A"
    ]
   },
-  "aerial_pursuit_strike": {
+  "advance_cover": {
+   "kind": "support",
+   "internal": "ADVANCE_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "aerial_alignment": {
+   "kind": "support",
+   "internal": "FEATHER_ALIGN",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "aerial_guard": {
+   "kind": "support",
+   "internal": "AERIAL_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "aerial_pursuit": {
    "kind": "melee",
    "internal": "CHASE_WING",
    "cast": [],
@@ -5396,7 +5446,7 @@
     "HIT_A"
    ]
   },
-  "aerial_shift_buff": {
+  "aerial_shift": {
    "kind": "support",
    "internal": "AERIAL_SHIFT",
    "cast": [],
@@ -5414,12 +5464,28 @@
     "AERIALSMITE_HIT"
    ]
   },
-  "aerial_snipe_strike": {
+  "aerial_snipe": {
    "kind": "melee",
    "internal": "AERIAL_SNIPE",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "aerial_wing": {
+   "kind": "support",
+   "internal": "AERIAL_WING",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "aid_cover": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "animated_dead": {
@@ -5456,6 +5522,14 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "arrow_cover": {
+   "kind": "support",
+   "internal": "ARROW_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "arrow_rain": {
@@ -5540,7 +5614,7 @@
     "STATUS_UP_A"
    ]
   },
-  "banishing_counter_strike": {
+  "banishing_counter": {
    "kind": "ranged",
    "internal": "VANISH_COUNTER",
    "cast": [],
@@ -5548,7 +5622,7 @@
     "HIT_C"
    ]
   },
-  "banishing_pursuit_strike": {
+  "banishing_pursuit": {
    "kind": "ranged",
    "internal": "VANISH_CHASE",
    "cast": [],
@@ -5588,7 +5662,7 @@
     "HIT_A"
    ]
   },
-  "bears_den_buff": {
+  "bears_den": {
    "kind": "support",
    "internal": "BEAR_CATHSH",
    "cast": [],
@@ -5602,6 +5676,54 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "berserk": {
+   "kind": "support",
+   "internal": "BERSERKER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "bestral_guard": {
+   "kind": "support",
+   "internal": "BEAST_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "bestral_howl": {
+   "kind": "support",
+   "internal": "BEAST_HOWLING",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "binding_guard": {
+   "kind": "support",
+   "internal": "GUARD_BIND",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "blade_dance": {
+   "kind": "support",
+   "internal": "BLADE_DANCE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "blind_cure": {
+   "kind": "support",
+   "internal": "CURE_BLIND",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "blitz_rush": {
@@ -5623,7 +5745,7 @@
    ],
    "out": "BLIZZARD_OUT"
   },
-  "boon_of_the_faeries_heal": {
+  "boon_of_the_faeries": {
    "kind": "heal",
    "internal": "PROTECTION_OF_SPIRIT",
    "cast": [
@@ -5662,6 +5784,22 @@
     "HIT_C"
    ]
   },
+  "bulk_up": {
+   "kind": "support",
+   "internal": "PUMP_UP",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "bull_force": {
+   "kind": "support",
+   "internal": "BULL_FORCE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "bulwark": {
    "kind": "support",
    "internal": "GREAT_WALL",
@@ -5670,6 +5808,14 @@
    ],
    "hit": [
     "WALL_HIT"
+   ]
+  },
+  "bunker_stance": {
+   "kind": "support",
+   "internal": "BUNKER_STANCE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "burning_edge": {
@@ -5690,12 +5836,38 @@
     "HIT_C"
    ]
   },
+  "cavalier_call": {
+   "kind": "support",
+   "internal": "CAVALIER_YELL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "cavalry_guard": {
+   "kind": "support",
+   "internal": "CAVALRY_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "cavalry_slayer": {
    "kind": "melee",
    "internal": "CAVALRY_SLAY",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "celestial_light": {
+   "kind": "support",
+   "internal": "CELESTIAL_LIGHT",
+   "cast": [
+    "CELESTIAL_LIGHT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "chaos_unending": {
@@ -5708,12 +5880,28 @@
     "STATUS_UP_A"
    ]
   },
+  "charged_impetus": {
+   "kind": "support",
+   "internal": "CHARGE_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "checkmate": {
    "kind": "ranged",
    "internal": "CHECKMATE",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "circle_barrier": {
+   "kind": "support",
+   "internal": "CIRCLE_BARRIER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "circle_heal": {
@@ -5734,7 +5922,17 @@
     "STATUS_UP_A"
    ]
   },
-  "counter_strike": {
+  "concentrate": {
+   "kind": "support",
+   "internal": "CONCENTRATE",
+   "cast": [
+    "CONCENTRATE"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "counter": {
    "kind": "melee",
    "internal": "COUNTER",
    "cast": [],
@@ -5758,12 +5956,30 @@
     "HEAL_HIT_01"
    ]
   },
-  "curing_heal_heal": {
+  "curing_heal": {
    "kind": "heal",
    "internal": "CURE_HEAL",
    "cast": [],
    "hit": [
     "HEAL_HIT_01"
+   ]
+  },
+  "cursed_gaol": {
+   "kind": "support",
+   "internal": "CURSED_JAIL",
+   "cast": [
+    "CURSEDJAIL"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "cursed_impetus": {
+   "kind": "support",
+   "internal": "CURSE_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "cursed_strike": {
@@ -5772,6 +5988,24 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "cursed_swamp": {
+   "kind": "support",
+   "internal": "CURSED_SWAMP",
+   "cast": [
+    "CURSEDSWAMP"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "daemonic_pact": {
+   "kind": "support",
+   "internal": "DEMON_TRADE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "daemonic_pact_pact": {
@@ -5793,6 +6027,17 @@
     "DARKARMOR_HIT"
    ]
   },
+  "dark_conferral": {
+   "kind": "support",
+   "internal": "DARK_SABER",
+   "cast": [
+    "DARKSABER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ],
+   "out": "DARKSABER_OUT"
+  },
   "dark_flame": {
    "kind": "magic",
    "internal": "DARK_FLAME",
@@ -5809,7 +6054,23 @@
     "STATUS_UP_A"
    ]
   },
-  "dawn_horn_buff": {
+  "dark_step": {
+   "kind": "support",
+   "internal": "DARK_STEP",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "darkness_armor": {
+   "kind": "support",
+   "internal": "DARKNESS_ARMOR",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "dawn_horn": {
    "kind": "support",
    "internal": "DAWN_HORN",
    "cast": [],
@@ -5867,6 +6128,16 @@
     "STATUS_UP_A"
    ]
   },
+  "deflect": {
+   "kind": "support",
+   "internal": "DEFLECT",
+   "cast": [
+    "DEFLECT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "delaying_shot": {
    "kind": "ranged",
    "internal": "DELAY_SHOT",
@@ -5883,6 +6154,14 @@
     "HIT_A"
    ]
   },
+  "demonic_pact": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "desperation": {
    "kind": "melee",
    "internal": "SAGAKUKEN",
@@ -5891,12 +6170,46 @@
     "HIT_A"
    ]
   },
+  "discharge": {
+   "kind": "support",
+   "internal": "DISCHARGE",
+   "cast": [
+    "DISCHARGE"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "dispel_all": {
    "kind": "ranged",
    "internal": "ALL_DISPEL",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "diurnal_guard": {
+   "kind": "support",
+   "internal": "DIURNAL_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "diurnal_impetus": {
+   "kind": "support",
+   "internal": "DIURNAL_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "divine_blessing": {
+   "kind": "support",
+   "internal": "GREAT_BLESSING",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "divine_cross": {
@@ -5933,6 +6246,14 @@
     "HEAL_HIT_01"
    ]
   },
+  "dragons_roar": {
+   "kind": "support",
+   "internal": "DRAGON_ROAR",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "dragoon_dive": {
    "kind": "ranged",
    "internal": "DRAGOON_DIVE",
@@ -5947,6 +6268,32 @@
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "dynamic_glide": {
+   "kind": "support",
+   "internal": "DYNAMIC_RIDE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "eagle_eye": {
+   "kind": "support",
+   "internal": "EAGLE_EYE",
+   "cast": [
+    "EAGLEEYE"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "eagles_eye": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "earthquake": {
@@ -5965,6 +6312,16 @@
    ],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "elemental_impetus": {
+   "kind": "support",
+   "internal": "ELEMENTAL_ACT",
+   "cast": [
+    "ELEMENTALACT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "elemental_roar": {
@@ -5987,9 +6344,51 @@
     "HIT_A"
    ]
   },
-  "enrage_strike": {
+  "enduring_cover": {
+   "kind": "support",
+   "internal": "ENDURANCE_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "enduring_guard": {
+   "kind": "support",
+   "internal": "ENDURANCE_GUARD",
+   "cast": [
+    "ENDURANCEGUARD"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "enrage": {
    "kind": "support",
    "internal": "OUTRAGE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "evade": {
+   "kind": "support",
+   "internal": "EVADE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "evasive_impetus": {
+   "kind": "support",
+   "internal": "EVADE_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "evil_cover": {
+   "kind": "support",
+   "internal": "EVIL_COVER",
    "cast": [],
    "hit": [
     "STATUS_UP_A"
@@ -6021,7 +6420,7 @@
     "HEAL_HIT_01"
    ]
   },
-  "eye_of_the_warrior_princess_curse": {
+  "eye_of_the_warrior_princess": {
    "kind": "support",
    "internal": "SEKIGAN_SENKI",
    "cast": [],
@@ -6057,6 +6456,14 @@
     "HIT_C"
    ]
   },
+  "feathering": {
+   "kind": "support",
+   "internal": "FEATHERING",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "finishing_stab": {
    "kind": "melee",
    "internal": "FINISH_STAB",
@@ -6073,7 +6480,7 @@
     "HIT_C"
    ]
   },
-  "fire_burst_strike": {
+  "fire_burst": {
    "kind": "magic",
    "internal": "FIRE_BURST",
    "cast": [
@@ -6081,6 +6488,14 @@
    ],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "fire_cure": {
+   "kind": "support",
+   "internal": "CURE_FIRE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "fire_curse": {
@@ -6152,7 +6567,7 @@
     "HIT_A"
    ]
   },
-  "first_aid_heal": {
+  "first_aid": {
    "kind": "heal",
    "internal": "FIRST_AID",
    "cast": [],
@@ -6166,6 +6581,14 @@
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "flame_conferral": {
+   "kind": "support",
+   "internal": "FRAME_SABER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "flame_javelin": {
@@ -6186,12 +6609,28 @@
     "HIT_C"
    ]
   },
-  "following_slash_strike": {
+  "focus_sight": {
+   "kind": "support",
+   "internal": "FOCUSIGHT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "following_slash": {
    "kind": "melee",
    "internal": "FOLLOW_SLASH",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "freeze_cure": {
+   "kind": "support",
+   "internal": "CURE_FREEZE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "freezing_thrust": {
@@ -6204,7 +6643,7 @@
     "HIT_A_MAGIC"
    ]
   },
-  "frenzied_strike_strike": {
+  "frenzied_strike": {
    "kind": "melee",
    "internal": "FRENZY",
    "cast": [],
@@ -6254,6 +6693,22 @@
     "HIT_C"
    ]
   },
+  "grant_evade": {
+   "kind": "support",
+   "internal": "EVADE_ATTACH",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "grave_impetus": {
+   "kind": "support",
+   "internal": "GRAVE_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "gravity": {
    "kind": "ranged",
    "internal": "GRAVITY",
@@ -6288,7 +6743,7 @@
     "HIT_A"
    ]
   },
-  "ground_counter_strike": {
+  "ground_counter": {
    "kind": "melee",
    "internal": "GROUND_COUNTER",
    "cast": [],
@@ -6296,7 +6751,7 @@
     "HIT_A"
    ]
   },
-  "ground_punisher_strike": {
+  "ground_punisher": {
    "kind": "ranged",
    "internal": "GROUND_PUNISHER",
    "cast": [],
@@ -6312,7 +6767,23 @@
     "HIT_A"
    ]
   },
-  "guard_hunter_strike": {
+  "gryphon_glide": {
+   "kind": "support",
+   "internal": "GRIFFON_GLIDE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "guard_cure": {
+   "kind": "support",
+   "internal": "CURE_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "guard_hunter": {
    "kind": "magic",
    "internal": "GUARD_HUNT",
    "cast": [
@@ -6320,6 +6791,38 @@
    ],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "guard_order": {
+   "kind": "support",
+   "internal": "GUARD_ORDER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "guardian": {
+   "kind": "support",
+   "internal": "GUARDIAN",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "guarding_fighter": {
+   "kind": "support",
+   "internal": "GUARD_YO_DAMAGE_UP",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "guarding_impetus": {
+   "kind": "support",
+   "internal": "GUARD_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "hache": {
@@ -6338,7 +6841,7 @@
     "HIT_C"
    ]
   },
-  "hastened_action_buff": {
+  "hastened_action": {
    "kind": "support",
    "internal": "QUICK_MOVE_III",
    "cast": [],
@@ -6346,7 +6849,7 @@
     "STATUS_UP_A"
    ]
   },
-  "hastened_cast_buff": {
+  "hastened_cast": {
    "kind": "support",
    "internal": "FAST_CAST",
    "cast": [],
@@ -6354,7 +6857,23 @@
     "STATUS_UP_A"
    ]
   },
-  "hastened_curse_curse": {
+  "hastened_charge": {
+   "kind": "support",
+   "internal": "FAST_CHARGE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "hastened_cover": {
+   "kind": "support",
+   "internal": "FAST_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "hastened_curse": {
    "kind": "support",
    "internal": "FAST_CURSE",
    "cast": [],
@@ -6362,7 +6881,7 @@
     "STATUS_UP_A"
    ]
   },
-  "hastened_heal_heal": {
+  "hastened_heal": {
    "kind": "heal",
    "internal": "FAST_HEAL",
    "cast": [],
@@ -6370,7 +6889,7 @@
     "HEAL_HIT_01"
    ]
   },
-  "hastened_shatter_strike": {
+  "hastened_shatter": {
    "kind": "ranged",
    "internal": "FAST_BREAK",
    "cast": [],
@@ -6378,12 +6897,20 @@
     "HIT_C"
    ]
   },
-  "hastened_strike_strike": {
+  "hastened_strike": {
    "kind": "melee",
    "internal": "FAST_STRIKE",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "hawk_eye": {
+   "kind": "support",
+   "internal": "HAWK_EYE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "heal": {
@@ -6396,6 +6923,22 @@
    ],
    "out": "HEAL_OUT"
   },
+  "healing_cover": {
+   "kind": "support",
+   "internal": "AID_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "healing_hunter": {
+   "kind": "melee",
+   "internal": "HEAL_HUNT",
+   "cast": [],
+   "hit": [
+    "HIT_A"
+   ]
+  },
   "healing_hunter_heal": {
    "kind": "heal",
    "internal": "HEAL_HUNT",
@@ -6404,15 +6947,7 @@
     "HEAL_HIT_01"
    ]
   },
-  "healing_hunter_strike": {
-   "kind": "melee",
-   "internal": "HEAL_HUNT",
-   "cast": [],
-   "hit": [
-    "HIT_A"
-   ]
-  },
-  "healing_pursuit_heal": {
+  "healing_pursuit": {
    "kind": "heal",
    "internal": "CHASE_HEAL",
    "cast": [],
@@ -6436,6 +6971,14 @@
     "HIT_A"
    ]
   },
+  "heavy_alignment": {
+   "kind": "support",
+   "internal": "HEAVY_ALIGN",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "heavy_bolt": {
    "kind": "ranged",
    "internal": "HEAVY_BOLT",
@@ -6444,12 +6987,28 @@
     "HIT_C"
    ]
   },
-  "heavy_counter_strike": {
+  "heavy_counter": {
    "kind": "melee",
    "internal": "HAVY_COUNTER",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "heavy_cover": {
+   "kind": "support",
+   "internal": "HEAVY_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "heavy_guard": {
+   "kind": "support",
+   "internal": "HEAVY_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "heavy_slash": {
@@ -6478,7 +7037,15 @@
     "HIT_C"
    ]
   },
-  "holy_breath_heal": {
+  "holy_barrier": {
+   "kind": "support",
+   "internal": "WHITE_BARRIER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "holy_breath": {
    "kind": "heal",
    "internal": "HOLY_BLESS",
    "cast": [],
@@ -6490,6 +7057,16 @@
    "kind": "support",
    "internal": "HOLY_CRADLE",
    "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "holy_guard": {
+   "kind": "support",
+   "internal": "HOLY_GUARD",
+   "cast": [
+    "HOLYGUARD"
+   ],
    "hit": [
     "STATUS_UP_A"
    ]
@@ -6521,7 +7098,7 @@
     "HEAL_HIT_01"
    ]
   },
-  "honed_shield_buff": {
+  "honed_shield": {
    "kind": "support",
    "internal": "SHIELD_ENHANCE",
    "cast": [],
@@ -6557,6 +7134,17 @@
    "hit": [
     "HIT_A_MAGIC"
    ]
+  },
+  "ice_conferral": {
+   "kind": "support",
+   "internal": "ICE_SABER",
+   "cast": [
+    "ICESABER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ],
+   "out": "ICESABER_OUT"
   },
   "icebolt": {
    "kind": "magic",
@@ -6636,6 +7224,14 @@
     "HIT_A"
    ]
   },
+  "impetus_stance": {
+   "kind": "support",
+   "internal": "ACT_STANCE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "impulse": {
    "kind": "ranged",
    "internal": "IMPULSE",
@@ -6656,6 +7252,14 @@
     "HIT_A"
    ]
   },
+  "inner_balance": {
+   "kind": "support",
+   "internal": "RENKI",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "innocent_ray": {
    "kind": "magic",
    "internal": "INNOCENT_RAY",
@@ -6670,12 +7274,46 @@
     "INNOCENTRAY_BUFFER"
    ]
   },
+  "inspiration": {
+   "kind": "support",
+   "internal": "PUSH",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "invincible": {
+   "kind": "support",
+   "internal": "INVINCIBLE",
+   "cast": [
+    "INVINCIBLE"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "iron_crusher": {
    "kind": "melee",
    "internal": "IRON_RIPPER",
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "iron_veil": {
+   "kind": "support",
+   "internal": "IRON_VEIL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "iron_will": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "javelin": {
@@ -6686,12 +7324,20 @@
     "HIT_C"
    ]
   },
-  "judgment_strike": {
+  "judgment": {
    "kind": "ranged",
    "internal": "JUDGMENT",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "keen_call": {
+   "kind": "support",
+   "internal": "SHARP_YELL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "keen_edge": {
@@ -6710,7 +7356,7 @@
     "HIT_A"
    ]
   },
-  "killing_pursuit_strike": {
+  "killing_pursuit": {
    "kind": "melee",
    "internal": "FINISH_CHASE",
    "cast": [],
@@ -6718,7 +7364,7 @@
     "HIT_A"
    ]
   },
-  "knights_pursuit_strike": {
+  "knights_pursuit": {
    "kind": "melee",
    "internal": "KNIGHTS_CHASE",
    "cast": [],
@@ -6750,7 +7396,7 @@
     "HIT_A"
    ]
   },
-  "life_blow_strike": {
+  "life_blow": {
    "kind": "melee",
    "internal": "LIFE_BLOW",
    "cast": [],
@@ -6758,7 +7404,7 @@
     "HIT_A"
    ]
   },
-  "lifesaver_heal": {
+  "lifesaver": {
    "kind": "heal",
    "internal": "LIFE_SAVE",
    "cast": [
@@ -6768,7 +7414,7 @@
     "HEAL_HIT_01"
    ]
   },
-  "lifeshare_gift": {
+  "lifeshare": {
    "kind": "support",
    "internal": "LIFE_DIVIDE",
    "cast": [],
@@ -6808,6 +7454,14 @@
     "HIT_A"
    ]
   },
+  "luminous_cover": {
+   "kind": "support",
+   "internal": "LUMINOUS_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "maelstrom": {
    "kind": "magic",
    "internal": "MAELSTROM",
@@ -6826,7 +7480,18 @@
     "HIT_A_MAGIC"
    ]
   },
-  "magick_burst_strike": {
+  "magick_barrier": {
+   "kind": "support",
+   "internal": "MAGIC_BARRIER",
+   "cast": [
+    "MAGICBARRIER"
+   ],
+   "hit": [
+    "MAGICBARRIER_HIT"
+   ],
+   "out": "MAGICBARRIER_OUT"
+  },
+  "magick_burst": {
    "kind": "magic",
    "internal": "MAGIC_BURST",
    "cast": [
@@ -6836,7 +7501,28 @@
     "MAGICBURST_HIT"
    ]
   },
-  "magick_counter_strike": {
+  "magick_conferral": {
+   "kind": "support",
+   "internal": "MAGIC_SABER",
+   "cast": [
+    "MAGICSABER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ],
+   "out": "MAGICSABER_OUT"
+  },
+  "magick_conversion": {
+   "kind": "support",
+   "internal": "MAGIC_CONVERT",
+   "cast": [
+    "MAGICCONVERT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "magick_counter": {
    "kind": "magic",
    "internal": "COUNTER_MAGIC",
    "cast": [
@@ -6859,7 +7545,7 @@
     "trail": "MAGICMISSILE_EFFECT"
    }
   },
-  "magick_pursuit_strike": {
+  "magick_pursuit": {
    "kind": "magic",
    "internal": "CHASE_MAGIC",
    "cast": [],
@@ -6879,6 +7565,14 @@
     "MAGIC_BREAK_HIT"
    ]
   },
+  "magick_shell": {
+   "kind": "support",
+   "internal": "SHELL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "magick_wall": {
    "kind": "support",
    "internal": "MAGIC_WALL",
@@ -6890,7 +7584,7 @@
    ],
    "out": "MAGICBARRIER_OUT"
   },
-  "maidens_hammer_strike": {
+  "maidens_hammer": {
    "kind": "melee",
    "internal": "MAIDEN_HAMMER",
    "cast": [],
@@ -6898,7 +7592,7 @@
     "HIT_A"
    ]
   },
-  "medical_aid_heal": {
+  "medical_aid": {
    "kind": "heal",
    "internal": "MEDICAL_AID",
    "cast": [],
@@ -6922,12 +7616,28 @@
     "HIT_A"
    ]
   },
+  "mighty_shield": {
+   "kind": "support",
+   "internal": "MIGHTY_SHIELD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "mirage_stab": {
    "kind": "magic",
    "internal": "MIRAGE_STAB",
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "mirror_weakness": {
+   "kind": "support",
+   "internal": "WEAK_SPECULAR",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "mounting_charge": {
@@ -6980,7 +7690,55 @@
     "STATUS_UP_A"
    ]
   },
-  "nocturnal_strike_strike": {
+  "nimble_fighter": {
+   "kind": "support",
+   "internal": "EVADE_YO_DAMAGE_UP",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "noble_guard": {
+   "kind": "support",
+   "internal": "NOBLE_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "nocturnal_evade": {
+   "kind": "support",
+   "internal": "NIGHT_EVADE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "nocturnal_guard": {
+   "kind": "support",
+   "internal": "NOCTURNAL_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "nocturnal_impetus": {
+   "kind": "support",
+   "internal": "NOCTURNAL_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "nocturnal_rest": {
+   "kind": "support",
+   "internal": "NIGHT_REST",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "nocturnal_strike": {
    "kind": "melee",
    "internal": "NIGHT_STRIKE",
    "cast": [],
@@ -7012,7 +7770,7 @@
     "HIT_A"
    ]
   },
-  "ominous_wall_buff": {
+  "ominous_wall": {
    "kind": "support",
    "internal": "OMINOUS_WALL",
    "cast": [
@@ -7038,6 +7796,14 @@
     "HIT_A_MAGIC"
    ]
   },
+  "painbringer": {
+   "kind": "support",
+   "internal": "PAIN_ACCEL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "painful_smash": {
    "kind": "melee",
    "internal": "PAIN_SMASH",
@@ -7046,7 +7812,17 @@
     "HIT_A"
    ]
   },
-  "parting_blow_strike": {
+  "parry": {
+   "kind": "support",
+   "internal": "PARRY",
+   "cast": [
+    "PARRY"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "parting_blow": {
    "kind": "melee",
    "internal": "END_BLOW",
    "cast": [],
@@ -7054,7 +7830,7 @@
     "HIT_A"
    ]
   },
-  "parting_resurrection_revive": {
+  "parting_resurrection": {
    "kind": "support",
    "internal": "END_RESURRECT",
    "cast": [
@@ -7064,9 +7840,25 @@
     "STATUS_UP_A"
    ]
   },
+  "party_aid": {
+   "kind": "support",
+   "internal": "PARTY_AID",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "passive_absorb": {
    "kind": "support",
    "internal": "PASSIVE_ABSORB",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "passive_cure": {
+   "kind": "support",
+   "internal": "CURE_PASSIVE",
    "cast": [],
    "hit": [
     "STATUS_UP_A"
@@ -7081,6 +7873,16 @@
    ],
    "out": "PASSIVE_OUT"
   },
+  "passive_gift": {
+   "kind": "support",
+   "internal": "PASSIVE_GIFT",
+   "cast": [
+    "PASSIVEGIFT"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "passive_hold": {
    "kind": "melee",
    "internal": "PASSIVE_HOLD",
@@ -7090,7 +7892,7 @@
    ],
    "out": "PASSIVE_OUT"
   },
-  "passive_miracle_heal": {
+  "passive_miracle": {
    "kind": "heal",
    "internal": "PASSIVE_SUPPLY",
    "cast": [],
@@ -7135,7 +7937,7 @@
     "HIT_A"
    ]
   },
-  "phalanx_shift_buff": {
+  "phalanx_shift": {
    "kind": "support",
    "internal": "PHALANX_SHIFT",
    "cast": [
@@ -7153,7 +7955,7 @@
     "HIT_A_MAGIC"
    ]
   },
-  "phantom_counter_strike": {
+  "phantom_counter": {
    "kind": "melee",
    "internal": "PHANTOM_EDGE",
    "cast": [],
@@ -7161,12 +7963,20 @@
     "HIT_A"
    ]
   },
-  "phantom_kick_strike": {
+  "phantom_kick": {
    "kind": "ranged",
    "internal": "PHANTOM_KICK",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "phantom_step": {
+   "kind": "support",
+   "internal": "PHANTOM_STEP",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "phantom_veil": {
@@ -7209,7 +8019,7 @@
     "HIT_C"
    ]
   },
-  "poison_burst_strike": {
+  "poison_burst": {
    "kind": "magic",
    "internal": "POISON_BURST",
    "cast": [
@@ -7217,6 +8027,14 @@
    ],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "poison_cure": {
+   "kind": "support",
+   "internal": "CURE_POISON",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "poison_curse": {
@@ -7237,7 +8055,7 @@
     "HIT_A"
    ]
   },
-  "poison_touch_curse": {
+  "poison_touch": {
    "kind": "support",
    "internal": "POISON_TOUCH",
    "cast": [],
@@ -7253,6 +8071,14 @@
     "HIT_C"
    ]
   },
+  "powerful_call": {
+   "kind": "support",
+   "internal": "POWER_YELL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "powerful_impact": {
    "kind": "melee",
    "internal": "MUSCLE_IMPACT",
@@ -7261,7 +8087,7 @@
     "HIT_A"
    ]
   },
-  "preemptive_heal_heal": {
+  "preemptive_heal": {
    "kind": "heal",
    "internal": "BEFORE_HEAL",
    "cast": [],
@@ -7277,6 +8103,26 @@
     "HIT_A_MAGIC"
    ]
   },
+  "protection": {
+   "kind": "support",
+   "internal": "PROTECTION",
+   "cast": [
+    "PROTECTION_B",
+    "PROTECTION_C"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ],
+   "out": "PROTECTION_OUT"
+  },
+  "provoke": {
+   "kind": "support",
+   "internal": "ATTRUCT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "provoking_slash": {
    "kind": "melee",
    "internal": "HATE_SLASH",
@@ -7285,7 +8131,7 @@
     "HIT_A"
    ]
   },
-  "provoking_strike_strike": {
+  "provoking_strike": {
    "kind": "melee",
    "internal": "HATE_STRIKE",
    "cast": [],
@@ -7293,7 +8139,23 @@
     "HIT_A"
    ]
   },
-  "pursuit_strike": {
+  "provoking_wall": {
+   "kind": "support",
+   "internal": "ATTRUCT_WALL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "pure_field": {
+   "kind": "support",
+   "internal": "PURE_FIELD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "pursuit": {
    "kind": "melee",
    "internal": "CHASE",
    "cast": [],
@@ -7301,7 +8163,7 @@
     "HIT_A"
    ]
   },
-  "quick_action_buff": {
+  "quick_action": {
    "kind": "support",
    "internal": "QUICK_MOVE",
    "cast": [],
@@ -7309,7 +8171,66 @@
     "STATUS_UP_A"
    ]
   },
-  "quick_heal_heal": {
+  "quick_barrier": {
+   "kind": "support",
+   "internal": "QUICK_BARRIER",
+   "cast": [
+    "QUICKBARRIER"
+   ],
+   "hit": [
+    "QUICKBARRIER_HIT"
+   ],
+   "out": "QUICKBARRIER_OUT"
+  },
+  "quick_cast": {
+   "kind": "support",
+   "internal": "QUICK_CAST",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_cover": {
+   "kind": "support",
+   "internal": "QUICK_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_cure": {
+   "kind": "support",
+   "internal": "QUICK_CURE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_curse": {
+   "kind": "support",
+   "internal": "QUICK_CURSE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_dispel": {
+   "kind": "support",
+   "internal": "QUICK_DISPEL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_guard": {
+   "kind": "support",
+   "internal": "QUICK_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_heal": {
    "kind": "heal",
    "internal": "QUICK_HEAL",
    "cast": [],
@@ -7317,12 +8238,28 @@
     "HEAL_HIT_01"
    ]
   },
-  "quick_reload_strike": {
+  "quick_impetus": {
+   "kind": "support",
+   "internal": "QUICK_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "quick_reload": {
    "kind": "ranged",
    "internal": "QUICK_RELOAD",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "radiant_cover": {
+   "kind": "support",
+   "internal": "GLOW_COVER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "radiant_heal": {
@@ -7333,7 +8270,7 @@
     "HEAL_HIT_01"
    ]
   },
-  "rage_of_the_faeries_strike": {
+  "rage_of_the_faeries": {
    "kind": "magic",
    "internal": "RAGE_OF_SPIRIT",
    "cast": [],
@@ -7349,12 +8286,52 @@
     "HIT_A"
    ]
   },
-  "rapid_shot_strike": {
+  "rapid_order": {
+   "kind": "support",
+   "internal": "RAPID_ORDER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "rapid_shot": {
    "kind": "ranged",
    "internal": "RAPID_SHOT",
    "cast": [],
    "hit": [
     "HIT_C"
+   ]
+  },
+  "recast": {
+   "kind": "support",
+   "internal": "RESPELL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "reflect_magick": {
+   "kind": "support",
+   "internal": "REFLECT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "refresh": {
+   "kind": "support",
+   "internal": "REFRESH",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "reheal": {
+   "kind": "support",
+   "internal": "REHEAL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "reincarnation": {
@@ -7365,12 +8342,36 @@
     "STATUS_UP_A"
    ]
   },
-  "relic_heal_heal": {
+  "reinforce": {
+   "kind": "support",
+   "internal": "NO_CONSUME_AP",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "relic_heal": {
    "kind": "heal",
    "internal": "RELIC_HEAL",
    "cast": [],
    "hit": [
     "HEAL_HIT_01"
+   ]
+  },
+  "remove_weakness": {
+   "kind": "support",
+   "internal": "DARK_REMOVE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "restore": {
+   "kind": "support",
+   "internal": "RESTORE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "resurrection": {
@@ -7404,6 +8405,24 @@
    ],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "row_barrier": {
+   "kind": "support",
+   "internal": "LINE_BARRIER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "row_cover": {
+   "kind": "support",
+   "internal": "LINE_COVER",
+   "cast": [
+    "LINECOVER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "row_heal": {
@@ -7449,12 +8468,44 @@
     "HIT_A"
    ]
   },
+  "royal_guard": {
+   "kind": "support",
+   "internal": "ROYAL_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "sacred_cure": {
+   "kind": "support",
+   "internal": "SACRED_CURE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "sacred_heal": {
    "kind": "heal",
    "internal": "SACRED_HEAL",
    "cast": [],
    "hit": [
     "HEAL_HIT_01"
+   ]
+  },
+  "sacrifice": {
+   "kind": "support",
+   "internal": "SACRIFICE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "saints_barrier": {
+   "kind": "support",
+   "internal": "SAINT_BARRIER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "saints_blade": {
@@ -7487,6 +8538,14 @@
     "HIT_C"
    ]
   },
+  "sanguine_arts": {
+   "kind": "support",
+   "internal": "BLOOD_ARTS",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "sanguine_attack": {
    "kind": "melee",
    "internal": "BLOOD_WEAPON",
@@ -7494,6 +8553,17 @@
    "hit": [
     "HIT_A"
    ]
+  },
+  "sanguine_conferral": {
+   "kind": "support",
+   "internal": "BLOOD_SABER",
+   "cast": [
+    "BLOODSABER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ],
+   "out": "BLOODSABER_OUT"
   },
   "sanguine_darts": {
    "kind": "magic",
@@ -7506,7 +8576,7 @@
     "anim": "BLOODDARTS"
    }
   },
-  "sanguine_pursuit_strike": {
+  "sanguine_pursuit": {
    "kind": "ranged",
    "internal": "BLOOD_CHASE",
    "cast": [],
@@ -7536,7 +8606,23 @@
     "rand_to": 80.0
    }
   },
-  "selfless_heal_heal": {
+  "scornful_dead": {
+   "kind": "support",
+   "internal": "DEAD_BOOING",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "self_care": {
+   "kind": "support",
+   "internal": "SELF_CARE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "selfless_heal": {
    "kind": "heal",
    "internal": "SHARE_HEAL",
    "cast": [],
@@ -7553,7 +8639,7 @@
     "HIT_C"
    ]
   },
-  "shadow_pursuit_strike": {
+  "shadow_pursuit": {
    "kind": "melee",
    "internal": "SHADE_CHASE",
    "cast": [],
@@ -7579,7 +8665,7 @@
     "HIT_C"
    ]
   },
-  "shattering_pursuit_strike": {
+  "shattering_pursuit": {
    "kind": "melee",
    "internal": "CRACK_CHASE",
    "cast": [],
@@ -7603,7 +8689,7 @@
     "HIT_C"
    ]
   },
-  "shining_light_curse": {
+  "shining_light": {
    "kind": "support",
    "internal": "SHINING",
    "cast": [
@@ -7642,6 +8728,14 @@
     "HIT_A"
    ]
   },
+  "slyphic_barrier": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "smash": {
    "kind": "melee",
    "internal": "SMASH",
@@ -7650,7 +8744,7 @@
     "HIT_A"
    ]
   },
-  "sneaking_edge_strike": {
+  "sneaking_edge": {
    "kind": "ranged",
    "internal": "SNEAK",
    "cast": [],
@@ -7658,7 +8752,15 @@
     "HIT_C"
    ]
   },
-  "snow_white_strike_strike": {
+  "sniping_order": {
+   "kind": "support",
+   "internal": "SNIPE_ORDER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "snow_white_strike": {
    "kind": "ranged",
    "internal": "SILVERY_WHITE_BULLET",
    "cast": [],
@@ -7692,6 +8794,16 @@
    "cast": [],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "sorcerous_connection": {
+   "kind": "support",
+   "internal": "SORCERY_CONNECT",
+   "cast": [
+    "SORCERYCONNECT_B"
+   ],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "spiked_blow": {
@@ -7752,6 +8864,22 @@
     "POWER_BREAK_HIT"
    ]
   },
+  "stun_cure": {
+   "kind": "support",
+   "internal": "CURE_STUN",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "sylphic_barrier": {
+   "kind": "support",
+   "internal": "SYLPHID_BARRIER",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "sylphic_wind": {
    "kind": "magic",
    "internal": "SPIRIT_WIND",
@@ -7760,7 +8888,7 @@
     "HIT_A_MAGIC"
    ]
   },
-  "tailwind_buff": {
+  "tailwind": {
    "kind": "support",
    "internal": "FOLLOW_WIND",
    "cast": [
@@ -7779,6 +8907,17 @@
    "hit": [
     "HIT_C"
    ]
+  },
+  "thunderous_conferral": {
+   "kind": "support",
+   "internal": "THUNDER_SABER",
+   "cast": [
+    "THUNDERSABER"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ],
+   "out": "THUNDERSABER_OUT"
   },
   "thunderous_strike": {
    "kind": "magic",
@@ -7804,6 +8943,14 @@
    ],
    "hit": [
     "HIT_A_MAGIC"
+   ]
+  },
+  "toughness": {
+   "kind": "support",
+   "internal": "TOUGHNESS",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "toxic_bolt": {
@@ -7847,7 +8994,7 @@
     "rand_to": 80.0
    }
   },
-  "triple_counter_strike": {
+  "triple_counter": {
    "kind": "ranged",
    "internal": "COUNTER_TRIPLE",
    "cast": [],
@@ -7871,7 +9018,55 @@
     "HIT_A"
    ]
   },
-  "vanitas_strike": {
+  "undead_wall": {
+   "kind": "support",
+   "internal": "UNDEAD_WALL",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "undying_will": {
+   "kind": "support",
+   "internal": "REVENGE_MIND",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "united_front": {
+   "kind": "support",
+   "internal": "LIMIT_FORCE",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "uo_item_heal_10": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "uo_item_heal_15": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "uo_item_heal_20": {
+   "kind": "support",
+   "internal": "",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "vanitas": {
    "kind": "magic",
    "internal": "VANITAS",
    "cast": [],
@@ -7879,7 +9074,7 @@
     "HIT_A_MAGIC"
    ]
   },
-  "vanquish_strike": {
+  "vanquish": {
    "kind": "ranged",
    "internal": "VANQUISH_DOWN",
    "cast": [
@@ -7889,7 +9084,7 @@
     "HIT_C"
    ]
   },
-  "vengeance_strike": {
+  "vengeance": {
    "kind": "support",
    "internal": "REVENGER",
    "cast": [
@@ -7905,6 +9100,22 @@
    "cast": [],
    "hit": [
     "HIT_A"
+   ]
+  },
+  "vengeful_guard": {
+   "kind": "support",
+   "internal": "REVENGE_GUARD",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "vengeful_impetus": {
+   "kind": "support",
+   "internal": "REVENGE_ACT",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
    ]
   },
   "venom_axe": {
@@ -7928,7 +9139,7 @@
    ],
    "out": "VENOMTHRUST_OUT"
   },
-  "venom_touch_curse": {
+  "venom_touch": {
    "kind": "support",
    "internal": "VENOM_TOUCH",
    "cast": [
@@ -7982,6 +9193,22 @@
     "WALL_HIT"
    ]
   },
+  "war_cry": {
+   "kind": "support",
+   "internal": "WARCRY",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "war_horn": {
+   "kind": "support",
+   "internal": "BATTLE_HORN",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
   "warding_slash": {
    "kind": "melee",
    "internal": "GUARD_SLASH",
@@ -7990,7 +9217,7 @@
     "HIT_A"
    ]
   },
-  "weakness_hunter_strike": {
+  "weakness_hunter": {
    "kind": "melee",
    "internal": "WEAK_CHASE",
    "cast": [],
@@ -8008,7 +9235,7 @@
     "HIT_A"
    ]
   },
-  "wide_counter_strike": {
+  "wide_counter": {
    "kind": "melee",
    "internal": "COUNTER_LINE",
    "cast": [],
@@ -8016,7 +9243,15 @@
     "HIT_A"
    ]
   },
-  "wide_pursuit_strike": {
+  "wide_inspiration": {
+   "kind": "support",
+   "internal": "WIDE_PUSH",
+   "cast": [],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "wide_pursuit": {
    "kind": "melee",
    "internal": "WIDE_CHASE",
    "cast": [],
@@ -8042,7 +9277,7 @@
     "WILDFANG_HIT"
    ]
   },
-  "wild_kick_strike": {
+  "wild_kick": {
    "kind": "melee",
    "internal": "KICK",
    "cast": [],
@@ -8066,7 +9301,17 @@
     "HIT_A_MAGIC"
    ]
   },
-  "wolf_pack_buff": {
+  "wing_rest": {
+   "kind": "support",
+   "internal": "WING_REST",
+   "cast": [
+    "WINGREST"
+   ],
+   "hit": [
+    "STATUS_UP_A"
+   ]
+  },
+  "wolf_pack": {
    "kind": "support",
    "internal": "WOLF_PACK",
    "cast": [],

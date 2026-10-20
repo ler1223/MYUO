@@ -300,45 +300,6 @@
     "potency": [],
     "extras": {}
   },
-  "quick_reload_strike": {
-    "name": "Quick Reload",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "ranged"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
   "wide_smash": {
     "name": "Wide Smash",
     "ap_cost": 1,
@@ -488,45 +449,6 @@
     ],
     "extras": {}
   },
-  "wide_counter_strike": {
-    "name": "Wide Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "row",
-    "hits": 1,
-    "accuracy": 75,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
   "sacred_heal": {
     "name": "Sacred Heal",
     "ap_cost": 2,
@@ -569,45 +491,6 @@
         "debuff"
       ]
     }
-  },
-  "quick_heal_heal": {
-    "name": "Quick Heal",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
   },
   "heavy_smash": {
     "name": "Heavy Smash",
@@ -736,83 +619,6 @@
       ]
     }
   },
-  "enrage_strike": {
-    "name": "Enrage",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "self",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_phys_atk_mag_atk_p20pct_accuracy_p20pct_stack",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "heavy_counter_strike": {
-    "name": "Heavy Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "ignore_def": 1.0,
-      "ignore_def_vs": [
-        "armored"
-      ]
-    }
-  },
   "vertical_edge": {
     "name": "Vertical Edge",
     "ap_cost": 1,
@@ -923,56 +729,6 @@
       ]
     }
   },
-  "maidens_hammer_strike": {
-    "name": "Maiden's Hammer",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [
-      {
-        "add": 1.0,
-        "self_condition": {
-          "type": "always"
-        },
-        "target_condition": {
-          "type": "always"
-        },
-        "scale": "self_hp_missing"
-      }
-    ],
-    "extras": {}
-  },
   "vengeful_axe": {
     "name": "Vengeful Axe",
     "ap_cost": 1,
@@ -1055,39 +811,6 @@
     "applies": [
       {
         "effect_id": "uo_poison",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "vengeance_strike": {
-    "name": "Vengeance",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "self",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_phys_atk_mag_atk_p20pct_phys_def_mag_def_p20pct_stack",
         "to": "target",
         "condition": {
           "type": "always"
@@ -1294,60 +1017,6 @@
     "ap_restore": 0,
     "pp_restore": 0,
     "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "wild_kick_strike": {
-    "name": "Wild Kick",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_stun",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      },
-      {
-        "effect_id": "uo_guard_seal",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
     "requires_self": {
       "type": "always"
     },
@@ -1622,49 +1291,6 @@
       "random_targets": 2
     }
   },
-  "selfless_heal_heal": {
-    "name": "Selfless Heal",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "all",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "dispel": [
-        "debuff"
-      ]
-    }
-  },
   "primus_edge": {
     "name": "Primus Edge",
     "ap_cost": 1,
@@ -1845,99 +1471,6 @@
     "extras": {
       "dismiss_effect": "uo_faerie"
     }
-  },
-  "curing_heal_heal": {
-    "name": "Curing Heal",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "rage_of_the_faeries_strike": {
-    "name": "Rage of the Faeries",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "row",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "magical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_stun",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      },
-      {
-        "effect_id": "uo_faerie",
-        "to": "self",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
   },
   "lightning_blade": {
     "name": "Lightning Blade",
@@ -2137,60 +1670,6 @@
     "applies": [
       {
         "effect_id": "uo_negate_one",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      },
-      {
-        "effect_id": "uo_faerie",
-        "to": "self",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "boon_of_the_faeries_heal": {
-    "name": "Boon of the Faeries",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "row",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_immune_debuff",
         "to": "target",
         "condition": {
           "type": "always"
@@ -2537,45 +2016,6 @@
     "extras": {
       "kill_ap": 1
     }
-  },
-  "knights_pursuit_strike": {
-    "name": "Knight's Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "column",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.75,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
   },
   "high_swing": {
     "name": "High Swing",
@@ -2982,45 +2422,6 @@
       ]
     }
   },
-  "passive_miracle_heal": {
-    "name": "Passive Miracle",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 1,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
   "sting": {
     "name": "Sting",
     "ap_cost": 1,
@@ -3166,92 +2567,6 @@
     "potency": [],
     "extras": {}
   },
-  "parting_blow_strike": {
-    "name": "Parting Blow",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.75,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "frenzied_strike_strike": {
-    "name": "Frenzied Strike",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_phys_def_m15pct",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
   "single_shot": {
     "name": "Single Shot",
     "ap_cost": 1,
@@ -3331,45 +2646,6 @@
     "extras": {
       "random_targets": 2
     }
-  },
-  "pursuit_strike": {
-    "name": "Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.75,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
   },
   "killing_chain": {
     "name": "Killing Chain",
@@ -3461,47 +2737,6 @@
       }
     ],
     "extras": {}
-  },
-  "following_slash_strike": {
-    "name": "Following Slash",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 90,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "hit_pp": 1
-    }
   },
   "row_protection": {
     "name": "Row Protection",
@@ -4042,60 +3277,6 @@
       "steal": true
     }
   },
-  "sneaking_edge_strike": {
-    "name": "Sneaking Edge",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 2,
-    "accuracy": 100,
-    "tags": [
-      "ranged"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_guard_seal",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      },
-      {
-        "effect_id": "uo_passive_seal",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
   "saints_blade": {
     "name": "Saint's Blade",
     "ap_cost": 1,
@@ -4399,57 +3580,6 @@
     "potency": [],
     "extras": {}
   },
-  "aerial_snipe_strike": {
-    "name": "Aerial Snipe",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [
-      {
-        "add": 1.0,
-        "self_condition": {
-          "type": "always"
-        },
-        "target_condition": {
-          "type": "has_tag",
-          "tag": "flying"
-        },
-        "scale": ""
-      }
-    ],
-    "extras": {}
-  },
   "mystic_arrow": {
     "name": "Mystic Arrow",
     "ap_cost": 1,
@@ -4577,106 +3707,6 @@
     "extras": {
       "charge": true
     }
-  },
-  "triple_counter_strike": {
-    "name": "Triple Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "ranged"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "random_targets": 3
-    }
-  },
-  "snow_white_strike_strike": {
-    "name": "Snow-white Strike",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "ranged"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.75,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_freeze",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [
-      {
-        "add": 1.0,
-        "self_condition": {
-          "type": "always"
-        },
-        "target_condition": {
-          "type": "has_effect",
-          "effect_id": "uo_freeze"
-        },
-        "scale": ""
-      }
-    ],
-    "extras": {}
   },
   "icebolt": {
     "name": "Icebolt",
@@ -4906,45 +3936,6 @@
     "extras": {
       "crit_add": 30
     }
-  },
-  "hastened_strike_strike": {
-    "name": "Hastened Strike",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
   },
   "brandish": {
     "name": "Brandish",
@@ -5182,84 +4173,6 @@
     "potency": [],
     "extras": {}
   },
-  "magick_counter_strike": {
-    "name": "Magick Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "magical",
-        "power": 1.5,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "magick_pursuit_strike": {
-    "name": "Magick Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "magical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
   "bear_crush": {
     "name": "Bear Crush",
     "ap_cost": 1,
@@ -5406,47 +4319,6 @@
       }
     ],
     "extras": {}
-  },
-  "life_blow_strike": {
-    "name": "Life Blow",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "pure",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "hp",
-            "coef": 0.8
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "no_crit": true
-    }
   },
   "piercing_lance": {
     "name": "Piercing Lance",
@@ -5600,94 +4472,6 @@
       }
     ],
     "extras": {}
-  },
-  "shadow_pursuit_strike": {
-    "name": "Shadow Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.75,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [
-      {
-        "effect_id": "uo_blind",
-        "to": "target",
-        "condition": {
-          "type": "always"
-        }
-      }
-    ],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "weakness_hunter_strike": {
-    "name": "Weakness Hunter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "ignore_def": 0.5
-    }
   },
   "aurora_veil": {
     "name": "Aurora Veil",
@@ -5963,86 +4747,6 @@
     ],
     "extras": {}
   },
-  "nocturnal_strike_strike": {
-    "name": "Nocturnal Strike",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "killing_pursuit_strike": {
-    "name": "Killing Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.75,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "kill_ap": 1
-    }
-  },
   "diving_thrust": {
     "name": "Diving Thrust",
     "ap_cost": 1,
@@ -6097,57 +4801,6 @@
         "cavalry"
       ]
     }
-  },
-  "ground_counter_strike": {
-    "name": "Ground Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
-      {
-        "kind": "damage",
-        "category": "physical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [
-      {
-        "add": 1.0,
-        "self_condition": {
-          "type": "always"
-        },
-        "target_condition": {
-          "type": "has_tag",
-          "tag": "cavalry"
-        },
-        "scale": ""
-      }
-    ],
-    "extras": {}
   },
   "fire_breath": {
     "name": "Fire Breath",
@@ -6869,8 +5522,8 @@
   },
   "artenie_strike": {
     "name": "Artenie Strike",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "ap_cost": 0,
+    "pp_cost": 1,
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -6904,46 +5557,18 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
-  },
-  "healing_pursuit_heal": {
-    "name": "Healing Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
-        "scaling": [
-          {
-            "stat": "mag_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
+    "extras": {},
+    "kind": "passive",
+    "body": true,
+    "target": "enemies",
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self",
+      "phase": "battle_start"
     },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
+    "default_tactic": [
+      "prioritize_scout"
+    ]
   },
   "healing_hunter_heal": {
     "name": "Healing Hunter",
@@ -11446,10 +10071,3457 @@
       "hit_label": "stun"
     }
   },
-  "dawn_horn_buff": {
-    "name": "Dawn Horn",
+  "daemonic_pact_pact": {
+    "name": "Daemonic Pact",
     "ap_cost": 1,
     "pp_cost": 0,
+    "targets": "self",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 1,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "hp_cost": 0.25
+    }
+  },
+  "iron_will": {
+    "name": "Iron Will",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 0,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "any"
+    },
+    "steps": [
+      {
+        "action": "use_skill",
+        "skill_id": "attack",
+        "effect_id": "iron_will",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "berserk": {
+    "name": "Berserk",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "restore_pp",
+        "amount": -99,
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_ap",
+            "amount": 1,
+            "to": "owner"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_endure",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "medical_aid": {
+    "name": "Medical Aid",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "targets": "ally",
+    "area": "row",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal_pct",
+        "category": "magical",
+        "power": 0.15,
+        "scaling": [],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [
+      {
+        "add": 0.15,
+        "self_condition": {
+          "type": "always"
+        },
+        "scale": "",
+        "target_condition": {
+          "type": "hp_below",
+          "value": 0.5001
+        }
+      }
+    ],
+    "extras": {},
+    "body": true,
+    "target": "self"
+  },
+  "quick_reload": {
+    "name": "Quick Reload",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "ranged"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "ally_target"
+  },
+  "bulk_up": {
+    "name": "Bulk Up",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self",
+      "outcome": "landed"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 40,
+        "percent": true,
+        "to": "owner"
+      }
+    ]
+  },
+  "wide_counter": {
+    "name": "Wide Counter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "targets": "enemy",
+    "area": "row",
+    "hits": 1,
+    "accuracy": 75,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "quick_heal": {
+    "name": "Quick Heal",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
+  },
+  "refresh": {
+    "name": "Refresh",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "lifesaver": {
+    "name": "Lifesaver",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "targets": "self",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "self",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_endure",
+        "to": "owner"
+      }
+    ]
+  },
+  "parting_resurrection": {
+    "name": "Parting Resurrection",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "revive": true
+    },
+    "body": true,
+    "target": "self"
+  },
+  "binding_guard": {
+    "name": "Binding Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_guard_seal",
+        "to": "owner"
+      }
+    ]
+  },
+  "enrage": {
+    "name": "Enrage",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "self",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_phys_atk_mag_atk_p20pct_accuracy_p20pct_stack",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "heavy_counter": {
+    "name": "Heavy Counter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "ignore_def": 1.0,
+      "ignore_def_vs": [
+        "armored"
+      ]
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "maidens_hammer": {
+    "name": "Maiden's Hammer",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [
+      {
+        "add": 1.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "always"
+        },
+        "scale": "self_hp_missing"
+      }
+    ],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "vengeance": {
+    "name": "Vengeance",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self"
+    },
+    "targets": "self",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_phys_atk_mag_atk_p20pct_phys_def_mag_def_p20pct_stack",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "attacker"
+  },
+  "sanguine_arts": {
+    "name": "Sanguine Arts",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_vampire",
+        "to": "owner"
+      }
+    ]
+  },
+  "demonic_pact": {
+    "name": "Demonic Pact",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "use_skill",
+        "skill_id": "daemonic_pact_pact",
+        "to": "owner"
+      }
+    ]
+  },
+  "heavy_guard": {
+    "name": "Heavy Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_heavy",
+        "to": "owner"
+      }
+    ]
+  },
+  "wild_kick": {
+    "name": "Wild Kick",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "enemy",
+      "outcome": "guarded"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_stun",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_guard_seal",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "hawk_eye": {
+    "name": "Hawk Eye",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_sure_crit",
+        "to": "owner"
+      }
+    ]
+  },
+  "quick_curse": {
+    "name": "Quick Curse",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "enemy"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_atk_m20pct_crit_seal",
+        "to": "actor"
+      }
+    ]
+  },
+  "cursed_swamp": {
+    "name": "Cursed Swamp",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_m10_evasion_m30",
+        "to": "enemies"
+      }
+    ]
+  },
+  "quick_cure": {
+    "name": "Quick Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "subject",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_immune_debuff",
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "selfless_heal": {
+    "name": "Selfless Heal",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "healed",
+      "whose": "self"
+    },
+    "targets": "ally",
+    "area": "all",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "dispel": [
+        "debuff"
+      ]
+    },
+    "body": true,
+    "target": "allies"
+  },
+  "pure_field": {
+    "name": "Pure Field",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_immune_debuff",
+        "to": "allies"
+      }
+    ]
+  },
+  "curing_heal": {
+    "name": "Curing Heal",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
+  },
+  "rage_of_the_faeries": {
+    "name": "Rage of the Faeries",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "targets": "enemy",
+    "area": "row",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "magical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_stun",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_faerie",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "enemies"
+  },
+  "elemental_impetus": {
+    "name": "Elemental Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_faerie",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "slyphic_barrier": {
+    "name": "Slyphic Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally",
+      "attack_tags": [
+        "ranged"
+      ]
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "subject"
+      }
+    ]
+  },
+  "remove_weakness": {
+    "name": "Remove Weakness",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "self",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "owner"
+      }
+    ]
+  },
+  "evasive_impetus": {
+    "name": "Evasive Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self",
+      "outcome": "missed"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "boon_of_the_faeries": {
+    "name": "Boon of the Faeries",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "targets": "ally",
+    "area": "row",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_immune_debuff",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_faerie",
+        "to": "self",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "allies",
+    "target_area": "row"
+  },
+  "accelerate": {
+    "name": "Accelerate",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_p20_accuracy_p20_stack",
+        "to": "owner"
+      }
+    ]
+  },
+  "diurnal_guard": {
+    "name": "Diurnal Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_pp",
+            "amount": 1,
+            "to": "owner",
+            "self_condition": {
+              "type": "is_day"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "discharge": {
+    "name": "Discharge",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "consume_buffs",
+        "effect_id": "uo_discharge",
+        "to": "owner"
+      }
+    ]
+  },
+  "arrow_cover": {
+    "name": "Arrow Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally",
+      "attack_tags": [
+        "ranged"
+      ]
+    },
+    "limit": "round",
+    "response": "cover",
+    "cover": {
+      "effect_id": "uo_negate_one"
+    }
+  },
+  "quick_guard": {
+    "name": "Quick Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner"
+      }
+    ]
+  },
+  "cavalier_call": {
+    "name": "Cavalier Call",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_mag_atk_p20pct_stack",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "knights_pursuit": {
+    "name": "Knight's Pursuit",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally",
+      "subject_condition": {
+        "type": "has_tag",
+        "tag": "cavalry"
+      }
+    },
+    "targets": "enemy",
+    "area": "column",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.75,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
+  },
+  "wing_rest": {
+    "name": "Wing Rest",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 25,
+        "percent": true,
+        "to": "owner",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 25,
+            "percent": true,
+            "to": "owner",
+            "self_condition": {
+              "type": "has_label",
+              "label": "ailment"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "feathering": {
+    "name": "Feathering",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_p15",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "gryphon_glide": {
+    "name": "Gryphon Glide",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "ranged"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_ranged",
+        "to": "owner"
+      }
+    ]
+  },
+  "noble_guard": {
+    "name": "Noble Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner"
+      }
+    ]
+  },
+  "luminous_cover": {
+    "name": "Luminous Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    }
+  },
+  "rapid_order": {
+    "name": "Rapid Order",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_p20",
+        "to": "allies"
+      }
+    ]
+  },
+  "passive_miracle": {
+    "name": "Passive Miracle",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "passive_used",
+      "whose": "ally"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 1,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
+  },
+  "saints_barrier": {
+    "name": "Saint's Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_reduce_50",
+        "to": "subject",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_immune_debuff",
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "divine_blessing": {
+    "name": "Divine Blessing",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_def_mag_def_p10pct",
+        "to": "allies"
+      }
+    ]
+  },
+  "heavy_cover": {
+    "name": "Heavy Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "response": "cover",
+    "cover": {
+      "guard": "heavy"
+    }
+  },
+  "guardian": {
+    "name": "Guardian",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ],
+      "outcome": "landed"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_def_p20pct_guard_rate_p20pct_stack",
+        "to": "owner"
+      }
+    ]
+  },
+  "parting_blow": {
+    "name": "Parting Blow",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.75,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "enemies"
+  },
+  "frenzied_strike": {
+    "name": "Frenzied Strike",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_phys_def_m15pct",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "eagle_eye": {
+    "name": "Eagle Eye",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_sure",
+        "to": "owner"
+      }
+    ]
+  },
+  "pursuit": {
+    "name": "Pursuit",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.75,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
+  },
+  "following_slash": {
+    "name": "Following Slash",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 90,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "hit_pp": 1
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "vengeful_guard": {
+    "name": "Vengeful Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner"
+      }
+    ]
+  },
+  "bull_force": {
+    "name": "Bull Force",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_p20pct_initiative_p20",
+        "to": "owner"
+      }
+    ]
+  },
+  "row_cover": {
+    "name": "Row Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "response": "cover",
+    "cover": {
+      "guard": "medium",
+      "many": true
+    }
+  },
+  "holy_barrier": {
+    "name": "Holy Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_reduce_50",
+        "to": "subject",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_immune_debuff",
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "holy_guard": {
+    "name": "Holy Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner"
+      }
+    ]
+  },
+  "guard_order": {
+    "name": "Guard Order",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_rate_p100pct",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "sniping_order": {
+    "name": "Sniping Order",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_sure",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "magick_barrier": {
+    "name": "Magick Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_magic",
+        "to": "subject"
+      }
+    ]
+  },
+  "evade": {
+    "name": "Evade",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "owner"
+      }
+    ]
+  },
+  "sneaking_edge": {
+    "name": "Sneaking Edge",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "targets": "enemy",
+    "area": "single",
+    "hits": 2,
+    "accuracy": 100,
+    "tags": [
+      "ranged"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_guard_seal",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      },
+      {
+        "effect_id": "uo_passive_seal",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "enemies"
+  },
+  "row_barrier": {
+    "name": "Row Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_magic",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "first_aid": {
+    "name": "First Aid",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal_pct",
+        "category": "magical",
+        "power": 0.25,
+        "scaling": [],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "self"
+  },
+  "keen_call": {
+    "name": "Keen Call",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_crit",
+        "to": "subject"
+      }
+    ]
+  },
+  "active_gift": {
+    "name": "Active Gift",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "subject"
+      }
+    ]
+  },
+  "aid_cover": {
+    "name": "Aid Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    }
+  },
+  "aerial_snipe": {
+    "name": "Aerial Snipe",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [
+      {
+        "add": 1.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_tag",
+          "tag": "flying"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "eagles_eye": {
+    "name": "Eagle's Eye",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_sure",
+        "to": "owner"
+      }
+    ]
+  },
+  "triple_counter": {
+    "name": "Triple Counter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "ranged"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "random_targets": 3
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "snow_white_strike": {
+    "name": "Snow-white Strike",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "ranged"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.75,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_freeze",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [
+      {
+        "add": 1.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_effect",
+          "effect_id": "uo_freeze"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
+  },
+  "magick_conferral": {
+    "name": "Magick Conferral",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_magic",
+        "to": "subject"
+      }
+    ]
+  },
+  "focus_sight": {
+    "name": "Focus Sight",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_sure",
+        "to": "subject"
+      }
+    ]
+  },
+  "quick_cast": {
+    "name": "Quick Cast",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_p1000_crit_rate_m50_t1",
+        "to": "owner"
+      }
+    ]
+  },
+  "hastened_strike": {
+    "name": "Hastened Strike",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "enemies"
+  },
+  "parry": {
+    "name": "Parry",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "melee"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_melee",
+        "to": "owner"
+      }
+    ]
+  },
+  "charged_impetus": {
+    "name": "Charged Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_crit_damage_p50pct",
+        "to": "owner"
+      }
+    ]
+  },
+  "iron_veil": {
+    "name": "Iron Veil",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_rate_p50pct_phys_def_p30pct",
+        "to": "allies"
+      }
+    ]
+  },
+  "undying_will": {
+    "name": "Undying Will",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_undying_will",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_endure",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "provoke": {
+    "name": "Provoke",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_taunt",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "war_horn": {
+    "name": "War Horn",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_unguardable",
+        "to": "allies"
+      }
+    ]
+  },
+  "magick_counter": {
+    "name": "Magick Counter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "magical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "magick_pursuit": {
+    "name": "Magick Pursuit",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "magical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
+  },
+  "concentrate": {
+    "name": "Concentrate",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_accuracy_p40",
+        "to": "owner"
+      }
+    ]
+  },
+  "nocturnal_rest": {
+    "name": "Nocturnal Rest",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 30,
+        "percent": true,
+        "to": "owner",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 30,
+            "percent": true,
+            "to": "owner",
+            "self_condition": {
+              "type": "is_night"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "life_blow": {
+    "name": "Life Blow",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "pure",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "hp",
+            "coef": 0.8
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "no_crit": true
+    },
+    "body": true,
+    "target": "enemies"
+  },
+  "nocturnal_evade": {
+    "name": "Nocturnal Evade",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_pp",
+            "amount": 1,
+            "to": "owner",
+            "self_condition": {
+              "type": "is_night"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "shadow_pursuit": {
+    "name": "Shadow Pursuit",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.75,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [
+      {
+        "effect_id": "uo_blind",
+        "to": "target",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
+  },
+  "weakness_hunter": {
+    "name": "Weakness Hunter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "enemy",
+      "effect_label": "debuff"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "ignore_def": 0.5
+    },
+    "body": true,
+    "target": "enemies"
+  },
+  "restore": {
+    "name": "Restore",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "passive_used",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "restore_pp",
+        "amount": 1,
+        "to": "subject"
+      }
+    ]
+  },
+  "quick_dispel": {
+    "name": "Quick Dispel",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "enemy",
+      "effect_label": "buff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "buff",
+        "to": "actor"
+      }
+    ]
+  },
+  "circle_barrier": {
+    "name": "Circle Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "limit": "round",
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_reduce_25",
+        "to": "side"
+      }
+    ]
+  },
+  "nocturnal_strike": {
+    "name": "Nocturnal Strike",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "enemies",
+    "steps": [
+      {
+        "action": "restore_pp",
+        "amount": 1,
+        "to": "owner",
+        "self_condition": {
+          "type": "is_night"
+        }
+      }
+    ]
+  },
+  "bestral_howl": {
+    "name": "Bestral Howl",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_p15pct",
+        "to": "allies",
+        "to_area": "row"
+      }
+    ]
+  },
+  "killing_pursuit": {
+    "name": "Killing Pursuit",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.75,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "kill_ap": 1
+    },
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
+  },
+  "ground_counter": {
+    "name": "Ground Counter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [
+      {
+        "add": 1.0,
+        "self_condition": {
+          "type": "always"
+        },
+        "target_condition": {
+          "type": "has_tag",
+          "tag": "cavalry"
+        },
+        "scale": ""
+      }
+    ],
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "deflect": {
+    "name": "Deflect",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "melee"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_melee",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_evasion_p20_stack",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "dragons_roar": {
+    "name": "Dragon's Roar",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_m20",
+        "to": "enemies"
+      }
+    ]
+  },
+  "uo_item_heal_10": {
+    "name": "UO heal 10",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 0,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 10,
+        "percent": true,
+        "to": "owner"
+      }
+    ]
+  },
+  "uo_item_heal_20": {
+    "name": "UO heal 20",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 0,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 20,
+        "percent": true,
+        "to": "owner"
+      }
+    ]
+  },
+  "uo_item_heal_15": {
+    "name": "UO heal 15",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 0,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 15,
+        "percent": true,
+        "to": "owner"
+      }
+    ]
+  },
+  "radiant_cover": {
+    "name": "Radiant Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    }
+  },
+  "enduring_guard": {
+    "name": "Enduring Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_heavy",
+        "to": "owner"
+      }
+    ]
+  },
+  "cavalry_guard": {
+    "name": "Cavalry Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_guard_heavy",
+            "to": "owner",
+            "actor_condition": {
+              "type": "has_tag",
+              "tag": "cavalry"
+            }
+          },
+          {
+            "action": "restore_pp",
+            "amount": 1,
+            "to": "owner",
+            "actor_condition": {
+              "type": "has_tag",
+              "tag": "cavalry"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "aerial_guard": {
+    "name": "Aerial Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_guard_heavy",
+            "to": "owner",
+            "actor_condition": {
+              "type": "has_tag",
+              "tag": "aerial"
+            }
+          },
+          {
+            "action": "restore_pp",
+            "amount": 1,
+            "to": "owner",
+            "actor_condition": {
+              "type": "has_tag",
+              "tag": "aerial"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "bestral_guard": {
+    "name": "Bestral Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_guard_heavy",
+            "to": "owner",
+            "actor_condition": {
+              "type": "has_tag",
+              "tag": "bestral"
+            }
+          },
+          {
+            "action": "restore_pp",
+            "amount": 1,
+            "to": "owner",
+            "actor_condition": {
+              "type": "has_tag",
+              "tag": "bestral"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "nocturnal_guard": {
+    "name": "Nocturnal Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_pp",
+            "amount": 1,
+            "to": "owner",
+            "self_condition": {
+              "type": "is_night"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "quick_cover": {
+    "name": "Quick Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    }
+  },
+  "lifeshare": {
+    "name": "Lifeshare",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "give_hp": 0.5
+    },
+    "body": true,
+    "target": "affected_ally"
+  },
+  "royal_guard": {
+    "name": "Royal Guard",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_guard_medium",
+        "to": "owner",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "hastened_cover": {
+    "name": "Hastened Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    }
+  },
+  "dawn_horn": {
+    "name": "Dawn Horn",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "all",
     "hits": 1,
@@ -11477,12 +13549,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "self"
   },
-  "honed_shield_buff": {
+  "honed_shield": {
     "name": "Honed Shield",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -11510,12 +13589,128 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "allies"
   },
-  "quick_action_buff": {
+  "bunker_stance": {
+    "name": "Bunker Stance",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_initiative_p30_phys_def_p40pct_guard_rate_p40",
+        "to": "owner"
+      }
+    ]
+  },
+  "impetus_stance": {
+    "name": "Impetus Stance",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_mag_atk_p50pct",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_ap",
+            "amount": 1,
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "war_cry": {
+    "name": "War Cry",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_p20pct",
+        "to": "owner"
+      }
+    ]
+  },
+  "magick_shell": {
+    "name": "Magick Shell",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_3",
+        "to": "owner"
+      }
+    ]
+  },
+  "darkness_armor": {
+    "name": "Darkness Armor",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_6",
+        "to": "owner"
+      }
+    ]
+  },
+  "hastened_charge": {
+    "name": "Hastened Charge",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 4,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_instant_charge",
+        "to": "owner"
+      }
+    ]
+  },
+  "quick_action": {
     "name": "Quick Action",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -11543,12 +13738,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "allies"
   },
-  "hastened_action_buff": {
+  "hastened_action": {
     "name": "Hastened Action",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 3,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -11576,12 +13778,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "allies"
   },
-  "hastened_cast_buff": {
+  "hastened_cast": {
     "name": "Hastened Cast",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 3,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -11609,12 +13818,67 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "allies"
   },
-  "hastened_curse_curse": {
+  "provoking_wall": {
+    "name": "Provoking Wall",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_taunt",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_negate_physical",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "scornful_dead": {
+    "name": "Scornful Dead",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_taunt",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_evade_2",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "hastened_curse": {
     "name": "Hastened Curse",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -11642,12 +13906,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "enemies"
   },
-  "eye_of_the_warrior_princess_curse": {
+  "eye_of_the_warrior_princess": {
     "name": "Eye of the Warrior Princess",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "all",
     "hits": 1,
@@ -11675,12 +13946,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "enemies"
   },
-  "ominous_wall_buff": {
+  "ominous_wall": {
     "name": "Ominous Wall",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "all",
     "hits": 1,
@@ -11708,12 +13986,127 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "self"
   },
-  "wolf_pack_buff": {
+  "heavy_alignment": {
+    "name": "Heavy Alignment",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "tiered",
+        "label": "ally:armored",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_guard_rate_p20",
+            "to": "side",
+            "to_area": "row"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_immune_stun",
+            "to": "side",
+            "to_area": "row"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_phys_def_mag_def_p20pct",
+            "to": "side",
+            "to_area": "row"
+          }
+        ]
+      }
+    ]
+  },
+  "aerial_alignment": {
+    "name": "Aerial Alignment",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "tiered",
+        "label": "ally:flying",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_crit_rate_p20",
+            "to": "side",
+            "to_area": "row"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_accuracy_p20",
+            "to": "side",
+            "to_area": "row"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_phys_atk_mag_atk_p20pct",
+            "to": "side",
+            "to_area": "row"
+          }
+        ]
+      }
+    ]
+  },
+  "united_front": {
+    "name": "United Front",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "tiered",
+        "label": "surplus",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_initiative_p30",
+            "to": "side"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_phys_def_mag_def_p50pct",
+            "to": "side"
+          },
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_negate_5",
+            "to": "side"
+          }
+        ]
+      }
+    ]
+  },
+  "wolf_pack": {
     "name": "Wolf Pack",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "all",
     "hits": 1,
@@ -11749,12 +14142,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "self"
   },
-  "bears_den_buff": {
+  "bears_den": {
     "name": "Bear's Den",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "all",
     "hits": 1,
@@ -11790,12 +14190,37 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "self"
   },
-  "hastened_heal_heal": {
+  "reheal": {
+    "name": "Reheal",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_regen",
+        "to": "side",
+        "to_area": "row"
+      }
+    ]
+  },
+  "hastened_heal": {
     "name": "Hastened Heal",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "all",
     "hits": 1,
@@ -11837,12 +14262,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "self"
   },
-  "rapid_shot_strike": {
+  "rapid_shot": {
     "name": "Rapid Shot",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -11884,12 +14316,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "enemies"
   },
-  "hastened_shatter_strike": {
+  "hastened_shatter": {
     "name": "Hastened Shatter",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -11931,12 +14370,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "enemies"
   },
-  "provoking_strike_strike": {
+  "provoking_strike": {
     "name": "Provoking Strike",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -11978,12 +14424,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "enemies"
   },
-  "ground_punisher_strike": {
+  "ground_punisher": {
     "name": "Ground Punisher",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "all",
     "hits": 1,
@@ -12020,12 +14473,19 @@
     "extras": {
       "ap_drain": 1,
       "pp_drain": 1
-    }
+    },
+    "body": true,
+    "target": "enemies"
   },
-  "fire_burst_strike": {
+  "fire_burst": {
     "name": "Fire Burst",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12061,12 +14521,19 @@
     "potency": [],
     "extras": {
       "spread_effect": "uo_burn"
-    }
+    },
+    "body": true,
+    "target": "enemies"
   },
-  "poison_burst_strike": {
+  "poison_burst": {
     "name": "Poison Burst",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12102,12 +14569,19 @@
     "potency": [],
     "extras": {
       "spread_effect": "uo_poison"
-    }
+    },
+    "body": true,
+    "target": "enemies"
   },
-  "judgment_strike": {
+  "judgment": {
     "name": "Judgment",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
     "targets": "enemy",
     "area": "all",
     "hits": 1,
@@ -12144,39 +14618,142 @@
     "extras": {
       "ignore_def": 0.5,
       "lifesteal": 1.0
-    }
+    },
+    "body": true,
+    "target": "enemies"
   },
-  "daemonic_pact_pact": {
+  "party_aid": {
+    "name": "Party Aid",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "battle_end",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 25,
+        "percent": true,
+        "to": "side"
+      }
+    ]
+  },
+  "daemonic_pact": {
     "name": "Daemonic Pact",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "self",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [],
-    "bonus_vs": {},
-    "ap_restore": 1,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
     },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "hp_cost": 0.25
-    }
+    "steps": [
+      {
+        "action": "use_skill",
+        "skill_id": "daemonic_pact_pact",
+        "to": "owner"
+      }
+    ]
   },
-  "tailwind_buff": {
+  "diurnal_impetus": {
+    "name": "Diurnal Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_mag_atk_p20pct",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_ap",
+            "amount": 1,
+            "to": "owner",
+            "self_condition": {
+              "type": "is_day"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "nocturnal_impetus": {
+    "name": "Nocturnal Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_mag_atk_p20pct",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_ap",
+            "amount": 1,
+            "to": "owner",
+            "self_condition": {
+              "type": "is_night"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "grave_impetus": {
+    "name": "Grave Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "died",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "blade_dance": {
+    "name": "Blade Dance",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_crit_rate_p20_crit_damage_p20_stack",
+        "to": "owner"
+      }
+    ]
+  },
+  "tailwind": {
     "name": "Tailwind",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self"
+    },
     "targets": "ally",
     "area": "row",
     "hits": 1,
@@ -12212,12 +14789,124 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "self"
   },
-  "counter_strike": {
+  "recast": {
+    "name": "Recast",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 4,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "self",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "repeat_skill",
+        "to": "owner"
+      }
+    ]
+  },
+  "inner_balance": {
+    "name": "Inner Balance",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_next_sure_crit",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "aerial_wing": {
+    "name": "Aerial Wing",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_sure",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_next_phys_atk_mag_atk_p20pct",
+            "to": "owner",
+            "self_condition": {
+              "type": "hp_above",
+              "value": 1.0
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "passive_gift": {
+    "name": "Passive Gift",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "passive_used",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "restore_pp",
+        "amount": 1,
+        "to": "subject"
+      }
+    ]
+  },
+  "quick_impetus": {
+    "name": "Quick Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 4,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 2,
+        "to": "subject"
+      }
+    ]
+  },
+  "counter": {
     "name": "Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12251,12 +14940,21 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "vanitas_strike": {
+  "vanitas": {
     "name": "Vanitas",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12305,12 +15003,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "banishing_counter_strike": {
+  "banishing_counter": {
     "name": "Banishing Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12348,12 +15054,20 @@
       "dispel": [
         "buff"
       ]
-    }
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "phantom_counter_strike": {
+  "phantom_counter": {
     "name": "Phantom Counter",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12399,12 +15113,20 @@
       "dispel": [
         "buff"
       ]
-    }
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "vanquish_strike": {
+  "vanquish": {
     "name": "Vanquish",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "row",
     "hits": 1,
@@ -12440,12 +15162,20 @@
     "potency": [],
     "extras": {
       "ap_drain": 2
-    }
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "magick_burst_strike": {
+  "magick_burst": {
     "name": "Magick Burst",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 3,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "all",
     "hits": 1,
@@ -12487,12 +15217,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "phantom_kick_strike": {
+  "phantom_kick": {
     "name": "Phantom Kick",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "row",
     "hits": 1,
@@ -12541,12 +15279,21 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "poison_touch_curse": {
+  "poison_touch": {
     "name": "Poison Touch",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12581,12 +15328,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "venom_touch_curse": {
+  "venom_touch": {
     "name": "Venom Touch",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "row",
     "hits": 1,
@@ -12621,12 +15376,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
   },
-  "phalanx_shift_buff": {
+  "phalanx_shift": {
     "name": "Phalanx Shift",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally"
+    },
     "targets": "ally",
     "area": "row",
     "hits": 1,
@@ -12663,12 +15426,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
   },
-  "aerial_shift_buff": {
+  "aerial_shift": {
     "name": "Aerial Shift",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally"
+    },
     "targets": "ally",
     "area": "row",
     "hits": 1,
@@ -12705,12 +15475,38 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
   },
-  "relic_heal_heal": {
+  "self_care": {
+    "name": "Self-Care",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "self",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "owner"
+      }
+    ]
+  },
+  "relic_heal": {
     "name": "Relic Heal",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "attacked",
+      "whose": "ally",
+      "outcome": "landed"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -12752,12 +15548,292 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
   },
-  "aerial_pursuit_strike": {
+  "poison_cure": {
+    "name": "Poison Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_poison"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_poison",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "fire_cure": {
+    "name": "Fire Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_burn"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_burn",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "freeze_cure": {
+    "name": "Freeze Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_freeze"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_freeze",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "stun_cure": {
+    "name": "Stun Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_stun"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_stun",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "blind_cure": {
+    "name": "Blind Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_blind"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_blind",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "guard_cure": {
+    "name": "Guard Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_guard_seal"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_guard_seal",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "passive_cure": {
+    "name": "Passive Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_filter": "uo_passive_seal"
+    },
+    "steps": [
+      {
+        "action": "remove_effect",
+        "effect_id": "uo_passive_seal",
+        "to": "subject",
+        "then": [
+          {
+            "action": "heal",
+            "amount": 10,
+            "percent": true,
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "sacred_cure": {
+    "name": "Sacred Cure",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "ally",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "side",
+        "to_area": "row",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_immune_debuff",
+            "to": "side",
+            "to_area": "row"
+          }
+        ]
+      }
+    ]
+  },
+  "abyssal_miasma": {
+    "name": "Abyssal Miasma",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "self",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "dispel",
+        "label": "debuff",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_negate_one",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "cursed_impetus": {
+    "name": "Cursed Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "self",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "mirror_weakness": {
+    "name": "Mirror Weakness",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "effect_applied",
+      "whose": "self",
+      "effect_label": "debuff"
+    },
+    "steps": [
+      {
+        "action": "reflect_debuffs",
+        "to": "actor"
+      }
+    ]
+  },
+  "aerial_pursuit": {
     "name": "Aerial Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally",
+      "subject_condition": {
+        "type": "has_tag",
+        "tag": "flying"
+      }
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12791,12 +15867,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
   },
-  "banishing_pursuit_strike": {
+  "banishing_pursuit": {
     "name": "Banishing Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12834,12 +15918,20 @@
       "dispel": [
         "buff"
       ]
-    }
+    },
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
   },
-  "wide_pursuit_strike": {
+  "wide_pursuit": {
     "name": "Wide Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
     "targets": "enemy",
     "area": "row",
     "hits": 1,
@@ -12873,12 +15965,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
   },
-  "shattering_pursuit_strike": {
+  "shattering_pursuit": {
     "name": "Shattering Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
     "targets": "enemy",
     "area": "column",
     "hits": 1,
@@ -12920,12 +16020,20 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
   },
-  "sanguine_pursuit_strike": {
+  "sanguine_pursuit": {
     "name": "Sanguine Pursuit",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "ally"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -12963,12 +16071,119 @@
       "lifesteal": 0.5,
       "hit_pp": 1,
       "hit_label": "ailment"
-    }
+    },
+    "body": true,
+    "target": "ally_target",
+    "response": "pursuit"
   },
-  "guard_hunter_strike": {
+  "healing_pursuit": {
+    "name": "Healing Pursuit",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "healed",
+      "whose": "ally"
+    },
+    "targets": "ally",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "magic"
+    ],
+    "parts": [
+      {
+        "kind": "heal",
+        "category": "magical",
+        "power": 0.5,
+        "scaling": [
+          {
+            "stat": "mag_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
+  },
+  "healing_hunter": {
+    "name": "Healing Hunter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "skill_used",
+      "whose": "enemy",
+      "attack_tags": [
+        "healing"
+      ]
+    },
+    "targets": "enemy",
+    "area": "single",
+    "hits": 1,
+    "accuracy": 100,
+    "tags": [
+      "melee"
+    ],
+    "parts": [
+      {
+        "kind": "damage",
+        "category": "physical",
+        "power": 1.0,
+        "scaling": [
+          {
+            "stat": "phys_atk",
+            "coef": 1.0
+          }
+        ],
+        "tags": [],
+        "weapon_tags": false
+      }
+    ],
+    "bonus_vs": {},
+    "ap_restore": 0,
+    "pp_restore": 0,
+    "applies": [],
+    "requires_self": {
+      "type": "always"
+    },
+    "requires_target": {
+      "type": "always"
+    },
+    "potency": [],
+    "extras": {
+      "ignore_def": 0.3
+    },
+    "body": true,
+    "target": "attacker",
+    "response": "counter"
+  },
+  "guard_hunter": {
     "name": "Guard Hunter",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "enemy",
+      "outcome": "guarded"
+    },
     "targets": "enemy",
     "area": "single",
     "hits": 1,
@@ -13004,12 +16219,63 @@
     "potency": [],
     "extras": {
       "ignore_def": 0.3
-    }
+    },
+    "body": true,
+    "target": "affected_ally"
   },
-  "shining_light_curse": {
+  "reflect_magick": {
+    "name": "Reflect Magick",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "enemy",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_reflect_magic",
+        "to": "actor"
+      }
+    ]
+  },
+  "cursed_gaol": {
+    "name": "Cursed Gaol",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "enemy"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_mag_atk_m50pct",
+        "to": "actor",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_crit_seal",
+            "to": "actor"
+          }
+        ]
+      }
+    ]
+  },
+  "shining_light": {
     "name": "Shining Light",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "enemy"
+    },
     "targets": "enemy",
     "area": "row",
     "hits": 1,
@@ -13037,12 +16303,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "attacker"
   },
-  "preemptive_heal_heal": {
+  "preemptive_heal": {
     "name": "Preemptive Heal",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -13076,12 +16349,19 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "body": true,
+    "target": "affected_ally"
   },
-  "holy_breath_heal": {
+  "holy_breath": {
     "name": "Holy Breath",
-    "ap_cost": 1,
-    "pp_cost": 0,
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
+    },
     "targets": "ally",
     "area": "single",
     "hits": 1,
@@ -13121,220 +16401,673 @@
       ],
       "hit_pp": 1,
       "hit_label": "ailment"
-    }
-  },
-  "lifeshare_gift": {
-    "name": "Lifeshare",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
     },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "give_hp": 0.5
-    }
+    "body": true,
+    "target": "acting_ally"
   },
-  "first_aid_heal": {
-    "name": "First Aid",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
+  "sorcerous_connection": {
+    "name": "Sorcerous Connection",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "steps": [
       {
-        "kind": "heal_pct",
-        "category": "magical",
-        "power": 0.25,
-        "scaling": [],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
-  },
-  "medical_aid_heal": {
-    "name": "Medical Aid",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "row",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal_pct",
-        "category": "magical",
-        "power": 0.15,
-        "scaling": [],
-        "tags": [],
-        "weapon_tags": false
-      }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [
-      {
-        "add": 0.15,
-        "self_condition": {
-          "type": "always"
-        },
-        "scale": "",
-        "target_condition": {
-          "type": "hp_below",
-          "value": 0.5001
-        }
-      }
-    ],
-    "extras": {}
-  },
-  "parting_resurrection_revive": {
-    "name": "Parting Resurrection",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "ally",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {
-      "revive": true
-    }
-  },
-  "lifesaver_heal": {
-    "name": "Lifesaver",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "self",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "magic"
-    ],
-    "parts": [
-      {
-        "kind": "heal",
-        "category": "magical",
-        "power": 0.5,
-        "scaling": [
+        "action": "apply_effect",
+        "effect_id": "uo_next_mag_atk_p50pct",
+        "to": "subject",
+        "then": [
           {
-            "stat": "mag_atk",
-            "coef": 1.0
+            "action": "apply_effect",
+            "effect_id": "uo_next_mag_atk_p50pct",
+            "to": "owner"
           }
-        ],
-        "tags": [],
-        "weapon_tags": false
+        ]
       }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
-    },
-    "requires_target": {
-      "type": "always"
-    },
-    "potency": [],
-    "extras": {}
+    ]
   },
-  "healing_hunter_strike": {
-    "name": "Healing Hunter",
-    "ap_cost": 1,
-    "pp_cost": 0,
-    "targets": "enemy",
-    "area": "single",
-    "hits": 1,
-    "accuracy": 100,
-    "tags": [
-      "melee"
-    ],
-    "parts": [
+  "powerful_call": {
+    "name": "Powerful Call",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
+    },
+    "steps": [
       {
-        "kind": "damage",
-        "category": "physical",
-        "power": 1.0,
-        "scaling": [
-          {
-            "stat": "phys_atk",
-            "coef": 1.0
-          }
-        ],
-        "tags": [],
-        "weapon_tags": false
+        "action": "apply_effect",
+        "effect_id": "uo_next_phys_atk_p30pct",
+        "to": "subject"
       }
-    ],
-    "bonus_vs": {},
-    "ap_restore": 0,
-    "pp_restore": 0,
-    "applies": [],
-    "requires_self": {
-      "type": "always"
+    ]
+  },
+  "inspiration": {
+    "name": "Inspiration",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
     },
-    "requires_target": {
-      "type": "always"
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50",
+        "to": "subject"
+      }
+    ]
+  },
+  "wide_inspiration": {
+    "name": "Wide Inspiration",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
     },
-    "potency": [],
-    "extras": {
-      "ignore_def": 0.3
-    }
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50",
+        "to": "side",
+        "to_area": "row"
+      }
+    ]
+  },
+  "reinforce": {
+    "name": "Reinforce",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 4,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_free_action",
+        "to": "subject"
+      }
+    ]
+  },
+  "sylphic_barrier": {
+    "name": "Sylphic Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally",
+      "attack_tags": [
+        "ranged"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "subject"
+      }
+    ]
+  },
+  "grant_evade": {
+    "name": "Grant Evade",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "subject"
+      }
+    ]
+  },
+  "quick_barrier": {
+    "name": "Quick Barrier",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_reduce_50",
+        "to": "subject"
+      }
+    ]
+  },
+  "protection": {
+    "name": "Protection",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_reduce_50",
+        "to": "side",
+        "to_area": "row"
+      }
+    ]
+  },
+  "mighty_shield": {
+    "name": "Mighty Shield",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_one",
+        "to": "subject"
+      }
+    ]
+  },
+  "celestial_light": {
+    "name": "Celestial Light",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "restore_pp",
+        "to": "owner"
+      }
+    ]
+  },
+  "enduring_cover": {
+    "name": "Enduring Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "heavy"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_endure",
+        "to": "owner"
+      }
+    ]
+  },
+  "healing_cover": {
+    "name": "Healing Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    },
+    "steps": [
+      {
+        "action": "heal",
+        "amount": 25,
+        "percent": true,
+        "to": "subject"
+      }
+    ]
+  },
+  "advance_cover": {
+    "name": "Advance Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "evil_cover": {
+    "name": "Evil Cover",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {
+      "guard": "medium"
+    },
+    "steps": [
+      {
+        "action": "restore_pp",
+        "amount": -1,
+        "to": "subject"
+      },
+      {
+        "action": "restore_pp",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "sacrifice": {
+    "name": "Sacrifice",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "ally"
+    },
+    "response": "cover",
+    "cover": {},
+    "steps": [
+      {
+        "action": "restore_pp",
+        "amount": 2,
+        "to": "owner"
+      }
+    ]
+  },
+  "flame_conferral": {
+    "name": "Flame Conferral",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_magic_burn",
+        "to": "subject"
+      }
+    ]
+  },
+  "ice_conferral": {
+    "name": "Ice Conferral",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_magic_freeze",
+        "to": "subject"
+      }
+    ]
+  },
+  "thunderous_conferral": {
+    "name": "Thunderous Conferral",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_magic_stun",
+        "to": "subject"
+      }
+    ]
+  },
+  "sanguine_conferral": {
+    "name": "Sanguine Conferral",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_magic",
+        "to": "subject",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_next_vampire",
+            "to": "subject"
+          }
+        ]
+      }
+    ]
+  },
+  "dark_conferral": {
+    "name": "Dark Conferral",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "before_skill",
+      "whose": "ally",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_next_magic_blind",
+        "to": "subject"
+      }
+    ]
+  },
+  "toughness": {
+    "name": "Toughness",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_endure",
+        "to": "owner"
+      }
+    ]
+  },
+  "painbringer": {
+    "name": "Painbringer",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_mag_atk_p20pct_initiative_p10_stack",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_ap",
+            "amount": 1,
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "nimble_fighter": {
+    "name": "Nimble Fighter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self",
+      "outcome": "missed"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_p20pct_crit_damage_p30_stack",
+        "to": "owner"
+      }
+    ]
+  },
+  "guarding_fighter": {
+    "name": "Guarding Fighter",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self",
+      "outcome": "guarded"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_phys_atk_p20pct_crit_damage_p30_stack",
+        "to": "owner"
+      }
+    ]
+  },
+  "vengeful_impetus": {
+    "name": "Vengeful Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "guarding_impetus": {
+    "name": "Guarding Impetus",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "attacked",
+      "whose": "self",
+      "outcome": "guarded"
+    },
+    "steps": [
+      {
+        "action": "restore_ap",
+        "amount": 1,
+        "to": "owner"
+      }
+    ]
+  },
+  "undead_wall": {
+    "name": "Undead Wall",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "physical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_physical",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_initiative_p20",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "invincible": {
+    "name": "Invincible",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_one",
+        "to": "owner"
+      }
+    ]
+  },
+  "phantom_step": {
+    "name": "Phantom Step",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "owner"
+      }
+    ]
+  },
+  "dynamic_glide": {
+    "name": "Dynamic Glide",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 2,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_phys_atk_p20pct",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "dark_step": {
+    "name": "Dark Step",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_evade_one",
+        "to": "owner",
+        "then": [
+          {
+            "action": "apply_effect",
+            "effect_id": "uo_evasion_p25",
+            "to": "owner"
+          }
+        ]
+      }
+    ]
+  },
+  "magick_conversion": {
+    "name": "Magick Conversion",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "targeted",
+      "whose": "self",
+      "attack_tags": [
+        "magical"
+      ]
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "uo_negate_magic",
+        "to": "owner",
+        "then": [
+          {
+            "action": "restore_pp",
+            "amount": 2,
+            "to": "owner"
+          }
+        ]
+      }
+    ]
   }
 }

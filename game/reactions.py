@@ -196,9 +196,13 @@ class Reaction:
         return reaction
 
     @classmethod
+    def step_from_dict(cls, event: str, data: Mapping[str, Any]) -> "Reaction":
+        return cls._step(event, data)
+
+    @classmethod
     def _step(cls, event: str, data: Mapping[str, Any]) -> "Reaction":
         """Дополнительное действие реакции: те же поля действия, событие и фильтры — от главной реакции."""
-        step = cls.from_dict({"event": event, "whose": "any", **{k: v for k, v in data.items() if k != "then"}})
+        step = cls.from_dict({"event": event, "whose": "any", **data})
         if step.action == DO_COVER:
             raise ValueError("cover cannot be an additional action")
         return step
@@ -224,6 +228,8 @@ class Reaction:
         defaults = {"skill_id": None, "effect_id": None, "amount": 0, "percent": False, "label": None,
                     "to_area": None}
         data = {k: full[k] for k in keep if k in ("action", "to") or full[k] != defaults.get(k)}
+        if self.then:                                           # ступени (tiered) и вложенные действия
+            data["then"] = [step.step_dict() for step in self.then]
         if not isinstance(self.actor_condition, Always):        # условие на того, кто вызвал событие
             data["actor_condition"] = full["actor_condition"]
         if not isinstance(self.self_condition, Always):         # условие на владельца: шаг выполняется, только если оно верно
@@ -281,3 +287,74 @@ class Reaction:
 def new_reaction_data() -> dict[str, Any]:
     """Заготовка для редакторов."""
     return Reaction(event=ON_TURN_START, action=DO_DAMAGE, amount=1, to=TO_OWNER).to_dict()
+
+
+# --- условие срабатывания навыка-пассивки ----------------------------------------------------------------------
+
+PHASES = ("battle_start", "before_other", "before_hit", "after_defence", "after", "battle_end")   # как в игре (слово 43)
+
+
+@dataclass(frozen=True)
+class Trigger:
+    """Когда срабатывает пассивка: событие боя и фильтры (те же поля, что у фильтра ``Reaction``).
+
+    ``phase`` — фаза игры (слово 43 записи навыка), только для показа и документации; поведение задаёт событие."""
+
+    event: str
+    whose: str = "self"
+    phase: str = ""
+    self_condition: ICondition = Always()
+    subject_condition: ICondition = Always()
+    actor_condition: ICondition = Always()
+    area: Optional[str] = None
+    attack_tags: tuple[str, ...] = ()
+    skill_areas: tuple[str, ...] = ()
+    outcome: str = OUTCOME_ANY
+    effect_filter: Optional[str] = None
+    effect_label: Optional[str] = None
+    threshold: float = 0.5
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "Trigger":
+        phase = data.get("phase", "")
+        if phase and phase not in PHASES:
+            raise ValueError(f"unknown phase {phase!r}")
+        return cls(
+            event=_check(data["event"], EVENTS, "event"),
+            whose=_check(data.get("whose", "self"), WHOSE, "whose"),
+            phase=phase,
+            self_condition=condition_from_dict(data.get("self_condition")),
+            subject_condition=condition_from_dict(data.get("subject_condition")),
+            actor_condition=condition_from_dict(data.get("actor_condition")),
+            area=data.get("area") or None,
+            attack_tags=tuple(data.get("attack_tags", ())),
+            skill_areas=tuple(data.get("skill_areas", ())),
+            outcome=_check(data.get("outcome", OUTCOME_ANY), OUTCOMES, "outcome"),
+            effect_filter=data.get("effect_filter") or None,
+            effect_label=data.get("effect_label") or None,
+            threshold=data.get("threshold", 0.5),
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        out: dict[str, Any] = {"event": self.event, "whose": self.whose}
+        if self.phase:
+            out["phase"] = self.phase
+        for name in ("self_condition", "subject_condition", "actor_condition"):
+            if not isinstance(getattr(self, name), Always):
+                out[name] = condition_to_dict(getattr(self, name))
+        for name in ("area", "effect_filter", "effect_label"):
+            if getattr(self, name):
+                out[name] = getattr(self, name)
+        for name in ("attack_tags", "skill_areas"):
+            if getattr(self, name):
+                out[name] = list(getattr(self, name))
+        if self.outcome != OUTCOME_ANY:
+            out["outcome"] = self.outcome
+        if self.event == ON_HP_BELOW or self.threshold != 0.5:
+            out["threshold"] = self.threshold
+        return out
+
+    def references(self) -> dict[str, list[str]]:
+        effects = [e for e in (self.effect_filter,) if e and e != THIS_EFFECT]
+        return {"skills": [], "effects": effects, "areas": [a for a in (self.area, *self.skill_areas) if a],
+                "attack_tags": list(self.attack_tags)}

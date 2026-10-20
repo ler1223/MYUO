@@ -142,7 +142,7 @@ class DatabaseEditingTests(unittest.TestCase):
 
     def test_data_is_split_into_files_and_roundtrips(self):
         self.assertEqual(sorted(p.stem for p in Path(DB.directory).glob("*.json")),
-                         ["config", "effects", "items", "passives", "skills", "tags", "units"])
+                         ["config", "effects", "items", "skills", "tags", "units"])
         with tempfile.TemporaryDirectory() as tmp:
             self.db.save(tmp)
             reloaded = Database.load(tmp)

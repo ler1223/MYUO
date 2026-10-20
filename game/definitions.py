@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Mapping
+from typing import Any, Mapping, Optional
 
 from .areas import AREA_SINGLE
 from .stats import Modifier, Scale, Stat
-from .reactions import DO_APPLY_EFFECT, DO_COVER, LEGACY_EVENTS, ON_TARGETED, Reaction
+from .reactions import (DO_APPLY_EFFECT, DO_COVER, DO_USE_SKILL, LEGACY_EVENTS, LIMIT_NONE, LIMITS, ON_TARGETED,
+                        TARGETS, Reaction, Trigger)
 from .tactics import SIDES, Always, ICondition, condition_from_dict, condition_to_dict
 from .tiers import check_tier, rank_of
 
@@ -295,6 +296,44 @@ class SkillExtras:
                 if v != getattr(default, k)}
 
 
+ROLES_OF_TARGET = {"attacker": "actor", "ally_target": "target", "acting_ally": "subject",
+                   "affected_ally": "subject", "self": "owner", "source": "source", "enemies": "enemies",
+                   "allies": "allies", "side": "side", "everyone": "everyone"}
+KINDS = ("active", "passive")
+RESPONSES = ("", "counter", "pursuit", "cover", "imbue", "reflect", "revive")
+GUARDS = ("", "small", "medium", "heavy")
+
+
+@dataclass(frozen=True)
+class CoverSpec:
+    """Прикрытие: защитник принимает удар на себя. guard — уровень блока защитника, effect_id — иной эффект на него."""
+
+    guard: str = ""
+    effect_id: Optional[str] = None
+    many: bool = False
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, Any]) -> "CoverSpec":
+        guard = data.get("guard") or ""
+        if guard not in GUARDS:
+            raise ValueError(f"unknown guard {guard!r}")
+        return cls(guard, data.get("effect_id") or None, bool(data.get("many", False)))
+
+    def to_dict(self) -> dict[str, Any]:
+        out: dict[str, Any] = {}
+        if self.guard:
+            out["guard"] = self.guard
+        if self.effect_id:
+            out["effect_id"] = self.effect_id
+        if self.many:
+            out["many"] = True
+        return out
+
+    @property
+    def effect(self) -> Optional[str]:
+        return self.effect_id or (f"uo_guard_{self.guard}" if self.guard else None)
+
+
 @dataclass(frozen=True)
 class SkillDefinition:
     id: str
@@ -316,6 +355,18 @@ class SkillDefinition:
     requires_target: ICondition = Always()
     potency: tuple[PotencyBonus, ...] = ()  # условные прибавки к силе (против дебаффнутых, при низком HP...)
     extras: SkillExtras = SkillExtras()     # неблокируемость, игнор защиты, кража AP, бонусы за добивание...
+    # --- пассивка (docs/uo/ABILITIES_DESIGN.md): тот же навык, но срабатывает по событию и стоит PP ---
+    kind: str = "active"                    # active | passive
+    trigger: Optional[Trigger] = None       # только у пассивок
+    target: str = ""                        # кому: роль из события (attacker, ally_target, acting_ally, affected_ally,
+    #                                         self, source) или группа (enemies, allies, side, everyone); "" — по навыку
+    target_area: Optional[str] = None       # область вокруг владельца для групп
+    body: bool = False                      # у пассивки есть тело навыка (parts/applies/...) — оно и применяется
+    response: str = ""                      # особый ответ: counter, pursuit, cover, imbue, reflect, revive
+    cover: Optional[CoverSpec] = None       # прикрытие (response == cover)
+    limit: str = LIMIT_NONE                 # none | round | battle
+    steps: tuple[Reaction, ...] = ()        # действия вне тела навыка (эффект, лечение долей HP, ступени...)
+    default_tactic: tuple[str, ...] = ()    # условия тактики по умолчанию (ключи game/conditions.py)
 
     @classmethod
     def from_dict(cls, skill_id: str, data: Mapping[str, Any]) -> "SkillDefinition":
@@ -330,10 +381,39 @@ class SkillDefinition:
             parts = tuple(SkillPart.from_dict(p) for p in data.get("parts", ()))
         except ValueError as error:
             raise ValueError(f"skill {skill_id}: {error}") from None
+        kind = data.get("kind", "active")
+        if kind not in KINDS:
+            raise ValueError(f"skill {skill_id}: unknown kind {kind!r}")
+        trigger = steps = None
+        target = data.get("target", "")
+        if target and target not in ROLES_OF_TARGET:
+            raise ValueError(f"skill {skill_id}: unknown target {target!r}")
+        response = data.get("response", "")
+        if response not in RESPONSES:
+            raise ValueError(f"skill {skill_id}: unknown response {response!r}")
+        limit = data.get("limit", LIMIT_NONE)
+        if limit not in LIMITS:
+            raise ValueError(f"skill {skill_id}: unknown limit {limit!r}")
+        if kind == "passive":
+            if "trigger" not in data:
+                raise ValueError(f"skill {skill_id}: a passive skill needs a trigger")
+            try:
+                trigger = Trigger.from_dict(data["trigger"])
+                steps = tuple(Reaction.step_from_dict(trigger.event, s) for s in data.get("steps", ()))
+            except (ValueError, KeyError) as error:
+                raise ValueError(f"skill {skill_id}: {error}") from None
+        elif "trigger" in data:
+            raise ValueError(f"skill {skill_id}: only a passive skill has a trigger")
+        cover = CoverSpec.from_dict(data["cover"]) if data.get("cover") else None
+        if response == "cover" and cover is None:
+            cover = CoverSpec()
         return cls(
+            kind=kind, trigger=trigger, target=target, target_area=data.get("target_area") or None,
+            body=bool(data.get("body", False)), response=response, cover=cover, limit=limit,
+            steps=steps or (), default_tactic=tuple(data.get("default_tactic", ())),
             id=skill_id,
             name=data.get("name", skill_id),
-            ap_cost=data.get("ap_cost", 1),
+            ap_cost=0 if kind == "passive" else data.get("ap_cost", 1),
             pp_cost=data.get("pp_cost", 0),
             targets=targets,
             area=area,
@@ -374,7 +454,60 @@ class SkillDefinition:
             "requires_target": condition_to_dict(self.requires_target),
             "potency": [b.to_dict() for b in self.potency],
             "extras": self.extras.to_dict(),
+            **self._passive_dict(),
         }
+
+    def _passive_dict(self) -> dict[str, Any]:
+        out: dict[str, Any] = {}
+        if self.kind == "passive":
+            out["kind"] = "passive"
+            out["trigger"] = self.trigger.to_dict()
+            if self.target:
+                out["target"] = self.target
+            if self.target_area:
+                out["target_area"] = self.target_area
+            if self.body:
+                out["body"] = True
+            if self.response:
+                out["response"] = self.response
+            if self.cover is not None:
+                out["cover"] = self.cover.to_dict()
+            if self.limit != LIMIT_NONE:
+                out["limit"] = self.limit
+            if self.steps:
+                out["steps"] = [s.step_dict() for s in self.steps]
+        if self.default_tactic:
+            out["default_tactic"] = list(self.default_tactic)
+        return out
+
+    @property
+    def is_passive(self) -> bool:
+        return self.kind == "passive"
+
+    def passive_view(self) -> "PassiveDefinition":
+        """Пассивка в виде реакции (что исполняет движок): условие срабатывания + тело навыка, прикрытие или шаги."""
+        t = self.trigger
+        common = dict(
+            event=t.event, whose=t.whose, self_condition=t.self_condition, subject_condition=t.subject_condition,
+            actor_condition=t.actor_condition, area=t.area, attack_tags=t.attack_tags, skill_areas=t.skill_areas,
+            outcome=t.outcome, effect_filter=t.effect_filter, effect_label=t.effect_label, threshold=t.threshold,
+            limit=self.limit)
+        steps = self.steps
+        if self.cover is not None:
+            main = dict(action=DO_COVER, effect_id=self.cover.effect, to="owner", cover_many=self.cover.many)
+        elif self.body:
+            side = {"enemy": "enemies", "ally": "allies"}.get(self.targets, "owner")
+            main = dict(action=DO_USE_SKILL, skill_id=self.id, to=ROLES_OF_TARGET.get(self.target, side),
+                        to_area=self.target_area)
+        elif steps:
+            first, steps = steps[0], steps[1:]
+            main = dict(action=first.action, skill_id=first.skill_id, effect_id=first.effect_id, amount=first.amount,
+                        percent=first.percent, label=first.label, to=first.to, to_area=first.to_area,
+                        then=first.then)
+            steps = main.pop("then") + steps
+        else:
+            raise ValueError(f"passive {self.id}: nothing to do (no body, cover or steps)")
+        return PassiveDefinition(self.id, self.name, self.pp_cost, Reaction(**common, **main, then=tuple(steps)))
 
 
 @dataclass(frozen=True)

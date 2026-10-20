@@ -422,5 +422,39 @@
     "requires_target": {
       "type": "always"
     }
+  },
+  "iron_will": {
+    "name": "Iron Will",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 0,
+    "trigger": {
+      "event": "battle_start",
+      "whose": "any"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "iron_will",
+        "to": "owner"
+      }
+    ]
+  },
+  "avenger": {
+    "name": "Avenger",
+    "kind": "passive",
+    "ap_cost": 0,
+    "pp_cost": 1,
+    "trigger": {
+      "event": "died",
+      "whose": "ally"
+    },
+    "steps": [
+      {
+        "action": "apply_effect",
+        "effect_id": "war_cry",
+        "to": "owner"
+      }
+    ]
   }
 }

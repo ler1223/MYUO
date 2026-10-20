@@ -189,7 +189,7 @@ class ReactionTests(unittest.TestCase):
         sim, (knight,), (goblin,) = fight(db, [("knight", 1, 0, 0)], [("goblin", 1, 0, 0)])
         sim.run()
         self.assertTrue(fired(sim, "counter"))
-        self.assertTrue(any(e.source == knight.uid and e.target == goblin.uid and e.cause == "counter_strike"
+        self.assertTrue(any(e.source == knight.uid and e.target == goblin.uid and e.cause == "counter"
                             for e in names(sim.events, DamageDealt)))
 
     def test_cure_removes_the_state_and_heals(self):
@@ -356,7 +356,7 @@ class BurstTests(unittest.TestCase):
         sim, _, (goblin, orc) = fight(db, [("knight", 1, 0, 0)], [("goblin", 1, 0, 0), ("orc", 1, 0, 1)])
         act = Act(ACTIVE, 1, "x")
         sim._give(goblin, "uo_burn", sim.units[1], act)
-        skill = db.skills["fire_burst_strike"]
+        skill = db.skills["fire_burst"]
         hit = []
         sim._resolve(sim.units[1], skill, goblin, act, root=False)
         self.assertLess(orc.hp, orc.max_hp)
@@ -364,7 +364,7 @@ class BurstTests(unittest.TestCase):
     def test_fire_burst_hits_one_when_not_burning(self):
         db = world("fire_burst")
         sim, _, (goblin, orc) = fight(db, [("knight", 1, 0, 0)], [("goblin", 1, 0, 0), ("orc", 1, 0, 1)])
-        sim._resolve(sim.units[1], db.skills["fire_burst_strike"], goblin, Act(ACTIVE, 1, "x"), root=False)
+        sim._resolve(sim.units[1], db.skills["fire_burst"], goblin, Act(ACTIVE, 1, "x"), root=False)
         self.assertEqual(orc.hp, orc.max_hp)
 
 
@@ -374,11 +374,12 @@ class CatalogTests(unittest.TestCase):
                        if v.reaction.action == "restore_pp" and not v.reaction.amount)
         self.assertEqual(stubs, ["celestial_light"])
 
-    def test_every_passive_response_skill_exists_and_is_named_like_the_passive(self):
+    def test_passives_are_skills_with_a_trigger(self):
         for pid, passive in REAL.passives.items():
-            sid = passive.reaction.skill_id
-            if sid and sid.startswith(pid + "_"):
-                self.assertEqual(REAL.skills[sid].name, passive.name, pid)
+            skill = REAL.skills[pid]
+            self.assertTrue(skill.is_passive and skill.trigger is not None, pid)
+            self.assertEqual(skill.ap_cost, 0, pid)
+            self.assertEqual(skill.pp_cost, passive.pp_cost, pid)
 
 
 if __name__ == "__main__":

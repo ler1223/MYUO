@@ -29,7 +29,6 @@ def parts_power(skill: dict, category: str) -> float | None:
 def audit() -> list[str]:
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))["skills"]
     skills = json.loads((BASE / "data" / "skills.json").read_text(encoding="utf-8"))
-    passives = json.loads((BASE / "data" / "passives.json").read_text(encoding="utf-8"))
     problems = []
     for entry in catalog:
         sid = entry["implementation"].get("id")
@@ -37,18 +36,20 @@ def audit() -> list[str]:
             problems.append(f"{entry['id']}: нет в данных")
             continue
         if entry["category"] == "passive":
-            if sid in passives and passives[sid]["pp_cost"] != (entry["pp"] or 0) and sid not in EXCEPTIONS:
-                problems.append(f"{sid}: PP пассивки {passives[sid]['pp_cost']}, в игре {entry['pp']}")
-            reaction = (passives.get(sid) or {}).get("reaction") or {}
-            helper = skills.get(reaction.get("skill_id") or "")
-            if helper is not None and reaction["skill_id"].startswith(sid + "_"):   # навык-ответ пассивки
+            data = skills.get(sid)
+            if data is None or data.get("kind") != "passive":
+                problems.append(f"{sid}: нет пассивки-навыка")
+                continue
+            if data["pp_cost"] != (entry["pp"] or 0) and sid not in EXCEPTIONS:
+                problems.append(f"{sid}: PP пассивки {data['pp_cost']}, в игре {entry['pp']}")
+            if data.get("body"):                       # у пассивки есть тело навыка — сверяем числа с игрой
                 for field, want in (("hits", entry["hits"] or 1), ("accuracy", entry["accuracy"] or 100)):
-                    if helper[field] != want and field not in EXCEPTIONS.get(sid, {}):
-                        problems.append(f"{reaction['skill_id']}: {field} = {helper[field]}, в игре {want}")
-                if entry["phys"] and parts_power(helper, "physical") != entry["phys"]:
-                    problems.append(f"{reaction['skill_id']}: phys = {parts_power(helper, 'physical')}, в игре {entry['phys']}")
-                if entry["mag"] and parts_power(helper, "magical") != entry["mag"]:
-                    problems.append(f"{reaction['skill_id']}: mag = {parts_power(helper, 'magical')}, в игре {entry['mag']}")
+                    if data[field] != want and field not in EXCEPTIONS.get(sid, {}):
+                        problems.append(f"{sid}: {field} = {data[field]}, в игре {want}")
+                if entry["phys"] and parts_power(data, "physical") != entry["phys"]:
+                    problems.append(f"{sid}: phys = {parts_power(data, 'physical')}, в игре {entry['phys']}")
+                if entry["mag"] and parts_power(data, "magical") != entry["mag"]:
+                    problems.append(f"{sid}: mag = {parts_power(data, 'magical')}, в игре {entry['mag']}")
             continue
         data = skills.get(sid)
         if data is None:

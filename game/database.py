@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence, Union
 
 from .areas import AREA_SINGLE, BUILTIN_AREAS, AreaDefinition
+from .abilities import merge_passives, referenced_skills, skill_from_passive
 from .definitions import CATEGORIES, ItemDefinition, PassiveDefinition, SkillDefinition
 from .effects import EffectDefinition
 from .squad import FormationSize
@@ -63,8 +64,7 @@ SECTIONS = {
     "areas": AreaDefinition,
     "tags": TagDefinition,
     "effects": EffectDefinition,
-    "passives": PassiveDefinition,
-    "skills": SkillDefinition,
+    "skills": SkillDefinition,          # и активные, и пассивки (kind: passive)
     "items": ItemDefinition,
     "units": UnitDefinition,
 }
@@ -101,6 +101,9 @@ class Database:
             if name == "areas" and not path.exists():
                 continue  # старая папка данных без областей: возьмутся встроенные
             data[name] = json.loads(path.read_text(encoding="utf-8"))
+        legacy = directory / "passives.json"
+        if legacy.exists():                    # старая папка данных: пассивки лежали отдельно
+            data["passives"] = json.loads(legacy.read_text(encoding="utf-8"))
         return cls(data, directory)
 
     def to_dict(self) -> dict[str, Any]:
@@ -130,10 +133,20 @@ class Database:
         """
         source = dict(data)
         source.setdefault("areas", BUILTIN_AREAS)
+        legacy = source.pop("passives", None)
+        if legacy:                             # пассивки старого вида (раздел passives) становятся навыками
+            merge_passives(source, legacy)
         parsed = {
             section: {key: cls.from_dict(key, value) for key, value in source.get(section, {}).items()}
             for section, cls in SECTIONS.items()
         }
+        parsed["passives"] = {}
+        for skill in parsed["skills"].values():
+            if skill.is_passive:
+                try:
+                    parsed["passives"][skill.id] = skill.passive_view()
+                except ValueError as error:
+                    raise ValueError(str(error)) from None
         config = data.get(CONFIG, {})
         slot_types = tuple(config.get("slot_types", ()))
         rules = [TagRule.from_dict(r) for r in config.get("tag_rules", ())]
@@ -156,6 +169,7 @@ class Database:
         """Проверяет ссылки между определениями, чтобы опечатка в данных падала сразу."""
         tags, effects, passives = parsed["tags"], parsed["effects"], parsed["passives"]
         skills, items, areas = parsed["skills"], parsed["items"], parsed["areas"]
+        actives = {k: v for k, v in skills.items() if not v.is_passive}
         if AREA_SINGLE not in areas:
             raise ValueError(f"area {AREA_SINGLE!r} is required")
 
@@ -185,14 +199,14 @@ class Database:
         for item in items.values():
             where = f"item {item.id}"
             require(slot_types, [item.slot], where)
-            require(skills, item.skills, where)
+            require(actives, item.skills, where)
             require(passives, item.passives, where)
             require(tags, item.tags + item.damage_tags, where)
             require(parsed["units"], item.classes, where)
         for unit in parsed["units"].values():
             where = f"unit {unit.id}"
             require(slot_types, unit.slots, where)
-            require(skills, unit.skills, where)
+            require(actives, unit.skills, where)
             require(passives, unit.passives, where)
             require(tags, unit.tags, where)
             require(skills, [rule.skill_id for rule in unit.tactics.rules], f"{where} tactics")
@@ -216,7 +230,13 @@ class Database:
     def update(self, section: str, key: str, value: Mapping[str, Any]) -> None:
         """Заменяет или добавляет определение, заданное в формате JSON."""
         data = self.to_dict()
-        data[section][key] = dict(value)
+        if section == "passives":              # редакторы пассивок отдают старый вид; хранится навык-пассивка
+            skill, gone = skill_from_passive(key, value, data["skills"], referenced_skills(data, {}))
+            data["skills"][key] = skill
+            if gone:
+                data["skills"].pop(gone, None)
+        else:
+            data[section][key] = dict(value)
         self._apply(data)
 
     def create(self, section: str, name: str, value: Mapping[str, Any]) -> str:
@@ -233,7 +253,15 @@ class Database:
         if section == "areas" and key == AREA_SINGLE:
             raise ValueError(f"area {AREA_SINGLE!r} cannot be deleted")
         data = self.to_dict()
+        passive = section == "passives" or (section == "skills" and key in self.skills and self.skills[key].is_passive)
+        if section == "passives":
+            section = "skills"
         del data[section][key]
+        if passive:                            # пассивку убирают и у классов, предметов и из тактик
+            for owner in (*data["units"].values(), *data["items"].values()):
+                owner["passives"] = [p for p in owner["passives"] if _entry_id(p) != key]
+            for unit in data["units"].values():
+                unit["tactics"] = [r for r in unit["tactics"] if r["skill"] != key]
 
         def drop(container: dict[str, Any], *fields: str) -> None:
             for field in fields:
@@ -252,9 +280,6 @@ class Database:
                 unit["promotions"] = [p for p in unit.get("promotions", ()) if p["class"] != key]
             for item in data["items"].values():
                 drop(item, "classes")
-        elif section == "passives":
-            for owner in (*data["units"].values(), *data["items"].values()):
-                drop(owner, "passives")
         elif section == "areas":
             for skill in data["skills"].values():
                 if skill["area"] == key:
@@ -353,14 +378,14 @@ def _entry_id(entry: Any) -> Any:
 
 
 def _clean_reactions(data: dict[str, Any], section: str, key: str) -> None:
-    """Убирает из реакций ссылки на удалённое определение (данные в формате JSON).
+    """Убирает ссылки на удалённое определение из реакций эффектов и из пассивок-навыков (данные в формате JSON).
 
-    Реакция, которой без него нечего делать (навык, эффект действия или фильтр по
-    эффекту), удаляется; пассивка без реакции удаляется вместе со ссылками на неё.
+    Действие, которому без него нечего делать (навык, эффект или фильтр по эффекту), удаляется; пассивка, у которой
+    не осталось ни тела, ни прикрытия, ни действий, удаляется вместе со ссылками на неё.
     Удалённая область или тег просто перестают фильтровать.
     """
     def fix(reaction: dict[str, Any]) -> bool:
-        """Правит реакцию на месте; False, если её надо удалить."""
+        """Правит реакцию эффекта на месте; False, если её надо удалить."""
         if section == "skills" and reaction["skill_id"] == key:
             return False
         if section == "effects":
@@ -379,10 +404,42 @@ def _clean_reactions(data: dict[str, Any], section: str, key: str) -> None:
             reaction["attack_tags"] = [t for t in reaction["attack_tags"] if t != key]
         return True
 
+    def step_ok(step: dict[str, Any]) -> bool:
+        if section == "skills" and step.get("skill_id") == key:
+            return False
+        if section == "effects" and step.get("effect_id") == key:
+            return False
+        if section == "areas" and step.get("to_area") == key:
+            step.pop("to_area")
+        return True
+
+    def passive_ok(skill: dict[str, Any]) -> bool:
+        trigger = skill["trigger"]
+        if section == "effects" and trigger.get("effect_filter") == key:
+            return False
+        if section == "areas":
+            if trigger.get("area") == key:
+                trigger.pop("area")
+            if trigger.get("skill_areas"):
+                trigger["skill_areas"] = [a for a in trigger["skill_areas"] if a != key]
+            if skill.get("target_area") == key:
+                skill.pop("target_area")
+        if section == "tags" and trigger.get("attack_tags"):
+            trigger["attack_tags"] = [t for t in trigger["attack_tags"] if t != key]
+        cover = skill.get("cover")
+        if cover and section == "effects" and cover.get("effect_id") == key:
+            cover.pop("effect_id")
+        if skill.get("steps"):
+            skill["steps"] = [s for s in skill["steps"] if step_ok(s)]
+        return bool(skill.get("body") or skill.get("cover") is not None or skill.get("steps"))
+
     for effect in data["effects"].values():
         effect["triggers"] = [r for r in effect["triggers"] if fix(r)]
-    gone = [passive_id for passive_id, passive in data["passives"].items() if not fix(passive["reaction"])]
-    for passive_id in gone:
-        del data["passives"][passive_id]
+    gone = [skill_id for skill_id, skill in data["skills"].items()
+            if skill.get("kind") == "passive" and not passive_ok(skill)]
+    for skill_id in gone:
+        del data["skills"][skill_id]
         for owner in (*data["units"].values(), *data["items"].values()):
-            owner["passives"] = [p for p in owner["passives"] if _entry_id(p) != passive_id]
+            owner["passives"] = [p for p in owner["passives"] if _entry_id(p) != skill_id]
+        for unit in data["units"].values():
+            unit["tactics"] = [r for r in unit["tactics"] if r["skill"] != skill_id]

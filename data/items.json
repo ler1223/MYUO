@@ -1719,10 +1719,10 @@
         "value": 15
       }
     ],
-    "skills": [
+    "skills": [],
+    "passives": [
       "artenie_strike"
     ],
-    "passives": [],
     "tags": [
       "immune_poison"
     ],

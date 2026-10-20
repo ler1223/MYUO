@@ -176,6 +176,21 @@ def build(kit: fp.Kit, skills: dict) -> list[str]:
     return [k for k in skills if skills[k] != before.get(k)]
 
 
+def make_artenie_passive(skills: dict, items: dict, pp: int) -> bool:
+    """Artenie Strike в игре — пассивка («в начале боя ударить первым»), старый перенос сделал его активным навыком."""
+    skill = skills.get("artenie_strike")
+    if skill is None or skill.get("kind") == "passive":
+        return False
+    skill.update(kind="passive", ap_cost=0, pp_cost=pp, body=True, target="enemies",
+                 trigger={"event": "battle_start", "whose": "self", "phase": "battle_start"},
+                 default_tactic=["prioritize_scout"])
+    for item in items.values():
+        if "artenie_strike" in item.get("skills", ()):
+            item["skills"].remove("artenie_strike")
+            item.setdefault("passives", []).append("artenie_strike")
+    return True
+
+
 def main(write: bool) -> int:
     def load(name):
         raw = (DATA / name).read_text(encoding="utf-8")
@@ -185,7 +200,14 @@ def main(write: bool) -> int:
     effects, ie, ne = load("effects.json")
     ru, ir, nr = load("lang/ru.json")
     kit = fp.Kit(effects)
-    changed = build(kit, skills)
+    items, ii, ni = load("items.json")
+    catalog = {x["id"]: x for x in json.loads((BASE / "docs" / "uo" / "catalog" / "skills.json")
+                                              .read_text(encoding="utf-8"))["skills"]}
+    converted = make_artenie_passive(skills, items, catalog["artenie_strike"]["pp"] or 1)
+    # build() правит навыки-ответы пассивок (pursuit_strike и др.); после переноса пассивок в навыки (шаг 3 плана
+    # ABILITIES_DESIGN.md) этих id нет, а сама правка давно записана в данные
+    legacy_layout = "pursuit_strike" in skills
+    changed = (build(kit, skills) if legacy_layout else []) + (["artenie_strike"] if converted else [])
     added = {k: v for k, v in kit.new_effects.items() if k not in effects}
     print(f"навыков изменено: {len(changed)}; новых эффектов: {len(added)}")
     for sid in changed:
@@ -197,6 +219,7 @@ def main(write: bool) -> int:
     for key, value in kit.ru.items():
         ru.setdefault(key, value)
     for name, data, indent, nl in (("skills.json", skills, is_, ns), ("effects.json", effects, ie, ne),
+                                   ("items.json", items, ii, ni),
                                    ("lang/ru.json", ru, ir, nr)):
         (DATA / name).write_text(json.dumps(data, ensure_ascii=False, indent=indent) + ("\n" if nl else ""),
                                  encoding="utf-8", newline="")

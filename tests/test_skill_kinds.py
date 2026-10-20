@@ -19,6 +19,8 @@ class SkillKindTests(unittest.TestCase):
         same = total = 0
         for section, kind_of in ((self.db.skills, skill_kind), (self.db.passives, passive_kind)):
             for key, definition in section.items():
+                if section is self.db.skills and definition.is_passive:
+                    continue                      # пассивки считаются во втором проходе (по действию реакции)
                 wiki = WIKI.get(reference.get(definition.name, {}).get("type"))
                 if wiki:
                     total += 1

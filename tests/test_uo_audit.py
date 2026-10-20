@@ -52,7 +52,7 @@ class EverythingRunsTests(unittest.TestCase):
         db = REAL.copy()
         isolated(db)
         base = db.units["lord"].to_dict()
-        for skill_id in REAL.skills:
+        for skill_id in [k for k, v in REAL.skills.items() if not v.is_passive]:
             data = dict(base)
             data["tactics"] = [{"skill": skill_id, "self_condition": {"type": "always"},
                                 "condition": {"type": "always"}, "selector": "frontmost"}]
