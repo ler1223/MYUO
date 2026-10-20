@@ -253,6 +253,16 @@ def satisfy(db, unit, condition) -> bool:
     return condition.check(unit, unit)
 
 
+def item_for_skill(db, cls: str, sid: str):
+    """Предмет, который даёт классу этот навык: навык предмета иначе юниту незнаком."""
+    unit = db.units.get(cls)
+    slots = set(unit.slots if unit else ())
+    for item_id, item in db.items.items():
+        if sid in item.skills and item.slot in slots:
+            return item_id
+    return None
+
+
 class SkillPlayer:
     """Навык сценой боя: класс против манекена; показ с начала его хода до конца.
 
@@ -268,12 +278,20 @@ class SkillPlayer:
         ally = skill.targets in ("ally", "self")
         applied = [a.condition for a in skill.applies]
         dummy_cls = pick_dummy(db, [skill.requires_target, *applied])
+        # навык предмета: без надетого предмета класса юнит его не знает и сцена его не играет
+        definition = db.units.get(cls)
+        own = set(definition.skills_at(50)) if definition else set()
+        gear = {}
+        if sid not in own:
+            item_id = item_for_skill(db, cls, sid)
+            if item_id is not None:
+                gear[1] = [item_id]
 
         def squad(name, cells):
             f = Formation()
             made = []
             for uid, c, row, col, tactic, level in cells:
-                unit = db.create_unit(c, uid, level=level)
+                unit = db.create_unit(c, uid, level=level, equipment=gear.get(uid, ()))
                 set_tactics(db, unit, tactic)
                 f.place(unit, row, col)
                 made.append(unit)

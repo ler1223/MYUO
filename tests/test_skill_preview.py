@@ -5,7 +5,7 @@
 """
 import unittest
 
-from anim_review import pick_dummy, satisfy
+from anim_review import item_for_skill, pick_dummy, satisfy
 from game.tactics import Always, HasEffect, HasTag, HpAbove, HpBelow, LacksEffect, LacksTag
 from tests.helpers import plain_db
 
@@ -66,6 +66,24 @@ class DummyTests(unittest.TestCase):
 
     def test_falls_back_when_no_class_fits(self):
         self.assertEqual(pick_dummy(self.db, [HasTag("no-such-tag")]), "fighter")
+
+
+class ItemSkillTests(unittest.TestCase):
+    """Навык предмета: без надетого предмета класс его не знает, и сцена его не играет."""
+
+    def setUp(self):
+        self.db = plain_db()
+        self.db.update("items", "oath_ring", {"name": "Oath Ring", "slot": "artifact", "skills": ["power_strike"]})
+
+    def test_finds_item_that_grants_the_skill(self):
+        self.assertEqual(item_for_skill(self.db, "cleric", "power_strike"), "oath_ring")
+
+    def test_item_must_fit_the_class_slot(self):
+        self.db.update("items", "oath_ring", {"name": "Oath Ring", "slot": "light_sword", "skills": ["power_strike"]})
+        self.assertIsNone(item_for_skill(self.db, "cleric", "power_strike"))
+
+    def test_unknown_skill_has_no_item(self):
+        self.assertIsNone(item_for_skill(self.db, "cleric", "no_such_skill"))
 
 
 if __name__ == "__main__":

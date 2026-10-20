@@ -149,15 +149,13 @@ class Director:
         names = list(animation["parts"]) if using_animation else \
             self.data.skill_chain(self.cls[uid], skill_id)
         if not names:
-            names = self.data.phase(self.cls[uid], "charge" if kind in ("magic", "heal", "support") else "attack")
-            names = [n.rstrip("*") for n in names]
+            names = self.data.default_chain(self.cls[uid], kind)
             using_animation = False
         model = self.model(uid)
         # Привязанная анимация могла быть собрана на другой модели: если ни одна её часть
         # не найдена у этого класса, показываем обычную атаку/каст класса.
         if model is not None and names and not any(n.rstrip("*") in model.puppet.anims for n in names):
-            names = self.data.phase(self.cls[uid], "charge" if kind in ("magic", "heal", "support") else "attack")
-            names = [n.rstrip("*") for n in names]
+            names = self.data.default_chain(self.cls[uid], kind)
             using_animation = False
         parts, hits, moves = [], [], []
         at = 0.0

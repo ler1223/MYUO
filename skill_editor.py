@@ -326,12 +326,21 @@ class Editor:
         animation = self.current_animation()
         return dict(animation.get("holds") or {}) if animation else {}
 
+    def generic_parts(self) -> list[str]:
+        """Чем показ играет навык без своей анимации: обычная атака или каст класса."""
+        if self.sid is None:
+            return []
+        kind = self.data.skill(self.sid, self.cls).get("kind", "melee")
+        return self.data.default_chain(self.cls, kind)
+
     def import_legacy_animation(self) -> None:
         if self.sid is None:
             return
         parts = list(self.data.classes.get(self.cls, {}).get("skills", {}).get(self.sid, []))
         if not parts:
-            self.message = "У старой анимации нет цепочки частей"
+            parts = self.generic_parts()       # своей анимации нет — берём обычную атаку или каст
+        if not parts:
+            self.message = "У навыка нет ни своей, ни обычной цепочки"
             return
         timing = self.data.classes.get(self.cls, {}).get("timing", {}).get(self.sid, {})
         holds = {int(k): float(v) for k, v in (timing.get("holds") or {}).items()}
@@ -349,6 +358,20 @@ class Editor:
         self.apply_skill()
         self.anim_modal = True
         self.message = f"Создана стандартная анимация «{name}»"
+
+    def new_animation_for_skill(self) -> None:
+        """Новая анимация навыка: пустая, сразу привязана и открыта в библиотеке.
+
+        Так можно собрать анимацию и навыку без старой цепочки — например, навыку
+        предмета, у которого в файле игры своей анимации нет.
+        """
+        self.new_animation()
+        if self.anim_name is None:
+            return
+        self.edit["animation"] = self.anim_name
+        self.apply_skill()
+        self.anim_modal = True
+        self.message = f"Создана анимация «{self.anim_name}» — добавьте части"
 
     # --- библиотека стандартных анимаций ---
 
@@ -993,12 +1016,36 @@ class Editor:
         else:
             ui.text("Анимация не привязана.", x, y, WARN, "main")
             y += 20
-            ui.text("Показывается старая анимация класса. Создайте стандартную анимацию", x, y, DIM, "small", w - 6)
-            y += 16
-            ui.text("из старой цепочки или выберите готовую в библиотеке.", x, y, DIM, "small", w - 6)
-            y += 24
-            if ui.button("Создать из старой цепочки", pygame.Rect(x, y, 210, 26), fill=(40, 90, 50)):
-                self.import_legacy_animation()
+            old = self.current_parts()
+            parts = old or self.generic_parts()
+            if parts:
+                ui.text("Показывается старая цепочка класса. «Создать» сделает из неё" if old else
+                        "Своей анимации у навыка нет: играется обычная атака или каст класса.", x, y,
+                        DIM, "small", w - 6)
+                y += 16
+                ui.text("стандартную анимацию — дальше её можно править в библиотеке.", x, y, DIM, "small", w - 6)
+                y += 20
+                model = self.model()
+                for i, name in enumerate(parts):
+                    if y > SIZE[1] - 190:
+                        ui.text("…", x, y, DIM, "small")
+                        break
+                    native = self.data.length_ms(model, name) if model else 0
+                    missing = model is not None and name not in model.puppet.anims
+                    ui.text(f"{i + 1}. {name}", x, y + 3, HIT if missing else TEXT, "small", 220)
+                    ui.text(f"{native:.0f} мс", x + 228, y + 3, DIM, "small")
+                    y += 22
+                y += 6
+                if ui.button("Создать из старой цепочки" if old else "Создать из обычной атаки",
+                             pygame.Rect(x, y, 210, 26), fill=(40, 90, 50)):
+                    self.import_legacy_animation()
+            else:
+                ui.text("Ни привязки, ни старой цепочки у навыка нет.", x, y, DIM, "small", w - 6)
+                y += 16
+                ui.text("Создайте анимацию и соберите её из частей модели.", x, y, DIM, "small", w - 6)
+                y += 24
+                if ui.button("Создать новую анимацию", pygame.Rect(x, y, 210, 26), fill=(40, 90, 50)):
+                    self.new_animation_for_skill()
             if ui.button("Выбрать из библиотеки", pygame.Rect(x + 216, y, 180, 26)):
                 names = self.visible_animations()
                 if names:

@@ -268,8 +268,14 @@ def skill_kind(skill: dict) -> str:
     return "ranged" if "ranged" in tags else "melee"
 
 
-def class_skills(p: Puppet, unit: dict, skills: dict, internal: dict[str, str]) -> dict[str, list[str]]:
-    """Какой цепочкой файла играть каждый активный навык класса."""
+def class_skills(p: Puppet, unit: dict, skills: dict, internal: dict[str, str],
+                 items=()) -> dict[str, list[str]]:
+    """Какой цепочкой файла играть каждый активный навык класса (своего и предметов).
+
+    У навыка предмета (надеть который класс может) своя анимация в файле есть не всегда:
+    именованные слоты S##_<НАВЫК>_* получают её, остальные остаются на обычной атаке или
+    касте класса (их не добавляем — иначе они сдвинули бы очередь общих цепочек).
+    """
     found = chains(list(p.anims), {n: p.anim_length(n) for n in p.anims})
     slots = {k: v for k, v in found.items() if re.match(r"^S\d\d$", k)}
     plain = {k: v for k, v in found.items() if not re.match(r"^S\d\d$", k) and k != "SKILL"}
@@ -277,7 +283,10 @@ def class_skills(p: Puppet, unit: dict, skills: dict, internal: dict[str, str]) 
     attack = [k for k in plain if k.startswith("ATTACK")]
     used: dict[str, int] = {"magic": 0, "attack": 0}
     out = {}
-    ids = [s if isinstance(s, str) else s["id"] for s in unit.get("skills", [])]
+    own = [s if isinstance(s, str) else s["id"] for s in unit.get("skills", [])]
+    held = set(unit.get("slots") or ())
+    extra = [sid for item in items if item.get("slot") in held for sid in item.get("skills") or ()]
+    ids = own + [sid for sid in dict.fromkeys(extra) if sid not in own]
     for sid in ids:
         skill = skills.get(sid)
         if skill is None:
@@ -290,6 +299,8 @@ def class_skills(p: Puppet, unit: dict, skills: dict, internal: dict[str, str]) 
         if named:
             out[sid] = named
             continue
+        if sid not in own:
+            continue                          # у навыка предмета своей анимации в файле нет
         kind = skill_kind(skill)
         pool, key = (magic, "magic") if kind in ("magic", "heal", "support") and magic else (attack or magic, "attack")
         if not pool:
@@ -418,6 +429,7 @@ def main() -> None:
     text = Path(args.text) if args.text else src.parent / "unpacked_us"
     units = json.loads((ROOT / "data" / "units.json").read_text(encoding="utf-8"))
     skills = json.loads((ROOT / "data" / "skills.json").read_text(encoding="utf-8"))
+    items = list(json.loads((ROOT / "data" / "items.json").read_text(encoding="utf-8")).values())
     female = set(json.loads((ROOT / "data" / "names.json").read_text(encoding="utf-8")).get("female_classes", []))
     old = json.loads(OUT.read_text(encoding="utf-8")) if OUT.is_file() else {}
     manual = old.get("manual", {"classes": {}, "skills": {}, "scenes": {}})
@@ -434,7 +446,7 @@ def main() -> None:
         p = Puppet((src / "Chara" / f"{info['file']}.mbs").read_bytes(), 0)
         classes[class_id] = {"code": info["code"], "file": info["file"], **({"stand_in": True} if info.get("stand_in") else {}),
                              "phases": phases(p),
-                             "skills": class_skills(p, units[class_id], skills, pairs),
+                             "skills": class_skills(p, units[class_id], skills, pairs, items),
                              "looks": class_looks(src / "Chara", info["file"], info["code"])}
     effect = Puppet((src / "Effect" / "Battle_Effect.mbs").read_bytes(), 0)
     reg = DbReg(src / "DbReg" / "DbRegDb.drg")

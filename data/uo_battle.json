@@ -6432,13 +6432,36 @@
     "file": "DarkMarquess_S_M"
    },
    "eltlinde": {
-    "file": "Eltlinde_F"
+    "file": "Eltlinde_F",
+    "skills": {
+     "freezing_thrust": [
+      "S03_FREEZE_THRUST_1",
+      "S03_FREEZE_THRUST_2",
+      "S03_FREEZE_THRUST_3"
+     ]
+    }
    },
    "feather_bow": {
-    "file": "FeatherBow_F"
+    "file": "FeatherBow_F",
+    "skills": {
+     "arrow_rain": [
+      "S04_ARROW_RAIN_1",
+      "S04_ARROW_RAIN_2",
+      "S05_ARROW_RAIN_3"
+     ]
+    }
    },
    "feather_rod": {
-    "file": "FeatherRod_M"
+    "file": "FeatherRod_M",
+    "skills": {
+     "holy_cradle": [
+      "S04_HOLY_CRADLE_1",
+      "S04_HOLY_CRADLE_2",
+      "S04_HOLY_CRADLE_3",
+      "S04_HOLY_CRADLE_4",
+      "S04_HOLY_CRADLE_5"
+     ]
+    }
    },
    "feather_shield": {
     "file": "FeatherShield_M"
@@ -6546,6 +6569,11 @@
       "ATTACK",
       "ATTACK_IDLE",
       "ATTACK_END"
+     ],
+     "arrow_rain": [
+      "S03_ARROW_RAIN_1",
+      "S03_ARROW_RAIN_2",
+      "S04_ARROW_RAIN_3"
      ]
     },
     "timing": {
@@ -6669,6 +6697,11 @@
       "ATTACK_1",
       "ATTACK_2",
       "ATTACK_END"
+     ],
+     "arrow_rain": [
+      "S05_ARROW_RAIN_1",
+      "S05_ARROW_RAIN_2",
+      "S06_ARROW_RAIN_3"
      ]
     },
     "timing": {
@@ -6725,6 +6758,11 @@
      ],
      "greatshield": [
       "GUARD"
+     ],
+     "true_thrust": [
+      "S03_TRUE_THRUST_1",
+      "S03_TRUE_THRUST_2",
+      "S03_TRUE_THRUST_3"
      ]
     },
     "timing": {
@@ -6867,6 +6905,89 @@
       "buffer": [],
       "shot": null
      }
+    }
+   },
+   "breaker": {
+    "skills": {
+     "ground_strike": [
+      "S03_GROUND_STRIKE_1",
+      "S03_GROUND_STRIKE_2",
+      "S03_GROUND_STRIKE_3",
+      "S03_GROUND_STRIKE_4"
+     ]
+    }
+   },
+   "elven_augur": {
+    "skills": {
+     "freezing_thrust": [
+      "S03_FREEZE_THRUST_1",
+      "S03_FREEZE_THRUST_2",
+      "S03_FREEZE_THRUST_3"
+     ]
+    }
+   },
+   "elven_sibyl": {
+    "skills": {
+     "freezing_thrust": [
+      "S03_FREEZE_THRUST_1",
+      "S03_FREEZE_THRUST_2",
+      "S03_FREEZE_THRUST_3"
+     ]
+    }
+   },
+   "hoplite": {
+    "skills": {
+     "true_thrust": [
+      "S03_TRUE_THRUST_1",
+      "S03_TRUE_THRUST_2",
+      "S03_TRUE_THRUST_3"
+     ]
+    }
+   },
+   "hunter": {
+    "skills": {
+     "arrow_rain": [
+      "S01_ARROW_RAIN_1",
+      "S01_ARROW_RAIN_2",
+      "S02_ARROW_RAIN_3"
+     ]
+    }
+   },
+   "shieldshooter": {
+    "skills": {
+     "arrow_rain": [
+      "S05_ARROW_RAIN_1",
+      "S05_ARROW_RAIN_2",
+      "S06_ARROW_RAIN_3"
+     ]
+    }
+   },
+   "sniper": {
+    "skills": {
+     "arrow_rain": [
+      "S01_ARROW_RAIN_1",
+      "S01_ARROW_RAIN_2",
+      "S02_ARROW_RAIN_3"
+     ]
+    }
+   },
+   "snow_ranger": {
+    "skills": {
+     "arrow_rain": [
+      "S05_ARROW_RAIN_1",
+      "S05_ARROW_RAIN_2",
+      "S06_ARROW_RAIN_3"
+     ]
+    }
+   },
+   "warrior": {
+    "skills": {
+     "ground_strike": [
+      "S03_GROUND_STRIKE_1",
+      "S03_GROUND_STRIKE_2",
+      "S03_GROUND_STRIKE_3",
+      "S03_GROUND_STRIKE_4"
+     ]
     }
    }
   },
@@ -9164,7 +9285,7 @@
   },
   "skill_animations": {
    "active_heal": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9172,7 +9293,7 @@
     "rain": null
    },
    "active_shatter": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9196,7 +9317,7 @@
     "rain": null
    },
    "armor_shatter": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9204,7 +9325,7 @@
     "rain": null
    },
    "armor_shatter_ii": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9212,7 +9333,7 @@
     "rain": null
    },
    "arrow_rain": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9220,7 +9341,7 @@
     "rain": null
    },
    "artenie_strike": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9228,7 +9349,7 @@
     "rain": null
    },
    "assassins_nail": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9260,7 +9381,7 @@
     "rain": null
    },
    "banishing_smite": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9292,7 +9413,7 @@
     "rain": null
    },
    "beastslayer": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9300,7 +9421,7 @@
     "rain": null
    },
    "blizzard": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9324,7 +9445,7 @@
     "rain": null
    },
    "checkmate": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9332,7 +9453,7 @@
     "rain": null
    },
    "circle_heal": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9348,7 +9469,7 @@
     "rain": null
    },
    "crush": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9364,7 +9485,7 @@
     "rain": null
    },
    "cursed_strike": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9412,7 +9533,7 @@
     "rain": null
    },
    "demolition": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9420,7 +9541,7 @@
     "rain": null
    },
    "desperation": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9428,7 +9549,7 @@
     "rain": null
    },
    "dispel_all": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9452,7 +9573,7 @@
     "rain": null
    },
    "double_blast": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9460,7 +9581,7 @@
     "rain": null
    },
    "double_heal": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9468,7 +9589,7 @@
     "rain": null
    },
    "dragoon_dive": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9484,7 +9605,7 @@
     "rain": null
    },
    "earthquake": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9508,7 +9629,7 @@
     "rain": null
    },
    "elfslayer": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9516,7 +9637,7 @@
     "rain": null
    },
    "execution": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9564,7 +9685,7 @@
     "rain": null
    },
    "fire_curse": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9572,7 +9693,7 @@
     "rain": null
    },
    "fire_slash": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9588,7 +9709,7 @@
     "rain": null
    },
    "firestorm": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9596,7 +9717,7 @@
     "rain": null
    },
    "flame_arrow": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9604,7 +9725,7 @@
     "rain": null
    },
    "flame_javelin": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9612,7 +9733,7 @@
     "rain": null
    },
    "freezing_thrust": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9628,7 +9749,7 @@
     "rain": null
    },
    "glowing_light": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9644,7 +9765,7 @@
     "rain": null
    },
    "gravity": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9660,7 +9781,7 @@
     "rain": null
    },
    "grisly_fire": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9668,7 +9789,7 @@
     "rain": null
    },
    "grisly_poison": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9676,7 +9797,7 @@
     "rain": null
    },
    "ground_strike": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9692,7 +9813,7 @@
     "rain": null
    },
    "harpoon_bolt": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9740,7 +9861,7 @@
     "rain": null
    },
    "holy_cradle": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9756,7 +9877,7 @@
     "rain": null
    },
    "holy_smite": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9796,7 +9917,7 @@
     "rain": null
    },
    "icestorm": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9812,7 +9933,7 @@
     "rain": null
    },
    "icicle_dart": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9820,7 +9941,7 @@
     "rain": null
    },
    "icy_blow": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9828,7 +9949,7 @@
     "rain": null
    },
    "icy_crush": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9892,7 +10013,7 @@
     "rain": null
    },
    "leaping_slash": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9900,7 +10021,7 @@
     "rain": null
    },
    "lethal_venom": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9916,7 +10037,7 @@
     "rain": null
    },
    "lightning_shaker": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9924,7 +10045,7 @@
     "rain": null
    },
    "limited_heal": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9940,7 +10061,7 @@
     "rain": null
    },
    "magick_attack": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9956,7 +10077,7 @@
     "rain": null
    },
    "magick_shatter": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -9964,7 +10085,7 @@
     "rain": null
    },
    "magick_wall": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10044,7 +10165,7 @@
     "rain": null
    },
    "painful_smash": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10068,7 +10189,7 @@
     "rain": null
    },
    "passive_shatter": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10076,7 +10197,7 @@
     "rain": null
    },
    "passive_shatter_spear": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10100,7 +10221,7 @@
     "rain": null
    },
    "phantom_attack": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10108,7 +10229,7 @@
     "rain": null
    },
    "phantom_veil": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10132,7 +10253,7 @@
     "rain": null
    },
    "poison_arrow": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10140,7 +10261,7 @@
     "rain": null
    },
    "poison_curse": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10148,7 +10269,7 @@
     "rain": null
    },
    "poison_slash": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10164,7 +10285,7 @@
     "rain": null
    },
    "powerful_impact": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10180,7 +10301,7 @@
     "rain": null
    },
    "provoking_slash": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10188,7 +10309,7 @@
     "rain": null
    },
    "radiant_heal": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10196,7 +10317,7 @@
     "rain": null
    },
    "rampage": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10204,7 +10325,7 @@
     "rain": null
    },
    "reincarnation": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10212,7 +10333,7 @@
     "rain": null
    },
    "resurrection": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10284,7 +10405,7 @@
     "rain": null
    },
    "sandstorm": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10292,7 +10413,7 @@
     "rain": null
    },
    "sanguine_attack": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10300,7 +10421,7 @@
     "rain": null
    },
    "sanguine_darts": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10308,7 +10429,7 @@
     "rain": null
    },
    "sanguine_rain": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10316,7 +10437,7 @@
     "rain": null
    },
    "shadow_arrow": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10324,7 +10445,7 @@
     "rain": null
    },
    "shadow_thrust": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10364,7 +10485,7 @@
     "rain": null
    },
    "skyward_thrust": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10388,7 +10509,7 @@
     "rain": null
    },
    "sonic_blast": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10404,7 +10525,7 @@
     "rain": null
    },
    "spiked_blow": {
-    "animation": "berserker__crush",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10412,7 +10533,7 @@
     "rain": null
    },
    "spiked_bolt": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10444,7 +10565,7 @@
     "rain": null
    },
    "strength_shatter": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10452,7 +10573,7 @@
     "rain": null
    },
    "strength_shatter_ii": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10484,7 +10605,7 @@
     "rain": null
    },
    "thunderous_thrust": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10508,7 +10629,7 @@
     "rain": null
    },
    "trinity_rain": {
-    "animation": "bishop__phantom_veil",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10516,7 +10637,7 @@
     "rain": null
    },
    "triple_shatter": {
-    "animation": "arbalist__poison_arrow",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10524,7 +10645,7 @@
     "rain": null
    },
    "true_thrust": {
-    "animation": "elven_augur__true_thrust",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],
@@ -10572,7 +10693,7 @@
     "rain": null
    },
    "wall": {
-    "animation": "crusader__sanguine_attack",
+    "animation": "",
     "tags": [],
     "caster_fx": [],
     "target_fx": [],

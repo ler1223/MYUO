@@ -134,6 +134,26 @@ class ShowData:
             return list(animation["parts"])
         return list(self.classes.get(class_id, {}).get("skills", {}).get(skill_id, []))
 
+    def default_chain(self, class_id: str, kind: str = "melee") -> list[str]:
+        """Чем показать навык без своей анимации: обычная атака или каст класса.
+
+        Своя фаза (charge — каст), иначе цепочка навыка класса того же вида (навыки класса
+        и есть его удары: ATTACK_A1…, MAGIC_A…), иначе стойка — чтобы в сцене хоть что-то было.
+        """
+        magical = kind in ("magic", "heal", "support")
+        parts = [str(p).rstrip("*") for p in self.phase(class_id, "charge" if magical else "attack")]
+        if parts:
+            return parts
+        chains = self.classes.get(class_id, {}).get("skills") or {}
+        want = ("magic", "heal", "support") if magical else ("melee", "ranged")
+        for skill_id, chain in chains.items():
+            if chain and self.skill(skill_id, class_id).get("kind") in want:
+                return [str(p).rstrip("*") for p in chain]
+        for chain in chains.values():
+            if chain:
+                return [str(p).rstrip("*") for p in chain]
+        return [str(p).rstrip("*") for p in self.phase(class_id, "stance")]
+
     def animation(self, skill_id: str) -> Optional[dict[str, Any]]:
         """Стандартная анимация, привязанная к навыку (None — навык ещё на старой анимации)."""
         spec = self.skill_animations.get(skill_id)
