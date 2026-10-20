@@ -217,6 +217,7 @@ class TacticRule:
 
     skill_id: str
     conditions: tuple = ()
+    enabled: bool = True          # выключенная строка пассивки: боец её не использует (строка без неё вернулась бы сама)
 
     @classmethod
     def of(cls, skill_id: str, condition: ICondition = Always(), self_condition: ICondition = Always(),
@@ -230,16 +231,18 @@ class TacticRule:
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "TacticRule":
         from .conditions import condition_from_data, conditions_from_legacy
+        enabled = not data.get("off", False)
         if "conditions" in data:
-            return cls(data["skill"], tuple(condition_from_data(c) for c in data["conditions"]))
-        return cls(data["skill"], conditions_from_legacy(data))
+            return cls(data["skill"], tuple(condition_from_data(c) for c in data["conditions"]), enabled)
+        return cls(data["skill"], conditions_from_legacy(data), enabled)
 
     def to_dict(self) -> dict[str, Any]:
         from .conditions import conditions_to_legacy
         legacy = conditions_to_legacy(self.conditions) if WRITE_LEGACY_WHEN_POSSIBLE else None
+        off = {} if self.enabled else {"off": True}
         if legacy is not None:
-            return {"skill": self.skill_id, **legacy}
-        return {"skill": self.skill_id, "conditions": [c.to_data() for c in self.conditions]}
+            return {"skill": self.skill_id, **legacy, **off}
+        return {"skill": self.skill_id, "conditions": [c.to_data() for c in self.conditions], **off}
 
     # старые части правила (для кода, ещё не знающего новый вид): первое подходящее условие каждого рода
     @property

@@ -109,7 +109,8 @@ from ..stats import Stat
 from ..tactics import Always, Frontmost
 from ..unit import Unit
 from . import rules
-from ..conditions import Context, choose_target
+from ..conditions import PRIORITIZE, Context, choose_target
+from ..conditions import condition_from_data
 from .field import PIERCE_AREAS, Side, affected, default_order, pick_target, priority_order, reachable
 from .record import (
     ACTIVE,
@@ -757,12 +758,15 @@ class Battle:
                 continue
             if self._passive_cap_reached():
                 return None
-            for passive_id in owner.passive_ids:
+            for passive_id, conds in self._passive_rows(owner):
                 passive = self.db.passives.get(passive_id)
                 if passive is None or passive.reaction.action != DO_COVER:
                     continue
                 reaction = passive.reaction
                 key = ("p", owner.uid, passive_id)
+                ctx = self._context(owner, moment)
+                if conds and not self._row_allows(conds, ctx, [ward]):
+                    continue
                 if owner.uid in action.covering and reaction.cover_many:
                     if self._matches(owner, passive, reaction, moment, key, counted=False):
                         return owner
@@ -799,7 +803,7 @@ class Battle:
             return
         self._depth += 1
         try:
-            for owner, origin, reaction, key in self._reactors(moment):
+            for owner, origin, reaction, key, conds in self._reactors(moment):
                 if self.finished:
                     break
                 if reaction.action == DO_COVER:
@@ -816,7 +820,7 @@ class Battle:
                     continue                          # за союзника до удара отвечает один с каждой стороны
                 if not self._matches(owner, origin, reaction, moment, key):
                     continue
-                sub = self._perform(owner, origin, reaction, moment, key)
+                sub = self._perform(owner, origin, reaction, moment, key, conds)
                 if sub is not None:
                     into.append(sub)
                     if guards_other:
@@ -832,18 +836,35 @@ class Battle:
             owners.append(subject)                  # погибший отвечает на собственную гибель
         out = []
         for owner in owners:
-            for passive_id in owner.passive_ids:
+            for passive_id, conds in self._passive_rows(owner):
                 passive = self.db.passives.get(passive_id)
                 if passive is not None and passive.reaction.event == moment.event:
-                    out.append((owner, passive, passive.reaction, ("p", owner.uid, passive_id)))
+                    out.append((owner, passive, passive.reaction, ("p", owner.uid, passive_id), conds))
             effects = list(owner.effects)
             if moment.effect is not None and owner is subject and not any(e is moment.effect for e in effects):
                 effects.append(moment.effect)       # истёкший эффект отвечает на своё истечение
             for effect in effects:
                 for index, reaction in enumerate(effect.definition.triggers):
                     if reaction.event == moment.event:
-                        out.append((owner, effect, reaction, ("e", owner.uid, effect.definition.id, index)))
+                        out.append((owner, effect, reaction, ("e", owner.uid, effect.definition.id, index), ()))
         return out
+
+    def _passive_rows(self, owner: Unit) -> list[tuple[str, tuple]]:
+        """Пассивки бойца в порядке тактики: (id, условия строки). Выключенные пропускаются; пассивки, которых в тактике
+        нет, идут следом со своими условиями по умолчанию (``default_tactic``) — так старые данные работают как прежде."""
+        ids = list(owner.passive_ids)
+        rows, listed = [], set()
+        for rule in owner.tactics.ordered(owner):
+            skill = self.db.skills.get(rule.skill_id)
+            if skill is None or not skill.is_passive or rule.skill_id not in ids or rule.skill_id in listed:
+                continue
+            listed.add(rule.skill_id)
+            if rule.enabled:
+                rows.append((rule.skill_id, rule.conditions))
+        for passive_id in ids:
+            if passive_id not in listed and passive_id in self.db.skills:
+                rows.append((passive_id, tuple(condition_from_data(k) for k in self.db.skills[passive_id].default_tactic)))
+        return rows
 
     def _owners(self) -> list[Unit]:
         owners = [u for side in self.sides for u in side.alive()]
@@ -948,41 +969,27 @@ class Battle:
             units.append(unit)
         return units
 
-    def _passive_plan(self, owner: Unit, passive_id: str, moment: Moment) -> Optional[tuple[SkillDefinition, Unit]]:
-        """Правило тактики, привязанное к пассивке: навык и цель из вызвавших срабатывание.
+    def _context(self, owner: Unit, moment: Moment, candidates=()) -> Context:
+        return Context(self, owner, moment, candidates, self._actions.get(owner.uid, 0) + 1)
 
-        Правила проверяются сверху вниз; пусто — у пассивки нет своих правил, работает реакция из данных.
-        """
-        tactics = owner.passive_tactics.get(passive_id)
-        if tactics is None or not tactics.rules:
-            return None
-        own, other = self.side_of(owner), self.other(self.side_of(owner))
-        targets = self._trigger_targets(owner, moment)
-        for rule in tactics.ordered(owner):
-            skill = self.db.skills.get(rule.skill_id)
-            if skill is None or skill.id not in owner.skill_ids:
-                continue
-            if not (skill.requires_self.check(owner, owner) and rule.self_condition.check(owner, owner)):
-                continue
-            side = own if skill.targets in ("ally", "self") else other
-            pool = [owner] if skill.targets == "self" else [u for u in targets if side.has(u)]
-            candidates = [u for u in pool if u.is_alive and skill.requires_target.check(owner, u)
-                          and rule.condition.check(owner, u)]
-            if candidates:
-                return skill, rule.selector.select(owner, candidates, self.rng)
-        return None
+    def _row_allows(self, conds: tuple, ctx: Context, targets: list[Unit]) -> bool:
+        """Условия строки тактики пассивки: хоть одна цель проходит фильтры и выполнены условия обстановки."""
+        passing = [u for u in targets if all(c.accepts(ctx, u) for c in conds)]
+        ctx.candidates = passing
+        return bool(passing) and all(c.gate(ctx) for c in conds)
 
-    def _perform(self, owner: Unit, origin, reaction: Reaction, moment: Moment, key: tuple) -> Optional[Act]:
+    def _perform(self, owner: Unit, origin, reaction: Reaction, moment: Moment, key: tuple,
+                 conds: tuple = ()) -> Optional[Act]:
         """Ответ: кому, оплата (PP пассивки), действие и дополнительные действия (reaction.then).
-        Делать нечего — ничего не тратится, None."""
+        conds — условия строки тактики пассивки (фильтры целей, порядок, обстановка). Делать нечего — ничего не
+        тратится, None."""
         passive = isinstance(origin, PassiveDefinition)
-        plan = self._passive_plan(owner, origin.id, moment) if passive else None
+        ctx = self._context(owner, moment)
         steps: list[tuple[Reaction, Optional[SkillDefinition], list[Unit]]] = []
-        if plan is not None:                          # правила пассивки: навык по цели, вызвавшей срабатывание
-            skill, chosen = plan
-            steps.append((reaction, skill, [chosen]))
-        else:
-            steps.append(self._step_plan(owner, origin, reaction, moment))
+        main = self._step_plan(owner, origin, reaction, moment, conds, ctx)
+        if conds and not self._gates_open(conds, ctx, main):
+            return None
+        steps.append(main)
         if reaction.action == DO_TIERED:
             steps = []                                 # главное действие — только счёт, работают ступени
             count = self._count_for(owner, reaction.label or "")
@@ -1023,9 +1030,16 @@ class Battle:
         side = own if side_name == "ally" else self.other(own)
         return sum(1 for u in side.alive() if tag in u.tags)
 
-    def _step_plan(self, owner: Unit, origin, step: Reaction, moment: Moment
-                   ) -> tuple[Reaction, Optional[SkillDefinition], list[Unit]]:
-        """Кому достанется действие step (отфильтрованные: делать нечего — пустой список)."""
+    @staticmethod
+    def _gates_open(conds: tuple, ctx: Context, plan: tuple) -> bool:
+        """Условия обстановки строки (в них «средний HP целей»): круг целей — те, кому достанется главное действие."""
+        ctx.candidates = plan[2]
+        return bool(plan[2]) and all(c.gate(ctx) for c in conds)
+
+    def _step_plan(self, owner: Unit, origin, step: Reaction, moment: Moment, conds: tuple = (),
+                   ctx: Optional[Context] = None) -> tuple[Reaction, Optional[SkillDefinition], list[Unit]]:
+        """Кому достанется действие step (отфильтрованные: делать нечего — пустой список).
+        conds — условия строки тактики: фильтры целей и их порядок (только для главного действия)."""
         action = step.action
         if not step.self_condition.check(owner, owner):
             return step, None, []
@@ -1033,6 +1047,11 @@ class Battle:
                 (moment.actor is None or not step.actor_condition.check(owner, moment.actor)):
             return step, None, []
         targets = self._recipients(owner, origin, step, moment)
+        if conds:
+            targets = [u for u in targets if all(c.accepts(ctx, u) for c in conds)]
+            ranks = [c for c in conds if c.kind == PRIORITIZE]
+            if ranks and len(targets) > 1:
+                targets = sorted(targets, key=lambda u: tuple(c.rank(ctx, u) for c in ranks))
         skill = None
         if action == DO_REPEAT_SKILL:
             skill = moment.skill
@@ -1048,7 +1067,8 @@ class Battle:
             targets = [t for t in targets if any("buff" in e.definition.tags for e in t.effects)]
         elif action == DO_USE_SKILL:
             skill = self.db.skills.get(step.skill_id or "")
-            target = self._skill_target(owner, skill, step, moment, targets) if skill and owner.is_alive else None
+            target = (self._skill_target(owner, skill, step, moment, targets, conds, ctx)
+                      if skill and owner.is_alive else None)
             targets = [target] if target is not None and skill.requires_self.check(owner, owner) \
                 and skill.requires_target.check(owner, target) else []
         elif action == DO_APPLY_EFFECT:
@@ -1116,7 +1136,7 @@ class Battle:
         return "followup" if self.side_of(actor) is self.side_of(owner) else "counter"
 
     def _skill_target(self, owner: Unit, skill: SkillDefinition, reaction: Reaction, moment: Moment,
-                      targets: list[Unit]) -> Optional[Unit]:
+                      targets: list[Unit], conds: tuple = (), ctx: Optional[Context] = None) -> Optional[Unit]:
         """Цель навыка-ответа: роль из момента или первая из группы; иначе ближайший подходящий (UO)."""
         own = self.side_of(owner)
         other = self.other(own)
@@ -1131,6 +1151,12 @@ class Battle:
                 return unit
         if reaction.to in (TO_ALLIES, TO_ENEMIES, TO_EVERYONE, TO_SIDE) or not targets:
             pool = reachable(skill, owner, own, other)
+            if conds:
+                pool = [u for u in pool if all(c.accepts(ctx, u) for c in conds)]
+                ranks = [c for c in conds if c.kind == PRIORITIZE]
+                if pool and ranks:
+                    ordered = priority_order(owner, own, wanted, pool)
+                    return min(ordered, key=lambda u: tuple(c.rank(ctx, u) for c in ranks))
             return default_order(owner, own, wanted, pool, self.rng)[0] if pool else None
         return None
 

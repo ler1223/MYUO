@@ -1,19 +1,16 @@
-"""Тактики пассивок: правила применяются к целям, вызвавшим срабатывание, предел n за действие."""
+"""Пассивки в тактике бойца: строки с условиями игры, порядок, выключенные строки, предел n за действие."""
 import unittest
 
 from game.combat import Battle as BattleSimulation
-from game.editing import set_owners, set_passive_tactics
+from game.editing import set_owners, set_passive_tactics, set_tactics
 from game.events import PassiveTriggered, SkillUsed
-from game.save import unit_from_save, unit_to_save
-from game.tactics import TacticsSet
-from tests.helpers import add_skill, only, plain_db, rule, squads, turn_of
-from tests.test_combat import part
+from tests.helpers import only, plain_db, squads, turn_of
 from tests.test_reactions import counter, give
 
 
-def react_with_rules(db, unit, passive_id: str, skill_id: str, **conditions) -> None:
-    """Привязывает к пассивке юнита правило тактики: навык по вызвавшей цели."""
-    set_passive_tactics(db, unit, passive_id, [rule(skill_id, **conditions)])
+def set_tactics_rows(db, unit, rows) -> None:
+    """Строки тактики бойца: активные и пассивные вперемешку (формат с ключами условий игры)."""
+    set_tactics(db, unit, rows)
 
 
 class PassiveRulesTests(unittest.TestCase):
@@ -25,43 +22,76 @@ class PassiveRulesTests(unittest.TestCase):
         sim = BattleSimulation(a, b, self.db, seed=seed)
         return sim, sim.units[1], sim.units[2]
 
-    def test_rule_of_passive_uses_its_skill_on_the_cause(self):
-        add_skill(self.db, "riposte", ["orc"], parts=[part(power=0.6)])
+    def fired(self, sim, uid):
+        return [e for e in turn_of(sim, uid) if isinstance(e, PassiveTriggered) and e.passive_id == "react"]
+
+    def test_row_conditions_gate_the_passive(self):
+        # «Атакован кавалерией»: орк отвечает контратакой только на удар всадника
+        give(self.db, ["orc"], **counter())
+        for attacker, expected in (("rider", 1), ("knight", 0)):
+            db = self.db.copy()
+            a, b = squads(db, [(attacker, 1, 0, 0)], [("orc", 1, 0, 0)])
+            sim = BattleSimulation(a, b, db, seed=1)
+            only(db, sim.units[1], "attack")
+            set_tactics_rows(db, sim.units[2], [{"skill": "react", "conditions": ["attacked_by_cavalry"]}])
+            self.assertEqual(len(self.fired(sim, 1)), expected, attacker)
+
+    def test_disabled_row_turns_the_passive_off(self):
         give(self.db, ["orc"], **counter())
         sim, knight, orc = self.battle([("knight", 1, 0, 0)], [("orc", 1, 0, 0)])
-        react_with_rules(self.db, orc, "react", "riposte")
         only(self.db, knight, "attack")
-        events = turn_of(sim, 1)
-        i = events.index(SkillUsed(1, "attack", 2))
-        # правило выбрало riposte вместо стандартной атаки из реакции, цель — атаковавший
-        self.assertEqual(events[i + 2:i + 4], [PassiveTriggered(2, "react"), SkillUsed(2, "riposte", 1)])
+        self.assertEqual(len(self.fired(sim, 1)), 1)                          # без строки — работает с условиями по умолчанию
+        sim, knight, orc = self.battle([("knight", 1, 0, 0)], [("orc", 1, 0, 0)])
+        only(self.db, knight, "attack")
+        set_tactics_rows(self.db, orc, [{"skill": "react", "conditions": [], "off": True}])
+        self.assertEqual(self.fired(sim, 1), [])
 
-    def test_rule_falls_back_to_reaction_when_conditions_do_not_hold(self):
-        add_skill(self.db, "riposte", ["orc"], parts=[part(power=0.6)],
-                  requires_target={"type": "has_effect", "effect_id": "poison"})
+    def test_target_filter_without_candidates_keeps_the_pp(self):
         give(self.db, ["orc"], **counter())
         sim, knight, orc = self.battle([("knight", 1, 0, 0)], [("orc", 1, 0, 0)])
-        react_with_rules(self.db, orc, "react", "riposte")
         only(self.db, knight, "attack")
-        events = turn_of(sim, 1)
-        i = events.index(SkillUsed(1, "attack", 2))
-        # цель не отравлена: правило не подошло, сработала стандартная реакция (attack по атаковавшему)
-        self.assertEqual(events[i + 2:i + 4], [PassiveTriggered(2, "react"), SkillUsed(2, "attack", 1)])
+        set_tactics_rows(self.db, orc, [{"skill": "react", "conditions": ["flying"]}])    # атаковавший не летает
+        self.assertEqual(self.fired(sim, 1), [])
+        self.assertEqual(orc.pp.current, orc.pp.max)
 
-    def test_rule_takes_targets_of_the_trigger_not_the_whole_side(self):
-        # Союзник применил навык по врагу: правило пассивки бьёт по цели навыка, а не по всем врагам.
-        add_skill(self.db, "follow", ["goblin"], parts=[part(power=0.6)])
+    def test_priority_picks_the_target_among_the_group(self):
+        # пассивка бьёт по врагам из группы: «наименьшее HP» выбирает слабейшего
         give(self.db, ["goblin"], event="skill_used", whose="ally", action="use_skill", skill_id="attack",
-             to="target")
-        sim, knight, goblin = self.battle([("knight", 1, 0, 0), ("goblin", 1, 0, 1)], [("orc", 1, 0, 0), ("archer", 1, 0, 1)])
-        react_with_rules(self.db, goblin, "react", "follow")
+             to="enemies")
+        sim, knight, goblin = self.battle([("knight", 1, 0, 0), ("goblin", 1, 0, 1)],
+                                          [("orc", 1, 0, 0), ("archer", 1, 0, 1)])
+        set_tactics_rows(self.db, goblin, [{"skill": "react", "conditions": ["lowest_hp"]}])
         only(self.db, knight, "attack")
         sim.step()                                   # гоблин быстрее и ходит первым
+        sim.units[4].state.current_hp = 20          # слабее орка, но переживёт яд до удара
         events = turn_of(sim, 1)
-        i = events.index(SkillUsed(1, "attack", 3))
-        self.assertIn(SkillUsed(2, "follow", 3), events[i + 1:])   # цель — тот, по кому ударил союзник
-        self.assertNotIn(SkillUsed(2, "follow", 4), events)
-        self.assertEqual(goblin.pp.current, goblin.pp_max - 1)     # пассивка платит PP, а не AP
+        self.assertIn(SkillUsed(2, "attack", 4), events)
+
+    def test_rows_of_passives_are_taken_in_tactics_order(self):
+        # две пассивки на одно событие: сверху в тактике — раньше (а предел n=1 оставляет только первую)
+        self.db.passives_per_action = 1
+        give(self.db, ["orc"], passive_id="first", **counter())
+        give(self.db, ["orc"], passive_id="second", **counter())
+        sim, knight, orc = self.battle([("knight", 1, 0, 0)], [("orc", 1, 0, 0)])
+        only(self.db, knight, "attack")
+        set_tactics_rows(self.db, orc, [{"skill": "second", "conditions": []}, {"skill": "first", "conditions": []}])
+        fired = [e.passive_id for e in turn_of(sim, 1) if isinstance(e, PassiveTriggered)]
+        self.assertEqual(fired, ["second"])
+
+    def test_battle_start_passive_waits_for_its_condition(self):
+        # навык начала боя с условием «летающие враги на поле»
+        give(self.db, ["knight"], event="battle_start", whose="self", action="use_skill", skill_id="attack",
+             to="enemies")
+        for enemy, expected in (("orc", 0), ("rider", 0)):
+            sim, knight, orc = self.battle([("knight", 1, 0, 0)], [(enemy, 1, 0, 0)])
+            set_tactics_rows(self.db, knight, [{"skill": "react", "conditions": ["flying_enemies_present"]}])
+            sim.step()
+            self.assertEqual(len([e for e in sim.events if isinstance(e, PassiveTriggered)
+                                  and e.passive_id == "react"]), expected, enemy)
+        sim, knight, orc = self.battle([("knight", 1, 0, 0)], [("orc", 1, 0, 0)])
+        set_tactics_rows(self.db, knight, [{"skill": "react", "conditions": ["infantry_enemies_present"]}])
+        sim.step()
+        self.assertTrue([e for e in sim.events if isinstance(e, PassiveTriggered) and e.passive_id == "react"])
 
     def test_limit_of_passives_per_one_active_action(self):
         set_owners(self.db, "units", "avenger", [])   # убираем классовую пассивку, чтобы не мешала счёту
@@ -86,30 +116,6 @@ class PassiveRulesTests(unittest.TestCase):
         only(db, sim.units[1], "attack")
         fired = [e for e in turn_of(sim, 1) if isinstance(e, PassiveTriggered)]
         self.assertEqual(len(fired), 3)
-
-    def test_passive_tactics_survive_save_and_load(self):
-        add_skill(self.db, "riposte", ["orc"], parts=[part(power=0.6)])
-        give(self.db, ["orc"], **counter())
-        sim, knight, orc = self.battle([("knight", 1, 0, 0)], [("orc", 1, 0, 0)])
-        react_with_rules(self.db, orc, "react", "riposte", condition={"type": "hp_below", "value": 0.7},
-                         self_condition={"type": "hp_above", "value": 0.1}, selector="weakest")
-        data = unit_to_save(orc)
-        self.assertEqual(data["passive_tactics"]["react"][0]["skill"], "riposte")
-        restored = unit_from_save(self.db, data)
-        rules = restored.passive_tactics_of("react").to_list()
-        self.assertEqual(rules[0]["condition"], {"type": "hp_below", "value": 0.7})
-        self.assertEqual(rules[0]["selector"], "weakest")
-        self.assertTrue(restored.has_passive_tactics("react"))
-
-    def test_removed_skill_drops_the_rule_on_load(self):
-        give(self.db, ["orc"], **counter())
-        add_skill(self.db, "temp_skill", [], parts=[part()])
-        orc = self.db.create_unit("orc", 2, 1)
-        set_passive_tactics(self.db, orc, "react", [rule("temp_skill")])
-        data = unit_to_save(orc)
-        self.db.delete("skills", "temp_skill")
-        restored = unit_from_save(self.db, data)
-        self.assertEqual(restored.passive_tactics, {})
 
 
 if __name__ == "__main__":

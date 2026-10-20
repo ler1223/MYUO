@@ -85,7 +85,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "heal": {
     "name": "Heal",
@@ -124,7 +127,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "impale": {
     "name": "Impale",
@@ -165,7 +171,10 @@
     "potency": [],
     "extras": {
       "kill_pp": 1
-    }
+    },
+    "default_tactic": [
+      "target_hp_is_lt_50_pct"
+    ]
   },
   "shield_bash": {
     "name": "Shield Bash",
@@ -251,7 +260,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "toxic_bolt": {
     "name": "Toxic Bolt",
@@ -298,7 +310,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "wide_smash": {
     "name": "Wide Smash",
@@ -396,7 +411,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "own_ap_is_2_or_more"
+    ]
   },
   "grand_smash": {
     "name": "Grand Smash",
@@ -490,7 +509,10 @@
       "dispel": [
         "debuff"
       ]
-    }
+    },
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "heavy_smash": {
     "name": "Heavy Smash",
@@ -533,7 +555,10 @@
       "ignore_def_vs": [
         "armored"
       ]
-    }
+    },
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "assaulting_blow": {
     "name": "Assaulting Blow",
@@ -574,7 +599,10 @@
     "potency": [],
     "extras": {
       "kill_ap": 1
-    }
+    },
+    "default_tactic": [
+      "target_hp_is_lt_50_pct"
+    ]
   },
   "row_smash": {
     "name": "Row Smash",
@@ -671,7 +699,10 @@
     "extras": {
       "ignore_def": 0.5,
       "truestrike": true
-    }
+    },
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "iron_crusher": {
     "name": "Iron Crusher",
@@ -727,7 +758,10 @@
       "ignore_def_vs": [
         "armored"
       ]
-    }
+    },
+    "default_tactic": [
+      "armored"
+    ]
   },
   "vengeful_axe": {
     "name": "Vengeful Axe",
@@ -1059,7 +1093,10 @@
     "potency": [],
     "extras": {
       "pp_drain": 1
-    }
+    },
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "offensive_curse": {
     "name": "Offensive Curse",
@@ -1092,7 +1129,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "defensive_curse": {
     "name": "Defensive Curse",
@@ -1132,7 +1172,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "compounding_curse": {
     "name": "Compounding Curse",
@@ -1165,7 +1208,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "front_row",
+      "second_action"
+    ]
   },
   "wind_arrow": {
     "name": "Wind Arrow",
@@ -1226,7 +1273,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "icicle_arrow": {
     "name": "Icicle Arrow",
@@ -1289,7 +1339,10 @@
     "potency": [],
     "extras": {
       "random_targets": 2
-    }
+    },
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "primus_edge": {
     "name": "Primus Edge",
@@ -1575,7 +1628,10 @@
       "drain_vs": [
         "cavalry"
       ]
-    }
+    },
+    "default_tactic": [
+      "full_column"
+    ]
   },
   "mirage_stab": {
     "name": "Mirage Stab",
@@ -1839,7 +1895,10 @@
     "potency": [],
     "extras": {
       "truestrike_buffed": true
-    }
+    },
+    "default_tactic": [
+      "user_is_buffed"
+    ]
   },
   "warding_slash": {
     "name": "Warding Slash",
@@ -1974,7 +2033,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "full_column"
+    ]
   },
   "pile_thrust": {
     "name": "Pile Thrust",
@@ -2070,7 +2132,10 @@
       "unguardable_vs": [
         "cavalry"
       ]
-    }
+    },
+    "default_tactic": [
+      "prioritize_cavalry"
+    ]
   },
   "fatal_dive": {
     "name": "Fatal Dive",
@@ -2156,7 +2221,10 @@
       ],
       "hit_ap": 1,
       "hit_full_hp": true
-    }
+    },
+    "default_tactic": [
+      "prioritize_cavalry"
+    ]
   },
   "lean_edge": {
     "name": "Lean Edge",
@@ -2249,7 +2317,10 @@
     "extras": {
       "ap_drain": 1,
       "pp_drain": 1
-    }
+    },
+    "default_tactic": [
+      "cavalry"
+    ]
   },
   "spinning_edge": {
     "name": "Spinning Edge",
@@ -2334,7 +2405,10 @@
       "dispel": [
         "buff"
       ]
-    }
+    },
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "curing_call": {
     "name": "Curing Call",
@@ -2377,7 +2451,10 @@
       "dispel": [
         "debuff"
       ]
-    }
+    },
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "innocent_ray": {
     "name": "Innocent Ray",
@@ -2420,7 +2497,10 @@
       "dispel": [
         "buff"
       ]
-    }
+    },
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "sting": {
     "name": "Sting",
@@ -2604,7 +2684,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "dual_shot": {
     "name": "Dual Shot",
@@ -2645,7 +2728,11 @@
     "potency": [],
     "extras": {
       "random_targets": 2
-    }
+    },
+    "default_tactic": [
+      "prioritize_flying",
+      "2_or_more_enemies"
+    ]
   },
   "killing_chain": {
     "name": "Killing Chain",
@@ -2686,7 +2773,10 @@
     "potency": [],
     "extras": {
       "kill_ap": 1
-    }
+    },
+    "default_tactic": [
+      "target_hp_is_lt_50_pct"
+    ]
   },
   "bastards_cross": {
     "name": "Bastard's Cross",
@@ -2769,7 +2859,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "greatshield": {
     "name": "Greatshield",
@@ -2802,7 +2895,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "slice": {
     "name": "Slice",
@@ -2977,7 +3073,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "offensive_order": {
     "name": "Offensive Order",
@@ -3010,7 +3109,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "hache": {
     "name": "Hache",
@@ -3090,7 +3192,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "passive_steal": {
     "name": "Passive Steal",
@@ -3328,7 +3433,10 @@
     ],
     "extras": {
       "hit_pp": 1
-    }
+    },
+    "default_tactic": [
+      "own_hp_is_gt_100_pct"
+    ]
   },
   "long_thrust": {
     "name": "Long Thrust",
@@ -3434,7 +3542,10 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "flying"
+    ]
   },
   "honed_spear": {
     "name": "Honed Spear",
@@ -3539,7 +3650,10 @@
         "scale": "front_row"
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "row_shot": {
     "name": "Row Shot",
@@ -3578,7 +3692,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "mystic_arrow": {
     "name": "Mystic Arrow",
@@ -3618,7 +3735,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "sonic_shaft": {
     "name": "Sonic Shaft",
@@ -3657,7 +3777,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "glacial_rain": {
     "name": "Glacial Rain",
@@ -3753,7 +3876,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "magick_missile": {
     "name": "Magick Missile",
@@ -3794,7 +3920,11 @@
     "potency": [],
     "extras": {
       "random_targets": 2
-    }
+    },
+    "default_tactic": [
+      "prioritize_armored",
+      "2_or_more_enemies"
+    ]
   },
   "ice_coffin": {
     "name": "Ice Coffin",
@@ -3853,7 +3983,11 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored",
+      "row_with_most_combatants"
+    ]
   },
   "keen_edge": {
     "name": "Keen Edge",
@@ -4124,7 +4258,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "volcano": {
     "name": "Volcano",
@@ -4171,7 +4308,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "bear_crush": {
     "name": "Bear Crush",
@@ -4318,7 +4458,10 @@
         "scale": "self_hp_missing"
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "own_hp_is_lt_50_pct"
+    ]
   },
   "piercing_lance": {
     "name": "Piercing Lance",
@@ -4511,7 +4654,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "night_vision": {
     "name": "Night Vision",
@@ -4551,7 +4698,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "extra_heal": {
     "name": "Extra Heal",
@@ -4598,7 +4749,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "finishing_stab": {
     "name": "Finishing Stab",
@@ -4800,7 +4954,10 @@
       "unguardable_vs": [
         "cavalry"
       ]
-    }
+    },
+    "default_tactic": [
+      "prioritize_cavalry"
+    ]
   },
   "fire_breath": {
     "name": "Fire Breath",
@@ -4847,7 +5004,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_cavalry"
+    ]
   },
   "tempest_drive": {
     "name": "Tempest Drive",
@@ -4891,7 +5051,11 @@
         "cavalry"
       ],
       "desperate": 0.5
-    }
+    },
+    "default_tactic": [
+      "prioritize_cavalry",
+      "own_hp_is_lt_50_pct"
+    ]
   },
   "wall": {
     "name": "Wall",
@@ -4924,7 +5088,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "magick_wall": {
     "name": "Magick Wall",
@@ -4964,7 +5131,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "sanguine_attack": {
     "name": "Sanguine Attack",
@@ -5130,7 +5300,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "1_or_more_ap"
+    ]
   },
   "fire_slash": {
     "name": "Fire Slash",
@@ -5346,7 +5519,10 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "double_blast": {
     "name": "Double Blast",
@@ -5399,7 +5575,10 @@
     ],
     "extras": {
       "random_targets": 2
-    }
+    },
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "icicle_dart": {
     "name": "Icicle Dart",
@@ -5460,7 +5639,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_scout"
+    ]
   },
   "assassins_nail": {
     "name": "Assassin's Nail",
@@ -5845,7 +6027,10 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "dragoon_dive": {
     "name": "Dragoon Dive",
@@ -5939,7 +6124,10 @@
     "potency": [],
     "extras": {
       "ignore_def": 1.0
-    }
+    },
+    "default_tactic": [
+      "cavalry"
+    ]
   },
   "carnage": {
     "name": "Carnage",
@@ -6032,7 +6220,10 @@
     "extras": {
       "hit_pp": 1,
       "hit_label": "ailment"
-    }
+    },
+    "default_tactic": [
+      "afflicted"
+    ]
   },
   "death_spin": {
     "name": "Death Spin",
@@ -6091,7 +6282,10 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "row_with_2_plus_combatants"
+    ]
   },
   "desperation": {
     "name": "Desperation",
@@ -6132,7 +6326,10 @@
     "potency": [],
     "extras": {
       "no_crit": true
-    }
+    },
+    "default_tactic": [
+      "own_hp_is_lt_50_pct"
+    ]
   },
   "brutal_swing": {
     "name": "Brutal Swing",
@@ -6281,7 +6478,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "first_action",
+      "own_hp_is_lt_50_pct"
+    ]
   },
   "dark_armor": {
     "name": "Dark Armor",
@@ -6355,7 +6556,10 @@
     "potency": [],
     "extras": {
       "deathblow_hp": 0.1
-    }
+    },
+    "default_tactic": [
+      "own_hp_is_lt_50_pct"
+    ]
   },
   "chaos_unending": {
     "name": "Chaos Unending",
@@ -6391,7 +6595,10 @@
         "uo_passive_seal",
         "uo_crit_seal"
       ]
-    }
+    },
+    "default_tactic": [
+      "first_action"
+    ]
   },
   "flame_thrust": {
     "name": "Flame Thrust",
@@ -7036,7 +7243,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_scout"
+    ]
   },
   "shadow_thrust": {
     "name": "Shadow Thrust",
@@ -7489,7 +7699,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "elfslayer": {
     "name": "Elfslayer",
@@ -7528,7 +7741,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_elven"
+    ]
   },
   "beastslayer": {
     "name": "Beastslayer",
@@ -7567,7 +7783,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_bestral"
+    ]
   },
   "strength_shatter": {
     "name": "Strength Shatter",
@@ -8067,7 +8286,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "flame_arrow": {
     "name": "Flame Arrow",
@@ -8114,7 +8336,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "shadow_arrow": {
     "name": "Shadow Arrow",
@@ -8161,7 +8386,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "delaying_shot": {
     "name": "Delaying Shot",
@@ -8200,7 +8428,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "saints_shot": {
     "name": "Saint's Shot",
@@ -8239,7 +8470,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "photon_arrow": {
     "name": "Photon Arrow",
@@ -8295,7 +8529,10 @@
     "potency": [],
     "extras": {
       "random_targets": 2
-    }
+    },
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "harpoon_bolt": {
     "name": "Harpoon Bolt",
@@ -8334,7 +8571,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "spiked_bolt": {
     "name": "Spiked Bolt",
@@ -8373,7 +8613,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "aqua_venom": {
     "name": "Aqua Venom",
@@ -8420,7 +8663,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "prioritize_armored"
+    ]
   },
   "maelstrom": {
     "name": "Maelstrom",
@@ -8471,7 +8717,10 @@
         "scale": ""
       }
     ],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "poisoned"
+    ]
   },
   "sanguine_darts": {
     "name": "Sanguine Darts",
@@ -8565,7 +8814,10 @@
     ],
     "extras": {
       "random_targets": 3
-    }
+    },
+    "default_tactic": [
+      "prioritize_flying"
+    ]
   },
   "earthquake": {
     "name": "Earthquake",
@@ -8930,7 +9182,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "circle_heal": {
     "name": "Circle Heal",
@@ -9184,7 +9439,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "healing_wind": {
     "name": "Healing Wind",
@@ -9223,7 +9482,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "honed_healing": {
     "name": "Honed Healing",
@@ -9262,7 +9524,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "own_ap_is_2_or_more"
+    ]
   },
   "holy_cradle": {
     "name": "Holy Cradle",
@@ -9295,7 +9561,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "resurrection": {
     "name": "Resurrection",
@@ -9322,7 +9592,10 @@
     "potency": [],
     "extras": {
       "revive": true
-    }
+    },
+    "default_tactic": [
+      "highest_hp"
+    ]
   },
   "reincarnation": {
     "name": "Reincarnation",
@@ -9357,7 +9630,10 @@
     "potency": [],
     "extras": {
       "revive": true
-    }
+    },
+    "default_tactic": [
+      "highest_hp"
+    ]
   },
   "animated_dead": {
     "name": "Animated Dead",
@@ -9393,7 +9669,10 @@
     "extras": {
       "revive": true,
       "revive_pct": 100
-    }
+    },
+    "default_tactic": [
+      "highest_hp"
+    ]
   },
   "glowing_light": {
     "name": "Glowing Light",
@@ -9426,7 +9705,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "poison_curse": {
     "name": "Poison Curse",
@@ -9473,7 +9755,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "fire_curse": {
     "name": "Fire Curse",
@@ -9563,7 +9848,10 @@
       "dispel": [
         "buff"
       ]
-    }
+    },
+    "default_tactic": [
+      "prioritize_back_row"
+    ]
   },
   "sandstorm": {
     "name": "Sandstorm",
@@ -9801,7 +10089,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "row_resistance": {
     "name": "Row Resistance",
@@ -9836,7 +10127,10 @@
     "potency": [],
     "extras": {
       "day_area": "all"
-    }
+    },
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "mystic_shield": {
     "name": "Mystic Shield",
@@ -9869,7 +10163,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "dark_mist": {
     "name": "Dark Mist",
@@ -9902,7 +10199,10 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "mystic_conferral": {
     "name": "Mystic Conferral",
@@ -9935,7 +10235,11 @@
       "type": "always"
     },
     "potency": [],
-    "extras": {}
+    "extras": {},
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "wyrmcleave": {
     "name": "Wyrmcleave",
@@ -10069,7 +10373,10 @@
     "extras": {
       "hit_pp": 2,
       "hit_label": "stun"
-    }
+    },
+    "default_tactic": [
+      "own_hp_is_lt_50_pct"
+    ]
   },
   "daemonic_pact_pact": {
     "name": "Daemonic Pact",
@@ -10197,7 +10504,10 @@
     ],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "quick_reload": {
     "name": "Quick Reload",
@@ -10309,7 +10619,10 @@
     "extras": {},
     "body": true,
     "target": "attacker",
-    "response": "counter"
+    "response": "counter",
+    "default_tactic": [
+      "own_hp_is_gt_50_pct"
+    ]
   },
   "quick_heal": {
     "name": "Quick Heal",
@@ -10356,7 +10669,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "refresh": {
     "name": "Refresh",
@@ -10375,6 +10691,9 @@
         "to": "allies",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "front_row"
     ]
   },
   "lifesaver": {
@@ -10428,6 +10747,9 @@
         "effect_id": "uo_endure",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "own_hp_is_lt_50_pct"
     ]
   },
   "parting_resurrection": {
@@ -10462,7 +10784,10 @@
       "revive": true
     },
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "highest_hp"
+    ]
   },
   "binding_guard": {
     "name": "Binding Guard",
@@ -10688,6 +11013,9 @@
         "effect_id": "uo_next_vampire",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "own_hp_is_lt_100_pct"
     ]
   },
   "demonic_pact": {
@@ -10823,6 +11151,9 @@
         "effect_id": "uo_next_atk_m20pct_crit_seal",
         "to": "actor"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "cursed_swamp": {
@@ -10841,6 +11172,9 @@
         "effect_id": "uo_initiative_m10_evasion_m30",
         "to": "enemies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "quick_cure": {
@@ -10866,6 +11200,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "front_row"
     ]
   },
   "selfless_heal": {
@@ -10934,6 +11271,9 @@
         "effect_id": "uo_immune_debuff",
         "to": "allies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "curing_heal": {
@@ -10981,7 +11321,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "rage_of_the_faeries": {
     "name": "Rage of the Faeries",
@@ -11187,7 +11530,10 @@
     "extras": {},
     "body": true,
     "target": "allies",
-    "target_area": "row"
+    "target_area": "row",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "accelerate": {
     "name": "Accelerate",
@@ -11251,6 +11597,9 @@
         "effect_id": "uo_discharge",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "user_is_buffed"
     ]
   },
   "arrow_cover": {
@@ -11388,6 +11737,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "own_hp_is_lt_100_pct"
     ]
   },
   "feathering": {
@@ -11406,6 +11758,9 @@
         "to": "allies",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "gryphon_glide": {
@@ -11479,6 +11834,9 @@
         "effect_id": "uo_initiative_p20",
         "to": "allies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "passive_miracle": {
@@ -11568,6 +11926,9 @@
         "effect_id": "uo_phys_def_mag_def_p10pct",
         "to": "allies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "heavy_cover": {
@@ -11583,7 +11944,10 @@
     "response": "cover",
     "cover": {
       "guard": "heavy"
-    }
+    },
+    "default_tactic": [
+      "prioritize_back_row"
+    ]
   },
   "guardian": {
     "name": "Guardian",
@@ -11604,6 +11968,9 @@
         "effect_id": "uo_phys_def_p20pct_guard_rate_p20pct_stack",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "own_hp_is_lt_50_pct"
     ]
   },
   "parting_blow": {
@@ -11873,7 +12240,10 @@
     "cover": {
       "guard": "medium",
       "many": true
-    }
+    },
+    "default_tactic": [
+      "row_is_attacked"
+    ]
   },
   "holy_barrier": {
     "name": "Holy Barrier",
@@ -11956,6 +12326,9 @@
         "to": "allies",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "magick_barrier": {
@@ -12078,6 +12451,9 @@
         "to": "allies",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "row_is_attacked"
     ]
   },
   "first_aid": {
@@ -12119,7 +12495,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "keen_call": {
     "name": "Keen Call",
@@ -12137,6 +12516,9 @@
         "effect_id": "uo_next_crit",
         "to": "subject"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "active_gift": {
@@ -12229,7 +12611,10 @@
     "extras": {},
     "body": true,
     "target": "attacker",
-    "response": "counter"
+    "response": "counter",
+    "default_tactic": [
+      "attacked_by_flying"
+    ]
   },
   "eagles_eye": {
     "name": "Eagle's Eye",
@@ -12401,6 +12786,9 @@
         "effect_id": "uo_next_sure",
         "to": "subject"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "quick_cast": {
@@ -12465,7 +12853,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "enemies"
+    "target": "enemies",
+    "default_tactic": [
+      "prioritize_scout"
+    ]
   },
   "parry": {
     "name": "Parry",
@@ -12520,6 +12911,9 @@
         "effect_id": "uo_guard_rate_p50pct_phys_def_p30pct",
         "to": "allies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "undying_will": {
@@ -12563,6 +12957,10 @@
         "to": "allies",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
     ]
   },
   "war_horn": {
@@ -12581,6 +12979,9 @@
         "effect_id": "uo_unguardable",
         "to": "allies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "magick_counter": {
@@ -12938,6 +13339,9 @@
         "label": "buff",
         "to": "actor"
       }
+    ],
+    "default_tactic": [
+      "prioritize_back_row"
     ]
   },
   "circle_barrier": {
@@ -13012,6 +13416,9 @@
           "type": "is_night"
         }
       }
+    ],
+    "default_tactic": [
+      "prioritize_scout"
     ]
   },
   "bestral_howl": {
@@ -13030,6 +13437,9 @@
         "to": "allies",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "killing_pursuit": {
@@ -13182,6 +13592,9 @@
         "effect_id": "uo_initiative_m20",
         "to": "enemies"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "uo_item_heal_10": {
@@ -13434,7 +13847,10 @@
     "response": "cover",
     "cover": {
       "guard": "medium"
-    }
+    },
+    "default_tactic": [
+      "prioritize_back_row"
+    ]
   },
   "lifeshare": {
     "name": "Lifeshare",
@@ -13469,7 +13885,10 @@
       "give_hp": 0.5
     },
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "royal_guard": {
     "name": "Royal Guard",
@@ -13551,7 +13970,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "honed_shield": {
     "name": "Honed Shield",
@@ -13591,7 +14013,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "allies"
+    "target": "allies",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "bunker_stance": {
     "name": "Bunker Stance",
@@ -13608,6 +14033,9 @@
         "effect_id": "uo_initiative_p30_phys_def_p40pct_guard_rate_p40",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "impetus_stance": {
@@ -13632,6 +14060,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "war_cry": {
@@ -13649,6 +14080,9 @@
         "effect_id": "uo_phys_atk_p20pct",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "magick_shell": {
@@ -13683,6 +14117,9 @@
         "effect_id": "uo_negate_6",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "3_or_fewer_allies"
     ]
   },
   "hastened_charge": {
@@ -13740,7 +14177,11 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "allies"
+    "target": "allies",
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "hastened_action": {
     "name": "Hastened Action",
@@ -13780,7 +14221,11 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "allies"
+    "target": "allies",
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
+    ]
   },
   "hastened_cast": {
     "name": "Hastened Cast",
@@ -13844,6 +14289,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "scornful_dead": {
@@ -13868,6 +14316,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "hastened_curse": {
@@ -13908,7 +14359,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "enemies"
+    "target": "enemies",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "eye_of_the_warrior_princess": {
     "name": "Eye of the Warrior Princess",
@@ -13948,7 +14402,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "enemies"
+    "target": "enemies",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "ominous_wall": {
     "name": "Ominous Wall",
@@ -13988,7 +14445,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "heavy_alignment": {
     "name": "Heavy Alignment",
@@ -14025,6 +14485,10 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
     ]
   },
   "aerial_alignment": {
@@ -14062,6 +14526,10 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
     ]
   },
   "united_front": {
@@ -14096,6 +14564,10 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp",
+      "front_row"
     ]
   },
   "wolf_pack": {
@@ -14144,7 +14616,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "bears_den": {
     "name": "Bear's Den",
@@ -14192,7 +14667,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "reheal": {
     "name": "Reheal",
@@ -14210,6 +14688,10 @@
         "to": "side",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp",
+      "prioritize_front_row"
     ]
   },
   "hastened_heal": {
@@ -14264,7 +14746,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "rapid_shot": {
     "name": "Rapid Shot",
@@ -14638,6 +15123,9 @@
         "percent": true,
         "to": "side"
       }
+    ],
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
     ]
   },
   "daemonic_pact": {
@@ -14791,7 +15279,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "self"
+    "target": "self",
+    "default_tactic": [
+      "front_row"
+    ]
   },
   "recast": {
     "name": "Recast",
@@ -15165,7 +15656,10 @@
     },
     "body": true,
     "target": "attacker",
-    "response": "counter"
+    "response": "counter",
+    "default_tactic": [
+      "poisoned"
+    ]
   },
   "magick_burst": {
     "name": "Magick Burst",
@@ -15282,7 +15776,10 @@
     "extras": {},
     "body": true,
     "target": "attacker",
-    "response": "counter"
+    "response": "counter",
+    "default_tactic": [
+      "own_pp_is_2_or_more"
+    ]
   },
   "poison_touch": {
     "name": "Poison Touch",
@@ -15331,7 +15828,10 @@
     "extras": {},
     "body": true,
     "target": "attacker",
-    "response": "counter"
+    "response": "counter",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "venom_touch": {
     "name": "Venom Touch",
@@ -15379,7 +15879,10 @@
     "extras": {},
     "body": true,
     "target": "attacker",
-    "response": "counter"
+    "response": "counter",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "phalanx_shift": {
     "name": "Phalanx Shift",
@@ -15428,7 +15931,11 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "lowest_hp",
+      "cavalry_enemies_present"
+    ]
   },
   "aerial_shift": {
     "name": "Aerial Shift",
@@ -15477,7 +15984,11 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "lowest_hp",
+      "flying_enemies_present"
+    ]
   },
   "self_care": {
     "name": "Self-Care",
@@ -15495,6 +16006,9 @@
         "label": "debuff",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "front_row"
     ]
   },
   "relic_heal": {
@@ -15550,7 +16064,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "poison_cure": {
     "name": "Poison Cure",
@@ -15576,6 +16093,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "full_column"
     ]
   },
   "fire_cure": {
@@ -15602,6 +16122,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "row_with_most_combatants"
     ]
   },
   "freeze_cure": {
@@ -15628,6 +16151,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "row_with_least_combatants"
     ]
   },
   "stun_cure": {
@@ -15654,6 +16180,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "row_with_2_plus_combatants"
     ]
   },
   "blind_cure": {
@@ -15680,6 +16209,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "row_with_3_plus_combatants"
     ]
   },
   "guard_cure": {
@@ -15706,6 +16238,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "daytime"
     ]
   },
   "passive_cure": {
@@ -15732,6 +16267,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "nighttime"
     ]
   },
   "sacred_cure": {
@@ -15759,6 +16297,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "front_row"
     ]
   },
   "abyssal_miasma": {
@@ -15819,6 +16360,9 @@
         "action": "reflect_debuffs",
         "to": "actor"
       }
+    ],
+    "default_tactic": [
+      "user_is_debuffed"
     ]
   },
   "aerial_pursuit": {
@@ -16265,6 +16809,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "shining_light": {
@@ -16305,7 +16852,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "attacker"
+    "target": "attacker",
+    "default_tactic": [
+      "lowest_hp"
+    ]
   },
   "preemptive_heal": {
     "name": "Preemptive Heal",
@@ -16351,7 +16901,10 @@
     "potency": [],
     "extras": {},
     "body": true,
-    "target": "affected_ally"
+    "target": "affected_ally",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "holy_breath": {
     "name": "Holy Breath",
@@ -16403,7 +16956,10 @@
       "hit_label": "ailment"
     },
     "body": true,
-    "target": "acting_ally"
+    "target": "acting_ally",
+    "default_tactic": [
+      "target_hp_is_lt_100_pct"
+    ]
   },
   "sorcerous_connection": {
     "name": "Sorcerous Connection",
@@ -16430,6 +16986,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "powerful_call": {
@@ -16447,6 +17006,9 @@
         "effect_id": "uo_next_phys_atk_p30pct",
         "to": "subject"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "inspiration": {
@@ -16464,6 +17026,9 @@
         "effect_id": "uo_next_phys_atk_mag_atk_p30pct_crit_damage_p50_accuracy_p50",
         "to": "subject"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "wide_inspiration": {
@@ -16482,6 +17047,9 @@
         "to": "side",
         "to_area": "row"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "reinforce": {
@@ -16499,6 +17067,9 @@
         "effect_id": "uo_free_action",
         "to": "subject"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "sylphic_barrier": {
@@ -16837,6 +17408,10 @@
         "effect_id": "uo_endure",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp",
+      "own_hp_is_lt_50_pct"
     ]
   },
   "painbringer": {
@@ -16959,6 +17534,9 @@
           }
         ]
       }
+    ],
+    "default_tactic": [
+      "own_pp_is_2_or_more"
     ]
   },
   "invincible": {
@@ -16993,6 +17571,9 @@
         "effect_id": "uo_evade_one",
         "to": "owner"
       }
+    ],
+    "default_tactic": [
+      "lowest_hp"
     ]
   },
   "dynamic_glide": {
