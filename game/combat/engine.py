@@ -109,7 +109,8 @@ from ..stats import Stat
 from ..tactics import Always, Frontmost
 from ..unit import Unit
 from . import rules
-from .field import PIERCE_AREAS, Side, affected, default_order, pick_target, reachable
+from ..conditions import Context, choose_target
+from .field import PIERCE_AREAS, Side, affected, default_order, pick_target, priority_order, reachable
 from .record import (
     ACTIVE,
     AFFLICTION,
@@ -198,6 +199,7 @@ class Battle:
         self._depth = 0
         self._dead: set[int] = set()
         self._reaction_kind: Optional[str] = None     # counter / followup, пока идёт навык-ответ
+        self._actions: dict[int, int] = {}            # сколько активных действий уже сделал боец (условия «N-е действие»)
         self._charges: list[tuple[Unit, SkillDefinition, Unit]] = []     # подготовленные навыки до конца круга
         self._round_ended = True
         self._unblockable = frozenset(t for t, d in db.tags.items() if d.unblockable)
@@ -313,6 +315,7 @@ class Battle:
         if choice is None:
             return self._skip(unit, SKIP_NO_ACTION)
         skill, target = choice
+        self._actions[unit.uid] = self._actions.get(unit.uid, 0) + 1
         act = Act(ACTIVE, unit.uid, skill.id, target=target.uid, ap_cost=skill.ap_cost, pp_cost=skill.pp_cost,
                   hits=skill.hits, round=self.round)
         # перед активным навыком: яд, ожог, восстановление (реакции эффектов на начало хода) и ответы
@@ -379,28 +382,33 @@ class Battle:
         return act
 
     def _choose(self, unit: Unit) -> Optional[tuple[SkillDefinition, Unit]]:
-        """Первое правило тактики, которое можно выполнить (навык есть, хватает AP/PP, условия,
-        есть цель); цель — по правилам UO (field)."""
+        """Первая строка тактики, которую можно выполнить: навык есть, хватает AP/PP, условия игры (обстановка,
+        фильтры и порядок целей), есть цель; без условий цель — по правилам UO (field)."""
         own = self.side_of(unit)
         other = self.other(own)
         available = set(unit.skill_ids)
-        rules_ = [(r.skill_id, r.condition, r.self_condition, r.selector) for r in unit.tactics.ordered(unit)]
+        rules_ = [(r.skill_id, r.conditions) for r in unit.tactics.ordered(unit)]
         # ни одно правило не подошло — обычная атака (навык attack), если она у бойца есть
-        fallback = [(FALLBACK_SKILL, Always(), Always(), Frontmost())] if FALLBACK_SKILL in unit.skill_ids else []
-        for skill_id, condition, self_condition, selector in rules_ + fallback:
+        fallback = [(FALLBACK_SKILL, ())] if FALLBACK_SKILL in unit.skill_ids else []
+        ctx = Context(self, unit, None, (), self._actions.get(unit.uid, 0) + 1)
+        for skill_id, conditions in rules_ + fallback:
             skill = self.db.skills.get(skill_id)
             if skill is None or skill.id not in available or not skill.affordable(unit):
                 continue
-            if not (skill.requires_self.check(unit, unit) and self_condition.check(unit, unit)):
+            if not skill.requires_self.check(unit, unit):
                 continue
             side = own if skill.targets in ("ally", "self") else other
             pool = reachable(skill, unit, own, other)
             if skill.targets == "enemy" and skill.area in ("", "single"):
                 pool = [u for u in other.alive() if u.has_flag("taunt")] or pool
-            candidates = [u for u in pool if skill.requires_target.check(unit, u) and condition.check(unit, u)]
-            if candidates:
+            pool = [u for u in pool if skill.requires_target.check(unit, u)]
+            target = choose_target(
+                conditions, ctx, pool,
+                lambda cands: default_order(unit, own, side, cands, self.rng)[0],
+                lambda cands: priority_order(unit, own, side, cands))
+            if target is not None:
                 unit.tactics.chosen(unit, skill.id)
-                return skill, pick_target(selector, unit, own, side, candidates, self.rng)
+                return skill, target
         return None
 
     # --- навык ---

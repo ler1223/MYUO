@@ -18,7 +18,8 @@ from typing import TYPE_CHECKING, Any, Callable, Mapping, Optional, Sequence
 
 from .stats import Stat
 from .tactics import CONDITIONS as LEGACY_CONDITIONS
-from .tactics import condition_from_dict, condition_to_dict
+from .tactics import SELECTORS as LEGACY_SELECTORS
+from .tactics import Always, condition_from_dict, condition_to_dict
 
 if TYPE_CHECKING:
     from .unit import Unit
@@ -104,6 +105,33 @@ class LegacyCondition(Condition):
 
     def to_data(self) -> Any:
         return {**condition_to_dict(self.inner), "on": self.on}
+
+
+@dataclass(frozen=True)
+class LegacySelector(Condition):
+    """Старый выбор цели (strongest, backmost, random) как условие-приоритет. Если он единственный приоритет правила,
+    выбор идёт его собственным ``select`` — порядок бросков случайности и результат остаются прежними."""
+
+    name: str = "frontmost"
+    kind: str = PRIORITIZE
+    group: str = "custom"
+
+    @property
+    def key(self) -> str:  # type: ignore[override]
+        return "custom:" + self.name
+
+    def select(self, owner: "Unit", ordered: Sequence["Unit"], rng) -> "Unit":
+        return LEGACY_SELECTORS[self.name]().select(owner, ordered, rng)
+
+    def rank(self, ctx: Context, unit: "Unit") -> float:
+        if self.name == "strongest":
+            return -max(unit.stat(Stat.PHYS_ATK), unit.stat(Stat.MAG_ATK))
+        if self.name == "random":
+            return ctx.battle.rng.random()
+        return 0.0
+
+    def to_data(self) -> Any:
+        return {"type": "selector", "name": self.name}
 
 
 # --- помощники ---------------------------------------------------------------------------------------------
@@ -299,6 +327,10 @@ def condition_from_data(data: Any) -> Condition:
         if data not in FACTORS:
             raise ValueError(f"unknown tactic condition {data!r}")
         return FACTORS[data]
+    if isinstance(data, Mapping) and data.get("type") == "selector":
+        if data.get("name") not in LEGACY_SELECTORS:
+            raise ValueError(f"unknown selector {data.get('name')!r}")
+        return LegacySelector(data["name"])
     if isinstance(data, Mapping):
         params = dict(data)
         on = params.pop("on", "target")
@@ -322,3 +354,67 @@ def check_conditions(conditions: Sequence[Condition]) -> None:
 def plain_conditions(conditions: Sequence[Condition]) -> bool:
     """Нет ни одного условия, меняющего порядок или круг целей и обстановку."""
     return not any(isinstance(c, Factor) and c.key != "none" or isinstance(c, LegacyCondition) for c in conditions)
+
+
+# --- старый вид правила ({"condition", "self_condition", "selector"}) <-> условия ---------------------------------
+
+SELECTOR_FACTORS = {"weakest": "lowest_pct_hp"}        # то же правило в терминах игры
+
+
+def conditions_from_legacy(data: Mapping[str, Any]) -> tuple[Condition, ...]:
+    """Старое правило тактики -> условия: на цель, на себя, затем порядок целей. «Всегда» и «передний» опускаются."""
+    out: list[Condition] = []
+    for key, on in (("self_condition", "self"), ("condition", "target")):
+        raw = data.get(key)
+        if raw and raw.get("type", "always") != "always":
+            out.append(LegacyCondition(condition_from_dict(raw), on))
+    name = data.get("selector", "frontmost")
+    if name not in LEGACY_SELECTORS:
+        raise KeyError(name)
+    if name in SELECTOR_FACTORS:
+        out.append(FACTORS[SELECTOR_FACTORS[name]])
+    elif name != "frontmost":
+        out.append(LegacySelector(name))
+    return tuple(out)
+
+
+def conditions_to_legacy(conditions: Sequence[Condition]) -> Optional[dict[str, Any]]:
+    """Условия -> старый вид, если он их выражает точно (по одному условию на цель, на себя и порядку); иначе None."""
+    target = own = None
+    selector = "frontmost"
+    inverse = {v: k for k, v in SELECTOR_FACTORS.items()}
+    for cond in conditions:
+        if isinstance(cond, LegacyCondition) and cond.on == "target" and target is None:
+            target = cond.inner
+        elif isinstance(cond, LegacyCondition) and cond.on == "self" and own is None:
+            own = cond.inner
+        elif isinstance(cond, LegacySelector) and selector == "frontmost":
+            selector = cond.name
+        elif isinstance(cond, Factor) and cond.key in inverse and selector == "frontmost":
+            selector = inverse[cond.key]
+        else:
+            return None
+    return {"self_condition": condition_to_dict(own or Always()), "condition": condition_to_dict(target or Always()),
+            "selector": selector}
+
+
+def choose_target(conditions: Sequence[Condition], ctx: Context, pool: Sequence["Unit"], pick_default, pick_ordered):
+    """Цель по условиям строки тактики или None («навык не срабатывает»).
+
+    ``pool`` — круг целей навыка (уже с requires_target). Порядок: фильтры ``target_only`` -> круг кандидатов
+    (его видят условия обстановки, например «средний HP целей») -> ``activates_only`` -> порядок.
+    ``pick_default(cands)`` — выбор по умолчанию (как у навыков без условий); ``pick_ordered(cands)`` — кандидаты
+    в порядке «передний ряд первым» для условий-приоритетов."""
+    cands = [u for u in pool if all(c.accepts(ctx, u) for c in conditions)]
+    if not cands:
+        return None
+    ctx.candidates = cands
+    if not all(c.gate(ctx) for c in conditions):
+        return None
+    ranks = [c for c in conditions if c.kind == PRIORITIZE]
+    if not ranks:
+        return pick_default(cands)
+    ordered = pick_ordered(cands)
+    if len(ranks) == 1 and isinstance(ranks[0], LegacySelector):
+        return ranks[0].select(ctx.owner, ordered, ctx.battle.rng)
+    return min(ordered, key=lambda u: tuple(c.rank(ctx, u) for c in ranks))

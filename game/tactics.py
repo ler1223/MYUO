@@ -205,30 +205,63 @@ def condition_to_dict(condition: ICondition) -> dict[str, Any]:
     return {"type": _registry_name(CONDITIONS, condition), **params}
 
 
+# До переключения редакторов на новый вид (docs/uo/ABILITIES_DESIGN.md, шаг 6) правило пишется старым видом
+# {"skill", "condition", "self_condition", "selector"}, если оно им точно выражается; иначе — новым
+# {"skill", "conditions": [...]}. Читаются оба.
+WRITE_LEGACY_WHEN_POSSIBLE = True
+
+
 @dataclass(frozen=True)
 class TacticRule:
+    """Строка тактики: навык и до двух условий (game/conditions.py); порядок строк — приоритет."""
+
     skill_id: str
-    condition: ICondition = Always()        # условие на цель
-    self_condition: ICondition = Always()   # условие на самого юнита
-    selector: ITargetSelector = Frontmost()
+    conditions: tuple = ()
+
+    @classmethod
+    def of(cls, skill_id: str, condition: ICondition = Always(), self_condition: ICondition = Always(),
+           selector: ITargetSelector = Frontmost()) -> "TacticRule":
+        """Правило из старых частей: условие на цель, условие на себя, выбор цели."""
+        from .conditions import conditions_from_legacy
+        return cls(skill_id, conditions_from_legacy({
+            "condition": condition_to_dict(condition), "self_condition": condition_to_dict(self_condition),
+            "selector": _registry_name(SELECTORS, selector)}))
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "TacticRule":
-        """Формат: {"skill", "condition": {...}, "self_condition": {...}, "selector"}."""
-        return cls(
-            skill_id=data["skill"],
-            condition=condition_from_dict(data.get("condition")),
-            self_condition=condition_from_dict(data.get("self_condition")),
-            selector=SELECTORS[data.get("selector", "frontmost")](),
-        )
+        from .conditions import condition_from_data, conditions_from_legacy
+        if "conditions" in data:
+            return cls(data["skill"], tuple(condition_from_data(c) for c in data["conditions"]))
+        return cls(data["skill"], conditions_from_legacy(data))
 
     def to_dict(self) -> dict[str, Any]:
-        return {
-            "skill": self.skill_id,
-            "self_condition": condition_to_dict(self.self_condition),
-            "condition": condition_to_dict(self.condition),
-            "selector": _registry_name(SELECTORS, self.selector),
-        }
+        from .conditions import conditions_to_legacy
+        legacy = conditions_to_legacy(self.conditions) if WRITE_LEGACY_WHEN_POSSIBLE else None
+        if legacy is not None:
+            return {"skill": self.skill_id, **legacy}
+        return {"skill": self.skill_id, "conditions": [c.to_data() for c in self.conditions]}
+
+    # старые части правила (для кода, ещё не знающего новый вид): первое подходящее условие каждого рода
+    @property
+    def condition(self) -> ICondition:
+        from .conditions import LegacyCondition
+        return next((c.inner for c in self.conditions if isinstance(c, LegacyCondition) and c.on == "target"), Always())
+
+    @property
+    def self_condition(self) -> ICondition:
+        from .conditions import LegacyCondition
+        return next((c.inner for c in self.conditions if isinstance(c, LegacyCondition) and c.on == "self"), Always())
+
+    @property
+    def selector(self) -> ITargetSelector:
+        from .conditions import SELECTOR_FACTORS, LegacySelector
+        for c in self.conditions:
+            if isinstance(c, LegacySelector):
+                return SELECTORS[c.name]()
+            for name, key in SELECTOR_FACTORS.items():
+                if c.key == key:
+                    return SELECTORS[name]()
+        return Frontmost()
 
 
 @dataclass(frozen=True)

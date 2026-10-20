@@ -183,8 +183,8 @@ def variety_rules(db: Database, class_id: str) -> tuple[TacticRule, ...]:
     rules = []
     for skill in sorted(skills, key=lambda s: -s.ap_cost):
         heals = skill.targets == "ally" and bool(skill.parts)
-        rules.append(TacticRule(skill.id, HpBelow(0.9) if heals else Always(),
-                                selector=Weakest() if heals else Frontmost()))
+        rules.append(TacticRule.of(skill.id, HpBelow(0.9) if heals else Always(),
+                                   selector=Weakest() if heals else Frontmost()))
     return tuple(rules)
 
 
