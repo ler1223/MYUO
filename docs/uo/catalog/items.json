@@ -72770,7 +72770,9 @@
     "price": 20,
     "modifiers": [],
     "skills": [],
-    "passives": [],
+    "passives": [
+     "hastened_charge"
+    ],
     "tags": []
    }
   },

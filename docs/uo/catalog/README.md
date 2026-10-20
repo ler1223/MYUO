@@ -133,8 +133,10 @@
   Все 205 классовых навыков из `docs/uo/classes.json` привязаны к карточкам (в том числе через
   алиасы `Aid Cover`→`Healing Cover`, `Demonic Pact`→`Daemonic Pact`, `Slyphic Barrier`→`Sylphic Barrier`).
   Числа из игры, тексты из вики, где есть. `implementation.status`: `implemented` — есть эффекты;
-  `stub` — известные пустые wall/magick_wall/resurrection; `present_no_effects` — запись есть,
-  но эффекты ещё не разобраны; `missing` — записи нет. Два игровых навыка имеют
+  `stub` — пассивка-заглушка (реакция «вернуть PP» без числа; сейчас так остаётся только Celestial Light,
+  у которой в игре служебный текст); `present_no_effects` — запись есть, но эффектов нет;
+  `missing` — записи нет. Тексты пассивок (условие и действие) лежат в `UcSkillList.fms` по индексам
+  `1428 + id` и `957 + id`, знаки «Inflicts …» ставит `fill_skill_text`. Два игровых навыка имеют
   active/passive-варианты (Animated Dead, Dark Armor) — они сохранены в `game_variants`.
 - **Valor/leader skills** в этот файл не включены: в игровом enum они не имеют отдельных
   ACT/PAS-записей с английскими именами. Это отдельный слой.
@@ -171,8 +173,13 @@
   расходники и материалы.
 - Локализационные пары (Sacral→Sainted, Staff→Rod, Apeliotes→Apeliotes's Bow и т.п.)
   сматчены через `ALIAS_PAIRS` и помечены `match.type = "alias"`.
-- 0 строк субстатов не разобраны и лежат в `suggested.notes`; числа в игровых
-  описаниях иногда остаются `%s`, если число подстановок не совпало (`game.numbers_filled = false`).
+- 0 строк субстатов не разобраны (`suggested.notes`); остальные идут в модификаторы, теги и
+  особые свойства предмета `traits` (`suggested.traits`: сила блока, лечение, получаемый урон, опыт и золото…).
+  Числа в игровых описаниях иногда остаются `%s`, если число подстановок не совпало
+  (`game.numbers_filled = false`; в данных такие места помечены в `docs/uo/import_report.md`).
+- Расходники и материалы в каталоге есть, а в игре их нет (`FEATURES.md`: расходники не сделаны).
+- Навыки и пассивки перенесены: заглушек нет, кроме Celestial Light; оставшиеся приближения — в
+  `docs/uo/import_report.md`, числа сверяет `python tools/uo_audit_skills.py`.
 
 ## Проверка
 
