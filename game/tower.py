@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import random
+from collections import Counter
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Collection, Mapping, Optional, Sequence, Union
@@ -23,7 +24,7 @@ from .promotion import promote
 from .save import unit_from_save, unit_to_save
 from .scenario import MAP_SIZE, Scenario
 from .squad import Formation, FormationSize
-from .unit import UnitDefinition
+from .unit import UnitDefinition, class_allowed
 from .world import Army, WorldMap
 
 TOWER_RULES_PATH = DEFAULT_DATA_DIR / "tower.json"
@@ -268,17 +269,26 @@ class TowerRun:
         return self.army.reserve()
 
     def starter_gear(self, db: Database, class_id: str) -> tuple[str, ...]:
-        """Стартовое снаряжение: по предмету на каждый слот, кроме артефактов (из starter_gear или самый дешёвый)."""
+        """Стартовое снаряжение: по предмету на каждый слот, кроме артефактов (из starter_gear или самый дешёвый).
+
+        Предмет берётся только если класс может его надеть (game/unit.py class_allowed): иначе
+        подбирается самый дешёвый разрешённый предмет того же слота и ступени.
+        """
         named = self.rules.data.get("starter_gear", {})
         tier = self.rules.data.get("starter_tier", 1)
+        class_ids = tuple(dict.fromkeys((class_id, *db.lineage(class_id))))
+        story = db.units[class_id].story
         gear = []
         for slot in db.units[class_id].slots:
             if slot == ARTIFACT:
                 continue
             item = named.get(slot)
-            if item not in db.items or db.items[item].slot != slot:
-                fitting = [i for i in db.items.values() if i.slot == slot and i.rank == tier]
-                item = min(fitting, key=lambda i: i.price).id if fitting else None
+            if item in db.items and db.items[item].slot == slot and class_allowed(db.items[item], class_ids, story):
+                gear.append(item)
+                continue
+            fitting = [i for i in db.items.values()
+                       if i.slot == slot and i.rank == tier and class_allowed(i, class_ids, story)]
+            item = min(fitting, key=lambda i: i.price).id if fitting else None
             if item is not None:
                 gear.append(item)
         return tuple(gear)
@@ -403,16 +413,18 @@ class TowerRun:
         return roster
 
     def _enemy_gear(self, db: Database, definition: UnitDefinition, tier: int, rng: random.Random) -> tuple[str, ...]:
-        """Тир 0 — враги без снаряжения (лёгкие первые этажи)."""
+        """Тир 0 — враги без снаряжения (лёгкие первые этажи). Берутся только разрешённые классу предметы."""
         gear = []
         if tier < 1:
             return ()
+        class_ids = tuple(dict.fromkeys((definition.id, *(a.id for a in definition.ancestors))))
         for slot in definition.slots:
             if slot == ARTIFACT and rng.random() >= self.rules.artifact_chance(self.floor):
                 continue
             # Лучший доступный тир, не выше нужного
             for wanted in range(tier, 0, -1):
-                fitting = sorted(i.id for i in db.items.values() if i.slot == slot and i.rank == wanted)
+                fitting = sorted(i.id for i in db.items.values() if i.slot == slot and i.rank == wanted
+                                 and class_allowed(i, class_ids, definition.story))
                 if fitting:
                     gear.append(rng.choice(fitting))
                     break
@@ -588,16 +600,27 @@ class TowerRun:
         run.floor, run.phase = data["floor"], data["phase"]
         run.next_uid, run.rerolls = data["next_uid"], data.get("rerolls", 0)
         run.squad.formation = Formation(rules.squad_size(run.floor))
+        returned: list[str] = []
         for unit_data in data["units"]:
             unit = unit_from_save(db, unit_data)
-            if unit is not None:
-                run.army.recruit(unit)
+            if unit is None:
+                continue
+            run.army.recruit(unit)
+            # Снаряжение, которое класс больше не носит (ограничения по классам или слоты),
+            # возвращается в инвентарь, а не пропадает (Counter: сколько штук не поместилось).
+            saved = [i for i in (unit_data.get("state") or {}).get("equipment", ()) if i]
+            now = [i for i in unit.state.equipment if i]
+            for item_id, count in (Counter(saved) - Counter(now)).items():
+                if item_id in db.items:
+                    returned.extend([item_id] * count)
         for uid, row, col in data["cells"]:
             formation = run.squad.formation
             if uid in run.army.units and formation.contains(row, col) and len(formation) < formation.max_units \
                     and formation.unit_at(row, col) is None:
                 run.army.assign(uid, PLAYER_SQUAD, row, col)
         run.inventory = Inventory.from_dict(data["inventory"])
+        for item_id in returned:
+            run.inventory.add(item_id)
         run.offers = [c for c in data.get("offers", ()) if c in db.units]
         run.reward = [i for i in data.get("reward", ()) if i in db.items]
         run.recruits = [tuple(r) if r else None for r in data.get("recruits", ())]

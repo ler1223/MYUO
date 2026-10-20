@@ -127,7 +127,7 @@ def inventory_entries(app: Any, flt: InventoryFilter) -> list[Entry]:
     def keep(entry: Entry) -> bool:
         item = db.items[entry.item_id]
         return (not group or item.slot in group) and (not flt.tier or item.rank == flt.tier) \
-            and (wearer is None or item.slot in wearer.definition.slots)
+            and (wearer is None or wearer.can_equip(entry.item_id))
 
     entries = [e for e in entries if keep(e)]
     slots = list(db.slot_types)
@@ -257,7 +257,7 @@ def draw_detail(ui: Gui, app: Any, flt: InventoryFilter) -> None:
         if text and y < WEAR_TOP - 30:
             ui.label(text, pygame.Rect(rest.x, y, rest.width, 30), "small", color=color)
         y += 30 if text else 10
-    wearers = [u for u in sorted(run.army.units.values(), key=lambda u: u.uid) if item.slot in u.definition.slots]
+    wearers = [u for u in sorted(run.army.units.values(), key=lambda u: u.uid) if u.can_equip(item_id)]
     w.section(ui, pygame.Rect(DETAIL_AREA.x, WEAR_TOP, DETAIL_AREA.width, 44), t("Put on:"))
     for i, unit in enumerate(wearers):
         rect = wear_row(i)

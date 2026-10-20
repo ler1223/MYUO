@@ -228,7 +228,8 @@ def draw_equipment(ui: Gui, app: Any, unit: Unit) -> None:
     if slots:
         slot = slots[app.slot]
         fits = [i for i, n in sorted(inventory.items.items(), key=lambda kv: -db.items[kv[0]].tier
-                                     if kv[0] in db.items else 0) if n > 0 and i in db.items and db.items[i].slot == slot]
+                                     if kv[0] in db.items else 0)
+                if n > 0 and i in db.items and db.items[i].slot == slot and unit.can_equip(i)]
         options = ([NONE_ITEM] if unit.state.equipment[app.slot] is not None else []) + fits
         lines = max(1, (area.height + 8) // 92)
         offset = ui.scroll(("tower-fits", unit.uid, app.slot), area, (len(options) + 1) // 2, lines) * 2

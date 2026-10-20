@@ -11,6 +11,7 @@ from game.editing import new_item_data, new_rule_data, new_tag_data
 from game.stats import ModOp, Stat
 from game.tags import TAG_DAMAGE, TAG_KINDS, TAG_UNIT
 from game.tiers import TIER_MAX
+from game.unit import class_allowed, class_ids_of
 from pygame_data_editors import list_buttons
 from pygame_editors import FORM_X, ROW_H, TOP, EditorHost, apply, entity_list, named, plain, tag_options
 from pygame_ui import DIM, PANEL, RED, UI, WIDTH
@@ -67,7 +68,10 @@ class ItemEditor:
         picked = ui.dropdown((key, "slot"), pygame.Rect(x + 110, TOP + 30, 220, 24), plain(ui, db.slot_types), data["slot"])
         if picked is not None:
             new["slot"] = picked
-        wearers = [t(u.name) for u in db.units.values() if data["slot"] in u.slots]
+        wearers = [t(u.name) for u in db.units.values()
+                   if data["slot"] in u.slots and class_allowed(db.items[item_id],
+                                                                class_ids_of(db.definition_for(u.id, db.lineage(u.id))),
+                                                                u.story)]
         ui.text(f"{t('fits')}: {', '.join(wearers) or '-'}", x + 344, TOP + 35, DIM, "small", WIDTH - x - 360)
 
         lists = (

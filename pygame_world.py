@@ -301,7 +301,8 @@ class WorldScreen:
             for slot_index, slot in enumerate(unit.definition.slots):
                 current = unit.state.equipment[slot_index]
                 rect = pygame.Rect(sx + 175 + slot_index * 105, ry + 6, 100, 24)
-                fits = [item_id for item_id in inventory.items if item_id in db.items and db.items[item_id].slot == slot]
+                fits = [item_id for item_id in inventory.items if item_id in db.items
+                        and db.items[item_id].slot == slot and unit.can_equip(item_id)]
                 options = [(NONE_ITEM, f"— {t(slot)}")] + [(i_, f"{self.item_name(i_)} x{inventory.count(i_)}") for i_ in fits]
                 if current is not None:
                     options.append((current, self.item_name(current)))

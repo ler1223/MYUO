@@ -49,6 +49,25 @@ def learned_to_list(ids: Sequence[str], levels: Mapping[str, int]) -> list[Any]:
     return [{"id": i, "level": levels[i]} if levels.get(i, 1) > 1 else i for i in ids]
 
 
+def class_allowed(item: ItemDefinition, class_ids: Sequence[str], story: bool = False) -> bool:
+    """Предмет разрешён классу: пустой список — без ограничений, иначе совпадение хотя бы с одним классом.
+
+    Классы бойца — текущий и история повышений (game/promotion.py): то, чем он был до этого.
+    Сюжетные классы (story: true) не ограничены: их снаряжение задаётся сюжетом, а вики-списки
+    «Equippable By» их не покрывают.
+    """
+    if story:
+        return True
+    if not item.classes:
+        return True
+    return any(c in item.classes for c in class_ids)
+
+
+def class_ids_of(definition: UnitDefinition) -> tuple[str, ...]:
+    """Классы, которые носит определение класса: сам класс и его предки (game/promotion.py)."""
+    return tuple(dict.fromkeys((definition.id, *(a.id for a in definition.ancestors))))
+
+
 def place_equipment(
     slots: Sequence[str], items: Mapping[str, ItemDefinition], item_ids: Sequence[Optional[str]],
     strict: bool = True,
@@ -213,13 +232,43 @@ class Unit:
         self.definition = definition
         self.state = state
         self._items = items  # справочник предметов для разрешения state.equipment
-        state.equipment = place_equipment(definition.slots, items, state.equipment, strict)
+        kept, rejected = self._filter_by_class(state.equipment)
+        self.rejected_equipment = rejected      # что не подошло классу (возвращается в инвентарь башни)
+        if rejected and strict:
+            raise ValueError(f"items {sorted(rejected)} are not allowed for class {definition.id!r}")
+        state.equipment = place_equipment(definition.slots, items, kept, strict)
         self.ap = self._full_ap()
         self.pp = Resource(self.pp_max, self.pp_max)
         self.effects: list[ActiveEffect] = []
         self.tactics: TacticsSet = definition.tactics  # может быть заменён редактором
         # Тактики пассивок: id пассивки -> правила. Пусто — пассивка работает как задано в данных.
         self.passive_tactics: dict[str, TacticsSet] = {}
+
+    def _filter_by_class(self, item_ids: Sequence[Optional[str]]) -> tuple[list[Optional[str]], list[str]]:
+        """Делит снаряжение на подходящее классу и отброшенное (class_allowed, game/unit.py)."""
+        if self.definition.story:                 # сюжетные классы не ограничены списками снаряжения
+            return list(item_ids), []
+        class_ids = tuple(dict.fromkeys((self.definition.id, *self.state.history)))
+        kept: list[Optional[str]] = []
+        rejected: list[str] = []
+        for item_id in item_ids:
+            if item_id is None:
+                kept.append(item_id)
+                continue
+            item = self._items.get(item_id)
+            if item is not None and not class_allowed(item, class_ids):
+                rejected.append(item_id)
+                continue
+            kept.append(item_id)
+        return kept, rejected
+
+    def _allowed(self, item: Optional[ItemDefinition]) -> bool:
+        """Предмет разрешён бойцу: сюжетные классы — любой, остальные — по списку классов."""
+        if item is None:
+            return False
+        if self.definition.story:
+            return True
+        return class_allowed(item, self.class_ids)
 
     # --- идентичность ---
 
@@ -246,20 +295,39 @@ class Unit:
     def equipped(self) -> list[ItemDefinition]:
         return [self._items[item_id] for item_id in self.state.equipment if item_id is not None]
 
+    @property
+    def class_ids(self) -> tuple[str, ...]:
+        """Классы бойца: текущий и история повышений — по ним проверяется снаряжение."""
+        return tuple(dict.fromkeys((self.definition.id, *self.state.history)))
+
+    def can_equip(self, item_id: str) -> bool:
+        """Может ли боец надеть предмет: существует, слот подходит, класс разрешён."""
+        item = self._items.get(item_id)
+        if item is None:
+            return False
+        if item.slot not in self.definition.slots:
+            return False
+        return self._allowed(item)
+
     def equip(self, slot_index: int, item_id: str) -> None:
         slot = self.definition.slots[slot_index]
-        if item_id not in self._items:
+        item = self._items.get(item_id)
+        if item is None:
             raise ValueError(f"unknown item {item_id!r}")
-        if self._items[item_id].slot != slot:
+        if item.slot != slot:
             raise ValueError(f"item {item_id!r} does not fit slot {slot!r}")
+        if not self._allowed(item):
+            raise ValueError(f"item {item_id!r} is not allowed for class {self.definition.id!r}")
         self.state.equipment[slot_index] = item_id
 
     def reclass(self, definition: UnitDefinition) -> None:
         """Новый класс (повышение, game/promotion.py): снаряжение перекладывается по новым слотам,
         своя тактика остаётся, тактика по умолчанию — нового класса; AP и PP полные."""
         custom = self.has_custom_tactics
+        kept, rejected = self._filter_by_class(self.state.equipment)
+        self.rejected_equipment = rejected
         self.definition = definition
-        self.state.equipment = place_equipment(definition.slots, self._items, self.state.equipment, strict=False)
+        self.state.equipment = place_equipment(definition.slots, self._items, kept, strict=False)
         if not custom:
             self.tactics = definition.tactics
         self.ap = self._full_ap()

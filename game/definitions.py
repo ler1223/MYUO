@@ -45,6 +45,7 @@ class ItemDefinition:
     price: int = 0                          # цена в магазине; продаётся дешевле
     ap_bonus: int = 0                       # прибавка к запасу AP носителя (кулоны UO)
     pp_bonus: int = 0                       # прибавка к запасу PP
+    classes: tuple[str, ...] = ()           # классы, которым предмет разрешён; пусто — всем (как в UO)
 
     @classmethod
     def from_dict(cls, item_id: str, data: Mapping[str, Any]) -> "ItemDefinition":
@@ -61,6 +62,7 @@ class ItemDefinition:
             price=int(data.get("price", 0)),
             ap_bonus=int(data.get("ap_bonus", 0)),
             pp_bonus=int(data.get("pp_bonus", 0)),
+            classes=tuple(data.get("classes", ())),
         )
         if item.price < 0:
             raise ValueError(f"item {item_id}: price must not be negative")
@@ -79,6 +81,7 @@ class ItemDefinition:
             "price": self.price,
             **({"ap_bonus": self.ap_bonus} if self.ap_bonus else {}),
             **({"pp_bonus": self.pp_bonus} if self.pp_bonus else {}),
+            **({"classes": list(self.classes)} if self.classes else {}),
             "modifiers": [m.to_dict() for m in self.modifiers],
             "skills": list(self.skills),
             "passives": list(self.passives),
@@ -194,7 +197,8 @@ class SkillExtras:
     heal_on_hit — доля макс. HP применяющего за попадание; lifesteal — доля нанесённого урона;
     ap_drain / pp_drain — сколько AP/PP теряет каждый задетый; steal — забрать их себе;
     dispel — метки эффектов (buff, debuff), снимаемых с задетых; hit_ap / hit_pp — применяющему за попадание;
-    kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла."""
+    kill_ap / kill_pp / kill_heal / kill_effect — применяющему, если цель погибла;
+    revive / revive_pct — навык воскрешает павшего союзника (доля макс. HP; 0 — одно HP)."""
 
     unguardable: bool = False
     unguardable_vs: tuple[str, ...] = ()
@@ -216,6 +220,10 @@ class SkillExtras:
     kill_pp: int = 0
     kill_heal: float = 0.0
     kill_effect: str = ""
+    # Воскрешение: навык поднимает павшего союзника (цель может быть мертва).
+    # revive_pct — доля максимума HP в процентах; 0 — одно HP.
+    revive: bool = False
+    revive_pct: int = 0
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "SkillExtras":

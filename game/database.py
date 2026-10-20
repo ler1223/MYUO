@@ -188,6 +188,7 @@ class Database:
             require(skills, item.skills, where)
             require(passives, item.passives, where)
             require(tags, item.tags + item.damage_tags, where)
+            require(parsed["units"], item.classes, where)
         for unit in parsed["units"].values():
             where = f"unit {unit.id}"
             require(slot_types, unit.slots, where)
@@ -249,6 +250,8 @@ class Database:
         elif section == "units":
             for unit in data["units"].values():
                 unit["promotions"] = [p for p in unit.get("promotions", ()) if p["class"] != key]
+            for item in data["items"].values():
+                drop(item, "classes")
         elif section == "passives":
             for owner in (*data["units"].values(), *data["items"].values()):
                 drop(owner, "passives")

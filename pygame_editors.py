@@ -339,7 +339,7 @@ class SquadEditor:
         for i, slot in enumerate(unit.definition.slots[:6]):
             sx = 16 + i * 162
             ui.text(t(slot), sx, y + 60, DIM, "small", 154)
-            fitting = [item for item in db.items.values() if item.slot == slot]
+            fitting = [item for item in db.items.values() if item.slot == slot and unit.can_equip(item.id)]
             current = unit.state.equipment[i] or EMPTY
             picked = ui.dropdown(("equip", unit.uid, i), pygame.Rect(sx, y + 76, 154, 24),
                                  [(EMPTY, "-"), *named(ui, fitting)], current)

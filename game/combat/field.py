@@ -58,11 +58,18 @@ def reaches_back(skill: SkillDefinition) -> bool:
     return any(tag in skill.tags for tag in REACH_TAGS) or skill.area in PIERCE_AREAS
 
 
+def can_revive(skill: SkillDefinition) -> bool:
+    """Навык поднимает павшего союзника (game/definitions.py SkillExtras.revive)."""
+    return skill.extras.revive
+
+
 def reachable(skill: SkillDefinition, actor: Unit, own: Side, other: Side) -> list[Unit]:
     """Кого навык может выбрать целью."""
     if skill.targets == "self":
         return [actor] if actor.is_alive else []
     if skill.targets == "ally":
+        if can_revive(skill):                 # воскрешение — только павшие союзники
+            return [u for u in own.units if not u.is_alive]
         return own.alive()
     units = other.alive()
     if reaches_back(skill):

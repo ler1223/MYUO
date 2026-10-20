@@ -358,6 +358,9 @@ class Battle:
         tside = self.side_of(target)
         area = self.db.areas.get(skill.area) or self.db.areas.get("single")
         hit_list = [user] if skill.targets == "self" else affected(skill, area, target, tside)
+        if skill.extras.revive and not target.is_alive:
+            self._revive(user, target, skill, act)
+            hit_list = [target]           # воскрешение — только по павшей цели
         tags, mods = self._attack(user, skill)
         attack = rules.Attack(user, skill, tags, [m for _, m in mods])
         hostile = skill.targets == "enemy"
@@ -965,6 +968,17 @@ class Battle:
         if healed:
             self._react(Moment(ON_HEALED, subject=unit, actor=source), act.after)
         return healed
+
+    def _revive(self, user: Unit, target: Unit, skill: SkillDefinition, act: Act) -> int:
+        """Поднимает павшего союзника: HP — доля максимума (0 — одно HP). Возвращает восстановленное."""
+        pct = skill.extras.revive_pct
+        amount = max(1, round(target.max_hp * pct / 100)) if pct else 1
+        amount = min(amount, target.max_hp)
+        target.state.current_hp = amount
+        self._dead.discard(target.uid)          # павший снова может погибнуть
+        act.changes.append(Change(target.uid, "heal", amount, current=amount))
+        self._emit(act, Healed(user.uid, target.uid, amount, amount, skill.id))
+        return amount
 
     def _lose_hp(self, unit: Unit, amount: int, source: Optional[Unit], cause: str, act: Act) -> None:
         lost = unit.take_damage(max(0, amount))
